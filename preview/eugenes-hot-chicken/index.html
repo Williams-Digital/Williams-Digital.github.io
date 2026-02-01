@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Eugene's Hot Chicken | Nashville-Style Hot Chicken in Birmingham, AL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+    --fire:#EC130E;--fire-dark:#c20e0a;--fire-glow:#ff4136;
+    --gold:#FCDD88;--gold-dark:#e8c44e;--gold-light:#fff8e6;
+    --black:#111;--charcoal:#1a1a1a;--dark:#222;
+    --white:#fff;--cream:#fffdf7;
+    --orange:#ff8c00;--yellow:#ffd700;
+    --g50:#f8f8f8;--g100:#eee;--g200:#ddd;--g300:#bbb;--g400:#888;--g500:#666;--g600:#444;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--black);background:var(--cream);overflow-x:hidden}
+h1,h2,h3,h4,.nav-link,.btn,.hero-tag,.section-tag{font-family:'Bebas Neue',sans-serif;letter-spacing:.04em}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--charcoal);backdrop-filter:blur(12px);border-bottom:3px solid var(--fire)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:70px}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px}
+.nav-logo .fire{color:var(--fire);font-size:2rem}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-link{color:var(--white);text-decoration:none;font-size:1.1rem;transition:color .2s;opacity:.85}
+.nav-link:hover{color:var(--gold);opacity:1}
+.nav-cta{background:var(--fire);color:var(--white)!important;padding:10px 24px;border-radius:50px;font-weight:700;opacity:1!important;transition:all .2s;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.04em}
+.nav-cta:hover{background:var(--fire-dark);transform:scale(1.05)}
+.menu-toggle{display:none;background:none;border:none;color:var(--white);font-size:1.5rem;cursor:pointer}
+
+/* HERO */
+.hero{min-height:100vh;background:linear-gradient(135deg,var(--charcoal) 0%,#2a0a0a 40%,var(--fire-dark) 100%);display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:120px 24px 80px}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-content{position:relative;z-index:2;max-width:800px}
+.hero-tag{display:inline-block;background:var(--gold);color:var(--black);padding:8px 20px;border-radius:50px;font-size:1rem;margin-bottom:24px;letter-spacing:.08em}
+.hero h1{font-size:clamp(3rem,8vw,6rem);color:var(--white);line-height:1;margin-bottom:16px;text-shadow:0 4px 30px rgba(236,19,14,.5)}
+.hero h1 .hot{color:var(--fire);text-shadow:0 0 40px rgba(236,19,14,.8),0 0 80px rgba(236,19,14,.4)}
+.hero-sub{font-size:1.2rem;color:var(--gold);opacity:.9;margin-bottom:40px;font-weight:400;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;border-radius:50px;font-weight:700;font-size:1.1rem;text-decoration:none;transition:all .3s;cursor:pointer;border:none}
+.btn-fire{background:var(--fire);color:var(--white);box-shadow:0 4px 20px rgba(236,19,14,.4)}
+.btn-fire:hover{background:var(--fire-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(236,19,14,.6)}
+.btn-gold{background:var(--gold);color:var(--black);box-shadow:0 4px 20px rgba(252,221,136,.3)}
+.btn-gold:hover{background:var(--gold-dark);transform:translateY(-2px)}
+.btn-outline-w{border:2px solid var(--white);color:var(--white);background:transparent}
+.btn-outline-w:hover{background:var(--white);color:var(--black)}
+
+/* FLAME DIVIDER */
+.flame-divider{height:6px;background:linear-gradient(90deg,var(--fire),var(--orange),var(--yellow),var(--gold),var(--yellow),var(--orange),var(--fire));background-size:200% 100%;animation:flame 3s ease infinite}
+@keyframes flame{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* SECTIONS */
+section{padding:80px 24px}
+.container{max-width:1200px;margin:0 auto}
+.section-tag{display:inline-block;color:var(--fire);font-size:1rem;letter-spacing:.12em;margin-bottom:8px}
+.section-title{font-size:clamp(2rem,4vw,3rem);margin-bottom:16px;line-height:1.1}
+.section-sub{font-size:1.05rem;color:var(--g500);max-width:600px;line-height:1.6;margin-bottom:40px}
+
+/* HEAT LEVELS */
+.heat-section{background:var(--charcoal);color:var(--white)}
+.heat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:32px}
+.heat-card{background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.heat-card:hover{transform:translateY(-4px);border-color:var(--fire)}
+.heat-icon{font-size:2.2rem;margin-bottom:10px}
+.heat-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;margin-bottom:4px}
+.heat-desc{font-size:.78rem;color:var(--g300);line-height:1.4}
+.heat-card.fire-card{border-color:var(--fire);background:linear-gradient(135deg,rgba(236,19,14,.2),rgba(236,19,14,.05))}
+.heat-card.fire-card .heat-name{color:var(--fire)}
+
+/* MENU */
+.menu-section{background:var(--cream)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.menu-card{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.06);transition:all .3s;border:1px solid var(--g100)}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.1)}
+.menu-card-header{padding:20px 24px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.menu-cat{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--fire)}
+.menu-card-body{padding:12px 24px 24px}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--g100)}
+.menu-item:last-child{border-bottom:none}
+.menu-item-name{font-weight:600;font-size:.92rem;color:var(--black)}
+.menu-item-price{font-weight:700;color:var(--fire);font-size:.92rem;white-space:nowrap;margin-left:12px}
+.menu-item-desc{font-size:.78rem;color:var(--g400);margin-top:2px}
+
+/* ABOUT / STORY */
+.story-section{background:linear-gradient(135deg,#2a0a0a,var(--charcoal));color:var(--white);position:relative}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.story-img{background:linear-gradient(135deg,var(--fire),var(--orange));border-radius:24px;height:400px;display:flex;align-items:center;justify-content:center;font-size:8rem;box-shadow:0 20px 60px rgba(236,19,14,.3)}
+.story-text h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:20px;line-height:1.1}
+.story-text p{color:var(--g300);line-height:1.8;margin-bottom:16px;font-size:.95rem}
+.story-highlight{background:linear-gradient(90deg,var(--fire),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+
+/* LOCATIONS */
+.locations-section{background:var(--cream)}
+.loc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.loc-card{background:var(--white);border-radius:20px;padding:32px;box-shadow:0 2px 20px rgba(0,0,0,.06);border:1px solid var(--g100);transition:all .3s;position:relative;overflow:hidden}
+.loc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--fire),var(--gold))}
+.loc-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.1)}
+.loc-name{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--fire);margin-bottom:12px}
+.loc-detail{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:.9rem;color:var(--g500)}
+.loc-detail svg{flex-shrink:0;margin-top:2px}
+.loc-hours{margin-top:16px;padding-top:16px;border-top:1px solid var(--g100)}
+.loc-hours-title{font-weight:700;font-size:.82rem;color:var(--black);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.loc-hour-row{display:flex;justify-content:space-between;font-size:.82rem;color:var(--g500);padding:3px 0}
+
+/* CATERING CTA */
+.catering-cta{background:linear-gradient(135deg,var(--fire),var(--orange),var(--gold));padding:80px 24px;text-align:center;position:relative}
+.catering-cta h2{font-size:clamp(2rem,5vw,3.5rem);color:var(--white);margin-bottom:16px;text-shadow:0 2px 20px rgba(0,0,0,.2)}
+.catering-cta p{color:var(--white);opacity:.9;font-size:1.1rem;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+
+/* FOOTER */
+footer{background:var(--charcoal);color:var(--white);padding:60px 24px 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;margin-bottom:12px}
+.footer-logo .hot{color:var(--fire)}
+.footer-desc{color:var(--g400);font-size:.88rem;line-height:1.6;margin-bottom:20px}
+.footer-social{display:flex;gap:12px}
+.footer-social a{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:var(--white);text-decoration:none;transition:all .2s;font-size:.85rem}
+.footer-social a:hover{background:var(--fire);transform:scale(1.1)}
+.footer-heading{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold);margin-bottom:16px;letter-spacing:.08em}
+.footer-link{display:block;color:var(--g400);text-decoration:none;font-size:.88rem;margin-bottom:10px;transition:color .2s}
+.footer-link:hover{color:var(--fire)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);margin-top:40px;padding-top:20px;text-align:center;font-size:.8rem;color:var(--g400);max-width:1200px;margin-left:auto;margin-right:auto}
+.footer-bottom a{color:var(--gold);text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .nav-links{display:none;position:absolute;top:70px;left:0;right:0;background:var(--charcoal);flex-direction:column;padding:20px;gap:16px;border-bottom:3px solid var(--fire)}
+    .nav-links.open{display:flex}
+    .menu-toggle{display:block}
+    .hero h1{font-size:clamp(2.5rem,10vw,4rem)}
+    .story-grid{grid-template-columns:1fr}
+    .story-img{height:250px;font-size:5rem}
+    .footer-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-logo"><span class="fire">&#x1F525;</span> Eugene's <span>Hot Chicken</span></a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+        <div class="nav-links">
+            <a href="#menu" class="nav-link">Menu</a>
+            <a href="#heat" class="nav-link">Heat Levels</a>
+            <a href="#story" class="nav-link">Our Story</a>
+            <a href="#locations" class="nav-link">Locations</a>
+            <a href="#catering" class="nav-link">Catering</a>
+            <a href="https://www.toasttab.com/local/order/eugenes-hot-chicken-birmingham-2268-9th-avenue-north/r-be184aac-1259-4cc9-ae0f-ea403e8dcdea" class="nav-cta" target="_blank">Order Online</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-tag">NASHVILLE-STYLE HOT CHICKEN &bull; BIRMINGHAM, AL</div>
+        <h1>BRING THE <span class="hot">HEAT.</span></h1>
+        <p class="hero-sub">From our food truck to your table. Six heat levels, all made fresh. When you've got to have hot chicken done right, look for the big red truck.</p>
+        <div class="hero-btns">
+            <a href="https://www.toasttab.com/local/order/eugenes-hot-chicken-birmingham-2268-9th-avenue-north/r-be184aac-1259-4cc9-ae0f-ea403e8dcdea" class="btn btn-fire" target="_blank">&#x1F525; Order Now</a>
+            <a href="#menu" class="btn btn-gold">View Menu</a>
+            <a href="#locations" class="btn btn-outline-w">Find Us</a>
+        </div>
+    </div>
+</section>
+
+<div class="flame-divider"></div>
+
+<!-- HEAT LEVELS -->
+<section class="heat-section" id="heat">
+    <div class="container">
+        <div class="section-tag" style="color:var(--gold)">CHOOSE YOUR HEAT</div>
+        <h2 class="section-title" style="color:var(--white)">How Hot Can You Handle?</h2>
+        <p class="section-sub" style="color:var(--g300)">From zero heat to face-melting fire. Pick your level and we'll bring it.</p>
+        <div class="heat-grid">
+            <div class="heat-card">
+                <div class="heat-icon">&#x1F34B;</div>
+                <div class="heat-name" style="color:var(--gold)">Lemon Pepper</div>
+                <div class="heat-desc">Citrus-forward, zero heat. All flavor, no fire.</div>
+            </div>
+            <div class="heat-card">
+                <div class="heat-icon">&#x1F357;</div>
+                <div class="heat-name">Southern</div>
+                <div class="heat-desc">Classic seasoning. No heat, just soul.</div>
+            </div>
+            <div class="heat-card">
+                <div class="heat-icon">&#x1F336;&#xFE0F;</div>
+                <div class="heat-name" style="color:var(--orange)">Mild</div>
+                <div class="heat-desc">A gentle kick. Perfect intro to hot chicken.</div>
+            </div>
+            <div class="heat-card">
+                <div class="heat-icon">&#x1F525;</div>
+                <div class="heat-name" style="color:var(--orange)">Hot</div>
+                <div class="heat-desc">Now we're talking. Real heat, real flavor.</div>
+            </div>
+            <div class="heat-card fire-card">
+                <div class="heat-icon">&#x1F525;&#x1F525;</div>
+                <div class="heat-name">Hot Damn</div>
+                <div class="heat-desc">You've been warned. This is serious heat.</div>
+            </div>
+            <div class="heat-card fire-card">
+                <div class="heat-icon">&#x1F480;</div>
+                <div class="heat-name">Stupid Hot</div>
+                <div class="heat-desc">Sign the waiver. Proceed at your own risk.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="flame-divider"></div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+    <div class="container">
+        <div class="section-tag">THE MENU</div>
+        <h2 class="section-title">Nashville Heat, Birmingham Soul</h2>
+        <p class="section-sub">Every piece fried to order. Choose your heat, your sauce, and your sides.</p>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-card-header"><span class="menu-cat">Birds</span></div>
+                <div class="menu-card-body">
+                    <div class="menu-item"><div><div class="menu-item-name">Quarter White</div><div class="menu-item-desc">Breast, wing, 2 sides</div></div><span class="menu-item-price">$14.50</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Quarter Dark</div><div class="menu-item-desc">Leg, thigh, 2 sides</div></div><span class="menu-item-price">$13.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Half Bird</div><div class="menu-item-desc">Half chicken, 2 sides</div></div><span class="menu-item-price">$18.50</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Whole Bird</div><div class="menu-item-desc">Whole chicken, 4 sides</div></div><span class="menu-item-price">$36.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Large White</div></div><span class="menu-item-price">$16.50</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Large Dark</div></div><span class="menu-item-price">$15.00</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-header"><span class="menu-cat">Chicken & Waffles</span></div>
+                <div class="menu-card-body">
+                    <div class="menu-item"><div><div class="menu-item-name">Quarter White Waffles</div><div class="menu-item-desc">Belgian waffle, heat, syrup</div></div><span class="menu-item-price">$14.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Quarter Dark Waffles</div></div><span class="menu-item-price">$13.50</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Tenders Waffles</div></div><span class="menu-item-price">$14.50</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Wings Waffles</div></div><span class="menu-item-price">$15.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Traditionals Waffles</div></div><span class="menu-item-price">$15.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">All Flats Waffles</div></div><span class="menu-item-price">$17.50</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-header"><span class="menu-cat">Sandwiches</span></div>
+                <div class="menu-card-body">
+                    <div class="menu-item"><div><div class="menu-item-name">Chicken Sammich</div><div class="menu-item-desc">Fried tenders, pickles, slaw</div></div><span class="menu-item-price">$12.50</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Catfish Sandwich</div><div class="menu-item-desc">Fried catfish, remoulade</div></div><span class="menu-item-price">$13.50</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Pork Chop Sandwich</div></div><span class="menu-item-price">$9.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Grilled Tender Sandwich</div></div><span class="menu-item-price">$12.50</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Pimento Cheese</div></div><span class="menu-item-price">$8.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Vegan Sandwich</div><div class="menu-item-desc">Comeback sauce</div></div><span class="menu-item-price">$9.00</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-header"><span class="menu-cat">Buckets</span></div>
+                <div class="menu-card-body">
+                    <div class="menu-item"><div><div class="menu-item-name">12 Jumbo Wings</div></div><span class="menu-item-price">$36.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">12 Jumbo Tenders</div></div><span class="menu-item-price">$36.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">25 Traditional Wings</div></div><span class="menu-item-price">$55.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">50 Traditional Wings</div></div><span class="menu-item-price">$110.00</span></div>
+                    <div class="menu-item"><div><div class="menu-item-name">24 Jumbo Wings</div></div><span class="menu-item-price">$72.00</span></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-header"><span class="menu-cat">Sides</span></div>
+                <div class="menu-card-body">
+                    <div class="menu-item"><div><div class="menu-item-name">Extra Creamy Mac & Cheese</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Kickin' Collard Greens</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Fried Pickled Okra</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Baked Potato Salad</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Southern Slaw</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">French Fries</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Mashed Potatoes & Gravy</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Cornbread</div></div></div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-card-header"><span class="menu-cat">Sauces & Extras</span></div>
+                <div class="menu-card-body">
+                    <div class="menu-item"><div><div class="menu-item-name">Alabama White Sauce</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Comeback Sauce</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Honey Mustard</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Chili Mayo</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Honey BBQ</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Ranch / Bleu Cheese</div></div></div>
+                    <div class="menu-item"><div><div class="menu-item-name">Banana Pudding</div><div class="menu-item-desc">Homemade dessert</div></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="flame-divider"></div>
+
+<!-- STORY -->
+<section class="story-section" id="story">
+    <div class="container">
+        <div class="story-grid">
+            <div class="story-img">&#x1F414;</div>
+            <div class="story-text">
+                <div class="section-tag" style="color:var(--gold)">OUR STORY</div>
+                <h2>From Nashville Roots to Birmingham's Big Red Truck</h2>
+                <p>Founder <span class="story-highlight">Zebbie Carney</span> grew up in Nashville eating at Prince's Hot Chicken. Every trip home reminded him that Birmingham needed real Nashville-style hot chicken.</p>
+                <p>He started at the library &mdash; writing a business plan, designing a logo. In his apartment, he perfected the spice blend. Through Create Birmingham's Co.Starters program, he turned a dream into a food truck in 2015.</p>
+                <p>In 2018, Eugene's opened the first brick-and-mortar in Birmingham's Uptown district. Today, three locations and two food trucks later, Eater.com named us the <span class="story-highlight">only Alabama restaurant on their "Best Fried Chicken in America" list</span>.</p>
+                <p style="color:var(--gold);font-weight:600;font-style:italic;margin-top:20px">"When you've got to have hot chicken done right, look for the big red truck."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="flame-divider"></div>
+
+<!-- LOCATIONS -->
+<section class="locations-section" id="locations">
+    <div class="container">
+        <div class="section-tag">FIND US</div>
+        <h2 class="section-title">Three Locations Across Alabama</h2>
+        <p class="section-sub">Dine-in, pickup, delivery, or catch the food truck around town.</p>
+        <div class="loc-grid">
+            <div class="loc-card">
+                <div class="loc-name">Uptown Birmingham</div>
+                <div class="loc-detail">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--fire)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    2268 9th Avenue North, Birmingham, AL 35203
+                </div>
+                <div class="loc-detail">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--fire)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    (205) 322-7555
+                </div>
+                <div class="loc-hours">
+                    <div class="loc-hours-title">Hours</div>
+                    <div class="loc-hour-row"><span>Mon & Sun</span><span>11 AM &ndash; 3 PM</span></div>
+                    <div class="loc-hour-row"><span>Tue &ndash; Thu</span><span>11 AM &ndash; 9 PM</span></div>
+                    <div class="loc-hour-row"><span>Fri &ndash; Sat</span><span>11 AM &ndash; 10 PM</span></div>
+                </div>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=2268+9th+Ave+N+Birmingham+AL+35203" target="_blank" class="btn btn-fire" style="width:100%;justify-content:center;margin-top:20px;font-size:.9rem;padding:12px">Get Directions</a>
+            </div>
+            <div class="loc-card">
+                <div class="loc-name">Hoover</div>
+                <div class="loc-detail">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--fire)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    3232 Galleria Circle Suite 101, Hoover, AL 35244
+                </div>
+                <div class="loc-hours">
+                    <div class="loc-hours-title">Hours</div>
+                    <div class="loc-hour-row"><span>Mon &ndash; Thu</span><span>11 AM &ndash; 8 PM</span></div>
+                    <div class="loc-hour-row"><span>Fri &ndash; Sat</span><span>11 AM &ndash; 9 PM</span></div>
+                    <div class="loc-hour-row"><span>Sunday</span><span>11 AM &ndash; 3 PM</span></div>
+                </div>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=3232+Galleria+Circle+Suite+101+Hoover+AL+35244" target="_blank" class="btn btn-fire" style="width:100%;justify-content:center;margin-top:20px;font-size:.9rem;padding:12px">Get Directions</a>
+            </div>
+            <div class="loc-card">
+                <div class="loc-name">Montgomery</div>
+                <div class="loc-detail">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--fire)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    79 Commerce Street Suite I, Montgomery, AL 36104
+                </div>
+                <div class="loc-hours">
+                    <div class="loc-hours-title">Hours</div>
+                    <div class="loc-hour-row"><span>Monday</span><span>11 AM &ndash; 3 PM</span></div>
+                    <div class="loc-hour-row"><span>Tue &ndash; Thu</span><span>11 AM &ndash; 9 PM</span></div>
+                    <div class="loc-hour-row"><span>Fri &ndash; Sat</span><span>11 AM &ndash; 10 PM</span></div>
+                    <div class="loc-hour-row"><span>Sunday</span><span>Closed</span></div>
+                </div>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=79+Commerce+St+Suite+I+Montgomery+AL+36104" target="_blank" class="btn btn-fire" style="width:100%;justify-content:center;margin-top:20px;font-size:.9rem;padding:12px">Get Directions</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATERING CTA -->
+<section class="catering-cta" id="catering">
+    <div class="container">
+        <h2>Bring the Heat to Your Next Event</h2>
+        <p>Corporate lunches, weddings, game days, private parties. Full catering packages with our food truck or delivery platters.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+            <a href="https://www.ezcater.com/catering/eugenes-hot-chicken-3" class="btn" style="background:var(--charcoal);color:var(--white)" target="_blank">Order Catering</a>
+            <a href="mailto:info@eugeneshotchicken.com?subject=Food%20Truck%20Booking%20Inquiry" class="btn" style="background:var(--white);color:var(--black)">Book the Food Truck</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo">Eugene's <span class="hot">Hot</span> Chicken</div>
+            <p class="footer-desc">Nashville-style hot chicken, made fresh in Birmingham since 2015. From our food truck to three locations across Alabama.</p>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/eugeneshotchicken/" target="_blank" title="Instagram">IG</a>
+                <a href="https://twitter.com/ChickenEugene" target="_blank" title="Twitter">X</a>
+                <a href="https://www.facebook.com/eugeneshotchicken" target="_blank" title="Facebook">FB</a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-heading">Menu</div>
+            <a href="#menu" class="footer-link">Birds</a>
+            <a href="#menu" class="footer-link">Chicken & Waffles</a>
+            <a href="#menu" class="footer-link">Sandwiches</a>
+            <a href="#menu" class="footer-link">Buckets & Catering</a>
+            <a href="#heat" class="footer-link">Heat Levels</a>
+        </div>
+        <div>
+            <div class="footer-heading">Locations</div>
+            <a href="#locations" class="footer-link">Uptown Birmingham</a>
+            <a href="#locations" class="footer-link">Hoover</a>
+            <a href="#locations" class="footer-link">Montgomery</a>
+            <a href="#locations" class="footer-link">Food Truck</a>
+        </div>
+        <div>
+            <div class="footer-heading">Connect</div>
+            <a href="mailto:info@eugeneshotchicken.com" class="footer-link">info@eugeneshotchicken.com</a>
+            <a href="tel:2053227555" class="footer-link">(205) 322-7555</a>
+            <a href="https://www.toasttab.com/local/order/eugenes-hot-chicken-birmingham-2268-9th-avenue-north/r-be184aac-1259-4cc9-ae0f-ea403e8dcdea" class="footer-link" target="_blank">Order Online</a>
+            <a href="https://www.ezcater.com/catering/eugenes-hot-chicken-3" class="footer-link" target="_blank">Catering</a>
+            <a href="https://eugeneshotchicken.com/" class="footer-link" target="_blank">Gift Cards</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Eugene's Hot Chicken. All rights reserved. &bull; Website preview by <a href="https://williamsdigital.io">Williams Digital</a>
+    </div>
+</footer>
+
+</body>
+</html>
