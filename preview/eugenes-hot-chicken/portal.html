@@ -679,9 +679,9 @@
 <div class="modal-overlay" id="orderModal"><div class="modal modal-lg">
     <div class="modal-header"><h2>New Purchase Order</h2><button class="modal-close" onclick="closeModal('orderModal')">&times;</button></div>
     <div class="modal-body">
-        <div class="form-row"><div class="form-group"><label>Vendor</label><select id="poVendor"><option>Sysco Birmingham</option><option>US Foods</option><option>Birmingham Restaurant Supply</option><option>Gulf Seafood Direct</option><option>Flowers Foods</option><option>Alabama Farmers Market</option></select></div><div class="form-group"><label>Delivery Date</label><input type="date" id="poDate"></div></div>
-        <div id="poLines"><div class="form-row-3 po-line"><div class="form-group"><label>Item</label><input type="text" placeholder="Item name"></div><div class="form-group"><label>Quantity</label><input type="text" placeholder="e.g. 2 cases"></div><div class="form-group"><label>Est. Cost ($)</label><input type="number" placeholder="0.00" step="0.01"></div></div></div>
-        <button class="btn btn-outline btn-sm" onclick="addPOLine()" style="margin-bottom:16px">+ Add Item</button>
+        <div class="form-row"><div class="form-group"><label>Vendor</label><select id="poVendor" onchange="loadVendorItems()"><option>Sysco Birmingham</option><option>US Foods</option><option>Birmingham Restaurant Supply</option><option>Gulf Seafood Direct</option><option>Flowers Foods</option><option>Alabama Farmers Market</option></select></div><div class="form-group"><label>Delivery Date</label><input type="date" id="poDate"></div></div>
+        <div style="margin-bottom:12px"><button class="btn btn-outline btn-sm" onclick="loadVendorItems()" style="margin-right:8px">&#x1F4CB; Load Common Items</button><button class="btn btn-outline btn-sm" onclick="addPOLine()">+ Add Custom Item</button></div>
+        <div id="poLines"></div>
         <div class="form-group"><label>Notes</label><textarea id="poNotes" placeholder="Special instructions, rush items..."></textarea></div>
     </div>
     <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('orderModal')">Cancel</button><button class="btn btn-rust" onclick="createPO()">Create Order</button></div>
@@ -938,6 +938,74 @@ function renderPO(){
         const badge=p.status==='Delivered'?'badge-confirmed':p.status==='Ordered'?'badge-ordered':'badge-pending';
         return`<tr><td style="font-weight:600">${p.num}</td><td>${p.vendor}</td><td style="font-size:.82rem">${p.items}</td><td>$${p.total.toLocaleString()}</td><td>${p.date}</td><td><span class="badge ${badge}">${p.status}</span></td><td><button class="btn btn-outline btn-sm" onclick="showToast('Order details sent to vendor','success')">Email Vendor</button></td></tr>`;
     }).join('');
+}
+
+const vendorCatalogs={
+    'Sysco Birmingham':[
+        {item:'Chicken Tenders (frozen)',qty:'40 lb case',cost:120},
+        {item:'Chicken Wings (fresh)',qty:'40 lb case',cost:95},
+        {item:'Chicken Breasts (bone-in)',qty:'40 lb case',cost:85},
+        {item:'Chicken Thighs',qty:'40 lb case',cost:72},
+        {item:'Vegetable Oil (frying)',qty:'35 lb jug',cost:42},
+        {item:'Hot Sauce Base',qty:'1 gallon',cost:28},
+        {item:'Cayenne Pepper',qty:'5 lb',cost:35},
+        {item:'Paprika',qty:'5 lb',cost:22},
+        {item:'Mac & Cheese (frozen)',qty:'4x5 lb bags',cost:48},
+        {item:'Waffles (frozen)',qty:'144 ct case',cost:38},
+    ],
+    'US Foods':[
+        {item:'Chicken Tenders (fresh)',qty:'40 lb case',cost:130},
+        {item:'Jumbo Wings',qty:'30 lb case',cost:88},
+        {item:'Chicken Quarters',qty:'40 lb case',cost:68},
+        {item:'Buttermilk Batter Mix',qty:'50 lb bag',cost:45},
+        {item:'Fry Coating (seasoned)',qty:'25 lb bag',cost:32},
+        {item:'Waffle Mix',qty:'50 lb bag',cost:52},
+        {item:'Maple Syrup',qty:'4x1 gallon',cost:85},
+        {item:'Collard Greens (frozen)',qty:'12 lb case',cost:24},
+        {item:'Coleslaw Mix',qty:'4x5 lb bags',cost:28},
+    ],
+    'Birmingham Restaurant Supply':[
+        {item:'Fryer Oil Filter Powder',qty:'1 case',cost:45},
+        {item:'Disposable Gloves (L)',qty:'10 boxes',cost:65},
+        {item:'To-Go Containers (foam)',qty:'500 ct',cost:42},
+        {item:'Aluminum Foil Pans',qty:'100 ct',cost:35},
+        {item:'Paper Towels',qty:'12 rolls',cost:28},
+        {item:'Cleaning Supplies Kit',qty:'1 kit',cost:95},
+        {item:'Fryer Baskets',qty:'2 ct',cost:48},
+    ],
+    'Gulf Seafood Direct':[
+        {item:'Catfish Fillets',qty:'10 lb',cost:65},
+        {item:'Shrimp (31/40 ct)',qty:'5 lb block',cost:52},
+        {item:'Tilapia Fillets',qty:'10 lb',cost:45},
+    ],
+    'Flowers Foods':[
+        {item:'Hamburger Buns',qty:'12 packs (8 ct)',cost:24},
+        {item:'White Bread',qty:'6 loaves',cost:18},
+        {item:'Texas Toast',qty:'12 packs',cost:32},
+    ],
+    'Alabama Farmers Market':[
+        {item:'Fresh Okra',qty:'10 lb',cost:28},
+        {item:'Collard Greens (fresh)',qty:'10 lb',cost:22},
+        {item:'Tomatoes',qty:'25 lb',cost:35},
+        {item:'Onions',qty:'50 lb bag',cost:32},
+        {item:'Bell Peppers',qty:'25 lb',cost:38},
+    ],
+};
+
+function loadVendorItems(){
+    const vendor=document.getElementById('poVendor').value;
+    const items=vendorCatalogs[vendor]||[];
+    const container=document.getElementById('poLines');
+    container.innerHTML='';
+    items.forEach(item=>{
+        const r=document.createElement('div');
+        r.className='form-row-3 po-line';
+        r.innerHTML=`<div class="form-group"><label>Item</label><input type="text" value="${item.item}" placeholder="Item name"></div><div class="form-group"><label>Quantity</label><input type="text" value="${item.qty}" placeholder="e.g. 2 cases"></div><div class="form-group"><label>Est. Cost ($)</label><input type="number" value="${item.cost}" placeholder="0.00" step="0.01"></div>`;
+        container.appendChild(r);
+    });
+    if(items.length===0){
+        addPOLine();
+    }
 }
 
 function addPOLine(){const c=document.getElementById('poLines'),r=document.createElement('div');r.className='form-row-3 po-line';r.innerHTML='<div class="form-group"><label>Item</label><input type="text" placeholder="Item name"></div><div class="form-group"><label>Quantity</label><input type="text" placeholder="e.g. 2 cases"></div><div class="form-group"><label>Est. Cost ($)</label><input type="number" placeholder="0.00" step="0.01"></div>';c.appendChild(r)}
