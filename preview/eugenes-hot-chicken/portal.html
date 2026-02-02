@@ -616,21 +616,58 @@
 
         <!-- ===== WASTE LOG ===== -->
         <div class="page" id="page-waste">
-            <div style="margin-bottom:20px">
-                <div style="display:flex;justify-content:flex-end;align-items:center">
+            <div style="margin-bottom:24px">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px">
+                    <div class="card" style="background:linear-gradient(135deg,var(--red-l) 0%,var(--red) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--red);margin-bottom:6px">Today's Waste</div>
+                            <div class="stat-value" style="color:var(--red)" id="wasteTodayVal">$0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="wasteTodayCount">0 items</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">This Week</div>
+                            <div class="stat-value" style="color:var(--ink)" id="wasteWeekVal">$0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="wasteWeekCount">0 items</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Top Waste Item</div>
+                            <div class="stat-value" style="font-size:1.4rem;color:var(--ink)" id="topWasteItem">—</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="topWasteCost">$0 this week</div>
+                        </div>
+                    </div>
+                    <div class="card" style="background:linear-gradient(135deg,var(--green-l) 0%,rgba(34,197,94,.15) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--green);margin-bottom:6px">Waste % of Revenue</div>
+                            <div class="stat-value" style="color:var(--green)" id="wastePercent">0%</div>
+                            <div style="font-size:.82rem;font-weight:600;color:var(--green);margin-top:4px" id="wasteStatus">Under 1% target</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:flex-end;align-items:center;margin-bottom:20px">
                     <button class="btn btn-rust" onclick="openModal('wasteModal')">+ Log Waste</button>
                 </div>
             </div>
-            <div class="stats-row" style="margin-bottom:20px">
-                <div class="stat-card"><div class="stat-label">Today's Waste</div><div class="stat-value" id="wasteTodayVal">$42</div><div class="stat-sub">3 items</div></div>
-                <div class="stat-card"><div class="stat-label">This Week</div><div class="stat-value">$186</div><div class="stat-sub">Within target</div></div>
-                <div class="stat-card"><div class="stat-label">Top Waste Item</div><div class="stat-value" style="font-size:1.1rem">Mac & Cheese</div><div class="stat-sub">$28 this week</div></div>
-                <div class="stat-card"><div class="stat-label">Waste % of Revenue</div><div class="stat-value">0.7%</div><div class="stat-sub badge-confirmed" style="display:inline-block;padding:2px 8px;border-radius:50px;font-size:.7rem;background:var(--green-l);color:var(--green)">Under 1% target</div></div>
-            </div>
             <div class="card">
-                <div class="card-header"><h2>Waste Log</h2></div>
-                <table><thead><tr><th>Date</th><th>Item</th><th>Qty</th><th>Est. Cost</th><th>Reason</th><th>Logged By</th></tr></thead>
-                <tbody id="wasteTableBody"></tbody></table>
+                <div class="card-header">
+                    <h2 style="font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:700">Waste Log</h2>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Date</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Item</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Qty</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Est. Cost</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Reason</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Logged By</th>
+                        </tr>
+                    </thead>
+                    <tbody id="wasteTableBody"></tbody>
+                </table>
             </div>
         </div>
 
@@ -1416,8 +1453,36 @@ const wasteData=[
     {date:'Jan 28',item:'Mac & Cheese',qty:'3 lbs',cost:5,reason:'End of day discard',by:'Willie T.'},
     {date:'Jan 27',item:'Okra',qty:'6 lbs',cost:10,reason:'Spoiled',by:'Miguel R.'},
 ];
+function updateWasteStats(){
+    const todayDate='Jan 30';
+    const todayWaste=wasteData.filter(w=>w.date===todayDate);
+    const todayCost=todayWaste.reduce((sum,w)=>sum+w.cost,0);
+
+    const weekStart='Jan 27';
+    const weekWaste=wasteData.filter(w=>w.date>=weekStart);
+    const weekCost=weekWaste.reduce((sum,w)=>sum+w.cost,0);
+
+    const itemTotals={};
+    weekWaste.forEach(w=>{
+        itemTotals[w.item]=(itemTotals[w.item]||0)+w.cost;
+    });
+    const topItem=Object.entries(itemTotals).sort((a,b)=>b[1]-a[1])[0];
+
+    const estimatedRevenue=6000;
+    const wastePercent=((weekCost/estimatedRevenue)*100).toFixed(1);
+
+    document.getElementById('wasteTodayVal').textContent='$'+Math.round(todayCost);
+    document.getElementById('wasteTodayCount').textContent=todayWaste.length+' items';
+    document.getElementById('wasteWeekVal').textContent='$'+Math.round(weekCost);
+    document.getElementById('wasteWeekCount').textContent=weekWaste.length+' items';
+    document.getElementById('topWasteItem').textContent=topItem?topItem[0]:'—';
+    document.getElementById('topWasteCost').textContent=topItem?'$'+Math.round(topItem[1])+' this week':'$0 this week';
+    document.getElementById('wastePercent').textContent=wastePercent+'%';
+    document.getElementById('wasteStatus').textContent=wastePercent<1?'Under 1% target':'Above target';
+}
 function renderWaste(){
-    document.getElementById('wasteTableBody').innerHTML=wasteData.map(w=>`<tr><td>${w.date}</td><td style="font-weight:600">${w.item}</td><td>${w.qty}</td><td style="color:var(--red);font-weight:600">$${w.cost.toFixed(2)}</td><td>${w.reason}</td><td>${w.by}</td></tr>`).join('');
+    updateWasteStats();
+    document.getElementById('wasteTableBody').innerHTML=wasteData.map(w=>`<tr><td style="font-size:.92rem;color:var(--g600)">${w.date}</td><td style="font-family:'Inter',sans-serif;font-weight:700;font-size:.95rem;color:var(--ink)">${w.item}</td><td style="font-size:.92rem;color:var(--g600)">${w.qty}</td><td style="color:var(--red);font-weight:700;font-size:.95rem">$${w.cost.toFixed(2)}</td><td style="font-size:.92rem;color:var(--g600)">${w.reason}</td><td style="font-size:.92rem;color:var(--g600)">${w.by}</td></tr>`).join('');
 }
 function logWaste(){const item=document.getElementById('wasteItem').value.trim();if(!item){showToast('Enter an item name');return}const cost=parseFloat(document.getElementById('wasteCost').value)||0;wasteData.unshift({date:today.toLocaleDateString('en-US',{month:'short',day:'numeric'}),item,qty:document.getElementById('wasteQty').value||'1',cost,reason:document.getElementById('wasteReason').value,by:document.getElementById('wasteBy').value.split(' ')[0]+' '+document.getElementById('wasteBy').value.split(' ')[1][0]+'.'});renderWaste();closeModal('wasteModal');showToast('Waste logged: '+item,'success')}
 
