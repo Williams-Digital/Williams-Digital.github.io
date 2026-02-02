@@ -224,7 +224,6 @@
         <button class="nav-item" onclick="switchPage('handoff',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>Shift Notes<span class="nav-badge">2</span></button>
         <button class="nav-item" onclick="switchPage('inventory',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>Inventory & Orders<span class="nav-badge">3</span></button>
         <button class="nav-item" onclick="switchPage('catering',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Catering Estimates</button>
-        <button class="nav-item" onclick="switchPage('timeclock',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/></svg>Time Clock</button>
         <button class="nav-item" onclick="switchPage('complaints',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Complaints</button>
 
         <div class="nav-section">Finance</div>
@@ -769,66 +768,6 @@
         </div>
 
         <!-- ===== TIME CLOCK ===== -->
-        <div class="page" id="page-timeclock">
-            <div style="margin-bottom:24px">
-                <div class="stats-row">
-                    <div class="card" style="background:linear-gradient(135deg,var(--green-l) 0%,rgba(34,197,94,.15) 100%)">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--green);margin-bottom:6px">Clocked In Now</div>
-                            <div class="stat-value" style="color:var(--green)" id="clockedInCount">0</div>
-                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="clockedInSub">of 0 staff</div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Total Hours Today</div>
-                            <div class="stat-value" style="color:var(--ink)" id="totalHoursToday">0.0</div>
-                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px">Target: 56 hrs</div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Labor Cost Today</div>
-                            <div class="stat-value" style="color:var(--ink)" id="laborCostToday">$0</div>
-                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="laborPercent">0% of revenue</div>
-                        </div>
-                    </div>
-                    <div class="card" style="background:linear-gradient(135deg,var(--orange-l) 0%,rgba(237,137,54,.2) 100%)">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--orange);margin-bottom:6px">Late Clock-ins</div>
-                            <div class="stat-value" style="color:var(--orange)" id="lateCount">0</div>
-                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px">This week</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px">
-                    <div class="tabs">
-                        <button class="tab active" onclick="switchClockTab('today',this)">Today</button>
-                        <button class="tab" onclick="switchClockTab('week',this)">This Week</button>
-                    </div>
-                    <button class="btn btn-rust" onclick="clockIn()">Clock In / Out</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h2 style="font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:700">Today's Time Clock</h2>
-                    <span style="font-size:.88rem;color:var(--g500);font-weight:500" id="clockDate"></span>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Staff</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Role</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Clock In</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Clock Out</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Hours</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="clockTableBody"></tbody>
-                </table>
-            </div>
-        </div>
 
         <!-- ===== COMPLAINTS ===== -->
         <div class="page" id="page-complaints">
@@ -979,7 +918,7 @@
 
 <script>
 const BIZ="Eugene's Hot Chicken",ADDR="2268 9th Ave N, Birmingham, AL 35203",PHONE="(205) 322-7555",EMAIL="info@eugeneshotchicken.com";
-const TITLES={dashboard:'Dashboard',specials:'Daily Specials',scheduling:'Staff Scheduling',availability:'Employee Availability',handoff:'Shift Notes & Handoff',inventory:'Inventory & Orders',catering:'Catering Estimates',sales:'Sales Dashboard',costing:'Menu Costing',chat:'Team Chat',team:'Team Members',safety:'Health & Safety',docs:'Documents & Training',tips:'Tip Tracker',timeclock:'Time Clock',complaints:'Customer Complaints'};
+const TITLES={dashboard:'Dashboard',specials:'Daily Specials',scheduling:'Staff Scheduling',availability:'Employee Availability',handoff:'Shift Notes & Handoff',inventory:'Inventory & Orders',catering:'Catering Estimates',sales:'Sales Dashboard',costing:'Menu Costing',chat:'Team Chat',team:'Team Members',safety:'Health & Safety',docs:'Documents & Training',tips:'Tip Tracker',complaints:'Customer Complaints'};
 const ROLES={'Kitchen Manager':'chip-host','Grill/Fryer':'chip-server','Kitchen':'chip-kitchen','Counter':'chip-bar','Busser/Dish':'chip-bus','Prep':'chip-kitchen','Manager':'chip-server'};
 const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
@@ -1591,46 +1530,6 @@ function renderTips(){
 function logTip(){const amt=parseFloat(document.getElementById('tipAmount').value);if(!amt)return;showToast('$'+amt.toFixed(2)+' in tips logged!','success');closeModal('tipModal')}
 function switchTipTab(t,el){el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');showToast(t==='today'?'Showing today':'Showing this week')}
 
-// ===== TIME CLOCK =====
-const clockData=[
-    {staff:'DeShawn Williams',role:'Kitchen Manager',clockIn:'6:00 AM',clockOut:'2:15 PM',hours:8.25,status:'Out'},
-    {staff:'Tamika Jones',role:'Grill Lead',clockIn:'9:45 AM',clockOut:null,hours:null,status:'In'},
-    {staff:'Andre Davis',role:'Grill Cook',clockIn:'10:00 AM',clockOut:null,hours:null,status:'In'},
-    {staff:'Maria Santos',role:'Kitchen Lead',clockIn:'6:00 AM',clockOut:'2:00 PM',hours:8,status:'Out'},
-    {staff:'James Wilson',role:'Prep Cook',clockIn:'5:45 AM',clockOut:'10:30 AM',hours:4.75,status:'Out'},
-    {staff:'Tiffany Moore',role:'Counter Lead',clockIn:'10:00 AM',clockOut:null,hours:null,status:'In'},
-    {staff:'Chris Taylor',role:'Busser/Dish',clockIn:'10:15 AM',clockOut:null,hours:null,status:'In'},
-    {staff:'Tiffany Moore',role:'Counter',clockIn:'10:30 AM',clockOut:null,hours:null,status:'In'},
-    {staff:'Brandon Lewis',role:'Grill Cook',clockIn:'10:00 AM',clockOut:null,hours:null,status:'In - Late'},
-];
-function updateClockStats(){
-    const clockedIn=clockData.filter(c=>c.status.includes('In')).length;
-    const totalStaff=clockData.length;
-    const totalHours=clockData.reduce((sum,c)=>sum+(c.hours||0),0);
-    const avgWage=15;
-    const laborCost=totalHours*avgWage;
-    const lateStaff=clockData.filter(c=>c.status.includes('Late')).length;
-
-    document.getElementById('clockedInCount').textContent=clockedIn;
-    document.getElementById('clockedInSub').textContent=`of ${totalStaff} staff`;
-    document.getElementById('totalHoursToday').textContent=totalHours.toFixed(1);
-    document.getElementById('laborCostToday').textContent='$'+Math.round(laborCost);
-    document.getElementById('laborPercent').textContent='11% of revenue';
-    document.getElementById('lateCount').textContent=lateStaff;
-}
-function renderClock(){
-    document.getElementById('clockDate').textContent=today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-    updateClockStats();
-    document.getElementById('clockTableBody').innerHTML=clockData.map(c=>{
-        const badge=c.status==='In'?'badge-confirmed':c.status==='Out'?'badge-off':'badge-pending';
-        return`<tr><td style="font-family:'Inter',sans-serif;font-weight:700;font-size:.95rem;color:var(--ink)">${c.staff}</td><td style="font-size:.92rem;color:var(--g600)">${c.role}</td><td style="font-size:.92rem;color:var(--g600)">${c.clockIn}</td><td style="font-size:.92rem;color:var(--g600)">${c.clockOut||'—'}</td><td style="font-size:.92rem;font-weight:600;color:var(--ink)">${c.hours?c.hours.toFixed(2)+' hrs':'—'}</td><td><span class="badge ${badge}" style="padding:6px 12px;font-size:.85rem">${c.status}</span></td></tr>`;
-    }).join('');
-}
-function clockIn(){
-    showToast('Clock-in/out recorded','success');
-    setTimeout(renderClock,100);
-}
-function switchClockTab(t,el){el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');showToast(t==='today'?'Showing today':'Showing weekly summary')}
 
 // ===== COMPLAINTS =====
 const complaints=[
@@ -1696,7 +1595,7 @@ function printSection(pageId){
 }
 
 // ===== INIT =====
-renderDashboard();renderSpecials();renderScheduleGrid();renderShiftTable();renderAvailability();renderHandoff();renderStock();renderPO();renderCatering();renderSales();renderCosting();renderChat();renderSafety();renderDocs();renderTips();renderClock();renderComplaints();renderCateringCalendar();
+renderDashboard();renderSpecials();renderScheduleGrid();renderShiftTable();renderAvailability();renderHandoff();renderStock();renderPO();renderCatering();renderSales();renderCosting();renderChat();renderSafety();renderDocs();renderTips();renderComplaints();renderCateringCalendar();
 try{document.getElementById('shDate').valueAsDate=new Date();document.getElementById('poDate').valueAsDate=new Date(Date.now()+2*86400000)}catch(e){}
 document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')})});
 </script>
