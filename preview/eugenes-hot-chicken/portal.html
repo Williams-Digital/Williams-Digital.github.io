@@ -377,17 +377,65 @@
 
         <!-- ===== CATERING ESTIMATES ===== -->
         <div class="page" id="page-catering">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-                <div class="tabs">
-                    <button class="tab active" onclick="switchCatView('list',this)">List View</button>
-                    <button class="tab" onclick="switchCatView('calendar',this)">Calendar</button>
+            <div style="margin-bottom:24px">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px">
+                    <div class="card" style="background:linear-gradient(135deg,var(--green-l) 0%,rgba(34,197,94,.15) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--green);margin-bottom:6px">Total Revenue</div>
+                            <div class="stat-value" style="color:var(--green)" id="cateringRevenue">$0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="cateringRevenueCount">0 estimates</div>
+                        </div>
+                    </div>
+                    <div class="card" style="background:linear-gradient(135deg,var(--orange-l) 0%,rgba(237,137,54,.2) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--orange);margin-bottom:6px">Pending</div>
+                            <div class="stat-value" style="color:var(--orange)" id="cateringPending">0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="cateringPendingValue">$0 potential</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Average Event Size</div>
+                            <div class="stat-value" style="color:var(--ink)" id="avgGuests">0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px">guests per event</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Upcoming Events</div>
+                            <div class="stat-value" style="color:var(--ink)" id="upcomingEvents">0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px">next 30 days</div>
+                        </div>
+                    </div>
                 </div>
-                <div style="display:flex;gap:8px"><button class="print-btn" onclick="printSection('catering')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button><button class="btn btn-rust" onclick="openModal('cateringModal')">+ New Estimate</button></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchCatView('list',this)">List View</button>
+                        <button class="tab" onclick="switchCatView('calendar',this)">Calendar</button>
+                    </div>
+                    <div style="display:flex;gap:8px"><button class="print-btn" onclick="printSection('catering')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button><button class="btn btn-rust" onclick="openModal('cateringModal')">+ New Estimate</button></div>
+                </div>
             </div>
             <div id="catView-list">
                 <div class="card">
-                    <table><thead><tr><th>#</th><th>Client</th><th>Event</th><th>Date</th><th>Guests</th><th>Amount</th><th>Status</th><th></th></tr></thead>
-                    <tbody id="cateringTableBody"></tbody></table>
+                    <div class="card-header">
+                        <h2 style="font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:700">Catering Estimates</h2>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="font-family:'Inter',sans-serif;font-size:.9rem">#</th>
+                                <th style="font-family:'Inter',sans-serif;font-size:.9rem">Client</th>
+                                <th style="font-family:'Inter',sans-serif;font-size:.9rem">Event</th>
+                                <th style="font-family:'Inter',sans-serif;font-size:.9rem">Date</th>
+                                <th style="font-family:'Inter',sans-serif;font-size:.9rem">Guests</th>
+                                <th style="font-family:'Inter',sans-serif;font-size:.9rem">Amount</th>
+                                <th style="font-family:'Inter',sans-serif;font-size:.9rem">Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cateringTableBody"></tbody>
+                    </table>
                 </div>
             </div>
             <div id="catView-calendar" style="display:none"><div id="cateringCalArea"></div></div>
@@ -1139,10 +1187,32 @@ const catering=[
 ];
 let catCount=2;
 
+function updateCateringStats(){
+    const totalRevenue=catering.reduce((sum,c)=>sum+c.items.reduce((s,x)=>s+x.qty*x.price,0),0);
+    const pendingEstimates=catering.filter(c=>c.status==='Pending');
+    const pendingRevenue=pendingEstimates.reduce((sum,c)=>sum+c.items.reduce((s,x)=>s+x.qty*x.price,0),0);
+    const avgGuestCount=catering.length>0?Math.round(catering.reduce((sum,c)=>sum+c.guests,0)/catering.length):0;
+
+    const today=new Date();
+    const next30=new Date(today.getTime()+30*24*60*60*1000);
+    const upcomingCount=catering.filter(c=>{
+        const eventDate=new Date(c.date);
+        return eventDate>=today&&eventDate<=next30;
+    }).length;
+
+    document.getElementById('cateringRevenue').textContent='$'+Math.round(totalRevenue).toLocaleString();
+    document.getElementById('cateringRevenueCount').textContent=catering.length+' estimates';
+    document.getElementById('cateringPending').textContent=pendingEstimates.length;
+    document.getElementById('cateringPendingValue').textContent='$'+Math.round(pendingRevenue).toLocaleString()+' potential';
+    document.getElementById('avgGuests').textContent=avgGuestCount;
+    document.getElementById('upcomingEvents').textContent=upcomingCount;
+}
+
 function renderCatering(){
+    updateCateringStats();
     document.getElementById('cateringTableBody').innerHTML=catering.map((c,i)=>{
         const tot=c.items.reduce((s,x)=>s+x.qty*x.price,0);
-        return`<tr><td style="font-weight:600">${c.num}</td><td>${c.client}<br><span style="font-size:.78rem;color:var(--g400)">${c.email}</span></td><td>${c.type}</td><td>${c.date}</td><td>${c.guests}</td><td>$${tot.toLocaleString()}</td><td><span class="badge badge-${c.status==='Sent'?'confirmed':'pending'}">${c.status}</span></td><td><div class="btn-group"><button class="btn btn-outline btn-sm" onclick="previewCatering(${i})">View</button><button class="btn btn-outline btn-sm" onclick="emailCatering(${i})">Email</button></div></td></tr>`;
+        return`<tr><td style="font-family:'Inter',sans-serif;font-weight:700;font-size:.92rem;color:var(--ink)">${c.num}</td><td style="font-family:'Inter',sans-serif;font-weight:700;font-size:.95rem;color:var(--ink)">${c.client}<br><span style="font-size:.85rem;color:var(--g500);font-weight:500">${c.email}</span></td><td style="font-size:.92rem;color:var(--g600)">${c.type}</td><td style="font-size:.92rem;color:var(--g600)">${c.date}</td><td style="font-size:.92rem;font-weight:600;color:var(--ink)">${c.guests}</td><td style="color:var(--green);font-weight:700;font-size:.95rem">$${tot.toLocaleString()}</td><td><span class="badge badge-${c.status==='Sent'?'confirmed':'pending'}" style="padding:6px 12px;font-size:.85rem">${c.status}</span></td><td><div class="btn-group"><button class="btn btn-outline btn-sm" onclick="previewCatering(${i})">View</button><button class="btn btn-outline btn-sm" onclick="emailCatering(${i})">Email</button></div></td></tr>`;
     }).join('');
 }
 
