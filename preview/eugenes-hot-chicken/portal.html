@@ -228,7 +228,6 @@
         <div class="nav-section">Finance</div>
         <button class="nav-item" onclick="switchPage('sales',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Sales Dashboard</button>
         <button class="nav-item" onclick="switchPage('costing',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Menu Costing</button>
-        <button class="nav-item" onclick="switchPage('tips',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Tip Tracker</button>
 
         <div class="nav-section">Communication</div>
         <button class="nav-item" onclick="switchPage('chat',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Team Chat<span class="nav-badge">5</span></button>
@@ -854,29 +853,6 @@
 </div>
 
         <!-- ===== TIP TRACKER ===== -->
-        <div class="page" id="page-tips">
-            <div style="margin-bottom:20px">
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-                    <div class="tabs">
-                        <button class="tab active" onclick="switchTipTab('today',this)">Today</button>
-                        <button class="tab" onclick="switchTipTab('week',this)">This Week</button>
-                    </div>
-                    <button class="btn btn-rust" onclick="openModal('tipModal')">+ Log Tips</button>
-                </div>
-            </div>
-            <div class="stats-row" style="margin-bottom:20px">
-                <div class="stat-card"><div class="stat-label">Today's Tips</div><div class="stat-value" id="tipTodayTotal">$482</div><div class="stat-sub">From 7 staff</div></div>
-                <div class="stat-card"><div class="stat-label">Avg Per Person</div><div class="stat-value" id="tipAvg">$68.86</div><div class="stat-sub">Today's split</div></div>
-                <div class="stat-card"><div class="stat-label">This Week</div><div class="stat-value">$2,340</div><div class="stat-sub">Mon–Thu so far</div></div>
-                <div class="stat-card"><div class="stat-label">Highest Day</div><div class="stat-value">$680</div><div class="stat-sub">Last Friday</div></div>
-            </div>
-            <div class="card">
-                <div class="card-header"><h2>Tip Distribution</h2></div>
-                <table><thead><tr><th>Staff</th><th>Role</th><th>Hours</th><th>Tip Share</th><th>Hourly Tip Rate</th></tr></thead>
-                <tbody id="tipTableBody"></tbody></table>
-            </div>
-            <div class="info-box" style="margin-top:16px"><p><strong>Tip Pool Rules:</strong> Tips are split proportionally by hours worked. Kitchen staff receive 30% of pool, front-of-house receives 70%. Management does not participate in tip pool.</p></div>
-        </div>
 
         <!-- ===== TIME CLOCK ===== -->
 
@@ -981,15 +957,6 @@
 </div></div>
 
 <!-- TIP MODAL -->
-<div class="modal-overlay" id="tipModal"><div class="modal">
-    <div class="modal-header"><h2>Log Tips</h2><button class="modal-close" onclick="closeModal('tipModal')">&times;</button></div>
-    <div class="modal-body">
-        <div class="form-row"><div class="form-group"><label for="tipDate">Date</label><input type="date" id="tipDate"></div><div class="form-group"><label for="tipAmount">Total Tips ($)</label><input type="number" id="tipAmount" placeholder="0.00" step="0.01"></div></div>
-        <div class="form-group"><label for="tipSource">Source</label><select id="tipSource"><option>Cash Tips</option><option>Credit Card Tips</option><option>Catering Tips</option></select></div>
-        <div class="form-group"><label for="tipNotes">Notes</label><textarea id="tipNotes" placeholder="Any notes about tip distribution..."></textarea></div>
-    </div>
-    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('tipModal')">Cancel</button><button class="btn btn-green" onclick="logTip()">Log Tips</button></div>
-</div></div>
 
 <!-- COMPLAINT MODAL -->
 
@@ -997,7 +964,7 @@
 
 <script>
 const BIZ="Eugene's Hot Chicken",ADDR="2268 9th Ave N, Birmingham, AL 35203",PHONE="(205) 322-7555",EMAIL="info@eugeneshotchicken.com";
-const TITLES={dashboard:'Dashboard',specials:'Daily Specials',scheduling:'Staff Scheduling',availability:'Employee Availability',handoff:'Shift Notes & Handoff',inventory:'Inventory & Orders',catering:'Catering Estimates',sales:'Sales Dashboard',costing:'Menu Costing',chat:'Team Chat',team:'Team Members',safety:'Health & Safety',docs:'Documents & Training',tips:'Tip Tracker'};
+const TITLES={dashboard:'Dashboard',specials:'Daily Specials',scheduling:'Staff Scheduling',availability:'Employee Availability',handoff:'Shift Notes & Handoff',inventory:'Inventory & Orders',catering:'Catering Estimates',sales:'Sales Dashboard',costing:'Menu Costing',chat:'Team Chat',team:'Team Members',safety:'Health & Safety',docs:'Documents & Training'};
 const ROLES={'Kitchen Manager':'chip-host','Grill/Fryer':'chip-server','Kitchen':'chip-kitchen','Counter':'chip-bar','Busser/Dish':'chip-bus','Prep':'chip-kitchen','Manager':'chip-server'};
 const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
@@ -1635,23 +1602,6 @@ function renderDashboard(){
 }
 
 // ===== TIP TRACKER =====
-const tipData=[
-    {staff:'DeShawn Williams',role:'Kitchen Manager',hours:8,share:92},
-    {staff:'Tamika Jones',role:'Grill Lead',hours:8,share:92},
-    {staff:'Andre Davis',role:'Grill Cook',hours:7,share:80},
-    {staff:'Tiffany Moore',role:'Counter Lead',hours:8,share:72},
-    {staff:'Tiffany Moore',role:'Counter',hours:6,share:54},
-    {staff:'Chris Taylor',role:'Busser/Dish',hours:7,share:50},
-    {staff:'James Wilson',role:'Prep Cook',hours:6,share:42},
-];
-function renderTips(){
-    document.getElementById('tipTableBody').innerHTML=tipData.map(t=>{
-        const rate=(t.share/t.hours).toFixed(2);
-        return`<tr><td style="font-weight:600">${t.staff}</td><td>${t.role}</td><td>${t.hours} hrs</td><td style="font-weight:600;color:var(--green)">$${t.share.toFixed(2)}</td><td>$${rate}/hr</td></tr>`;
-    }).join('');
-}
-function logTip(){const amt=parseFloat(document.getElementById('tipAmount').value);if(!amt)return;showToast('$'+amt.toFixed(2)+' in tips logged!','success');closeModal('tipModal')}
-function switchTipTab(t,el){el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');showToast(t==='today'?'Showing today':'Showing this week')}
 
 
 
@@ -1686,7 +1636,7 @@ function printSection(pageId){
 }
 
 // ===== INIT =====
-renderDashboard();renderSpecials();renderScheduleGrid();renderShiftTable();renderAvailability();renderHandoff();renderStock();renderPO();renderCatering();renderSales();renderCosting();renderChat();renderSafety();renderDocs();renderTips();renderCateringCalendar();
+renderDashboard();renderSpecials();renderScheduleGrid();renderShiftTable();renderAvailability();renderHandoff();renderStock();renderPO();renderCatering();renderSales();renderCosting();renderChat();renderSafety();renderDocs();renderCateringCalendar();
 try{document.getElementById('shDate').valueAsDate=new Date();document.getElementById('poDate').valueAsDate=new Date(Date.now()+2*86400000)}catch(e){}
 document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')})});
 </script>
