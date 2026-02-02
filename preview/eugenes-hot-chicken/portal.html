@@ -636,8 +636,38 @@
 
         <!-- ===== TIME CLOCK ===== -->
         <div class="page" id="page-timeclock">
-            <div style="margin-bottom:20px">
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <div style="margin-bottom:24px">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px">
+                    <div class="card" style="background:linear-gradient(135deg,var(--green-l) 0%,rgba(34,197,94,.15) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--green);margin-bottom:6px">Clocked In Now</div>
+                            <div class="stat-value" style="color:var(--green)" id="clockedInCount">0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="clockedInSub">of 0 staff</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Total Hours Today</div>
+                            <div class="stat-value" style="color:var(--ink)" id="totalHoursToday">0.0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px">Target: 56 hrs</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Labor Cost Today</div>
+                            <div class="stat-value" style="color:var(--ink)" id="laborCostToday">$0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="laborPercent">0% of revenue</div>
+                        </div>
+                    </div>
+                    <div class="card" style="background:linear-gradient(135deg,var(--orange-l) 0%,rgba(237,137,54,.2) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--orange);margin-bottom:6px">Late Clock-ins</div>
+                            <div class="stat-value" style="color:var(--orange)" id="lateCount">0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px">This week</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px">
                     <div class="tabs">
                         <button class="tab active" onclick="switchClockTab('today',this)">Today</button>
                         <button class="tab" onclick="switchClockTab('week',this)">This Week</button>
@@ -645,16 +675,24 @@
                     <button class="btn btn-rust" onclick="clockIn()">Clock In / Out</button>
                 </div>
             </div>
-            <div class="card" style="margin-bottom:20px">
-                <div class="card-header"><h2>Today's Time Clock</h2><span style="font-size:.8rem;color:var(--g400)" id="clockDate"></span></div>
-                <table><thead><tr><th>Staff</th><th>Role</th><th>Clock In</th><th>Clock Out</th><th>Hours</th><th>Status</th></tr></thead>
-                <tbody id="clockTableBody"></tbody></table>
-            </div>
-            <div class="stats-row">
-                <div class="stat-card"><div class="stat-label">Clocked In Now</div><div class="stat-value" id="clockedInCount">5</div><div class="stat-sub">of 12 staff</div></div>
-                <div class="stat-card"><div class="stat-label">Total Hours Today</div><div class="stat-value" id="totalHoursToday">38.5</div><div class="stat-sub">Target: 56 hrs</div></div>
-                <div class="stat-card"><div class="stat-label">Labor Cost Today</div><div class="stat-value">$462</div><div class="stat-sub">11% of revenue</div></div>
-                <div class="stat-card"><div class="stat-label">Overtime Alerts</div><div class="stat-value">0</div><div class="stat-sub">No OT this week</div></div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 style="font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:700">Today's Time Clock</h2>
+                    <span style="font-size:.88rem;color:var(--g500);font-weight:500" id="clockDate"></span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Staff</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Role</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Clock In</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Clock Out</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Hours</th>
+                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clockTableBody"></tbody>
+                </table>
             </div>
         </div>
 
@@ -1395,14 +1433,33 @@ const clockData=[
     {staff:'Tiffany Moore',role:'Counter',clockIn:'10:30 AM',clockOut:null,hours:null,status:'In'},
     {staff:'Brandon Lewis',role:'Grill Cook',clockIn:'10:00 AM',clockOut:null,hours:null,status:'In - Late'},
 ];
+function updateClockStats(){
+    const clockedIn=clockData.filter(c=>c.status.includes('In')).length;
+    const totalStaff=clockData.length;
+    const totalHours=clockData.reduce((sum,c)=>sum+(c.hours||0),0);
+    const avgWage=15;
+    const laborCost=totalHours*avgWage;
+    const lateStaff=clockData.filter(c=>c.status.includes('Late')).length;
+
+    document.getElementById('clockedInCount').textContent=clockedIn;
+    document.getElementById('clockedInSub').textContent=`of ${totalStaff} staff`;
+    document.getElementById('totalHoursToday').textContent=totalHours.toFixed(1);
+    document.getElementById('laborCostToday').textContent='$'+Math.round(laborCost);
+    document.getElementById('laborPercent').textContent='11% of revenue';
+    document.getElementById('lateCount').textContent=lateStaff;
+}
 function renderClock(){
     document.getElementById('clockDate').textContent=today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+    updateClockStats();
     document.getElementById('clockTableBody').innerHTML=clockData.map(c=>{
         const badge=c.status==='In'?'badge-confirmed':c.status==='Out'?'badge-off':'badge-pending';
-        return`<tr><td style="font-weight:600">${c.staff}</td><td>${c.role}</td><td>${c.clockIn}</td><td>${c.clockOut||'—'}</td><td>${c.hours?c.hours.toFixed(2)+' hrs':'—'}</td><td><span class="badge ${badge}">${c.status}</span></td></tr>`;
+        return`<tr><td style="font-family:'Inter',sans-serif;font-weight:700;font-size:.95rem;color:var(--ink)">${c.staff}</td><td style="font-size:.92rem;color:var(--g600)">${c.role}</td><td style="font-size:.92rem;color:var(--g600)">${c.clockIn}</td><td style="font-size:.92rem;color:var(--g600)">${c.clockOut||'—'}</td><td style="font-size:.92rem;font-weight:600;color:var(--ink)">${c.hours?c.hours.toFixed(2)+' hrs':'—'}</td><td><span class="badge ${badge}" style="padding:6px 12px;font-size:.85rem">${c.status}</span></td></tr>`;
     }).join('');
 }
-function clockIn(){showToast('Clock-in/out recorded','success')}
+function clockIn(){
+    showToast('Clock-in/out recorded','success');
+    setTimeout(renderClock,100);
+}
 function switchClockTab(t,el){el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');showToast(t==='today'?'Showing today':'Showing weekly summary')}
 
 // ===== COMPLAINTS =====
