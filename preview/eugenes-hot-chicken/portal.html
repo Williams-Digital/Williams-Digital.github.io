@@ -224,7 +224,6 @@
         <button class="nav-item" onclick="switchPage('handoff',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>Shift Notes<span class="nav-badge">2</span></button>
         <button class="nav-item" onclick="switchPage('inventory',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>Inventory & Orders<span class="nav-badge">3</span></button>
         <button class="nav-item" onclick="switchPage('catering',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Catering Estimates</button>
-        <button class="nav-item" onclick="switchPage('waste',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Waste Log</button>
         <button class="nav-item" onclick="switchPage('timeclock',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/></svg>Time Clock</button>
         <button class="nav-item" onclick="switchPage('complaints',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Complaints</button>
 
@@ -769,63 +768,6 @@
             <div class="info-box" style="margin-top:16px"><p><strong>Tip Pool Rules:</strong> Tips are split proportionally by hours worked. Kitchen staff receive 30% of pool, front-of-house receives 70%. Management does not participate in tip pool.</p></div>
         </div>
 
-        <!-- ===== WASTE LOG ===== -->
-        <div class="page" id="page-waste">
-            <div style="margin-bottom:24px">
-                <div class="stats-row">
-                    <div class="card" style="background:linear-gradient(135deg,var(--red-l) 0%,var(--red) 100%)">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--red);margin-bottom:6px">Today's Waste</div>
-                            <div class="stat-value" style="color:var(--red)" id="wasteTodayVal">$0</div>
-                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="wasteTodayCount">0 items</div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">This Week</div>
-                            <div class="stat-value" style="color:var(--ink)" id="wasteWeekVal">$0</div>
-                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="wasteWeekCount">0 items</div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Top Waste Item</div>
-                            <div class="stat-value" style="font-size:1.4rem;color:var(--ink)" id="topWasteItem">—</div>
-                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="topWasteCost">$0 this week</div>
-                        </div>
-                    </div>
-                    <div class="card" style="background:linear-gradient(135deg,var(--green-l) 0%,rgba(34,197,94,.15) 100%)">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--green);margin-bottom:6px">Waste % of Revenue</div>
-                            <div class="stat-value" style="color:var(--green)" id="wastePercent">0%</div>
-                            <div style="font-size:.82rem;font-weight:600;color:var(--green);margin-top:4px" id="wasteStatus">Under 1% target</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="display:flex;justify-content:flex-end;align-items:center;margin-bottom:20px">
-                    <button class="btn btn-rust" onclick="openModal('wasteModal')">+ Log Waste</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h2 style="font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:700">Waste Log</h2>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Date</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Item</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Qty</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Est. Cost</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Reason</th>
-                            <th style="font-family:'Inter',sans-serif;font-size:.9rem">Logged By</th>
-                        </tr>
-                    </thead>
-                    <tbody id="wasteTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
         <!-- ===== TIME CLOCK ===== -->
         <div class="page" id="page-timeclock">
             <div style="margin-bottom:24px">
@@ -1020,17 +962,6 @@
     <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('tipModal')">Cancel</button><button class="btn btn-green" onclick="logTip()">Log Tips</button></div>
 </div></div>
 
-<!-- WASTE MODAL -->
-<div class="modal-overlay" id="wasteModal"><div class="modal">
-    <div class="modal-header"><h2>Log Waste</h2><button class="modal-close" onclick="closeModal('wasteModal')">&times;</button></div>
-    <div class="modal-body">
-        <div class="form-row"><div class="form-group"><label for="wasteItem">Item</label><input type="text" id="wasteItem" placeholder="e.g. Mac & Cheese"></div><div class="form-group"><label for="wasteQty">Quantity</label><input type="text" id="wasteQty" placeholder="e.g. 5 lbs"></div></div>
-        <div class="form-row"><div class="form-group"><label for="wasteCost">Est. Cost ($)</label><input type="number" id="wasteCost" placeholder="0.00" step="0.01"></div><div class="form-group"><label for="wasteReason">Reason</label><select id="wasteReason"><option>Expired / Spoiled</option><option>Over-prepped</option><option>Dropped / Spilled</option><option>Returned by customer</option><option>End of day discard</option><option>Equipment failure</option></select></div></div>
-        <div class="form-group"><label for="wasteBy">Logged By</label><select id="wasteBy"><option>Zebbie Carney</option><option>Marcus Thompson</option><option>DeShawn Williams</option><option>Tamika Jones</option><option>Maria Santos</option><option>James Wilson</option></select></div>
-    </div>
-    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('wasteModal')">Cancel</button><button class="btn btn-rust" onclick="logWaste()">Log Waste</button></div>
-</div></div>
-
 <!-- COMPLAINT MODAL -->
 <div class="modal-overlay" id="complaintModal"><div class="modal">
     <div class="modal-header"><h2>Log Complaint</h2><button class="modal-close" onclick="closeModal('complaintModal')">&times;</button></div>
@@ -1048,7 +979,7 @@
 
 <script>
 const BIZ="Eugene's Hot Chicken",ADDR="2268 9th Ave N, Birmingham, AL 35203",PHONE="(205) 322-7555",EMAIL="info@eugeneshotchicken.com";
-const TITLES={dashboard:'Dashboard',specials:'Daily Specials',scheduling:'Staff Scheduling',availability:'Employee Availability',handoff:'Shift Notes & Handoff',inventory:'Inventory & Orders',catering:'Catering Estimates',sales:'Sales Dashboard',costing:'Menu Costing',chat:'Team Chat',team:'Team Members',safety:'Health & Safety',docs:'Documents & Training',tips:'Tip Tracker',waste:'Waste Log',timeclock:'Time Clock',complaints:'Customer Complaints'};
+const TITLES={dashboard:'Dashboard',specials:'Daily Specials',scheduling:'Staff Scheduling',availability:'Employee Availability',handoff:'Shift Notes & Handoff',inventory:'Inventory & Orders',catering:'Catering Estimates',sales:'Sales Dashboard',costing:'Menu Costing',chat:'Team Chat',team:'Team Members',safety:'Health & Safety',docs:'Documents & Training',tips:'Tip Tracker',timeclock:'Time Clock',complaints:'Customer Complaints'};
 const ROLES={'Kitchen Manager':'chip-host','Grill/Fryer':'chip-server','Kitchen':'chip-kitchen','Counter':'chip-bar','Busser/Dish':'chip-bus','Prep':'chip-kitchen','Manager':'chip-server'};
 const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
@@ -1660,50 +1591,6 @@ function renderTips(){
 function logTip(){const amt=parseFloat(document.getElementById('tipAmount').value);if(!amt)return;showToast('$'+amt.toFixed(2)+' in tips logged!','success');closeModal('tipModal')}
 function switchTipTab(t,el){el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');showToast(t==='today'?'Showing today':'Showing this week')}
 
-// ===== WASTE LOG =====
-const wasteData=[
-    {date:'Jan 30',item:'Mac & Cheese',qty:'5 lbs',cost:12,reason:'End of day discard',by:'Dorothy Mae J.'},
-    {date:'Jan 30',item:'Cornbread',qty:'8 pieces',cost:6,reason:'Over-prepped',by:'Miguel R.'},
-    {date:'Jan 30',item:'Sweet Tea',qty:'2 gal',cost:4,reason:'End of day discard',by:'Sandra C.'},
-    {date:'Jan 29',item:'Waffles',qty:'3 lbs',cost:18,reason:'Equipment failure (fryer)',by:'Brenda W.'},
-    {date:'Jan 29',item:'Squash',qty:'4 lbs',cost:8,reason:'Spoiled',by:'Miguel R.'},
-    {date:'Jan 28',item:'Hot Chicken',qty:'2 ct',cost:17,reason:'Returned by customer (overcooked)',by:'Dorothy Mae J.'},
-    {date:'Jan 28',item:'Mac & Cheese',qty:'3 lbs',cost:5,reason:'End of day discard',by:'Willie T.'},
-    {date:'Jan 27',item:'Okra',qty:'6 lbs',cost:10,reason:'Spoiled',by:'Miguel R.'},
-];
-function updateWasteStats(){
-    const todayDate='Jan 30';
-    const todayWaste=wasteData.filter(w=>w.date===todayDate);
-    const todayCost=todayWaste.reduce((sum,w)=>sum+w.cost,0);
-
-    const weekStart='Jan 27';
-    const weekWaste=wasteData.filter(w=>w.date>=weekStart);
-    const weekCost=weekWaste.reduce((sum,w)=>sum+w.cost,0);
-
-    const itemTotals={};
-    weekWaste.forEach(w=>{
-        itemTotals[w.item]=(itemTotals[w.item]||0)+w.cost;
-    });
-    const topItem=Object.entries(itemTotals).sort((a,b)=>b[1]-a[1])[0];
-
-    const estimatedRevenue=6000;
-    const wastePercent=((weekCost/estimatedRevenue)*100).toFixed(1);
-
-    document.getElementById('wasteTodayVal').textContent='$'+Math.round(todayCost);
-    document.getElementById('wasteTodayCount').textContent=todayWaste.length+' items';
-    document.getElementById('wasteWeekVal').textContent='$'+Math.round(weekCost);
-    document.getElementById('wasteWeekCount').textContent=weekWaste.length+' items';
-    document.getElementById('topWasteItem').textContent=topItem?topItem[0]:'—';
-    document.getElementById('topWasteCost').textContent=topItem?'$'+Math.round(topItem[1])+' this week':'$0 this week';
-    document.getElementById('wastePercent').textContent=wastePercent+'%';
-    document.getElementById('wasteStatus').textContent=wastePercent<1?'Under 1% target':'Above target';
-}
-function renderWaste(){
-    updateWasteStats();
-    document.getElementById('wasteTableBody').innerHTML=wasteData.map(w=>`<tr><td style="font-size:.92rem;color:var(--g600)">${w.date}</td><td style="font-family:'Inter',sans-serif;font-weight:700;font-size:.95rem;color:var(--ink)">${w.item}</td><td style="font-size:.92rem;color:var(--g600)">${w.qty}</td><td style="color:var(--red);font-weight:700;font-size:.95rem">$${w.cost.toFixed(2)}</td><td style="font-size:.92rem;color:var(--g600)">${w.reason}</td><td style="font-size:.92rem;color:var(--g600)">${w.by}</td></tr>`).join('');
-}
-function logWaste(){const item=document.getElementById('wasteItem').value.trim();if(!item){showToast('Enter an item name');return}const cost=parseFloat(document.getElementById('wasteCost').value)||0;wasteData.unshift({date:today.toLocaleDateString('en-US',{month:'short',day:'numeric'}),item,qty:document.getElementById('wasteQty').value||'1',cost,reason:document.getElementById('wasteReason').value,by:document.getElementById('wasteBy').value.split(' ')[0]+' '+document.getElementById('wasteBy').value.split(' ')[1][0]+'.'});renderWaste();closeModal('wasteModal');showToast('Waste logged: '+item,'success')}
-
 // ===== TIME CLOCK =====
 const clockData=[
     {staff:'DeShawn Williams',role:'Kitchen Manager',clockIn:'6:00 AM',clockOut:'2:15 PM',hours:8.25,status:'Out'},
@@ -1809,7 +1696,7 @@ function printSection(pageId){
 }
 
 // ===== INIT =====
-renderDashboard();renderSpecials();renderScheduleGrid();renderShiftTable();renderAvailability();renderHandoff();renderStock();renderPO();renderCatering();renderSales();renderCosting();renderChat();renderSafety();renderDocs();renderTips();renderWaste();renderClock();renderComplaints();renderCateringCalendar();
+renderDashboard();renderSpecials();renderScheduleGrid();renderShiftTable();renderAvailability();renderHandoff();renderStock();renderPO();renderCatering();renderSales();renderCosting();renderChat();renderSafety();renderDocs();renderTips();renderClock();renderComplaints();renderCateringCalendar();
 try{document.getElementById('shDate').valueAsDate=new Date();document.getElementById('poDate').valueAsDate=new Date(Date.now()+2*86400000)}catch(e){}
 document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')})});
 </script>
