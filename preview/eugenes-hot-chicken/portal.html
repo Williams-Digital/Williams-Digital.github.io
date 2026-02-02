@@ -959,7 +959,7 @@
         <div class="form-row"><div class="form-group"><label for="catClient">Client Name *</label><input type="text" id="catClient"></div><div class="form-group"><label for="catEmail">Client Email *</label><input type="email" id="catEmail"></div></div>
         <div class="form-row"><div class="form-group"><label for="catType">Event Type</label><select id="catType"><option>Executive Lunch Meeting</option><option>Wedding Reception</option><option>Birthday Party</option><option>Office Catering</option><option>Holiday Party</option><option>Church Fellowship Dinner</option><option>Private Dining</option><option>Custom Event</option></select></div><div class="form-group"><label for="catGuests">Guest Count</label><input type="number" id="catGuests" value="25" min="1"></div></div>
         <div class="form-row"><div class="form-group"><label for="catDate">Event Date</label><input type="date" id="catDate"></div><div class="form-group"><label for="catAddr">Event Address</label><input type="text" id="catAddr" placeholder="Venue address"></div></div>
-        <div id="catLines"><div class="form-row-3 cat-line"><div class="form-group"><label>Menu Item</label><input type="text" placeholder="e.g. Chicken & Waffless"></div><div class="form-group"><label>Servings</label><input type="number" value="25" min="1"></div><div class="form-group"><label>Price Per ($)</label><input type="number" placeholder="0.00" step="0.01"></div></div></div>
+        <div id="catLines"><div class="form-row-3 cat-line"><div class="form-group"><label>Menu Item</label><input type="text" name="catItem" placeholder="e.g. Chicken & Waffless"></div><div class="form-group"><label>Servings</label><input type="number" name="catServings" value="25" min="1"></div><div class="form-group"><label>Price Per ($)</label><input type="number" name="catPrice" placeholder="0.00" step="0.01"></div></div></div>
         <button class="btn btn-outline btn-sm" onclick="addCatLine()" style="margin-bottom:16px">+ Add Menu Item</button>
         <div class="form-group"><label for="catNotes">Notes</label><textarea id="catNotes" placeholder="Dietary restrictions, setup requirements, service style..."></textarea></div>
     </div>
@@ -1003,7 +1003,7 @@
     <div class="modal-body">
         <div class="form-row"><div class="form-group"><label for="costName">Item Name</label><input type="text" id="costName" placeholder="e.g. American Animal Burger"></div><div class="form-group"><label for="costPrice">Menu Price ($)</label><input type="number" id="costPrice" step="0.01" placeholder="15.00"></div></div>
         <p style="font-size:.8rem;font-weight:600;color:var(--g600);margin:12px 0 8px">Ingredients:</p>
-        <div id="costIngredients"><div class="form-row-3 cost-ing-line"><div class="form-group"><label>Ingredient</label><input type="text" placeholder="e.g. Ground beef 8oz"></div><div class="form-group"><label>Cost ($)</label><input type="number" step="0.01" placeholder="2.50"></div><div class="form-group"><label></label></div></div></div>
+        <div id="costIngredients"><div class="form-row-3 cost-ing-line"><div class="form-group"><label>Ingredient</label><input type="text" name="costIngredient" placeholder="e.g. Ground beef 8oz"></div><div class="form-group"><label>Cost ($)</label><input type="number" name="costIngCost" step="0.01" placeholder="2.50"></div><div class="form-group"><label></label></div></div></div>
         <button class="btn btn-outline btn-sm" onclick="addCostIngLine()" style="margin-bottom:12px">+ Add Ingredient</button>
     </div>
     <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('costModal')">Cancel</button><button class="btn btn-green" onclick="addCostItem()">Add Item</button></div>
@@ -1289,7 +1289,7 @@ function loadVendorItems(){
     items.forEach(item=>{
         const r=document.createElement('div');
         r.className='form-row-3 po-line';
-        r.innerHTML=`<div class="form-group"><label>Item</label><input type="text" value="${item.item}" placeholder="Item name"></div><div class="form-group"><label>Quantity</label><input type="text" value="${item.qty}" placeholder="e.g. 2 cases"></div><div class="form-group"><label>Est. Cost ($)</label><input type="number" value="${item.cost}" placeholder="0.00" step="0.01"></div>`;
+        r.innerHTML=`<div class="form-group"><label>Item</label><input type="text" name="poItem" value="${item.item}" placeholder="Item name"></div><div class="form-group"><label>Quantity</label><input type="text" name="poQty" value="${item.qty}" placeholder="e.g. 2 cases"></div><div class="form-group"><label>Est. Cost ($)</label><input type="number" name="poCost" value="${item.cost}" placeholder="0.00" step="0.01"></div>`;
         container.appendChild(r);
     });
     if(items.length===0){
@@ -1297,7 +1297,7 @@ function loadVendorItems(){
     }
 }
 
-function addPOLine(){const c=document.getElementById('poLines'),r=document.createElement('div');r.className='form-row-3 po-line';r.innerHTML='<div class="form-group"><label>Item</label><input type="text" placeholder="Item name"></div><div class="form-group"><label>Quantity</label><input type="text" placeholder="e.g. 2 cases"></div><div class="form-group"><label>Est. Cost ($)</label><input type="number" placeholder="0.00" step="0.01"></div>';c.appendChild(r)}
+function addPOLine(){const c=document.getElementById('poLines'),r=document.createElement('div');r.className='form-row-3 po-line';r.innerHTML='<div class="form-group"><label>Item</label><input type="text" name="poItem" placeholder="Item name"></div><div class="form-group"><label>Quantity</label><input type="text" name="poQty" placeholder="e.g. 2 cases"></div><div class="form-group"><label>Est. Cost ($)</label><input type="number" name="poCost" placeholder="0.00" step="0.01"></div>';c.appendChild(r)}
 
 function createPO(){
     poCount++;const num='PO-'+poCount;
@@ -1372,7 +1372,7 @@ function emailCatering(i){
 }
 
 function switchCatView(v,el){['list','calendar'].forEach(x=>document.getElementById('catView-'+x).style.display=x===v?'block':'none');el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');if(v==='calendar')renderCateringCalendar()}
-function addCatLine(){const c=document.getElementById('catLines'),r=document.createElement('div');r.className='form-row-3 cat-line';r.innerHTML='<div class="form-group"><label>Menu Item</label><input type="text" placeholder="e.g. Burger Bar"></div><div class="form-group"><label>Servings</label><input type="number" value="25" min="1"></div><div class="form-group"><label>Price Per ($)</label><input type="number" placeholder="0.00" step="0.01"></div>';c.appendChild(r)}
+function addCatLine(){const c=document.getElementById('catLines'),r=document.createElement('div');r.className='form-row-3 cat-line';r.innerHTML='<div class="form-group"><label>Menu Item</label><input type="text" name="catItem" placeholder="e.g. Burger Bar"></div><div class="form-group"><label>Servings</label><input type="number" name="catServings" value="25" min="1"></div><div class="form-group"><label>Price Per ($)</label><input type="number" name="catPrice" placeholder="0.00" step="0.01"></div>';c.appendChild(r)}
 
 function createCatering(){
     const client=document.getElementById('catClient').value.trim();
@@ -1556,7 +1556,7 @@ function renderCosting(){
         return`<tr><td style="font-weight:600">${m.name}</td><td>$${m.price.toFixed(2)}</td><td>$${m.cost.toFixed(2)}</td><td><span class="badge ${badge}">${pct}%</span></td><td style="font-weight:600;color:var(--green)">$${profit.toFixed(2)}</td><td style="font-size:.8rem;color:var(--g500)">${label}</td></tr>`;
     }).join('');
 }
-function addCostIngLine(){const c=document.getElementById('costIngredients'),r=document.createElement('div');r.className='form-row-3 cost-ing-line';r.innerHTML='<div class="form-group"><label>Ingredient</label><input type="text" placeholder="e.g. Bun"></div><div class="form-group"><label>Cost ($)</label><input type="number" step="0.01" placeholder="0.50"></div><div class="form-group"><label></label></div>';c.appendChild(r)}
+function addCostIngLine(){const c=document.getElementById('costIngredients'),r=document.createElement('div');r.className='form-row-3 cost-ing-line';r.innerHTML='<div class="form-group"><label>Ingredient</label><input type="text" name="costIngredient" placeholder="e.g. Bun"></div><div class="form-group"><label>Cost ($)</label><input type="number" name="costIngCost" step="0.01" placeholder="0.50"></div><div class="form-group"><label></label></div>';c.appendChild(r)}
 function addCostItem(){const name=document.getElementById('costName').value.trim();const price=parseFloat(document.getElementById('costPrice').value);if(!name||!price)return;let cost=0;document.querySelectorAll('#costIngredients .cost-ing-line').forEach(r=>{cost+=parseFloat(r.querySelectorAll('input')[1].value)||0});menuCosts.unshift({name,price,cost});renderCosting();closeModal('costModal');showToast('Menu item added!','success')}
 
 // ===== HEALTH & SAFETY =====
