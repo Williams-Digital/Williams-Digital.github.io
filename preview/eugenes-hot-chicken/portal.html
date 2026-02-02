@@ -224,7 +224,6 @@
         <button class="nav-item" onclick="switchPage('handoff',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>Shift Notes<span class="nav-badge">2</span></button>
         <button class="nav-item" onclick="switchPage('inventory',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>Inventory & Orders<span class="nav-badge">3</span></button>
         <button class="nav-item" onclick="switchPage('catering',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Catering Estimates</button>
-        <button class="nav-item" onclick="switchPage('complaints',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Complaints</button>
 
         <div class="nav-section">Finance</div>
         <button class="nav-item" onclick="switchPage('sales',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Sales Dashboard</button>
@@ -770,44 +769,6 @@
         <!-- ===== TIME CLOCK ===== -->
 
         <!-- ===== COMPLAINTS ===== -->
-        <div class="page" id="page-complaints">
-            <div style="margin-bottom:24px">
-                <div class="stats-row">
-                    <div class="card" style="background:linear-gradient(135deg,var(--red-l) 0%,var(--red) 100%)">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--red);margin-bottom:6px">High Priority</div>
-                            <div class="stat-value" style="color:var(--red)" id="highPriorityCount">0</div>
-                        </div>
-                    </div>
-                    <div class="card" style="background:linear-gradient(135deg,var(--orange-l) 0%,rgba(237,137,54,.3) 100%)">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--orange);margin-bottom:6px">Medium Priority</div>
-                            <div class="stat-value" style="color:var(--orange)" id="mediumPriorityCount">0</div>
-                        </div>
-                    </div>
-                    <div class="card" style="background:linear-gradient(135deg,var(--green-l) 0%,rgba(34,197,94,.15) 100%)">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--green);margin-bottom:6px">Total Open</div>
-                            <div class="stat-value" style="color:var(--green)" id="totalOpenCount">0</div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body" style="padding:18px">
-                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Resolved This Month</div>
-                            <div class="stat-value" style="color:var(--ink)" id="resolvedMonthCount">0</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-                    <div class="tabs">
-                        <button class="tab active" onclick="switchComplaintTab('open',this)">Open</button>
-                        <button class="tab" onclick="switchComplaintTab('resolved',this)">Resolved</button>
-                    </div>
-                    <button class="btn btn-rust" onclick="openModal('complaintModal')">+ Log Complaint</button>
-                </div>
-            </div>
-            <div id="complaintsList" style="display:flex;flex-direction:column;gap:16px"></div>
-        </div>
 
 <!-- SHIFT MODAL -->
 <div class="modal-overlay" id="shiftModal"><div class="modal">
@@ -902,23 +863,12 @@
 </div></div>
 
 <!-- COMPLAINT MODAL -->
-<div class="modal-overlay" id="complaintModal"><div class="modal">
-    <div class="modal-header"><h2>Log Complaint</h2><button class="modal-close" onclick="closeModal('complaintModal')">&times;</button></div>
-    <div class="modal-body">
-        <div class="form-row"><div class="form-group"><label for="compCustomer">Customer Name</label><input type="text" id="compCustomer" placeholder="Optional"></div><div class="form-group"><label for="compDate">Date</label><input type="date" id="compDate"></div></div>
-        <div class="form-row"><div class="form-group"><label for="compCat">Category</label><select id="compCat"><option>Food Quality</option><option>Wait Time</option><option>Service</option><option>Cleanliness</option><option>Wrong Order</option><option>Temperature</option><option>Other</option></select></div><div class="form-group"><label for="compSeverity">Severity</label><select id="compSeverity"><option>Low</option><option>Medium</option><option>High</option></select></div></div>
-        <div class="form-group"><label for="compDesc">Description</label><textarea id="compDesc" rows="3" placeholder="What happened?"></textarea></div>
-        <div class="form-group"><label for="compRes">Resolution</label><textarea id="compRes" rows="2" placeholder="How was it handled? (comp, refund, apology, etc.)"></textarea></div>
-        <div class="form-group"><label for="compBy">Handled By</label><select id="compBy"><option>Zebbie Carney</option><option>Marcus Thompson</option><option>DeShawn Williams</option><option>Tiffany Moore</option></select></div>
-    </div>
-    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('complaintModal')">Cancel</button><button class="btn btn-rust" onclick="logComplaint()">Log Complaint</button></div>
-</div></div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 const BIZ="Eugene's Hot Chicken",ADDR="2268 9th Ave N, Birmingham, AL 35203",PHONE="(205) 322-7555",EMAIL="info@eugeneshotchicken.com";
-const TITLES={dashboard:'Dashboard',specials:'Daily Specials',scheduling:'Staff Scheduling',availability:'Employee Availability',handoff:'Shift Notes & Handoff',inventory:'Inventory & Orders',catering:'Catering Estimates',sales:'Sales Dashboard',costing:'Menu Costing',chat:'Team Chat',team:'Team Members',safety:'Health & Safety',docs:'Documents & Training',tips:'Tip Tracker',complaints:'Customer Complaints'};
+const TITLES={dashboard:'Dashboard',specials:'Daily Specials',scheduling:'Staff Scheduling',availability:'Employee Availability',handoff:'Shift Notes & Handoff',inventory:'Inventory & Orders',catering:'Catering Estimates',sales:'Sales Dashboard',costing:'Menu Costing',chat:'Team Chat',team:'Team Members',safety:'Health & Safety',docs:'Documents & Training',tips:'Tip Tracker'};
 const ROLES={'Kitchen Manager':'chip-host','Grill/Fryer':'chip-server','Kitchen':'chip-kitchen','Counter':'chip-bar','Busser/Dish':'chip-bus','Prep':'chip-kitchen','Manager':'chip-server'};
 const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
@@ -1531,38 +1481,6 @@ function logTip(){const amt=parseFloat(document.getElementById('tipAmount').valu
 function switchTipTab(t,el){el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');showToast(t==='today'?'Showing today':'Showing this week')}
 
 
-// ===== COMPLAINTS =====
-const complaints=[
-    {id:1,customer:'Anonymous',date:'Jan 30, 2026',cat:'Wait Time',severity:'Medium',desc:'Customer waited 25 minutes for a 2-meat plate during lunch rush. Line was backed up past the door.',res:'Apologized, gave a free dessert. Discussed adding extra counter staff during 11:30-1 PM.',by:'Zebbie Carney',status:'Open'},
-    {id:2,customer:'James T.',date:'Jan 29, 2026',cat:'Food Quality',severity:'High',desc:'Hot chicken ordered medium came out well-done. Customer very unhappy, said it was a special occasion dinner.',res:'Comped the entire steak ($22). Brenda talked to grill team about using the thermometer consistently.',by:'Marcus Thompson',status:'Resolved'},
-    {id:3,customer:'Google Review',date:'Jan 28, 2026',cat:'Cleanliness',severity:'Low',desc:'Review mentioned sticky tables near the front window. 3 stars.',res:'Added extra table wipe-down to hourly checklist. Responded to review thanking them and noting fix.',by:'Zebbie Carney',status:'Resolved'},
-    {id:4,customer:'Call-in',date:'Jan 27, 2026',cat:'Wrong Order',severity:'Medium',desc:'Catering order for 20 was missing 5 sides of mac & cheese and the banana pudding tray.',res:'Delivered missing items within 30 minutes. Added double-check step to catering packing process.',by:'Zebbie Carney',status:'Resolved'},
-];
-let compTab='open';
-function switchComplaintTab(t,el){compTab=t;el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderComplaints()}
-function updateComplaintStats(){
-    const openComplaints=complaints.filter(c=>c.status==='Open');
-    const highPriority=openComplaints.filter(c=>c.severity==='High').length;
-    const mediumPriority=openComplaints.filter(c=>c.severity==='Medium').length;
-    const totalOpen=openComplaints.length;
-    const thisMonth=new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'});
-    const resolvedThisMonth=complaints.filter(c=>c.status==='Resolved'&&c.date.includes(thisMonth.split(' ')[0])).length;
-    document.getElementById('highPriorityCount').textContent=highPriority;
-    document.getElementById('mediumPriorityCount').textContent=mediumPriority;
-    document.getElementById('totalOpenCount').textContent=totalOpen;
-    document.getElementById('resolvedMonthCount').textContent=resolvedThisMonth;
-}
-function renderComplaints(){
-    updateComplaintStats();
-    const filtered=complaints.filter(c=>compTab==='open'?c.status==='Open':c.status==='Resolved');
-    document.getElementById('complaintsList').innerHTML=filtered.length?filtered.map(c=>{
-        const sevColor=c.severity==='High'?'var(--red)':c.severity==='Medium'?'var(--orange)':'var(--green)';
-        const sevBg=c.severity==='High'?'var(--red-l)':c.severity==='Medium'?'var(--orange-l)':'var(--green-l)';
-        return`<div class="card complaint-card severity-${c.severity.toLowerCase()}"><div class="card-body" style="padding:20px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px"><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><strong style="font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink);letter-spacing:-0.01em">${c.customer}</strong><span class="badge" style="background:${sevBg};color:${sevColor};padding:6px 12px;font-size:.85rem;font-weight:600">${c.severity}</span><span class="badge badge-off" style="padding:6px 12px;font-size:.85rem">${c.cat}</span></div><span style="font-size:.88rem;color:var(--g400);font-weight:500">${c.date}</span></div><p style="font-family:'Inter',sans-serif;font-size:1rem;color:var(--g700);line-height:1.65;margin-bottom:${c.res?'14px':'12px'}">${c.desc}</p>${c.res?'<div style="background:var(--g50);padding:14px 16px;border-radius:10px;margin-bottom:12px;border-left:3px solid var(--green)"><p style="font-family:\'Inter\',sans-serif;font-size:.95rem;color:var(--g700);line-height:1.6;margin:0"><strong style="color:var(--ink);font-weight:700">Resolution:</strong> '+c.res+'</p></div>':''}<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><span style="font-size:.88rem;color:var(--g500);font-weight:500">Handled by ${c.by}</span>${c.status==='Open'?'<button class="btn btn-green btn-sm" onclick="resolveComplaint('+c.id+')">Mark Resolved</button>':''}</div></div></div>`;
-    }).join(''):'<div class="card"><div class="card-body" style="padding:32px;text-align:center;color:var(--g400);font-size:1rem">No '+compTab+' complaints</div></div>';
-}
-function resolveComplaint(id){const c=complaints.find(x=>x.id===id);if(c){c.status='Resolved';c.date=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}renderComplaints();showToast('Complaint resolved','success')}
-function logComplaint(){const desc=document.getElementById('compDesc').value.trim();if(!desc){showToast('Enter a description');return}complaints.unshift({id:Date.now(),customer:document.getElementById('compCustomer').value.trim()||'Anonymous',date:today.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),cat:document.getElementById('compCat').value,severity:document.getElementById('compSeverity').value,desc,res:document.getElementById('compRes').value.trim(),by:document.getElementById('compBy').value,status:document.getElementById('compRes').value.trim()?'Resolved':'Open'});renderComplaints();closeModal('complaintModal');showToast('Complaint logged','success')}
 
 // ===== CATERING CALENDAR =====
 function renderCateringCalendar(){
@@ -1595,7 +1513,7 @@ function printSection(pageId){
 }
 
 // ===== INIT =====
-renderDashboard();renderSpecials();renderScheduleGrid();renderShiftTable();renderAvailability();renderHandoff();renderStock();renderPO();renderCatering();renderSales();renderCosting();renderChat();renderSafety();renderDocs();renderTips();renderComplaints();renderCateringCalendar();
+renderDashboard();renderSpecials();renderScheduleGrid();renderShiftTable();renderAvailability();renderHandoff();renderStock();renderPO();renderCatering();renderSales();renderCosting();renderChat();renderSafety();renderDocs();renderTips();renderCateringCalendar();
 try{document.getElementById('shDate').valueAsDate=new Date();document.getElementById('poDate').valueAsDate=new Date(Date.now()+2*86400000)}catch(e){}
 document.querySelectorAll('.modal-overlay').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open')})});
 </script>
