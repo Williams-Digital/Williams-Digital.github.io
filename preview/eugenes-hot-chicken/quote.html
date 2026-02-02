@@ -4,363 +4,524 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Williams Digital | Proposal for Eugene's Hot Chicken</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Proposal for Eugene's Hot Chicken - Williams Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-        :root{
-            --bg:#0a0a0f;--bg2:#12121a;--bg-card:rgba(255,255,255,0.03);
-            --text:#ffffff;--text2:#a1a1aa;--text3:#71717a;
-            --accent1:#6366f1;--accent2:#8b5cf6;--accent3:#06b6d4;
-            --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.04);
-            --gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#06b6d4 100%);
-            --glow:0 0 60px rgba(99,102,241,0.15);
-            --green:#22c55e;--green-bg:rgba(34,197,94,0.1);
-            --amber:#f59e0b;--amber-bg:rgba(245,158,11,0.1);
-        }
-        html{scroll-behavior:smooth}
-        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
-
-        /* PRINT */
-        @media print{
-            body{background:#fff;color:#111}
-            .page{box-shadow:none;border:none;page-break-after:always}
-            .no-print{display:none}
-            .accent-text{-webkit-text-fill-color:#6366f1}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8f9fa;
         }
 
-        /* LAYOUT */
-        .page{max-width:900px;margin:0 auto;padding:60px;min-height:100vh;position:relative}
-        .page+.page{border-top:1px solid var(--border)}
-        .page-num{position:absolute;bottom:40px;right:60px;font-size:.75rem;color:var(--text3)}
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
 
-        /* HEADER */
-        .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border)}
-        .logo{font-size:1.4rem;font-weight:800;letter-spacing:-.5px}
-        .logo span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .header-right{text-align:right;font-size:.8rem;color:var(--text2);line-height:1.8}
+        .quote-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
 
-        /* PROPOSAL TITLE */
-        .proposal-title{margin-bottom:48px}
-        .proposal-label{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--accent1);margin-bottom:12px}
-        .proposal-title h1{font-size:2.2rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
-        .accent-text{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .proposal-title p{font-size:1rem;color:var(--text2);max-width:500px}
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
 
-        /* CLIENT INFO */
-        .client-info{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:48px;padding:28px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px}
-        .client-info h4{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--text3);margin-bottom:8px}
-        .client-info p{font-size:.9rem;color:var(--text2);line-height:1.7}
-        .client-info strong{color:var(--text);font-weight:600}
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
 
-        /* PRICING SECTION */
-        .pricing-section{margin-bottom:40px}
-        .pricing-section h2{font-size:1.3rem;font-weight:700;margin-bottom:6px}
-        .pricing-section .sub{font-size:.85rem;color:var(--text2);margin-bottom:20px}
-        .pricing-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:20px}
-        .pricing-card-header{padding:24px 28px;border-bottom:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center}
-        .pricing-card-header h3{font-size:1.05rem;font-weight:700}
-        .pricing-card-header .price{font-size:1.5rem;font-weight:800}
-        .pricing-card-header .price span{font-size:.8rem;font-weight:400;color:var(--text2)}
-        .pricing-card-body{padding:24px 28px}
-        .feature-list{list-style:none;display:flex;flex-direction:column;gap:10px}
-        .feature-list li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)}
-        .feature-list li::before{content:'';width:18px;height:18px;flex-shrink:0;margin-top:2px;background:var(--green-bg);border-radius:50%;position:relative}
-        .feature-list li::after{content:'&#10003;';position:absolute;color:var(--green);font-size:.7rem;font-weight:700}
-        .check-icon{width:18px;height:18px;flex-shrink:0;margin-top:2px;border-radius:50%;background:var(--green-bg);display:flex;align-items:center;justify-content:center;color:var(--green);font-size:.7rem;font-weight:700}
+        .header .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
 
-        /* SUMMARY */
-        .summary{background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(139,92,246,0.05));border:1px solid rgba(99,102,241,0.2);border-radius:16px;padding:28px;margin-top:32px}
-        .summary-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:.95rem}
-        .summary-row+.summary-row{border-top:1px solid rgba(255,255,255,0.06)}
-        .summary-row.total{border-top:2px solid rgba(99,102,241,0.3);margin-top:8px;padding-top:16px;font-size:1.15rem;font-weight:700}
-        .summary-row .label{color:var(--text2)}
-        .summary-row.total .label{color:var(--text)}
+        .meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px 50px;
+            border-bottom: 2px solid #f0f0f0;
+        }
 
-        /* PAGE 2 - TIERS */
-        .section-title{margin-bottom:32px}
-        .section-title h2{font-size:1.5rem;font-weight:800;margin-bottom:6px}
-        .section-title p{font-size:.9rem;color:var(--text2)}
+        .meta-section h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #666;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
 
-        .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
-        .tier-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;position:relative;transition:border-color .3s}
-        .tier-card.recommended{border-color:rgba(99,102,241,0.4);box-shadow:var(--glow)}
-        .tier-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gradient);color:var(--text);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:4px 14px;border-radius:50px}
-        .tier-name{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--accent1);margin-bottom:8px}
-        .tier-price{font-size:2rem;font-weight:800;margin-bottom:4px}
-        .tier-price span{font-size:.85rem;font-weight:400;color:var(--text2)}
-        .tier-desc{font-size:.82rem;color:var(--text3);margin-bottom:20px;min-height:40px}
-        .tier-features{list-style:none;display:flex;flex-direction:column;gap:8px}
-        .tier-features li{display:flex;align-items:flex-start;gap:8px;font-size:.82rem;color:var(--text2)}
-        .tier-check{color:var(--green);font-weight:700;font-size:.75rem;flex-shrink:0;margin-top:1px}
-        .tier-x{color:var(--text3);font-size:.75rem;flex-shrink:0;margin-top:1px}
+        .meta-section p {
+            color: #333;
+            line-height: 1.8;
+        }
 
-        /* BREAKDOWN TABLE */
-        .breakdown{margin-bottom:40px}
-        .breakdown h3{font-size:1rem;font-weight:700;margin-bottom:14px}
-        .breakdown table{width:100%;border-collapse:collapse}
-        .breakdown th{text-align:left;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text3);padding:10px 14px;border-bottom:1px solid var(--border)}
-        .breakdown td{padding:12px 14px;font-size:.85rem;color:var(--text2);border-bottom:1px solid var(--border2)}
-        .breakdown td:first-child{font-weight:600;color:var(--text)}
-        .breakdown td:last-child{text-align:right;font-family:'JetBrains Mono',monospace;font-size:.82rem}
-        .breakdown tr:hover td{background:rgba(255,255,255,0.02)}
+        .company-name {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
 
-        /* NOTES */
-        .notes{margin-top:40px;padding:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px}
-        .notes h4{font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:10px}
-        .notes ul{list-style:none;display:flex;flex-direction:column;gap:6px}
-        .notes li{font-size:.82rem;color:var(--text3);padding-left:14px;position:relative}
-        .notes li::before{content:'•';position:absolute;left:0;color:var(--accent1)}
+        .content {
+            padding: 50px;
+        }
 
-        /* FOOTER */
-        .doc-footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-        .doc-footer p{font-size:.75rem;color:var(--text3)}
-        .doc-footer a{color:var(--accent1);text-decoration:none}
+        .intro {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
 
-        /* NAV */
-        .page-nav{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;background:var(--bg2);border:1px solid var(--border);padding:8px 16px;border-radius:50px;z-index:50;backdrop-filter:blur(12px)}
-        .page-nav a{font-size:.78rem;font-weight:600;color:var(--text2);text-decoration:none;padding:6px 14px;border-radius:50px;transition:all .2s}
-        .page-nav a:hover,.page-nav a.active{background:rgba(99,102,241,0.15);color:var(--accent1)}
+        .demos {
+            background: linear-gradient(135deg, #e6f3ff 0%, #f0f7ff 100%);
+            border: 2px solid #0066cc;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 50px;
+        }
 
-        @media(max-width:768px){
-            .page{padding:32px 24px}
-            .client-info,.tier-grid{grid-template-columns:1fr}
-            .header{flex-direction:column;gap:16px}
-            .header-right{text-align:left}
-            .page-nav{display:none}
+        .demos h3 {
+            font-size: 1.2rem;
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .demos p {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .demos a {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: #0066cc;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid #0066cc;
+        }
+
+        .demos a:hover {
+            background: #0066cc;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        .option {
+            background: #fafafa;
+            border: 3px solid #e8e8e8;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: #1a1a1a;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .option.featured {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-color: #1a1a1a;
+            color: white;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            right: 40px;
+            background: #00D084;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .option-header {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .option.featured .option-header {
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
+
+        .option-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .option-description {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .option.featured .option-description {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .setup-cost {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        .option.featured .setup-cost {
+            color: white;
+        }
+
+        .setup-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .option.featured .setup-label {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .monthly-cost {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00D084;
+        }
+
+        .monthly-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .option.featured .monthly-label {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .features li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .option.featured .features li {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00D084;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .comparison {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+        }
+
+        .comparison h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .comparison table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison th,
+        .comparison td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison th {
+            background: #1a1a1a;
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison td:last-child {
+            font-weight: 600;
+            color: #00D084;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .footer .cta {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        @media print {
+            body { background: white; }
+            .quote-card { box-shadow: none; }
+            .option:hover { border-color: #e8e8e8; box-shadow: none; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            .header { padding: 35px 25px; }
+            .header h1 { font-size: 1.8rem; }
+            .meta { grid-template-columns: 1fr; gap: 25px; padding: 30px 25px; }
+            .content { padding: 30px 25px; }
+            .option { padding: 30px 25px; }
+            .pricing-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .footer { padding: 35px 25px; }
         }
     </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav class="page-nav no-print">
-    <a href="#page1" class="active">Proposal</a>
-    <a href="#page2">Monthly Plans</a>
-</nav>
-
-<!-- ==================== PAGE 1: PROPOSAL ==================== -->
-<div class="page" id="page1">
-    <div class="header">
-        <div>
-            <div class="logo">Williams <span>Digital</span></div>
-        </div>
-        <div class="header-right">
-            williamsdigital.io<br>
-            Birmingham, Alabama
-        </div>
-    </div>
-
-    <div class="proposal-title">
-        <div class="proposal-label">Proposal</div>
-        <h1>Eugene's Hot Chicken — <span class="accent-text">Digital Package</span></h1>
-        <p>Custom website redesign and staff operations portal built specifically for the Original Whistle Stop Cafe.</p>
-    </div>
-
-    <div class="client-info">
-        <div>
-            <h4>Prepared For</h4>
-            <p><strong>Eugene's Hot Chicken</strong><br>2268 9th Ave N<br>Birmingham, AL 35203<br>(205) 322-7555</p>
-        </div>
-        <div>
-            <h4>Prepared By</h4>
-            <p><strong>Williams Digital</strong><br>Dylan Williams<br>Birmingham, Alabama<br>williamsdigital.io</p>
-        </div>
-    </div>
-
-    <!-- WEBSITE PRICING -->
-    <div class="pricing-section">
-        <h2>1. Website Redesign</h2>
-        <p class="sub">A modern, mobile-first website that showcases your menu, the Whistle Stop story, and your legendary fried green tomatoes.</p>
-        <div class="pricing-card">
-            <div class="pricing-card-header">
-                <h3>Custom Restaurant Website</h3>
-                <div class="price">$2,500 <span>one-time</span></div>
+    <div class="container">
+        <div class="quote-card">
+            <div class="header">
+                <h1>Williams Digital</h1>
+                <div class="tagline">Custom Web Solutions for Local Businesses</div>
             </div>
-            <div class="pricing-card-body">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Custom design — no templates or WordPress</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Full daily menu with rotating meat Full daily menu with meat &amp; vegetable listingsamp; vegetable listings</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Mobile-responsive across all devices</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Online ordering &amp; catering inquiry form</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Google Maps embed and directions</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Customer reviews and social links</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>SEO optimized for local search</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Fast-loading — no framework bloat</div>
+
+            <div class="meta">
+                <div class="meta-section">
+                    <h3>Prepared For</h3>
+                    <p class="company-name">Eugene's Hot Chicken</p>
+                    <p>2268 9th Avenue North<br>Birmingham, AL 35203<br>(205) 322-7555</p>
+                </div>
+                <div class="meta-section">
+                    <h3>Prepared By</h3>
+                    <p class="company-name">Williams Digital</p>
+                    <p>Dylan Williams<br>Founder & Developer<br><script>document.write(new Date().toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}))</script></p>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- PORTAL PRICING -->
-    <div class="pricing-section">
-        <h2>2. Staff Operations Portal</h2>
-        <p class="sub">An internal management tool for scheduling, inventory, communication, and daily operations.</p>
-        <div class="pricing-card">
-            <div class="pricing-card-header">
-                <h3>Custom Restaurant Portal</h3>
-                <div class="price">$5,000 <span>one-time</span></div>
-            </div>
-            <div class="pricing-card-body">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Visual staff scheduling by role</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Employee availability &amp; time-off requests</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Daily specials board &amp; 86'd items</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Shift handoff notes between crews</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Inventory tracking with par levels</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Purchase orders &amp; vendor management</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Catering estimate builder with invoices</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Team chat with dedicated channels</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Sales dashboard &amp; revenue tracking</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Menu costing &amp; food cost analysis</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Health &amp; safety checklists with temp logs</div>
-                    <div style="display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--text2)"><div class="check-icon">&#10003;</div>Training docs, recipes &amp; policy library</div>
+            <div class="content">
+                <div class="intro">
+                    Thank you for considering Williams Digital for your website and operations management needs. This proposal outlines three custom solutions designed specifically for Eugene's Hot Chicken to enhance your online presence and streamline daily operations.
+                </div>
+
+                <div class="demos">
+                    <h3>🎯 Live Demos - See Before You Buy</h3>
+                    <p>Both demos are already built with Eugene's branding and ready to explore:</p>
+                    <a href="https://williamsdigital.io/preview/eugenes-hot-chicken/index.html" target="_blank">View Website Demo →</a>
+                    <a href="https://williamsdigital.io/preview/eugenes-hot-chicken/portal.html" target="_blank">View Staff Portal Demo →</a>
+                </div>
+
+                <h2 class="section-title">Investment Options</h2>
+
+                <!-- Option 1 -->
+                <div class="option">
+                    <div class="option-header">
+                        <div class="option-title">Option 1: Operations Staff Portal Only</div>
+                        <div class="option-description">Complete management system for scheduling, inventory, catering, and team communication</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div>
+                            <div class="setup-cost">$2,200</div>
+                            <div class="setup-label">Setup Fee</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="monthly-cost">$149/mo</div>
+                            <div class="monthly-label">Monthly Service</div>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li>Staff scheduling & availability tracking with calendar view</li>
+                        <li>Time-off request management system</li>
+                        <li>Shift handoff notes for seamless communication</li>
+                        <li>Inventory tracking & purchase order automation</li>
+                        <li>Catering estimate calculator & event management</li>
+                        <li>Sales dashboard with real-time reporting</li>
+                        <li>Menu costing calculator</li>
+                        <li>Internal team chat system</li>
+                        <li>Health & safety logs</li>
+                        <li>Document library for training materials</li>
+                        <li>Mobile-responsive across all devices</li>
+                        <li>Staff training session included</li>
+                    </ul>
+                </div>
+
+                <!-- Option 2 -->
+                <div class="option">
+                    <div class="option-header">
+                        <div class="option-title">Option 2: Professional Website Only</div>
+                        <div class="option-description">Modern, mobile-responsive website to attract customers and showcase your menu</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div>
+                            <div class="setup-cost">$800</div>
+                            <div class="setup-label">Setup Fee</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="monthly-cost">$49/mo</div>
+                            <div class="monthly-label">Hosting & Maintenance</div>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li>Custom design with Eugene's branding</li>
+                        <li>Mobile-responsive design (optimized for all devices)</li>
+                        <li>Menu section with photos and descriptions</li>
+                        <li>Catering inquiry forms</li>
+                        <li>Contact forms & Google Maps integration</li>
+                        <li>SEO optimized for local Birmingham searches</li>
+                        <li>Social media integration</li>
+                        <li>Fast loading speeds for better rankings</li>
+                        <li>Secure hosting included</li>
+                        <li>Monthly maintenance & updates</li>
+                        <li>SSL certificate (secure HTTPS)</li>
+                        <li>Email support</li>
+                    </ul>
+                </div>
+
+                <!-- Option 3 - Featured -->
+                <div class="option featured">
+                    <div class="badge">BEST VALUE</div>
+                    <div class="option-header">
+                        <div class="option-title">Option 3: Complete Package</div>
+                        <div class="option-description">Professional website + full operations portal - everything you need in one integrated solution</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div>
+                            <div class="setup-cost">$2,500</div>
+                            <div class="setup-label">Setup Fee (Save $500)</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="monthly-cost">$200/mo</div>
+                            <div class="monthly-label">Monthly Service</div>
+                        </div>
+                    </div>
+                    <ul class="features">
+                        <li><strong>Everything from Option 1 + Option 2 combined</strong></li>
+                        <li>Integrated customer-facing website and staff portal</li>
+                        <li>Single login system for staff access</li>
+                        <li>Consistent branding across all platforms</li>
+                        <li>Priority email support (12-hour response time)</li>
+                        <li>Free updates & bug fixes for 12 months</li>
+                        <li>Comprehensive staff training session</li>
+                        <li>$500 savings on setup costs</li>
+                    </ul>
+                </div>
+
+                <div class="comparison">
+                    <h3>Compare to Industry Standards</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Typical Market Cost</th>
+                                <th>Your Investment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Professional Restaurant Website</td>
+                                <td>$2,500 - $5,000 + $50-100/mo</td>
+                                <td>$800 + $49/mo</td>
+                            </tr>
+                            <tr>
+                                <td>Scheduling Software (7shifts)</td>
+                                <td>$30 - $100/month per location</td>
+                                <td>Included in portal</td>
+                            </tr>
+                            <tr>
+                                <td>Inventory Management (MarketMan)</td>
+                                <td>$239 - $399/month</td>
+                                <td>Included in portal</td>
+                            </tr>
+                            <tr>
+                                <td>POS System (Toast, Square)</td>
+                                <td>$165/month + hardware</td>
+                                <td>Complementary</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Complete Package First Year</strong></td>
+                                <td><strong>$5,000 - $8,000+</strong></td>
+                                <td><strong>$4,900</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
+            <div class="footer">
+                <h3>Ready to Get Started?</h3>
+                <p>Dylan Williams, Founder & Developer</p>
+                <p>Email: [Your Email]</p>
+                <p>Phone: [Your Phone]</p>
+                <p class="cta">Let's schedule a 15-minute call to discuss which option works best for Eugene's.</p>
+            </div>
         </div>
     </div>
-
-    <!-- SUMMARY -->
-    <div class="summary">
-        <div class="summary-row"><span class="label">Custom Restaurant Website</span><span>$2,500</span></div>
-        <div class="summary-row"><span class="label">Staff Operations Portal</span><span>$5,000</span></div>
-        <div class="summary-row total"><span class="label">Total Investment</span><span class="accent-text">$7,500</span></div>
-    </div>
-
-    <div class="doc-footer">
-        <p>Proposal Date: January 31, 2026</p>
-        <p><a href="https://williamsdigital.io">williamsdigital.io</a></p>
-    </div>
-    <div class="page-num">1 / 2</div>
-</div>
-
-<!-- ==================== PAGE 2: MONTHLY TIERS ==================== -->
-<div class="page" id="page2">
-    <div class="header">
-        <div>
-            <div class="logo">Williams <span>Digital</span></div>
-        </div>
-        <div class="header-right">
-            Monthly Hosting &<br>Maintenance Plans
-        </div>
-    </div>
-
-    <div class="section-title">
-        <h2>Monthly Plans</h2>
-        <p>After the initial build, a monthly plan keeps everything running, secure, and fully managed. Each plan includes hosting infrastructure, platform maintenance, and hands-on support from Williams Digital.</p>
-    </div>
-
-    <div class="tier-grid">
-        <!-- ESSENTIALS -->
-        <div class="tier-card">
-            <div class="tier-name">Essentials</div>
-            <div class="tier-price">$150<span>/mo</span></div>
-            <div class="tier-desc">Everything you need to keep the website and portal running day-to-day.</div>
-            <ul class="tier-features">
-                <li><span class="tier-check">&#10003;</span>Website &amp; portal hosting</li>
-                <li><span class="tier-check">&#10003;</span>SSL, CDN &amp; security updates</li>
-                <li><span class="tier-check">&#10003;</span>Database &amp; user authentication</li>
-                <li><span class="tier-check">&#10003;</span>Real-time data sync</li>
-                <li><span class="tier-check">&#10003;</span>SMS shift reminders</li>
-                <li><span class="tier-check">&#10003;</span>Email notifications</li>
-                <li><span class="tier-check">&#10003;</span>Daily backups</li>
-                <li><span class="tier-check">&#10003;</span>Bug fixes &amp; uptime monitoring</li>
-                <li><span class="tier-x">&mdash;</span><span style="color:var(--text3)">Content updates</span></li>
-                <li><span class="tier-x">&mdash;</span><span style="color:var(--text3)">Toast POS integration</span></li>
-                <li><span class="tier-x">&mdash;</span><span style="color:var(--text3)">Monthly analytics report</span></li>
-            </ul>
-        </div>
-
-        <!-- OPERATIONS (RECOMMENDED) -->
-        <div class="tier-card recommended">
-            <div class="tier-badge">Recommended</div>
-            <div class="tier-name">Operations</div>
-            <div class="tier-price">$200<span>/mo</span></div>
-            <div class="tier-desc">Full managed service. Content updates, higher volume emails, and ongoing support.</div>
-            <ul class="tier-features">
-                <li><span class="tier-check">&#10003;</span>Everything in Essentials</li>
-                <li><span class="tier-check">&#10003;</span>Menu &amp; content updates</li>
-                <li><span class="tier-check">&#10003;</span>Seasonal promotions &amp; banners</li>
-                <li><span class="tier-check">&#10003;</span>Higher email volume</li>
-                <li><span class="tier-check">&#10003;</span>Automated schedule digests</li>
-                <li><span class="tier-check">&#10003;</span>Inventory &amp; order alerts</li>
-                <li><span class="tier-check">&#10003;</span>Catering invoice emails</li>
-                <li><span class="tier-check">&#10003;</span>Monthly analytics report</li>
-                <li><span class="tier-check">&#10003;</span>Portal staff onboarding support</li>
-                <li><span class="tier-x">&mdash;</span><span style="color:var(--text3)">Toast POS integration</span></li>
-                <li><span class="tier-x">&mdash;</span><span style="color:var(--text3)">Priority support</span></li>
-            </ul>
-        </div>
-
-        <!-- FULL HOUSE -->
-        <div class="tier-card">
-            <div class="tier-name">Full House</div>
-            <div class="tier-price">$250<span>/mo</span></div>
-            <div class="tier-desc">Fully automated. Toast POS integration, live sales data, and priority support.</div>
-            <ul class="tier-features">
-                <li><span class="tier-check">&#10003;</span>Everything in Operations</li>
-                <li><span class="tier-check">&#10003;</span>Toast POS integration</li>
-                <li><span class="tier-check">&#10003;</span>Automated sales dashboard</li>
-                <li><span class="tier-check">&#10003;</span>Top sellers auto-tracked</li>
-                <li><span class="tier-check">&#10003;</span>Labor vs. revenue insights</li>
-                <li><span class="tier-check">&#10003;</span>Payroll hours export</li>
-                <li><span class="tier-check">&#10003;</span>Mobile PWA for staff</li>
-                <li><span class="tier-check">&#10003;</span>Priority support (same-day)</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- WHAT'S INCLUDED -->
-    <div class="breakdown">
-        <h3>What's Included in Every Plan</h3>
-        <table>
-            <thead><tr><th>Category</th><th>Details</th><th></th></tr></thead>
-            <tbody>
-                <tr><td>Hosting &amp; Infrastructure</td><td>Cloud hosting, SSL certificates, CDN, database, authentication, file storage</td><td style="color:var(--green);font-weight:600;text-align:right">Included</td></tr>
-                <tr><td>Security &amp; Backups</td><td>Automated daily backups, security patches, uptime monitoring</td><td style="color:var(--green);font-weight:600;text-align:right">Included</td></tr>
-                <tr><td>Bug Fixes &amp; Maintenance</td><td>Browser compatibility updates, performance fixes, server management</td><td style="color:var(--green);font-weight:600;text-align:right">Included</td></tr>
-                <tr><td>SMS Notifications</td><td>Shift reminders and urgent alerts for your staff (~500 msgs/mo)</td><td style="color:var(--green);font-weight:600;text-align:right">Included</td></tr>
-                <tr><td>Email Notifications</td><td>Schedule updates, order confirmations, catering invoices</td><td style="color:var(--green);font-weight:600;text-align:right">Included</td></tr>
-                <tr><td>Content Updates</td><td>Menu changes, new photos, seasonal updates, hours changes</td><td style="font-size:.78rem;color:var(--text3);text-align:right">Operations+</td></tr>
-                <tr><td>Monthly Analytics</td><td>Traffic report, top pages, local search performance</td><td style="font-size:.78rem;color:var(--text3);text-align:right">Operations+</td></tr>
-                <tr><td>Toast POS Integration</td><td>Automated sales data, menu sync, top sellers tracking</td><td style="font-size:.78rem;color:var(--text3);text-align:right">Full House</td></tr>
-                <tr><td>Priority Support</td><td>Same-day response for urgent issues and requests</td><td style="font-size:.78rem;color:var(--text3);text-align:right">Full House</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="notes">
-        <h4>Notes</h4>
-        <ul>
-            <li>All plans include 99.9% uptime guarantee and daily automated backups</li>
-            <li>Toast POS integration works with your existing Toast POS system at no additional cost</li>
-            <li>Plans can be upgraded or downgraded at any time with 30 days notice</li>
-            <li>Williams Digital handles all technical work — no IT knowledge required on your end</li>
-            <li>All infrastructure costs (hosting, database, SMS, email) are included in the monthly price</li>
-        </ul>
-    </div>
-
-    <div class="doc-footer">
-        <p>Proposal Date: January 31, 2026 &bull; Valid for 30 days</p>
-        <p><a href="https://williamsdigital.io">williamsdigital.io</a></p>
-    </div>
-    <div class="page-num">2 / 2</div>
-</div>
-
-<script>
-// Highlight active page in nav on scroll
-const pages=document.querySelectorAll('.page');
-const navLinks=document.querySelectorAll('.page-nav a');
-const observer=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-        if(e.isIntersecting){
-            navLinks.forEach(l=>l.classList.remove('active'));
-            const link=document.querySelector(`.page-nav a[href="#${e.target.id}"]`);
-            if(link)link.classList.add('active');
-        }
-    });
-},{threshold:0.4});
-pages.forEach(p=>observer.observe(p));
-</script>
 </body>
 </html>
