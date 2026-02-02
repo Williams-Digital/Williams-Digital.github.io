@@ -566,19 +566,131 @@
 
         <!-- ===== EMPLOYEE AVAILABILITY ===== -->
         <div class="page" id="page-availability">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-                <div></div>
+            <!-- Summary Stats -->
+            <div class="stats-row" style="margin-bottom:20px">
+                <div class="card" style="background:linear-gradient(135deg,var(--green-l) 0%,rgba(34,197,94,.15) 100%)">
+                    <div class="card-body" style="padding:18px">
+                        <div style="font-size:.85rem;font-weight:600;color:var(--green);margin-bottom:6px">Available Today</div>
+                        <div class="stat-value" style="color:var(--green)" id="availTodayCount">0</div>
+                        <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="availTodaySub">staff members</div>
+                    </div>
+                </div>
+                <div class="card" style="background:linear-gradient(135deg,var(--orange-l) 0%,rgba(237,137,54,.2) 100%)">
+                    <div class="card-body" style="padding:18px">
+                        <div style="font-size:.85rem;font-weight:600;color:var(--orange);margin-bottom:6px">Pending Requests</div>
+                        <div class="stat-value" style="color:var(--orange)" id="pendingRequestsCount">0</div>
+                        <div style="font-size:.82rem;color:var(--g500);margin-top:4px">time-off requests</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body" style="padding:18px">
+                        <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Full Availability</div>
+                        <div class="stat-value" style="color:var(--ink)" id="fullAvailCount">0</div>
+                        <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="fullAvailSub">of 11 staff</div>
+                    </div>
+                </div>
+                <div class="card" style="background:linear-gradient(135deg,var(--red-l) 0%,var(--red) 100%)">
+                    <div class="card-body" style="padding:18px">
+                        <div style="font-size:.85rem;font-weight:600;color:var(--red);margin-bottom:6px">Coverage Alert</div>
+                        <div class="stat-value" style="font-size:1.4rem;color:var(--red)" id="coverageAlertDay">—</div>
+                        <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="coverageAlertText">All days covered</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters and Actions -->
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+                <div class="tabs">
+                    <button class="tab active" onclick="switchAvailTab('all',this)">All Staff</button>
+                    <button class="tab" onclick="switchAvailTab('today',this)">Available Today</button>
+                    <button class="tab" onclick="switchAvailTab('limited',this)">Limited Availability</button>
+                    <button class="tab" onclick="switchAvailTab('off',this)">Off Today</button>
+                </div>
                 <button class="btn btn-rust" onclick="openModal('availModal')">+ Submit Availability</button>
             </div>
-            <div class="card" style="margin-bottom:20px">
-                <div class="card-header"><h2>Weekly Availability</h2></div>
-                <table><thead><tr><th>Staff</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th></tr></thead>
-                <tbody id="availTableBody"></tbody></table>
+
+            <!-- View Toggle -->
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                <div class="tabs" style="margin:0">
+                    <button class="tab active" onclick="switchAvailView('table',this)">Table View</button>
+                    <button class="tab" onclick="switchAvailView('calendar',this)">Calendar View</button>
+                </div>
             </div>
+
+            <!-- Table View -->
+            <div id="availTableView">
+                <div class="card" style="margin-bottom:20px">
+                    <div class="card-header">
+                        <h2>Weekly Availability</h2>
+                        <span style="font-size:.88rem;color:var(--g500);font-weight:500">Showing <span id="availFilterLabel">all staff</span></span>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Staff</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                        </thead>
+                        <tbody id="availTableBody"></tbody>
+                        <tfoot>
+                            <tr style="background:var(--g50);font-weight:700">
+                                <td>Coverage</td>
+                                <td id="coverMon" style="text-align:center">0</td>
+                                <td id="coverTue" style="text-align:center">0</td>
+                                <td id="coverWed" style="text-align:center">0</td>
+                                <td id="coverThu" style="text-align:center">0</td>
+                                <td id="coverFri" style="text-align:center">0</td>
+                                <td id="coverSat" style="text-align:center">0</td>
+                                <td id="coverSun" style="text-align:center">0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Calendar View -->
+            <div id="availCalendarView" style="display:none">
+                <div class="card" style="margin-bottom:20px">
+                    <div class="card-header"><h2>Weekly Availability Calendar</h2></div>
+                    <div class="card-body">
+                        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:12px" id="availCalendarGrid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time-Off Requests -->
             <div class="card">
-                <div class="card-header"><h2>Time-Off Requests</h2></div>
-                <table><thead><tr><th>Staff</th><th>Dates</th><th>Reason</th><th>Submitted</th><th>Status</th><th></th></tr></thead>
-                <tbody id="timeOffBody"></tbody></table>
+                <div class="card-header">
+                    <h2>Time-Off Requests</h2>
+                    <button class="btn btn-rust btn-sm" onclick="openModal('timeOffModal')">+ Request Time Off</button>
+                </div>
+                <div style="padding:0 20px 12px">
+                    <div class="tabs" style="margin:0">
+                        <button class="tab active" onclick="switchTimeOffTab('all',this)">All</button>
+                        <button class="tab" onclick="switchTimeOffTab('pending',this)">Pending</button>
+                        <button class="tab" onclick="switchTimeOffTab('approved',this)">Approved</button>
+                        <button class="tab" onclick="switchTimeOffTab('denied',this)">Denied</button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Staff</th>
+                            <th>Dates</th>
+                            <th>Reason</th>
+                            <th>Submitted</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="timeOffBody"></tbody>
+                </table>
             </div>
         </div>
 
@@ -826,6 +938,23 @@
         </div>
     </div>
     <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('availModal')">Cancel</button><button class="btn btn-green" onclick="submitAvail()">Save Availability</button></div>
+</div></div>
+
+<!-- TIME OFF REQUEST MODAL -->
+<div class="modal-overlay" id="timeOffModal"><div class="modal">
+    <div class="modal-header"><h2>Request Time Off</h2><button class="modal-close" onclick="closeModal('timeOffModal')">&times;</button></div>
+    <div class="modal-body">
+        <div class="form-group"><label for="toStaff">Staff Member</label><select id="toStaff"><option>DeShawn Williams</option><option>Tamika Jones</option><option>Andre Davis</option><option>Maria Santos</option><option>James Wilson</option><option>Tiffany Moore</option><option>Chris Taylor</option><option>Brandon Lewis</option><option>Ray Mitchell</option><option>Marcus Thompson</option></select></div>
+        <div class="form-row">
+            <div class="form-group"><label for="toStartDate">Start Date</label><input type="date" id="toStartDate"></div>
+            <div class="form-group"><label for="toEndDate">End Date</label><input type="date" id="toEndDate"></div>
+        </div>
+        <div class="form-group"><label for="toReason">Reason</label><textarea id="toReason" rows="3" placeholder="Vacation, personal, medical, etc."></textarea></div>
+        <div id="toConflictWarning" style="display:none;background:var(--orange-l);border-left:3px solid var(--orange);padding:12px 16px;border-radius:8px;margin-top:12px">
+            <p style="font-size:.9rem;color:var(--orange);font-weight:600;margin:0"><strong>⚠️ Scheduling Conflict:</strong> <span id="toConflictText"></span></p>
+        </div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-outline" onclick="closeModal('timeOffModal')">Cancel</button><button class="btn btn-rust" onclick="submitTimeOff()">Submit Request</button></div>
 </div></div>
 
 <!-- SHIFT NOTE MODAL -->
@@ -1292,12 +1421,56 @@ const timeOff=[
     {staff:'Chris Taylor',dates:'Feb 14, 2026',reason:'Personal',submitted:'Jan 29',status:'Pending'},
     {staff:'James Wilson',dates:'Feb 20-22, 2026',reason:'Out of town',submitted:'Jan 30',status:'Pending'},
 ];
-function renderAvailability(){
-    const dLbl=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-    document.getElementById('availTableBody').innerHTML=availability.map(a=>`<tr><td style="font-weight:600">${a.staff}</td>${a.days.map(d=>`<td><span class="badge badge-${d==='Off'?'off':d==='Any'?'confirmed':d==='Lunch'?'scheduled':'pending'}">${d}</span></td>`).join('')}</tr>`).join('');
-    document.getElementById('timeOffBody').innerHTML=timeOff.map((t,i)=>`<tr><td style="font-weight:600">${t.staff}</td><td>${t.dates}</td><td>${t.reason}</td><td>${t.submitted}</td><td><span class="badge badge-${t.status==='Approved'?'confirmed':'pending'}">${t.status}</span></td><td>${t.status==='Pending'?'<div class="btn-group"><button class="btn btn-green btn-sm" onclick="timeOff['+i+'].status=\'Approved\';renderAvailability();showToast(\'Approved\',\'success\')">Approve</button><button class="btn btn-outline btn-sm" onclick="timeOff['+i+'].status=\'Denied\';renderAvailability();showToast(\'Denied\')">Deny</button></div>':''}</td></tr>`).join('');
+let availTab='all';let availView='table';let timeOffTab='all';
+function updateAvailStats(){
+    const todayIdx=new Date().getDay();const dayIdx=todayIdx===0?6:todayIdx-1;
+    const availToday=availability.filter(a=>a.days[dayIdx]!=='Off').length;
+    const pendingTO=timeOff.filter(t=>t.status==='Pending').length;
+    const fullAvail=availability.filter(a=>!a.days.includes('Off')).length;
+    const coverage=[0,0,0,0,0,0,0];
+    availability.forEach(a=>a.days.forEach((d,i)=>{if(d!=='Off')coverage[i]++}));
+    const minCoverage=Math.min(...coverage);const alertIdx=coverage.indexOf(minCoverage);
+    const dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    document.getElementById('availTodayCount').textContent=availToday;
+    document.getElementById('pendingRequestsCount').textContent=pendingTO;
+    document.getElementById('fullAvailCount').textContent=fullAvail;
+    if(minCoverage<6){document.getElementById('coverageAlertDay').textContent=dayNames[alertIdx];document.getElementById('coverageAlertText').textContent=minCoverage+' staff available';}else{document.getElementById('coverageAlertDay').textContent='✓';document.getElementById('coverageAlertText').textContent='All days covered';}
+    ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach((d,i)=>{const el=document.getElementById('cover'+d);el.textContent=coverage[i];el.style.color=coverage[i]<6?'var(--orange)':coverage[i]<8?'var(--ink)':'var(--green)';el.style.fontWeight=coverage[i]<6?'700':'600';});
 }
-function submitAvail(){const staff=document.getElementById('avStaff').value;const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>document.getElementById('av'+d).value);const existing=availability.find(a=>a.staff===staff);if(existing)existing.days=days;else availability.push({staff,days});renderAvailability();closeModal('availModal');showToast(staff+'\'s availability updated!','success')}
+function renderAvailability(){
+    updateAvailStats();
+    const todayIdx=new Date().getDay();const dayIdx=todayIdx===0?6:todayIdx-1;
+    let filtered=availability;
+    if(availTab==='today')filtered=availability.filter(a=>a.days[dayIdx]!=='Off');
+    else if(availTab==='limited')filtered=availability.filter(a=>a.days.includes('Off')||a.days.includes('Lunch')||a.days.includes('Dinner'));
+    else if(availTab==='off')filtered=availability.filter(a=>a.days[dayIdx]==='Off');
+    document.getElementById('availFilterLabel').textContent=availTab==='all'?'all staff':availTab==='today'?'staff available today':availTab==='limited'?'limited availability':'staff off today';
+    document.getElementById('availTableBody').innerHTML=filtered.map(a=>`<tr><td style="font-weight:600">${a.staff}</td>${a.days.map((d,i)=>`<td style="background:${i===dayIdx?'var(--g50)':'transparent'}"><span class="badge badge-${d==='Off'?'off':d==='Any'?'confirmed':d==='Lunch'||d==='Dinner'?'scheduled':'pending'}">${d}</span></td>`).join('')}</tr>`).join('');
+    renderTimeOff();
+    if(availView==='calendar')renderAvailCalendar();
+}
+function renderAvailCalendar(){
+    const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const html=days.map((day,idx)=>{
+        const avail=availability.filter(a=>a.days[idx]!=='Off');
+        return`<div style="border:1px solid var(--g200);border-radius:10px;padding:12px;min-height:200px"><div style="font-weight:700;font-size:.9rem;color:var(--ink);margin-bottom:8px;padding-bottom:8px;border-bottom:2px solid var(--g200)">${day}<span style="float:right;color:${avail.length<6?'var(--orange)':'var(--green)'};font-size:.85rem">${avail.length} staff</span></div><div style="display:flex;flex-direction:column;gap:4px">${avail.map(a=>`<div style="background:var(--g50);padding:6px 8px;border-radius:6px;font-size:.85rem"><strong>${a.staff.split(' ')[0]}</strong><span style="float:right;font-size:.75rem" class="badge badge-${a.days[idx]==='Any'?'confirmed':'scheduled'}">${a.days[idx]}</span></div>`).join('')}</div></div>`;
+    }).join('');
+    document.getElementById('availCalendarGrid').innerHTML=html;
+}
+function switchAvailTab(tab,el){availTab=tab;el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderAvailability();}
+function switchAvailView(view,el){availView=view;el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');document.getElementById('availTableView').style.display=view==='table'?'block':'none';document.getElementById('availCalendarView').style.display=view==='calendar'?'block':'none';if(view==='calendar')renderAvailCalendar();}
+function renderTimeOff(){
+    let filtered=timeOff;
+    if(timeOffTab==='pending')filtered=timeOff.filter(t=>t.status==='Pending');
+    else if(timeOffTab==='approved')filtered=timeOff.filter(t=>t.status==='Approved');
+    else if(timeOffTab==='denied')filtered=timeOff.filter(t=>t.status==='Denied');
+    document.getElementById('timeOffBody').innerHTML=filtered.map((t,i)=>`<tr><td style="font-weight:600">${t.staff}</td><td>${t.dates}</td><td>${t.reason}</td><td>${t.submitted}</td><td><span class="badge badge-${t.status==='Approved'?'confirmed':t.status==='Pending'?'pending':'off'}">${t.status}</span></td><td>${t.status==='Pending'?'<div class="btn-group"><button class="btn btn-green btn-sm" onclick="approveTimeOff('+i+')">Approve</button><button class="btn btn-outline btn-sm" onclick="denyTimeOff('+i+')">Deny</button></div>':''}</td></tr>`).join('');
+}
+function switchTimeOffTab(tab,el){timeOffTab=tab;el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderTimeOff();}
+function approveTimeOff(idx){timeOff[idx].status='Approved';renderAvailability();showToast('Time-off request approved','success');}
+function denyTimeOff(idx){timeOff[idx].status='Denied';renderAvailability();showToast('Time-off request denied');}
+function submitAvail(){const staff=document.getElementById('avStaff').value;const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>document.getElementById('av'+d).value);const existing=availability.find(a=>a.staff===staff);if(existing)existing.days=days;else availability.push({staff,days});renderAvailability();closeModal('availModal');showToast(staff+'\'s availability updated!','success');}
+function submitTimeOff(){const staff=document.getElementById('toStaff').value;const start=document.getElementById('toStartDate').value;const end=document.getElementById('toEndDate').value;const reason=document.getElementById('toReason').value.trim();if(!start||!end){showToast('Enter start and end dates');return;}if(!reason){showToast('Enter a reason');return;}const dates=start===end?new Date(start).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):new Date(start).toLocaleDateString('en-US',{month:'short',day:'numeric'})+'-'+new Date(end).toLocaleDateString('en-US',{day:'numeric',year:'numeric'});timeOff.push({staff,dates,reason,submitted:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),status:'Pending'});renderAvailability();closeModal('timeOffModal');showToast('Time-off request submitted','success');}
 
 // ===== SHIFT NOTES =====
 const handoffNotes={today:[
