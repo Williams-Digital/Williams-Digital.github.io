@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposal for Heritage Coffee | Williams Digital</title>
+  <meta name="description" content="Web design, branding, and digital services proposal for Heritage Coffee by Williams Digital." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --text: #1A1A1A;
+      --subtle: #6B7280;
+      --border: #E5E7EB;
+      --accent: #1A1A1A;
+      --accent-light: #374151;
+      --gold: #C8A96E;
+      --font: 'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--gold); color: #fff; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Layout ── */
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Header ── */
+    .header {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+    .logo span { color: var(--gold); }
+    .header-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--subtle);
+      font-weight: 500;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--subtle);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+    .meta-row {
+      display: flex;
+      gap: 48px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    .meta-item { }
+    .meta-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--subtle);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+    .section-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .section h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+    .section p {
+      color: var(--subtle);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* ── Preview banner ── */
+    .preview-banner {
+      background: var(--accent);
+      color: #fff;
+      padding: 40px;
+      margin-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .preview-banner p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.9rem;
+    }
+    .preview-banner strong {
+      color: #fff;
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .preview-btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--gold);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      transition: background 0.3s;
+    }
+    .preview-btn:hover { background: #d4b87a; }
+
+    /* ── Service list ── */
+    .service-list { list-style: none; }
+    .service-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .service-item:last-child { border-bottom: none; }
+    .service-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .service-desc {
+      font-size: 0.85rem;
+      color: var(--subtle);
+      line-height: 1.6;
+    }
+    .service-check {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .service-check::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    /* ── Pricing ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    @media (min-width: 640px) {
+      .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .price-card {
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      background: var(--surface);
+      position: relative;
+    }
+    .price-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .price-card.featured::before {
+      content: "Recommended";
+      position: absolute;
+      top: -12px;
+      left: 28px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 4px 12px;
+      font-weight: 600;
+    }
+    .price-tier {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--subtle);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .price-amount {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .price-amount span {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--subtle);
+    }
+    .price-list {
+      list-style: none;
+    }
+    .price-list li {
+      font-size: 0.8rem;
+      color: var(--subtle);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .price-list li:last-child { border-bottom: none; }
+    .price-list li::before {
+      content: "—";
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* ── Timeline ── */
+    .timeline { list-style: none; margin-top: 24px; }
+    .timeline li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .timeline li:last-child { border-bottom: none; }
+    .timeline-week {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      font-weight: 700;
+      padding-top: 2px;
+    }
+    .timeline-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .timeline-desc {
+      font-size: 0.85rem;
+      color: var(--subtle);
+    }
+
+    /* ── CTA ── */
+    .cta {
+      background: var(--accent);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .cta h2 {
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .cta p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--gold);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      transition: background 0.3s;
+    }
+    .cta-btn:hover { background: #d4b87a; }
+    .cta-or {
+      display: block;
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .cta-or a {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer p {
+      font-size: 0.75rem;
+      color: var(--subtle);
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2rem; }
+      .section h2 { font-size: 1.4rem; }
+      .price-amount { font-size: 1.75rem; }
+      .preview-banner { flex-direction: column; text-align: center; }
+      .meta-row { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">WILLIAMS<span>.</span>DIGITAL</div>
+        <span class="header-tag">Proposal</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero-label">Proposal</p>
+      <h1>Heritage Coffee<br />Digital Partnership</h1>
+      <p>A comprehensive web design, branding, and digital services proposal to elevate Heritage Coffee's online presence and match the energy of what you're building in Ensley.</p>
+      <div class="meta-row">
+        <div class="meta-item">
+          <p class="meta-label">Prepared For</p>
+          <p class="meta-value">Heritage Coffee</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Prepared By</p>
+          <p class="meta-value">Williams Digital</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Date</p>
+          <p class="meta-value">February 2, 2026</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Valid Through</p>
+          <p class="meta-value">March 2, 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preview -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Live Preview</p>
+      <h2>We Already Built It</h2>
+      <p>We went ahead and designed a full concept for Heritage Coffee — 5 pages, fully responsive, built around your brand identity. Take a look.</p>
+      <div class="preview-banner">
+        <div>
+          <strong>Heritage Coffee — Website Concept</strong>
+          <p>Home, Menu, About, Shop, Contact — all live and ready to review.</p>
+        </div>
+        <a href="https://williamsdigital.io/preview/heritage-coffee/" target="_blank" class="preview-btn">View Preview &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">What We Offer</p>
+      <h2>Services for Heritage Coffee</h2>
+      <p style="margin-bottom:32px;">Everything you need to bring your digital presence up to the level of what you're building in person.</p>
+
+      <ul class="service-list">
+        <li class="service-item">
+          <div>
+            <p class="service-name">Custom Website Design &amp; Development</p>
+            <p class="service-desc">A fully custom, mobile-responsive website built from scratch — not a template. 5 pages: Home, Menu, About, Shop, Contact. Optimized for speed and SEO.</p>
+          </div>
+          <div class="service-check"></div>
+        </li>
+        <li class="service-item">
+          <div>
+            <p class="service-name">Graphic Design &amp; Brand Collateral</p>
+            <p class="service-desc">Logo refinements, menu boards, social media templates, business cards, signage — a cohesive visual identity across every touchpoint.</p>
+          </div>
+          <div class="service-check"></div>
+        </li>
+        <li class="service-item">
+          <div>
+            <p class="service-name">Professional Email Setup</p>
+            <p class="service-desc">Custom @heritagecoffee.shop email accounts for the entire team. hello@, josh@, staff@ — professional, branded, and configured on all devices.</p>
+          </div>
+          <div class="service-check"></div>
+        </li>
+        <li class="service-item">
+          <div>
+            <p class="service-name">Domain &amp; Hosting Management</p>
+            <p class="service-desc">We handle the technical side — domain, SSL, hosting, uptime monitoring, backups. You focus on the coffee.</p>
+          </div>
+          <div class="service-check"></div>
+        </li>
+        <li class="service-item">
+          <div>
+            <p class="service-name">Ongoing Support &amp; Maintenance</p>
+            <p class="service-desc">Menu updates, seasonal changes, new product launches — we keep the site fresh and running smoothly month over month.</p>
+          </div>
+          <div class="service-check"></div>
+        </li>
+        <li class="service-item">
+          <div>
+            <p class="service-name">Google Business &amp; Local SEO</p>
+            <p class="service-desc">Optimized Google Business profile, local search keywords, and structured data to make sure people find you when they search for coffee in Birmingham.</p>
+          </div>
+          <div class="service-check"></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Investment</p>
+      <h2>Pricing Options</h2>
+      <p>Choose the level of partnership that works for Heritage Coffee right now. Every tier includes the custom website.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <p class="price-tier">Foundation</p>
+          <p class="price-amount">$1,500 <span>one-time</span></p>
+          <ul class="price-list">
+            <li>Custom 5-page website</li>
+            <li>Mobile responsive</li>
+            <li>Basic SEO setup</li>
+            <li>Domain &amp; hosting (1 yr)</li>
+            <li>1 round of revisions</li>
+          </ul>
+        </div>
+        <div class="price-card featured">
+          <p class="price-tier">Growth</p>
+          <p class="price-amount">$2,500 <span>one-time</span></p>
+          <ul class="price-list">
+            <li>Everything in Foundation</li>
+            <li>Professional email setup</li>
+            <li>Brand collateral package</li>
+            <li>Google Business optimization</li>
+            <li>3 rounds of revisions</li>
+            <li>30 days post-launch support</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <p class="price-tier">Full Partnership</p>
+          <p class="price-amount">$3,500 <span>+ $150/mo</span></p>
+          <ul class="price-list">
+            <li>Everything in Growth</li>
+            <li>Ongoing site maintenance</li>
+            <li>Monthly content updates</li>
+            <li>Social media templates</li>
+            <li>Priority support</li>
+            <li>Quarterly strategy check-in</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Timeline</p>
+      <h2>How It Works</h2>
+      <p>From kickoff to launch — a clear, no-nonsense process.</p>
+
+      <ul class="timeline">
+        <li>
+          <span class="timeline-week">Week 1</span>
+          <div>
+            <p class="timeline-title">Discovery &amp; Kickoff</p>
+            <p class="timeline-desc">Meet to discuss goals, review the concept site, finalize direction and content needs.</p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-week">Week 2</span>
+          <div>
+            <p class="timeline-title">Design Refinement</p>
+            <p class="timeline-desc">Apply your feedback to the existing concept. Finalize colors, photos, copy, and layout.</p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-week">Week 3</span>
+          <div>
+            <p class="timeline-title">Build &amp; Setup</p>
+            <p class="timeline-desc">Final development, email configuration, SEO setup, and thorough cross-device testing.</p>
+          </div>
+        </li>
+        <li>
+          <span class="timeline-week">Week 4</span>
+          <div>
+            <p class="timeline-title">Launch</p>
+            <p class="timeline-desc">Go live at heritagecoffee.shop. Domain pointed, SSL active, Google Business updated.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Ready to move forward?</h2>
+    <p>Let's get Heritage Coffee's digital presence where it should be.</p>
+    <a href="mailto:hello@williamsdigital.io?subject=Heritage%20Coffee%20Proposal" class="cta-btn">Let's Talk &rarr;</a>
+    <span class="cta-or">or call/text <a href="tel:">your number here</a></span>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Williams Digital. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
