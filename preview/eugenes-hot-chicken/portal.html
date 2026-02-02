@@ -587,14 +587,46 @@
 
         <!-- ===== SHIFT NOTES / HANDOFF ===== -->
         <div class="page" id="page-handoff">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-                <div class="tabs">
-                    <button class="tab active" onclick="switchHandoffTab('today',this)">Today</button>
-                    <button class="tab" onclick="switchHandoffTab('yesterday',this)">Yesterday</button>
+            <div style="margin-bottom:24px">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px">
+                    <div class="card" style="background:linear-gradient(135deg,var(--red-l) 0%,var(--red) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--red);margin-bottom:6px">Urgent Notes</div>
+                            <div class="stat-value" style="color:var(--red)" id="urgentNotesCount">0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px">Needs attention</div>
+                        </div>
+                    </div>
+                    <div class="card" style="background:linear-gradient(135deg,var(--orange-l) 0%,rgba(237,137,54,.2) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--orange);margin-bottom:6px">Important Notes</div>
+                            <div class="stat-value" style="color:var(--orange)" id="importantNotesCount">0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px">High priority</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--g500);margin-bottom:6px">Total Notes</div>
+                            <div class="stat-value" style="color:var(--ink)" id="totalNotesCount">0</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="notesBreakdown">0 categories</div>
+                        </div>
+                    </div>
+                    <div class="card" style="background:linear-gradient(135deg,var(--green-l) 0%,rgba(34,197,94,.15) 100%)">
+                        <div class="card-body" style="padding:18px">
+                            <div style="font-size:.85rem;font-weight:600;color:var(--green);margin-bottom:6px">Latest Update</div>
+                            <div class="stat-value" style="font-size:1.4rem;color:var(--green)" id="latestNoteTime">—</div>
+                            <div style="font-size:.82rem;color:var(--g500);margin-top:4px" id="latestNoteFrom">No notes</div>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn btn-rust" onclick="openModal('noteModal')">+ Add Note</button>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchHandoffTab('today',this)">Today</button>
+                        <button class="tab" onclick="switchHandoffTab('yesterday',this)">Yesterday</button>
+                    </div>
+                    <button class="btn btn-rust" onclick="openModal('noteModal')">+ Add Note</button>
+                </div>
             </div>
-            <div id="handoffNotes" style="display:flex;flex-direction:column;gap:14px"></div>
+            <div id="handoffNotes" style="display:flex;flex-direction:column;gap:16px"></div>
         </div>
 
         <!-- ===== SALES DASHBOARD ===== -->
@@ -1459,15 +1491,32 @@ const handoffNotes={today:[
 ]};
 let handoffTab='today';
 function switchHandoffTab(t,el){handoffTab=t;el.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderHandoff()}
-function renderHandoff(){
+function updateHandoffStats(){
     const notes=handoffNotes[handoffTab]||[];
-    document.getElementById('handoffNotes').innerHTML=notes.map(n=>{
+    const urgentCount=notes.filter(n=>n.priority==='Urgent').length;
+    const importantCount=notes.filter(n=>n.priority==='Important').length;
+    const totalCount=notes.length;
+    const categories=new Set(notes.map(n=>n.cat));
+    const categoryCount=categories.size;
+    const latestNote=notes.length>0?notes[0]:null;
+
+    document.getElementById('urgentNotesCount').textContent=urgentCount;
+    document.getElementById('importantNotesCount').textContent=importantCount;
+    document.getElementById('totalNotesCount').textContent=totalCount;
+    document.getElementById('notesBreakdown').textContent=categoryCount+' categories';
+    document.getElementById('latestNoteTime').textContent=latestNote?latestNote.time:'—';
+    document.getElementById('latestNoteFrom').textContent=latestNote?latestNote.from.split('(')[0].trim():'No notes';
+}
+function renderHandoff(){
+    updateHandoffStats();
+    const notes=handoffNotes[handoffTab]||[];
+    document.getElementById('handoffNotes').innerHTML=notes.length?notes.map(n=>{
         const pColor=n.priority==='Urgent'?'var(--red)':n.priority==='Important'?'var(--orange)':'var(--sage)';
         const pBg=n.priority==='Urgent'?'var(--red-l)':n.priority==='Important'?'var(--orange-l)':'var(--sage-light)';
-        return`<div class="card"><div class="card-body" style="padding:16px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px"><div style="display:flex;align-items:center;gap:10px"><strong style="font-size:.9rem">${n.from}</strong><span class="badge" style="background:${pBg};color:${pColor}">${n.priority}</span><span class="badge badge-off">${n.cat}</span></div><span style="font-size:.78rem;color:var(--g400)">${n.time}</span></div><p style="font-size:.9rem;color:var(--g600);line-height:1.6">${n.text}</p></div></div>`;
-    }).join('');
+        return`<div class="card"><div class="card-body" style="padding:20px"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:12px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><strong style="font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink);letter-spacing:-0.01em">${n.from}</strong><span class="badge" style="background:${pBg};color:${pColor};padding:6px 12px;font-size:.85rem;font-weight:600">${n.priority}</span><span class="badge badge-off" style="padding:6px 12px;font-size:.85rem">${n.cat}</span></div><span style="font-size:.88rem;color:var(--g400);font-weight:500">${n.time}</span></div><p style="font-family:'Inter',sans-serif;font-size:1rem;color:var(--g700);line-height:1.65;margin:0">${n.text}</p></div></div>`;
+    }).join(''):'<div class="card"><div class="card-body" style="padding:32px;text-align:center;color:var(--g400);font-size:1rem">No notes for '+handoffTab+'</div></div>';
 }
-function addHandoffNote(){const text=document.getElementById('noteText').value.trim();if(!text)return;const from=document.getElementById('noteFrom').value;const cat=document.getElementById('noteCat').value;const priority=document.getElementById('notePriority').value;handoffNotes.today.unshift({from,cat,text,priority,time:new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})});document.getElementById('noteText').value='';renderHandoff();closeModal('noteModal');showToast('Note posted!','success')}
+function addHandoffNote(){const text=document.getElementById('noteText').value.trim();if(!text)return;const from=document.getElementById('noteFrom').value;const cat=document.getElementById('noteCat').value;const priority=document.getElementById('notePriority').value;handoffNotes.today.unshift({from,cat,text,priority,time:new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})});document.getElementById('noteText').value='';handoffTab='today';renderHandoff();closeModal('noteModal');showToast('Note posted!','success')}
 
 // ===== SALES =====
 const salesLog=[
