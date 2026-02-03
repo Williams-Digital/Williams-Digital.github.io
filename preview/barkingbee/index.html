@@ -260,11 +260,149 @@
       font-size: 0.75rem; color: rgba(215,204,200,0.4);
     }
 
+    /* CONTACT */
+    .contact-section { background: var(--foam); padding: 6rem 6%; }
+    .contact-wrapper {
+      max-width: 1200px; margin: auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    }
+    .contact-left .tag { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--burnt-orange); font-weight: 600; margin-bottom: 1rem; }
+    .contact-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--dark-roast); margin-bottom: 1rem;
+    }
+    .contact-desc { color: var(--medium-roast); font-size: 0.95rem; line-height: 1.7; font-weight: 300; margin-bottom: 2rem; }
+
+    .contact-form .form-group { margin-bottom: 1.25rem; }
+    .contact-form label {
+      display: block; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--medium-roast); margin-bottom: 0.5rem;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%; padding: 0.85rem 1rem;
+      border: 1.5px solid var(--crema); border-radius: 10px;
+      background: white; font-family: 'Inter', sans-serif;
+      font-size: 0.9rem; color: var(--espresso);
+      transition: border-color 0.3s, box-shadow 0.3s; outline: none;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: var(--caramel);
+      box-shadow: 0 0 0 3px rgba(198,139,89,0.15);
+    }
+    .contact-form textarea { resize: vertical; }
+
+    .brew-picker { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .brew-opt {
+      padding: 0.5rem 1.1rem; border-radius: 50px;
+      border: 1.5px solid var(--crema); background: white;
+      font-size: 0.8rem; font-weight: 500; color: var(--medium-roast);
+      cursor: pointer; transition: all 0.3s; font-family: 'Inter', sans-serif;
+    }
+    .brew-opt:hover { border-color: var(--caramel); color: var(--caramel); }
+    .brew-opt.picked {
+      background: var(--caramel); color: white; border-color: var(--caramel);
+      transform: scale(1.05);
+    }
+
+    .send-btn { width: 100%; text-align: center; border: none; cursor: pointer; font-family: 'Inter', sans-serif; margin-top: 0.5rem; }
+    .sent-msg {
+      text-align: center; padding: 1rem; margin-top: 1rem;
+      background: var(--deep-sage); color: white; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 500;
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.5s;
+    }
+    .contact-form.sent .send-btn { background: var(--deep-sage); pointer-events: none; }
+    .contact-form.sent .sent-msg { opacity: 1; transform: translateY(0); }
+
+    /* COFFEE CUP ANIMATION */
+    .coffee-cup-scene { text-align: center; margin-bottom: 2.5rem; }
+    .cup { position: relative; display: inline-block; margin-top: 1rem; }
+    .cup-body {
+      width: 120px; height: 100px;
+      background: white; border: 3px solid var(--crema);
+      border-radius: 0 0 30px 30px; position: relative;
+      overflow: hidden;
+    }
+    .coffee-fill {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 0%; background: linear-gradient(to top, var(--dark-roast), var(--caramel));
+      transition: height 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+      border-radius: 0 0 27px 27px;
+    }
+    .pour .coffee-fill { height: 75%; }
+    .latte-art {
+      position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+      width: 50px; height: 50px; opacity: 0;
+      transition: opacity 0.8s 1.2s;
+    }
+    .pour .latte-art { opacity: 0.4; }
+    .leaf {
+      width: 100%; height: 100%;
+      border-radius: 50% 0 50% 0;
+      border: 2px solid var(--crema);
+      transform: rotate(45deg);
+    }
+    .cup-handle {
+      position: absolute; right: -22px; top: 18px;
+      width: 22px; height: 40px;
+      border: 3px solid var(--crema); border-left: none;
+      border-radius: 0 20px 20px 0;
+    }
+    .saucer {
+      width: 160px; height: 14px; margin: -2px auto 0;
+      background: white; border: 3px solid var(--crema);
+      border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    }
+
+    /* STEAM */
+    .steam { display: flex; justify-content: center; gap: 8px; height: 40px; }
+    .steam span {
+      display: block; width: 6px; height: 20px;
+      background: rgba(198,139,89,0.25); border-radius: 50%;
+      animation: steam 1.8s ease-in-out infinite;
+      filter: blur(2px);
+    }
+    .steam span:nth-child(2) { animation-delay: 0.4s; height: 26px; }
+    .steam span:nth-child(3) { animation-delay: 0.8s; height: 18px; }
+    .pour .steam span { background: rgba(198,139,89,0.5); }
+    @keyframes steam {
+      0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.3; }
+      50% { transform: translateY(-12px) scaleX(1.4); opacity: 0.7; }
+    }
+
+    .cup-label {
+      margin-top: 1.25rem; font-size: 0.82rem;
+      color: var(--medium-roast); font-weight: 400; line-height: 1.5;
+    }
+
+    /* INFO CARDS */
+    .contact-info-cards { display: flex; flex-direction: column; gap: 0.75rem; }
+    .info-card {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.25rem; background: white;
+      border: 1.5px solid var(--crema); border-radius: 12px;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .info-card:hover { border-color: var(--caramel); transform: translateX(6px); }
+    .info-card .bean {
+      font-size: 1.6rem; transition: transform 0.5s;
+      display: inline-block;
+    }
+    .info-card .bean.spin { transform: rotate(360deg); }
+    .info-card strong { display: block; font-size: 0.85rem; color: var(--dark-roast); }
+    .info-card p { font-size: 0.8rem; color: var(--medium-roast); font-weight: 300; margin: 0; }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .story { grid-template-columns: 1fr; gap: 2rem; }
       .story-img { max-height: 400px; aspect-ratio: auto; }
       .values-grid { grid-template-columns: 1fr; max-width: 450px; }
+      .contact-wrapper { grid-template-columns: 1fr; }
+      .coffee-cup-scene { margin-bottom: 2rem; }
       nav ul { display: none; }
     }
   </style>
@@ -280,7 +418,7 @@
       <li><a href="#craft">Our Craft</a></li>
       <li><a href="#values">What Drives Us</a></li>
       <li><a href="#shop">Shop Coffee</a></li>
-      <li><a href="#footer">Contact</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
@@ -367,6 +505,86 @@
       <a href="#" class="cta-btn" onclick="event.preventDefault();alert('Feature coming soon!')">Shop Our Coffee</a>
     </div>
   </div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="contact-wrapper">
+      <div class="contact-left">
+        <p class="tag">Get In Touch</p>
+        <h2>Let's Brew Something Together</h2>
+        <p class="contact-desc">Whether you have a question, want to place a bulk order, or just want to talk coffee — we'd love to hear from you.</p>
+
+        <form class="contact-form" onsubmit="event.preventDefault(); this.classList.add('sent'); document.getElementById('cup-anim').classList.add('pour');">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="e.g. Coffee Lover" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Your Brew of Choice</label>
+            <div class="brew-picker">
+              <button type="button" class="brew-opt" onclick="this.classList.toggle('picked')">Espresso</button>
+              <button type="button" class="brew-opt" onclick="this.classList.toggle('picked')">Pour Over</button>
+              <button type="button" class="brew-opt" onclick="this.classList.toggle('picked')">Cold Brew</button>
+              <button type="button" class="brew-opt" onclick="this.classList.toggle('picked')">French Press</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="4" placeholder="Tell us what's on your mind..."></textarea>
+          </div>
+          <button type="submit" class="cta-btn send-btn">Send Message</button>
+          <div class="sent-msg">Thanks! We'll get back to you shortly.</div>
+        </form>
+      </div>
+
+      <div class="contact-right">
+        <div id="cup-anim" class="coffee-cup-scene">
+          <div class="steam">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="cup">
+            <div class="cup-body">
+              <div class="coffee-fill"></div>
+              <div class="latte-art">
+                <div class="leaf"></div>
+              </div>
+            </div>
+            <div class="cup-handle"></div>
+            <div class="saucer"></div>
+          </div>
+          <p class="cup-label">Send a message &<br>watch your cup fill up!</p>
+        </div>
+
+        <div class="contact-info-cards">
+          <div class="info-card" onmouseenter="this.querySelector('.bean').classList.add('spin')" onmouseleave="this.querySelector('.bean').classList.remove('spin')">
+            <span class="bean">&#9749;</span>
+            <div>
+              <strong>Visit the Cafe</strong>
+              <p>Open Mon - Sat, 7am - 5pm</p>
+            </div>
+          </div>
+          <div class="info-card" onmouseenter="this.querySelector('.bean').classList.add('spin')" onmouseleave="this.querySelector('.bean').classList.remove('spin')">
+            <span class="bean">&#9993;</span>
+            <div>
+              <strong>Email Us</strong>
+              <p>hello@barkingbeecoffee.com</p>
+            </div>
+          </div>
+          <div class="info-card" onmouseenter="this.querySelector('.bean').classList.add('spin')" onmouseleave="this.querySelector('.bean').classList.remove('spin')">
+            <span class="bean">&#128241;</span>
+            <div>
+              <strong>Follow Along</strong>
+              <p>@barkingbeecoffee</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer id="footer">
