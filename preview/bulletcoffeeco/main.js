@@ -35,66 +35,9 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15 });
 
-document.querySelectorAll('.section, .gallery-section').forEach(el => {
+document.querySelectorAll('.section').forEach(el => {
   el.classList.add('fade-up');
   observer.observe(el);
-});
-
-// === Lightbox ===
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-const lightboxClose = document.getElementById('lightboxClose');
-const lightboxPrev = document.getElementById('lightboxPrev');
-const lightboxNext = document.getElementById('lightboxNext');
-const lightboxCounter = document.getElementById('lightboxCounter');
-const galleryItems = document.querySelectorAll('.gallery-item');
-
-let currentLightboxIndex = 0;
-const gallerySrcs = [];
-
-galleryItems.forEach((item, i) => {
-  const img = item.querySelector('img');
-  gallerySrcs.push({ src: img.src, alt: img.alt });
-
-  item.addEventListener('click', () => {
-    currentLightboxIndex = i;
-    openLightbox();
-  });
-});
-
-function openLightbox() {
-  lightboxImg.src = gallerySrcs[currentLightboxIndex].src;
-  lightboxImg.alt = gallerySrcs[currentLightboxIndex].alt;
-  lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${gallerySrcs.length}`;
-  lightbox.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeLightbox() {
-  lightbox.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-function navigateLightbox(dir) {
-  currentLightboxIndex = (currentLightboxIndex + dir + gallerySrcs.length) % gallerySrcs.length;
-  lightboxImg.src = gallerySrcs[currentLightboxIndex].src;
-  lightboxImg.alt = gallerySrcs[currentLightboxIndex].alt;
-  lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${gallerySrcs.length}`;
-}
-
-lightboxClose.addEventListener('click', closeLightbox);
-lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
-lightboxNext.addEventListener('click', () => navigateLightbox(1));
-
-lightbox.addEventListener('click', (e) => {
-  if (e.target === lightbox) closeLightbox();
-});
-
-document.addEventListener('keydown', (e) => {
-  if (!lightbox.classList.contains('active')) return;
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft') navigateLightbox(-1);
-  if (e.key === 'ArrowRight') navigateLightbox(1);
 });
 
 // === Reviews Carousel ===
