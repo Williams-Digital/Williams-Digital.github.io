@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Barking Bee Coffee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --espresso: #2C1810;
+      --dark-roast: #3E2723;
+      --medium-roast: #5D4037;
+      --crema: #D7CCC8;
+      --latte: #EFEBE9;
+      --foam: #FAF8F6;
+      --caramel: #C68B59;
+      --honey: #D4A574;
+      --burnt-orange: #BF6A3A;
+      --sage: #7D8C6E;
+      --deep-sage: #5C6B4F;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--espresso);
+      background: var(--foam);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(44, 24, 16, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 0 4%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+      border-bottom: 1px solid rgba(198, 139, 89, 0.2);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--honey);
+      letter-spacing: 1px;
+    }
+    .logo span { color: var(--caramel); font-style: italic; }
+    nav ul {
+      list-style: none; display: flex; gap: 2rem;
+    }
+    nav a {
+      color: var(--crema); text-decoration: none;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    nav a:hover, nav a.active { color: var(--caramel); }
+
+    /* HERO */
+    .hero {
+      margin-top: 72px;
+      height: 75vh; min-height: 500px;
+      background:
+        linear-gradient(135deg, rgba(44,24,16,0.82), rgba(62,39,35,0.65)),
+        url('https://images.unsplash.com/photo-1447933601403-56dc2df4e4e6?w=1600&q=80') center/cover;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+    }
+    .hero-content { max-width: 700px; }
+    .hero-tag {
+      font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--caramel); margin-bottom: 1.5rem; font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: var(--foam); line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero p {
+      color: var(--crema); font-size: 1.1rem;
+      line-height: 1.7; font-weight: 300;
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 6%; }
+
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      max-width: 1200px; margin: auto;
+    }
+    .story-img {
+      border-radius: 16px; overflow: hidden;
+      aspect-ratio: 4/5; position: relative;
+    }
+    .story-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .story-img::after {
+      content: ''; position: absolute; inset: 0;
+      border: 1px solid rgba(198,139,89,0.2);
+      border-radius: 16px;
+    }
+    .story-text .tag {
+      font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--burnt-orange); font-weight: 600; margin-bottom: 1rem;
+    }
+    .story-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--dark-roast); line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .story-text p {
+      color: var(--medium-roast); line-height: 1.85;
+      font-size: 0.95rem; margin-bottom: 1rem; font-weight: 300;
+    }
+    .signature {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 1.4rem;
+      color: var(--caramel); margin-top: 1.5rem;
+    }
+
+    /* PARALLAX STRIP */
+    .parallax-strip {
+      height: 45vh; min-height: 350px;
+      background:
+        linear-gradient(to right, rgba(44,24,16,0.7), rgba(44,24,16,0.3)),
+        url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1600&q=80') center/cover fixed;
+      display: flex; align-items: center; padding: 0 8%;
+    }
+    .parallax-strip blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--foam); line-height: 1.4;
+      max-width: 600px; font-style: italic;
+      border-left: 3px solid var(--caramel);
+      padding-left: 2rem;
+    }
+
+    /* VALUES */
+    .values { background: var(--latte); }
+    .values-header {
+      text-align: center; max-width: 600px; margin: 0 auto 4rem;
+    }
+    .values-header .tag {
+      font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--burnt-orange); font-weight: 600; margin-bottom: 1rem;
+    }
+    .values-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--dark-roast);
+    }
+    .values-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; max-width: 1100px; margin: auto;
+    }
+    .value-card {
+      background: var(--foam);
+      border-radius: 16px; overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .value-card:hover { transform: translateY(-6px); }
+    .value-card img {
+      width: 100%; aspect-ratio: 3/2; object-fit: cover;
+    }
+    .value-card-body { padding: 1.75rem; }
+    .value-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; color: var(--dark-roast);
+      margin-bottom: 0.75rem;
+    }
+    .value-card p {
+      font-size: 0.88rem; line-height: 1.7;
+      color: var(--medium-roast); font-weight: 300;
+    }
+
+    /* JOURNEY STRIP */
+    .journey-strip {
+      height: 45vh; min-height: 350px;
+      background:
+        linear-gradient(135deg, rgba(44,24,16,0.75), rgba(92,107,79,0.5)),
+        url('https://images.unsplash.com/photo-1595434091143-b375ced64c5e?w=1600&q=80') center/cover fixed;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+    }
+    .journey-strip h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--foam); margin-bottom: 1.5rem;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      background: var(--caramel);
+      color: var(--foam); text-decoration: none;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      border-radius: 50px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .cta-btn:hover { background: var(--burnt-orange); transform: scale(1.04); }
+
+    /* FOOTER */
+    footer {
+      background: var(--espresso);
+      padding: 4rem 6% 2rem;
+      color: var(--crema);
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 2rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(198,139,89,0.15);
+    }
+    .footer-brand .logo { font-size: 1.3rem; margin-bottom: 0.75rem; }
+    .footer-brand p {
+      font-size: 0.82rem; color: rgba(215,204,200,0.7);
+      max-width: 280px; line-height: 1.7; font-weight: 300;
+    }
+    .footer-links h4 {
+      font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--caramel); margin-bottom: 1rem;
+    }
+    .footer-links a {
+      display: block; color: var(--crema); text-decoration: none;
+      font-size: 0.85rem; margin-bottom: 0.6rem; font-weight: 300;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--caramel); }
+    .newsletter-form {
+      display: flex; gap: 0; border-radius: 50px; overflow: hidden;
+      max-width: 340px;
+    }
+    .newsletter-form input {
+      flex: 1; padding: 0.75rem 1.25rem;
+      border: 1px solid rgba(198,139,89,0.3);
+      background: transparent; color: var(--crema);
+      font-size: 0.85rem; outline: none;
+      border-radius: 50px 0 0 50px;
+    }
+    .newsletter-form input::placeholder { color: rgba(215,204,200,0.4); }
+    .newsletter-form button {
+      padding: 0.75rem 1.5rem;
+      background: var(--caramel); color: var(--foam);
+      border: none; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      cursor: pointer; border-radius: 0 50px 50px 0;
+      transition: background 0.3s;
+    }
+    .newsletter-form button:hover { background: var(--burnt-orange); }
+    .footer-bottom {
+      text-align: center; padding-top: 2rem;
+      font-size: 0.75rem; color: rgba(215,204,200,0.4);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .story { grid-template-columns: 1fr; gap: 2rem; }
+      .story-img { max-height: 400px; aspect-ratio: auto; }
+      .values-grid { grid-template-columns: 1fr; max-width: 450px; }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Barking Bee <span>Coffee</span></div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about" class="active">About</a></li>
+      <li><a href="#">After Dark</a></li>
+      <li><a href="#">Cafe</a></li>
+      <li><a href="#">Shop Coffee</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">Our Story</p>
+      <h1>From Bean Counter to Bean Roaster</h1>
+      <p>A journey fueled by passion, service, and the pursuit of the perfect cup.</p>
+    </div>
+  </section>
+
+  <!-- STORY 1 -->
+  <section>
+    <div class="story">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80" alt="Coffee beans roasting">
+      </div>
+      <div class="story-text">
+        <p class="tag">The Beginning</p>
+        <h2>A Life Brewed with Purpose</h2>
+        <p>After retiring from the Air Force and leaving behind a 20-plus year career in accounting, I finally had the freedom to chase what had quietly been calling me for years: the art of great coffee.</p>
+        <p>Traveling the world with the military opened my eyes to extraordinary coffee cultures — from the bold espresso bars of Italy to the fragrant roadside stalls of Southeast Asia. Every cup told a story, and I wanted to tell my own.</p>
+        <p class="signature">— Heather</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARALLAX QUOTE -->
+  <div class="parallax-strip">
+    <blockquote>"Life's too short for bad coffee. Every morning deserves something extraordinary."</blockquote>
+  </div>
+
+  <!-- STORY 2 -->
+  <section>
+    <div class="story">
+      <div class="story-text">
+        <p class="tag">Our Craft</p>
+        <h2>Distinctive & Bold</h2>
+        <p>At Barking Bee, we source only the most exceptional green coffee beans from farms that share our commitment to quality and sustainability. Each batch is carefully roasted in small quantities to draw out the unique character of every origin.</p>
+        <p>We believe coffee should be an experience — not just a caffeine delivery system. Our roasting process honors the bean's natural complexity, creating cups that are rich, layered, and unforgettable.</p>
+      </div>
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=800&q=80" alt="Espresso machine pulling a shot">
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values">
+    <div class="values-header">
+      <p class="tag">What Drives Us</p>
+      <h2>Rooted in Quality</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <img src="https://images.unsplash.com/photo-1611564494260-6f21b80af7ea?w=600&q=80" alt="Coffee field at sunrise">
+        <div class="value-card-body">
+          <h3>Farm to Cup</h3>
+          <p>We trace every bean back to its origin, working directly with farmers who cultivate with care and integrity.</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefda?w=600&q=80" alt="Small batch coffee roasting">
+        <div class="value-card-body">
+          <h3>Small Batch Roasted</h3>
+          <p>Every roast is crafted in small batches to ensure peak freshness and flavor in every single bag.</p>
+        </div>
+      </div>
+      <div class="value-card">
+        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80" alt="Pouring fresh brewed coffee">
+        <div class="value-card-body">
+          <h3>Community First</h3>
+          <p>More than a roaster — we're a gathering place for coffee lovers who believe every cup should spark connection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <div class="journey-strip">
+    <div>
+      <h2>Ready to Taste the Difference?</h2>
+      <a href="#" class="cta-btn" onclick="event.preventDefault();alert('Feature coming soon!')">Shop Our Coffee</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">Barking Bee <span>Coffee</span></div>
+        <p>Small-batch, artisan-roasted coffee delivered fresh to your door. Life's too short for bad coffee.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <a href="#">Shop All Coffee</a>
+        <a href="#">About Us</a>
+        <a href="#">After Dark Events</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Join the Buzz</h4>
+        <p style="font-size:0.85rem;color:rgba(215,204,200,0.7);margin-bottom:1rem;font-weight:300;">Never miss the latest from the hive.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email">
+          <button>Join</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Barking Bee Coffee. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
