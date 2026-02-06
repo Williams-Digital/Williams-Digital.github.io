@@ -893,3 +893,112 @@ const initMapInteraction = () => {
 document.addEventListener('DOMContentLoaded', () => {
     initMapInteraction();
 });
+
+// ============================================
+// EXPANDABLE SERVICE CARDS
+// ============================================
+const initExpandableCards = () => {
+    const expandBtns = document.querySelectorAll('.expand-btn');
+
+    expandBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const card = btn.closest('.service-card-enhanced');
+            if (!card) return;
+
+            const isExpanded = card.classList.contains('expanded');
+
+            // Close all other cards first
+            document.querySelectorAll('.service-card-enhanced.expanded').forEach(openCard => {
+                if (openCard !== card) {
+                    openCard.classList.remove('expanded');
+                    const openBtn = openCard.querySelector('.expand-btn');
+                    if (openBtn) {
+                        openBtn.innerHTML = 'View Details <i class="fas fa-chevron-down"></i>';
+                    }
+                }
+            });
+
+            // Toggle this card
+            card.classList.toggle('expanded');
+
+            // Update button text
+            if (card.classList.contains('expanded')) {
+                btn.innerHTML = 'Show Less <i class="fas fa-chevron-up"></i>';
+            } else {
+                btn.innerHTML = 'View Details <i class="fas fa-chevron-down"></i>';
+            }
+        });
+    });
+};
+
+// ============================================
+// BEFORE/AFTER SLIDER
+// ============================================
+const initBeforeAfterSlider = () => {
+    const sliders = document.querySelectorAll('.before-after-slider');
+
+    sliders.forEach(slider => {
+        const handle = slider.querySelector('.slider-handle');
+        const beforeImg = slider.querySelector('.before-img');
+
+        if (!handle || !beforeImg) return;
+
+        let isDragging = false;
+
+        const updateSlider = (x) => {
+            const rect = slider.getBoundingClientRect();
+            let percent = ((x - rect.left) / rect.width) * 100;
+
+            // Clamp between 5% and 95%
+            percent = Math.max(5, Math.min(95, percent));
+
+            beforeImg.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+            handle.style.left = `${percent}%`;
+        };
+
+        // Mouse events
+        handle.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.clientX);
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Touch events
+        handle.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            updateSlider(e.touches[0].clientX);
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Click on slider to move handle
+        slider.addEventListener('click', (e) => {
+            if (e.target === handle) return;
+            updateSlider(e.clientX);
+        });
+    });
+};
+
+// Initialize enhanced services features
+document.addEventListener('DOMContentLoaded', () => {
+    initExpandableCards();
+    initBeforeAfterSlider();
+});
