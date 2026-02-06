@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initGearFilters();
     initScrollAnimations();
     initCounterAnimations();
+    initContactModal();
+    initCTAButtons();
 });
 
 // ====================================
@@ -305,5 +307,134 @@ mobileStyles.textContent = `
     }
 `;
 document.head.appendChild(mobileStyles);
+
+// ====================================
+// Contact Modal
+// ====================================
+
+function initContactModal() {
+    const modal = document.getElementById('contact-modal');
+    if (!modal) return;
+
+    const overlay = modal.querySelector('.modal-overlay');
+    const closeBtn = modal.querySelector('.modal-close');
+    const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('form-success');
+
+    // Close modal functions
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Reset form state
+        if (form) {
+            form.style.display = 'block';
+            form.reset();
+        }
+        if (successMessage) {
+            successMessage.style.display = 'none';
+        }
+    }
+
+    // Event listeners
+    if (overlay) overlay.addEventListener('click', closeModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // Form submission
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Simulate form submission
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span>Sending...</span>';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+
+                // Auto close after 3 seconds
+                setTimeout(closeModal, 3000);
+            }, 1500);
+        });
+    }
+
+    // Expose openModal globally
+    window.openContactModal = openModal;
+}
+
+// ====================================
+// CTA Button Handlers
+// ====================================
+
+function initCTAButtons() {
+    // Get all CTA buttons that should open modal
+    const ctaSelectors = [
+        '.hero-cta .btn-primary',
+        '.cta-buttons .btn-primary',
+        '.cta-buttons .btn-outline',
+        '.btn-nav'
+    ];
+
+    ctaSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(btn => {
+            const href = btn.getAttribute('href');
+            // If it's a # link or #contact, open modal instead
+            if (href === '#' || href === '#contact') {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (window.openContactModal) {
+                        window.openContactModal();
+                    }
+                });
+            }
+        });
+    });
+
+    // View All Gear button - scroll to gear section
+    const viewAllGearBtn = document.querySelector('.gear-cta .btn-primary');
+    if (viewAllGearBtn) {
+        viewAllGearBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Show all gear cards with animation
+            const gearCards = document.querySelectorAll('.gear-card');
+            gearCards.forEach((card, index) => {
+                card.style.animation = `pulse 0.5s ease ${index * 0.1}s`;
+            });
+
+            // Add pulse animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.03); box-shadow: 0 0 30px rgba(0, 102, 255, 0.4); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Clean up animation after completion
+            setTimeout(() => {
+                gearCards.forEach(card => {
+                    card.style.animation = '';
+                });
+            }, 1500);
+        });
+    }
+}
 
 console.log('NIL Management - Website loaded successfully!');
