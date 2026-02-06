@@ -369,17 +369,56 @@
             padding: 6rem 2rem;
         }
 
-        .investment-card {
-            max-width: 600px;
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
             margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pricing-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 3rem;
+            padding: 2.5rem;
             text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
         }
 
-        .investment-label {
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-1);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-2);
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+        }
+
+        .pricing-card.featured::before {
+            content: 'RECOMMENDED';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.375rem 1rem;
+            background: var(--gradient-1);
+            border-radius: 100px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: white;
+        }
+
+        .pricing-label {
             font-size: 0.875rem;
             font-weight: 600;
             text-transform: uppercase;
@@ -388,44 +427,92 @@
             margin-bottom: 0.5rem;
         }
 
-        .investment-price {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
+        .pricing-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
-        .investment-price .currency {
-            font-size: 2rem;
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-price .currency {
+            font-size: 1.5rem;
             vertical-align: top;
             color: var(--text-secondary);
         }
 
-        .investment-note {
+        .pricing-note {
+            font-size: 0.875rem;
             color: var(--text-secondary);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .investment-includes {
+        .pricing-includes {
             text-align: left;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
+            gap: 0.625rem;
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
             background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
+            border-radius: 12px;
         }
 
-        .investment-includes li {
+        .pricing-includes li {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 0.9375rem;
+            gap: 0.625rem;
+            font-size: 0.875rem;
         }
 
-        .investment-includes li svg {
+        .pricing-includes li svg {
             stroke: var(--accent-3);
             flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+        }
+
+        .maintenance-options {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .maintenance-options h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .maintenance-tiers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .maintenance-tier {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.8125rem;
+        }
+
+        .maintenance-tier span:first-child {
+            color: var(--text-secondary);
+        }
+
+        .maintenance-tier span:last-child {
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         /* Timeline */
@@ -691,58 +778,145 @@
     <!-- Investment -->
     <section class="investment" id="investment">
         <div class="section-header">
-            <h2>Investment</h2>
-            <p>A one-time project fee with no recurring costs</p>
+            <h2>Investment Options</h2>
+            <p>Choose the package that fits your needs</p>
         </div>
-        <div class="investment-card">
-            <div class="investment-label">Complete Package</div>
-            <div class="investment-price"><span class="currency">$</span>8,500</div>
-            <p class="investment-note">One-time payment, no monthly fees</p>
-            <ul class="investment-includes">
-                <li>
+        <div class="pricing-grid">
+            <!-- Website Only -->
+            <div class="pricing-card">
+                <div class="pricing-label">Starter</div>
+                <h3 class="pricing-title">Agency Website</h3>
+                <div class="pricing-price"><span class="currency">$</span>4,500</div>
+                <p class="pricing-note">One-time payment</p>
+                <ul class="pricing-includes">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Custom 5+ page website</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Mobile-responsive design</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Contact form integration</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>SEO optimization</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Hosting setup</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Full source code ownership</span>
+                    </li>
+                </ul>
+                <a href="mailto:Dylan@williamsdigital.io?subject=MGC%20Sports%20-%20Website%20Only" class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                    <span>Get Started</span>
+                </a>
+                <div class="maintenance-options">
+                    <h4>Optional Monthly Maintenance</h4>
+                    <div class="maintenance-tiers">
+                        <div class="maintenance-tier">
+                            <span>Basic (updates & backups)</span>
+                            <span>$99/mo</span>
+                        </div>
+                        <div class="maintenance-tier">
+                            <span>Standard (+ content changes)</span>
+                            <span>$199/mo</span>
+                        </div>
+                        <div class="maintenance-tier">
+                            <span>Premium (+ priority support)</span>
+                            <span>$349/mo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complete Package -->
+            <div class="pricing-card featured">
+                <div class="pricing-label">Complete</div>
+                <h3 class="pricing-title">Website + Player Portal</h3>
+                <div class="pricing-price"><span class="currency">$</span>8,500</div>
+                <p class="pricing-note">One-time payment</p>
+                <ul class="pricing-includes">
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Everything in Website package</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Secure player portal dashboard</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Contract & document management</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Meeting scheduling system</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Direct messaging feature</span>
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>30 days post-launch support</span>
+                    </li>
+                </ul>
+                <a href="mailto:Dylan@williamsdigital.io?subject=MGC%20Sports%20-%20Complete%20Package" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    <span>Get Started</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"/>
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
                     </svg>
-                    <span>Custom agency website (5+ pages)</span>
-                </li>
-                <li>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    <span>Secure player portal with dashboard</span>
-                </li>
-                <li>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    <span>Mobile-responsive design</span>
-                </li>
-                <li>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    <span>Hosting and domain setup</span>
-                </li>
-                <li>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    <span>30 days post-launch support</span>
-                </li>
-                <li>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    <span>Full source code ownership</span>
-                </li>
-            </ul>
-            <a href="mailto:hello@williamsdigital.io?subject=MGC%20Sports%20Proposal" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                <span>Get Started</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="5" y1="12" x2="19" y2="12"/>
-                    <polyline points="12 5 19 12 12 19"/>
-                </svg>
-            </a>
+                </a>
+                <div class="maintenance-options">
+                    <h4>Optional Monthly Maintenance</h4>
+                    <div class="maintenance-tiers">
+                        <div class="maintenance-tier">
+                            <span>Basic (updates & backups)</span>
+                            <span>$149/mo</span>
+                        </div>
+                        <div class="maintenance-tier">
+                            <span>Standard (+ content changes)</span>
+                            <span>$299/mo</span>
+                        </div>
+                        <div class="maintenance-tier">
+                            <span>Premium (+ priority support)</span>
+                            <span>$499/mo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -751,7 +925,7 @@
         <div class="cta-content">
             <h2>Ready to Elevate MGC Sports?</h2>
             <p>Let's schedule a quick call to discuss your vision and answer any questions.</p>
-            <a href="mailto:hello@williamsdigital.io?subject=MGC%20Sports%20Proposal%20-%20Schedule%20Call" class="btn btn-primary">
+            <a href="mailto:Dylan@williamsdigital.io?subject=MGC%20Sports%20Proposal%20-%20Schedule%20Call" class="btn btn-primary">
                 <span>Schedule a Call</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -761,7 +935,7 @@
                 </svg>
             </a>
             <div class="cta-contact">
-                <p>Or reach out directly at <a href="mailto:hello@williamsdigital.io">hello@williamsdigital.io</a></p>
+                <p>Or reach out directly at <a href="mailto:Dylan@williamsdigital.io">Dylan@williamsdigital.io</a></p>
             </div>
         </div>
     </section>
