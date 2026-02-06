@@ -417,7 +417,20 @@
         /* About Section */
         .about {
             padding: 8rem 5%;
-            background: var(--cream);
+            background: linear-gradient(180deg, var(--charcoal) 0%, #3a302a 50%, var(--charcoal) 100%);
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a962' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
         }
 
         .about-container {
@@ -427,6 +440,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 5rem;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .about-image {
@@ -439,7 +454,8 @@
             background: url('img/about.png');
             background-size: cover;
             background-position: center;
-            border-radius: 2px;
+            border-radius: 4px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
         }
 
         .about-image-accent {
@@ -448,13 +464,14 @@
             right: -30px;
             width: 200px;
             height: 200px;
-            background: var(--primary);
-            border-radius: 2px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 4px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: var(--cream);
+            box-shadow: 0 15px 35px rgba(156, 31, 45, 0.4);
         }
 
         .about-image-accent span {
@@ -473,6 +490,14 @@
 
         .about-content {
             padding: 2rem 0;
+        }
+
+        .about .section-subtitle {
+            color: var(--gold);
+        }
+
+        .about .section-title {
+            color: var(--cream);
         }
 
         .section-subtitle {
@@ -494,9 +519,10 @@
         }
 
         .about-text {
-            color: var(--text-light);
+            color: var(--warm-white);
             margin-bottom: 1.5rem;
             font-weight: 300;
+            opacity: 0.85;
         }
 
         .about-features {
@@ -526,7 +552,7 @@
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--dark);
+            color: var(--cream);
         }
 
         /* Products Section */
