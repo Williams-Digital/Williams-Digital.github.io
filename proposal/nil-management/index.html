@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Proposal for NIL Management - Williams Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #0a0a0a;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .quote-card {
+            background: #111111;
+            border: 1px solid rgba(255,215,0,0.15);
+            border-radius: 16px;
+            box-shadow: 0 0 60px rgba(255,215,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid #FFD700;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(255,215,0,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 4px;
+            position: relative;
+        }
+
+        .header h1 span {
+            color: #FFD700;
+        }
+
+        .header .tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px 50px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,215,0,0.02);
+        }
+
+        .meta-section h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #FFD700;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .meta-section p {
+            color: #a1a1aa;
+            line-height: 1.8;
+        }
+
+        .company-name {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: #a1a1aa;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        .intro strong {
+            color: #FFD700;
+        }
+
+        .demos {
+            background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.03));
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+
+        .demos h3 {
+            font-size: 1.2rem;
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .demos p {
+            color: #d4d4d8;
+            margin-bottom: 20px;
+        }
+
+        .demos a {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 10px;
+            padding: 12px 24px;
+            background: rgba(255,215,0,0.1);
+            color: #FFD700;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        .demos a:hover {
+            background: #FFD700;
+            color: #0a0a0a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(255,215,0,0.4);
+            border-color: transparent;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 40px;
+            color: #ffffff;
+            letter-spacing: 2px;
+        }
+
+        .section-title span {
+            color: #FFD700;
+        }
+
+        .option {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: rgba(255,215,0,0.4);
+            box-shadow: 0 0 40px rgba(255,215,0,0.1);
+        }
+
+        .option.featured {
+            background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.03));
+            border: 2px solid rgba(255,215,0,0.5);
+            color: white;
+            position: relative;
+            box-shadow: 0 0 60px rgba(255,215,0,0.15);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            right: 40px;
+            background: #FFD700;
+            color: #0a0a0a;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .option-header {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .option.featured .option-header {
+            border-bottom-color: rgba(255,215,0,0.3);
+        }
+
+        .option-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .option-description {
+            font-size: 1rem;
+            color: #a1a1aa;
+            line-height: 1.7;
+        }
+
+        .option.featured .option-description {
+            color: #d4d4d8;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .setup-cost {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: #FFD700;
+            letter-spacing: 2px;
+        }
+
+        .setup-label {
+            font-size: 0.9rem;
+            color: #a1a1aa;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .monthly-cost {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #22c55e;
+            letter-spacing: 1px;
+        }
+
+        .monthly-label {
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .features-section {
+            margin-top: 35px;
+            margin-bottom: 10px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .features-section h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .features-section.monthly h4 {
+            color: #22c55e;
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 0;
+        }
+
+        .features li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #e4e4e7;
+            line-height: 1.6;
+        }
+
+        .features li:before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .features li strong {
+            color: #ffffff;
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .highlight-card {
+            background: rgba(255,215,0,0.05);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .highlight-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: #FFD700;
+            letter-spacing: 2px;
+        }
+
+        .highlight-label {
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            border-top: 3px solid #FFD700;
+        }
+
+        .footer h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .footer h3 span {
+            color: #FFD700;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #a1a1aa;
+        }
+
+        .footer .cta {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        .footer a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media print {
+            body { background: white; color: #1a1a1a; }
+            .quote-card { box-shadow: none; border: 1px solid #e8e8e8; background: white; }
+            .option { background: #fafafa; border-color: #e8e8e8; }
+            .option:hover { border-color: #e8e8e8; box-shadow: none; }
+            .option, .option.featured, .meta-section p, .intro, .demos p, .features li, .option-description {
+                color: #1a1a1a !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            .header { padding: 35px 25px; }
+            .header h1 { font-size: 2rem; }
+            .meta { grid-template-columns: 1fr; gap: 25px; padding: 30px 25px; }
+            .content { padding: 30px 25px; }
+            .option { padding: 30px 25px; }
+            .pricing-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .highlights { grid-template-columns: 1fr; }
+            .footer { padding: 35px 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quote-card">
+            <div class="header">
+                <h1>WILLIAMS <span>DIGITAL</span></h1>
+                <div class="tagline">Custom Web Solutions for Sports & Entertainment</div>
+            </div>
+
+            <div class="meta">
+                <div class="meta-section">
+                    <h3>Prepared For</h3>
+                    <p class="company-name">NIL Management</p>
+                    <p>Full-Service Athlete Representation<br>nilmanagement.com<br>info@nilmanagement.com</p>
+                </div>
+                <div class="meta-section">
+                    <h3>Prepared By</h3>
+                    <p class="company-name">Williams Digital</p>
+                    <p>Dylan Williams<br>Founder & Developer<br><script>document.write(new Date().toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}))</script></p>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="intro">
+                    Thank you for considering Williams Digital. This proposal outlines a complete digital transformation for <strong>NIL Management</strong> &mdash; designed to match the elite caliber of your athlete roster and establish your brand as the premier destination for NIL representation in sports.
+                </div>
+
+                <div class="demos">
+                    <h3>Live Demo - Your New Website is Ready</h3>
+                    <p>We've already built a complete sports-themed website concept featuring your brand colors, athlete showcases, and a player gear storefront. Take a look:</p>
+                    <a href="https://williamsdigital.io/preview/nil-management/" target="_blank">View Website Demo &rarr;</a>
+                </div>
+
+                <div class="highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-number">5+</div>
+                        <div class="highlight-label">Page Sections</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-number">100%</div>
+                        <div class="highlight-label">Mobile Optimized</div>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-number">E-COM</div>
+                        <div class="highlight-label">Gear Store Ready</div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">YOUR <span>INVESTMENT</span></h2>
+
+                <div class="option featured">
+                    <div class="badge">CHAMPION PACKAGE</div>
+                    <div class="option-header">
+                        <div class="option-title">NIL Management Digital Partnership</div>
+                        <div class="option-description">Complete website redesign with athlete showcases, player gear e-commerce storefront, brand strategy, and ongoing monthly support &mdash; everything NIL Management needs to dominate the digital space.</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div>
+                            <div class="setup-cost">$1,500</div>
+                            <div class="setup-label">One-Time Setup Fee</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="monthly-cost">+ $350/mo</div>
+                            <div class="monthly-label">Ongoing Services</div>
+                        </div>
+                    </div>
+
+                    <div class="features-section">
+                        <h4>Included in Setup ($1,500)</h4>
+                    </div>
+                    <ul class="features">
+                        <li><strong>Complete website redesign</strong> &mdash; Hero, About, Athletes Roster, Services, Contact (already built)</li>
+                        <li><strong>Player Gear E-Commerce storefront</strong> &mdash; Product showcase with cart functionality</li>
+                        <li>Dynamic athlete showcase cards with stats and social metrics</li>
+                        <li>Mobile-responsive design optimized for all devices</li>
+                        <li>Animated interactions and premium sports aesthetic</li>
+                        <li>Professional email setup (@nilmanagement.com)</li>
+                        <li>Domain & hosting management with SSL certificate</li>
+                        <li>Google Business optimization & local SEO setup</li>
+                    </ul>
+
+                    <div class="features-section monthly">
+                        <h4>Monthly Services ($350/mo)</h4>
+                    </div>
+                    <ul class="features">
+                        <li><strong>Athlete roster updates</strong> &mdash; Add new signings, update stats, manage profiles</li>
+                        <li><strong>E-commerce management</strong> &mdash; New products, inventory updates, order support</li>
+                        <li>Graphic design & brand collateral (social templates, media kits)</li>
+                        <li>Content updates (news, announcements, deal highlights)</li>
+                        <li>Ongoing site maintenance, backups & security</li>
+                        <li>Priority email & phone support</li>
+                        <li>Monthly analytics reporting</li>
+                        <li>Quarterly strategy check-in</li>
+                    </ul>
+                </div>
+
+                <div class="option">
+                    <div class="option-header">
+                        <div class="option-title">Website Only (No Monthly)</div>
+                        <div class="option-description">Get the complete website build without ongoing monthly services. You'll manage updates and hosting independently after launch.</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div>
+                            <div class="setup-cost">$2,500</div>
+                            <div class="setup-label">One-Time Payment</div>
+                        </div>
+                    </div>
+                    <ul class="features" style="margin-top: 30px;">
+                        <li>Complete website build with all pages and features</li>
+                        <li>Player gear storefront setup</li>
+                        <li>30 days of post-launch support</li>
+                        <li>Full source code ownership</li>
+                        <li>Documentation for self-management</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <h3>Ready to Build Your <span>Digital Legacy?</span></h3>
+                <p>Dylan Williams, Founder & Developer</p>
+                <p>Email: <a href="mailto:Dylan@williamsdigital.io">Dylan@williamsdigital.io</a></p>
+                <p>Phone: <a href="tel:2057891211">(205) 789-1211</a></p>
+                <p class="cta">Let's schedule a quick call to elevate NIL Management's digital presence to championship level.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
