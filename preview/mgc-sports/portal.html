@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Portal | MGC Sports</title>
+    <meta name="description" content="MGC Sports Player Portal - Secure access to your representation dashboard.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+    <!-- Login Screen (shown first) -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-bg">
+            <div class="login-gradient"></div>
+            <div class="login-lines"></div>
+        </div>
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <a href="index.html" class="logo">
+                        <div class="logo-mark">
+                            <span class="logo-m">M</span>
+                            <span class="logo-g">G</span>
+                            <span class="logo-c">C</span>
+                        </div>
+                        <span class="logo-text">SPORTS</span>
+                    </a>
+                    <h1>Player Portal</h1>
+                    <p>Secure access to your representation dashboard</p>
+                </div>
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember">
+                            <span class="checkmark"></span>
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Sign In</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+                <div class="login-footer">
+                    <p>New to MGC Sports? <a href="index.html#contact">Contact us</a> to get started.</p>
+                </div>
+            </div>
+            <div class="login-features">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <span>Bank-Level Security</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <span>Direct Agent Access</span>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <span>Easy Scheduling</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard (shown after login) -->
+    <div class="dashboard" id="dashboard" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-mark">
+                        <span class="logo-m">M</span>
+                        <span class="logo-g">G</span>
+                        <span class="logo-c">C</span>
+                    </div>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="overview">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="nav-item" data-section="messages">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <span>Messages</span>
+                    <span class="badge">3</span>
+                </a>
+                <a href="#" class="nav-item" data-section="schedule">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <span>Schedule</span>
+                </a>
+                <a href="#" class="nav-item" data-section="documents">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    <span>Documents</span>
+                </a>
+                <a href="#" class="nav-item" data-section="resources">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    <span>Resources</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item" data-section="settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+                <a href="#" class="nav-item logout" id="logoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6" x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                    <div class="welcome">
+                        <h1>Welcome back, <span class="player-name">Marcus</span></h1>
+                        <p>Here's what's happening with your career</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="notification-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar">MJ</div>
+                        <div class="user-info">
+                            <span class="user-name">Marcus Johnson</span>
+                            <span class="user-role">NFL Player</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Sections -->
+            <div class="content-area">
+                <!-- Overview Section -->
+                <section class="section overview-section active" id="overview">
+                    <!-- Quick Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Active Contracts</span>
+                                <span class="stat-value">2</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon gold">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Upcoming Meetings</span>
+                                <span class="stat-value">3</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Unread Messages</span>
+                                <span class="stat-value">3</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23"/>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-label">Endorsement Deals</span>
+                                <span class="stat-value">4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid -->
+                    <div class="dashboard-grid">
+                        <!-- Recent Messages -->
+                        <div class="dashboard-card messages-card">
+                            <div class="card-header">
+                                <h3>Recent Messages</h3>
+                                <a href="#" class="view-all" data-section="messages">View All</a>
+                            </div>
+                            <div class="messages-list">
+                                <div class="message-item unread">
+                                    <div class="message-avatar">
+                                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect fill='%23c9a227' width='40' height='40'/%3E%3Ctext x='50%25' y='55%25' fill='white' font-size='16' font-family='Arial' text-anchor='middle' dominant-baseline='middle'%3EJD%3C/text%3E%3C/svg%3E" alt="Agent">
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="message-sender">James Davis</span>
+                                            <span class="message-time">2h ago</span>
+                                        </div>
+                                        <p class="message-preview">Great news on the Nike deal! They've come back with an improved offer...</p>
+                                    </div>
+                                </div>
+                                <div class="message-item unread">
+                                    <div class="message-avatar">
+                                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect fill='%230f2847' width='40' height='40'/%3E%3Ctext x='50%25' y='55%25' fill='white' font-size='16' font-family='Arial' text-anchor='middle' dominant-baseline='middle'%3ESM%3C/text%3E%3C/svg%3E" alt="Legal">
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="message-sender">Sarah Mitchell (Legal)</span>
+                                            <span class="message-time">5h ago</span>
+                                        </div>
+                                        <p class="message-preview">Contract review complete. I've attached my notes on the guaranteed money...</p>
+                                    </div>
+                                </div>
+                                <div class="message-item">
+                                    <div class="message-avatar">
+                                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect fill='%23475569' width='40' height='40'/%3E%3Ctext x='50%25' y='55%25' fill='white' font-size='16' font-family='Arial' text-anchor='middle' dominant-baseline='middle'%3EMB%3C/text%3E%3C/svg%3E" alt="Marketing">
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-header">
+                                            <span class="message-sender">Michael Brown</span>
+                                            <span class="message-time">1d ago</span>
+                                        </div>
+                                        <p class="message-preview">Updated media schedule for next week is ready. Let me know if...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Schedule -->
+                        <div class="dashboard-card schedule-card">
+                            <div class="card-header">
+                                <h3>Upcoming Schedule</h3>
+                                <a href="#" class="view-all" data-section="schedule">View All</a>
+                            </div>
+                            <div class="schedule-list">
+                                <div class="schedule-item">
+                                    <div class="schedule-date">
+                                        <span class="date-day">15</span>
+                                        <span class="date-month">Feb</span>
+                                    </div>
+                                    <div class="schedule-content">
+                                        <h4>Contract Review Call</h4>
+                                        <p>With James Davis & Legal Team</p>
+                                        <span class="schedule-time">10:00 AM EST</span>
+                                    </div>
+                                    <div class="schedule-type call">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-date">
+                                        <span class="date-day">18</span>
+                                        <span class="date-month">Feb</span>
+                                    </div>
+                                    <div class="schedule-content">
+                                        <h4>Nike Brand Meeting</h4>
+                                        <p>Endorsement Discussion</p>
+                                        <span class="schedule-time">2:00 PM EST</span>
+                                    </div>
+                                    <div class="schedule-type video">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="23 7 16 12 23 17 23 7"/>
+                                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-date">
+                                        <span class="date-day">22</span>
+                                        <span class="date-month">Feb</span>
+                                    </div>
+                                    <div class="schedule-content">
+                                        <h4>Financial Planning Session</h4>
+                                        <p>Quarterly Review</p>
+                                        <span class="schedule-time">11:00 AM EST</span>
+                                    </div>
+                                    <div class="schedule-type person">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Agent Card -->
+                        <div class="dashboard-card agent-card">
+                            <div class="card-header">
+                                <h3>Your Agent</h3>
+                            </div>
+                            <div class="agent-profile">
+                                <div class="agent-avatar">
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect fill='%23c9a227' width='80' height='80'/%3E%3Ctext x='50%25' y='55%25' fill='%230a1628' font-size='28' font-weight='bold' font-family='Arial' text-anchor='middle' dominant-baseline='middle'%3EJD%3C/text%3E%3C/svg%3E" alt="James Davis">
+                                </div>
+                                <div class="agent-info">
+                                    <h4>James Davis</h4>
+                                    <p>Senior NFL Agent</p>
+                                    <span class="agent-exp">25+ Years Experience</span>
+                                </div>
+                            </div>
+                            <div class="agent-actions">
+                                <button class="btn btn-secondary btn-sm" data-section="messages">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                    </svg>
+                                    <span>Message</span>
+                                </button>
+                                <button class="btn btn-primary btn-sm" data-section="schedule">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/>
+                                        <line x1="8" y1="2" x2="8" y2="6"/>
+                                        <line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                    <span>Schedule Call</span>
+                                </button>
+                            </div>
+                            <div class="agent-contact">
+                                <div class="contact-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                    <span>(803) 555-0124</span>
+                                </div>
+                                <div class="contact-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                    <span>jdavis@mgc-sports.com</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="dashboard-card actions-card">
+                            <div class="card-header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="quick-actions">
+                                <button class="action-btn" data-section="messages">
+                                    <div class="action-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="5" x2="12" y2="19"/>
+                                            <line x1="5" y1="12" x2="19" y2="12"/>
+                                        </svg>
+                                    </div>
+                                    <span>New Message</span>
+                                </button>
+                                <button class="action-btn" data-section="schedule">
+                                    <div class="action-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                            <line x1="16" y1="2" x2="16" y2="6"/>
+                                            <line x1="8" y1="2" x2="8" y2="6"/>
+                                            <line x1="3" y1="10" x2="21" y2="10"/>
+                                            <line x1="12" y1="14" x2="12" y2="18"/>
+                                            <line x1="10" y1="16" x2="14" y2="16"/>
+                                        </svg>
+                                    </div>
+                                    <span>Schedule Meeting</span>
+                                </button>
+                                <button class="action-btn" data-section="documents">
+                                    <div class="action-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <polyline points="17 8 12 3 7 8"/>
+                                            <line x1="12" y1="3" x2="12" y2="15"/>
+                                        </svg>
+                                    </div>
+                                    <span>Upload Document</span>
+                                </button>
+                                <button class="action-btn" data-section="resources">
+                                    <div class="action-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="11" cy="11" r="8"/>
+                                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                        </svg>
+                                    </div>
+                                    <span>Find Resources</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Messages Section -->
+                <section class="section messages-section" id="messages">
+                    <div class="section-header-bar">
+                        <h2>Messages</h2>
+                        <button class="btn btn-primary btn-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            <span>New Message</span>
+                        </button>
+                    </div>
+                    <div class="messages-container">
+                        <div class="conversations-list">
+                            <div class="conversation active">
+                                <div class="conv-avatar">JD</div>
+                                <div class="conv-info">
+                                    <div class="conv-header">
+                                        <span class="conv-name">James Davis</span>
+                                        <span class="conv-time">2h</span>
+                                    </div>
+                                    <p class="conv-preview">Great news on the Nike deal!</p>
+                                </div>
+                                <span class="unread-dot"></span>
+                            </div>
+                            <div class="conversation">
+                                <div class="conv-avatar">SM</div>
+                                <div class="conv-info">
+                                    <div class="conv-header">
+                                        <span class="conv-name">Sarah Mitchell</span>
+                                        <span class="conv-time">5h</span>
+                                    </div>
+                                    <p class="conv-preview">Contract review complete...</p>
+                                </div>
+                                <span class="unread-dot"></span>
+                            </div>
+                            <div class="conversation">
+                                <div class="conv-avatar">MB</div>
+                                <div class="conv-info">
+                                    <div class="conv-header">
+                                        <span class="conv-name">Michael Brown</span>
+                                        <span class="conv-time">1d</span>
+                                    </div>
+                                    <p class="conv-preview">Updated media schedule...</p>
+                                </div>
+                            </div>
+                            <div class="conversation">
+                                <div class="conv-avatar">LT</div>
+                                <div class="conv-info">
+                                    <div class="conv-header">
+                                        <span class="conv-name">Legal Team</span>
+                                        <span class="conv-time">2d</span>
+                                    </div>
+                                    <p class="conv-preview">Documents ready for review</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-area">
+                            <div class="chat-header">
+                                <div class="chat-user">
+                                    <div class="chat-avatar">JD</div>
+                                    <div class="chat-user-info">
+                                        <h4>James Davis</h4>
+                                        <span class="online-status">Online</span>
+                                    </div>
+                                </div>
+                                <div class="chat-actions">
+                                    <button class="icon-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                        </svg>
+                                    </button>
+                                    <button class="icon-btn">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="23 7 16 12 23 17 23 7"/>
+                                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="chat-messages">
+                                <div class="message received">
+                                    <div class="message-bubble">
+                                        <p>Hey Marcus! I just got off the phone with Nike's team. Great news - they've come back with an improved offer that I think you're going to love.</p>
+                                        <span class="message-timestamp">2:30 PM</span>
+                                    </div>
+                                </div>
+                                <div class="message received">
+                                    <div class="message-bubble">
+                                        <p>They're now offering a 4-year deal with significant guaranteed money upfront. I'll send over the full breakdown once I have it in writing.</p>
+                                        <span class="message-timestamp">2:31 PM</span>
+                                    </div>
+                                </div>
+                                <div class="message sent">
+                                    <div class="message-bubble">
+                                        <p>That's awesome news! Really excited to see the details. When do you think we can review it together?</p>
+                                        <span class="message-timestamp">2:45 PM</span>
+                                    </div>
+                                </div>
+                                <div class="message received">
+                                    <div class="message-bubble">
+                                        <p>Let's schedule a call for tomorrow morning. I'll have Sarah from legal on the line too so we can go through everything together. Does 10 AM work for you?</p>
+                                        <span class="message-timestamp">2:47 PM</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-input">
+                                <button class="attach-btn">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                                    </svg>
+                                </button>
+                                <input type="text" placeholder="Type a message...">
+                                <button class="send-btn">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"/>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Schedule Section -->
+                <section class="section schedule-section" id="schedule">
+                    <div class="section-header-bar">
+                        <h2>Schedule</h2>
+                        <button class="btn btn-primary btn-sm" id="newMeetingBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            <span>New Meeting</span>
+                        </button>
+                    </div>
+                    <div class="schedule-container">
+                        <div class="calendar-header">
+                            <button class="calendar-nav prev">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="15 18 9 12 15 6"/>
+                                </svg>
+                            </button>
+                            <h3>February 2025</h3>
+                            <button class="calendar-nav next">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="9 18 15 12 9 6"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="calendar-grid">
+                            <div class="calendar-day-header">Sun</div>
+                            <div class="calendar-day-header">Mon</div>
+                            <div class="calendar-day-header">Tue</div>
+                            <div class="calendar-day-header">Wed</div>
+                            <div class="calendar-day-header">Thu</div>
+                            <div class="calendar-day-header">Fri</div>
+                            <div class="calendar-day-header">Sat</div>
+                            <div class="calendar-day other">26</div>
+                            <div class="calendar-day other">27</div>
+                            <div class="calendar-day other">28</div>
+                            <div class="calendar-day other">29</div>
+                            <div class="calendar-day other">30</div>
+                            <div class="calendar-day other">31</div>
+                            <div class="calendar-day">1</div>
+                            <div class="calendar-day">2</div>
+                            <div class="calendar-day">3</div>
+                            <div class="calendar-day">4</div>
+                            <div class="calendar-day">5</div>
+                            <div class="calendar-day">6</div>
+                            <div class="calendar-day today">7</div>
+                            <div class="calendar-day">8</div>
+                            <div class="calendar-day">9</div>
+                            <div class="calendar-day">10</div>
+                            <div class="calendar-day">11</div>
+                            <div class="calendar-day">12</div>
+                            <div class="calendar-day">13</div>
+                            <div class="calendar-day">14</div>
+                            <div class="calendar-day has-event">15</div>
+                            <div class="calendar-day">16</div>
+                            <div class="calendar-day">17</div>
+                            <div class="calendar-day has-event">18</div>
+                            <div class="calendar-day">19</div>
+                            <div class="calendar-day">20</div>
+                            <div class="calendar-day">21</div>
+                            <div class="calendar-day has-event">22</div>
+                            <div class="calendar-day">23</div>
+                            <div class="calendar-day">24</div>
+                            <div class="calendar-day">25</div>
+                            <div class="calendar-day">26</div>
+                            <div class="calendar-day">27</div>
+                            <div class="calendar-day">28</div>
+                        </div>
+                        <div class="upcoming-events">
+                            <h4>Upcoming Events</h4>
+                            <div class="event-list">
+                                <div class="event-item">
+                                    <div class="event-color blue"></div>
+                                    <div class="event-details">
+                                        <h5>Contract Review Call</h5>
+                                        <p>Feb 15 at 10:00 AM</p>
+                                    </div>
+                                    <button class="event-action">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="19" cy="12" r="1"/>
+                                            <circle cx="5" cy="12" r="1"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-color gold"></div>
+                                    <div class="event-details">
+                                        <h5>Nike Brand Meeting</h5>
+                                        <p>Feb 18 at 2:00 PM</p>
+                                    </div>
+                                    <button class="event-action">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="19" cy="12" r="1"/>
+                                            <circle cx="5" cy="12" r="1"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-color green"></div>
+                                    <div class="event-details">
+                                        <h5>Financial Planning Session</h5>
+                                        <p>Feb 22 at 11:00 AM</p>
+                                    </div>
+                                    <button class="event-action">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="19" cy="12" r="1"/>
+                                            <circle cx="5" cy="12" r="1"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Documents Section -->
+                <section class="section documents-section" id="documents">
+                    <div class="section-header-bar">
+                        <h2>Documents</h2>
+                        <button class="btn btn-primary btn-sm">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <span>Upload</span>
+                        </button>
+                    </div>
+                    <div class="documents-grid">
+                        <div class="document-card">
+                            <div class="doc-icon contract">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                </svg>
+                            </div>
+                            <h4>NFL Contract 2024</h4>
+                            <p>Last updated: Jan 15, 2025</p>
+                            <span class="doc-status signed">Signed</span>
+                        </div>
+                        <div class="document-card">
+                            <div class="doc-icon endorsement">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                </svg>
+                            </div>
+                            <h4>Nike Endorsement</h4>
+                            <p>Last updated: Feb 5, 2025</p>
+                            <span class="doc-status pending">Pending Review</span>
+                        </div>
+                        <div class="document-card">
+                            <div class="doc-icon legal">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                </svg>
+                            </div>
+                            <h4>Estate Planning Docs</h4>
+                            <p>Last updated: Dec 10, 2024</p>
+                            <span class="doc-status signed">Signed</span>
+                        </div>
+                        <div class="document-card">
+                            <div class="doc-icon financial">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                </svg>
+                            </div>
+                            <h4>Investment Portfolio</h4>
+                            <p>Last updated: Feb 1, 2025</p>
+                            <span class="doc-status draft">Draft</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Resources Section -->
+                <section class="section resources-section" id="resources">
+                    <div class="section-header-bar">
+                        <h2>Resources</h2>
+                    </div>
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                </svg>
+                            </div>
+                            <h4>Player Handbook</h4>
+                            <p>Complete guide to working with MGC Sports</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <line x1="12" y1="1" x2="12" y2="23"/>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                </svg>
+                            </div>
+                            <h4>Financial Literacy</h4>
+                            <p>Essential money management for athletes</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <h4>Legal Resources</h4>
+                            <p>Understanding your contracts and rights</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="3" y1="9" x2="21" y2="9"/>
+                                    <line x1="9" y1="21" x2="9" y2="9"/>
+                                </svg>
+                            </div>
+                            <h4>Brand Building</h4>
+                            <p>Maximize your personal brand value</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                            </div>
+                            <h4>Networking Tips</h4>
+                            <p>Building valuable connections</p>
+                        </div>
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <h4>Career Transition</h4>
+                            <p>Planning for life after sports</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section class="section settings-section" id="settings">
+                    <div class="section-header-bar">
+                        <h2>Settings</h2>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <h3>Profile Settings</h3>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" value="Marcus Johnson">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" value="marcus.johnson@email.com">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input type="tel" value="(555) 123-4567">
+                                </div>
+                                <button class="btn btn-primary btn-sm">Save Changes</button>
+                            </div>
+                        </div>
+                        <div class="settings-card">
+                            <h3>Notification Preferences</h3>
+                            <div class="settings-options">
+                                <label class="toggle-option">
+                                    <span>Email notifications</span>
+                                    <input type="checkbox" checked>
+                                    <span class="toggle"></span>
+                                </label>
+                                <label class="toggle-option">
+                                    <span>SMS notifications</span>
+                                    <input type="checkbox" checked>
+                                    <span class="toggle"></span>
+                                </label>
+                                <label class="toggle-option">
+                                    <span>Meeting reminders</span>
+                                    <input type="checkbox" checked>
+                                    <span class="toggle"></span>
+                                </label>
+                                <label class="toggle-option">
+                                    <span>Document updates</span>
+                                    <input type="checkbox">
+                                    <span class="toggle"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="settings-card">
+                            <h3>Security</h3>
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>Current Password</label>
+                                    <input type="password" placeholder="Enter current password">
+                                </div>
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <input type="password" placeholder="Enter new password">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" placeholder="Confirm new password">
+                                </div>
+                                <button class="btn btn-secondary btn-sm">Update Password</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- New Meeting Modal -->
+    <div class="modal" id="meetingModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Schedule a Meeting</h3>
+                <button class="modal-close" id="closeModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label>Meeting Title</label>
+                    <input type="text" placeholder="e.g., Contract Discussion">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date">
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Meeting Type</label>
+                    <select>
+                        <option>Video Call</option>
+                        <option>Phone Call</option>
+                        <option>In Person</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Attendees</label>
+                    <select multiple>
+                        <option selected>James Davis (Agent)</option>
+                        <option>Sarah Mitchell (Legal)</option>
+                        <option>Michael Brown (Marketing)</option>
+                        <option>Financial Team</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea placeholder="Add any details or agenda items..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelModal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Schedule Meeting</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="portal.js"></script>
+</body>
+</html>
