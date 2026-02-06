@@ -416,3 +416,91 @@ window.openScheduleModal = openScheduleModal;
 window.closeScheduleModal = closeScheduleModal;
 window.toggleChat = toggleChat;
 window.sendQuickReply = sendQuickReply;
+
+// ============================================
+// INTERACTIVE MAP & LIST SYNC
+// ============================================
+const initMapInteraction = () => {
+    const mapAreas = document.querySelectorAll('.map-area');
+    const areaItems = document.querySelectorAll('.area-item[data-city]');
+    const areasMap = document.querySelector('.areas-map');
+
+    // City display names for tooltips
+    const cityNames = {
+        'birmingham': 'Birmingham Metro',
+        'hoover': 'Hoover',
+        'mountain-brook': 'Mountain Brook',
+        'homewood': 'Homewood',
+        'vestavia': 'Vestavia Hills',
+        'trussville': 'Trussville',
+        'irondale': 'Irondale (HQ)'
+    };
+
+    // Create tooltip element
+    const tooltip = document.createElement('div');
+    tooltip.className = 'map-tooltip';
+    if (areasMap) {
+        areasMap.appendChild(tooltip);
+    }
+
+    // Map area hover - highlight corresponding list item
+    mapAreas.forEach(area => {
+        const city = area.getAttribute('data-city');
+
+        area.addEventListener('mouseenter', (e) => {
+            // Highlight list item
+            areaItems.forEach(item => {
+                if (item.getAttribute('data-city') === city) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Show tooltip
+            const rect = area.getBoundingClientRect();
+            const mapRect = areasMap.getBoundingClientRect();
+            tooltip.textContent = cityNames[city] || city;
+            tooltip.style.left = `${rect.left - mapRect.left + rect.width / 2}px`;
+            tooltip.style.top = `${rect.top - mapRect.top - 10}px`;
+            tooltip.classList.add('visible');
+        });
+
+        area.addEventListener('mouseleave', () => {
+            // Remove highlight
+            areaItems.forEach(item => item.classList.remove('active'));
+            // Hide tooltip
+            tooltip.classList.remove('visible');
+        });
+
+        // Click to scroll to schedule
+        area.addEventListener('click', () => {
+            openScheduleModal();
+        });
+    });
+
+    // List item hover - highlight corresponding map area
+    areaItems.forEach(item => {
+        const city = item.getAttribute('data-city');
+
+        item.addEventListener('mouseenter', () => {
+            mapAreas.forEach(area => {
+                if (area.getAttribute('data-city') === city) {
+                    area.classList.add('active');
+                }
+            });
+        });
+
+        item.addEventListener('mouseleave', () => {
+            mapAreas.forEach(area => area.classList.remove('active'));
+        });
+
+        // Click to schedule
+        item.addEventListener('click', () => {
+            openScheduleModal();
+        });
+    });
+};
+
+// Initialize map interaction on DOM load
+document.addEventListener('DOMContentLoaded', () => {
+    initMapInteraction();
+});

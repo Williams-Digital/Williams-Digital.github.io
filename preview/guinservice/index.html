@@ -431,127 +431,189 @@
             </div>
             <div class="areas-content">
                 <div class="areas-map">
-                    <svg viewBox="0 0 500 400" class="service-area-map" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 500 420" class="service-area-map" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#1e40af;stop-opacity:0.1" />
-                                <stop offset="100%" style="stop-color:#0891b2;stop-opacity:0.1" />
+                            <!-- Gradients -->
+                            <linearGradient id="mapBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#f8fafc" />
+                                <stop offset="100%" style="stop-color:#e2e8f0" />
                             </linearGradient>
                             <linearGradient id="areaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#1e40af;stop-opacity:0.6" />
-                                <stop offset="100%" style="stop-color:#0891b2;stop-opacity:0.6" />
+                                <stop offset="0%" style="stop-color:#1e40af" />
+                                <stop offset="100%" style="stop-color:#0891b2" />
                             </linearGradient>
-                            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <linearGradient id="areaHover" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2563eb" />
+                                <stop offset="100%" style="stop-color:#06b6d4" />
+                            </linearGradient>
+                            <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.2" />
+                            </linearGradient>
+                            <radialGradient id="pulseGradient" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.6" />
+                                <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0" />
+                            </radialGradient>
+
+                            <!-- Filters -->
+                            <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
                                 <feMerge>
                                     <feMergeNode in="coloredBlur"/>
                                     <feMergeNode in="SourceGraphic"/>
                                 </feMerge>
                             </filter>
-                            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-                                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+                            <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                                <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1e40af" flood-opacity="0.25"/>
+                            </filter>
+                            <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
                             </filter>
                         </defs>
 
                         <!-- Background -->
-                        <rect width="500" height="400" fill="url(#mapGradient)" rx="16"/>
+                        <rect width="500" height="420" fill="url(#mapBg)" rx="20"/>
 
-                        <!-- Road/Highway lines -->
-                        <g stroke="#cbd5e1" stroke-width="2" fill="none" opacity="0.5">
-                            <path d="M50 200 Q150 200 250 200 Q350 200 450 200" stroke-dasharray="8,4"/>
-                            <path d="M250 50 Q250 150 250 200 Q250 300 250 380" stroke-dasharray="8,4"/>
-                            <path d="M100 100 Q175 150 250 200 Q325 250 400 300" stroke-dasharray="8,4"/>
-                            <path d="M400 100 Q325 150 250 200 Q175 250 100 300" stroke-dasharray="8,4"/>
+                        <!-- Decorative grid pattern -->
+                        <g stroke="#cbd5e1" stroke-width="1" opacity="0.3">
+                            <line x1="0" y1="100" x2="500" y2="100"/>
+                            <line x1="0" y1="200" x2="500" y2="200"/>
+                            <line x1="0" y1="300" x2="500" y2="300"/>
+                            <line x1="125" y1="0" x2="125" y2="420"/>
+                            <line x1="250" y1="0" x2="250" y2="420"/>
+                            <line x1="375" y1="0" x2="375" y2="420"/>
+                        </g>
+
+                        <!-- Connection lines from HQ (Irondale) to each area -->
+                        <g class="connection-lines" stroke="url(#connectionGradient)" stroke-width="2" fill="none" opacity="0.6">
+                            <path d="M340 175 Q280 140 220 130" class="connection-line" stroke-dasharray="6,4">
+                                <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M340 175 Q290 175 180 190" class="connection-line" stroke-dasharray="6,4">
+                                <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M340 175 Q250 220 145 250" class="connection-line" stroke-dasharray="6,4">
+                                <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M340 175 Q320 250 300 290" class="connection-line" stroke-dasharray="6,4">
+                                <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M340 175 Q280 250 220 290" class="connection-line" stroke-dasharray="6,4">
+                                <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M340 175 Q340 120 400 85" class="connection-line" stroke-dasharray="6,4">
+                                <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M340 175 Q200 210 100 220" class="connection-line" stroke-dasharray="6,4">
+                                <animate attributeName="stroke-dashoffset" from="0" to="20" dur="2s" repeatCount="indefinite"/>
+                            </path>
                         </g>
 
                         <!-- Trussville - Northeast -->
                         <g class="map-area" data-city="trussville">
-                            <ellipse cx="380" cy="120" rx="55" ry="40" fill="url(#areaGradient)" filter="url(#shadow)"/>
-                            <text x="380" y="125" text-anchor="middle" fill="white" font-size="13" font-weight="600">Trussville</text>
-                        </g>
-
-                        <!-- Irondale - East of Birmingham -->
-                        <g class="map-area" data-city="irondale">
-                            <ellipse cx="350" cy="200" rx="45" ry="35" fill="url(#areaGradient)" filter="url(#shadow)"/>
-                            <text x="350" y="205" text-anchor="middle" fill="white" font-size="12" font-weight="600">Irondale</text>
-                            <!-- Guin Service HQ marker -->
-                            <circle cx="350" cy="185" r="8" fill="#f59e0b" filter="url(#glow)"/>
-                            <text x="350" y="188" text-anchor="middle" fill="white" font-size="8" font-weight="bold">HQ</text>
+                            <ellipse class="area-shape" cx="410" cy="70" rx="60" ry="38" fill="url(#areaGradient)" filter="url(#shadow)"/>
+                            <text x="410" y="75" text-anchor="middle" fill="white" font-size="14" font-weight="600" class="area-label">Trussville</text>
                         </g>
 
                         <!-- Birmingham - Center (largest) -->
                         <g class="map-area" data-city="birmingham">
-                            <ellipse cx="220" cy="200" rx="70" ry="55" fill="url(#areaGradient)" filter="url(#shadow)"/>
-                            <text x="220" y="195" text-anchor="middle" fill="white" font-size="16" font-weight="700">Birmingham</text>
-                            <text x="220" y="215" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">Metro Area</text>
+                            <ellipse class="area-shape" cx="180" cy="140" rx="85" ry="60" fill="url(#areaGradient)" filter="url(#shadow)"/>
+                            <text x="180" y="135" text-anchor="middle" fill="white" font-size="18" font-weight="700" class="area-label">Birmingham</text>
+                            <text x="180" y="155" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="11" font-weight="500">Metro Area</text>
                         </g>
 
-                        <!-- Mountain Brook - Southeast of Birmingham -->
-                        <g class="map-area" data-city="mountain-brook">
-                            <ellipse cx="300" cy="280" rx="55" ry="35" fill="url(#areaGradient)" filter="url(#shadow)"/>
-                            <text x="300" y="276" text-anchor="middle" fill="white" font-size="11" font-weight="600">Mountain</text>
-                            <text x="300" y="290" text-anchor="middle" fill="white" font-size="11" font-weight="600">Brook</text>
+                        <!-- Irondale - East of Birmingham (HQ Location) -->
+                        <g class="map-area hq-area" data-city="irondale">
+                            <ellipse class="area-shape" cx="340" cy="175" rx="55" ry="40" fill="url(#areaGradient)" filter="url(#shadow)"/>
+                            <text x="340" y="195" text-anchor="middle" fill="white" font-size="13" font-weight="600" class="area-label">Irondale</text>
+
+                            <!-- Pulsing rings for HQ -->
+                            <circle cx="340" cy="160" r="25" fill="url(#pulseGradient)" class="pulse-ring pulse-1"/>
+                            <circle cx="340" cy="160" r="20" fill="url(#pulseGradient)" class="pulse-ring pulse-2"/>
+                            <circle cx="340" cy="160" r="15" fill="url(#pulseGradient)" class="pulse-ring pulse-3"/>
+
+                            <!-- HQ Marker -->
+                            <circle cx="340" cy="160" r="12" fill="#f59e0b" filter="url(#glow)" class="hq-marker"/>
+                            <circle cx="340" cy="160" r="8" fill="#fbbf24"/>
+                            <text x="340" y="164" text-anchor="middle" fill="#92400e" font-size="8" font-weight="800">HQ</text>
                         </g>
 
-                        <!-- Homewood - South of Birmingham -->
-                        <g class="map-area" data-city="homewood">
-                            <ellipse cx="200" cy="300" rx="50" ry="35" fill="url(#areaGradient)" filter="url(#shadow)"/>
-                            <text x="200" y="305" text-anchor="middle" fill="white" font-size="12" font-weight="600">Homewood</text>
+                        <!-- Hoover - West -->
+                        <g class="map-area" data-city="hoover">
+                            <ellipse class="area-shape" cx="80" cy="220" rx="58" ry="42" fill="url(#areaGradient)" filter="url(#shadow)"/>
+                            <text x="80" y="225" text-anchor="middle" fill="white" font-size="14" font-weight="600" class="area-label">Hoover</text>
                         </g>
 
                         <!-- Vestavia Hills - Southwest -->
                         <g class="map-area" data-city="vestavia">
-                            <ellipse cx="120" cy="280" rx="55" ry="38" fill="url(#areaGradient)" filter="url(#shadow)"/>
-                            <text x="120" y="276" text-anchor="middle" fill="white" font-size="11" font-weight="600">Vestavia</text>
-                            <text x="120" y="290" text-anchor="middle" fill="white" font-size="11" font-weight="600">Hills</text>
+                            <ellipse class="area-shape" cx="145" cy="290" rx="62" ry="40" fill="url(#areaGradient)" filter="url(#shadow)"/>
+                            <text x="145" y="285" text-anchor="middle" fill="white" font-size="12" font-weight="600" class="area-label">Vestavia</text>
+                            <text x="145" y="300" text-anchor="middle" fill="white" font-size="12" font-weight="600" class="area-label">Hills</text>
                         </g>
 
-                        <!-- Hoover - West/Southwest -->
-                        <g class="map-area" data-city="hoover">
-                            <ellipse cx="90" cy="180" rx="55" ry="40" fill="url(#areaGradient)" filter="url(#shadow)"/>
-                            <text x="90" y="185" text-anchor="middle" fill="white" font-size="14" font-weight="600">Hoover</text>
+                        <!-- Homewood - South Central -->
+                        <g class="map-area" data-city="homewood">
+                            <ellipse class="area-shape" cx="240" cy="300" rx="55" ry="38" fill="url(#areaGradient)" filter="url(#shadow)"/>
+                            <text x="240" y="305" text-anchor="middle" fill="white" font-size="13" font-weight="600" class="area-label">Homewood</text>
+                        </g>
+
+                        <!-- Mountain Brook - Southeast -->
+                        <g class="map-area" data-city="mountain-brook">
+                            <ellipse class="area-shape" cx="340" cy="295" rx="60" ry="38" fill="url(#areaGradient)" filter="url(#shadow)"/>
+                            <text x="340" y="290" text-anchor="middle" fill="white" font-size="11" font-weight="600" class="area-label">Mountain</text>
+                            <text x="340" y="305" text-anchor="middle" fill="white" font-size="11" font-weight="600" class="area-label">Brook</text>
                         </g>
 
                         <!-- Legend -->
-                        <g transform="translate(20, 350)">
-                            <circle cx="10" cy="10" r="6" fill="#f59e0b"/>
-                            <text x="22" y="14" fill="#64748b" font-size="11">Guin Service HQ</text>
-                            <rect x="100" y="4" width="12" height="12" rx="2" fill="url(#areaGradient)"/>
-                            <text x="118" y="14" fill="#64748b" font-size="11">Service Area</text>
+                        <g transform="translate(20, 365)">
+                            <rect x="-10" y="-10" width="480" height="50" rx="10" fill="white" filter="url(#softShadow)"/>
+
+                            <!-- HQ indicator -->
+                            <circle cx="20" cy="15" r="8" fill="#f59e0b"/>
+                            <circle cx="20" cy="15" r="5" fill="#fbbf24"/>
+                            <text x="36" y="19" fill="#374151" font-size="12" font-weight="500">Our Headquarters</text>
+
+                            <!-- Service area indicator -->
+                            <rect x="170" y="7" width="16" height="16" rx="4" fill="url(#areaGradient)"/>
+                            <text x="194" y="19" fill="#374151" font-size="12" font-weight="500">Service Area</text>
+
+                            <!-- Connection line indicator -->
+                            <line x1="310" y1="15" x2="340" y2="15" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,2"/>
+                            <text x="350" y="19" fill="#374151" font-size="12" font-weight="500">Service Route</text>
                         </g>
                     </svg>
                 </div>
                 <div class="areas-list">
-                    <div class="area-item">
+                    <div class="area-item" data-city="birmingham">
                         <i class="fas fa-location-dot"></i>
                         <span>Birmingham</span>
                     </div>
-                    <div class="area-item">
+                    <div class="area-item" data-city="hoover">
                         <i class="fas fa-location-dot"></i>
                         <span>Hoover</span>
                     </div>
-                    <div class="area-item">
+                    <div class="area-item" data-city="mountain-brook">
                         <i class="fas fa-location-dot"></i>
                         <span>Mountain Brook</span>
                     </div>
-                    <div class="area-item">
+                    <div class="area-item" data-city="homewood">
                         <i class="fas fa-location-dot"></i>
                         <span>Homewood</span>
                     </div>
-                    <div class="area-item">
+                    <div class="area-item" data-city="vestavia">
                         <i class="fas fa-location-dot"></i>
                         <span>Vestavia Hills</span>
                     </div>
-                    <div class="area-item">
+                    <div class="area-item" data-city="trussville">
                         <i class="fas fa-location-dot"></i>
                         <span>Trussville</span>
                     </div>
-                    <div class="area-item">
-                        <i class="fas fa-location-dot"></i>
-                        <span>Irondale</span>
+                    <div class="area-item hq-item" data-city="irondale">
+                        <i class="fas fa-star"></i>
+                        <span>Irondale (HQ)</span>
                     </div>
                     <div class="area-item">
-                        <i class="fas fa-location-dot"></i>
+                        <i class="fas fa-map-marker-alt"></i>
                         <span>& Surrounding Areas</span>
                     </div>
                 </div>
