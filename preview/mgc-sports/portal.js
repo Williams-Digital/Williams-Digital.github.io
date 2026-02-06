@@ -223,6 +223,112 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Player roster selection
+    const rosterPlayers = document.querySelectorAll('.roster-player');
+    const selectedPlayerHeader = document.querySelector('.selected-player-header');
+    const scheduleWithPlayerBtn = document.querySelector('.schedule-with-player');
+    const upcomingEventsTitle = document.querySelector('.upcoming-events h4');
+
+    const playerData = {
+        'marcus-johnson': { name: 'Marcus Johnson', initials: 'MJ', team: 'Houston Texans', position: 'QB', color: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' },
+        'darius-williams': { name: 'Darius Williams', initials: 'DW', team: 'Dallas Cowboys', position: 'RB', color: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        'jaylen-carter': { name: 'Jaylen Carter', initials: 'JC', team: 'Philadelphia Eagles', position: 'DT', color: 'linear-gradient(135deg, #8b5cf6, #7c3aed)' },
+        'chris-thompson': { name: 'Chris Thompson', initials: 'CT', team: 'Miami Dolphins', position: 'WR', color: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        'andre-davis': { name: 'Andre Davis', initials: 'AD', team: 'Kansas City Chiefs', position: 'LB', color: 'linear-gradient(135deg, #ef4444, #dc2626)' },
+        'kevin-moore': { name: 'Kevin Moore', initials: 'KM', team: 'Baltimore Ravens', position: 'CB', color: 'linear-gradient(135deg, #06b6d4, #0891b2)' },
+        'brandon-lee': { name: 'Brandon Lee', initials: 'BL', team: 'San Francisco 49ers', position: 'TE', color: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        'tyler-jackson': { name: 'Tyler Jackson', initials: 'TJ', team: 'Buffalo Bills', position: 'S', color: 'linear-gradient(135deg, #84cc16, #65a30d)' }
+    };
+
+    function selectPlayer(playerId) {
+        const player = playerData[playerId];
+        if (!player) return;
+
+        // Update roster selection
+        rosterPlayers.forEach(p => p.classList.remove('selected'));
+        const selectedRosterPlayer = document.querySelector(`.roster-player[data-player="${playerId}"]`);
+        if (selectedRosterPlayer) selectedRosterPlayer.classList.add('selected');
+
+        // Update header
+        if (selectedPlayerHeader) {
+            const avatar = selectedPlayerHeader.querySelector('.player-avatar');
+            const nameEl = selectedPlayerHeader.querySelector('h3');
+            const teamEl = selectedPlayerHeader.querySelector('p');
+
+            if (avatar) {
+                avatar.style.background = player.color;
+                avatar.textContent = player.initials;
+            }
+            if (nameEl) nameEl.textContent = player.name;
+            if (teamEl) teamEl.textContent = `${player.position} | ${player.team}`;
+        }
+
+        // Update button text
+        if (scheduleWithPlayerBtn) {
+            const firstName = player.name.split(' ')[0];
+            scheduleWithPlayerBtn.querySelector('span').textContent = `Schedule with ${firstName}`;
+        }
+
+        // Update events title
+        if (upcomingEventsTitle) {
+            upcomingEventsTitle.textContent = `Upcoming with ${player.name}`;
+        }
+
+        // Update modal player selection
+        const modalRadio = document.querySelector(`input[name="player"][value="${playerId}"]`);
+        if (modalRadio) modalRadio.checked = true;
+        updateModalPlayerSelection();
+    }
+
+    rosterPlayers.forEach(player => {
+        player.addEventListener('click', function() {
+            const playerId = this.getAttribute('data-player');
+            selectPlayer(playerId);
+        });
+    });
+
+    // Schedule with player button
+    if (scheduleWithPlayerBtn) {
+        scheduleWithPlayerBtn.addEventListener('click', openModal);
+    }
+
+    // Player selection in modal
+    const playerSelectOptions = document.querySelectorAll('.player-select-option');
+
+    function updateModalPlayerSelection() {
+        playerSelectOptions.forEach(option => {
+            const radio = option.querySelector('input[type="radio"]');
+            if (radio.checked) {
+                option.classList.add('selected');
+            } else {
+                option.classList.remove('selected');
+            }
+        });
+    }
+
+    playerSelectOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            updateModalPlayerSelection();
+        });
+    });
+
+    // Roster search
+    const rosterSearch = document.querySelector('.roster-search input');
+    if (rosterSearch) {
+        rosterSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            rosterPlayers.forEach(player => {
+                const name = player.querySelector('.player-name').textContent.toLowerCase();
+                const team = player.querySelector('.player-team').textContent.toLowerCase();
+                if (name.includes(searchTerm) || team.includes(searchTerm)) {
+                    player.style.display = 'flex';
+                } else {
+                    player.style.display = 'none';
+                }
+            });
+        });
+    }
+
     // Settings form handling
     const settingsForms = document.querySelectorAll('.settings-form');
     settingsForms.forEach(form => {

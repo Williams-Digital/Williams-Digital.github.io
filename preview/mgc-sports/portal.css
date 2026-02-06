@@ -1266,6 +1266,274 @@ body {
 }
 
 /* Schedule Section */
+.schedule-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+}
+
+/* Player Roster Sidebar */
+.player-roster {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.25rem;
+    height: fit-content;
+    max-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+}
+
+.roster-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.roster-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.player-count {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    background: var(--gray-100);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+}
+
+.roster-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.roster-search svg {
+    stroke: var(--gray-400);
+    flex-shrink: 0;
+}
+
+.roster-search input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-size: 0.875rem;
+    color: var(--gray-900);
+    outline: none;
+}
+
+.roster-search input::placeholder {
+    color: var(--gray-400);
+}
+
+.roster-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.roster-player {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.roster-player:hover {
+    background: var(--gray-50);
+}
+
+.roster-player.selected {
+    background: rgba(201, 162, 39, 0.08);
+    border-color: var(--gold);
+}
+
+.player-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--white);
+    flex-shrink: 0;
+}
+
+.player-avatar.large {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+}
+
+.player-avatar.small {
+    width: 28px;
+    height: 28px;
+    font-size: 0.625rem;
+}
+
+.player-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.player-name {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-team {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+}
+
+.player-events {
+    width: 22px;
+    height: 22px;
+    background: var(--gray-100);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gray-600);
+}
+
+.roster-player.selected .player-events {
+    background: var(--gold);
+    color: var(--navy-dark);
+}
+
+/* Schedule Main Area */
+.schedule-main {
+    flex: 1;
+}
+
+.selected-player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, rgba(15, 40, 71, 0.03) 0%, rgba(201, 162, 39, 0.05) 100%);
+    border-bottom: 1px solid var(--gray-100);
+    border-radius: 16px 16px 0 0;
+}
+
+.selected-player-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.selected-player-info h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 0.125rem;
+}
+
+.selected-player-info p {
+    font-size: 0.8125rem;
+    color: var(--gray-500);
+}
+
+/* Player Select in Modal */
+.player-select-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.player-select-option {
+    cursor: pointer;
+}
+
+.player-select-option input {
+    display: none;
+}
+
+.player-select-card {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.player-select-card span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--gray-700);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-select-option input:checked + .player-select-card {
+    background: rgba(201, 162, 39, 0.1);
+    border-color: var(--gold);
+}
+
+.player-select-option input:checked + .player-select-card span {
+    color: var(--gray-900);
+}
+
+.player-select-option:hover .player-select-card {
+    border-color: var(--gray-300);
+}
+
+@media (max-width: 1200px) {
+    .schedule-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .player-roster {
+        max-height: none;
+    }
+
+    .roster-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .player-select-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .selected-player-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
 .schedule-container {
     background: var(--white);
     border-radius: 16px;
