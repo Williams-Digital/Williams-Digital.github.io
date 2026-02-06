@@ -782,103 +782,462 @@
         </div>
     </footer>
 
-    <!-- Schedule Modal -->
+    <!-- Schedule Modal - Multi-Step Wizard -->
     <div class="modal" id="schedule-modal">
         <div class="modal-overlay" onclick="closeScheduleModal()"></div>
-        <div class="modal-content">
+        <div class="modal-content modal-wizard">
             <button class="modal-close" onclick="closeScheduleModal()">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="modal-header">
-                <h2><i class="fas fa-calendar-check"></i> Schedule Service Online</h2>
-                <p>Fill out the form below and we'll confirm your appointment shortly.</p>
+
+            <!-- Progress Bar -->
+            <div class="wizard-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-icon"><i class="fas fa-wrench"></i></div>
+                        <span>Service</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-icon"><i class="fas fa-user"></i></div>
+                        <span>Details</span>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-icon"><i class="fas fa-calendar"></i></div>
+                        <span>Schedule</span>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-icon"><i class="fas fa-check"></i></div>
+                        <span>Confirm</span>
+                    </div>
+                </div>
             </div>
-            <form class="schedule-form" id="schedule-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="sched-name">Full Name *</label>
-                        <input type="text" id="sched-name" name="name" required placeholder="John Smith">
+
+            <!-- Emergency Alert (Hidden by default) -->
+            <div class="emergency-alert" id="emergency-alert">
+                <div class="emergency-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="emergency-content">
+                    <h3>Need Emergency Service?</h3>
+                    <p>For fastest response, call us directly. We're available 24/7!</p>
+                    <a href="tel:2055954846" class="btn btn-emergency">
+                        <i class="fas fa-phone-volume"></i>
+                        Call (205) 595-4846 Now
+                    </a>
+                    <button type="button" class="btn btn-outline-light" onclick="dismissEmergency()">
+                        Continue with online booking
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 1: Service Selection -->
+            <div class="wizard-step active" id="step-1">
+                <div class="step-header">
+                    <h2>What service do you need?</h2>
+                    <p>Select a category, then choose your specific service</p>
+                </div>
+
+                <!-- Service Category Tabs -->
+                <div class="service-category-tabs">
+                    <button type="button" class="category-tab active" data-category="hvac">
+                        <i class="fas fa-wind"></i>
+                        <span>HVAC</span>
+                    </button>
+                    <button type="button" class="category-tab" data-category="plumbing">
+                        <i class="fas fa-faucet-drip"></i>
+                        <span>Plumbing</span>
+                    </button>
+                    <button type="button" class="category-tab" data-category="generator">
+                        <i class="fas fa-bolt"></i>
+                        <span>Generator</span>
+                    </button>
+                    <button type="button" class="category-tab" data-category="other">
+                        <i class="fas fa-ellipsis-h"></i>
+                        <span>Other</span>
+                    </button>
+                </div>
+
+                <!-- HVAC Services -->
+                <div class="service-options active" id="services-hvac">
+                    <div class="service-option" data-service="ac-repair" data-name="AC Repair">
+                        <div class="option-icon"><i class="fas fa-snowflake"></i></div>
+                        <div class="option-content">
+                            <h4>AC Repair</h4>
+                            <p>Fix cooling issues, strange noises, or leaks</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
                     </div>
-                    <div class="form-group">
-                        <label for="sched-phone">Phone Number *</label>
-                        <input type="tel" id="sched-phone" name="phone" required placeholder="(205) 555-0123">
+                    <div class="service-option" data-service="ac-install" data-name="AC Installation">
+                        <div class="option-icon"><i class="fas fa-plus-circle"></i></div>
+                        <div class="option-content">
+                            <h4>AC Installation</h4>
+                            <p>New system installation or replacement</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="heating-repair" data-name="Heating Repair">
+                        <div class="option-icon"><i class="fas fa-fire"></i></div>
+                        <div class="option-content">
+                            <h4>Heating Repair</h4>
+                            <p>Furnace, heat pump, or heating issues</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="heating-install" data-name="Heating Installation">
+                        <div class="option-icon"><i class="fas fa-temperature-high"></i></div>
+                        <div class="option-content">
+                            <h4>Heating Installation</h4>
+                            <p>New heating system or upgrade</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="duct-cleaning" data-name="Duct Cleaning">
+                        <div class="option-icon"><i class="fas fa-fan"></i></div>
+                        <div class="option-content">
+                            <h4>Duct Cleaning</h4>
+                            <p>Clean air ducts for better air quality</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="air-quality" data-name="Indoor Air Quality">
+                        <div class="option-icon"><i class="fas fa-leaf"></i></div>
+                        <div class="option-content">
+                            <h4>Indoor Air Quality</h4>
+                            <p>Filters, purifiers, and humidity control</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="sched-email">Email Address *</label>
-                    <input type="email" id="sched-email" name="email" required placeholder="[email protected]">
-                </div>
-                <div class="form-group">
-                    <label for="sched-address">Service Address *</label>
-                    <input type="text" id="sched-address" name="address" required placeholder="123 Main St, Birmingham, AL">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="sched-service">Service Type *</label>
-                        <select id="sched-service" name="service" required>
-                            <option value="">Select service</option>
-                            <optgroup label="HVAC">
-                                <option value="ac-repair">AC Repair</option>
-                                <option value="ac-install">AC Installation</option>
-                                <option value="heating-repair">Heating Repair</option>
-                                <option value="heating-install">Heating Installation</option>
-                                <option value="duct-cleaning">Duct Cleaning</option>
-                                <option value="air-quality">Indoor Air Quality</option>
-                            </optgroup>
-                            <optgroup label="Plumbing">
-                                <option value="plumbing-repair">Plumbing Repair</option>
-                                <option value="water-heater">Water Heater Service</option>
-                                <option value="sewer">Sewer Service</option>
-                                <option value="gas-line">Gas Line Service</option>
-                            </optgroup>
-                            <optgroup label="Generators">
-                                <option value="gen-install">Generator Installation</option>
-                                <option value="gen-repair">Generator Repair</option>
-                                <option value="gen-maintenance">Generator Maintenance</option>
-                            </optgroup>
-                            <optgroup label="Other">
-                                <option value="maintenance">Maintenance Plan</option>
-                                <option value="estimate">Free Estimate</option>
-                                <option value="other">Other</option>
-                            </optgroup>
-                        </select>
+
+                <!-- Plumbing Services -->
+                <div class="service-options" id="services-plumbing">
+                    <div class="service-option" data-service="plumbing-repair" data-name="Plumbing Repair">
+                        <div class="option-icon"><i class="fas fa-wrench"></i></div>
+                        <div class="option-content">
+                            <h4>Plumbing Repair</h4>
+                            <p>Leaks, clogs, faucets, and fixtures</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
                     </div>
-                    <div class="form-group">
-                        <label for="sched-urgency">Urgency</label>
-                        <select id="sched-urgency" name="urgency">
-                            <option value="standard">Standard</option>
-                            <option value="soon">Within a few days</option>
-                            <option value="urgent">Urgent (24-48 hours)</option>
-                            <option value="emergency">Emergency - Call Now</option>
-                        </select>
+                    <div class="service-option" data-service="water-heater" data-name="Water Heater Service">
+                        <div class="option-icon"><i class="fas fa-hot-tub-person"></i></div>
+                        <div class="option-content">
+                            <h4>Water Heater</h4>
+                            <p>Repair, replacement, or tankless install</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="sewer" data-name="Sewer Service">
+                        <div class="option-icon"><i class="fas fa-toilet"></i></div>
+                        <div class="option-content">
+                            <h4>Sewer Service</h4>
+                            <p>Drain cleaning, sewer repair, or inspection</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="gas-line" data-name="Gas Line Service">
+                        <div class="option-icon"><i class="fas fa-fire-flame-simple"></i></div>
+                        <div class="option-content">
+                            <h4>Gas Line Service</h4>
+                            <p>Gas line repair, installation, or leak detection</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="sched-date">Preferred Date</label>
-                        <input type="date" id="sched-date" name="date">
+
+                <!-- Generator Services -->
+                <div class="service-options" id="services-generator">
+                    <div class="service-option" data-service="gen-install" data-name="Generator Installation">
+                        <div class="option-icon"><i class="fas fa-car-battery"></i></div>
+                        <div class="option-content">
+                            <h4>Generator Installation</h4>
+                            <p>New Generac whole-home generator</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
                     </div>
-                    <div class="form-group">
-                        <label for="sched-time">Preferred Time</label>
-                        <select id="sched-time" name="time">
-                            <option value="morning">Morning (8am-12pm)</option>
-                            <option value="afternoon">Afternoon (12pm-4pm)</option>
-                            <option value="flexible">Flexible</option>
-                        </select>
+                    <div class="service-option" data-service="gen-repair" data-name="Generator Repair">
+                        <div class="option-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+                        <div class="option-content">
+                            <h4>Generator Repair</h4>
+                            <p>Fix issues with existing generator</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="gen-maintenance" data-name="Generator Maintenance">
+                        <div class="option-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="option-content">
+                            <h4>Generator Maintenance</h4>
+                            <p>Regular service to keep it running</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="sched-notes">Additional Details</label>
-                    <textarea id="sched-notes" name="notes" rows="3" placeholder="Describe your issue or what you need..."></textarea>
+
+                <!-- Other Services -->
+                <div class="service-options" id="services-other">
+                    <div class="service-option" data-service="maintenance" data-name="Maintenance Plan">
+                        <div class="option-icon"><i class="fas fa-shield"></i></div>
+                        <div class="option-content">
+                            <h4>Guin Guard Plan</h4>
+                            <p>Preventive maintenance membership</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="estimate" data-name="Free Estimate">
+                        <div class="option-icon"><i class="fas fa-calculator"></i></div>
+                        <div class="option-content">
+                            <h4>Free Estimate</h4>
+                            <p>Get a quote for new installation</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <div class="service-option" data-service="other" data-name="Other Service">
+                        <div class="option-icon"><i class="fas fa-question-circle"></i></div>
+                        <div class="option-content">
+                            <h4>Other</h4>
+                            <p>Something else not listed</p>
+                        </div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-full btn-lg">
-                    <i class="fas fa-calendar-plus"></i> Request Appointment
-                </button>
-                <p class="form-note">
-                    <i class="fas fa-info-circle"></i>
-                    We'll call you within 1 business hour to confirm your appointment.
-                </p>
-            </form>
+
+                <!-- Urgency Selection -->
+                <div class="urgency-section">
+                    <label>How urgent is this?</label>
+                    <div class="urgency-options">
+                        <div class="urgency-option" data-urgency="standard">
+                            <i class="fas fa-calendar"></i>
+                            <span>Standard</span>
+                            <small>Within a week</small>
+                        </div>
+                        <div class="urgency-option" data-urgency="soon">
+                            <i class="fas fa-clock"></i>
+                            <span>Soon</span>
+                            <small>2-3 days</small>
+                        </div>
+                        <div class="urgency-option" data-urgency="urgent">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Urgent</span>
+                            <small>24-48 hours</small>
+                        </div>
+                        <div class="urgency-option emergency" data-urgency="emergency">
+                            <i class="fas fa-bolt"></i>
+                            <span>Emergency</span>
+                            <small>ASAP</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wizard-actions">
+                    <div></div>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()" id="step1-next" disabled>
+                        Continue <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Contact Details -->
+            <div class="wizard-step" id="step-2">
+                <div class="step-header">
+                    <h2>Your contact information</h2>
+                    <p>So we can reach you to confirm your appointment</p>
+                </div>
+
+                <form id="contact-details-form" class="wizard-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="w-name">Full Name *</label>
+                            <input type="text" id="w-name" name="name" required placeholder="John Smith">
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="w-phone">Phone Number *</label>
+                            <input type="tel" id="w-phone" name="phone" required placeholder="(205) 555-0123">
+                            <span class="field-error"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="w-email">Email Address *</label>
+                        <input type="email" id="w-email" name="email" required placeholder="[email protected]">
+                        <span class="field-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="w-address">Service Address *</label>
+                        <input type="text" id="w-address" name="address" required placeholder="123 Main St, Birmingham, AL 35201">
+                        <span class="field-error"></span>
+                    </div>
+                </form>
+
+                <div class="wizard-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Continue <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Schedule -->
+            <div class="wizard-step" id="step-3">
+                <div class="step-header">
+                    <h2>When works best for you?</h2>
+                    <p>Select your preferred date and time</p>
+                </div>
+
+                <div class="schedule-picker">
+                    <div class="date-picker-section">
+                        <label>Preferred Date</label>
+                        <div class="date-quick-picks">
+                            <button type="button" class="date-pick" data-days="0">Today</button>
+                            <button type="button" class="date-pick" data-days="1">Tomorrow</button>
+                            <button type="button" class="date-pick" data-days="2" id="day-2"></button>
+                            <button type="button" class="date-pick" data-days="3" id="day-3"></button>
+                            <button type="button" class="date-pick" data-days="4" id="day-4"></button>
+                        </div>
+                        <div class="custom-date">
+                            <span>Or pick a specific date:</span>
+                            <input type="date" id="w-date" name="date">
+                        </div>
+                    </div>
+
+                    <div class="time-picker-section">
+                        <label>Preferred Time</label>
+                        <div class="time-slots">
+                            <div class="time-slot" data-time="morning">
+                                <i class="fas fa-sun"></i>
+                                <span>Morning</span>
+                                <small>8am - 12pm</small>
+                            </div>
+                            <div class="time-slot" data-time="afternoon">
+                                <i class="fas fa-cloud-sun"></i>
+                                <span>Afternoon</span>
+                                <small>12pm - 4pm</small>
+                            </div>
+                            <div class="time-slot" data-time="flexible">
+                                <i class="fas fa-check-double"></i>
+                                <span>Flexible</span>
+                                <small>Any time</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group notes-group">
+                        <label for="w-notes">Additional Details (Optional)</label>
+                        <textarea id="w-notes" name="notes" rows="3" placeholder="Describe the issue, special access instructions, or anything else we should know..."></textarea>
+                    </div>
+                </div>
+
+                <div class="wizard-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">
+                        Review Request <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Confirmation -->
+            <div class="wizard-step" id="step-4">
+                <div class="step-header">
+                    <h2>Review your request</h2>
+                    <p>Make sure everything looks correct</p>
+                </div>
+
+                <div class="confirmation-summary">
+                    <div class="summary-card">
+                        <div class="summary-section">
+                            <div class="summary-icon"><i class="fas fa-wrench"></i></div>
+                            <div class="summary-content">
+                                <label>Service</label>
+                                <span id="confirm-service">-</span>
+                                <span class="summary-badge" id="confirm-urgency">Standard</span>
+                            </div>
+                        </div>
+                        <div class="summary-section">
+                            <div class="summary-icon"><i class="fas fa-user"></i></div>
+                            <div class="summary-content">
+                                <label>Contact</label>
+                                <span id="confirm-name">-</span>
+                                <small id="confirm-contact">-</small>
+                            </div>
+                        </div>
+                        <div class="summary-section">
+                            <div class="summary-icon"><i class="fas fa-location-dot"></i></div>
+                            <div class="summary-content">
+                                <label>Address</label>
+                                <span id="confirm-address">-</span>
+                            </div>
+                        </div>
+                        <div class="summary-section">
+                            <div class="summary-icon"><i class="fas fa-calendar"></i></div>
+                            <div class="summary-content">
+                                <label>Preferred Schedule</label>
+                                <span id="confirm-datetime">-</span>
+                            </div>
+                        </div>
+                        <div class="summary-section notes" id="confirm-notes-section">
+                            <div class="summary-icon"><i class="fas fa-sticky-note"></i></div>
+                            <div class="summary-content">
+                                <label>Notes</label>
+                                <span id="confirm-notes">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="callback-notice">
+                        <i class="fas fa-phone-volume"></i>
+                        <p>We'll call you within <strong>1 business hour</strong> to confirm your appointment.</p>
+                    </div>
+                </div>
+
+                <div class="wizard-actions">
+                    <button type="button" class="btn btn-outline" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="submitSchedule()" id="submit-btn">
+                        <i class="fas fa-calendar-check"></i> Confirm Request
+                    </button>
+                </div>
+            </div>
+
+            <!-- Success State -->
+            <div class="wizard-step" id="step-success">
+                <div class="success-animation">
+                    <div class="success-checkmark">
+                        <div class="check-icon">
+                            <span class="icon-line line-tip"></span>
+                            <span class="icon-line line-long"></span>
+                            <div class="icon-circle"></div>
+                            <div class="icon-fix"></div>
+                        </div>
+                    </div>
+                    <h2>Request Submitted!</h2>
+                    <p>Thank you, <span id="success-name">valued customer</span>!</p>
+                    <div class="success-details">
+                        <div class="success-item">
+                            <i class="fas fa-phone"></i>
+                            <span>We'll call you within 1 hour to confirm</span>
+                        </div>
+                        <div class="success-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>Confirmation email sent to <span id="success-email">your email</span></span>
+                        </div>
+                    </div>
+                    <div class="success-actions">
+                        <button type="button" class="btn btn-primary" onclick="closeScheduleModal()">
+                            Done
+                        </button>
+                        <a href="tel:2055954846" class="btn btn-outline">
+                            <i class="fas fa-phone"></i> Call Us Now
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

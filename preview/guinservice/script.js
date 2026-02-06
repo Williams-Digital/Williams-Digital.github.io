@@ -97,16 +97,29 @@ tabBtns.forEach(btn => {
 });
 
 // ============================================
-// SCHEDULE MODAL
+// SCHEDULE MODAL - MULTI-STEP WIZARD
 // ============================================
+let currentStep = 1;
+const totalSteps = 4;
+let wizardData = {
+    service: null,
+    serviceName: null,
+    urgency: 'standard',
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+    date: null,
+    dateFriendly: '',
+    time: null,
+    notes: ''
+};
+
 function openScheduleModal() {
     scheduleModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-
-    // Set minimum date to today
-    const dateInput = document.getElementById('sched-date');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
+    resetWizard();
+    initWizard();
 }
 
 function closeScheduleModal() {
@@ -114,32 +127,347 @@ function closeScheduleModal() {
     document.body.style.overflow = '';
 }
 
+function resetWizard() {
+    currentStep = 1;
+    wizardData = {
+        service: null,
+        serviceName: null,
+        urgency: 'standard',
+        name: '',
+        phone: '',
+        email: '',
+        address: '',
+        date: null,
+        dateFriendly: '',
+        time: null,
+        notes: ''
+    };
+
+    // Reset UI
+    document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
+    document.getElementById('step-1').classList.add('active');
+    document.querySelectorAll('.progress-step').forEach(step => {
+        step.classList.remove('active', 'completed');
+    });
+    document.querySelector('.progress-step[data-step="1"]').classList.add('active');
+    document.getElementById('progress-fill').style.width = '25%';
+
+    // Reset selections
+    document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
+    document.querySelectorAll('.urgency-option').forEach(opt => opt.classList.remove('selected'));
+    document.querySelectorAll('.date-pick').forEach(opt => opt.classList.remove('selected'));
+    document.querySelectorAll('.time-slot').forEach(opt => opt.classList.remove('selected'));
+
+    // Reset forms
+    const contactForm = document.getElementById('contact-details-form');
+    if (contactForm) contactForm.reset();
+
+    // Hide emergency alert
+    document.getElementById('emergency-alert').classList.remove('active');
+
+    // Disable next button
+    const nextBtn = document.getElementById('step1-next');
+    if (nextBtn) nextBtn.disabled = true;
+}
+
+function initWizard() {
+    // Initialize date picker
+    const dateInput = document.getElementById('w-date');
+    const today = new Date();
+    dateInput.min = today.toISOString().split('T')[0];
+
+    // Set day names for quick picks
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    for (let i = 2; i <= 4; i++) {
+        const futureDate = new Date(today);
+        futureDate.setDate(today.getDate() + i);
+        const dayEl = document.getElementById(`day-${i}`);
+        if (dayEl) {
+            dayEl.textContent = dayNames[futureDate.getDay()];
+        }
+    }
+
+    // Service category tabs
+    document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const category = tab.dataset.category;
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            document.querySelectorAll('.service-options').forEach(opts => opts.classList.remove('active'));
+            document.getElementById(`services-${category}`).classList.add('active');
+        });
+    });
+
+    // Service options
+    document.querySelectorAll('.service-option').forEach(option => {
+        option.addEventListener('click', () => {
+            document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            wizardData.service = option.dataset.service;
+            wizardData.serviceName = option.dataset.name;
+            updateNextButton();
+        });
+    });
+
+    // Urgency options
+    document.querySelectorAll('.urgency-option').forEach(option => {
+        option.addEventListener('click', () => {
+            document.querySelectorAll('.urgency-option').forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            wizardData.urgency = option.dataset.urgency;
+
+            // Show emergency alert if emergency selected
+            if (wizardData.urgency === 'emergency') {
+                document.getElementById('emergency-alert').classList.add('active');
+            }
+        });
+    });
+
+    // Date quick picks
+    document.querySelectorAll('.date-pick').forEach(pick => {
+        pick.addEventListener('click', () => {
+            document.querySelectorAll('.date-pick').forEach(p => p.classList.remove('selected'));
+            pick.classList.add('selected');
+
+            const days = parseInt(pick.dataset.days);
+            const selectedDate = new Date();
+            selectedDate.setDate(selectedDate.getDate() + days);
+            wizardData.date = selectedDate.toISOString().split('T')[0];
+            wizardData.dateFriendly = selectedDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Clear custom date
+            document.getElementById('w-date').value = '';
+        });
+    });
+
+    // Custom date picker
+    document.getElementById('w-date').addEventListener('change', (e) => {
+        document.querySelectorAll('.date-pick').forEach(p => p.classList.remove('selected'));
+        const selectedDate = new Date(e.target.value + 'T12:00:00');
+        wizardData.date = e.target.value;
+        wizardData.dateFriendly = selectedDate.toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric'
+        });
+    });
+
+    // Time slots
+    document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.addEventListener('click', () => {
+            document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+            slot.classList.add('selected');
+            wizardData.time = slot.dataset.time;
+        });
+    });
+
+    // Real-time form validation
+    const formInputs = document.querySelectorAll('#contact-details-form input');
+    formInputs.forEach(input => {
+        input.addEventListener('blur', () => validateField(input));
+        input.addEventListener('input', () => {
+            if (input.classList.contains('error')) {
+                validateField(input);
+            }
+        });
+    });
+}
+
+function updateNextButton() {
+    const nextBtn = document.getElementById('step1-next');
+    nextBtn.disabled = !wizardData.service;
+}
+
+function dismissEmergency() {
+    document.getElementById('emergency-alert').classList.remove('active');
+}
+
+function validateField(input) {
+    const errorEl = input.nextElementSibling;
+    let isValid = true;
+    let errorMsg = '';
+
+    if (input.required && !input.value.trim()) {
+        isValid = false;
+        errorMsg = 'This field is required';
+    } else if (input.type === 'email' && input.value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input.value)) {
+            isValid = false;
+            errorMsg = 'Please enter a valid email';
+        }
+    } else if (input.type === 'tel' && input.value) {
+        const phoneRegex = /^[\d\s\-\(\)]{10,}$/;
+        if (!phoneRegex.test(input.value.replace(/\D/g, '')) || input.value.replace(/\D/g, '').length < 10) {
+            isValid = false;
+            errorMsg = 'Please enter a valid phone number';
+        }
+    }
+
+    if (isValid) {
+        input.classList.remove('error');
+        if (errorEl) errorEl.textContent = '';
+    } else {
+        input.classList.add('error');
+        if (errorEl) errorEl.textContent = errorMsg;
+    }
+
+    return isValid;
+}
+
+function validateStep(step) {
+    if (step === 2) {
+        const inputs = document.querySelectorAll('#contact-details-form input[required]');
+        let allValid = true;
+        inputs.forEach(input => {
+            if (!validateField(input)) {
+                allValid = false;
+            }
+        });
+
+        if (allValid) {
+            wizardData.name = document.getElementById('w-name').value;
+            wizardData.phone = document.getElementById('w-phone').value;
+            wizardData.email = document.getElementById('w-email').value;
+            wizardData.address = document.getElementById('w-address').value;
+        }
+
+        return allValid;
+    }
+    return true;
+}
+
+function nextStep() {
+    if (!validateStep(currentStep)) {
+        return;
+    }
+
+    if (currentStep < totalSteps) {
+        // Mark current step as completed
+        document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+        document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('completed');
+
+        currentStep++;
+
+        // Show next step
+        document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
+        document.getElementById(`step-${currentStep}`).classList.add('active');
+
+        // Update progress
+        document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+        document.getElementById('progress-fill').style.width = `${(currentStep / totalSteps) * 100}%`;
+
+        // If moving to confirmation, populate summary
+        if (currentStep === 4) {
+            populateConfirmation();
+        }
+
+        // Get notes before moving to step 4
+        if (currentStep === 4) {
+            wizardData.notes = document.getElementById('w-notes').value;
+        }
+    }
+}
+
+function prevStep() {
+    if (currentStep > 1) {
+        document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+
+        currentStep--;
+
+        document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
+        document.getElementById(`step-${currentStep}`).classList.add('active');
+
+        document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('completed');
+        document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+        document.getElementById('progress-fill').style.width = `${(currentStep / totalSteps) * 100}%`;
+    }
+}
+
+function populateConfirmation() {
+    // Service
+    document.getElementById('confirm-service').textContent = wizardData.serviceName || 'Not selected';
+
+    // Urgency badge
+    const urgencyBadge = document.getElementById('confirm-urgency');
+    const urgencyLabels = {
+        'standard': 'Standard',
+        'soon': 'Within 2-3 days',
+        'urgent': 'Urgent',
+        'emergency': 'Emergency'
+    };
+    urgencyBadge.textContent = urgencyLabels[wizardData.urgency] || 'Standard';
+    urgencyBadge.className = 'summary-badge';
+    if (wizardData.urgency === 'urgent') urgencyBadge.classList.add('urgent');
+    if (wizardData.urgency === 'emergency') urgencyBadge.classList.add('emergency');
+
+    // Contact info
+    document.getElementById('confirm-name').textContent = wizardData.name || '-';
+    document.getElementById('confirm-contact').textContent = `${wizardData.phone} | ${wizardData.email}`;
+
+    // Address
+    document.getElementById('confirm-address').textContent = wizardData.address || '-';
+
+    // Date/Time
+    const timeLabels = {
+        'morning': 'Morning (8am-12pm)',
+        'afternoon': 'Afternoon (12pm-4pm)',
+        'flexible': 'Flexible'
+    };
+    const dateStr = wizardData.dateFriendly || 'Flexible';
+    const timeStr = timeLabels[wizardData.time] || 'Flexible';
+    document.getElementById('confirm-datetime').textContent = `${dateStr}, ${timeStr}`;
+
+    // Notes
+    const notesSection = document.getElementById('confirm-notes-section');
+    if (wizardData.notes && wizardData.notes.trim()) {
+        notesSection.classList.add('visible');
+        document.getElementById('confirm-notes').textContent = wizardData.notes;
+    } else {
+        notesSection.classList.remove('visible');
+    }
+}
+
+function submitSchedule() {
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+    // Simulate API call
+    setTimeout(() => {
+        // Log the data (in production, send to server)
+        console.log('Schedule submission:', wizardData);
+
+        // Show success step
+        document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
+        document.getElementById('step-success').classList.add('active');
+
+        // Update success details
+        document.getElementById('success-name').textContent = wizardData.name.split(' ')[0];
+        document.getElementById('success-email').textContent = wizardData.email;
+
+        // Mark all steps as completed
+        document.querySelectorAll('.progress-step').forEach(step => {
+            step.classList.remove('active');
+            step.classList.add('completed');
+        });
+        document.getElementById('progress-fill').style.width = '100%';
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Confirm Request';
+    }, 1500);
+}
+
 // Close modal on escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && scheduleModal.classList.contains('active')) {
         closeScheduleModal();
     }
-});
-
-// Schedule Form Submission
-const scheduleForm = document.getElementById('schedule-form');
-scheduleForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(scheduleForm);
-    const data = Object.fromEntries(formData);
-
-    // Show success message
-    showFormSuccess(scheduleForm, 'Thank you! We\'ll call you within 1 business hour to confirm your appointment.');
-
-    // In production, you would send this data to your server
-    console.log('Schedule request:', data);
-
-    // Reset form after delay
-    setTimeout(() => {
-        scheduleForm.reset();
-        closeScheduleModal();
-    }, 3000);
 });
 
 // Contact Form Submission
