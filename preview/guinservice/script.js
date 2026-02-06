@@ -114,12 +114,20 @@ let wizardData = {
     time: null,
     notes: ''
 };
+let wizardInitialized = false;
 
 function openScheduleModal() {
     scheduleModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // Only initialize once
+    if (!wizardInitialized) {
+        initWizard();
+        wizardInitialized = true;
+    }
+
     resetWizard();
-    initWizard();
+    updateDatePicker();
 }
 
 function closeScheduleModal() {
@@ -162,22 +170,46 @@ function resetWizard() {
     const contactForm = document.getElementById('contact-details-form');
     if (contactForm) contactForm.reset();
 
+    // Clear form inputs
+    const inputs = document.querySelectorAll('.wizard-form input, .wizard-form textarea');
+    inputs.forEach(input => {
+        input.value = '';
+        input.classList.remove('error');
+    });
+
+    // Clear error messages
+    document.querySelectorAll('.field-error').forEach(el => el.textContent = '');
+
     // Hide emergency alert
-    document.getElementById('emergency-alert').classList.remove('active');
+    const emergencyAlert = document.getElementById('emergency-alert');
+    if (emergencyAlert) emergencyAlert.classList.remove('active');
 
     // Disable next button
     const nextBtn = document.getElementById('step1-next');
     if (nextBtn) nextBtn.disabled = true;
+
+    // Reset category tabs to HVAC
+    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+    const hvacTab = document.querySelector('.category-tab[data-category="hvac"]');
+    if (hvacTab) hvacTab.classList.add('active');
+
+    document.querySelectorAll('.service-options').forEach(opts => opts.classList.remove('active'));
+    const hvacServices = document.getElementById('services-hvac');
+    if (hvacServices) hvacServices.classList.add('active');
 }
 
-function initWizard() {
+function updateDatePicker() {
     // Initialize date picker
     const dateInput = document.getElementById('w-date');
-    const today = new Date();
-    dateInput.min = today.toISOString().split('T')[0];
+    if (dateInput) {
+        const today = new Date();
+        dateInput.min = today.toISOString().split('T')[0];
+        dateInput.value = '';
+    }
 
     // Set day names for quick picks
     const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const today = new Date();
     for (let i = 2; i <= 4; i++) {
         const futureDate = new Date(today);
         futureDate.setDate(today.getDate() + i);
@@ -186,40 +218,65 @@ function initWizard() {
             dayEl.textContent = dayNames[futureDate.getDay()];
         }
     }
+}
+
+function initWizard() {
+    console.log('Initializing wizard...');
 
     // Service category tabs
     document.querySelectorAll('.category-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            const category = tab.dataset.category;
+        tab.addEventListener('click', function() {
+            const category = this.dataset.category;
+            console.log('Category clicked:', category);
+
             document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
+            this.classList.add('active');
 
             document.querySelectorAll('.service-options').forEach(opts => opts.classList.remove('active'));
-            document.getElementById(`services-${category}`).classList.add('active');
+            const targetServices = document.getElementById(`services-${category}`);
+            if (targetServices) {
+                targetServices.classList.add('active');
+            }
         });
     });
 
-    // Service options
+    // Service options - this is the key fix
     document.querySelectorAll('.service-option').forEach(option => {
-        option.addEventListener('click', () => {
+        option.addEventListener('click', function() {
+            console.log('Service clicked:', this.dataset.service);
+
+            // Remove selected from all options across all categories
             document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            wizardData.service = option.dataset.service;
-            wizardData.serviceName = option.dataset.name;
+
+            // Add selected to clicked option
+            this.classList.add('selected');
+
+            // Update wizard data
+            wizardData.service = this.dataset.service;
+            wizardData.serviceName = this.dataset.name;
+
+            console.log('wizardData updated:', wizardData.service, wizardData.serviceName);
+
+            // Enable the next button
             updateNextButton();
         });
     });
 
     // Urgency options
     document.querySelectorAll('.urgency-option').forEach(option => {
-        option.addEventListener('click', () => {
+        option.addEventListener('click', function() {
+            console.log('Urgency clicked:', this.dataset.urgency);
+
             document.querySelectorAll('.urgency-option').forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            wizardData.urgency = option.dataset.urgency;
+            this.classList.add('selected');
+            wizardData.urgency = this.dataset.urgency;
 
             // Show emergency alert if emergency selected
             if (wizardData.urgency === 'emergency') {
-                document.getElementById('emergency-alert').classList.add('active');
+                const emergencyAlert = document.getElementById('emergency-alert');
+                if (emergencyAlert) {
+                    emergencyAlert.classList.add('active');
+                }
             }
         });
     });
@@ -280,7 +337,11 @@ function initWizard() {
 
 function updateNextButton() {
     const nextBtn = document.getElementById('step1-next');
-    nextBtn.disabled = !wizardData.service;
+    if (nextBtn) {
+        const shouldEnable = wizardData.service !== null && wizardData.service !== '';
+        nextBtn.disabled = !shouldEnable;
+        console.log('Next button updated - service:', wizardData.service, 'disabled:', nextBtn.disabled);
+    }
 }
 
 function dismissEmergency() {
