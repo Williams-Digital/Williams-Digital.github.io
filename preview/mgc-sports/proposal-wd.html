@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGC Sports Proposal | Williams Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --accent-1: #6366f1;
+            --accent-2: #8b5cf6;
+            --accent-3: #06b6d4;
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.875rem;
+            color: white;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--text-primary);
+        }
+
+        .header-badge {
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Preview Section */
+        .preview-section {
+            position: relative;
+            z-index: 10;
+            padding: 4rem 2rem;
+        }
+
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .preview-frame {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .preview-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .preview-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-url {
+            flex: 1;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        /* Deliverables */
+        .deliverables {
+            position: relative;
+            z-index: 10;
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .deliverable-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-1);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
+        }
+
+        .deliverable-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .deliverable-icon svg {
+            stroke: white;
+        }
+
+        .deliverable-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .deliverable-card p {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+
+        .deliverable-features {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .deliverable-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .deliverable-features li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent-3);
+            border-radius: 50%;
+        }
+
+        /* Investment */
+        .investment {
+            position: relative;
+            z-index: 10;
+            padding: 6rem 2rem;
+        }
+
+        .investment-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .investment-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-3);
+            margin-bottom: 0.5rem;
+        }
+
+        .investment-price {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .investment-price .currency {
+            font-size: 2rem;
+            vertical-align: top;
+            color: var(--text-secondary);
+        }
+
+        .investment-note {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .investment-includes {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+        }
+
+        .investment-includes li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9375rem;
+        }
+
+        .investment-includes li svg {
+            stroke: var(--accent-3);
+            flex-shrink: 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            z-index: 10;
+            padding: 6rem 2rem;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .timeline-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+        }
+
+        .timeline-week {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA */
+        .cta {
+            position: relative;
+            z-index: 10;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-contact {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .cta-contact a {
+            color: var(--accent-3);
+            text-decoration: none;
+        }
+
+        .cta-contact a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .footer a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--accent-3);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="https://williamsdigital.io" class="logo">
+            <div class="logo-mark">WD</div>
+            <span class="logo-text">Williams Digital</span>
+        </a>
+        <span class="header-badge">Custom Proposal</span>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="dot"></span>
+            <span>Prepared for MGC Sports</span>
+        </div>
+        <h1>Elevate Your <span class="gradient-text">Digital Presence</span></h1>
+        <p>A modern website and secure player portal designed to position MGC Sports as a leader in NFL athlete representation.</p>
+        <div class="hero-cta">
+            <a href="#preview" class="btn btn-primary">
+                <span>View Live Preview</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </a>
+            <a href="#investment" class="btn btn-secondary">See Pricing</a>
+        </div>
+    </section>
+
+    <!-- Preview -->
+    <section class="preview-section" id="preview">
+        <div class="preview-container">
+            <div class="preview-frame">
+                <div class="preview-header">
+                    <div class="preview-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="preview-url">portal.mgcsports.com</span>
+                </div>
+                <iframe src="portal.html" class="preview-iframe" title="MGC Sports Portal Preview"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deliverables -->
+    <section class="deliverables" id="deliverables">
+        <div class="section-header">
+            <h2>What's Included</h2>
+            <p>Everything you need to establish a premium digital presence</p>
+        </div>
+        <div class="deliverables-grid">
+            <div class="deliverable-card">
+                <div class="deliverable-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="3" y1="9" x2="21" y2="9"/>
+                        <line x1="9" y1="21" x2="9" y2="9"/>
+                    </svg>
+                </div>
+                <h3>Agency Website</h3>
+                <p>A stunning, conversion-focused website that showcases your services and athlete roster.</p>
+                <ul class="deliverable-features">
+                    <li>Responsive design</li>
+                    <li>Services overview</li>
+                    <li>Athlete highlights</li>
+                    <li>Contact integration</li>
+                </ul>
+            </div>
+            <div class="deliverable-card">
+                <div class="deliverable-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                </div>
+                <h3>Player Portal</h3>
+                <p>A secure, private dashboard where athletes can manage their career essentials.</p>
+                <ul class="deliverable-features">
+                    <li>Contract management</li>
+                    <li>Meeting scheduling</li>
+                    <li>Direct messaging</li>
+                    <li>Document access</li>
+                </ul>
+            </div>
+            <div class="deliverable-card">
+                <div class="deliverable-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Full Ownership</h3>
+                <p>You own 100% of the code and design. No subscriptions or platform lock-in.</p>
+                <ul class="deliverable-features">
+                    <li>Source code delivery</li>
+                    <li>Documentation</li>
+                    <li>Hosting setup</li>
+                    <li>30-day support</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline">
+        <div class="section-header">
+            <h2>Project Timeline</h2>
+            <p>From kickoff to launch</p>
+        </div>
+        <div class="timeline-grid">
+            <div class="timeline-item">
+                <div class="timeline-week">1</div>
+                <h4>Discovery</h4>
+                <p>Requirements gathering and design direction</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-week">2</div>
+                <h4>Design</h4>
+                <p>Visual mockups and feedback revisions</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-week">3</div>
+                <h4>Development</h4>
+                <p>Building the website and portal</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-week">4</div>
+                <h4>Launch</h4>
+                <p>Testing, refinements, and go-live</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment -->
+    <section class="investment" id="investment">
+        <div class="section-header">
+            <h2>Investment</h2>
+            <p>A one-time project fee with no recurring costs</p>
+        </div>
+        <div class="investment-card">
+            <div class="investment-label">Complete Package</div>
+            <div class="investment-price"><span class="currency">$</span>8,500</div>
+            <p class="investment-note">One-time payment, no monthly fees</p>
+            <ul class="investment-includes">
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Custom agency website (5+ pages)</span>
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Secure player portal with dashboard</span>
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Mobile-responsive design</span>
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Hosting and domain setup</span>
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>30 days post-launch support</span>
+                </li>
+                <li>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span>Full source code ownership</span>
+                </li>
+            </ul>
+            <a href="mailto:hello@williamsdigital.io?subject=MGC%20Sports%20Proposal" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                <span>Get Started</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2>Ready to Elevate MGC Sports?</h2>
+            <p>Let's schedule a quick call to discuss your vision and answer any questions.</p>
+            <a href="mailto:hello@williamsdigital.io?subject=MGC%20Sports%20Proposal%20-%20Schedule%20Call" class="btn btn-primary">
+                <span>Schedule a Call</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+            </a>
+            <div class="cta-contact">
+                <p>Or reach out directly at <a href="mailto:hello@williamsdigital.io">hello@williamsdigital.io</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 <a href="https://williamsdigital.io">Williams Digital</a>. All rights reserved.</p>
+    </footer>
+</body>
+</html>
