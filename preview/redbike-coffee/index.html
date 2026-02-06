@@ -979,6 +979,488 @@
             font-size: 0.85rem;
         }
 
+        /* Order Modal */
+        .order-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .order-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .order-modal-content {
+            background: var(--dark);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: translateY(30px);
+            transition: transform 0.3s ease;
+        }
+
+        .order-modal.active .order-modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--cream);
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--cream);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-progress {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .modal-progress::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 2rem;
+            right: 2rem;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-step-number {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--cream);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .progress-step-number {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .progress-step.completed .progress-step-number {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark);
+        }
+
+        .progress-step-label {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        .progress-step.active .progress-step-label,
+        .progress-step.completed .progress-step-label {
+            color: var(--gold);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        .wizard-step {
+            display: none;
+        }
+
+        .wizard-step.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .step-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .coffee-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .coffee-option {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .coffee-option:hover {
+            border-color: rgba(201, 169, 98, 0.3);
+        }
+
+        .coffee-option.selected {
+            border-color: var(--gold);
+            background: rgba(201, 169, 98, 0.1);
+        }
+
+        .coffee-option-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .coffee-option h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--cream);
+            margin-bottom: 0.25rem;
+        }
+
+        .coffee-option p {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .coffee-option .price {
+            color: var(--gold);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .customize-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .customize-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .size-options, .grind-options {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .size-option, .grind-option {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .size-option:hover, .grind-option:hover {
+            border-color: rgba(201, 169, 98, 0.3);
+        }
+
+        .size-option.selected, .grind-option.selected {
+            border-color: var(--gold);
+            background: rgba(201, 169, 98, 0.1);
+        }
+
+        .size-option h5, .grind-option h5 {
+            color: var(--cream);
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .size-option p, .grind-option p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.7rem;
+        }
+
+        .quantity-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            color: var(--cream);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .quantity-value {
+            width: 50px;
+            text-align: center;
+            color: var(--cream);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .order-form-group {
+            margin-bottom: 1rem;
+        }
+
+        .order-form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-form-group input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--cream);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .order-form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .order-form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .order-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .order-summary {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item span {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .summary-item strong {
+            color: var(--cream);
+        }
+
+        .summary-total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.25rem;
+        }
+
+        .summary-total span {
+            color: var(--cream);
+        }
+
+        .summary-total strong {
+            color: var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .modal-btn-back {
+            background: transparent;
+            color: var(--cream);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-btn-back:hover {
+            border-color: var(--cream);
+        }
+
+        .modal-btn-next {
+            background: var(--primary);
+            color: var(--cream);
+            flex: 1;
+        }
+
+        .modal-btn-next:hover {
+            background: var(--primary-light);
+        }
+
+        .modal-btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .order-success {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--dark);
+        }
+
+        .order-success h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-success p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .order-number {
+            display: inline-block;
+            background: rgba(201, 169, 98, 0.1);
+            border: 1px solid var(--gold);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .about-container {
@@ -1045,6 +1527,30 @@
 
             .footer-social {
                 justify-content: center;
+            }
+
+            .coffee-options {
+                grid-template-columns: 1fr;
+            }
+
+            .size-options, .grind-options {
+                flex-wrap: wrap;
+            }
+
+            .size-option, .grind-option {
+                flex: 1 1 45%;
+            }
+
+            .order-form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-btn-back {
+                order: 2;
             }
         }
     </style>
@@ -1366,6 +1872,209 @@
         </div>
     </footer>
 
+    <!-- Order Modal -->
+    <div class="order-modal" id="orderModal">
+        <div class="order-modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-mug-hot"></i> Order Fresh Coffee</h2>
+                <button class="modal-close" onclick="closeOrderModal()"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="modal-progress">
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-step-number">1</div>
+                    <span class="progress-step-label">Select</span>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="progress-step-number">2</div>
+                    <span class="progress-step-label">Customize</span>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="progress-step-number">3</div>
+                    <span class="progress-step-label">Details</span>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="progress-step-number">4</div>
+                    <span class="progress-step-label">Confirm</span>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <!-- Step 1: Select Coffee -->
+                <div class="wizard-step active" id="wizard-step-1">
+                    <h3 class="step-title">Choose Your Coffee</h3>
+                    <p class="step-subtitle">Select from our freshly roasted specialty beans</p>
+
+                    <div class="coffee-options">
+                        <div class="coffee-option" data-coffee="ethiopian" data-price="18">
+                            <div class="coffee-option-icon">🌸</div>
+                            <h4>Ethiopian Yirgacheffe</h4>
+                            <p>Bright, floral, honey notes</p>
+                            <div class="price">$18.00</div>
+                        </div>
+                        <div class="coffee-option" data-coffee="colombian" data-price="16">
+                            <div class="coffee-option-icon">🏔️</div>
+                            <h4>Colombian Supremo</h4>
+                            <p>Rich, caramel, nutty</p>
+                            <div class="price">$16.00</div>
+                        </div>
+                        <div class="coffee-option" data-coffee="irondale" data-price="15">
+                            <div class="coffee-option-icon">🚲</div>
+                            <h4>Irondale Blend</h4>
+                            <p>Chocolatey, full-bodied</p>
+                            <div class="price">$15.00</div>
+                        </div>
+                        <div class="coffee-option" data-coffee="midnight" data-price="16">
+                            <div class="coffee-option-icon">🌙</div>
+                            <h4>Midnight Roast</h4>
+                            <p>Bold, smoky, dark chocolate</p>
+                            <div class="price">$16.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Customize -->
+                <div class="wizard-step" id="wizard-step-2">
+                    <h3 class="step-title">Customize Your Order</h3>
+                    <p class="step-subtitle">Make it exactly how you like it</p>
+
+                    <div class="customize-section">
+                        <label class="customize-label">Bag Size</label>
+                        <div class="size-options">
+                            <div class="size-option selected" data-size="12oz" data-multiplier="1">
+                                <h5>12 oz</h5>
+                                <p>Standard</p>
+                            </div>
+                            <div class="size-option" data-size="2lb" data-multiplier="2.5">
+                                <h5>2 lb</h5>
+                                <p>+150%</p>
+                            </div>
+                            <div class="size-option" data-size="5lb" data-multiplier="5">
+                                <h5>5 lb</h5>
+                                <p>Best Value</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customize-section">
+                        <label class="customize-label">Grind Type</label>
+                        <div class="grind-options">
+                            <div class="grind-option selected" data-grind="whole">
+                                <h5>Whole Bean</h5>
+                                <p>Freshest option</p>
+                            </div>
+                            <div class="grind-option" data-grind="drip">
+                                <h5>Drip</h5>
+                                <p>Standard brew</p>
+                            </div>
+                            <div class="grind-option" data-grind="espresso">
+                                <h5>Espresso</h5>
+                                <p>Fine grind</p>
+                            </div>
+                            <div class="grind-option" data-grind="french">
+                                <h5>French Press</h5>
+                                <p>Coarse grind</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="customize-section">
+                        <label class="customize-label">Quantity</label>
+                        <div class="quantity-section">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(-1)">−</button>
+                                <span class="quantity-value" id="quantityValue">1</span>
+                                <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                            </div>
+                            <span style="color: rgba(255,255,255,0.5); font-size: 0.85rem;">bags</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Details -->
+                <div class="wizard-step" id="wizard-step-3">
+                    <h3 class="step-title">Your Details</h3>
+                    <p class="step-subtitle">Where should we send your coffee?</p>
+
+                    <div class="order-form-row">
+                        <div class="order-form-group">
+                            <label>First Name</label>
+                            <input type="text" id="orderFirstName" placeholder="John">
+                        </div>
+                        <div class="order-form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="orderLastName" placeholder="Smith">
+                        </div>
+                    </div>
+                    <div class="order-form-group">
+                        <label>Email</label>
+                        <input type="email" id="orderEmail" placeholder="john@example.com">
+                    </div>
+                    <div class="order-form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="orderPhone" placeholder="(205) 555-0123">
+                    </div>
+                    <div class="order-form-group">
+                        <label>Delivery Address</label>
+                        <input type="text" id="orderAddress" placeholder="123 Main St, Birmingham, AL">
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirm -->
+                <div class="wizard-step" id="wizard-step-4">
+                    <h3 class="step-title">Review Your Order</h3>
+                    <p class="step-subtitle">Make sure everything looks right</p>
+
+                    <div class="order-summary">
+                        <div class="summary-item">
+                            <span>Coffee</span>
+                            <strong id="summaryCoffe">-</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Size</span>
+                            <strong id="summarySize">-</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Grind</span>
+                            <strong id="summaryGrind">-</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Quantity</span>
+                            <strong id="summaryQuantity">-</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Shipping</span>
+                            <strong>FREE</strong>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <strong id="summaryTotal">$0.00</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success Step -->
+                <div class="wizard-step" id="wizard-step-success">
+                    <div class="order-success">
+                        <div class="success-icon"><i class="fas fa-check"></i></div>
+                        <h3>Order Confirmed!</h3>
+                        <p>Thank you for your order. We'll start roasting your beans fresh and ship them within 24 hours.</p>
+                        <div class="order-number" id="orderNumber">RB-2024-0001</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="modalFooter">
+                <button class="modal-btn modal-btn-back" id="btnBack" onclick="prevStep()" style="display: none;">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button class="modal-btn modal-btn-next" id="btnNext" onclick="nextStep()" disabled>
+                    Continue <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Preloader
         window.addEventListener('load', () => {
@@ -1384,8 +2093,8 @@
             }
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Smooth scroll for anchor links (except order button)
+        document.querySelectorAll('a[href^="#"]:not(.nav-cta)').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
@@ -1396,6 +2105,210 @@
                     });
                 }
             });
+        });
+
+        // ============================================
+        // ORDER MODAL - MULTI-STEP WIZARD
+        // ============================================
+        let currentStep = 1;
+        const totalSteps = 4;
+        let orderData = {
+            coffee: null,
+            coffeeName: '',
+            price: 0,
+            size: '12oz',
+            sizeMultiplier: 1,
+            grind: 'whole',
+            grindName: 'Whole Bean',
+            quantity: 1
+        };
+
+        // Open/Close Modal
+        function openOrderModal() {
+            document.getElementById('orderModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            resetOrderWizard();
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Attach to Order Now buttons
+        document.querySelectorAll('.nav-cta').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openOrderModal();
+            });
+        });
+
+        // Reset Wizard
+        function resetOrderWizard() {
+            currentStep = 1;
+            orderData = {
+                coffee: null,
+                coffeeName: '',
+                price: 0,
+                size: '12oz',
+                sizeMultiplier: 1,
+                grind: 'whole',
+                grindName: 'Whole Bean',
+                quantity: 1
+            };
+
+            // Reset UI
+            document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
+            document.getElementById('wizard-step-1').classList.add('active');
+
+            document.querySelectorAll('.progress-step').forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+            document.querySelector('.progress-step[data-step="1"]').classList.add('active');
+
+            // Reset selections
+            document.querySelectorAll('.coffee-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector('.size-option[data-size="12oz"]').classList.add('selected');
+            document.querySelectorAll('.grind-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector('.grind-option[data-grind="whole"]').classList.add('selected');
+
+            // Reset quantity
+            document.getElementById('quantityValue').textContent = '1';
+
+            // Reset buttons
+            document.getElementById('btnBack').style.display = 'none';
+            document.getElementById('btnNext').disabled = true;
+            document.getElementById('btnNext').innerHTML = 'Continue <i class="fas fa-arrow-right"></i>';
+            document.getElementById('modalFooter').style.display = 'flex';
+        }
+
+        // Coffee Selection
+        document.querySelectorAll('.coffee-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.coffee-option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                orderData.coffee = option.dataset.coffee;
+                orderData.coffeeName = option.querySelector('h4').textContent;
+                orderData.price = parseFloat(option.dataset.price);
+                document.getElementById('btnNext').disabled = false;
+            });
+        });
+
+        // Size Selection
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                orderData.size = option.dataset.size;
+                orderData.sizeMultiplier = parseFloat(option.dataset.multiplier);
+            });
+        });
+
+        // Grind Selection
+        document.querySelectorAll('.grind-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.grind-option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                orderData.grind = option.dataset.grind;
+                orderData.grindName = option.querySelector('h5').textContent;
+            });
+        });
+
+        // Quantity
+        function updateQuantity(delta) {
+            orderData.quantity = Math.max(1, Math.min(10, orderData.quantity + delta));
+            document.getElementById('quantityValue').textContent = orderData.quantity;
+        }
+
+        // Navigation
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                // Mark current as completed
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('completed');
+
+                currentStep++;
+
+                // Show next step
+                document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
+                document.getElementById(`wizard-step-${currentStep}`).classList.add('active');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+
+                // Update buttons
+                document.getElementById('btnBack').style.display = 'block';
+
+                if (currentStep === 4) {
+                    updateSummary();
+                    document.getElementById('btnNext').innerHTML = 'Place Order <i class="fas fa-check"></i>';
+                }
+            } else {
+                // Submit order
+                submitOrder();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('active');
+
+                currentStep--;
+
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.remove('completed');
+                document.querySelector(`.progress-step[data-step="${currentStep}"]`).classList.add('active');
+
+                document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
+                document.getElementById(`wizard-step-${currentStep}`).classList.add('active');
+
+                if (currentStep === 1) {
+                    document.getElementById('btnBack').style.display = 'none';
+                }
+
+                document.getElementById('btnNext').innerHTML = 'Continue <i class="fas fa-arrow-right"></i>';
+            }
+        }
+
+        function updateSummary() {
+            const total = orderData.price * orderData.sizeMultiplier * orderData.quantity;
+
+            document.getElementById('summaryCoffe').textContent = orderData.coffeeName;
+            document.getElementById('summarySize').textContent = orderData.size;
+            document.getElementById('summaryGrind').textContent = orderData.grindName;
+            document.getElementById('summaryQuantity').textContent = orderData.quantity + ' bag(s)';
+            document.getElementById('summaryTotal').textContent = '$' + total.toFixed(2);
+        }
+
+        function submitOrder() {
+            // Generate order number
+            const orderNum = 'RB-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 9999)).padStart(4, '0');
+            document.getElementById('orderNumber').textContent = orderNum;
+
+            // Show success
+            document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
+            document.getElementById('wizard-step-success').classList.add('active');
+
+            // Mark all steps as completed
+            document.querySelectorAll('.progress-step').forEach(step => {
+                step.classList.remove('active');
+                step.classList.add('completed');
+            });
+
+            // Hide footer buttons
+            document.getElementById('modalFooter').style.display = 'none';
+        }
+
+        // Close modal on background click
+        document.getElementById('orderModal').addEventListener('click', (e) => {
+            if (e.target.id === 'orderModal') {
+                closeOrderModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeOrderModal();
+            }
         });
     </script>
 </body>
