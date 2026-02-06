@@ -424,6 +424,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Time-based greeting
+    function updateGreeting() {
+        const greetingEl = document.getElementById('greetingTime');
+        if (!greetingEl) return;
+
+        const hour = new Date().getHours();
+        let greeting;
+
+        if (hour < 12) {
+            greeting = 'Good morning,';
+        } else if (hour < 17) {
+            greeting = 'Good afternoon,';
+        } else {
+            greeting = 'Good evening,';
+        }
+
+        greetingEl.textContent = greeting;
+    }
+
+    // Current date display
+    function updateCurrentDate() {
+        const dateEl = document.getElementById('currentDate');
+        if (!dateEl) return;
+
+        const options = { weekday: 'long', month: 'long', day: 'numeric' };
+        const today = new Date();
+        dateEl.textContent = today.toLocaleDateString('en-US', options);
+    }
+
+    // Quick action buttons
+    const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+    quickActionBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const section = this.getAttribute('data-section');
+            if (section) {
+                showSection(section);
+            }
+        });
+    });
+
+    // Join meeting button
+    const joinMeetingBtn = document.querySelector('.join-meeting-btn');
+    if (joinMeetingBtn) {
+        joinMeetingBtn.addEventListener('click', function() {
+            alert('Joining video call...');
+        });
+    }
+
+    // Initialize greeting and date
+    updateGreeting();
+    updateCurrentDate();
+
     // Initialize
     checkAuth();
 });
