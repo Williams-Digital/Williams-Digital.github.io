@@ -223,6 +223,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Calendar view toggle (Month/Week/Day)
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const calendarViews = document.querySelectorAll('.calendar-view');
+    const calendarTitle = document.querySelector('.calendar-title');
+
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const view = this.getAttribute('data-view');
+
+            // Update active button
+            viewBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            // Show corresponding view
+            calendarViews.forEach(v => v.classList.remove('active'));
+            const targetView = document.getElementById(view + 'View');
+            if (targetView) targetView.classList.add('active');
+
+            // Update title based on view
+            if (calendarTitle) {
+                switch(view) {
+                    case 'month':
+                        calendarTitle.textContent = 'February 2025';
+                        break;
+                    case 'week':
+                        calendarTitle.textContent = 'Feb 9 - 15, 2025';
+                        break;
+                    case 'day':
+                        calendarTitle.textContent = 'February 12, 2025';
+                        break;
+                }
+            }
+        });
+    });
+
     // Player roster selection
     const rosterPlayers = document.querySelectorAll('.roster-player');
     const selectedPlayerHeader = document.querySelector('.selected-player-header');
