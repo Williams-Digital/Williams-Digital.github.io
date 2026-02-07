@@ -64,16 +64,23 @@
         .priority-critical { background: #fecaca; color: #991b1b; }
         .priority-high { background: #fed7aa; color: #9a3412; }
         .priority-medium { background: #fef08a; color: #854d0e; }
-        .lifecycle-flow { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: 1.5rem; flex-wrap: wrap; }
-        .lifecycle-step { background: var(--auburn-navy); color: white; padding: 1rem; border-radius: 8px; text-align: center; flex: 1; min-width: 100px; }
-        .lifecycle-step h4 { font-size: 0.85rem; margin-bottom: 0.25rem; }
-        .lifecycle-step p { font-size: 0.7rem; opacity: 0.8; }
-        .lifecycle-arrow { color: var(--auburn-orange); font-size: 1.5rem; }
+        .lifecycle-flow { display: flex; align-items: stretch; gap: 0; flex-wrap: nowrap; overflow-x: auto; padding: 1rem 0; }
+        .lifecycle-card { flex: 1; min-width: 180px; background: white; border-radius: 16px; padding: 1.5rem 1rem; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.08); border: 2px solid var(--gray-200); position: relative; transition: all 0.3s ease; }
+        .lifecycle-card:hover { transform: translateY(-4px); border-color: var(--auburn-orange); box-shadow: 0 8px 32px rgba(221, 85, 12, 0.15); }
+        .lifecycle-card .step-num { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 28px; height: 28px; background: var(--auburn-orange); color: white; border-radius: 50%; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 8px rgba(221, 85, 12, 0.4); }
+        .lifecycle-card .step-icon { width: 64px; height: 64px; background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0.5rem auto 1rem; }
+        .lifecycle-card .step-icon i { font-size: 1.75rem; color: white; }
+        .lifecycle-card h4 { font-size: 1.1rem; font-weight: 700; color: var(--auburn-navy); margin-bottom: 0.75rem; }
+        .lifecycle-card ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+        .lifecycle-card ul li { font-size: 0.85rem; color: var(--gray-600); padding: 0.35rem 0; display: flex; align-items: center; gap: 0.5rem; }
+        .lifecycle-card ul li i { color: var(--auburn-orange); font-size: 0.7rem; flex-shrink: 0; }
+        .lifecycle-arrow { display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; color: var(--auburn-orange); font-size: 1.5rem; flex-shrink: 0; }
+        @media (max-width: 992px) { .lifecycle-flow { flex-wrap: wrap; gap: 1rem; justify-content: center; } .lifecycle-card { min-width: 160px; max-width: 200px; } .lifecycle-arrow { display: none; } }
         .back-section { padding: 3rem 2rem; text-align: center; background: var(--gray-50); }
         .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--auburn-navy); color: white; padding: 0.875rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s; }
         .back-btn:hover { background: var(--auburn-orange); }
         footer { background: var(--auburn-navy); color: rgba(255,255,255,0.7); padding: 2rem; text-align: center; font-size: 0.9rem; }
-        @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } .lifecycle-flow { flex-direction: column; } .lifecycle-arrow { transform: rotate(90deg); } .refresh-table { font-size: 0.8rem; } .refresh-table th, .refresh-table td { padding: 0.5rem; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } .lifecycle-flow { flex-direction: column; align-items: center; } .lifecycle-card { width: 100%; max-width: 280px; } .refresh-table { font-size: 0.8rem; } .refresh-table th, .refresh-table td { padding: 0.5rem; } }
     </style>
 </head>
 <body>
@@ -208,6 +215,89 @@
     <section>
         <div class="section-container">
             <div class="section-header">
+                <h2>Cross-Platform & Alternative Solutions</h2>
+                <p>Additional unified endpoint management platforms for diverse device ecosystems</p>
+            </div>
+            <div class="systems-grid">
+                <div class="system-card">
+                    <span class="system-badge">Full UEM</span>
+                    <h4>IBM MaaS360</h4>
+                    <div class="vendor">IBM Security</div>
+                    <p>Full unified endpoint management from IBM with AI-powered analytics for Windows, macOS, iOS, and Android devices.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Watson AI threat analytics</li>
+                        <li><i class="fas fa-check"></i> Container-based security</li>
+                        <li><i class="fas fa-check"></i> Identity access management</li>
+                        <li><i class="fas fa-check"></i> App wrapping & VPN</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <span class="system-badge">Cross-Platform</span>
+                    <h4>Scalefusion</h4>
+                    <div class="vendor">Scalefusion</div>
+                    <p>Comprehensive MDM supporting Windows, macOS, Android, iOS, ChromeOS, and Linux from a single console.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> 6 operating systems supported</li>
+                        <li><i class="fas fa-check"></i> Kiosk & digital signage mode</li>
+                        <li><i class="fas fa-check"></i> Remote cast & control</li>
+                        <li><i class="fas fa-check"></i> Geofencing capabilities</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <span class="system-badge">Unified MDM</span>
+                    <h4>Hexnode MDM</h4>
+                    <div class="vendor">Mitsogo</div>
+                    <p>Unified endpoint management with robust app management, compliance policies, and kiosk mode capabilities.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> App management & blocking</li>
+                        <li><i class="fas fa-check"></i> Compliance enforcement</li>
+                        <li><i class="fas fa-check"></i> Multi-mode kiosk</li>
+                        <li><i class="fas fa-check"></i> Location tracking</li>
+                    </ul>
+                </div>
+                <div class="system-card recommended">
+                    <span class="system-badge">Cloud Directory</span>
+                    <h4>JumpCloud</h4>
+                    <div class="vendor">JumpCloud Inc.</div>
+                    <p>Cloud directory platform combining device management with identity tools, SSO, and LDAP/RADIUS services.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Unified identity management</li>
+                        <li><i class="fas fa-check"></i> SSO & MFA integration</li>
+                        <li><i class="fas fa-check"></i> LDAP & RADIUS services</li>
+                        <li><i class="fas fa-check"></i> Windows, Mac, Linux support</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <span class="system-badge">Remote Support</span>
+                    <h4>LogMeIn Resolve / Miradore</h4>
+                    <div class="vendor">GoTo</div>
+                    <p>Cross-platform device management with integrated remote support, remote access, and helpdesk ticketing.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Built-in remote support</li>
+                        <li><i class="fas fa-check"></i> Zero-touch enrollment</li>
+                        <li><i class="fas fa-check"></i> Helpdesk integration</li>
+                        <li><i class="fas fa-check"></i> Device compliance policies</li>
+                    </ul>
+                </div>
+                <div class="system-card recommended">
+                    <span class="system-badge">RMM Leader</span>
+                    <h4>NinjaOne</h4>
+                    <div class="vendor">NinjaOne (formerly NinjaRMM)</div>
+                    <p>Top-rated endpoint management for Windows, Mac, Linux, and mobile with automated patching and monitoring.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Automated patch management</li>
+                        <li><i class="fas fa-check"></i> Real-time monitoring & alerts</li>
+                        <li><i class="fas fa-check"></i> Remote access built-in</li>
+                        <li><i class="fas fa-check"></i> #1 rated on G2 & Capterra</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
                 <h2>Security & Compliance</h2>
                 <p>Enforce security policies and maintain compliance across all devices</p>
             </div>
@@ -325,60 +415,311 @@
         </div>
     </section>
 
-    <section>
+    <section style="background: linear-gradient(180deg, var(--gray-50) 0%, white 100%);">
         <div class="section-container">
             <div class="section-header">
                 <h2>Asset Lifecycle Management</h2>
-                <p>Complete visibility from procurement to retirement</p>
+                <p>Complete visibility and control from procurement to retirement</p>
             </div>
-            <div class="feature-card">
-                <div class="lifecycle-flow">
-                    <div class="lifecycle-step">
-                        <h4><i class="fas fa-shopping-cart"></i> Procure</h4>
-                        <p>PO Tracking<br>Receiving<br>Asset Tag</p>
-                    </div>
-                    <span class="lifecycle-arrow"><i class="fas fa-arrow-right"></i></span>
-                    <div class="lifecycle-step">
-                        <h4><i class="fas fa-rocket"></i> Deploy</h4>
-                        <p>Zero-Touch<br>Provisioning<br>Configuration</p>
-                    </div>
-                    <span class="lifecycle-arrow"><i class="fas fa-arrow-right"></i></span>
-                    <div class="lifecycle-step">
-                        <h4><i class="fas fa-cogs"></i> Manage</h4>
-                        <p>Monitoring<br>Updates<br>Compliance</p>
-                    </div>
-                    <span class="lifecycle-arrow"><i class="fas fa-arrow-right"></i></span>
-                    <div class="lifecycle-step">
-                        <h4><i class="fas fa-sync-alt"></i> Refresh</h4>
-                        <p>Assessment<br>Trade-In<br>Replacement</p>
-                    </div>
-                    <span class="lifecycle-arrow"><i class="fas fa-arrow-right"></i></span>
-                    <div class="lifecycle-step">
-                        <h4><i class="fas fa-recycle"></i> Retire</h4>
-                        <p>Secure Wipe<br>E-Waste<br>Records</p>
-                    </div>
+            <div class="lifecycle-flow">
+                <div class="lifecycle-card">
+                    <span class="step-num">1</span>
+                    <div class="step-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h4>Procure</h4>
+                    <ul>
+                        <li><i class="fas fa-circle"></i> PO tracking</li>
+                        <li><i class="fas fa-circle"></i> Vendor portal</li>
+                        <li><i class="fas fa-circle"></i> Auto asset creation</li>
+                    </ul>
+                </div>
+                <div class="lifecycle-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="lifecycle-card">
+                    <span class="step-num">2</span>
+                    <div class="step-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Deploy</h4>
+                    <ul>
+                        <li><i class="fas fa-circle"></i> Zero-touch setup</li>
+                        <li><i class="fas fa-circle"></i> MDM enrollment</li>
+                        <li><i class="fas fa-circle"></i> User assignment</li>
+                    </ul>
+                </div>
+                <div class="lifecycle-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="lifecycle-card">
+                    <span class="step-num">3</span>
+                    <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                    <h4>Manage</h4>
+                    <ul>
+                        <li><i class="fas fa-circle"></i> Health monitoring</li>
+                        <li><i class="fas fa-circle"></i> Patch updates</li>
+                        <li><i class="fas fa-circle"></i> Compliance checks</li>
+                    </ul>
+                </div>
+                <div class="lifecycle-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="lifecycle-card">
+                    <span class="step-num">4</span>
+                    <div class="step-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h4>Refresh</h4>
+                    <ul>
+                        <li><i class="fas fa-circle"></i> Performance scoring</li>
+                        <li><i class="fas fa-circle"></i> Cascade eligibility</li>
+                        <li><i class="fas fa-circle"></i> Budget forecast</li>
+                    </ul>
+                </div>
+                <div class="lifecycle-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="lifecycle-card">
+                    <span class="step-num">5</span>
+                    <div class="step-icon"><i class="fas fa-recycle"></i></div>
+                    <h4>Retire</h4>
+                    <ul>
+                        <li><i class="fas fa-circle"></i> NIST 800-88 wipe</li>
+                        <li><i class="fas fa-circle"></i> E-waste certified</li>
+                        <li><i class="fas fa-circle"></i> Audit trail</li>
+                    </ul>
                 </div>
             </div>
-            <div class="feature-grid" style="margin-top: 2rem;">
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Lifecycle Stage Details</h2>
+                <p>Detailed processes and automation at each stage of the asset journey</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>Stage 1: Procurement</h3>
+                    <p>Streamlined purchasing with automated asset creation and vendor management.</p>
+                    <table class="component-table">
+                        <tr><th>Process</th><th>Automation</th></tr>
+                        <tr><td>Purchase Request</td><td>ServiceNow catalog integration</td></tr>
+                        <tr><td>PO Generation</td><td>Budget validation & approval workflow</td></tr>
+                        <tr><td>Vendor Portal</td><td>Order status & shipping tracking</td></tr>
+                        <tr><td>Receiving</td><td>Auto-create asset record on receipt</td></tr>
+                        <tr><td>Asset Tagging</td><td>QR/barcode label generation</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Stage 2: Deployment</h3>
+                    <p>Zero-touch provisioning gets devices to users faster with less IT effort.</p>
+                    <table class="component-table">
+                        <tr><th>Process</th><th>Automation</th></tr>
+                        <tr><td>User Assignment</td><td>Link to ServiceNow request</td></tr>
+                        <tr><td>MDM Enrollment</td><td>Apple DEP / Windows Autopilot</td></tr>
+                        <tr><td>Configuration</td><td>Policies, apps, settings applied</td></tr>
+                        <tr><td>Verification</td><td>Compliance check before handoff</td></tr>
+                        <tr><td>User Notification</td><td>Ready-for-pickup or shipping alert</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Stage 3: Management</h3>
+                    <p>Continuous monitoring ensures devices remain secure, compliant, and productive.</p>
+                    <table class="component-table">
+                        <tr><th>Process</th><th>Automation</th></tr>
+                        <tr><td>Health Monitoring</td><td>Battery, storage, performance alerts</td></tr>
+                        <tr><td>Patch Management</td><td>Scheduled OS & app updates</td></tr>
+                        <tr><td>Compliance Checks</td><td>Daily policy validation scans</td></tr>
+                        <tr><td>Support Integration</td><td>Asset data in help desk tickets</td></tr>
+                        <tr><td>Usage Analytics</td><td>Login frequency, app usage reports</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Stage 4: Refresh</h3>
+                    <p>Proactive replacement planning based on age, performance, and strategic needs.</p>
+                    <table class="component-table">
+                        <tr><th>Process</th><th>Automation</th></tr>
+                        <tr><td>Age Tracking</td><td>Alerts at 80% of lifecycle</td></tr>
+                        <tr><td>Performance Scoring</td><td>Hardware health assessment</td></tr>
+                        <tr><td>Cascade Eligibility</td><td>Auto-identify redeployment options</td></tr>
+                        <tr><td>Replacement Order</td><td>Pre-approved refresh requests</td></tr>
+                        <tr><td>Data Migration</td><td>User data backup & transfer</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-recycle"></i></div>
+                    <h3>Stage 5: Retirement</h3>
+                    <p>Secure, compliant disposal with complete chain-of-custody documentation.</p>
+                    <table class="component-table">
+                        <tr><th>Process</th><th>Automation</th></tr>
+                        <tr><td>Data Sanitization</td><td>NIST 800-88 compliant wipe</td></tr>
+                        <tr><td>MDM Unenrollment</td><td>Remote wipe & license release</td></tr>
+                        <tr><td>E-Waste Vendor</td><td>R2/e-Stewards certified pickup</td></tr>
+                        <tr><td>Certificate of Destruction</td><td>Documented proof of disposal</td></tr>
+                        <tr><td>Asset Record Close</td><td>Archived with full history</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Lifecycle Analytics</h3>
+                    <p>Data-driven insights to optimize spending and predict future needs.</p>
+                    <table class="component-table">
+                        <tr><th>Metric</th><th>Business Value</th></tr>
+                        <tr><td>Total Cost of Ownership</td><td>True cost per device category</td></tr>
+                        <tr><td>Mean Time to Deploy</td><td>Provisioning efficiency tracking</td></tr>
+                        <tr><td>Compliance Rate</td><td>Security posture visibility</td></tr>
+                        <tr><td>Refresh Forecast</td><td>Budget planning accuracy</td></tr>
+                        <tr><td>Cascade Savings</td><td>ROI from device redeployment</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Device Cascade Program</h2>
+                <p>Maximize ROI by extending useful life through strategic redeployment</p>
+            </div>
+            <div class="feature-card" style="margin-bottom: 2rem;">
+                <h3 style="color: var(--auburn-navy); margin-bottom: 1rem;"><i class="fas fa-sitemap"></i> Cascade Hierarchy</h3>
+                <table class="refresh-table">
+                    <thead>
+                        <tr>
+                            <th>Tier 1 (Original Use)</th>
+                            <th><i class="fas fa-arrow-right"></i></th>
+                            <th>Tier 2 (Cascade)</th>
+                            <th><i class="fas fa-arrow-right"></i></th>
+                            <th>Tier 3 (Final Use)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Executive Laptops</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">3-year refresh</span></td>
+                            <td style="text-align: center; color: var(--auburn-orange);"><i class="fas fa-chevron-right"></i></td>
+                            <td><strong>Administrative Staff</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">2 additional years</span></td>
+                            <td style="text-align: center; color: var(--auburn-orange);"><i class="fas fa-chevron-right"></i></td>
+                            <td><strong>Training Lab / Loaner Pool</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">Final year</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Faculty Primary</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">4-year refresh</span></td>
+                            <td style="text-align: center; color: var(--auburn-orange);"><i class="fas fa-chevron-right"></i></td>
+                            <td><strong>Graduate Assistant</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">1-2 additional years</span></td>
+                            <td style="text-align: center; color: var(--auburn-orange);"><i class="fas fa-chevron-right"></i></td>
+                            <td><strong>Student Worker Stations</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">Final year</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lab Computers (High-Use)</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">3-year refresh</span></td>
+                            <td style="text-align: center; color: var(--auburn-orange);"><i class="fas fa-chevron-right"></i></td>
+                            <td><strong>Low-Traffic Labs</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">1-2 additional years</span></td>
+                            <td style="text-align: center; color: var(--auburn-orange);"><i class="fas fa-chevron-right"></i></td>
+                            <td><strong>Testing/Dev Environments</strong><br><span style="color: var(--gray-500); font-size: 0.8rem;">Final year</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="systems-grid">
+                <div class="system-card recommended">
+                    <span class="system-badge">Cost Savings</span>
+                    <h4>Financial Impact</h4>
+                    <div class="vendor">Projected Annual Savings</div>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> 15-25% reduction in hardware spend</li>
+                        <li><i class="fas fa-check"></i> Extended useful life by 1-2 years</li>
+                        <li><i class="fas fa-check"></i> Reduced e-waste disposal costs</li>
+                        <li><i class="fas fa-check"></i> Better trade-in timing optimization</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Cascade Eligibility Criteria</h4>
+                    <div class="vendor">Automated Assessment</div>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Battery health > 80% capacity</li>
+                        <li><i class="fas fa-check"></i> No hardware defects or damage</li>
+                        <li><i class="fas fa-check"></i> Meets minimum RAM/storage specs</li>
+                        <li><i class="fas fa-check"></i> OS still receiving security updates</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Refresh Triggers</h4>
+                    <div class="vendor">Beyond Age-Based Replacement</div>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Performance below threshold</li>
+                        <li><i class="fas fa-check"></i> Security end-of-life reached</li>
+                        <li><i class="fas fa-check"></i> Repair cost > 40% replacement</li>
+                        <li><i class="fas fa-check"></i> Critical software incompatibility</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Asset Tracking & Inventory</h2>
+                <p>Real-time visibility into every device across campus</p>
+            </div>
+            <div class="feature-grid">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-barcode"></i></div>
-                    <h3>Asset Tagging</h3>
-                    <p>QR codes and barcodes on every device for quick inventory and location tracking.</p>
+                    <h3>Physical Asset Tagging</h3>
+                    <p>Every device receives a durable QR code and barcode label for quick identification and inventory audits.</p>
+                    <table class="component-table">
+                        <tr><th>Tag Type</th><th>Use Case</th></tr>
+                        <tr><td>QR Code</td><td>Mobile scanning, instant lookup</td></tr>
+                        <tr><td>Barcode</td><td>Traditional scanners, receiving</td></tr>
+                        <tr><td>RFID (optional)</td><td>Automated inventory sweeps</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Location Intelligence</h3>
+                    <p>Track device locations by building, room, and assigned user with last-seen timestamps.</p>
+                    <table class="component-table">
+                        <tr><th>Data Point</th><th>Source</th></tr>
+                        <tr><td>Building/Room</td><td>Assignment + network data</td></tr>
+                        <tr><td>Last Check-In</td><td>MDM heartbeat</td></tr>
+                        <tr><td>GPS (mobile)</td><td>Lost device location</td></tr>
+                    </table>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                    <h3>Warranty Tracking</h3>
-                    <p>Automated alerts before warranty expiration to maximize coverage utilization.</p>
+                    <h3>Warranty & Contract Management</h3>
+                    <p>Automated tracking of warranty status, AppleCare+, and extended service agreements.</p>
+                    <table class="component-table">
+                        <tr><th>Alert</th><th>Timing</th></tr>
+                        <tr><td>Warranty Expiring</td><td>90, 60, 30 days prior</td></tr>
+                        <tr><td>AppleCare+ Eligible</td><td>Within enrollment window</td></tr>
+                        <tr><td>Extended Coverage</td><td>Renewal reminders</td></tr>
+                    </table>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-random"></i></div>
-                    <h3>Cascade Program</h3>
-                    <p>Extend ROI by redeploying devices to lower-priority uses before retirement.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                    <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
                     <h3>Financial Reporting</h3>
-                    <p>Total cost of ownership, depreciation tracking, and refresh budget forecasting.</p>
+                    <p>Complete visibility into asset costs, depreciation, and total cost of ownership.</p>
+                    <table class="component-table">
+                        <tr><th>Report</th><th>Insight</th></tr>
+                        <tr><td>TCO by Category</td><td>True cost per device type</td></tr>
+                        <tr><td>Depreciation Schedule</td><td>Book value tracking</td></tr>
+                        <tr><td>Refresh Forecast</td><td>5-year budget projection</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cubes"></i></div>
+                    <h3>Software Inventory</h3>
+                    <p>Automatic discovery of all installed applications with version tracking and license compliance.</p>
+                    <table class="component-table">
+                        <tr><th>Capability</th><th>Benefit</th></tr>
+                        <tr><td>App Discovery</td><td>Complete software inventory</td></tr>
+                        <tr><td>Version Tracking</td><td>Identify outdated software</td></tr>
+                        <tr><td>License Compliance</td><td>Avoid audit penalties</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-server"></i></div>
+                    <h3>Hardware Specifications</h3>
+                    <p>Automatic capture of detailed hardware specs for capacity planning and support.</p>
+                    <table class="component-table">
+                        <tr><th>Attribute</th><th>Auto-Captured</th></tr>
+                        <tr><td>Serial/Model</td><td>Yes - from MDM</td></tr>
+                        <tr><td>CPU/RAM/Storage</td><td>Yes - real-time</td></tr>
+                        <tr><td>Battery Health</td><td>Yes - % capacity</td></tr>
+                    </table>
                 </div>
             </div>
         </div>
