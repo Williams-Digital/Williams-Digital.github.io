@@ -786,6 +786,298 @@
             font-weight: 500;
         }
 
+        /* Enhanced Device Refresh Cycles */
+        .refresh-intro {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .fleet-stat-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+        .fleet-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--auburn-orange);
+        }
+        .fleet-stat-card .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+        .fleet-stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+        .fleet-stat-card .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .device-category-section {
+            margin-bottom: 3rem;
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .category-header .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+        .category-header h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            flex: 1;
+        }
+        .category-header .category-count {
+            background: var(--gray-100);
+            color: var(--auburn-navy);
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .device-refresh-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+        .device-refresh-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .device-refresh-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--auburn-orange);
+            box-shadow: 0 8px 24px rgba(221, 85, 12, 0.12);
+        }
+        .device-refresh-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .device-refresh-card .device-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .device-refresh-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            line-height: 1.3;
+        }
+        .device-refresh-card .refresh-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-50);
+            padding: 0.35rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--auburn-orange);
+            margin-bottom: 1rem;
+        }
+        .device-refresh-card .refresh-badge i {
+            font-size: 0.7rem;
+        }
+
+        .lifecycle-bar-container {
+            margin: 0.75rem 0;
+        }
+        .lifecycle-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            margin-bottom: 0.35rem;
+        }
+        .lifecycle-bar {
+            height: 8px;
+            background: var(--gray-100);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .lifecycle-bar .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        .lifecycle-bar .bar-fill.green { background: linear-gradient(90deg, #10b981 0%, #059669 100%); }
+        .lifecycle-bar .bar-fill.yellow { background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%); }
+        .lifecycle-bar .bar-fill.orange { background: linear-gradient(90deg, #f97316 0%, #ea580c 100%); }
+        .lifecycle-bar .bar-fill.red { background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%); }
+
+        .device-refresh-card .card-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .priority-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .priority-badge.critical {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        .priority-badge.high {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+        .priority-badge.standard {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+        .priority-badge.flexible {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+        .cost-indicator {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        .cost-indicator span {
+            font-weight: 600;
+            color: var(--auburn-navy);
+        }
+
+        .cascade-flow {
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .cascade-flow h4 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .cascade-flow h4 i {
+            color: var(--auburn-orange);
+        }
+        .cascade-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .cascade-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+        }
+        .cascade-step::after {
+            content: '';
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid var(--auburn-orange);
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+        }
+        .cascade-step:last-child::after {
+            display: none;
+        }
+        .cascade-step .step-num {
+            width: 32px;
+            height: 32px;
+            background: var(--auburn-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin: 0 auto 0.75rem;
+        }
+        .cascade-step .step-title {
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .cascade-step .step-desc {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.75rem;
+        }
+
+        @media (max-width: 992px) {
+            .refresh-intro { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .refresh-intro { grid-template-columns: 1fr; }
+            .cascade-steps { flex-direction: column; }
+            .cascade-step::after { display: none; }
+        }
+
         /* Budget */
         .budget-grid {
             display: grid;
@@ -1214,69 +1506,427 @@
 
             <div class="section-header" style="margin-top: 4rem;">
                 <h2>Device Refresh Cycles</h2>
-                <p>Strategic replacement based on usage intensity and operational importance (3-5 years)</p>
+                <p>Strategic lifecycle management across 14 device categories with priority-based scheduling</p>
             </div>
-            <div class="refresh-table-wrapper">
-                <table class="refresh-table">
-                    <thead>
-                        <tr>
-                            <th>Device Category</th>
-                            <th>Refresh Cycle</th>
-                            <th>Priority</th>
-                            <th>Rationale</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Executive/Leadership</strong></td>
-                            <td>3 years</td>
-                            <td><span class="priority-critical">Critical</span></td>
-                            <td>High visibility, productivity essential</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Faculty Primary Laptops</strong></td>
-                            <td>3-4 years</td>
-                            <td><span class="priority-high">High</span></td>
-                            <td>Teaching continuity, research demands</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Lab Computers (High-Use)</strong></td>
-                            <td>3 years</td>
-                            <td><span class="priority-high">High</span></td>
-                            <td>Heavy daily usage, student-facing</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Classroom Presentation</strong></td>
-                            <td>4 years</td>
-                            <td><span class="priority-high">High</span></td>
-                            <td>Reliability critical for instruction</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Student Loaner Devices</strong></td>
-                            <td>3 years</td>
-                            <td><span class="priority-high">High</span></td>
-                            <td>Heavy circulation, wear and tear</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Administrative Workstations</strong></td>
-                            <td>4-5 years</td>
-                            <td><span class="priority-medium">Medium</span></td>
-                            <td>Standard office productivity</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mobile Devices (iPads)</strong></td>
-                            <td>3-4 years</td>
-                            <td><span class="priority-medium">Medium</span></td>
-                            <td>OS support lifecycle limitations</td>
-                        </tr>
-                        <tr>
-                            <td><strong>AV Production Equipment</strong></td>
-                            <td>4-5 years</td>
-                            <td><span class="priority-medium">Medium</span></td>
-                            <td>Technology evolution considerations</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+            <!-- Fleet Summary Stats -->
+            <div class="refresh-intro">
+                <div class="fleet-stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="stat-value">8,000+</div>
+                    <div class="stat-label">Total Devices Managed</div>
+                </div>
+                <div class="fleet-stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="stat-value">3-5 yr</div>
+                    <div class="stat-label">Refresh Cycle Range</div>
+                </div>
+                <div class="fleet-stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="stat-value">14</div>
+                    <div class="stat-label">Device Categories</div>
+                </div>
+                <div class="fleet-stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, var(--auburn-orange) 0%, #c2410c 100%);">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">Fleet Health Score</div>
+                </div>
+            </div>
+
+            <!-- Computing Devices Category -->
+            <div class="device-category-section">
+                <div class="category-header">
+                    <div class="category-icon" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>Computing Devices</h3>
+                    <span class="category-count">7 Types</span>
+                </div>
+                <div class="device-refresh-grid">
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h4>Executive/Leadership</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 3 Years (As Needed)
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>60%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill yellow" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge critical"><i class="fas fa-flag"></i> Critical</span>
+                            <span class="cost-indicator">Est: <span>$2.2K</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <h4>Faculty Primary</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 4 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge high"><i class="fas fa-flag"></i> High</span>
+                            <span class="cost-indicator">Est: <span>$1.8K</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <h4>Lab Computers</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 3 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill orange" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge high"><i class="fas fa-flag"></i> High</span>
+                            <span class="cost-indicator">Est: <span>$1.2K</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                            <h4>Classroom Presentations</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 4 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>50%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 50%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge high"><i class="fas fa-flag"></i> High</span>
+                            <span class="cost-indicator">Est: <span>$1.5K</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h4>Student Devices</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 5 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>35%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 35%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge standard"><i class="fas fa-flag"></i> Standard</span>
+                            <span class="cost-indicator">Est: <span>$800</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #64748b 0%, #475569 100%);">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h4>Admin Workstations</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 3 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>55%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill yellow" style="width: 55%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge high"><i class="fas fa-flag"></i> High</span>
+                            <span class="cost-indicator">Est: <span>$1.1K</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);">
+                                <i class="fas fa-tablet-alt"></i>
+                            </div>
+                            <h4>Mobile Devices</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> As Needed Basis
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>40%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 40%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge flexible"><i class="fas fa-flag"></i> Flexible</span>
+                            <span class="cost-indicator">Est: <span>$600</span>/unit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classroom Refresh Category -->
+            <div class="device-category-section">
+                <div class="category-header">
+                    <div class="category-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                        <i class="fas fa-chalkboard"></i>
+                    </div>
+                    <h3>Classroom Refresh</h3>
+                    <span class="category-count">4 Types</span>
+                </div>
+                <div class="device-refresh-grid">
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h4>Projectors</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 5 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>55%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill yellow" style="width: 55%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge high"><i class="fas fa-flag"></i> High</span>
+                            <span class="cost-indicator">Est: <span>$3.5K</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                                <i class="fas fa-solar-panel"></i>
+                            </div>
+                            <h4>Screens</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> As Needed Basis
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>30%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 30%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge flexible"><i class="fas fa-flag"></i> Flexible</span>
+                            <span class="cost-indicator">Est: <span>$1.2K</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                                <i class="fas fa-keyboard"></i>
+                            </div>
+                            <h4>Stream Decks</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> As Needed Basis
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>20%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 20%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge flexible"><i class="fas fa-flag"></i> Flexible</span>
+                            <span class="cost-indicator">Est: <span>$250</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h4>AI Teaching Cameras</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 5 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>10%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 10%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge standard"><i class="fas fa-flag"></i> Standard</span>
+                            <span class="cost-indicator">Est: <span>$4.5K</span>/unit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Signage Category -->
+            <div class="device-category-section">
+                <div class="category-header">
+                    <div class="category-icon" style="background: linear-gradient(135deg, var(--auburn-orange) 0%, #c2410c 100%);">
+                        <i class="fas fa-sign"></i>
+                    </div>
+                    <h3>Digital Signage</h3>
+                    <span class="category-count">2 Types</span>
+                </div>
+                <div class="device-refresh-grid">
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                            <h4>TVs</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 5 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge high"><i class="fas fa-flag"></i> High</span>
+                            <span class="cost-indicator">Est: <span>$2.8K</span>/unit</span>
+                        </div>
+                    </div>
+
+                    <div class="device-refresh-card">
+                        <div class="card-header">
+                            <div class="device-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                                <i class="fas fa-th-large"></i>
+                            </div>
+                            <h4>LED Screens</h4>
+                        </div>
+                        <div class="refresh-badge">
+                            <i class="fas fa-clock"></i> Every 5 Years
+                        </div>
+                        <div class="lifecycle-bar-container">
+                            <div class="lifecycle-bar-label">
+                                <span>Lifecycle Position</span>
+                                <span>25%</span>
+                            </div>
+                            <div class="lifecycle-bar">
+                                <div class="bar-fill green" style="width: 25%;"></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="priority-badge high"><i class="fas fa-flag"></i> High</span>
+                            <span class="cost-indicator">Est: <span>$15K</span>/unit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cascade Flow Visualization -->
+            <div class="cascade-flow">
+                <h4><i class="fas fa-recycle"></i> Device Cascade Flow</h4>
+                <div class="cascade-steps">
+                    <div class="cascade-step">
+                        <div class="step-num">1</div>
+                        <div class="step-title">New Procurement</div>
+                        <div class="step-desc">Latest models to Executive & Faculty Primary</div>
+                    </div>
+                    <div class="cascade-step">
+                        <div class="step-num">2</div>
+                        <div class="step-title">First Cascade</div>
+                        <div class="step-desc">To classroom & lab environments</div>
+                    </div>
+                    <div class="cascade-step">
+                        <div class="step-num">3</div>
+                        <div class="step-title">Second Cascade</div>
+                        <div class="step-desc">To student loaner pool</div>
+                    </div>
+                    <div class="cascade-step">
+                        <div class="step-num">4</div>
+                        <div class="step-title">Final Stage</div>
+                        <div class="step-desc">Certified recycling & data wipe</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
