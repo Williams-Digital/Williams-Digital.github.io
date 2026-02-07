@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Deck Integration - Auburn University Proposal</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --auburn-navy: #03244d; --auburn-orange: #DD550C; --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-500: #6b7280; --gray-600: #4b5563; --gray-800: #1f2937; --gray-900: #111827; --success: #10b981; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--gray-800); line-height: 1.6; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--auburn-navy); padding: 1rem 2rem; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { display: flex; align-items: center; gap: 1rem; color: var(--white); text-decoration: none; }
+        .nav-brand img { height: 40px; width: auto; }
+        .nav-brand span { font-weight: 600; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--auburn-orange); }
+        .page-hero { background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%); padding: 8rem 2rem 4rem; position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center center; background-size: cover; opacity: 0.15; }
+        .hero-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .breadcrumb { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: var(--auburn-orange); text-decoration: none; }
+        .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.8); max-width: 700px; }
+        section { padding: 4rem 2rem; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-alt { background: var(--gray-50); }
+        .section-header { margin-bottom: 2.5rem; }
+        .section-header h2 { font-size: 1.75rem; font-weight: 700; color: var(--auburn-navy); margin-bottom: 0.5rem; }
+        .section-header p { color: var(--gray-600); font-size: 1rem; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .feature-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 2rem; transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(3, 36, 77, 0.1); border-color: var(--auburn-orange); }
+        .feature-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--white); margin-bottom: 1.25rem; }
+        .feature-card h3 { font-size: 1.25rem; font-weight: 600; color: var(--gray-900); margin-bottom: 0.75rem; }
+        .feature-card p { color: var(--gray-600); font-size: 0.95rem; margin-bottom: 1.25rem; }
+        .component-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .component-table th, .component-table td { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--gray-200); font-size: 0.9rem; }
+        .component-table th { background: var(--gray-50); font-weight: 600; color: var(--auburn-navy); }
+        .component-table td { color: var(--gray-600); }
+        .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .system-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 1.75rem; position: relative; }
+        .system-card.recommended { border-color: var(--auburn-orange); background: linear-gradient(135deg, rgba(221, 85, 12, 0.03) 0%, rgba(3, 36, 77, 0.03) 100%); }
+        .system-badge { position: absolute; top: -10px; right: 20px; background: var(--auburn-orange); color: white; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; }
+        .system-card h4 { font-size: 1.1rem; font-weight: 600; color: var(--auburn-navy); margin-bottom: 0.5rem; }
+        .system-card .vendor { color: var(--gray-500); font-size: 0.85rem; margin-bottom: 1rem; }
+        .system-card p { color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem; }
+        .system-features { list-style: none; }
+        .system-features li { display: flex; align-items: center; gap: 0.5rem; color: var(--gray-600); font-size: 0.85rem; padding: 0.3rem 0; }
+        .system-features li i { color: var(--success); font-size: 0.75rem; }
+        .button-layout { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; background: #1a1a2e; padding: 1.5rem; border-radius: 12px; margin-top: 1rem; }
+        .button-key { background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%); color: white; padding: 1rem 0.5rem; border-radius: 8px; text-align: center; font-size: 0.7rem; font-weight: 500; }
+        .button-key.orange { background: linear-gradient(135deg, var(--auburn-orange) 0%, #b84400 100%); }
+        .button-key.green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .back-section { padding: 3rem 2rem; text-align: center; background: var(--gray-50); }
+        .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--auburn-navy); color: white; padding: 0.875rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s; }
+        .back-btn:hover { background: var(--auburn-orange); }
+        footer { background: var(--auburn-navy); color: rgba(255,255,255,0.7); padding: 2rem; text-align: center; font-size: 0.9rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } .button-layout { grid-template-columns: repeat(3, 1fr); } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" alt="Auburn">
+                <span>Production Enhancement Proposal</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html#solutions">All Solutions</a>
+                <a href="../index.html#benefits">Benefits</a>
+                <a href="../index.html#timeline">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <div class="breadcrumb">
+                <a href="../index.html">Proposal</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Stream Deck Integration</span>
+            </div>
+            <h1><i class="fas fa-th"></i> Stream Deck Integration</h1>
+            <p>Simplify classroom AV operations with intuitive, one-touch controls using Elgato Stream Deck hardware integrated with Q-SYS systems for faculty-friendly room management.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>One-Touch Room Controls</h2>
+                <p>Simplified AV operation that any faculty member can master in minutes</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-play-circle"></i></div>
+                    <h3>Instant Room Start</h3>
+                    <p>Single button press powers on all AV equipment, sets default inputs, and prepares the room for instruction.</p>
+                    <table class="component-table">
+                        <tr><th>Action</th><th>Result</th></tr>
+                        <tr><td>"Start Class"</td><td>Powers projector, sets laptop input, enables audio</td></tr>
+                        <tr><td>"End Class"</td><td>Powers down all systems, blank screen</td></tr>
+                        <tr><td>"Quick Restart"</td><td>Resets room to default state</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3>Source Selection</h3>
+                    <p>Dedicated buttons for each input source with visual feedback showing current selection.</p>
+                    <table class="component-table">
+                        <tr><th>Source</th><th>Button</th></tr>
+                        <tr><td>Laptop (HDMI)</td><td>Illuminated icon</td></tr>
+                        <tr><td>Document Camera</td><td>Illuminated icon</td></tr>
+                        <tr><td>Wireless Display</td><td>Illuminated icon</td></tr>
+                        <tr><td>Blu-ray/Media</td><td>Illuminated icon</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-volume-up"></i></div>
+                    <h3>Audio Controls</h3>
+                    <p>Intuitive volume adjustment with visual level indicators and mute functionality.</p>
+                    <table class="component-table">
+                        <tr><th>Control</th><th>Function</th></tr>
+                        <tr><td>Volume Up/Down</td><td>5% increments, visual meter</td></tr>
+                        <tr><td>Mute Toggle</td><td>Audio mute with red indicator</td></tr>
+                        <tr><td>Mic Mute</td><td>Separate microphone control</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-video"></i></div>
+                    <h3>Recording Controls</h3>
+                    <p>One-touch lecture capture with clear recording status and pause functionality.</p>
+                    <table class="component-table">
+                        <tr><th>Control</th><th>Function</th></tr>
+                        <tr><td>Start Recording</td><td>Begins capture, shows red "REC"</td></tr>
+                        <tr><td>Pause</td><td>Temporarily stops, yellow indicator</td></tr>
+                        <tr><td>Stop & Save</td><td>Ends recording, confirms upload</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Sample Classroom Layout</h2>
+                <p>Standard 15-button configuration for Auburn classrooms</p>
+            </div>
+            <div class="feature-card" style="max-width: 600px; margin: 0 auto;">
+                <h3 style="text-align: center; margin-bottom: 1rem;">Stream Deck XL - Classroom Profile</h3>
+                <div class="button-layout">
+                    <div class="button-key green">START CLASS</div>
+                    <div class="button-key">Laptop</div>
+                    <div class="button-key">Doc Cam</div>
+                    <div class="button-key">Wireless</div>
+                    <div class="button-key">Blu-ray</div>
+
+                    <div class="button-key orange">REC</div>
+                    <div class="button-key">Pause</div>
+                    <div class="button-key">STOP</div>
+                    <div class="button-key">Vol +</div>
+                    <div class="button-key">Vol -</div>
+
+                    <div class="button-key">Mute</div>
+                    <div class="button-key">Mic Mute</div>
+                    <div class="button-key">Blank</div>
+                    <div class="button-key">Lights</div>
+                    <div class="button-key orange">END CLASS</div>
+                </div>
+                <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--gray-500);">Dynamic button icons change based on current state</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Q-SYS Integration</h2>
+                <p>Seamless connection between Stream Deck and campus AV infrastructure</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-plug"></i></div>
+                    <h3>Native Q-SYS Plugin</h3>
+                    <p>Direct integration between Elgato Stream Deck and Q-SYS cores using the official plugin.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Capability</th></tr>
+                        <tr><td>Control Protocol</td><td>Q-SYS UCI/ECP</td></tr>
+                        <tr><td>Bi-directional</td><td>Status feedback to buttons</td></tr>
+                        <tr><td>Configuration</td><td>Designer-based profiles</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sync"></i></div>
+                    <h3>Real-Time Feedback</h3>
+                    <p>Button icons update dynamically to reflect current system state and active sources.</p>
+                    <table class="component-table">
+                        <tr><th>State</th><th>Visual Indicator</th></tr>
+                        <tr><td>Active Source</td><td>Highlighted icon</td></tr>
+                        <tr><td>Muted</td><td>Red slash overlay</td></tr>
+                        <tr><td>Recording</td><td>Pulsing red border</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-copy"></i></div>
+                    <h3>Profile Management</h3>
+                    <p>Centrally managed profiles deployed across all campus Stream Decks for consistency.</p>
+                    <table class="component-table">
+                        <tr><th>Profile Type</th><th>Application</th></tr>
+                        <tr><td>Standard Classroom</td><td>Lecture halls, classrooms</td></tr>
+                        <tr><td>Conference Room</td><td>Meeting spaces</td></tr>
+                        <tr><td>Production Studio</td><td>Advanced media facilities</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Help Request</h3>
+                    <p>Dedicated help button creates support ticket with room info, automatically alerting IT staff.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Auto-populate</td><td>Room number, system status</td></tr>
+                        <tr><td>Notification</td><td>Instant alert to support team</td></tr>
+                        <tr><td>Confirmation</td><td>Visual "Help Requested" status</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Hardware Options</h2>
+                <p>Stream Deck models for different room types</p>
+            </div>
+            <div class="systems-grid">
+                <div class="system-card recommended">
+                    <span class="system-badge">Recommended</span>
+                    <h4>Stream Deck XL</h4>
+                    <div class="vendor">Elgato / Corsair</div>
+                    <p>32 customizable LCD keys ideal for classrooms and lecture halls requiring comprehensive controls.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> 32 programmable keys</li>
+                        <li><i class="fas fa-check"></i> Dynamic icon display</li>
+                        <li><i class="fas fa-check"></i> Detachable USB-C cable</li>
+                        <li><i class="fas fa-check"></i> Magnetic stand included</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Stream Deck MK.2</h4>
+                    <div class="vendor">Elgato / Corsair</div>
+                    <p>15-key compact device for smaller conference rooms and huddle spaces.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> 15 programmable keys</li>
+                        <li><i class="fas fa-check"></i> Swappable faceplates</li>
+                        <li><i class="fas fa-check"></i> Adjustable stand</li>
+                        <li><i class="fas fa-check"></i> Compact footprint</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Stream Deck +</h4>
+                    <div class="vendor">Elgato / Corsair</div>
+                    <p>8 keys plus 4 rotary dials for spaces needing precise analog controls like volume.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> 8 LCD keys + 4 dials</li>
+                        <li><i class="fas fa-check"></i> Touch strip display</li>
+                        <li><i class="fas fa-check"></i> Tactile volume control</li>
+                        <li><i class="fas fa-check"></i> Premium build quality</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Faculty Benefits</h2>
+                <p>How Stream Deck improves the teaching experience</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Zero Learning Curve</h3>
+                    <p>Visual icons eliminate the need for training. Faculty intuitively understand button functions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Faster Class Starts</h3>
+                    <p>One-touch startup reduces room prep time from minutes to seconds, maximizing instruction time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>Reduced Errors</h3>
+                    <p>Dedicated buttons prevent accidental inputs, eliminating fumbling with complex touch panels.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-smile"></i></div>
+                    <h3>Increased Confidence</h3>
+                    <p>Clear visual feedback builds faculty confidence, reducing anxiety about technology failures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="back-section">
+        <a href="../index.html#solutions" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to All Solutions
+        </a>
+    </section>
+
+    <footer>
+        <p>Auburn University Campus Production Enhancement Proposal | Confidential</p>
+    </footer>
+</body>
+</html>

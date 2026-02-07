@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-SYS Ecosystem - Auburn University Proposal</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --auburn-navy: #03244d; --auburn-orange: #DD550C; --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-500: #6b7280; --gray-600: #4b5563; --gray-800: #1f2937; --gray-900: #111827; --success: #10b981; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--gray-800); line-height: 1.6; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--auburn-navy); padding: 1rem 2rem; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { display: flex; align-items: center; gap: 1rem; color: var(--white); text-decoration: none; }
+        .nav-brand img { height: 40px; width: auto; }
+        .nav-brand span { font-weight: 600; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--auburn-orange); }
+        .page-hero { background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%); padding: 8rem 2rem 4rem; position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center center; background-size: cover; opacity: 0.15; }
+        .hero-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .breadcrumb { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: var(--auburn-orange); text-decoration: none; }
+        .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.8); max-width: 700px; }
+        section { padding: 4rem 2rem; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-alt { background: var(--gray-50); }
+        .section-header { margin-bottom: 2.5rem; }
+        .section-header h2 { font-size: 1.75rem; font-weight: 700; color: var(--auburn-navy); margin-bottom: 0.5rem; }
+        .section-header p { color: var(--gray-600); font-size: 1rem; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .feature-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 2rem; transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(3, 36, 77, 0.1); border-color: var(--auburn-orange); }
+        .feature-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--white); margin-bottom: 1.25rem; }
+        .feature-card h3 { font-size: 1.25rem; font-weight: 600; color: var(--gray-900); margin-bottom: 0.75rem; }
+        .feature-card p { color: var(--gray-600); font-size: 0.95rem; margin-bottom: 1.25rem; }
+        .component-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .component-table th, .component-table td { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--gray-200); font-size: 0.9rem; }
+        .component-table th { background: var(--gray-50); font-weight: 600; color: var(--auburn-navy); }
+        .component-table td { color: var(--gray-600); }
+        .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .system-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 1.75rem; position: relative; }
+        .system-card.recommended { border-color: var(--auburn-orange); background: linear-gradient(135deg, rgba(221, 85, 12, 0.03) 0%, rgba(3, 36, 77, 0.03) 100%); }
+        .system-badge { position: absolute; top: -10px; right: 20px; background: var(--auburn-orange); color: white; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; }
+        .system-card h4 { font-size: 1.1rem; font-weight: 600; color: var(--auburn-navy); margin-bottom: 0.5rem; }
+        .system-card .vendor { color: var(--gray-500); font-size: 0.85rem; margin-bottom: 1rem; }
+        .system-card p { color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem; }
+        .system-features { list-style: none; }
+        .system-features li { display: flex; align-items: center; gap: 0.5rem; color: var(--gray-600); font-size: 0.85rem; padding: 0.3rem 0; }
+        .system-features li i { color: var(--success); font-size: 0.75rem; }
+        .architecture-diagram { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 12px; padding: 2rem; margin: 2rem 0; }
+        .architecture-diagram pre { font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.4; color: var(--auburn-navy); overflow-x: auto; }
+        .back-section { padding: 3rem 2rem; text-align: center; background: var(--gray-50); }
+        .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--auburn-navy); color: white; padding: 0.875rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s; }
+        .back-btn:hover { background: var(--auburn-orange); }
+        footer { background: var(--auburn-navy); color: rgba(255,255,255,0.7); padding: 2rem; text-align: center; font-size: 0.9rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" alt="Auburn">
+                <span>Production Enhancement Proposal</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html#solutions">All Solutions</a>
+                <a href="../index.html#benefits">Benefits</a>
+                <a href="../index.html#timeline">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <div class="breadcrumb">
+                <a href="../index.html">Proposal</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Q-SYS Ecosystem</span>
+            </div>
+            <h1><i class="fas fa-network-wired"></i> Q-SYS Ecosystem</h1>
+            <p>Standardize campus AV infrastructure on QSC's Q-SYS platform for unified control, monitoring, and management of all audio, video, and control systems across Auburn University.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Unified AV Control</h2>
+                <p>Software-based architecture for campus-wide audio and video management</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-server"></i></div>
+                    <h3>Q-SYS Core Processors</h3>
+                    <p>Enterprise-grade network cores providing centralized processing for audio DSP, video routing, and control logic.</p>
+                    <table class="component-table">
+                        <tr><th>Model</th><th>Capacity</th></tr>
+                        <tr><td>Core 110f</td><td>128 network audio channels</td></tr>
+                        <tr><td>Core 510c</td><td>512 channels, video-capable</td></tr>
+                        <tr><td>Core 5200</td><td>2048 channels, enterprise</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-volume-up"></i></div>
+                    <h3>Network Audio Distribution</h3>
+                    <p>Dante/AES67 audio transport enabling any-to-any routing of audio signals across campus network infrastructure.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Capability</th></tr>
+                        <tr><td>Protocol</td><td>Dante, AES67, Q-LAN</td></tr>
+                        <tr><td>Latency</td><td>Sub-5ms campus-wide</td></tr>
+                        <tr><td>Redundancy</td><td>Dual-path failover</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-desktop"></i></div>
+                    <h3>Video Switching & Routing</h3>
+                    <p>Software-defined video matrix supporting HDMI, SDI, and network video sources with seamless switching.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Inputs</td><td>HDMI, SDI, NDI, USB-C</td></tr>
+                        <tr><td>Outputs</td><td>Displays, projectors, streaming</td></tr>
+                        <tr><td>Scaling</td><td>4K60 with auto-adjustment</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>Room Control Integration</h3>
+                    <p>Unified control of lighting, shades, HVAC, and AV through Q-SYS touch panels and third-party integrations.</p>
+                    <table class="component-table">
+                        <tr><th>Integration</th><th>Protocol</th></tr>
+                        <tr><td>Lighting</td><td>DALI, DMX, Lutron</td></tr>
+                        <tr><td>HVAC</td><td>BACnet, Modbus</td></tr>
+                        <tr><td>Shades</td><td>RS-232, IP control</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>System Architecture</h2>
+                <p>Campus-wide Q-SYS deployment topology</p>
+            </div>
+            <div class="architecture-diagram">
+                <pre>
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         Q-SYS Reflect Enterprise Manager                     │
+│                         (Cloud-Based Monitoring & Management)                │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                        │
+            ┌───────────────────────────┼───────────────────────────┐
+            │                           │                           │
+            ▼                           ▼                           ▼
+┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐
+│   Academic Core     │    │   Athletic Core     │    │   Admin Core        │
+│   (Core 5200)       │    │   (Core 510c)       │    │   (Core 110f)       │
+│                     │    │                     │    │                     │
+│ • 500+ classrooms   │    │ • Gameday audio     │    │ • Conference rooms  │
+│ • Lecture halls     │    │ • Training rooms    │    │ • Board rooms       │
+│ • Labs & studios    │    │ • Press facilities  │    │ • Event spaces      │
+└─────────────────────┘    └─────────────────────┘    └─────────────────────┘
+            │                           │                           │
+    ┌───────┴───────┐           ┌───────┴───────┐           ┌───────┴───────┐
+    │ Building      │           │ Building      │           │ Building      │
+    │ I/O Frames    │           │ I/O Frames    │           │ I/O Frames    │
+    └───────────────┘           └───────────────┘           └───────────────┘
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Remote Monitoring & Management</h2>
+                <p>Cloud-based visibility and control of all campus AV systems</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>Q-SYS Reflect Platform</h3>
+                    <p>Enterprise cloud management enabling remote monitoring, configuration, and firmware updates across all Q-SYS devices.</p>
+                    <table class="component-table">
+                        <tr><th>Capability</th><th>Benefit</th></tr>
+                        <tr><td>Real-time Status</td><td>Device health monitoring</td></tr>
+                        <tr><td>Remote Control</td><td>Adjust settings anywhere</td></tr>
+                        <tr><td>Bulk Updates</td><td>Firmware deployment</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>Usage Analytics</h3>
+                    <p>Detailed reporting on room utilization, equipment usage patterns, and system performance metrics.</p>
+                    <table class="component-table">
+                        <tr><th>Metric</th><th>Insight</th></tr>
+                        <tr><td>Room Usage</td><td>Scheduled vs. actual use</td></tr>
+                        <tr><td>Source Activity</td><td>Which inputs are used most</td></tr>
+                        <tr><td>Issue Trends</td><td>Common failure patterns</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bell"></i></div>
+                    <h3>Proactive Alerts</h3>
+                    <p>Automated notifications for device failures, connectivity issues, and maintenance requirements.</p>
+                    <table class="component-table">
+                        <tr><th>Alert Type</th><th>Response</th></tr>
+                        <tr><td>Device Offline</td><td>Immediate ticket creation</td></tr>
+                        <tr><td>Audio Clipping</td><td>Auto-adjust or notify</td></tr>
+                        <tr><td>Lamp Hours</td><td>Schedule replacement</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Remote Troubleshooting</h3>
+                    <p>IT staff can diagnose and resolve issues without dispatching to the room, reducing support time.</p>
+                    <table class="component-table">
+                        <tr><th>Action</th><th>Remote Capability</th></tr>
+                        <tr><td>Reboot</td><td>Restart devices remotely</td></tr>
+                        <tr><td>Re-route</td><td>Switch audio/video paths</td></tr>
+                        <tr><td>Logs</td><td>Download diagnostic data</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Why Q-SYS for Auburn</h2>
+                <p>Key advantages of standardizing on the Q-SYS platform</p>
+            </div>
+            <div class="systems-grid">
+                <div class="system-card recommended">
+                    <span class="system-badge">Primary Platform</span>
+                    <h4>QSC Q-SYS</h4>
+                    <div class="vendor">Software-Based AV Platform</div>
+                    <p>Industry-leading networked AV ecosystem with proven installations at SEC institutions and Fortune 500 companies.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Software-defined, future-proof architecture</li>
+                        <li><i class="fas fa-check"></i> Single-pane management across campus</li>
+                        <li><i class="fas fa-check"></i> Native UC platform integration (Teams, Zoom)</li>
+                        <li><i class="fas fa-check"></i> Extensive third-party ecosystem</li>
+                        <li><i class="fas fa-check"></i> QSC-certified integrator network</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Crestron</h4>
+                    <div class="vendor">Alternative Platform</div>
+                    <p>Enterprise control and automation with strong higher-education presence and comprehensive product line.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Broad product portfolio</li>
+                        <li><i class="fas fa-check"></i> XiO Cloud management</li>
+                        <li><i class="fas fa-check"></i> NVX video over IP</li>
+                        <li><i class="fas fa-check"></i> Strong dealer network</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Extron</h4>
+                    <div class="vendor">Alternative Platform</div>
+                    <p>Reliable signal distribution and control with focus on education market and long product lifecycles.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Education-focused design</li>
+                        <li><i class="fas fa-check"></i> GlobalViewer Enterprise</li>
+                        <li><i class="fas fa-check"></i> Proven reliability</li>
+                        <li><i class="fas fa-check"></i> Long-term availability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="back-section">
+        <a href="../index.html#solutions" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to All Solutions
+        </a>
+    </section>
+
+    <footer>
+        <p>Auburn University Campus Production Enhancement Proposal | Confidential</p>
+    </footer>
+</body>
+</html>

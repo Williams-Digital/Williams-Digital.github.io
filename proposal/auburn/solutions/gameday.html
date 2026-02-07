@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gameday Campus Environment - Auburn University Proposal</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --auburn-navy: #03244d;
+            --auburn-orange: #DD550C;
+            --auburn-orange-light: #F56600;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--auburn-navy);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-brand img { height: 40px; width: auto; }
+        .nav-brand span { font-weight: 600; font-size: 1.1rem; }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--auburn-orange); }
+
+        /* Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%);
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center center;
+            background-size: cover;
+            opacity: 0.15;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--auburn-orange);
+            text-decoration: none;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .page-hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 700px;
+        }
+
+        /* Sections */
+        section { padding: 4rem 2rem; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-alt { background: var(--gray-50); }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--gray-600);
+            font-size: 1rem;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(3, 36, 77, 0.1);
+            border-color: var(--auburn-orange);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Component Tables */
+        .component-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .component-table th,
+        .component-table td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--gray-200);
+            font-size: 0.9rem;
+        }
+
+        .component-table th {
+            background: var(--gray-50);
+            font-weight: 600;
+            color: var(--auburn-navy);
+        }
+
+        .component-table td {
+            color: var(--gray-600);
+        }
+
+        /* Top Systems */
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .system-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.75rem;
+            position: relative;
+        }
+
+        .system-card.recommended {
+            border-color: var(--auburn-orange);
+            background: linear-gradient(135deg, rgba(221, 85, 12, 0.03) 0%, rgba(3, 36, 77, 0.03) 100%);
+        }
+
+        .system-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--auburn-orange);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .system-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .system-card .vendor {
+            color: var(--gray-500);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .system-card p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .system-features {
+            list-style: none;
+        }
+
+        .system-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+        }
+
+        .system-features li i {
+            color: var(--success);
+            font-size: 0.75rem;
+        }
+
+        /* Examples Section */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .example-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .example-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .example-content {
+            padding: 1.25rem;
+        }
+
+        .example-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .example-content p {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+        }
+
+        /* Locations List */
+        .locations-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .location-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+        }
+
+        .location-item i {
+            color: var(--auburn-orange);
+            font-size: 1.25rem;
+            margin-top: 0.25rem;
+        }
+
+        .location-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .location-item p {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+        }
+
+        /* Back Button */
+        .back-section {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--gray-50);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--auburn-navy);
+            color: white;
+            padding: 0.875rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--auburn-orange);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--auburn-navy);
+            color: rgba(255,255,255,0.7);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .page-hero { padding: 6rem 1.5rem 3rem; }
+            section { padding: 3rem 1.5rem; }
+            .feature-grid, .systems-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" alt="Auburn">
+                <span>Production Enhancement Proposal</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html#solutions">All Solutions</a>
+                <a href="../index.html#benefits">Benefits</a>
+                <a href="../index.html#timeline">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <div class="breadcrumb">
+                <a href="../index.html">Proposal</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Gameday Campus Environment</span>
+            </div>
+            <h1><i class="fas fa-map-signs"></i> Gameday Campus Environment</h1>
+            <p>Transform Auburn University's campus grounds into an immersive, coordinated gameday experience through integrated audiovisual systems, wayfinding technology, and fan engagement infrastructure.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Campus-Wide Digital Signage</h2>
+                <p>High-impact visual displays positioned throughout campus for real-time messaging and branding</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tv"></i></div>
+                    <h3>Campus-Wide LED Displays</h3>
+                    <p>High-brightness outdoor displays at key intersections and gathering areas delivering real-time messaging, scores, and event information.</p>
+                    <table class="component-table">
+                        <tr><th>Specification</th><th>Details</th></tr>
+                        <tr><td>Brightness</td><td>5,000+ nits (outdoor rated)</td></tr>
+                        <tr><td>Pixel Pitch</td><td>4-6mm for optimal viewing</td></tr>
+                        <tr><td>Protection</td><td>IP65 weather resistance</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-building"></i></div>
+                    <h3>Building Facade Displays</h3>
+                    <p>Large-format LED screens on select campus buildings creating unified gameday branding and atmosphere visible across campus.</p>
+                    <table class="component-table">
+                        <tr><th>Specification</th><th>Details</th></tr>
+                        <tr><td>Size Range</td><td>200-500 sq ft per installation</td></tr>
+                        <tr><td>Mounting</td><td>Architectural integration</td></tr>
+                        <tr><td>Content</td><td>Live feeds, animations, branding</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-parking"></i></div>
+                    <h3>Parking Lot Signage</h3>
+                    <p>Dynamic wayfinding displays in all gameday parking areas for traffic flow management and lot availability updates.</p>
+                    <table class="component-table">
+                        <tr><th>Specification</th><th>Details</th></tr>
+                        <tr><td>Type</td><td>Pole-mounted LED boards</td></tr>
+                        <tr><td>Updates</td><td>Real-time lot capacity</td></tr>
+                        <tr><td>Integration</td><td>Traffic management system</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-truck"></i></div>
+                    <h3>Mobile LED Trailers</h3>
+                    <p>Deployable display units for tailgate zones and overflow areas providing flexible placement for changing event needs.</p>
+                    <table class="component-table">
+                        <tr><th>Specification</th><th>Details</th></tr>
+                        <tr><td>Screen Size</td><td>12-16ft diagonal</td></tr>
+                        <tr><td>Power</td><td>Generator or shore power</td></tr>
+                        <tr><td>Setup Time</td><td>Under 30 minutes</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Top Digital Signage Systems</h2>
+                <p>Industry-leading platforms for campus-wide display management</p>
+            </div>
+            <div class="systems-grid">
+                <div class="system-card recommended">
+                    <span class="system-badge">Recommended</span>
+                    <h4>Daktronics</h4>
+                    <div class="vendor">Sports & Outdoor Display Leader</div>
+                    <p>Industry standard for collegiate athletics with proven SEC installations at Alabama, LSU, and Georgia.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Purpose-built for outdoor sports environments</li>
+                        <li><i class="fas fa-check"></i> Venus control system integration</li>
+                        <li><i class="fas fa-check"></i> 24/7 support with dedicated SEC team</li>
+                        <li><i class="fas fa-check"></i> Proven 10+ year product lifespan</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Samsung Smart Signage</h4>
+                    <div class="vendor">Commercial Display Division</div>
+                    <p>Enterprise-grade outdoor displays with MagicINFO content management and cloud-based control.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> High brightness outdoor panels</li>
+                        <li><i class="fas fa-check"></i> Cloud-based content management</li>
+                        <li><i class="fas fa-check"></i> Remote monitoring and diagnostics</li>
+                        <li><i class="fas fa-check"></i> Extensive partner network</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>SNA Displays</h4>
+                    <div class="vendor">Custom LED Solutions</div>
+                    <p>Specializes in architectural LED installations and custom-shaped displays for unique campus landmarks.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Custom architectural integration</li>
+                        <li><i class="fas fa-check"></i> Curved and shaped displays</li>
+                        <li><i class="fas fa-check"></i> US-based manufacturing</li>
+                        <li><i class="fas fa-check"></i> Project-specific engineering</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Distributed Speaker System</h2>
+                <p>Campus-wide audio coverage for gameday atmosphere and coordinated messaging</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-volume-up"></i></div>
+                    <h3>Distributed Speaker Network</h3>
+                    <p>Weather-rated speakers throughout campus walkways and gathering areas providing consistent audio coverage campus-wide.</p>
+                    <table class="component-table">
+                        <tr><th>Component</th><th>Specification</th></tr>
+                        <tr><td>Speaker Type</td><td>Horn-loaded, weather-rated</td></tr>
+                        <tr><td>Coverage</td><td>90-120 degree dispersion</td></tr>
+                        <tr><td>SPL</td><td>95-105dB at rated distance</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>Zoned Audio Control</h3>
+                    <p>Q-SYS managed zones for different campus areas enabling tailored content by location including music, announcements, and game audio.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Capability</th></tr>
+                        <tr><td>Zones</td><td>Independent volume/content per area</td></tr>
+                        <tr><td>Sources</td><td>Radio broadcast, playlist, live mic</td></tr>
+                        <tr><td>Scheduling</td><td>Automated gameday programming</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-campground"></i></div>
+                    <h3>Tailgate Zone Audio</h3>
+                    <p>Enhanced speaker coverage in designated tailgate areas delivering premium fan experience with gameday music and live game audio.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Audio Quality</td><td>Full-range, music-optimized</td></tr>
+                        <tr><td>Game Feed</td><td>Radio broadcast integration</td></tr>
+                        <tr><td>Control</td><td>Remote DJ/operator capability</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bullhorn"></i></div>
+                    <h3>Paging Integration</h3>
+                    <p>Priority interrupt for announcements and emergency notifications ensuring safety and event coordination across all campus zones.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Priority Levels</td><td>Emergency, Event, General</td></tr>
+                        <tr><td>Integration</td><td>Campus emergency systems</td></tr>
+                        <tr><td>Activation</td><td>Manual and automated triggers</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Top Audio System Providers</h2>
+                <p>Professional-grade outdoor audio solutions for campus environments</p>
+            </div>
+            <div class="systems-grid">
+                <div class="system-card recommended">
+                    <span class="system-badge">Recommended</span>
+                    <h4>QSC Q-SYS</h4>
+                    <div class="vendor">Networked AV Platform</div>
+                    <p>Unified audio, video, and control platform that integrates with all campus systems for seamless management.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Software-based DSP architecture</li>
+                        <li><i class="fas fa-check"></i> Unlimited zone scalability</li>
+                        <li><i class="fas fa-check"></i> Native control integration</li>
+                        <li><i class="fas fa-check"></i> Campus-wide network audio</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Bose Professional</h4>
+                    <div class="vendor">Commercial Audio Solutions</div>
+                    <p>RoomMatch and outdoor loudspeakers with ControlSpace signal processing for consistent coverage.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Weather-rated outdoor speakers</li>
+                        <li><i class="fas fa-check"></i> Proprietary coverage optimization</li>
+                        <li><i class="fas fa-check"></i> Stadium-proven technology</li>
+                        <li><i class="fas fa-check"></i> Strong university partnerships</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Electro-Voice / Bosch</h4>
+                    <div class="vendor">Professional Audio</div>
+                    <p>EVID outdoor speakers and Dynacord amplification for reliable, high-output campus coverage.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Proven outdoor durability</li>
+                        <li><i class="fas fa-check"></i> Cost-effective scaling</li>
+                        <li><i class="fas fa-check"></i> Wide dealer network</li>
+                        <li><i class="fas fa-check"></i> Dante network audio support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Visual Directional Enhancements</h2>
+                <p>Intuitive wayfinding solutions guiding fans safely across campus</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>LED Wayfinding Totems</h3>
+                    <p>Interactive directional kiosks at campus entry points providing visitor navigation assistance with touchscreen maps.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Display</td><td>43-55" outdoor touchscreen</td></tr>
+                        <tr><td>Content</td><td>Interactive maps, schedules</td></tr>
+                        <tr><td>Accessibility</td><td>ADA compliant height/interface</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-road"></i></div>
+                    <h3>Illuminated Pathway Markers</h3>
+                    <p>Ground-level directional lighting along key pedestrian routes ensuring safe navigation during evening games.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Type</td><td>LED bollards and ground lights</td></tr>
+                        <tr><td>Control</td><td>Color-changing for wayfinding</td></tr>
+                        <tr><td>Power</td><td>Low-voltage landscape system</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-palette"></i></div>
+                    <h3>Color-Coded Zone Signage</h3>
+                    <p>Consistent visual identity for parking zones, gates, and amenities reducing confusion and enabling faster navigation.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Design</td><td>Auburn branded color system</td></tr>
+                        <tr><td>Visibility</td><td>Reflective, illuminated options</td></tr>
+                        <tr><td>Consistency</td><td>Campus-wide design standards</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h3>Digital Directory Boards</h3>
+                    <p>Touchscreen maps showing amenities, restrooms, first aid, and shuttles for self-service visitor information.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Interface</td><td>Multi-language support</td></tr>
+                        <tr><td>Updates</td><td>Real-time shuttle/event info</td></tr>
+                        <tr><td>Integration</td><td>Campus mobile app sync</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Emergency Mass Notification</h2>
+                <p>Integrated safety systems for campus-wide emergency communication</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-broadcast-tower"></i></div>
+                    <h3>Integrated Alert Broadcasting</h3>
+                    <p>Unified system across all speakers and digital signage enabling instant campus-wide emergency communication.</p>
+                    <table class="component-table">
+                        <tr><th>Capability</th><th>Details</th></tr>
+                        <tr><td>Activation</td><td>Sub-10 second deployment</td></tr>
+                        <tr><td>Override</td><td>All audio/visual systems</td></tr>
+                        <tr><td>Authorization</td><td>Multi-level access control</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cloud-bolt"></i></div>
+                    <h3>Weather Monitoring Integration</h3>
+                    <p>Automated lightning detection and delay protocols for proactive safety response during outdoor events.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Detection</td><td>8-20 mile lightning radius</td></tr>
+                        <tr><td>Automation</td><td>Auto-trigger shelter alerts</td></tr>
+                        <tr><td>Integration</td><td>National Weather Service feeds</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Multi-Channel Notification</h3>
+                    <p>Simultaneous alerts via audio, visual displays, and mobile push ensuring redundant communication for maximum reach.</p>
+                    <table class="component-table">
+                        <tr><th>Channel</th><th>Method</th></tr>
+                        <tr><td>Audio</td><td>PA system campus-wide</td></tr>
+                        <tr><td>Visual</td><td>All digital signage</td></tr>
+                        <tr><td>Mobile</td><td>Push notification integration</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-crosshairs"></i></div>
+                    <h3>Zone-Specific Messaging</h3>
+                    <p>Targeted alerts to specific campus areas as needed for precise emergency response and localized communication.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Zones</td><td>Granular area targeting</td></tr>
+                        <tr><td>Use Cases</td><td>Evacuation routes, shelter areas</td></tr>
+                        <tr><td>Testing</td><td>Silent zone verification</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Campus WiFi & Fan Connectivity</h2>
+                <p>High-density wireless infrastructure for digital fan engagement</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-wifi"></i></div>
+                    <h3>High-Density WiFi Deployment</h3>
+                    <p>Enhanced outdoor WiFi coverage in tailgate and gathering areas supporting 50,000+ simultaneous devices.</p>
+                    <table class="component-table">
+                        <tr><th>Specification</th><th>Details</th></tr>
+                        <tr><td>Standard</td><td>WiFi 6E / 802.11ax</td></tr>
+                        <tr><td>Density</td><td>1 AP per 150-250 users</td></tr>
+                        <tr><td>Bandwidth</td><td>10+ Gbps backhaul per zone</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobile App Integration</h3>
+                    <p>Wayfinding, real-time updates, and fan engagement via Auburn Gameday app enhancing the digital fan experience.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Capability</th></tr>
+                        <tr><td>Wayfinding</td><td>GPS + beacon navigation</td></tr>
+                        <tr><td>Notifications</td><td>Location-based alerts</td></tr>
+                        <tr><td>Engagement</td><td>Polls, contests, replays</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-broadcast-tower"></i></div>
+                    <h3>Bluetooth Beacon Network</h3>
+                    <p>Location-aware notifications and indoor/outdoor positioning for personalized wayfinding and offers.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Protocol</td><td>iBeacon / Eddystone</td></tr>
+                        <tr><td>Accuracy</td><td>1-3 meter positioning</td></tr>
+                        <tr><td>Battery</td><td>2-3 year beacon life</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-share-alt"></i></div>
+                    <h3>Social Media Integration</h3>
+                    <p>Photo opportunities with auto-tagging and sharing stations increasing fan engagement and Auburn visibility.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Photo Ops</td><td>Branded selfie stations</td></tr>
+                        <tr><td>Sharing</td><td>One-touch social posting</td></tr>
+                        <tr><td>Analytics</td><td>Engagement tracking</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Deployment Locations</h2>
+                <p>Strategic placement across Auburn's gameday footprint</p>
+            </div>
+            <div class="locations-list">
+                <div class="location-item">
+                    <i class="fas fa-campground"></i>
+                    <div>
+                        <h4>Tailgate Zones</h4>
+                        <p>Intramural fields, parking lots, designated fan areas</p>
+                    </div>
+                </div>
+                <div class="location-item">
+                    <i class="fas fa-walking"></i>
+                    <div>
+                        <h4>Campus Walkways</h4>
+                        <p>Primary pedestrian routes to stadium</p>
+                    </div>
+                </div>
+                <div class="location-item">
+                    <i class="fas fa-parking"></i>
+                    <div>
+                        <h4>Parking Areas</h4>
+                        <p>All official gameday parking lots and structures</p>
+                    </div>
+                </div>
+                <div class="location-item">
+                    <i class="fas fa-traffic-light"></i>
+                    <div>
+                        <h4>Key Intersections</h4>
+                        <p>College Street, Magnolia Avenue, Donahue Drive corridors</p>
+                    </div>
+                </div>
+                <div class="location-item">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <h4>Fan Gathering Areas</h4>
+                        <p>Toomer's Corner, Samford Lawn, Tiger Walk route</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="back-section">
+        <a href="../index.html#solutions" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to All Solutions
+        </a>
+    </section>
+
+    <footer>
+        <p>Auburn University Campus Production Enhancement Proposal | Confidential</p>
+    </footer>
+</body>
+</html>

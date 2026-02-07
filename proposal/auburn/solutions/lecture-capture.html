@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lecture Capture - Auburn University Proposal</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --auburn-navy: #03244d; --auburn-orange: #DD550C; --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-500: #6b7280; --gray-600: #4b5563; --gray-800: #1f2937; --gray-900: #111827; --success: #10b981; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--gray-800); line-height: 1.6; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--auburn-navy); padding: 1rem 2rem; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { display: flex; align-items: center; gap: 1rem; color: var(--white); text-decoration: none; }
+        .nav-brand img { height: 40px; width: auto; }
+        .nav-brand span { font-weight: 600; font-size: 1.1rem; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--auburn-orange); }
+        .page-hero { background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%); padding: 8rem 2rem 4rem; position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center center; background-size: cover; opacity: 0.15; }
+        .hero-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .breadcrumb { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .breadcrumb a { color: var(--auburn-orange); text-decoration: none; }
+        .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.8); max-width: 700px; }
+        section { padding: 4rem 2rem; }
+        .section-container { max-width: 1200px; margin: 0 auto; }
+        .section-alt { background: var(--gray-50); }
+        .section-header { margin-bottom: 2.5rem; }
+        .section-header h2 { font-size: 1.75rem; font-weight: 700; color: var(--auburn-navy); margin-bottom: 0.5rem; }
+        .section-header p { color: var(--gray-600); font-size: 1rem; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .feature-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 2rem; transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(3, 36, 77, 0.1); border-color: var(--auburn-orange); }
+        .feature-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--white); margin-bottom: 1.25rem; }
+        .feature-card h3 { font-size: 1.25rem; font-weight: 600; color: var(--gray-900); margin-bottom: 0.75rem; }
+        .feature-card p { color: var(--gray-600); font-size: 0.95rem; margin-bottom: 1.25rem; }
+        .component-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .component-table th, .component-table td { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--gray-200); font-size: 0.9rem; }
+        .component-table th { background: var(--gray-50); font-weight: 600; color: var(--auburn-navy); }
+        .component-table td { color: var(--gray-600); }
+        .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .system-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 1.75rem; position: relative; }
+        .system-card.recommended { border-color: var(--auburn-orange); background: linear-gradient(135deg, rgba(221, 85, 12, 0.03) 0%, rgba(3, 36, 77, 0.03) 100%); }
+        .system-badge { position: absolute; top: -10px; right: 20px; background: var(--auburn-orange); color: white; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; }
+        .system-card h4 { font-size: 1.1rem; font-weight: 600; color: var(--auburn-navy); margin-bottom: 0.5rem; }
+        .system-card .vendor { color: var(--gray-500); font-size: 0.85rem; margin-bottom: 1rem; }
+        .system-card p { color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem; }
+        .system-features { list-style: none; }
+        .system-features li { display: flex; align-items: center; gap: 0.5rem; color: var(--gray-600); font-size: 0.85rem; padding: 0.3rem 0; }
+        .system-features li i { color: var(--success); font-size: 0.75rem; }
+        .ai-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .ai-feature { background: var(--gray-50); padding: 1rem; border-radius: 8px; text-align: center; }
+        .ai-feature i { font-size: 1.5rem; color: var(--auburn-orange); margin-bottom: 0.5rem; display: block; }
+        .ai-feature span { font-size: 0.85rem; color: var(--gray-600); }
+        .back-section { padding: 3rem 2rem; text-align: center; background: var(--gray-50); }
+        .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--auburn-navy); color: white; padding: 0.875rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s; }
+        .back-btn:hover { background: var(--auburn-orange); }
+        footer { background: var(--auburn-navy); color: rgba(255,255,255,0.7); padding: 2rem; text-align: center; font-size: 0.9rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" alt="Auburn">
+                <span>Production Enhancement Proposal</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html#solutions">All Solutions</a>
+                <a href="../index.html#benefits">Benefits</a>
+                <a href="../index.html#timeline">Timeline</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <div class="breadcrumb">
+                <a href="../index.html">Proposal</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>AI Lecture Capture</span>
+            </div>
+            <h1><i class="fas fa-robot"></i> AI-Powered Lecture Capture</h1>
+            <p>Deploy intelligent camera systems with AI-driven tracking to automatically capture lectures without requiring dedicated operators or faculty interaction.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>AI Auto-Tracking Cameras</h2>
+                <p>Intelligent cameras that automatically follow instructors and capture presentations</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-circle"></i></div>
+                    <h3>Presenter Tracking</h3>
+                    <p>AI-powered cameras that automatically track the instructor's movement across the teaching space without manual control.</p>
+                    <table class="component-table">
+                        <tr><th>Capability</th><th>Details</th></tr>
+                        <tr><td>Tracking Speed</td><td>Smooth, natural motion</td></tr>
+                        <tr><td>Coverage Area</td><td>180-degree horizontal arc</td></tr>
+                        <tr><td>Response Time</td><td>Sub-200ms adjustment</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-desktop"></i></div>
+                    <h3>Content Capture</h3>
+                    <p>Dedicated camera or screen capture for presentation slides, documents, and whiteboard content.</p>
+                    <table class="component-table">
+                        <tr><th>Source</th><th>Method</th></tr>
+                        <tr><td>Slides</td><td>HDMI/SDI capture card</td></tr>
+                        <tr><td>Whiteboard</td><td>Dedicated camera, OCR-enhanced</td></tr>
+                        <tr><td>Document Cam</td><td>Direct video integration</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-object-group"></i></div>
+                    <h3>Multi-View Composition</h3>
+                    <p>AI automatically switches between presenter, content, and combined views based on teaching activity.</p>
+                    <table class="component-table">
+                        <tr><th>Mode</th><th>Trigger</th></tr>
+                        <tr><td>Presenter Only</td><td>No active content source</td></tr>
+                        <tr><td>Content Only</td><td>Slide transition detected</td></tr>
+                        <tr><td>Picture-in-Picture</td><td>Both sources active</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <h3>Intelligent Audio</h3>
+                    <p>Ceiling microphone arrays with automatic noise reduction and voice enhancement.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Benefit</th></tr>
+                        <tr><td>Beamforming</td><td>Focus on active speaker</td></tr>
+                        <tr><td>Echo Cancellation</td><td>Clean audio from speakers</td></tr>
+                        <tr><td>Auto-Leveling</td><td>Consistent volume output</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Top AI Camera Systems</h2>
+                <p>Industry-leading lecture capture camera solutions</p>
+            </div>
+            <div class="systems-grid">
+                <div class="system-card recommended">
+                    <span class="system-badge">Recommended</span>
+                    <h4>Panopto Smart Camera</h4>
+                    <div class="vendor">Panopto, Inc.</div>
+                    <p>Purpose-built for lecture capture with native Panopto platform integration and AI-powered features.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> Built-in presenter tracking</li>
+                        <li><i class="fas fa-check"></i> Direct cloud upload</li>
+                        <li><i class="fas fa-check"></i> No local PC required</li>
+                        <li><i class="fas fa-check"></i> Automatic scene detection</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Polycom EagleEye Director II</h4>
+                    <div class="vendor">HP / Poly</div>
+                    <p>Professional auto-framing camera system with multi-participant tracking and integration flexibility.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> 4K resolution capture</li>
+                        <li><i class="fas fa-check"></i> Multi-person framing</li>
+                        <li><i class="fas fa-check"></i> USB/HDMI output options</li>
+                        <li><i class="fas fa-check"></i> Integration with major UC platforms</li>
+                    </ul>
+                </div>
+                <div class="system-card">
+                    <h4>Panasonic AW-UE100</h4>
+                    <div class="vendor">Panasonic Professional</div>
+                    <p>Broadcast-quality PTZ with AI auto-tracking for larger lecture halls requiring production-grade capture.</p>
+                    <ul class="system-features">
+                        <li><i class="fas fa-check"></i> 4K 60fps capability</li>
+                        <li><i class="fas fa-check"></i> NDI|HX built-in</li>
+                        <li><i class="fas fa-check"></i> 24x optical zoom</li>
+                        <li><i class="fas fa-check"></i> Professional color science</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Automated Transcription</h2>
+                <p>AI-generated transcripts and captions for accessibility and searchability</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-closed-captioning"></i></div>
+                    <h3>Real-Time Captioning</h3>
+                    <p>Live AI transcription displays captions during class for hearing-impaired students.</p>
+                    <table class="component-table">
+                        <tr><th>Specification</th><th>Details</th></tr>
+                        <tr><td>Latency</td><td>2-5 second delay</td></tr>
+                        <tr><td>Accuracy</td><td>95%+ with domain training</td></tr>
+                        <tr><td>Languages</td><td>English + 50 others</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>Searchable Transcripts</h3>
+                    <p>Full-text transcripts enable students to search within lectures for specific topics or terms.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Benefit</th></tr>
+                        <tr><td>Full-Text Search</td><td>Find any spoken word</td></tr>
+                        <tr><td>Timestamp Links</td><td>Jump to exact moment</td></tr>
+                        <tr><td>Export Options</td><td>PDF, TXT, SRT formats</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-language"></i></div>
+                    <h3>Multi-Language Translation</h3>
+                    <p>AI-powered translation of captions to support international students.</p>
+                    <table class="component-table">
+                        <tr><th>Feature</th><th>Details</th></tr>
+                        <tr><td>Translation</td><td>50+ language pairs</td></tr>
+                        <tr><td>Display</td><td>Student-selected language</td></tr>
+                        <tr><td>Quality</td><td>Neural machine translation</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-universal-access"></i></div>
+                    <h3>ADA Compliance</h3>
+                    <p>Automated captioning ensures compliance with accessibility requirements at scale.</p>
+                    <table class="component-table">
+                        <tr><th>Standard</th><th>Compliance</th></tr>
+                        <tr><td>Section 508</td><td>Full compliance</td></tr>
+                        <tr><td>WCAG 2.1</td><td>Level AA</td></tr>
+                        <tr><td>FCC Regulations</td><td>Caption accuracy standards</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>AI Processing Capabilities</h2>
+                <p>Advanced features powered by machine learning</p>
+            </div>
+            <div class="feature-card" style="max-width: 900px; margin: 0 auto;">
+                <div class="ai-features">
+                    <div class="ai-feature">
+                        <i class="fas fa-book-open"></i>
+                        <span>Chapter Generation</span>
+                    </div>
+                    <div class="ai-feature">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Key Concept Extraction</span>
+                    </div>
+                    <div class="ai-feature">
+                        <i class="fas fa-list-ol"></i>
+                        <span>Quiz Question Generation</span>
+                    </div>
+                    <div class="ai-feature">
+                        <i class="fas fa-compress-alt"></i>
+                        <span>Lecture Summarization</span>
+                    </div>
+                    <div class="ai-feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Engagement Analytics</span>
+                    </div>
+                    <div class="ai-feature">
+                        <i class="fas fa-spell-check"></i>
+                        <span>Technical Term Glossary</span>
+                    </div>
+                    <div class="ai-feature">
+                        <i class="fas fa-image"></i>
+                        <span>Slide Text Recognition</span>
+                    </div>
+                    <div class="ai-feature">
+                        <i class="fas fa-search"></i>
+                        <span>Visual Content Search</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Zero-Touch Recording</h2>
+                <p>Fully automated capture based on room schedules</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Schedule-Based Recording</h3>
+                    <p>Recordings automatically start and stop based on class schedules imported from the university registrar.</p>
+                    <table class="component-table">
+                        <tr><th>Integration</th><th>Function</th></tr>
+                        <tr><td>Banner/Colleague</td><td>Course schedule import</td></tr>
+                        <tr><td>25Live/EMS</td><td>Room booking sync</td></tr>
+                        <tr><td>Canvas/Blackboard</td><td>Course association</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>Faculty Opt-Out</h3>
+                    <p>Simple controls for faculty to pause or cancel recordings for sensitive content or off-record discussions.</p>
+                    <table class="component-table">
+                        <tr><th>Control</th><th>Method</th></tr>
+                        <tr><td>Pause Recording</td><td>Stream Deck button</td></tr>
+                        <tr><td>Stop Recording</td><td>Stream Deck or web portal</td></tr>
+                        <tr><td>Delete Segment</td><td>Post-capture editing</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-upload"></i></div>
+                    <h3>Auto-Publishing</h3>
+                    <p>Completed recordings automatically publish to the course LMS page for immediate student access.</p>
+                    <table class="component-table">
+                        <tr><th>Workflow</th><th>Timing</th></tr>
+                        <tr><td>Processing</td><td>Starts during recording</td></tr>
+                        <tr><td>Transcription</td><td>Completes within 1 hour</td></tr>
+                        <tr><td>LMS Publish</td><td>Available same day</td></tr>
+                    </table>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <h3>Failure Alerts</h3>
+                    <p>Automated notifications to IT and faculty if recording fails to start or encounters issues.</p>
+                    <table class="component-table">
+                        <tr><th>Alert Type</th><th>Recipient</th></tr>
+                        <tr><td>Recording Failed</td><td>IT support + faculty</td></tr>
+                        <tr><td>No Audio Detected</td><td>IT support</td></tr>
+                        <tr><td>Low Storage Warning</td><td>IT support</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="back-section">
+        <a href="../index.html#solutions" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to All Solutions
+        </a>
+    </section>
+
+    <footer>
+        <p>Auburn University Campus Production Enhancement Proposal | Confidential</p>
+    </footer>
+</body>
+</html>
