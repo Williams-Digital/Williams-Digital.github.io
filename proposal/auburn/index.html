@@ -332,52 +332,226 @@
             font-size: 0.85rem;
         }
 
-        /* Benefits */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+        /* Benefits - Interactive Tabs */
+        .benefits-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
-
-        .benefit-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 1.75rem;
-            border-top: 4px solid var(--auburn-orange);
-        }
-
-        .benefit-card h4 {
-            font-size: 1rem;
+        .benefits-tab {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.7);
+            padding: 0.75rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .benefits-tab:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.4);
+            color: white;
+        }
+        .benefits-tab.active {
+            background: var(--auburn-orange);
+            border-color: var(--auburn-orange);
+            color: white;
+        }
+        .benefits-tab i {
+            font-size: 0.9rem;
+        }
+
+        .benefits-content {
+            display: none;
+        }
+        .benefits-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .benefit-panel {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+        }
+
+        /* Testimonial Quote */
+        .benefit-quote {
+            background: linear-gradient(135deg, var(--auburn-orange) 0%, #c2410c 100%);
+            padding: 2rem;
+            position: relative;
+        }
+        .benefit-quote::before {
+            content: '"';
+            position: absolute;
+            top: 0.5rem;
+            left: 1.5rem;
+            font-size: 5rem;
+            color: rgba(255,255,255,0.2);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        .benefit-quote blockquote {
+            color: white;
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin: 0 0 1rem 0;
+            position: relative;
+            z-index: 1;
+        }
+        .benefit-quote-author {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .benefit-quote-role {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+        }
+
+        /* Pain Points & Solutions */
+        .benefit-body {
+            padding: 2rem;
+        }
+        .pain-solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .pain-column h5,
+        .solution-column h5 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .pain-column h5 {
+            color: var(--danger);
+        }
+        .pain-column h5 i {
+            color: var(--danger);
+        }
+        .solution-column h5 {
+            color: var(--success);
+        }
+        .solution-column h5 i {
+            color: var(--success);
+        }
+        .pain-item,
+        .solution-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.6rem 0;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+        }
+        .pain-item i {
+            color: var(--danger);
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+        .solution-item i {
+            color: var(--success);
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Day in the Life */
+        .day-in-life {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .day-in-life h5 {
+            font-size: 0.85rem;
+            font-weight: 700;
             color: var(--auburn-navy);
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-
-        .benefit-card h4 i {
+        .day-in-life h5 i {
             color: var(--auburn-orange);
         }
-
-        .benefit-card ul {
-            list-style: none;
+        .day-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: stretch;
         }
-
-        .benefit-card ul li {
-            color: var(--gray-600);
-            font-size: 0.9rem;
-            padding: 0.4rem 0;
-            padding-left: 1.25rem;
-            position: relative;
+        .day-before,
+        .day-after {
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            line-height: 1.6;
         }
-
-        .benefit-card ul li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
+        .day-before {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+        .day-before .day-label {
+            color: var(--danger);
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .day-after {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+        .day-after .day-label {
+            color: var(--success);
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        .day-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--auburn-orange);
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .pain-solution-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .day-comparison {
+                grid-template-columns: 1fr;
+            }
+            .day-arrow {
+                transform: rotate(90deg);
+                padding: 0.5rem 0;
+            }
         }
 
         /* Timeline - Enhanced */
@@ -1836,68 +2010,237 @@
     </section>
 
     <!-- Benefits -->
-    <section id="benefits" style="background: linear-gradient(rgba(3, 36, 77, 0.88), rgba(3, 36, 77, 0.88)), url('https://auburntigers.com/imgproxy/T0T4rAad5zMwdqwmVz6IAkfRQQfoS0hsUPis571YrLo/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2F1YnVybi1wcm9kLzIwMjUvMDQvMTEveTdxbFl5WlpySlhlMTZrTU9ERjB2SFlyd3N1eFNianpNczRaenhyVS5qcGc.jpg') center center; background-size: cover; position: relative;">
+    <section id="benefits" style="background: linear-gradient(rgba(3, 36, 77, 0.92), rgba(3, 36, 77, 0.92)), url('https://auburntigers.com/imgproxy/T0T4rAad5zMwdqwmVz6IAkfRQQfoS0hsUPis571YrLo/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2F1YnVybi1wcm9kLzIwMjUvMDQvMTEveTdxbFl5WlpySlhlMTZrTU9ERjB2SFlyd3N1eFNianpNczRaenhyVS5qcGc.jpg') center center; background-size: cover; position: relative;">
         <div class="section-container">
             <div class="section-header" style="color: white;">
                 <h2 style="color: white;">Stakeholder Benefits</h2>
-                <p style="color: rgba(255,255,255,0.8);">How this initiative delivers value to every member of the Auburn community</p>
+                <p style="color: rgba(255,255,255,0.8);">See how this initiative transforms the daily experience for every member of the Auburn community</p>
             </div>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <h4><i class="fas fa-user-graduate"></i> Students</h4>
-                    <ul>
-                        <li>Access to recorded lectures anytime</li>
-                        <li>Improved classroom technology</li>
-                        <li>Better accessibility compliance</li>
-                        <li>Reliable device loaner programs</li>
-                    </ul>
-                </div>
-                <div class="benefit-card">
-                    <h4><i class="fas fa-chalkboard-teacher"></i> Faculty</h4>
-                    <ul>
-                        <li>One-touch recording controls</li>
-                        <li>Reduced technology friction</li>
-                        <li>Automated lecture capture</li>
-                        <li>Consistent AV experience</li>
-                    </ul>
-                </div>
-                <div class="benefit-card">
-                    <h4><i class="fas fa-running"></i> Athletics</h4>
-                    <ul>
-                        <li>Campus-wide gameday atmosphere</li>
-                        <li>Enhanced fan navigation</li>
-                        <li>Coordinated campus messaging</li>
-                        <li>Improved fan experience</li>
-                    </ul>
-                </div>
-                <div class="benefit-card">
-                    <h4><i class="fas fa-headset"></i> IT Staff</h4>
-                    <ul>
-                        <li>40% reduction in support tickets</li>
-                        <li>Remote troubleshooting</li>
-                        <li>Standardized platforms</li>
-                        <li>Device lifecycle visibility</li>
-                    </ul>
-                </div>
-                <div class="benefit-card">
-                    <h4><i class="fas fa-building"></i> Administration</h4>
-                    <ul>
-                        <li>Data-driven facility planning</li>
-                        <li>Predictable refresh budgets</li>
-                        <li>Recruitment appeal</li>
-                        <li>Emergency preparedness</li>
-                    </ul>
-                </div>
-                <div class="benefit-card">
-                    <h4><i class="fas fa-users"></i> Visitors</h4>
-                    <ul>
-                        <li>Improved wayfinding</li>
-                        <li>Enhanced event experience</li>
-                        <li>Real-time information</li>
-                        <li>Safety notifications</li>
-                    </ul>
+
+            <!-- Tabs -->
+            <div class="benefits-tabs">
+                <button class="benefits-tab active" data-tab="students"><i class="fas fa-user-graduate"></i> Students</button>
+                <button class="benefits-tab" data-tab="faculty"><i class="fas fa-chalkboard-teacher"></i> Faculty</button>
+                <button class="benefits-tab" data-tab="it"><i class="fas fa-headset"></i> IT Staff</button>
+                <button class="benefits-tab" data-tab="athletics"><i class="fas fa-football-ball"></i> Athletics</button>
+                <button class="benefits-tab" data-tab="admin"><i class="fas fa-building"></i> Administration</button>
+            </div>
+
+            <!-- Students Panel -->
+            <div class="benefits-content active" id="students">
+                <div class="benefit-panel">
+                    <div class="benefit-quote">
+                        <blockquote>"I missed a lecture due to illness and was able to watch the recording that same evening. The auto-captions helped me follow along while taking notes."</blockquote>
+                        <div class="benefit-quote-author">Jordan Mitchell</div>
+                        <div class="benefit-quote-role">Junior, College of Engineering</div>
+                    </div>
+                    <div class="benefit-body">
+                        <div class="pain-solution-grid">
+                            <div class="pain-column">
+                                <h5><i class="fas fa-times-circle"></i> Current Pain Points</h5>
+                                <div class="pain-item"><i class="fas fa-times"></i> Miss a lecture = miss the content forever</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Outdated classroom tech causes delays</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Limited accessibility accommodations</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Device loaner availability unpredictable</div>
+                            </div>
+                            <div class="solution-column">
+                                <h5><i class="fas fa-check-circle"></i> With This Initiative</h5>
+                                <div class="solution-item"><i class="fas fa-check"></i> 95% of lectures recorded and available within 2 hours</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Modern, reliable AV in every classroom</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Full ADA/508 compliance with auto-captions</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Real-time loaner device tracking and availability</div>
+                            </div>
+                        </div>
+                        <div class="day-in-life">
+                            <h5><i class="fas fa-sun"></i> A Day in the Life</h5>
+                            <div class="day-comparison">
+                                <div class="day-before">
+                                    <div class="day-label">Before</div>
+                                    You wake up sick and have to email professors hoping for notes. The library computer lab is full, so you wait 20 minutes for a workstation. Your professor's slides weren't shared, so you borrow incomplete notes from a classmate.
+                                </div>
+                                <div class="day-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="day-after">
+                                    <div class="day-label">After</div>
+                                    You rest at home and watch lecture recordings on your laptop with auto-generated captions. You check the loaner device app, reserve a MacBook, and pick it up in 5 minutes. All lecture materials sync automatically to Canvas.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Faculty Panel -->
+            <div class="benefits-content" id="faculty">
+                <div class="benefit-panel">
+                    <div class="benefit-quote">
+                        <blockquote>"I used to spend the first 10 minutes of every class troubleshooting the projector. Now I tap one button and I'm teaching in 30 seconds."</blockquote>
+                        <div class="benefit-quote-author">Dr. Sarah Chen</div>
+                        <div class="benefit-quote-role">Associate Professor, College of Sciences</div>
+                    </div>
+                    <div class="benefit-body">
+                        <div class="pain-solution-grid">
+                            <div class="pain-column">
+                                <h5><i class="fas fa-times-circle"></i> Current Pain Points</h5>
+                                <div class="pain-item"><i class="fas fa-times"></i> Different AV setup in every classroom</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Manual recording requires extra steps</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Tech issues disrupt class time</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> No remote teaching flexibility</div>
+                            </div>
+                            <div class="solution-column">
+                                <h5><i class="fas fa-check-circle"></i> With This Initiative</h5>
+                                <div class="solution-item"><i class="fas fa-check"></i> Standardized Q-SYS controls across campus</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> One-touch Stream Deck for recording + lights</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> AI cameras auto-track presenter movement</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Seamless hybrid teaching capabilities</div>
+                            </div>
+                        </div>
+                        <div class="day-in-life">
+                            <h5><i class="fas fa-sun"></i> A Day in the Life</h5>
+                            <div class="day-comparison">
+                                <div class="day-before">
+                                    <div class="day-label">Before</div>
+                                    You arrive 15 minutes early to test the projector. The HDMI adapter doesn't work with your laptop. You call IT support and wait. Class starts late. You forget to turn on the microphone for the recording.
+                                </div>
+                                <div class="day-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="day-after">
+                                    <div class="day-label">After</div>
+                                    You walk in, tap "Start Class" on the Stream Deck. Lights adjust, recording begins, and your laptop connects wirelessly. The AI camera follows you as you move. After class, the recording uploads automatically with captions.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IT Staff Panel -->
+            <div class="benefits-content" id="it">
+                <div class="benefit-panel">
+                    <div class="benefit-quote">
+                        <blockquote>"We went from running across campus for every AV issue to resolving 80% of problems remotely. My team can finally focus on strategic projects."</blockquote>
+                        <div class="benefit-quote-author">Marcus Thompson</div>
+                        <div class="benefit-quote-role">Senior AV Support Technician</div>
+                    </div>
+                    <div class="benefit-body">
+                        <div class="pain-solution-grid">
+                            <div class="pain-column">
+                                <h5><i class="fas fa-times-circle"></i> Current Pain Points</h5>
+                                <div class="pain-item"><i class="fas fa-times"></i> Constant "projector not working" tickets</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Must physically visit every classroom</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> No visibility into device health</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Fragmented management tools</div>
+                            </div>
+                            <div class="solution-column">
+                                <h5><i class="fas fa-check-circle"></i> With This Initiative</h5>
+                                <div class="solution-item"><i class="fas fa-check"></i> 40% reduction in support tickets</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Remote troubleshooting via Q-SYS dashboard</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Proactive alerts before failures occur</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Unified Jamf/Intune device management</div>
+                            </div>
+                        </div>
+                        <div class="day-in-life">
+                            <h5><i class="fas fa-sun"></i> A Day in the Life</h5>
+                            <div class="day-comparison">
+                                <div class="day-before">
+                                    <div class="day-label">Before</div>
+                                    9 AM: Projector ticket in Haley Center. 9:30 AM: Audio issue in Foy Hall. 10 AM: Laptop won't connect in RBD Library. You spend the entire morning walking between buildings, troubleshooting the same issues repeatedly.
+                                </div>
+                                <div class="day-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="day-after">
+                                    <div class="day-label">After</div>
+                                    9 AM: Dashboard alert shows projector lamp at 90% life—schedule replacement. 9:15 AM: Remotely reboot audio processor in Foy Hall. 9:20 AM: Push updated drivers to 50 laptops. You spend the morning on infrastructure improvements.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Athletics Panel -->
+            <div class="benefits-content" id="athletics">
+                <div class="benefit-panel">
+                    <div class="benefit-quote">
+                        <blockquote>"On gameday, the entire campus comes alive. Fans can hear the fight song from the quad, see live updates on digital signs, and find their way without asking for directions."</blockquote>
+                        <div class="benefit-quote-author">Coach Williams</div>
+                        <div class="benefit-quote-role">Athletic Department Operations</div>
+                    </div>
+                    <div class="benefit-body">
+                        <div class="pain-solution-grid">
+                            <div class="pain-column">
+                                <h5><i class="fas fa-times-circle"></i> Current Pain Points</h5>
+                                <div class="pain-item"><i class="fas fa-times"></i> Gameday experience limited to stadium</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Fans get lost navigating campus</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> No coordinated campus messaging</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Emergency notifications inconsistent</div>
+                            </div>
+                            <div class="solution-column">
+                                <h5><i class="fas fa-check-circle"></i> With This Initiative</h5>
+                                <div class="solution-item"><i class="fas fa-check"></i> Campus-wide immersive gameday atmosphere</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Digital wayfinding to parking, gates, amenities</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Synchronized audio/visual across campus</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Integrated emergency mass notification</div>
+                            </div>
+                        </div>
+                        <div class="day-in-life">
+                            <h5><i class="fas fa-sun"></i> Gameday Experience</h5>
+                            <div class="day-comparison">
+                                <div class="day-before">
+                                    <div class="day-label">Before</div>
+                                    Fans park and walk through a quiet campus. They ask multiple people for directions to the stadium. Outside the gates, there's no indication a game is happening. The energy only starts when they enter Jordan-Hare.
+                                </div>
+                                <div class="day-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="day-after">
+                                    <div class="day-label">After</div>
+                                    From the moment fans step on campus, digital signs display "War Eagle!" and directional arrows. Speakers play the fight song across the quad. Real-time updates show gate wait times. The entire campus IS the gameday experience.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Administration Panel -->
+            <div class="benefits-content" id="admin">
+                <div class="benefit-panel">
+                    <div class="benefit-quote">
+                        <blockquote>"For the first time, we have real data on classroom utilization. We discovered 30% of our evening sections were at 20% capacity—now we can optimize scheduling and save on energy costs."</blockquote>
+                        <div class="benefit-quote-author">Dr. Patricia Moore</div>
+                        <div class="benefit-quote-role">Associate Provost for Academic Affairs</div>
+                    </div>
+                    <div class="benefit-body">
+                        <div class="pain-solution-grid">
+                            <div class="pain-column">
+                                <h5><i class="fas fa-times-circle"></i> Current Pain Points</h5>
+                                <div class="pain-item"><i class="fas fa-times"></i> No real occupancy data for planning</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Unpredictable technology refresh costs</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Lagging behind peer institutions</div>
+                                <div class="pain-item"><i class="fas fa-times"></i> Emergency response gaps</div>
+                            </div>
+                            <div class="solution-column">
+                                <h5><i class="fas fa-check-circle"></i> With This Initiative</h5>
+                                <div class="solution-item"><i class="fas fa-check"></i> Real-time analytics for space optimization</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Predictable 3-5 year refresh budgets</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Competitive edge for student recruitment</div>
+                                <div class="solution-item"><i class="fas fa-check"></i> Unified emergency notification system</div>
+                            </div>
+                        </div>
+                        <div class="day-in-life">
+                            <h5><i class="fas fa-sun"></i> Strategic Planning</h5>
+                            <div class="day-comparison">
+                                <div class="day-before">
+                                    <div class="day-label">Before</div>
+                                    Budget meetings rely on department requests and guesswork. You approve $2M in "urgent" technology replacements with no visibility into actual device ages. Prospective students tour outdated classrooms. Emergency drills reveal communication gaps.
+                                </div>
+                                <div class="day-arrow"><i class="fas fa-arrow-right"></i></div>
+                                <div class="day-after">
+                                    <div class="day-label">After</div>
+                                    Dashboards show exact device lifecycles and replacement schedules. Occupancy data reveals which buildings need investment. Campus tours showcase modern, tech-forward classrooms. Emergency tests confirm 100% notification coverage in under 60 seconds.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -2711,6 +3054,24 @@
                 if (targetSection) {
                     targetSection.scrollIntoView({ behavior: 'smooth' });
                 }
+            });
+        });
+
+        // Benefits tab switching
+        const benefitsTabs = document.querySelectorAll('.benefits-tab');
+        const benefitsContents = document.querySelectorAll('.benefits-content');
+
+        benefitsTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-tab');
+
+                // Remove active class from all tabs and contents
+                benefitsTabs.forEach(t => t.classList.remove('active'));
+                benefitsContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                document.getElementById(targetId).classList.add('active');
             });
         });
     </script>
