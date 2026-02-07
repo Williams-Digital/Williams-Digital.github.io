@@ -380,74 +380,275 @@
             color: var(--auburn-orange);
         }
 
-        /* Timeline */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
+        /* Timeline - Enhanced */
+        .timeline-header-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
         }
-
-        .timeline::before {
+        .timeline-month-markers {
+            display: flex;
+            flex: 1;
+            justify-content: space-between;
+            position: relative;
+        }
+        .timeline-month-markers::before {
             content: '';
             position: absolute;
-            left: 24px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--auburn-orange) 0%, var(--auburn-navy) 100%);
-            border-radius: 2px;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gray-200);
         }
-
-        .timeline-item {
+        .month-marker {
+            background: var(--white);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--gray-500);
             position: relative;
-            padding-left: 70px;
-            padding-bottom: 3rem;
+            z-index: 1;
+        }
+        .month-marker.milestone {
+            background: var(--auburn-orange);
+            color: white;
+            border-radius: 4px;
+            padding: 0.25rem 0.75rem;
         }
 
-        .timeline-item:last-child {
-            padding-bottom: 0;
+        .gantt-container {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border: 1px solid var(--gray-200);
+            margin-bottom: 2rem;
+            overflow-x: auto;
         }
-
-        .timeline-dot {
-            position: absolute;
-            left: 12px;
+        .gantt-row {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .gantt-row:last-child {
+            border-bottom: none;
+        }
+        .gantt-label {
+            width: 180px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+        }
+        .gantt-label i {
             width: 28px;
             height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: white;
+        }
+        .gantt-bar-container {
+            flex: 1;
+            display: flex;
+            position: relative;
+            height: 24px;
+            background: var(--gray-50);
+            border-radius: 4px;
+        }
+        .gantt-bar {
+            position: absolute;
+            height: 100%;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: white;
+            min-width: 60px;
+            transition: all 0.3s ease;
+        }
+        .gantt-bar:hover {
+            transform: scaleY(1.2);
+            z-index: 10;
+        }
+
+        .phase-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .phase-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border: 2px solid var(--gray-200);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .phase-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--auburn-orange);
+            box-shadow: 0 8px 32px rgba(221, 85, 12, 0.15);
+        }
+        .phase-card.active {
+            border-color: var(--auburn-orange);
+        }
+        .phase-number {
+            position: absolute;
+            top: -12px;
+            left: 20px;
             background: var(--auburn-orange);
+            color: white;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.75rem;
             font-weight: 700;
-            color: var(--white);
-            box-shadow: 0 0 0 4px var(--white), 0 0 0 6px var(--auburn-orange);
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(221, 85, 12, 0.4);
         }
-
-        .timeline-content {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
+        .phase-icon {
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
-            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            margin-bottom: 1rem;
         }
-
-        .timeline-content h4 {
+        .phase-icon.foundation { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+        .phase-icon.expansion { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .phase-icon.optimization { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+        .phase-icon.innovation { background: linear-gradient(135deg, var(--auburn-orange) 0%, #c2410c 100%); }
+        .phase-card h4 {
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--auburn-navy);
             margin-bottom: 0.25rem;
         }
-
-        .timeline-content .phase {
+        .phase-period {
+            font-size: 0.8rem;
             color: var(--auburn-orange);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .phase-period i {
+            font-size: 0.7rem;
+        }
+        .phase-deliverables {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .phase-deliverables li {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            padding: 0.35rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .phase-deliverables li i {
+            color: var(--success);
+            font-size: 0.65rem;
+            margin-top: 0.3rem;
+            flex-shrink: 0;
+        }
+        .phase-deliverables .count {
+            background: var(--gray-100);
+            color: var(--auburn-navy);
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            margin-left: auto;
+        }
+        .solution-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-top: auto;
+        }
+        .solution-tag {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+        .solution-tag.qsys { background: #dbeafe; color: #1e40af; }
+        .solution-tag.gameday { background: #fef3c7; color: #92400e; }
+        .solution-tag.cameras { background: #d1fae5; color: #065f46; }
+        .solution-tag.devices { background: #ede9fe; color: #5b21b6; }
+        .solution-tag.tracking { background: #fce7f3; color: #9d174d; }
+        .solution-tag.recording { background: #ffedd5; color: #9a3412; }
+        .solution-tag.streamdeck { background: #e0e7ff; color: #3730a3; }
+
+        .milestone-gate {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .milestone-gate i {
+            font-size: 1.5rem;
+            color: var(--auburn-orange);
+        }
+        .milestone-gate-content h5 {
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .milestone-gate-content p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+            margin: 0;
+        }
+        .milestone-date {
+            margin-left: auto;
+            background: var(--auburn-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
             font-size: 0.85rem;
-            font-weight: 500;
-            margin-bottom: 0.75rem;
         }
 
-        .timeline-content p {
-            color: var(--gray-600);
-            font-size: 0.9rem;
+        @media (max-width: 992px) {
+            .phase-cards { grid-template-columns: repeat(2, 1fr); }
+            .gantt-label { width: 140px; font-size: 0.75rem; }
+        }
+        @media (max-width: 768px) {
+            .phase-cards { grid-template-columns: 1fr; }
+            .gantt-container { padding: 1rem; }
+            .gantt-label { width: 100px; }
+            .milestone-gate { flex-direction: column; text-align: center; }
+            .milestone-date { margin-left: 0; margin-top: 0.5rem; }
         }
 
         /* Device Management */
@@ -748,18 +949,6 @@
 
             .solutions-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-item {
-                padding-left: 60px;
-            }
-
-            .timeline-dot {
-                left: 8px;
             }
 
             .refresh-table-wrapper {
@@ -1097,42 +1286,167 @@
         <div class="section-container">
             <div class="section-header">
                 <h2>Implementation Timeline</h2>
-                <p>24-month phased deployment approach</p>
+                <p>24-month phased deployment with key milestones and workstream visualization</p>
             </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot">1</div>
-                    <div class="timeline-content">
-                        <h4>Foundation</h4>
-                        <div class="phase">Months 1-6</div>
-                        <p>Asset management platform deployment, Jamf/Intune pilot, network assessment, Q-SYS core in athletic facilities, AI camera pilot in 5 lecture halls, people tracking pilot.</p>
+
+            <!-- Gantt Chart -->
+            <div class="gantt-container">
+                <div class="timeline-header-row">
+                    <div style="width: 180px; flex-shrink: 0; font-size: 0.75rem; font-weight: 600; color: var(--gray-500);">WORKSTREAMS</div>
+                    <div class="timeline-month-markers">
+                        <span class="month-marker">M1</span>
+                        <span class="month-marker milestone">M6</span>
+                        <span class="month-marker milestone">M12</span>
+                        <span class="month-marker milestone">M18</span>
+                        <span class="month-marker milestone">M24</span>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot">2</div>
-                    <div class="timeline-content">
-                        <h4>Expansion</h4>
-                        <div class="phase">Months 7-12</div>
-                        <p>Q-SYS rollout to academic buildings, Stream Deck deployment in 50 classrooms, cloud recording pipeline, campus-wide people tracking, full device management rollout.</p>
+                <div class="gantt-row">
+                    <div class="gantt-label"><i style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);"><i class="fas fa-network-wired"></i></i> Q-SYS Ecosystem</div>
+                    <div class="gantt-bar-container">
+                        <div class="gantt-bar" style="left: 0%; width: 75%; background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);">Months 1-18</div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot">3</div>
-                    <div class="timeline-content">
-                        <h4>Optimization</h4>
-                        <div class="phase">Months 13-18</div>
-                        <p>Full classroom modernization, advanced analytics implementation, integration refinement, comprehensive staff training completion.</p>
+                <div class="gantt-row">
+                    <div class="gantt-label"><i style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-map-signs"></i></i> Gameday</div>
+                    <div class="gantt-bar-container">
+                        <div class="gantt-bar" style="left: 8%; width: 50%; background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);">Months 3-15</div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot">4</div>
-                    <div class="timeline-content">
-                        <h4>Innovation</h4>
-                        <div class="phase">Months 19-24</div>
-                        <p>AR/VR readiness infrastructure, advanced AI features deployment, continuous improvement program, technology refresh planning.</p>
+                <div class="gantt-row">
+                    <div class="gantt-label"><i style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-video"></i></i> AI Cameras</div>
+                    <div class="gantt-bar-container">
+                        <div class="gantt-bar" style="left: 4%; width: 58%; background: linear-gradient(90deg, #10b981 0%, #059669 100%);">Months 2-16</div>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <div class="gantt-label"><i style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);"><i class="fas fa-laptop"></i></i> Device Mgmt</div>
+                    <div class="gantt-bar-container">
+                        <div class="gantt-bar" style="left: 0%; width: 50%; background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%);">Months 1-12</div>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <div class="gantt-label"><i style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);"><i class="fas fa-users"></i></i> People Tracking</div>
+                    <div class="gantt-bar-container">
+                        <div class="gantt-bar" style="left: 4%; width: 54%; background: linear-gradient(90deg, #ec4899 0%, #db2777 100%);">Months 2-15</div>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <div class="gantt-label"><i style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);"><i class="fas fa-cloud"></i></i> Cloud Recording</div>
+                    <div class="gantt-bar-container">
+                        <div class="gantt-bar" style="left: 25%; width: 42%; background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);">Months 7-17</div>
+                    </div>
+                </div>
+                <div class="gantt-row">
+                    <div class="gantt-label"><i style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);"><i class="fas fa-keyboard"></i></i> Stream Deck</div>
+                    <div class="gantt-bar-container">
+                        <div class="gantt-bar" style="left: 25%; width: 50%; background: linear-gradient(90deg, #6366f1 0%, #4f46e5 100%);">Months 7-19</div>
                     </div>
                 </div>
             </div>
+
+            <!-- Key Milestone Gate -->
+            <div class="milestone-gate">
+                <i class="fas fa-flag-checkered"></i>
+                <div class="milestone-gate-content">
+                    <h5>First Gameday Ready</h5>
+                    <p>Athletic facilities live with Q-SYS, signage, and emergency systems operational</p>
+                </div>
+                <div class="milestone-date">Month 6</div>
+            </div>
+
+            <!-- Phase Cards -->
+            <div class="phase-cards">
+                <div class="phase-card">
+                    <span class="phase-number">1</span>
+                    <div class="phase-icon foundation"><i class="fas fa-cubes"></i></div>
+                    <h4>Foundation</h4>
+                    <div class="phase-period"><i class="fas fa-calendar"></i> Months 1-6</div>
+                    <ul class="phase-deliverables">
+                        <li><i class="fas fa-check"></i> Q-SYS core in athletic facilities <span class="count">3</span></li>
+                        <li><i class="fas fa-check"></i> AI camera pilot installations <span class="count">5</span></li>
+                        <li><i class="fas fa-check"></i> Jamf/Intune MDM pilot <span class="count">500</span></li>
+                        <li><i class="fas fa-check"></i> People tracking pilot locations <span class="count">2</span></li>
+                        <li><i class="fas fa-check"></i> Network infrastructure assessment</li>
+                    </ul>
+                    <div class="solution-tags">
+                        <span class="solution-tag qsys">Q-SYS</span>
+                        <span class="solution-tag cameras">Cameras</span>
+                        <span class="solution-tag devices">Devices</span>
+                        <span class="solution-tag tracking">Tracking</span>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <span class="phase-number">2</span>
+                    <div class="phase-icon expansion"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <h4>Expansion</h4>
+                    <div class="phase-period"><i class="fas fa-calendar"></i> Months 7-12</div>
+                    <ul class="phase-deliverables">
+                        <li><i class="fas fa-check"></i> Q-SYS academic buildings <span class="count">12</span></li>
+                        <li><i class="fas fa-check"></i> Stream Deck classrooms <span class="count">50</span></li>
+                        <li><i class="fas fa-check"></i> Cloud recording pipeline live</li>
+                        <li><i class="fas fa-check"></i> Full device management rollout <span class="count">8K+</span></li>
+                        <li><i class="fas fa-check"></i> Campus-wide people tracking</li>
+                    </ul>
+                    <div class="solution-tags">
+                        <span class="solution-tag qsys">Q-SYS</span>
+                        <span class="solution-tag streamdeck">Stream Deck</span>
+                        <span class="solution-tag recording">Recording</span>
+                        <span class="solution-tag devices">Devices</span>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <span class="phase-number">3</span>
+                    <div class="phase-icon optimization"><i class="fas fa-sliders-h"></i></div>
+                    <h4>Optimization</h4>
+                    <div class="phase-period"><i class="fas fa-calendar"></i> Months 13-18</div>
+                    <ul class="phase-deliverables">
+                        <li><i class="fas fa-check"></i> Full classroom modernization <span class="count">200+</span></li>
+                        <li><i class="fas fa-check"></i> Advanced analytics dashboards</li>
+                        <li><i class="fas fa-check"></i> Integration refinement & testing</li>
+                        <li><i class="fas fa-check"></i> Staff training completion <span class="count">100%</span></li>
+                        <li><i class="fas fa-check"></i> Performance optimization</li>
+                    </ul>
+                    <div class="solution-tags">
+                        <span class="solution-tag cameras">Cameras</span>
+                        <span class="solution-tag streamdeck">Stream Deck</span>
+                        <span class="solution-tag recording">Recording</span>
+                        <span class="solution-tag gameday">Gameday</span>
+                    </div>
+                </div>
+
+                <div class="phase-card">
+                    <span class="phase-number">4</span>
+                    <div class="phase-icon innovation"><i class="fas fa-rocket"></i></div>
+                    <h4>Innovation</h4>
+                    <div class="phase-period"><i class="fas fa-calendar"></i> Months 19-24</div>
+                    <ul class="phase-deliverables">
+                        <li><i class="fas fa-check"></i> AR/VR readiness infrastructure</li>
+                        <li><i class="fas fa-check"></i> Advanced AI features deployment</li>
+                        <li><i class="fas fa-check"></i> Continuous improvement program</li>
+                        <li><i class="fas fa-check"></i> Technology refresh planning</li>
+                        <li><i class="fas fa-check"></i> ROI assessment & reporting</li>
+                    </ul>
+                    <div class="solution-tags">
+                        <span class="solution-tag qsys">Q-SYS</span>
+                        <span class="solution-tag cameras">Cameras</span>
+                        <span class="solution-tag tracking">Tracking</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decision Gate -->
+            <div class="milestone-gate">
+                <i class="fas fa-trophy"></i>
+                <div class="milestone-gate-content">
+                    <h5>Full Campus Coverage Complete</h5>
+                    <p>All 7 solution areas fully operational across campus with staff trained</p>
+                </div>
+                <div class="milestone-date">Month 18</div>
+            </div>
+
         </div>
     </section>
 
