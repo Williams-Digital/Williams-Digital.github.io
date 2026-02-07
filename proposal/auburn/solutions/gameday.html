@@ -745,6 +745,384 @@
             section { padding: 3rem 1.5rem; }
             .feature-grid, .systems-grid { grid-template-columns: 1fr; }
         }
+
+        /* Visual Display Cards - Impact First Design */
+        .signage-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+        }
+        .signage-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .signage-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .signage-header h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+        .signage-header p {
+            color: var(--gray-600);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .signage-impact-stat {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--auburn-orange);
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            margin-bottom: 1.5rem;
+        }
+        .signage-impact-stat i {
+            font-size: 1rem;
+        }
+
+        .display-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .display-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(3, 36, 77, 0.1);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+        .display-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(3, 36, 77, 0.15);
+            border-color: var(--auburn-orange);
+        }
+        .display-card-visual {
+            height: 200px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .display-card-visual.led-displays {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+        }
+        .display-card-visual.facade-displays {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        }
+        .display-card-visual.parking-signage {
+            background: linear-gradient(135deg, #2c5282 0%, #1a365d 100%);
+        }
+        .display-card-visual.mobile-led {
+            background: linear-gradient(135deg, #553c9a 0%, #2d2a4a 100%);
+        }
+        .display-mockup {
+            position: relative;
+            z-index: 2;
+        }
+        .display-mockup-screen {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 3px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .display-mockup-inner {
+            background: linear-gradient(135deg, var(--auburn-navy), var(--auburn-orange));
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+        .display-mockup-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: screenShine 3s ease-in-out infinite;
+        }
+        @keyframes screenShine {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+        .large-screen .display-mockup-screen { width: 180px; }
+        .large-screen .display-mockup-inner { height: 100px; font-size: 1.25rem; }
+        .facade-screen .display-mockup-screen { width: 160px; }
+        .facade-screen .display-mockup-inner { height: 90px; font-size: 1rem; }
+        .facade-screen .building-silhouette {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px;
+        }
+        .facade-screen .building-window {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+        }
+        .parking-screen .display-mockup-screen { width: 120px; }
+        .parking-screen .display-mockup-inner {
+            height: 80px;
+            font-size: 2rem;
+            flex-direction: column;
+        }
+        .parking-screen .lot-status {
+            font-size: 0.65rem;
+            margin-top: 4px;
+            background: #10b981;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .parking-screen .pole {
+            position: absolute;
+            bottom: -40px;
+            width: 8px;
+            height: 40px;
+            background: #374151;
+            border-radius: 0 0 4px 4px;
+        }
+        .mobile-screen .display-mockup {
+            position: relative;
+        }
+        .mobile-screen .trailer-base {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 20px;
+            background: #374151;
+            border-radius: 4px;
+        }
+        .mobile-screen .trailer-wheel {
+            position: absolute;
+            bottom: -32px;
+            width: 16px;
+            height: 16px;
+            background: #1f2937;
+            border-radius: 50%;
+            border: 2px solid #4b5563;
+        }
+        .mobile-screen .trailer-wheel.left { left: 20px; }
+        .mobile-screen .trailer-wheel.right { right: 20px; }
+        .mobile-screen .display-mockup-screen { width: 160px; }
+        .mobile-screen .display-mockup-inner { height: 90px; font-size: 1rem; }
+
+        .display-card-content {
+            padding: 1.75rem;
+        }
+        .display-card-impact {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .impact-badge {
+            background: linear-gradient(135deg, var(--auburn-orange), #f97316);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .impact-stat {
+            color: var(--auburn-navy);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .display-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.75rem;
+        }
+        .display-card-benefit {
+            font-size: 1rem;
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+
+        /* Location Indicator */
+        .display-card-locations {
+            background: var(--gray-50);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+        .location-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .location-dots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .location-dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 20px;
+            padding: 0.35rem 0.65rem;
+            font-size: 0.75rem;
+            color: var(--gray-700);
+        }
+        .location-dot::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .location-dot.parking::before { background: #3b82f6; }
+        .location-dot.tailgate::before { background: #10b981; }
+        .location-dot.walkway::before { background: #f59e0b; }
+        .location-dot.landmark::before { background: #8b5cf6; }
+        .location-dot.gathering::before { background: #ec4899; }
+        .location-dot.building::before { background: #6366f1; }
+
+        /* Display Gallery */
+        .display-gallery {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--gray-200);
+        }
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .gallery-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+        .gallery-header p {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+        .gallery-carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-track {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+        .gallery-slide {
+            min-width: 350px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--gray-200);
+        }
+        .gallery-slide img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .gallery-slide-content {
+            padding: 1.25rem;
+        }
+        .gallery-slide h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+        .gallery-slide-venue {
+            font-size: 0.85rem;
+            color: var(--auburn-orange);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .gallery-slide p {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .gallery-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--auburn-navy);
+            background: white;
+            color: var(--auburn-navy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .gallery-btn:hover {
+            background: var(--auburn-navy);
+            color: white;
+        }
+        .gallery-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .gallery-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .gallery-indicator.active {
+            background: var(--auburn-orange);
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .display-cards-grid { grid-template-columns: 1fr; }
+            .gallery-slide { min-width: 280px; }
+        }
     </style>
 </head>
 <body>
@@ -969,61 +1347,239 @@
         </div>
     </section>
 
-    <section>
-        <div class="section-container">
-            <div class="section-header">
+    <!-- Campus-Wide Digital Signage - Enhanced Visual Section -->
+    <section class="signage-section">
+        <div class="signage-container">
+            <div class="signage-header">
+                <div class="signage-impact-stat">
+                    <i class="fas fa-display"></i>
+                    50+ Digital Displays Campus-Wide
+                </div>
                 <h2>Campus-Wide Digital Signage</h2>
-                <p>High-impact visual displays positioned throughout campus for real-time messaging and branding</p>
+                <p>Every screen tells the Auburn story — from parking lots to landmarks</p>
             </div>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-tv"></i></div>
-                    <h3>Campus-Wide LED Displays & TVs</h3>
-                    <p>High-brightness outdoor displays and commercial-grade TVs at key intersections and gathering areas delivering real-time messaging, scores, and event information.</p>
-                    <table class="component-table">
-                        <tr><th>Display Type</th><th>Best For</th></tr>
-                        <tr><td>Outdoor LED (5,000+ nits)</td><td>Direct sunlight areas, large crowds</td></tr>
-                        <tr><td>High-Bright LCD TV (2,500 nits)</td><td>Covered outdoor, semi-shaded areas</td></tr>
-                        <tr><td>Commercial LCD TV (700 nits)</td><td>Indoor lobbies, concourse areas</td></tr>
-                        <tr><td>Video Wall Arrays</td><td>High-impact focal points</td></tr>
-                    </table>
+
+            <div class="display-cards-grid">
+                <!-- LED Displays Card -->
+                <div class="display-card">
+                    <div class="display-card-visual led-displays">
+                        <div class="display-mockup large-screen">
+                            <div class="display-mockup-screen">
+                                <div class="display-mockup-inner">
+                                    <span>WAR EAGLE!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="display-card-content">
+                        <div class="display-card-impact">
+                            <span class="impact-badge">Primary Displays</span>
+                            <span class="impact-stat">30+ Screens</span>
+                        </div>
+                        <h3>Campus-Wide LED Displays & TVs</h3>
+                        <p class="display-card-benefit">Fans never miss a moment — live scores, replays, and real-time updates visible from every major gathering spot on campus.</p>
+                        <div class="display-card-locations">
+                            <div class="location-label"><i class="fas fa-map-marker-alt"></i> Deployed At</div>
+                            <div class="location-dots">
+                                <span class="location-dot gathering">Toomer's Corner</span>
+                                <span class="location-dot landmark">Samford Lawn</span>
+                                <span class="location-dot walkway">Tiger Walk</span>
+                                <span class="location-dot gathering">Entry Gates</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-building"></i></div>
-                    <h3>Building Facade Displays</h3>
-                    <p>Large-format LED screens on select campus buildings creating unified gameday branding and atmosphere visible across campus.</p>
-                    <table class="component-table">
-                        <tr><th>Specification</th><th>Details</th></tr>
-                        <tr><td>Size Range</td><td>200-500 sq ft per installation</td></tr>
-                        <tr><td>Mounting</td><td>Architectural integration</td></tr>
-                        <tr><td>Content</td><td>Live feeds, animations, branding</td></tr>
-                    </table>
+
+                <!-- Building Facade Card -->
+                <div class="display-card">
+                    <div class="display-card-visual facade-displays">
+                        <div class="display-mockup facade-screen">
+                            <div class="display-mockup-screen">
+                                <div class="display-mockup-inner">
+                                    <span>AUBURN</span>
+                                </div>
+                            </div>
+                            <div class="building-silhouette">
+                                <div class="building-window"></div>
+                                <div class="building-window"></div>
+                                <div class="building-window"></div>
+                                <div class="building-window"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="display-card-content">
+                        <div class="display-card-impact">
+                            <span class="impact-badge">High Impact</span>
+                            <span class="impact-stat">200-500 sq ft</span>
+                        </div>
+                        <h3>Building Facade Displays</h3>
+                        <p class="display-card-benefit">Transform campus architecture into a canvas for Auburn spirit — large-format displays visible from across the quad.</p>
+                        <div class="display-card-locations">
+                            <div class="location-label"><i class="fas fa-map-marker-alt"></i> Deployed At</div>
+                            <div class="location-dots">
+                                <span class="location-dot building">Student Center</span>
+                                <span class="location-dot building">Recreation Center</span>
+                                <span class="location-dot landmark">Stadium Exterior</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-parking"></i></div>
-                    <h3>Parking Lot Signage</h3>
-                    <p>Dynamic wayfinding displays in all gameday parking areas for traffic flow management and lot availability updates.</p>
-                    <table class="component-table">
-                        <tr><th>Specification</th><th>Details</th></tr>
-                        <tr><td>Type</td><td>Pole-mounted LED boards</td></tr>
-                        <tr><td>Updates</td><td>Real-time lot capacity</td></tr>
-                        <tr><td>Integration</td><td>Traffic management system</td></tr>
-                    </table>
+
+                <!-- Parking Signage Card -->
+                <div class="display-card">
+                    <div class="display-card-visual parking-signage">
+                        <div class="display-mockup parking-screen">
+                            <div class="display-mockup-screen">
+                                <div class="display-mockup-inner">
+                                    <span>LOT A</span>
+                                    <span class="lot-status">OPEN</span>
+                                </div>
+                            </div>
+                            <div class="pole"></div>
+                        </div>
+                    </div>
+                    <div class="display-card-content">
+                        <div class="display-card-impact">
+                            <span class="impact-badge">Wayfinding</span>
+                            <span class="impact-stat">Real-Time Updates</span>
+                        </div>
+                        <h3>Parking Lot Signage</h3>
+                        <p class="display-card-benefit">No more circling for spots — dynamic displays guide fans directly to available parking, reducing congestion and frustration.</p>
+                        <div class="display-card-locations">
+                            <div class="location-label"><i class="fas fa-map-marker-alt"></i> Deployed At</div>
+                            <div class="location-dots">
+                                <span class="location-dot parking">North Lots</span>
+                                <span class="location-dot parking">South Lots</span>
+                                <span class="location-dot parking">Wire Road</span>
+                                <span class="location-dot parking">Parking Deck</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-truck"></i></div>
-                    <h3>Mobile LED Trailers</h3>
-                    <p>Deployable display units for tailgate zones and overflow areas providing flexible placement for changing event needs.</p>
-                    <table class="component-table">
-                        <tr><th>Specification</th><th>Details</th></tr>
-                        <tr><td>Screen Size</td><td>12-16ft diagonal</td></tr>
-                        <tr><td>Power</td><td>Generator or shore power</td></tr>
-                        <tr><td>Setup Time</td><td>Under 30 minutes</td></tr>
-                    </table>
+
+                <!-- Mobile LED Card -->
+                <div class="display-card">
+                    <div class="display-card-visual mobile-led">
+                        <div class="display-mockup mobile-screen">
+                            <div class="display-mockup-screen">
+                                <div class="display-mockup-inner">
+                                    <span>GAMEDAY</span>
+                                </div>
+                            </div>
+                            <div class="trailer-base"></div>
+                            <div class="trailer-wheel left"></div>
+                            <div class="trailer-wheel right"></div>
+                        </div>
+                    </div>
+                    <div class="display-card-content">
+                        <div class="display-card-impact">
+                            <span class="impact-badge">Flexible</span>
+                            <span class="impact-stat">12-16ft Screens</span>
+                        </div>
+                        <h3>Mobile LED Trailers</h3>
+                        <p class="display-card-benefit">Big game atmosphere anywhere on campus — deploy large screens to tailgate zones in under 30 minutes.</p>
+                        <div class="display-card-locations">
+                            <div class="location-label"><i class="fas fa-map-marker-alt"></i> Deployed At</div>
+                            <div class="location-dots">
+                                <span class="location-dot tailgate">Intramural Fields</span>
+                                <span class="location-dot tailgate">Tailgate Village</span>
+                                <span class="location-dot gathering">Overflow Zones</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Gallery -->
+            <div class="display-gallery">
+                <div class="gallery-header">
+                    <h3>Proven at Top Programs</h3>
+                    <p>See how other SEC and Power 5 schools have transformed their gameday experience</p>
+                </div>
+                <div class="gallery-carousel">
+                    <div class="gallery-track" id="galleryTrack">
+                        <div class="gallery-slide">
+                            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop" alt="Stadium Display">
+                            <div class="gallery-slide-content">
+                                <h4>Campus Entry LED Wall</h4>
+                                <div class="gallery-slide-venue">University of Georgia</div>
+                                <p>Large-format welcome display creates immediate gameday atmosphere upon campus arrival.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=600&h=400&fit=crop" alt="Digital Wayfinding">
+                            <div class="gallery-slide-content">
+                                <h4>Interactive Wayfinding Kiosk</h4>
+                                <div class="gallery-slide-venue">Clemson University</div>
+                                <p>Touchscreen directories help visitors navigate campus with real-time event information.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=600&h=400&fit=crop" alt="Tailgate Screen">
+                            <div class="gallery-slide-content">
+                                <h4>Mobile LED in Tailgate Zone</h4>
+                                <div class="gallery-slide-venue">Texas A&M University</div>
+                                <p>Trailer-mounted displays bring pregame shows directly to fan gathering areas.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600&h=400&fit=crop" alt="Building Display">
+                            <div class="gallery-slide-content">
+                                <h4>Building Facade Video Wall</h4>
+                                <div class="gallery-slide-venue">University of Alabama</div>
+                                <p>Architectural LED integration creates iconic landmark visible across campus.</p>
+                            </div>
+                        </div>
+                        <div class="gallery-slide">
+                            <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600&h=400&fit=crop" alt="Parking Display">
+                            <div class="gallery-slide-content">
+                                <h4>Smart Parking Guidance</h4>
+                                <div class="gallery-slide-venue">Ohio State University</div>
+                                <p>Real-time lot availability displays reduce traffic congestion by 40%.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-controls">
+                    <button class="gallery-btn" onclick="moveGallery(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="gallery-btn" onclick="moveGallery(1)"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="gallery-indicators">
+                    <span class="gallery-indicator active" onclick="goToSlide(0)"></span>
+                    <span class="gallery-indicator" onclick="goToSlide(1)"></span>
+                    <span class="gallery-indicator" onclick="goToSlide(2)"></span>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        // Gallery Carousel
+        let currentSlide = 0;
+        const track = document.getElementById('galleryTrack');
+        const slides = document.querySelectorAll('.gallery-slide');
+        const indicators = document.querySelectorAll('.gallery-indicator');
+        const slideWidth = 365; // slide width + gap
+        const visibleSlides = 3;
+        const maxSlide = Math.max(0, slides.length - visibleSlides);
+
+        function moveGallery(direction) {
+            currentSlide = Math.max(0, Math.min(currentSlide + direction, maxSlide));
+            updateGallery();
+        }
+
+        function goToSlide(index) {
+            currentSlide = Math.min(index, maxSlide);
+            updateGallery();
+        }
+
+        function updateGallery() {
+            track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+            indicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === currentSlide);
+            });
+        }
+    </script>
 
     <section class="section-alt">
         <div class="section-container">
