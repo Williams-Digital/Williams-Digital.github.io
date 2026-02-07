@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Production Enhancement Proposal for Auburn University | Williams Digital</title>
+    <title>Auburn University Campus Production Enhancement Proposal</title>
     <meta name="robots" content="noindex, nofollow">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23DD550C'/%3E%3Cstop offset='100%25' stop-color='%230C2340'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='800' font-size='14' fill='white' text-anchor='middle'%3EAU%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
+            --auburn-navy: #03244d;
             --auburn-orange: #DD550C;
-            --auburn-blue: #0C2340;
-            --accent-1: #DD550C;
-            --accent-2: #F56600;
-            --accent-3: #0C2340;
-            --gradient-1: linear-gradient(135deg, #DD550C 0%, #0C2340 100%);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --success: #22c55e;
+            --auburn-orange-light: #F56600;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
 
         * {
@@ -39,25 +42,29 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--white);
+            color: var(--gray-800);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        header {
+        /* Navigation */
+        nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
+            background: var(--auburn-navy);
             padding: 1rem 2rem;
-            background: rgba(10, 10, 15, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
 
-        .header-container {
+        nav.scrolled {
+            padding: 0.75rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
@@ -65,160 +72,120 @@
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .nav-brand {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
+            color: var(--white);
             text-decoration: none;
         }
 
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--gradient-1);
-            border-radius: 8px;
+        .nav-brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-brand span {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 0.75rem;
-            color: white;
-            -webkit-text-fill-color: white;
+            gap: 2rem;
         }
 
-        .proposal-badge {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        /* Hero Section */
+        .nav-links a:hover {
+            color: var(--auburn-orange);
+        }
+
+        /* Hero */
         .hero {
-            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%);
+            padding: 8rem 2rem 4rem;
+            position: relative;
             overflow: hidden;
         }
 
-        .hero-bg {
+        .hero::before {
+            content: '';
             position: absolute;
             top: 0;
-            left: 0;
             right: 0;
-            bottom: 0;
-            background: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center center;
+            width: 50%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center center;
             background-size: cover;
-            filter: brightness(0.3);
+            opacity: 0.15;
         }
 
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(221, 85, 12, 0.4) 0%, rgba(12, 35, 64, 0.8) 100%);
-        }
-
-        .hero-content {
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
             position: relative;
             z-index: 1;
-            max-width: 900px;
         }
 
-        .auburn-logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 2rem;
-            background: white;
-            border-radius: 50%;
-            display: flex;
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-
-        .auburn-logo img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
+            gap: 0.5rem;
+            background: rgba(221, 85, 12, 0.2);
+            border: 1px solid var(--auburn-orange);
+            color: var(--auburn-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 800;
+            color: var(--white);
             margin-bottom: 1.5rem;
+            max-width: 700px;
             line-height: 1.1;
-            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #FF7F32 0%, #FFB380 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .hero p {
             font-size: 1.25rem;
-            color: rgba(255,255,255,0.9);
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin-bottom: 2.5rem;
         }
 
-        .hero-buttons {
+        .hero-stats {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
+            gap: 3rem;
             flex-wrap: wrap;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+        .hero-stat {
+            text-align: left;
         }
 
-        .btn-primary {
-            background: var(--gradient-1);
-            color: white;
-            box-shadow: 0 4px 20px rgba(221, 85, 12, 0.4);
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--auburn-orange);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(221, 85, 12, 0.5);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.2);
+        .hero-stat-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
         }
 
         .scroll-indicator {
@@ -226,7 +193,7 @@
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
             animation: bounce 2s infinite;
         }
 
@@ -235,17 +202,14 @@
             50% { transform: translateX(-50%) translateY(10px); }
         }
 
-        /* Main Content */
-        main {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem 6rem;
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
         }
 
-        section {
-            margin-bottom: 6rem;
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-header {
@@ -254,335 +218,157 @@
         }
 
         .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
             margin-bottom: 1rem;
         }
 
-        .section-header h2 span {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
         .section-header p {
-            color: var(--text-secondary);
+            color: var(--gray-600);
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        /* Stats Banner */
-        .stats-banner {
+        .section-alt {
+            background: var(--gray-50);
+        }
+
+        /* Solution Cards */
+        .solutions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            padding: 3rem;
-            background: var(--gradient-1);
-            border-radius: 24px;
-            margin: -4rem 2rem 4rem;
-            position: relative;
-            z-index: 10;
-            box-shadow: 0 20px 60px rgba(221, 85, 12, 0.3);
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
         }
 
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: white;
-        }
-
-        .stat-label {
-            color: rgba(255,255,255,0.8);
-            font-size: 0.9rem;
-        }
-
-        /* Scope Cards */
-        .scope-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .scope-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            overflow: hidden;
+        .solution-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 2rem;
             transition: all 0.3s ease;
         }
 
-        .scope-card:hover {
-            transform: translateY(-8px);
+        .solution-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(3, 36, 77, 0.1);
             border-color: var(--auburn-orange);
-            box-shadow: 0 20px 40px rgba(221, 85, 12, 0.2);
         }
 
-        .scope-card-image {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .scope-card-image::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(transparent, var(--bg-primary));
-        }
-
-        .scope-card-content {
-            padding: 1.5rem;
-            margin-top: -40px;
-            position: relative;
-        }
-
-        .scope-card-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-1);
-            border-radius: 16px;
+        .solution-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 10px 30px rgba(221, 85, 12, 0.3);
+            color: var(--white);
+            margin-bottom: 1.25rem;
         }
 
-        .scope-card h3 {
+        .solution-card h3 {
             font-size: 1.25rem;
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
         }
 
-        .scope-card p {
-            color: var(--text-secondary);
+        .solution-card p {
+            color: var(--gray-600);
             font-size: 0.95rem;
+            margin-bottom: 1rem;
         }
 
-        /* Device Management Section */
-        .device-section {
-            background: linear-gradient(135deg, rgba(221, 85, 12, 0.1) 0%, rgba(12, 35, 64, 0.2) 100%);
-            border-radius: 24px;
-            padding: 4rem;
-            border: 1px solid var(--border-color);
+        .solution-features {
+            list-style: none;
         }
 
-        .systems-grid {
+        .solution-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            padding: 0.35rem 0;
+        }
+
+        .solution-features li i {
+            color: var(--success);
+            font-size: 0.75rem;
+        }
+
+        /* Benefits */
+        .benefits-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
         }
 
-        .system-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
+        .benefit-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.75rem;
+            border-top: 4px solid var(--auburn-orange);
         }
 
-        .system-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--auburn-orange);
-        }
-
-        .system-card.featured {
-            border-color: var(--auburn-orange);
-            background: linear-gradient(135deg, rgba(221, 85, 12, 0.15) 0%, rgba(12, 35, 64, 0.1) 100%);
-        }
-
-        .system-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            border-radius: 20px;
+        .benefit-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 800;
+            gap: 0.5rem;
         }
 
-        .system-card .rank {
-            display: inline-block;
-            background: var(--gradient-1);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .system-card h4 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .system-card .best-for {
+        .benefit-card h4 i {
             color: var(--auburn-orange);
-            font-weight: 500;
-            margin-bottom: 1rem;
         }
 
-        .system-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Refresh Cycles */
-        .refresh-table {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .refresh-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .refresh-table th,
-        .refresh-table td {
-            padding: 1.25rem 1.5rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .refresh-table th {
-            background: rgba(221, 85, 12, 0.1);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .refresh-table td {
-            color: var(--text-secondary);
-        }
-
-        .refresh-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .refresh-table tr:hover td {
-            background: rgba(255,255,255,0.02);
-        }
-
-        .priority-critical { color: #ef4444; font-weight: 600; }
-        .priority-high { color: #f97316; font-weight: 600; }
-        .priority-medium { color: #eab308; font-weight: 600; }
-
-        /* Investment Section */
-        .investment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .investment-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 3rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .investment-card.featured {
-            border-color: var(--auburn-orange);
-            background: linear-gradient(135deg, rgba(221, 85, 12, 0.15) 0%, rgba(12, 35, 64, 0.1) 100%);
-        }
-
-        .investment-card.featured::before {
-            content: 'TOTAL INVESTMENT';
-            position: absolute;
-            top: 20px;
-            right: -35px;
-            background: var(--gradient-1);
-            color: white;
-            padding: 0.5rem 3rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            transform: rotate(45deg);
-        }
-
-        .investment-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-
-        .investment-amount {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .investment-note {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-
-        .investment-list {
+        .benefit-card ul {
             list-style: none;
-            text-align: left;
         }
 
-        .investment-list li {
-            padding: 0.75rem 0;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
+        .benefit-card ul li {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+            padding-left: 1.25rem;
+            position: relative;
         }
 
-        .investment-list li:last-child {
-            border-bottom: none;
-        }
-
-        .investment-list li i {
-            color: var(--success);
+        .benefit-card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--auburn-orange);
         }
 
         /* Timeline */
         .timeline {
             position: relative;
-            padding-left: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 15px;
+            left: 24px;
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: var(--gradient-1);
+            width: 3px;
+            background: linear-gradient(180deg, var(--auburn-orange) 0%, var(--auburn-navy) 100%);
+            border-radius: 2px;
         }
 
         .timeline-item {
             position: relative;
+            padding-left: 70px;
             padding-bottom: 3rem;
         }
 
@@ -592,218 +378,412 @@
 
         .timeline-dot {
             position: absolute;
-            left: -3rem;
-            width: 32px;
-            height: 32px;
-            background: var(--gradient-1);
+            left: 12px;
+            width: 28px;
+            height: 28px;
+            background: var(--auburn-orange);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.75rem;
             font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 0 0 4px var(--bg-primary);
+            color: var(--white);
+            box-shadow: 0 0 0 4px var(--white), 0 0 0 6px var(--auburn-orange);
         }
 
         .timeline-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
             padding: 1.5rem;
         }
 
         .timeline-content h4 {
             font-size: 1.1rem;
-            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content .phase {
+            color: var(--auburn-orange);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
         }
 
         .timeline-content p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
+            color: var(--gray-600);
+            font-size: 0.9rem;
         }
 
-        /* ROI Grid */
-        .roi-grid {
+        /* Device Management */
+        .device-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
+            margin-bottom: 3rem;
         }
 
-        .roi-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+        .device-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
             padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
         }
 
-        .roi-card:hover {
-            transform: translateY(-5px);
+        .device-card:hover {
             border-color: var(--auburn-orange);
+            box-shadow: 0 8px 30px rgba(3, 36, 77, 0.08);
         }
 
-        .roi-card-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-1);
+        .device-card.featured {
+            border-color: var(--auburn-orange);
+            background: linear-gradient(135deg, rgba(221, 85, 12, 0.03) 0%, rgba(3, 36, 77, 0.03) 100%);
+        }
+
+        .device-rank {
+            display: inline-block;
+            background: var(--auburn-navy);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .device-logo {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .device-card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .device-card .best-for {
+            color: var(--auburn-orange);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .device-card p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        /* Refresh Table */
+        .refresh-table-wrapper {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .refresh-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .refresh-table th,
+        .refresh-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .refresh-table th {
+            background: var(--auburn-navy);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .refresh-table td {
+            color: var(--gray-700);
+            font-size: 0.9rem;
+        }
+
+        .refresh-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .refresh-table tr:hover td {
+            background: var(--gray-50);
+        }
+
+        .priority-critical {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .priority-high {
+            background: #fff7ed;
+            color: #ea580c;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .priority-medium {
+            background: #fefce8;
+            color: #ca8a04;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Budget */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .budget-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .budget-card-header {
+            background: var(--auburn-navy);
+            color: var(--white);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .budget-card-header h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .budget-card-header .amount {
+            font-size: 2.25rem;
+            font-weight: 800;
+        }
+
+        .budget-card-header .note {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .budget-card.featured .budget-card-header {
+            background: linear-gradient(135deg, var(--auburn-orange) 0%, var(--auburn-orange-light) 100%);
+        }
+
+        .budget-card-body {
+            padding: 1.5rem;
+        }
+
+        .budget-card-body ul {
+            list-style: none;
+        }
+
+        .budget-card-body ul li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-700);
+            font-size: 0.9rem;
+        }
+
+        .budget-card-body ul li:last-child {
+            border-bottom: none;
+        }
+
+        .budget-card-body ul li i {
+            color: var(--success);
+        }
+
+        /* Next Steps */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .step-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--auburn-navy);
+            color: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
             margin: 0 auto 1rem;
         }
 
-        .roi-card .amount {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--success);
+        .step-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gray-900);
             margin-bottom: 0.5rem;
         }
 
-        .roi-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center center;
-            background-size: cover;
-            border-radius: 24px;
-            padding: 5rem 3rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(221, 85, 12, 0.9) 0%, rgba(12, 35, 64, 0.95) 100%);
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        .step-card p {
+            color: var(--gray-500);
+            font-size: 0.8rem;
         }
 
         /* Footer */
         footer {
-            text-align: center;
+            background: var(--auburn-navy);
+            color: var(--white);
             padding: 3rem 2rem;
-            border-top: 1px solid var(--border-color);
+            text-align: center;
         }
 
-        .war-eagle {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo img {
+            height: 50px;
+        }
+
+        .footer-logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
         footer p {
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.7);
             font-size: 0.9rem;
         }
 
-        footer a {
+        .war-eagle {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--auburn-orange);
-            text-decoration: none;
+            margin-bottom: 0.5rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
+            .nav-links {
+                display: none;
             }
 
-            .stats-banner {
-                margin: -3rem 1rem 3rem;
-                padding: 2rem;
+            .hero {
+                padding: 7rem 1.5rem 3rem;
             }
 
-            .scope-grid {
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .solutions-grid {
                 grid-template-columns: 1fr;
             }
 
-            .device-section {
-                padding: 2rem;
+            .timeline::before {
+                left: 20px;
             }
 
-            .investment-card.featured::before {
-                right: -45px;
+            .timeline-item {
+                padding-left: 60px;
             }
 
-            .timeline {
-                padding-left: 2.5rem;
+            .timeline-dot {
+                left: 8px;
             }
 
-            .cta-section {
-                padding: 3rem 1.5rem;
+            .refresh-table-wrapper {
+                overflow-x: auto;
+            }
+
+            .refresh-table {
+                min-width: 600px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <a href="https://williamsdigital.io" class="logo">
-                <div class="logo-icon">WD</div>
-                Williams Digital
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" alt="Auburn">
+                <span>Auburn University</span>
             </a>
-            <div class="proposal-badge">
-                <i class="fas fa-file-contract"></i> Production Enhancement Proposal
+            <div class="nav-links">
+                <a href="#solutions">Solutions</a>
+                <a href="#benefits">Benefits</a>
+                <a href="#devices">Device Management</a>
+                <a href="#timeline">Timeline</a>
+                <a href="#budget">Budget</a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="auburn-logo">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" alt="Auburn Tigers">
+        <div class="hero-container">
+            <div class="hero-badge">
+                <i class="fas fa-file-alt"></i>
+                Production Enhancement Proposal
             </div>
-            <h1>Campus <span>Production Enhancement</span> Initiative</h1>
-            <p>Comprehensive AV/IT infrastructure modernization for gameday operations, classroom instruction, and campus-wide media production at Auburn University.</p>
-            <div class="hero-buttons">
-                <a href="#scope" class="btn btn-primary">
-                    <i class="fas fa-play"></i> View Proposal
-                </a>
-                <a href="mailto:Dylan@williamsdigital.io?subject=Auburn%20Proposal" class="btn btn-secondary">
-                    <i class="fas fa-envelope"></i> Contact Us
-                </a>
+            <h1>Campus Production Enhancement Initiative</h1>
+            <p>Comprehensive AV/IT infrastructure modernization for gameday operations, classroom instruction, and campus-wide media production.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">7</div>
+                    <div class="hero-stat-label">Solution Areas</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">24</div>
+                    <div class="hero-stat-label">Month Rollout</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">8,000+</div>
+                    <div class="hero-stat-label">Devices Managed</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">$10.6M+</div>
+                    <div class="hero-stat-label">Investment</div>
+                </div>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -811,149 +791,204 @@
         </div>
     </section>
 
-    <!-- Stats Banner -->
-    <div class="stats-banner">
-        <div class="stat-item">
-            <div class="stat-number">$10.6M+</div>
-            <div class="stat-label">Total Investment</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">8,000+</div>
-            <div class="stat-label">Devices Managed</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">24</div>
-            <div class="stat-label">Month Timeline</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">7</div>
-            <div class="stat-label">Scope Areas</div>
-        </div>
-    </div>
-
-    <main>
-        <!-- Scope Areas -->
-        <section id="scope">
+    <!-- Solutions -->
+    <section id="solutions">
+        <div class="section-container">
             <div class="section-header">
-                <h2>Comprehensive <span>Scope Areas</span></h2>
-                <p>Transform Auburn's campus with these integrated technology solutions</p>
+                <h2>Comprehensive Solutions</h2>
+                <p>Seven integrated technology initiatives to transform Auburn's campus infrastructure</p>
             </div>
-
-            <div class="scope-grid">
-                <div class="scope-card">
-                    <div class="scope-card-image" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="scope-card-content">
-                        <div class="scope-card-icon"><i class="fas fa-football-ball"></i></div>
-                        <h3>Gameday Environment</h3>
-                        <p>Transform Jordan-Hare Stadium into a broadcast-ready environment with 10G/25G fiber, wireless cameras, and integrated LED displays.</p>
-                    </div>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-football-ball"></i></div>
+                    <h3>Gameday Environment</h3>
+                    <p>Transform Jordan-Hare Stadium into a broadcast-ready environment for SEC Network productions.</p>
+                    <ul class="solution-features">
+                        <li><i class="fas fa-check"></i> 10G/25G fiber backbone</li>
+                        <li><i class="fas fa-check"></i> Wireless camera systems</li>
+                        <li><i class="fas fa-check"></i> LED video integration</li>
+                        <li><i class="fas fa-check"></i> Emergency notification</li>
+                    </ul>
                 </div>
-
-                <div class="scope-card">
-                    <div class="scope-card-image" style="background-image: url('https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="scope-card-content">
-                        <div class="scope-card-icon"><i class="fas fa-users"></i></div>
-                        <h3>People Tracking & Analytics</h3>
-                        <p>Intelligent crowd management with thermal sensors, LiDAR, and WiFi analytics for real-time occupancy insights.</p>
-                    </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-users"></i></div>
+                    <h3>People Tracking & Analytics</h3>
+                    <p>Intelligent crowd management and facility optimization with real-time occupancy data.</p>
+                    <ul class="solution-features">
+                        <li><i class="fas fa-check"></i> Thermal counting sensors</li>
+                        <li><i class="fas fa-check"></i> LiDAR arrays</li>
+                        <li><i class="fas fa-check"></i> WiFi/BLE analytics</li>
+                        <li><i class="fas fa-check"></i> FERPA compliant</li>
+                    </ul>
                 </div>
-
-                <div class="scope-card">
-                    <div class="scope-card-image" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="scope-card-content">
-                        <div class="scope-card-icon"><i class="fas fa-network-wired"></i></div>
-                        <h3>Q-SYS Ecosystem</h3>
-                        <p>Campus-wide networked AV infrastructure unifying audio, video, and control under a single scalable platform.</p>
-                    </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Q-SYS Ecosystem</h3>
+                    <p>Campus-wide networked AV infrastructure unifying audio, video, and control systems.</p>
+                    <ul class="solution-features">
+                        <li><i class="fas fa-check"></i> Software-based architecture</li>
+                        <li><i class="fas fa-check"></i> Native IT integration</li>
+                        <li><i class="fas fa-check"></i> Remote management</li>
+                        <li><i class="fas fa-check"></i> Scalable platform</li>
+                    </ul>
                 </div>
-
-                <div class="scope-card">
-                    <div class="scope-card-image" style="background-image: url('https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="scope-card-content">
-                        <div class="scope-card-icon"><i class="fas fa-keyboard"></i></div>
-                        <h3>Stream Deck Integration</h3>
-                        <p>One-touch classroom control for instructors with intuitive interfaces for recording, lighting, and presentations.</p>
-                    </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-keyboard"></i></div>
+                    <h3>Stream Deck Integration</h3>
+                    <p>One-touch classroom control for instructors with intuitive interfaces.</p>
+                    <ul class="solution-features">
+                        <li><i class="fas fa-check"></i> Recording controls</li>
+                        <li><i class="fas fa-check"></i> Lighting presets</li>
+                        <li><i class="fas fa-check"></i> Video conferencing</li>
+                        <li><i class="fas fa-check"></i> Help request button</li>
+                    </ul>
                 </div>
-
-                <div class="scope-card">
-                    <div class="scope-card-image" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="scope-card-content">
-                        <div class="scope-card-icon"><i class="fas fa-video"></i></div>
-                        <h3>AI-Powered Cameras</h3>
-                        <p>Intelligent auto-tracking with gesture recognition, voice-activated switching, and whiteboard detection.</p>
-                    </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-video"></i></div>
+                    <h3>AI-Powered Cameras</h3>
+                    <p>Intelligent auto-tracking cameras with gesture recognition and voice switching.</p>
+                    <ul class="solution-features">
+                        <li><i class="fas fa-check"></i> Instructor tracking</li>
+                        <li><i class="fas fa-check"></i> Whiteboard detection</li>
+                        <li><i class="fas fa-check"></i> Auto-framing</li>
+                        <li><i class="fas fa-check"></i> 4K capture</li>
+                    </ul>
                 </div>
-
-                <div class="scope-card">
-                    <div class="scope-card-image" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="scope-card-content">
-                        <div class="scope-card-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                        <h3>Cloud Recording</h3>
-                        <p>Automated lecture capture with AI captioning, multi-platform distribution, and LMS integration.</p>
-                    </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>Cloud Recording</h3>
+                    <p>Automated lecture capture with AI captioning and LMS integration.</p>
+                    <ul class="solution-features">
+                        <li><i class="fas fa-check"></i> Panopto/Kaltura support</li>
+                        <li><i class="fas fa-check"></i> Auto-transcription</li>
+                        <li><i class="fas fa-check"></i> Canvas integration</li>
+                        <li><i class="fas fa-check"></i> Tiered storage</li>
+                    </ul>
                 </div>
-
-                <div class="scope-card">
-                    <div class="scope-card-image" style="background-image: url('https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                    <div class="scope-card-content">
-                        <div class="scope-card-icon"><i class="fas fa-laptop"></i></div>
-                        <h3>Device Tracking</h3>
-                        <p>Comprehensive asset management for 8,000+ computers, laptops, and mobile devices campus-wide.</p>
-                    </div>
+                <div class="solution-card">
+                    <div class="solution-icon"><i class="fas fa-laptop"></i></div>
+                    <h3>Device Tracking & Management</h3>
+                    <p>Comprehensive asset management for 8,000+ devices campus-wide.</p>
+                    <ul class="solution-features">
+                        <li><i class="fas fa-check"></i> Jamf Pro / Intune</li>
+                        <li><i class="fas fa-check"></i> Zero-touch deployment</li>
+                        <li><i class="fas fa-check"></i> 3-5 year refresh cycles</li>
+                        <li><i class="fas fa-check"></i> ServiceNow ITAM</li>
+                    </ul>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Device Management -->
-        <section class="device-section">
+    <!-- Benefits -->
+    <section id="benefits" class="section-alt">
+        <div class="section-container">
             <div class="section-header">
-                <h2>Top 3 <span>Device Management</span> Systems</h2>
-                <p>Industry-leading solutions for comprehensive asset lifecycle management</p>
+                <h2>Stakeholder Benefits</h2>
+                <p>How this initiative delivers value to every member of the Auburn community</p>
             </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h4><i class="fas fa-user-graduate"></i> Students</h4>
+                    <ul>
+                        <li>Access to recorded lectures anytime</li>
+                        <li>Improved classroom technology</li>
+                        <li>Better accessibility compliance</li>
+                        <li>Reliable device loaner programs</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h4><i class="fas fa-chalkboard-teacher"></i> Faculty</h4>
+                    <ul>
+                        <li>One-touch recording controls</li>
+                        <li>Reduced technology friction</li>
+                        <li>Automated lecture capture</li>
+                        <li>Consistent AV experience</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h4><i class="fas fa-running"></i> Athletics</h4>
+                    <ul>
+                        <li>SEC Network production readiness</li>
+                        <li>Enhanced gameday operations</li>
+                        <li>Media revenue potential</li>
+                        <li>Improved fan experience</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h4><i class="fas fa-headset"></i> IT Staff</h4>
+                    <ul>
+                        <li>40% reduction in support tickets</li>
+                        <li>Remote troubleshooting</li>
+                        <li>Standardized platforms</li>
+                        <li>Device lifecycle visibility</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h4><i class="fas fa-building"></i> Administration</h4>
+                    <ul>
+                        <li>Data-driven facility planning</li>
+                        <li>Predictable refresh budgets</li>
+                        <li>Recruitment appeal</li>
+                        <li>Emergency preparedness</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <h4><i class="fas fa-users"></i> Visitors</h4>
+                    <ul>
+                        <li>Improved wayfinding</li>
+                        <li>Enhanced event experience</li>
+                        <li>Real-time information</li>
+                        <li>Safety notifications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="systems-grid">
-                <div class="system-card featured">
-                    <div class="system-logo" style="background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%); color: white;">
+    <!-- Device Management -->
+    <section id="devices">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Device Management Systems</h2>
+                <p>Top 3 industry-leading solutions for comprehensive asset lifecycle management</p>
+            </div>
+            <div class="device-cards">
+                <div class="device-card featured">
+                    <span class="device-rank">#1 Industry Leader</span>
+                    <div class="device-logo" style="background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%); color: white;">
                         <i class="fab fa-apple"></i>
                     </div>
-                    <span class="rank">#1 Industry Leader</span>
                     <h4>Jamf Pro</h4>
                     <div class="best-for">Apple Ecosystem</div>
-                    <p>Gold standard for Mac, iPad, iPhone management with zero-touch deployment and Apple School Manager integration.</p>
+                    <p>Gold standard for Mac, iPad, iPhone with zero-touch deployment and Apple School Manager integration.</p>
                 </div>
-
-                <div class="system-card">
-                    <div class="system-logo" style="background: linear-gradient(135deg, #00A4EF 0%, #7FBA00 100%); color: white;">
+                <div class="device-card">
+                    <span class="device-rank">#2 Cross-Platform</span>
+                    <div class="device-logo" style="background: linear-gradient(135deg, #00A4EF 0%, #7FBA00 100%); color: white;">
                         <i class="fab fa-microsoft"></i>
                     </div>
-                    <span class="rank">#2 Cross-Platform</span>
                     <h4>Microsoft Intune</h4>
                     <div class="best-for">Windows & Cross-Platform</div>
-                    <p>Native M365 integration with Azure AD connectivity, Windows Autopilot, and unified endpoint management.</p>
+                    <p>Native M365 integration with Azure AD, Windows Autopilot, and unified endpoint management.</p>
                 </div>
-
-                <div class="system-card">
-                    <div class="system-logo" style="background: linear-gradient(135deg, #81B5A1 0%, #293E40 100%); color: white;">
+                <div class="device-card">
+                    <span class="device-rank">#3 Enterprise ITAM</span>
+                    <div class="device-logo" style="background: linear-gradient(135deg, #81B5A1 0%, #293E40 100%); color: white;">
                         SN
                     </div>
-                    <span class="rank">#3 Enterprise ITAM</span>
                     <h4>ServiceNow ITAM</h4>
                     <div class="best-for">Asset Lifecycle</div>
-                    <p>Complete lifecycle management from procurement to retirement with CMDB integration and powerful reporting.</p>
+                    <p>Complete lifecycle management from procurement to retirement with CMDB and ITSM integration.</p>
                 </div>
             </div>
-        </section>
 
-        <!-- Refresh Cycles -->
-        <section>
-            <div class="section-header">
-                <h2>Device <span>Refresh Cycles</span></h2>
-                <p>Strategic replacement schedule based on usage and importance (3-5 years)</p>
+            <div class="section-header" style="margin-top: 4rem;">
+                <h2>Device Refresh Cycles</h2>
+                <p>Strategic replacement based on usage intensity and operational importance (3-5 years)</p>
             </div>
-
-            <div class="refresh-table">
-                <table>
+            <div class="refresh-table-wrapper">
+                <table class="refresh-table">
                     <thead>
                         <tr>
                             <th>Device Category</th>
@@ -966,194 +1001,212 @@
                         <tr>
                             <td><strong>Executive/Leadership</strong></td>
                             <td>3 years</td>
-                            <td class="priority-critical">Critical</td>
+                            <td><span class="priority-critical">Critical</span></td>
                             <td>High visibility, productivity essential</td>
                         </tr>
                         <tr>
                             <td><strong>Faculty Primary Laptops</strong></td>
                             <td>3-4 years</td>
-                            <td class="priority-high">High</td>
+                            <td><span class="priority-high">High</span></td>
                             <td>Teaching continuity, research demands</td>
                         </tr>
                         <tr>
                             <td><strong>Lab Computers (High-Use)</strong></td>
                             <td>3 years</td>
-                            <td class="priority-high">High</td>
+                            <td><span class="priority-high">High</span></td>
                             <td>Heavy daily usage, student-facing</td>
                         </tr>
                         <tr>
                             <td><strong>Classroom Presentation</strong></td>
                             <td>4 years</td>
-                            <td class="priority-high">High</td>
+                            <td><span class="priority-high">High</span></td>
                             <td>Reliability critical for instruction</td>
                         </tr>
                         <tr>
                             <td><strong>Student Loaner Devices</strong></td>
                             <td>3 years</td>
-                            <td class="priority-high">High</td>
+                            <td><span class="priority-high">High</span></td>
                             <td>Heavy circulation, wear and tear</td>
                         </tr>
                         <tr>
                             <td><strong>Administrative Workstations</strong></td>
                             <td>4-5 years</td>
-                            <td class="priority-medium">Medium</td>
+                            <td><span class="priority-medium">Medium</span></td>
                             <td>Standard office productivity</td>
                         </tr>
                         <tr>
                             <td><strong>Mobile Devices (iPads)</strong></td>
                             <td>3-4 years</td>
-                            <td class="priority-medium">Medium</td>
+                            <td><span class="priority-medium">Medium</span></td>
                             <td>OS support lifecycle limitations</td>
                         </tr>
                         <tr>
                             <td><strong>AV Production Equipment</strong></td>
                             <td>4-5 years</td>
-                            <td class="priority-medium">Medium-High</td>
+                            <td><span class="priority-medium">Medium</span></td>
                             <td>Technology evolution considerations</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Investment -->
-        <section>
+    <!-- Timeline -->
+    <section id="timeline" class="section-alt">
+        <div class="section-container">
             <div class="section-header">
-                <h2>Investment <span>Overview</span></h2>
-                <p>Capital and operational costs for comprehensive campus transformation</p>
-            </div>
-
-            <div class="investment-grid">
-                <div class="investment-card">
-                    <h3>Annual Operating</h3>
-                    <div class="investment-amount">$1.0M - $1.75M</div>
-                    <div class="investment-note">Per year ongoing</div>
-                    <ul class="investment-list">
-                        <li><i class="fas fa-check"></i> Cloud storage & processing</li>
-                        <li><i class="fas fa-check"></i> Software licensing (Jamf/Intune/ServiceNow)</li>
-                        <li><i class="fas fa-check"></i> Maintenance contracts</li>
-                        <li><i class="fas fa-check"></i> Additional staffing (FTEs)</li>
-                        <li><i class="fas fa-check"></i> 24/7 technical support</li>
-                    </ul>
-                </div>
-
-                <div class="investment-card featured">
-                    <h3>Capital Investment</h3>
-                    <div class="investment-amount">$10.6M - $18.2M</div>
-                    <div class="investment-note">One-time investment</div>
-                    <ul class="investment-list">
-                        <li><i class="fas fa-check"></i> Gameday infrastructure ($2.5M - $4.0M)</li>
-                        <li><i class="fas fa-check"></i> Q-SYS ecosystem ($3.0M - $5.0M)</li>
-                        <li><i class="fas fa-check"></i> AI camera systems ($1.5M - $2.5M)</li>
-                        <li><i class="fas fa-check"></i> People tracking ($800K - $1.5M)</li>
-                        <li><i class="fas fa-check"></i> Device tracking ($350K - $600K)</li>
-                        <li><i class="fas fa-check"></i> Professional services & contingency</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Timeline -->
-        <section>
-            <div class="section-header">
-                <h2>Implementation <span>Roadmap</span></h2>
+                <h2>Implementation Timeline</h2>
                 <p>24-month phased deployment approach</p>
             </div>
-
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-dot">1</div>
                     <div class="timeline-content">
-                        <h4>Foundation (Months 1-6)</h4>
-                        <p>Asset management platform deployment, Jamf/Intune pilot, network assessment, Q-SYS core in athletic facilities, AI camera pilot in 5 lecture halls.</p>
+                        <h4>Foundation</h4>
+                        <div class="phase">Months 1-6</div>
+                        <p>Asset management platform deployment, Jamf/Intune pilot, network assessment, Q-SYS core in athletic facilities, AI camera pilot in 5 lecture halls, people tracking pilot.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot">2</div>
                     <div class="timeline-content">
-                        <h4>Expansion (Months 7-12)</h4>
-                        <p>Q-SYS rollout to academic buildings, Stream Deck deployment in 50 classrooms, cloud recording pipeline, full device management rollout.</p>
+                        <h4>Expansion</h4>
+                        <div class="phase">Months 7-12</div>
+                        <p>Q-SYS rollout to academic buildings, Stream Deck deployment in 50 classrooms, cloud recording pipeline, campus-wide people tracking, full device management rollout.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot">3</div>
                     <div class="timeline-content">
-                        <h4>Optimization (Months 13-18)</h4>
-                        <p>Full classroom modernization, advanced analytics implementation, integration refinement, comprehensive staff training.</p>
+                        <h4>Optimization</h4>
+                        <div class="phase">Months 13-18</div>
+                        <p>Full classroom modernization, advanced analytics implementation, integration refinement, comprehensive staff training completion.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot">4</div>
                     <div class="timeline-content">
-                        <h4>Innovation (Months 19-24)</h4>
-                        <p>AR/VR readiness infrastructure, advanced AI features, continuous improvement program, technology refresh planning.</p>
+                        <h4>Innovation</h4>
+                        <div class="phase">Months 19-24</div>
+                        <p>AR/VR readiness infrastructure, advanced AI features deployment, continuous improvement program, technology refresh planning.</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ROI -->
-        <section>
+    <!-- Budget -->
+    <section id="budget">
+        <div class="section-container">
             <div class="section-header">
-                <h2>Return on <span>Investment</span></h2>
-                <p>Quantifiable annual benefits from the production enhancement initiative</p>
+                <h2>Budget Overview</h2>
+                <p>Capital investment and ongoing operational costs</p>
             </div>
-
-            <div class="roi-grid">
-                <div class="roi-card">
-                    <div class="roi-card-icon"><i class="fas fa-headset"></i></div>
-                    <div class="amount">$200K - $350K/yr</div>
-                    <p>Reduced AV support labor through standardization</p>
+            <div class="budget-grid">
+                <div class="budget-card">
+                    <div class="budget-card-header">
+                        <h3>Annual Operating</h3>
+                        <div class="amount">$1.0M - $1.75M</div>
+                        <div class="note">Per year ongoing</div>
+                    </div>
+                    <div class="budget-card-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Cloud storage & processing</li>
+                            <li><i class="fas fa-check"></i> Software licensing (Jamf/Intune/ServiceNow)</li>
+                            <li><i class="fas fa-check"></i> Maintenance contracts</li>
+                            <li><i class="fas fa-check"></i> Additional staffing (FTEs)</li>
+                            <li><i class="fas fa-check"></i> 24/7 technical support</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="roi-card">
-                    <div class="roi-card-icon"><i class="fas fa-bolt"></i></div>
-                    <div class="amount">$150K - $250K/yr</div>
-                    <p>Energy savings from occupancy-based systems</p>
-                </div>
-                <div class="roi-card">
-                    <div class="roi-card-icon"><i class="fas fa-tv"></i></div>
-                    <div class="amount">$500K - $1M/yr</div>
-                    <p>Athletic media revenue potential increase</p>
-                </div>
-                <div class="roi-card">
-                    <div class="roi-card-icon"><i class="fas fa-laptop-code"></i></div>
-                    <div class="amount">$150K - $250K/yr</div>
-                    <p>Device management efficiency gains</p>
-                </div>
-                <div class="roi-card">
-                    <div class="roi-card-icon"><i class="fas fa-tools"></i></div>
-                    <div class="amount">$300K - $500K/yr</div>
-                    <p>Avoided equipment replacement costs</p>
-                </div>
-                <div class="roi-card">
-                    <div class="roi-card-icon"><i class="fas fa-certificate"></i></div>
-                    <div class="amount">$75K - $150K/yr</div>
-                    <p>Software license optimization</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta-section">
-            <div class="cta-content">
-                <h2>Ready to Transform Auburn's Campus?</h2>
-                <p>Let's position Auburn University as a leader in educational technology innovation with state-of-the-art production capabilities.</p>
-                <div class="cta-buttons">
-                    <a href="mailto:Dylan@williamsdigital.io?subject=Auburn%20University%20Production%20Enhancement" class="btn btn-primary">
-                        <i class="fas fa-envelope"></i> Contact Us to Begin
-                    </a>
-                    <a href="#scope" class="btn btn-secondary">
-                        <i class="fas fa-arrow-up"></i> Review Proposal
-                    </a>
+                <div class="budget-card featured">
+                    <div class="budget-card-header">
+                        <h3>Capital Investment</h3>
+                        <div class="amount">$10.6M - $18.2M</div>
+                        <div class="note">One-time investment</div>
+                    </div>
+                    <div class="budget-card-body">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Gameday infrastructure ($2.5M - $4.0M)</li>
+                            <li><i class="fas fa-check"></i> Q-SYS ecosystem ($3.0M - $5.0M)</li>
+                            <li><i class="fas fa-check"></i> AI camera systems ($1.5M - $2.5M)</li>
+                            <li><i class="fas fa-check"></i> People tracking ($800K - $1.5M)</li>
+                            <li><i class="fas fa-check"></i> Device tracking ($350K - $600K)</li>
+                            <li><i class="fas fa-check"></i> Professional services & contingency</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+            <p style="text-align: center; color: var(--gray-500); font-size: 0.85rem; margin-top: 2rem;">
+                <i class="fas fa-info-circle"></i> All estimates are preliminary and subject to detailed site assessment and RFP process.
+            </p>
+        </div>
+    </section>
 
+    <!-- Next Steps -->
+    <section class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Next Steps</h2>
+                <p>Path forward for initiative approval and implementation</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Stakeholder Alignment</h4>
+                    <p>Present to decision-makers</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Site Assessment</h4>
+                    <p>Evaluate infrastructure</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Pilot Program</h4>
+                    <p>3-5 space proof of concept</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>RFP Development</h4>
+                    <p>Competitive bidding</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h4>Funding Strategy</h4>
+                    <p>Budget allocation</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <h4>Project Charter</h4>
+                    <p>Formal approval</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
+        <div class="footer-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" alt="Auburn">
+            <span>Auburn University</span>
+        </div>
         <div class="war-eagle">War Eagle!</div>
-        <p>&copy; 2026 <a href="https://williamsdigital.io">Williams Digital</a>. All rights reserved.</p>
-        <p style="margin-top: 0.5rem;">Prepared exclusively for Auburn University Administration</p>
+        <p>Campus Production Enhancement Proposal</p>
+        <p style="margin-top: 1rem; opacity: 0.6;">Prepared for Auburn University Administration | February 2026</p>
     </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
