@@ -235,6 +235,45 @@
             background: var(--gray-50);
         }
 
+        /* Solution Categories */
+        .solution-category {
+            margin-bottom: 3rem;
+        }
+        .solution-category:last-child {
+            margin-bottom: 0;
+        }
+        .category-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .category-label h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .category-label .category-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--auburn-orange) 0%, transparent 100%);
+        }
+        .category-label .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+        .category-label .category-icon.campus { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .category-label .category-icon.classroom { background: linear-gradient(135deg, #10b981, #059669); }
+        .category-label .category-icon.infrastructure { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+
         /* Solution Cards */
         .solutions-grid {
             display: grid;
@@ -245,61 +284,207 @@
         .solution-card {
             background: var(--white);
             border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 2rem;
+            border-radius: 16px;
+            overflow: hidden;
             transition: all 0.3s ease;
             position: relative;
-            cursor: pointer;
         }
 
         .solution-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(3, 36, 77, 0.1);
+            box-shadow: 0 12px 40px rgba(3, 36, 77, 0.12);
             border-color: var(--auburn-orange);
         }
 
+        .solution-card-header {
+            padding: 1.5rem 1.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .solution-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
         .solution-icon {
-            width: 56px;
-            height: 56px;
+            width: 52px;
+            height: 52px;
             background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             color: var(--white);
-            margin-bottom: 1.25rem;
+        }
+
+        .solution-metric {
+            text-align: right;
+        }
+        .solution-metric-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--auburn-orange);
+            line-height: 1;
+        }
+        .solution-metric-label {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
         .solution-card h3 {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 600;
             color: var(--gray-900);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
-        .solution-card p {
+        .solution-card .solution-desc {
             color: var(--gray-600);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 1rem;
+            line-height: 1.5;
         }
 
         .solution-features {
             list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0 1.5rem 1rem;
         }
 
         .solution-features li {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.35rem;
+            background: var(--gray-50);
             color: var(--gray-600);
-            font-size: 0.85rem;
-            padding: 0.35rem 0;
+            font-size: 0.75rem;
+            padding: 0.35rem 0.65rem;
+            border-radius: 50px;
         }
 
         .solution-features li i {
             color: var(--success);
-            font-size: 0.75rem;
+            font-size: 0.65rem;
+        }
+
+        .solution-expand-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--gray-50);
+            border: none;
+            border-top: 1px solid var(--gray-200);
+            color: var(--auburn-orange);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .solution-expand-btn:hover {
+            background: var(--gray-100);
+        }
+        .solution-expand-btn i {
+            transition: transform 0.3s ease;
+        }
+        .solution-card.expanded .solution-expand-btn i {
+            transform: rotate(180deg);
+        }
+
+        /* Expandable Content */
+        .solution-expanded {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .solution-card.expanded .solution-expanded {
+            max-height: 500px;
+        }
+        .solution-expanded-inner {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            background: var(--gray-50);
+        }
+
+        /* Before/After Preview */
+        .solution-before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .before-card, .after-card {
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        .before-card {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+        .before-card .ba-label {
+            color: var(--danger);
+            font-weight: 700;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .before-card p {
+            color: #991b1b;
+            margin: 0;
+        }
+        .after-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+        .after-card .ba-label {
+            color: var(--success);
+            font-weight: 700;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .after-card p {
+            color: #166534;
+            margin: 0;
+        }
+
+        .solution-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .solution-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gray-700);
+        }
+        .solution-detail-item i {
+            color: var(--auburn-orange);
+            width: 16px;
+        }
+        .solution-detail-item strong {
+            color: var(--auburn-navy);
         }
 
         .solution-link {
@@ -308,28 +493,25 @@
             gap: 0.5rem;
             margin-top: 1rem;
             color: var(--auburn-orange);
-            font-weight: 500;
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 0.85rem;
             text-decoration: none;
             transition: gap 0.3s ease;
         }
-
-        .solution-link::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 12px;
-        }
-
-        .solution-card:hover .solution-link {
+        .solution-link:hover {
             gap: 0.75rem;
         }
-
         .solution-link i {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .solution-before-after {
+                grid-template-columns: 1fr;
+            }
+            .solution-details-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Benefits - Interactive Tabs */
@@ -1762,93 +1944,338 @@
         <div class="section-container">
             <div class="section-header">
                 <h2>Comprehensive Solutions</h2>
-                <p>Seven integrated technology initiatives to transform Auburn's campus infrastructure</p>
+                <p>Seven integrated technology initiatives organized by impact area</p>
             </div>
-            <div class="solutions-grid">
-                <div class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-map-signs"></i></div>
-                    <h3>Gameday Campus Environment</h3>
-                    <p>Transform campus grounds into an immersive gameday experience with integrated AV and wayfinding.</p>
-                    <ul class="solution-features">
-                        <li><i class="fas fa-check"></i> Campus-wide digital signage</li>
-                        <li><i class="fas fa-check"></i> Distributed speaker system</li>
-                        <li><i class="fas fa-check"></i> Visual directional enhancements</li>
-                        <li><i class="fas fa-check"></i> Emergency mass notification</li>
-                        <li><i class="fas fa-check"></i> Campus WiFi & fan connectivity</li>
-                    </ul>
-                    <a href="solutions/gameday.html" class="solution-link">Learn More <i class="fas fa-arrow-right"></i></a>
+
+            <!-- Campus Experience Category -->
+            <div class="solution-category">
+                <div class="category-label">
+                    <div class="category-icon campus"><i class="fas fa-university"></i></div>
+                    <h3>Campus Experience</h3>
+                    <div class="category-line"></div>
                 </div>
-                <div class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-users"></i></div>
-                    <h3>People Tracking & Analytics</h3>
-                    <p>Intelligent crowd management and facility optimization with real-time occupancy data.</p>
-                    <ul class="solution-features">
-                        <li><i class="fas fa-check"></i> Thermal counting sensors</li>
-                        <li><i class="fas fa-check"></i> LiDAR arrays</li>
-                        <li><i class="fas fa-check"></i> WiFi/BLE analytics</li>
-                        <li><i class="fas fa-check"></i> FERPA compliant</li>
-                    </ul>
-                    <a href="solutions/people-tracking.html" class="solution-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                <div class="solutions-grid">
+                    <!-- Gameday -->
+                    <div class="solution-card" id="card-gameday">
+                        <div class="solution-card-header">
+                            <div class="solution-card-top">
+                                <div class="solution-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fas fa-map-signs"></i></div>
+                                <div class="solution-metric">
+                                    <div class="solution-metric-value">15+</div>
+                                    <div class="solution-metric-label">Speaker Zones</div>
+                                </div>
+                            </div>
+                            <h3>Gameday Campus Environment</h3>
+                            <p class="solution-desc">Transform campus grounds into an immersive gameday experience with integrated AV and wayfinding.</p>
+                        </div>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check"></i> Digital signage</li>
+                            <li><i class="fas fa-check"></i> Speaker system</li>
+                            <li><i class="fas fa-check"></i> Wayfinding</li>
+                            <li><i class="fas fa-check"></i> Emergency alerts</li>
+                            <li><i class="fas fa-check"></i> Fan WiFi</li>
+                        </ul>
+                        <button class="solution-expand-btn"><span>View Details</span> <i class="fas fa-chevron-down"></i></button>
+                        <div class="solution-expanded">
+                            <div class="solution-expanded-inner">
+                                <div class="solution-before-after">
+                                    <div class="before-card">
+                                        <div class="ba-label"><i class="fas fa-times-circle"></i> Before</div>
+                                        <p>Fans walk through a quiet campus with no indication a game is happening. They ask for directions and miss the pre-game energy.</p>
+                                    </div>
+                                    <div class="after-card">
+                                        <div class="ba-label"><i class="fas fa-check-circle"></i> After</div>
+                                        <p>From parking to gates, digital signs show directions, speakers play fight songs, and the entire campus becomes the gameday experience.</p>
+                                    </div>
+                                </div>
+                                <div class="solution-details-grid">
+                                    <div class="solution-detail-item"><i class="fas fa-dollar-sign"></i> <strong>$2.5M - $4.0M</strong></div>
+                                    <div class="solution-detail-item"><i class="fas fa-calendar"></i> Phase 1-2</div>
+                                    <div class="solution-detail-item"><i class="fas fa-tv"></i> 50+ digital signs</div>
+                                    <div class="solution-detail-item"><i class="fas fa-wifi"></i> Campus-wide coverage</div>
+                                </div>
+                                <a href="solutions/gameday.html" class="solution-link">Full Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- People Tracking -->
+                    <div class="solution-card" id="card-tracking">
+                        <div class="solution-card-header">
+                            <div class="solution-card-top">
+                                <div class="solution-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);"><i class="fas fa-users"></i></div>
+                                <div class="solution-metric">
+                                    <div class="solution-metric-value">40+</div>
+                                    <div class="solution-metric-label">Sensor Locations</div>
+                                </div>
+                            </div>
+                            <h3>People Tracking & Analytics</h3>
+                            <p class="solution-desc">Intelligent crowd management and facility optimization with real-time occupancy data.</p>
+                        </div>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check"></i> Thermal sensors</li>
+                            <li><i class="fas fa-check"></i> LiDAR arrays</li>
+                            <li><i class="fas fa-check"></i> WiFi analytics</li>
+                            <li><i class="fas fa-check"></i> FERPA compliant</li>
+                        </ul>
+                        <button class="solution-expand-btn"><span>View Details</span> <i class="fas fa-chevron-down"></i></button>
+                        <div class="solution-expanded">
+                            <div class="solution-expanded-inner">
+                                <div class="solution-before-after">
+                                    <div class="before-card">
+                                        <div class="ba-label"><i class="fas fa-times-circle"></i> Before</div>
+                                        <p>No data on room utilization. Scheduling is guesswork. Overcrowded spaces go unnoticed until complaints arise.</p>
+                                    </div>
+                                    <div class="after-card">
+                                        <div class="ba-label"><i class="fas fa-check-circle"></i> After</div>
+                                        <p>Real-time dashboards show occupancy across campus. Data-driven scheduling optimizes space. Crowd flow improves safety.</p>
+                                    </div>
+                                </div>
+                                <div class="solution-details-grid">
+                                    <div class="solution-detail-item"><i class="fas fa-dollar-sign"></i> <strong>$800K - $1.5M</strong></div>
+                                    <div class="solution-detail-item"><i class="fas fa-calendar"></i> Phase 1-2</div>
+                                    <div class="solution-detail-item"><i class="fas fa-chart-line"></i> +25% space efficiency</div>
+                                    <div class="solution-detail-item"><i class="fas fa-shield-alt"></i> Privacy-first design</div>
+                                </div>
+                                <a href="solutions/people-tracking.html" class="solution-link">Full Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-network-wired"></i></div>
-                    <h3>Q-SYS Ecosystem</h3>
-                    <p>Campus-wide networked AV infrastructure unifying audio, video, and control systems.</p>
-                    <ul class="solution-features">
-                        <li><i class="fas fa-check"></i> Software-based architecture</li>
-                        <li><i class="fas fa-check"></i> Native IT integration</li>
-                        <li><i class="fas fa-check"></i> Remote management</li>
-                        <li><i class="fas fa-check"></i> Scalable platform</li>
-                    </ul>
-                    <a href="solutions/qsys.html" class="solution-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Classroom Technology Category -->
+            <div class="solution-category">
+                <div class="category-label">
+                    <div class="category-icon classroom"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Classroom Technology</h3>
+                    <div class="category-line"></div>
                 </div>
-                <div class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-keyboard"></i></div>
-                    <h3>Stream Deck Integration</h3>
-                    <p>One-touch classroom control for instructors with intuitive interfaces.</p>
-                    <ul class="solution-features">
-                        <li><i class="fas fa-check"></i> Recording controls</li>
-                        <li><i class="fas fa-check"></i> Lighting presets</li>
-                        <li><i class="fas fa-check"></i> Video conferencing</li>
-                        <li><i class="fas fa-check"></i> Help request button</li>
-                    </ul>
-                    <a href="solutions/streamdeck.html" class="solution-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                <div class="solutions-grid">
+                    <!-- Stream Deck -->
+                    <div class="solution-card" id="card-streamdeck">
+                        <div class="solution-card-header">
+                            <div class="solution-card-top">
+                                <div class="solution-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5);"><i class="fas fa-keyboard"></i></div>
+                                <div class="solution-metric">
+                                    <div class="solution-metric-value">200+</div>
+                                    <div class="solution-metric-label">Classrooms</div>
+                                </div>
+                            </div>
+                            <h3>Stream Deck Integration</h3>
+                            <p class="solution-desc">One-touch classroom control for instructors with intuitive interfaces.</p>
+                        </div>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check"></i> Recording controls</li>
+                            <li><i class="fas fa-check"></i> Lighting presets</li>
+                            <li><i class="fas fa-check"></i> Video conferencing</li>
+                            <li><i class="fas fa-check"></i> Help button</li>
+                        </ul>
+                        <button class="solution-expand-btn"><span>View Details</span> <i class="fas fa-chevron-down"></i></button>
+                        <div class="solution-expanded">
+                            <div class="solution-expanded-inner">
+                                <div class="solution-before-after">
+                                    <div class="before-card">
+                                        <div class="ba-label"><i class="fas fa-times-circle"></i> Before</div>
+                                        <p>Faculty spend 10+ minutes troubleshooting AV. Different controls in every room. Recording requires multiple steps.</p>
+                                    </div>
+                                    <div class="after-card">
+                                        <div class="ba-label"><i class="fas fa-check-circle"></i> After</div>
+                                        <p>One tap to start class: lights adjust, recording begins, laptop connects. Same interface in every room across campus.</p>
+                                    </div>
+                                </div>
+                                <div class="solution-details-grid">
+                                    <div class="solution-detail-item"><i class="fas fa-dollar-sign"></i> <strong>$400K - $600K</strong></div>
+                                    <div class="solution-detail-item"><i class="fas fa-calendar"></i> Phase 2-3</div>
+                                    <div class="solution-detail-item"><i class="fas fa-clock"></i> 10 min saved/class</div>
+                                    <div class="solution-detail-item"><i class="fas fa-headset"></i> -40% support tickets</div>
+                                </div>
+                                <a href="solutions/streamdeck.html" class="solution-link">Full Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Cameras -->
+                    <div class="solution-card" id="card-cameras">
+                        <div class="solution-card-header">
+                            <div class="solution-card-top">
+                                <div class="solution-icon" style="background: linear-gradient(135deg, #10b981, #059669);"><i class="fas fa-video"></i></div>
+                                <div class="solution-metric">
+                                    <div class="solution-metric-value">4K</div>
+                                    <div class="solution-metric-label">Auto-Tracking</div>
+                                </div>
+                            </div>
+                            <h3>AI-Powered Cameras</h3>
+                            <p class="solution-desc">Intelligent auto-tracking cameras with gesture recognition and voice switching.</p>
+                        </div>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check"></i> Instructor tracking</li>
+                            <li><i class="fas fa-check"></i> Whiteboard detect</li>
+                            <li><i class="fas fa-check"></i> Auto-framing</li>
+                            <li><i class="fas fa-check"></i> 4K capture</li>
+                        </ul>
+                        <button class="solution-expand-btn"><span>View Details</span> <i class="fas fa-chevron-down"></i></button>
+                        <div class="solution-expanded">
+                            <div class="solution-expanded-inner">
+                                <div class="solution-before-after">
+                                    <div class="before-card">
+                                        <div class="ba-label"><i class="fas fa-times-circle"></i> Before</div>
+                                        <p>Static camera captures empty podium while instructor writes on board. Students see backs of heads. Poor remote experience.</p>
+                                    </div>
+                                    <div class="after-card">
+                                        <div class="ba-label"><i class="fas fa-check-circle"></i> After</div>
+                                        <p>Camera follows instructor automatically. Switches to whiteboard when writing. Remote students see exactly what in-person students see.</p>
+                                    </div>
+                                </div>
+                                <div class="solution-details-grid">
+                                    <div class="solution-detail-item"><i class="fas fa-dollar-sign"></i> <strong>$1.5M - $2.5M</strong></div>
+                                    <div class="solution-detail-item"><i class="fas fa-calendar"></i> Phase 1-3</div>
+                                    <div class="solution-detail-item"><i class="fas fa-robot"></i> AI-powered</div>
+                                    <div class="solution-detail-item"><i class="fas fa-hand-paper"></i> Gesture control</div>
+                                </div>
+                                <a href="solutions/lecture-capture.html" class="solution-link">Full Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Recording -->
+                    <div class="solution-card" id="card-recording">
+                        <div class="solution-card-header">
+                            <div class="solution-card-top">
+                                <div class="solution-icon" style="background: linear-gradient(135deg, #f97316, #ea580c);"><i class="fas fa-cloud-upload-alt"></i></div>
+                                <div class="solution-metric">
+                                    <div class="solution-metric-value">95%</div>
+                                    <div class="solution-metric-label">Lectures Captured</div>
+                                </div>
+                            </div>
+                            <h3>Cloud Recording</h3>
+                            <p class="solution-desc">Automated lecture capture with AI captioning and LMS integration.</p>
+                        </div>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check"></i> Panopto/Kaltura</li>
+                            <li><i class="fas fa-check"></i> Auto-transcription</li>
+                            <li><i class="fas fa-check"></i> Canvas integration</li>
+                            <li><i class="fas fa-check"></i> Tiered storage</li>
+                        </ul>
+                        <button class="solution-expand-btn"><span>View Details</span> <i class="fas fa-chevron-down"></i></button>
+                        <div class="solution-expanded">
+                            <div class="solution-expanded-inner">
+                                <div class="solution-before-after">
+                                    <div class="before-card">
+                                        <div class="ba-label"><i class="fas fa-times-circle"></i> Before</div>
+                                        <p>Manual recording requires faculty action. Uploads are inconsistent. No captions. Students who miss class fall behind.</p>
+                                    </div>
+                                    <div class="after-card">
+                                        <div class="ba-label"><i class="fas fa-check-circle"></i> After</div>
+                                        <p>Recordings start automatically. AI generates captions in 2 hours. Videos appear in Canvas. Students review anytime, anywhere.</p>
+                                    </div>
+                                </div>
+                                <div class="solution-details-grid">
+                                    <div class="solution-detail-item"><i class="fas fa-dollar-sign"></i> <strong>$600K - $1.0M</strong></div>
+                                    <div class="solution-detail-item"><i class="fas fa-calendar"></i> Phase 2-3</div>
+                                    <div class="solution-detail-item"><i class="fas fa-closed-captioning"></i> ADA compliant</div>
+                                    <div class="solution-detail-item"><i class="fas fa-search"></i> Searchable content</div>
+                                </div>
+                                <a href="solutions/cloud-recording.html" class="solution-link">Full Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-video"></i></div>
-                    <h3>AI-Powered Cameras</h3>
-                    <p>Intelligent auto-tracking cameras with gesture recognition and voice switching.</p>
-                    <ul class="solution-features">
-                        <li><i class="fas fa-check"></i> Instructor tracking</li>
-                        <li><i class="fas fa-check"></i> Whiteboard detection</li>
-                        <li><i class="fas fa-check"></i> Auto-framing</li>
-                        <li><i class="fas fa-check"></i> 4K capture</li>
-                    </ul>
-                    <a href="solutions/lecture-capture.html" class="solution-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Infrastructure Category -->
+            <div class="solution-category">
+                <div class="category-label">
+                    <div class="category-icon infrastructure"><i class="fas fa-server"></i></div>
+                    <h3>Infrastructure</h3>
+                    <div class="category-line"></div>
                 </div>
-                <div class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <h3>Cloud Recording</h3>
-                    <p>Automated lecture capture with AI captioning and LMS integration.</p>
-                    <ul class="solution-features">
-                        <li><i class="fas fa-check"></i> Panopto/Kaltura support</li>
-                        <li><i class="fas fa-check"></i> Auto-transcription</li>
-                        <li><i class="fas fa-check"></i> Canvas integration</li>
-                        <li><i class="fas fa-check"></i> Tiered storage</li>
-                    </ul>
-                    <a href="solutions/cloud-recording.html" class="solution-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="solution-card">
-                    <div class="solution-icon"><i class="fas fa-laptop"></i></div>
-                    <h3>Device Tracking & Management</h3>
-                    <p>Comprehensive asset management for 8,000+ devices campus-wide.</p>
-                    <ul class="solution-features">
-                        <li><i class="fas fa-check"></i> Jamf Pro / Intune</li>
-                        <li><i class="fas fa-check"></i> Zero-touch deployment</li>
-                        <li><i class="fas fa-check"></i> 3-5 year refresh cycles</li>
-                        <li><i class="fas fa-check"></i> ServiceNow ITAM</li>
-                    </ul>
-                    <a href="solutions/device-management.html" class="solution-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                <div class="solutions-grid">
+                    <!-- Q-SYS -->
+                    <div class="solution-card" id="card-qsys">
+                        <div class="solution-card-header">
+                            <div class="solution-card-top">
+                                <div class="solution-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);"><i class="fas fa-network-wired"></i></div>
+                                <div class="solution-metric">
+                                    <div class="solution-metric-value">200+</div>
+                                    <div class="solution-metric-label">Rooms Connected</div>
+                                </div>
+                            </div>
+                            <h3>Q-SYS Ecosystem</h3>
+                            <p class="solution-desc">Campus-wide networked AV infrastructure unifying audio, video, and control systems.</p>
+                        </div>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check"></i> Software-based</li>
+                            <li><i class="fas fa-check"></i> IT integration</li>
+                            <li><i class="fas fa-check"></i> Remote management</li>
+                            <li><i class="fas fa-check"></i> Scalable</li>
+                        </ul>
+                        <button class="solution-expand-btn"><span>View Details</span> <i class="fas fa-chevron-down"></i></button>
+                        <div class="solution-expanded">
+                            <div class="solution-expanded-inner">
+                                <div class="solution-before-after">
+                                    <div class="before-card">
+                                        <div class="ba-label"><i class="fas fa-times-circle"></i> Before</div>
+                                        <p>Mixed AV systems from different eras. No central management. IT must visit each room for updates. Inconsistent user experience.</p>
+                                    </div>
+                                    <div class="after-card">
+                                        <div class="ba-label"><i class="fas fa-check-circle"></i> After</div>
+                                        <p>Unified platform across campus. Remote monitoring and control. Firmware updates push automatically. Predictive maintenance alerts.</p>
+                                    </div>
+                                </div>
+                                <div class="solution-details-grid">
+                                    <div class="solution-detail-item"><i class="fas fa-dollar-sign"></i> <strong>$3.0M - $5.0M</strong></div>
+                                    <div class="solution-detail-item"><i class="fas fa-calendar"></i> Phase 1-3</div>
+                                    <div class="solution-detail-item"><i class="fas fa-building"></i> 15+ buildings</div>
+                                    <div class="solution-detail-item"><i class="fas fa-tools"></i> Remote diagnostics</div>
+                                </div>
+                                <a href="solutions/qsys.html" class="solution-link">Full Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Device Management -->
+                    <div class="solution-card" id="card-devices">
+                        <div class="solution-card-header">
+                            <div class="solution-card-top">
+                                <div class="solution-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);"><i class="fas fa-laptop"></i></div>
+                                <div class="solution-metric">
+                                    <div class="solution-metric-value">8K+</div>
+                                    <div class="solution-metric-label">Devices Managed</div>
+                                </div>
+                            </div>
+                            <h3>Device Tracking & Management</h3>
+                            <p class="solution-desc">Comprehensive asset management for 8,000+ devices campus-wide.</p>
+                        </div>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check"></i> Jamf Pro / Intune</li>
+                            <li><i class="fas fa-check"></i> Zero-touch deploy</li>
+                            <li><i class="fas fa-check"></i> 3-5 yr refresh</li>
+                            <li><i class="fas fa-check"></i> ServiceNow ITAM</li>
+                        </ul>
+                        <button class="solution-expand-btn"><span>View Details</span> <i class="fas fa-chevron-down"></i></button>
+                        <div class="solution-expanded">
+                            <div class="solution-expanded-inner">
+                                <div class="solution-before-after">
+                                    <div class="before-card">
+                                        <div class="ba-label"><i class="fas fa-times-circle"></i> Before</div>
+                                        <p>Spreadsheets track devices. No visibility into health or location. Refresh cycles are reactive. Provisioning takes days.</p>
+                                    </div>
+                                    <div class="after-card">
+                                        <div class="ba-label"><i class="fas fa-check-circle"></i> After</div>
+                                        <p>Real-time dashboard shows every device. Zero-touch provisioning in hours. Predictable refresh budgets. Automated compliance.</p>
+                                    </div>
+                                </div>
+                                <div class="solution-details-grid">
+                                    <div class="solution-detail-item"><i class="fas fa-dollar-sign"></i> <strong>$350K - $600K</strong></div>
+                                    <div class="solution-detail-item"><i class="fas fa-calendar"></i> Phase 1-2</div>
+                                    <div class="solution-detail-item"><i class="fas fa-clock"></i> 75% faster deploy</div>
+                                    <div class="solution-detail-item"><i class="fas fa-shield-alt"></i> Security compliant</div>
+                                </div>
+                                <a href="solutions/device-management.html" class="solution-link">Full Details <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -3072,6 +3499,33 @@
                 // Add active class to clicked tab and corresponding content
                 this.classList.add('active');
                 document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Solution card expand/collapse
+        const expandBtns = document.querySelectorAll('.solution-expand-btn');
+
+        expandBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const card = this.closest('.solution-card');
+                const isExpanded = card.classList.contains('expanded');
+
+                // Close all other cards
+                document.querySelectorAll('.solution-card.expanded').forEach(c => {
+                    if (c !== card) c.classList.remove('expanded');
+                });
+
+                // Toggle current card
+                card.classList.toggle('expanded');
+
+                // Update button text
+                const btnText = this.querySelector('span');
+                if (card.classList.contains('expanded')) {
+                    btnText.textContent = 'Hide Details';
+                } else {
+                    btnText.textContent = 'View Details';
+                }
             });
         });
     </script>
