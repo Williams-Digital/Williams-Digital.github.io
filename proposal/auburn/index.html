@@ -299,6 +299,26 @@
         .solution-card-header {
             padding: 1.5rem 1.5rem 1rem;
             cursor: pointer;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+        .solution-card-header:hover {
+            background: var(--gray-50);
+        }
+        .solution-card-header::after {
+            content: '\f061';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--gray-300);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        .solution-card-header:hover::after {
+            color: var(--auburn-orange);
+            transform: translateX(4px);
         }
 
         .solution-card-top {
@@ -3527,6 +3547,31 @@
                     btnText.textContent = 'View Details';
                 }
             });
+        });
+
+        // Make entire card header clickable to navigate to solution page
+        const solutionCards = document.querySelectorAll('.solution-card');
+        const cardLinks = {
+            'card-gameday': 'solutions/gameday.html',
+            'card-tracking': 'solutions/people-tracking.html',
+            'card-streamdeck': 'solutions/streamdeck.html',
+            'card-cameras': 'solutions/lecture-capture.html',
+            'card-recording': 'solutions/cloud-recording.html',
+            'card-qsys': 'solutions/qsys.html',
+            'card-devices': 'solutions/device-management.html'
+        };
+
+        solutionCards.forEach(card => {
+            const header = card.querySelector('.solution-card-header');
+            const cardId = card.id;
+            const link = cardLinks[cardId];
+
+            if (header && link) {
+                header.style.cursor = 'pointer';
+                header.addEventListener('click', function() {
+                    window.location.href = link;
+                });
+            }
         });
     </script>
 </body>
