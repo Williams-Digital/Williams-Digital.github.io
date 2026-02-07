@@ -1165,6 +1165,387 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Floating TOC */
+        .floating-toc {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .floating-toc.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .floating-toc a {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            border: 2px solid var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .floating-toc a:hover,
+        .floating-toc a.active {
+            background: var(--auburn-orange);
+            transform: scale(1.3);
+        }
+        .floating-toc a::before {
+            content: attr(data-label);
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--auburn-navy);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+        .floating-toc a:hover::before {
+            opacity: 1;
+        }
+
+        /* Clickable hero stats */
+        .hero-stat-link {
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+        .hero-stat-link:hover {
+            transform: translateY(-4px);
+        }
+        .hero-stat-link:hover .hero-stat-value {
+            text-shadow: 0 0 20px rgba(221, 85, 12, 0.5);
+        }
+
+        /* ROI Section */
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .roi-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border: 1px solid var(--gray-200);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .roi-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--auburn-orange);
+        }
+        .roi-card .roi-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .roi-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+        .roi-card .roi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--auburn-orange);
+            margin-bottom: 0.25rem;
+        }
+        .roi-card .roi-desc {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+        .roi-timeline {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border: 1px solid var(--gray-200);
+        }
+        .roi-timeline h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .roi-timeline h4 i {
+            color: var(--auburn-orange);
+        }
+        .roi-bar-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .roi-bar-label {
+            width: 80px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+        .roi-bar {
+            flex: 1;
+            height: 32px;
+            background: var(--gray-100);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        .roi-bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            border-radius: 8px;
+        }
+        .roi-bar-fill.cost { background: linear-gradient(90deg, #ef4444, #dc2626); }
+        .roi-bar-fill.savings { background: linear-gradient(90deg, #10b981, #059669); }
+
+        /* Comparison Table */
+        .comparison-container {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border: 1px solid var(--gray-200);
+        }
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            background: var(--auburn-navy);
+            color: white;
+        }
+        .comparison-header > div {
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .comparison-header .current-col {
+            background: rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .comparison-header .proposed-col {
+            background: var(--auburn-orange);
+            text-align: center;
+        }
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        .comparison-row > div {
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+        }
+        .comparison-row .feature-col {
+            color: var(--gray-700);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .comparison-row .feature-col i {
+            color: var(--auburn-orange);
+            width: 20px;
+        }
+        .comparison-row .current-col,
+        .comparison-row .proposed-col {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .comparison-row .current-col {
+            background: var(--gray-50);
+            color: var(--gray-500);
+        }
+        .comparison-row .proposed-col {
+            background: rgba(221, 85, 12, 0.05);
+            color: var(--success);
+            font-weight: 600;
+        }
+        .comparison-icon-bad {
+            color: var(--danger) !important;
+        }
+        .comparison-icon-partial {
+            color: var(--warning) !important;
+        }
+        .comparison-icon-good {
+            color: var(--success) !important;
+        }
+
+        /* Risk Mitigation */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .risk-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.75rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--auburn-orange);
+            transition: all 0.3s ease;
+        }
+        .risk-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        .risk-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .risk-card h4 i {
+            color: var(--auburn-orange);
+        }
+        .risk-card .risk-level {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .risk-level.low { background: #d1fae5; color: #065f46; }
+        .risk-level.medium { background: #fef3c7; color: #92400e; }
+        .risk-level.high { background: #fee2e2; color: #991b1b; }
+        .risk-card p {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+        }
+        .risk-card .mitigation {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 0.75rem;
+        }
+        .risk-card .mitigation-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--auburn-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+        }
+        .risk-card .mitigation-text {
+            font-size: 0.8rem;
+            color: var(--gray-700);
+        }
+
+        /* Vendor Logos */
+        .vendor-section {
+            margin-top: 3rem;
+        }
+        .vendor-section h4 {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+        }
+        .vendor-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .vendor-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            height: 60px;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        .vendor-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+        .vendor-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .vendor-logo i {
+            font-size: 2.5rem;
+            color: var(--gray-500);
+        }
+        .vendor-logo:hover i {
+            color: var(--auburn-navy);
+        }
+
+        /* Enhanced Gantt Tooltip */
+        .gantt-bar[data-tooltip] {
+            cursor: pointer;
+        }
+        .gantt-bar[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--auburn-navy);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            z-index: 100;
+            margin-bottom: 8px;
+        }
+        .gantt-bar[data-tooltip]:hover::after {
+            opacity: 1;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -1190,10 +1571,33 @@
             .refresh-table {
                 min-width: 600px;
             }
+
+            .floating-toc {
+                display: none;
+            }
+
+            .comparison-container {
+                overflow-x: auto;
+            }
+            .comparison-header,
+            .comparison-row {
+                min-width: 600px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Table of Contents -->
+    <div class="floating-toc" id="floatingToc">
+        <a href="#solutions" data-label="Solutions"></a>
+        <a href="#roi" data-label="ROI & Value"></a>
+        <a href="#benefits" data-label="Benefits"></a>
+        <a href="#devices" data-label="Device Management"></a>
+        <a href="#timeline" data-label="Timeline"></a>
+        <a href="#risks" data-label="Risk Mitigation"></a>
+        <a href="#budget" data-label="Budget"></a>
+    </div>
+
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
@@ -1203,9 +1607,11 @@
             </a>
             <div class="nav-links">
                 <a href="#solutions">Solutions</a>
+                <a href="#roi">ROI</a>
                 <a href="#benefits">Benefits</a>
-                <a href="#devices">Device Management</a>
+                <a href="#devices">Devices</a>
                 <a href="#timeline">Timeline</a>
+                <a href="#risks">Risks</a>
                 <a href="#budget">Budget</a>
             </div>
         </div>
@@ -1221,22 +1627,30 @@
             <h1>Campus Production Enhancement Initiative</h1>
             <p>Comprehensive AV/IT infrastructure modernization for gameday operations, classroom instruction, and campus-wide media production.</p>
             <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="hero-stat-value">7</div>
-                    <div class="hero-stat-label">Solution Areas</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">24</div>
-                    <div class="hero-stat-label">Month Rollout</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">8,000+</div>
-                    <div class="hero-stat-label">Devices Managed</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-value">$10.6M+</div>
-                    <div class="hero-stat-label">Investment</div>
-                </div>
+                <a href="#solutions" class="hero-stat-link">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">7</div>
+                        <div class="hero-stat-label">Solution Areas</div>
+                    </div>
+                </a>
+                <a href="#timeline" class="hero-stat-link">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">24</div>
+                        <div class="hero-stat-label">Month Rollout</div>
+                    </div>
+                </a>
+                <a href="#devices" class="hero-stat-link">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">8,000+</div>
+                        <div class="hero-stat-label">Devices Managed</div>
+                    </div>
+                </a>
+                <a href="#budget" class="hero-stat-link">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">$10.6M+</div>
+                        <div class="hero-stat-label">Investment</div>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -1336,6 +1750,161 @@
                         <li><i class="fas fa-check"></i> ServiceNow ITAM</li>
                     </ul>
                     <a href="solutions/device-management.html" class="solution-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Vendor Logos -->
+            <div class="vendor-section">
+                <h4>Technology Partners</h4>
+                <div class="vendor-logos">
+                    <div class="vendor-logo" title="Q-SYS">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Q-SYS_logo.svg/2560px-Q-SYS_logo.svg.png" alt="Q-SYS" onerror="this.parentElement.innerHTML='<span style=&quot;font-weight:700;color:var(--gray-600);&quot;>Q-SYS</span>'">
+                    </div>
+                    <div class="vendor-logo" title="Jamf">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Jamf_logo.svg/2560px-Jamf_logo.svg.png" alt="Jamf" onerror="this.parentElement.innerHTML='<span style=&quot;font-weight:700;color:var(--gray-600);&quot;>Jamf</span>'">
+                    </div>
+                    <div class="vendor-logo" title="Microsoft">
+                        <i class="fab fa-microsoft"></i>
+                    </div>
+                    <div class="vendor-logo" title="Panopto">
+                        <img src="https://www.panopto.com/wp-content/uploads/2020/10/Panopto-Logo-Dark.svg" alt="Panopto" onerror="this.parentElement.innerHTML='<span style=&quot;font-weight:700;color:var(--gray-600);&quot;>Panopto</span>'">
+                    </div>
+                    <div class="vendor-logo" title="ServiceNow">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/ServiceNow_logo.svg/2560px-ServiceNow_logo.svg.png" alt="ServiceNow" onerror="this.parentElement.innerHTML='<span style=&quot;font-weight:700;color:var(--gray-600);&quot;>ServiceNow</span>'">
+                    </div>
+                    <div class="vendor-logo" title="Elgato">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Elgato_Logo.svg/2560px-Elgato_Logo.svg.png" alt="Elgato" onerror="this.parentElement.innerHTML='<span style=&quot;font-weight:700;color:var(--gray-600);&quot;>Elgato</span>'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI & Value Proposition -->
+    <section id="roi" class="section-alt">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Return on Investment</h2>
+                <p>Projected value creation and cost savings over the initiative lifecycle</p>
+            </div>
+
+            <div class="roi-grid">
+                <div class="roi-card">
+                    <div class="roi-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4>IT Support Reduction</h4>
+                    <div class="roi-value">40%</div>
+                    <div class="roi-desc">Fewer classroom AV support tickets through standardization and remote management</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Deployment Speed</h4>
+                    <div class="roi-value">75%</div>
+                    <div class="roi-desc">Faster device provisioning with zero-touch deployment via Jamf/Intune</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Space Utilization</h4>
+                    <div class="roi-value">+25%</div>
+                    <div class="roi-desc">Improved classroom scheduling through occupancy analytics</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-icon" style="background: linear-gradient(135deg, var(--auburn-orange), #c2410c);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4>Student Satisfaction</h4>
+                    <div class="roi-value">+30%</div>
+                    <div class="roi-desc">Enhanced learning experience with reliable technology and lecture recordings</div>
+                </div>
+            </div>
+
+            <div class="roi-timeline">
+                <h4><i class="fas fa-chart-line"></i> 5-Year Financial Projection</h4>
+                <div class="roi-bar-container">
+                    <div class="roi-bar-label">Year 1</div>
+                    <div class="roi-bar">
+                        <div class="roi-bar-fill cost" style="width: 100%;">Investment Phase - $4.2M</div>
+                    </div>
+                </div>
+                <div class="roi-bar-container">
+                    <div class="roi-bar-label">Year 2</div>
+                    <div class="roi-bar">
+                        <div class="roi-bar-fill cost" style="width: 75%;">$3.1M + Initial Savings</div>
+                    </div>
+                </div>
+                <div class="roi-bar-container">
+                    <div class="roi-bar-label">Year 3</div>
+                    <div class="roi-bar">
+                        <div class="roi-bar-fill savings" style="width: 30%;">Net Savings Begin - $800K</div>
+                    </div>
+                </div>
+                <div class="roi-bar-container">
+                    <div class="roi-bar-label">Year 4</div>
+                    <div class="roi-bar">
+                        <div class="roi-bar-fill savings" style="width: 50%;">Cumulative Savings - $1.4M</div>
+                    </div>
+                </div>
+                <div class="roi-bar-container">
+                    <div class="roi-bar-label">Year 5</div>
+                    <div class="roi-bar">
+                        <div class="roi-bar-fill savings" style="width: 70%;">Cumulative Savings - $2.1M</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 1.5rem; color: var(--gray-600); font-size: 0.85rem;">
+                    <i class="fas fa-info-circle" style="color: var(--auburn-orange);"></i>
+                    Projected payback period: <strong>3.5 years</strong> with continued savings thereafter
+                </p>
+            </div>
+
+            <!-- Comparison Table -->
+            <div style="margin-top: 3rem;">
+                <h3 style="text-align: center; color: var(--auburn-navy); margin-bottom: 1.5rem; font-size: 1.35rem;">Current State vs. Proposed State</h3>
+                <div class="comparison-container">
+                    <div class="comparison-header">
+                        <div>Capability</div>
+                        <div class="current-col">Current</div>
+                        <div class="proposed-col">Proposed</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="feature-col"><i class="fas fa-video"></i> Lecture Recording</div>
+                        <div class="current-col"><i class="fas fa-times-circle comparison-icon-bad"></i> Manual / Limited</div>
+                        <div class="proposed-col"><i class="fas fa-check-circle"></i> Automated Campus-wide</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="feature-col"><i class="fas fa-laptop"></i> Device Management</div>
+                        <div class="current-col"><i class="fas fa-minus-circle comparison-icon-partial"></i> Fragmented</div>
+                        <div class="proposed-col"><i class="fas fa-check-circle"></i> Unified Platform</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="feature-col"><i class="fas fa-network-wired"></i> AV Infrastructure</div>
+                        <div class="current-col"><i class="fas fa-minus-circle comparison-icon-partial"></i> Mixed Systems</div>
+                        <div class="proposed-col"><i class="fas fa-check-circle"></i> Standardized Q-SYS</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="feature-col"><i class="fas fa-users"></i> Occupancy Data</div>
+                        <div class="current-col"><i class="fas fa-times-circle comparison-icon-bad"></i> None</div>
+                        <div class="proposed-col"><i class="fas fa-check-circle"></i> Real-time Analytics</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="feature-col"><i class="fas fa-broadcast-tower"></i> Gameday Experience</div>
+                        <div class="current-col"><i class="fas fa-minus-circle comparison-icon-partial"></i> Stadium Only</div>
+                        <div class="proposed-col"><i class="fas fa-check-circle"></i> Campus-wide Immersive</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="feature-col"><i class="fas fa-tools"></i> Remote Troubleshooting</div>
+                        <div class="current-col"><i class="fas fa-times-circle comparison-icon-bad"></i> On-site Required</div>
+                        <div class="proposed-col"><i class="fas fa-check-circle"></i> Full Remote Access</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="feature-col"><i class="fas fa-closed-captioning"></i> Accessibility</div>
+                        <div class="current-col"><i class="fas fa-minus-circle comparison-icon-partial"></i> Partial Compliance</div>
+                        <div class="proposed-col"><i class="fas fa-check-circle"></i> Full ADA/508 Compliance</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1849,43 +2418,43 @@
                 <div class="gantt-row">
                     <div class="gantt-label"><i style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);"><i class="fas fa-network-wired"></i></i> Q-SYS Ecosystem</div>
                     <div class="gantt-bar-container">
-                        <div class="gantt-bar" style="left: 0%; width: 75%; background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);">Months 1-18</div>
+                        <div class="gantt-bar" style="left: 0%; width: 75%; background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);" data-tooltip="Core deployment: Athletics (M1-6), Academic Buildings (M7-12), Campus-wide (M13-18)">Months 1-18</div>
                     </div>
                 </div>
                 <div class="gantt-row">
                     <div class="gantt-label"><i style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"><i class="fas fa-map-signs"></i></i> Gameday</div>
                     <div class="gantt-bar-container">
-                        <div class="gantt-bar" style="left: 8%; width: 50%; background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);">Months 3-15</div>
+                        <div class="gantt-bar" style="left: 8%; width: 50%; background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);" data-tooltip="Signage install (M3-6), Speaker systems (M7-10), WiFi expansion (M11-15)">Months 3-15</div>
                     </div>
                 </div>
                 <div class="gantt-row">
                     <div class="gantt-label"><i style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><i class="fas fa-video"></i></i> AI Cameras</div>
                     <div class="gantt-bar-container">
-                        <div class="gantt-bar" style="left: 4%; width: 58%; background: linear-gradient(90deg, #10b981 0%, #059669 100%);">Months 2-16</div>
+                        <div class="gantt-bar" style="left: 4%; width: 58%; background: linear-gradient(90deg, #10b981 0%, #059669 100%);" data-tooltip="Pilot (M2-4), High-priority classrooms (M5-10), Full rollout (M11-16)">Months 2-16</div>
                     </div>
                 </div>
                 <div class="gantt-row">
                     <div class="gantt-label"><i style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);"><i class="fas fa-laptop"></i></i> Device Mgmt</div>
                     <div class="gantt-bar-container">
-                        <div class="gantt-bar" style="left: 0%; width: 50%; background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%);">Months 1-12</div>
+                        <div class="gantt-bar" style="left: 0%; width: 50%; background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%);" data-tooltip="MDM pilot 500 devices (M1-3), Phased enrollment (M4-9), Full 8K+ coverage (M10-12)">Months 1-12</div>
                     </div>
                 </div>
                 <div class="gantt-row">
                     <div class="gantt-label"><i style="background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);"><i class="fas fa-users"></i></i> People Tracking</div>
                     <div class="gantt-bar-container">
-                        <div class="gantt-bar" style="left: 4%; width: 54%; background: linear-gradient(90deg, #ec4899 0%, #db2777 100%);">Months 2-15</div>
+                        <div class="gantt-bar" style="left: 4%; width: 54%; background: linear-gradient(90deg, #ec4899 0%, #db2777 100%);" data-tooltip="Sensor pilot 2 locations (M2-5), Athletics venues (M6-10), Academic buildings (M11-15)">Months 2-15</div>
                     </div>
                 </div>
                 <div class="gantt-row">
                     <div class="gantt-label"><i style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);"><i class="fas fa-cloud"></i></i> Cloud Recording</div>
                     <div class="gantt-bar-container">
-                        <div class="gantt-bar" style="left: 25%; width: 42%; background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);">Months 7-17</div>
+                        <div class="gantt-bar" style="left: 25%; width: 42%; background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);" data-tooltip="Platform selection (M7-8), Canvas integration (M9-12), Full deployment (M13-17)">Months 7-17</div>
                     </div>
                 </div>
                 <div class="gantt-row">
                     <div class="gantt-label"><i style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);"><i class="fas fa-keyboard"></i></i> Stream Deck</div>
                     <div class="gantt-bar-container">
-                        <div class="gantt-bar" style="left: 25%; width: 50%; background: linear-gradient(90deg, #6366f1 0%, #4f46e5 100%);">Months 7-19</div>
+                        <div class="gantt-bar" style="left: 25%; width: 50%; background: linear-gradient(90deg, #6366f1 0%, #4f46e5 100%);" data-tooltip="Profile development (M7-8), Pilot 50 rooms (M9-12), Campus rollout (M13-19)">Months 7-19</div>
                     </div>
                 </div>
             </div>
@@ -1992,6 +2561,103 @@
                 <div class="milestone-date">Month 18</div>
             </div>
 
+        </div>
+    </section>
+
+    <!-- Risk Mitigation -->
+    <section id="risks">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Risk Mitigation</h2>
+                <p>Proactive strategies to address potential challenges and ensure project success</p>
+            </div>
+
+            <div class="risk-grid">
+                <div class="risk-card">
+                    <h4><i class="fas fa-calendar-times"></i> Timeline Delays</h4>
+                    <span class="risk-level medium"><i class="fas fa-exclamation-triangle"></i> Medium Risk</span>
+                    <p>Supply chain disruptions or vendor availability could impact equipment delivery timelines.</p>
+                    <div class="mitigation">
+                        <div class="mitigation-label">Mitigation Strategy</div>
+                        <div class="mitigation-text">Early procurement of long-lead items, multiple vendor relationships, and 15% schedule buffer built into each phase.</div>
+                    </div>
+                </div>
+
+                <div class="risk-card">
+                    <h4><i class="fas fa-user-slash"></i> Staff Adoption</h4>
+                    <span class="risk-level medium"><i class="fas fa-exclamation-triangle"></i> Medium Risk</span>
+                    <p>Faculty and staff resistance to new technology or workflows could slow adoption.</p>
+                    <div class="mitigation">
+                        <div class="mitigation-label">Mitigation Strategy</div>
+                        <div class="mitigation-text">Phased training program, faculty champions program, 24/7 support hotline, and intuitive Stream Deck interfaces.</div>
+                    </div>
+                </div>
+
+                <div class="risk-card">
+                    <h4><i class="fas fa-plug"></i> Integration Complexity</h4>
+                    <span class="risk-level low"><i class="fas fa-shield-alt"></i> Low Risk</span>
+                    <p>Multiple systems (Q-SYS, Jamf, Canvas, Panopto) require seamless integration.</p>
+                    <div class="mitigation">
+                        <div class="mitigation-label">Mitigation Strategy</div>
+                        <div class="mitigation-text">Pre-validated integration playbooks, pilot testing in isolated environments, and dedicated integration sprint in Phase 1.</div>
+                    </div>
+                </div>
+
+                <div class="risk-card">
+                    <h4><i class="fas fa-dollar-sign"></i> Budget Overruns</h4>
+                    <span class="risk-level low"><i class="fas fa-shield-alt"></i> Low Risk</span>
+                    <p>Unforeseen infrastructure requirements or scope changes could increase costs.</p>
+                    <div class="mitigation">
+                        <div class="mitigation-label">Mitigation Strategy</div>
+                        <div class="mitigation-text">10% contingency built into estimates, fixed-price contracts where possible, and monthly budget reviews with stakeholders.</div>
+                    </div>
+                </div>
+
+                <div class="risk-card">
+                    <h4><i class="fas fa-network-wired"></i> Network Capacity</h4>
+                    <span class="risk-level medium"><i class="fas fa-exclamation-triangle"></i> Medium Risk</span>
+                    <p>Existing network infrastructure may require upgrades to support new AV traffic.</p>
+                    <div class="mitigation">
+                        <div class="mitigation-label">Mitigation Strategy</div>
+                        <div class="mitigation-text">Network assessment in Phase 1, VLAN segmentation for AV traffic, and partnership with campus IT for infrastructure upgrades.</div>
+                    </div>
+                </div>
+
+                <div class="risk-card">
+                    <h4><i class="fas fa-shield-alt"></i> Security & Privacy</h4>
+                    <span class="risk-level low"><i class="fas fa-shield-alt"></i> Low Risk</span>
+                    <p>People tracking and recording systems require careful privacy considerations.</p>
+                    <div class="mitigation">
+                        <div class="mitigation-label">Mitigation Strategy</div>
+                        <div class="mitigation-text">FERPA-compliant design, opt-out mechanisms, data anonymization, and clear signage in monitored areas.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contingency Plan Summary -->
+            <div style="margin-top: 2.5rem; background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%); border-radius: 16px; padding: 2rem;">
+                <h4 style="color: white; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-life-ring" style="color: var(--auburn-orange);"></i> Contingency Protocols
+                </h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--auburn-orange);">15%</div>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.85rem;">Schedule Buffer</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--auburn-orange);">10%</div>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.85rem;">Budget Contingency</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--auburn-orange);">3</div>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.85rem;">Backup Vendors</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.75rem; font-weight: 800; color: var(--auburn-orange);">24/7</div>
+                        <div style="color: rgba(255,255,255,0.8); font-size: 0.85rem;">Emergency Support</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2105,6 +2771,48 @@
             } else {
                 navbar.classList.remove('scrolled');
             }
+        });
+
+        // Floating TOC visibility and active state
+        const floatingToc = document.getElementById('floatingToc');
+        const tocLinks = floatingToc.querySelectorAll('a');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', function() {
+            // Show/hide floating TOC
+            if (window.scrollY > window.innerHeight * 0.8) {
+                floatingToc.classList.add('visible');
+            } else {
+                floatingToc.classList.remove('visible');
+            }
+
+            // Update active state
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 200;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         });
     </script>
 </body>
