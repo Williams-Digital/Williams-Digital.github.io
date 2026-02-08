@@ -65,6 +65,1265 @@
         .back-btn:hover { background: var(--auburn-orange); }
         footer { background: var(--auburn-navy); color: rgba(255,255,255,0.7); padding: 2rem; text-align: center; font-size: 0.9rem; }
         @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } }
+
+        /* Enhanced Hero */
+        .page-hero {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center;
+            background-size: cover;
+            opacity: 0.25;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(221, 85, 12, 0.2);
+            border: 1px solid var(--auburn-orange);
+            color: var(--auburn-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .hero-tagline {
+            font-size: 1.35rem;
+            color: var(--auburn-orange);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .hero-stat {
+            text-align: left;
+        }
+        .hero-stat-value {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--auburn-orange);
+            line-height: 1;
+        }
+        .hero-stat-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Camera Mockup Section */
+        .camera-showcase {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+        }
+        .camera-showcase-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .camera-showcase-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .camera-showcase-header h2 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .camera-showcase-header p {
+            color: rgba(255,255,255,0.7);
+        }
+        .camera-device {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .camera-frame {
+            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .camera-lens {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a1a1a 0%, #3a3a4a 50%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 3px solid #4a4a5a;
+        }
+        .camera-lens-inner {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #2a2a3a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #3a3a4a;
+        }
+        .camera-lens-core {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #3b82f6 0%, #1d4ed8 50%, #0a0a0a 100%);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        .camera-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(16, 185, 129, 0.8); }
+            50% { opacity: 0.6; box-shadow: 0 0 20px rgba(16, 185, 129, 1); }
+        }
+        .tracking-arc {
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            border: 3px dashed rgba(221, 85, 12, 0.4);
+            border-bottom: none;
+            border-radius: 150px 150px 0 0;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .tracking-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--auburn-orange);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(221, 85, 12, 0.6);
+            animation: trackMove 4s ease-in-out infinite;
+        }
+        @keyframes trackMove {
+            0%, 100% { top: 60px; left: 10px; }
+            50% { top: -5px; left: 280px; }
+        }
+        .camera-features-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        .camera-feature-item {
+            text-align: center;
+            color: white;
+        }
+        .camera-feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            font-size: 1.25rem;
+            color: var(--auburn-orange);
+        }
+        .camera-feature-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .camera-feature-item p {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Before/After Comparison */
+        .comparison-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .comparison-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .comparison-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .comparison-header p {
+            color: var(--gray-600);
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .comparison-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .comparison-card.before {
+            border: 3px solid #fecaca;
+        }
+        .comparison-card.after {
+            border: 3px solid #bbf7d0;
+        }
+        .comparison-card-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .comparison-card.before .comparison-card-header {
+            background: #fef2f2;
+        }
+        .comparison-card.after .comparison-card-header {
+            background: #f0fdf4;
+        }
+        .comparison-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .comparison-card.before .comparison-card-icon {
+            background: #fecaca;
+            color: #991b1b;
+        }
+        .comparison-card.after .comparison-card-icon {
+            background: #bbf7d0;
+            color: #166534;
+        }
+        .comparison-card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .comparison-card.before .comparison-card-header h3 { color: #991b1b; }
+        .comparison-card.after .comparison-card-header h3 { color: #166534; }
+        .comparison-visual {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a2e;
+            position: relative;
+        }
+        .manual-setup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .camera-tripod {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .manual-camera {
+            width: 60px;
+            height: 40px;
+            background: #4a4a5a;
+            border-radius: 8px;
+            position: relative;
+        }
+        .manual-camera::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 20px;
+            background: #3a3a4a;
+            border-radius: 4px 0 0 4px;
+        }
+        .tripod-legs {
+            width: 2px;
+            height: 50px;
+            background: #4a4a5a;
+        }
+        .operator-icon {
+            font-size: 2.5rem;
+            color: #6b7280;
+        }
+        .auto-capture {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .ai-camera-mini {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2a2a3a 0%, #1a1a2a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .ai-camera-mini::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        .ai-camera-mini .tracking-lines {
+            position: absolute;
+            width: 100px;
+            height: 60px;
+            border: 2px dashed rgba(16, 185, 129, 0.5);
+            border-left: none;
+            border-radius: 0 30px 30px 0;
+            left: 50px;
+        }
+        .presenter-silhouette {
+            width: 40px;
+            height: 80px;
+            background: linear-gradient(180deg, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 20px 20px 8px 8px;
+            position: relative;
+        }
+        .presenter-silhouette::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+            background: rgba(16, 185, 129, 0.3);
+            border-radius: 50%;
+        }
+        .comparison-card-body {
+            padding: 1.5rem;
+            background: white;
+        }
+        .comparison-list {
+            list-style: none;
+        }
+        .comparison-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .comparison-card.before .comparison-list li { color: #991b1b; }
+        .comparison-card.after .comparison-list li { color: #166534; }
+        .comparison-list li i {
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        /* Workflow Diagram */
+        .workflow-section {
+            padding: 5rem 2rem;
+        }
+        .workflow-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .workflow-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .workflow-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .workflow-header p {
+            color: var(--gray-600);
+        }
+        .workflow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            flex-wrap: wrap;
+        }
+        .workflow-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+        .workflow-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            color: white;
+        }
+        .workflow-step h4 {
+            color: var(--auburn-navy);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .workflow-step p {
+            color: var(--gray-600);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        .workflow-arrow {
+            font-size: 1.5rem;
+            color: var(--auburn-orange);
+            flex-shrink: 0;
+        }
+
+        /* Video Player Mockup */
+        .player-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+        }
+        .player-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .player-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .player-header h2 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .player-header p {
+            color: rgba(255,255,255,0.7);
+        }
+        .player-mockup {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            background: #0a0a14;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .video-area {
+            padding: 1rem;
+        }
+        .video-screen {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
+            border-radius: 8px;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .video-presenter {
+            width: 80px;
+            height: 140px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 40px 40px 20px 20px;
+            position: absolute;
+            left: 20%;
+        }
+        .video-presenter::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .video-slide {
+            position: absolute;
+            right: 10%;
+            width: 40%;
+            height: 60%;
+            background: rgba(255,255,255,0.9);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            padding: 0.5rem;
+        }
+        .slide-title-bar {
+            height: 15%;
+            background: var(--auburn-navy);
+            border-radius: 2px;
+            margin-bottom: 0.5rem;
+        }
+        .slide-content-lines {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .slide-line {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 2px;
+        }
+        .slide-line:nth-child(odd) { width: 90%; }
+        .slide-line:nth-child(even) { width: 70%; }
+        .video-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0,0,0,0.5);
+            margin-top: 0.5rem;
+            border-radius: 8px;
+        }
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--auburn-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 35%;
+            height: 100%;
+            background: var(--auburn-orange);
+            border-radius: 3px;
+        }
+        .time-display {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+        .transcript-area {
+            background: #12121f;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .transcript-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 0.75rem;
+        }
+        .transcript-header h4 {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .transcript-search {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 4px;
+            padding: 0.35rem 0.5rem;
+            color: white;
+            font-size: 0.75rem;
+            width: 100px;
+        }
+        .transcript-content {
+            flex: 1;
+            overflow: hidden;
+        }
+        .transcript-line {
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .transcript-line:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .transcript-line.active {
+            background: rgba(221, 85, 12, 0.2);
+            border-left: 3px solid var(--auburn-orange);
+        }
+        .transcript-time {
+            color: var(--auburn-orange);
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .transcript-text {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        .chapters-section {
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .chapters-title {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+        .chapter-item:hover {
+            color: var(--auburn-orange);
+        }
+        .chapter-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--auburn-orange);
+            border-radius: 50%;
+        }
+
+        /* AI Features Showcase */
+        .ai-showcase-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .ai-showcase-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .ai-showcase-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .ai-showcase-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .ai-showcase-header p {
+            color: var(--gray-600);
+        }
+        .ai-showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        .ai-showcase-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .ai-showcase-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--auburn-orange);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+        .ai-showcase-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin: 0 auto 1rem;
+            color: white;
+        }
+        .ai-showcase-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+        .ai-showcase-card p {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        .ai-showcase-tag {
+            display: inline-block;
+            background: rgba(221, 85, 12, 0.1);
+            color: var(--auburn-orange);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            margin-top: 0.75rem;
+        }
+
+        /* Room Types Gallery */
+        .rooms-gallery-section {
+            padding: 5rem 2rem;
+        }
+        .rooms-gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .rooms-gallery-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .rooms-gallery-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .rooms-gallery-header p {
+            color: var(--gray-600);
+        }
+        .rooms-carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        .rooms-track {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+        .room-slide {
+            min-width: 350px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 2px solid var(--gray-200);
+        }
+        .room-slide-visual {
+            height: 160px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .room-slide-visual.lecture-hall { background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%); }
+        .room-slide-visual.medium-room { background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); }
+        .room-slide-visual.seminar { background: linear-gradient(135deg, #553c9a 0%, #2d2a4a 100%); }
+        .room-slide-visual.lab-space { background: linear-gradient(135deg, #065f46 0%, #064e3b 100%); }
+        .room-slide-visual.studio { background: linear-gradient(135deg, #92400e 0%, #78350f 100%); }
+        .room-camera-setup {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .room-camera-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+        .room-seats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+            max-width: 80px;
+        }
+        .room-seat {
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+        }
+        .room-slide-content {
+            padding: 1.5rem;
+        }
+        .room-slide h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+        .room-slide-capacity {
+            font-size: 0.85rem;
+            color: var(--auburn-orange);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        .room-slide p {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .room-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .room-feature {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: var(--gray-50);
+            padding: 0.35rem 0.65rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--gray-700);
+        }
+        .room-feature i {
+            color: var(--auburn-orange);
+            font-size: 0.65rem;
+        }
+        .rooms-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .rooms-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--auburn-navy);
+            background: white;
+            color: var(--auburn-navy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .rooms-btn:hover {
+            background: var(--auburn-navy);
+            color: white;
+        }
+        .rooms-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .rooms-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .rooms-indicator.active {
+            background: var(--auburn-orange);
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .testimonials-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .testimonials-header p {
+            color: var(--gray-600);
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            font-family: Georgia, serif;
+            color: var(--auburn-orange);
+            opacity: 0.2;
+            line-height: 1;
+        }
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--auburn-navy), #0a3a6e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+        .author-info h5 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+        }
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        /* LMS Integration Hub */
+        .integration-section {
+            padding: 5rem 2rem;
+        }
+        .integration-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .integration-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .integration-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .integration-header p {
+            color: var(--gray-600);
+        }
+        .integration-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .integration-hub {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(3, 36, 77, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        .integration-hub i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--auburn-orange);
+        }
+        .integration-hub span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .integration-connections {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .integration-item {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            min-width: 220px;
+        }
+        .integration-item:hover {
+            border-color: var(--auburn-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        .integration-item-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .integration-item h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.15rem;
+        }
+        .integration-item p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        /* Stats Dashboard */
+        .stats-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+        }
+        .stats-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .stats-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .stats-header h2 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .stats-header p {
+            color: rgba(255,255,255,0.7);
+        }
+        .stats-dashboard {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .stats-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+        }
+        .stats-title {
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .stats-title i { color: var(--auburn-orange); }
+        .stats-period {
+            background: rgba(255,255,255,0.1);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.8rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .stat-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .stat-card-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+        }
+        .stat-card-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        .stat-card-change {
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .stat-card-change.positive { color: #10b981; }
+        .stat-card-change.neutral { color: rgba(255,255,255,0.5); }
+        .stats-chart-area {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .chart-title {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .chart-legend {
+            display: flex;
+            gap: 1rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.75rem;
+            height: 120px;
+        }
+        .chart-bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .chart-bar-pair {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 100px;
+        }
+        .chart-bar {
+            width: 16px;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.5s ease;
+        }
+        .chart-bar.views { background: linear-gradient(180deg, #3b82f6, #1d4ed8); }
+        .chart-bar.completions { background: linear-gradient(180deg, #10b981, #059669); }
+        .chart-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 900px) {
+            .comparison-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .workflow-diagram { flex-direction: column; }
+            .workflow-arrow { transform: rotate(90deg); }
+            .integration-diagram { flex-direction: column; }
+            .integration-connections { grid-template-columns: 1fr; }
+            .player-mockup { grid-template-columns: 1fr; }
+            .ai-showcase-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .room-slide { min-width: 300px; }
+        }
+        @media (max-width: 600px) {
+            .hero-stats { gap: 1.5rem; }
+            .ai-showcase-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -89,8 +1348,308 @@
                 <i class="fas fa-chevron-right"></i>
                 <span>AI Lecture Capture</span>
             </div>
-            <h1><i class="fas fa-robot"></i> AI-Powered Lecture Capture</h1>
-            <p>Deploy intelligent camera systems with AI-driven tracking to automatically capture lectures without requiring dedicated operators or faculty interaction.</p>
+            <div class="hero-badge">
+                <i class="fas fa-robot"></i>
+                Zero-Touch Recording Technology
+            </div>
+            <h1>Every Lecture. Captured Automatically.</h1>
+            <p class="hero-tagline">AI cameras that track, record, and publish — no operator needed.</p>
+            <p>Deploy intelligent camera systems with AI-driven tracking to automatically capture lectures without requiring dedicated operators or faculty interaction. Students get every lecture, faculty do nothing extra.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">100%</div>
+                    <div class="hero-stat-label">Capture Rate</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">Zero</div>
+                    <div class="hero-stat-label">Faculty Effort</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">4K</div>
+                    <div class="hero-stat-label">AI Tracking</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">Same Day</div>
+                    <div class="hero-stat-label">LMS Publish</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Camera Mockup -->
+    <section class="camera-showcase">
+        <div class="camera-showcase-container">
+            <div class="camera-showcase-header">
+                <h2>AI That Follows the Action</h2>
+                <p>Intelligent cameras that automatically track presenters across the teaching space</p>
+            </div>
+            <div class="camera-device">
+                <div class="tracking-arc">
+                    <div class="tracking-dot"></div>
+                </div>
+                <div class="camera-frame">
+                    <div class="camera-indicator"></div>
+                    <div class="camera-lens">
+                        <div class="camera-lens-inner">
+                            <div class="camera-lens-core"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="camera-features-row">
+                <div class="camera-feature-item">
+                    <div class="camera-feature-icon"><i class="fas fa-crosshairs"></i></div>
+                    <h4>Auto-Tracking</h4>
+                    <p>Follows presenter movement</p>
+                </div>
+                <div class="camera-feature-item">
+                    <div class="camera-feature-icon"><i class="fas fa-brain"></i></div>
+                    <h4>AI Scene Detection</h4>
+                    <p>Switches views intelligently</p>
+                </div>
+                <div class="camera-feature-item">
+                    <div class="camera-feature-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <h4>180° Coverage</h4>
+                    <p>Full teaching area capture</p>
+                </div>
+                <div class="camera-feature-item">
+                    <div class="camera-feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h4>Instant Response</h4>
+                    <p>Sub-200ms adjustments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Comparison -->
+    <section class="comparison-section">
+        <div class="comparison-container">
+            <div class="comparison-header">
+                <h2>The Future of Lecture Recording</h2>
+                <p>See how AI automation transforms the capture experience</p>
+            </div>
+            <div class="comparison-grid">
+                <div class="comparison-card before">
+                    <div class="comparison-card-header">
+                        <div class="comparison-card-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Traditional Manual Capture</h3>
+                    </div>
+                    <div class="comparison-visual">
+                        <div class="manual-setup">
+                            <div class="camera-tripod">
+                                <div class="manual-camera"></div>
+                                <div class="tripod-legs"></div>
+                            </div>
+                            <div class="operator-icon"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="comparison-card-body">
+                        <ul class="comparison-list">
+                            <li><i class="fas fa-times-circle"></i> Requires trained camera operator</li>
+                            <li><i class="fas fa-times-circle"></i> High labor cost per recording</li>
+                            <li><i class="fas fa-times-circle"></i> Inconsistent capture quality</li>
+                            <li><i class="fas fa-times-circle"></i> Limited rooms can be recorded</li>
+                            <li><i class="fas fa-times-circle"></i> Faculty must request recording</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="comparison-card after">
+                    <div class="comparison-card-header">
+                        <div class="comparison-card-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>AI-Powered Auto-Capture</h3>
+                    </div>
+                    <div class="comparison-visual">
+                        <div class="auto-capture">
+                            <div class="ai-camera-mini">
+                                <div class="tracking-lines"></div>
+                            </div>
+                            <div class="presenter-silhouette"></div>
+                        </div>
+                    </div>
+                    <div class="comparison-card-body">
+                        <ul class="comparison-list">
+                            <li><i class="fas fa-check-circle"></i> Fully automated — zero staff needed</li>
+                            <li><i class="fas fa-check-circle"></i> One-time installation, ongoing value</li>
+                            <li><i class="fas fa-check-circle"></i> Consistent professional quality</li>
+                            <li><i class="fas fa-check-circle"></i> Every classroom equipped</li>
+                            <li><i class="fas fa-check-circle"></i> Recordings happen automatically</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capture Workflow Diagram -->
+    <section class="workflow-section">
+        <div class="workflow-container">
+            <div class="workflow-header">
+                <h2>From Classroom to Canvas — Automatically</h2>
+                <p>The complete automated lecture capture workflow</p>
+            </div>
+            <div class="workflow-diagram">
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h4>Schedule Sync</h4>
+                    <p>Class times imported from registrar automatically</p>
+                </div>
+                <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h4>Auto-Record</h4>
+                    <p>AI camera starts capture at class time, tracks presenter</p>
+                </div>
+                <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h4>AI Processing</h4>
+                    <p>Transcription, chapters, and searchable content generated</p>
+                </div>
+                <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="fas fa-closed-captioning"></i>
+                    </div>
+                    <h4>Transcribe</h4>
+                    <p>Full captions in 50+ languages for accessibility</p>
+                </div>
+                <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, var(--auburn-orange), #b84400);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4>LMS Publish</h4>
+                    <p>Video appears in Canvas course same day</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Player Mockup with Transcript -->
+    <section class="player-section">
+        <div class="player-container">
+            <div class="player-header">
+                <h2>The Student Experience</h2>
+                <p>Search, navigate, and review lectures with AI-powered tools</p>
+            </div>
+            <div class="player-mockup">
+                <div class="video-area">
+                    <div class="video-screen">
+                        <div class="video-presenter"></div>
+                        <div class="video-slide">
+                            <div class="slide-title-bar"></div>
+                            <div class="slide-content-lines">
+                                <div class="slide-line"></div>
+                                <div class="slide-line"></div>
+                                <div class="slide-line"></div>
+                                <div class="slide-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-controls">
+                        <div class="play-btn"><i class="fas fa-pause"></i></div>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                        <div class="time-display">12:47 / 48:32</div>
+                    </div>
+                </div>
+                <div class="transcript-area">
+                    <div class="transcript-header">
+                        <h4>Transcript</h4>
+                        <input type="text" class="transcript-search" placeholder="Search...">
+                    </div>
+                    <div class="transcript-content">
+                        <div class="transcript-line">
+                            <div class="transcript-time">11:32</div>
+                            <div class="transcript-text">...and that's why the supply curve shifts when production costs change.</div>
+                        </div>
+                        <div class="transcript-line active">
+                            <div class="transcript-time">12:47</div>
+                            <div class="transcript-text">Now let's look at how demand elasticity affects market equilibrium...</div>
+                        </div>
+                        <div class="transcript-line">
+                            <div class="transcript-time">13:15</div>
+                            <div class="transcript-text">When we calculate price elasticity, we use the midpoint formula...</div>
+                        </div>
+                    </div>
+                    <div class="chapters-section">
+                        <div class="chapters-title">Chapters</div>
+                        <div class="chapter-item"><div class="chapter-dot"></div> Introduction (0:00)</div>
+                        <div class="chapter-item"><div class="chapter-dot"></div> Supply & Demand (5:22)</div>
+                        <div class="chapter-item"><div class="chapter-dot"></div> Elasticity (12:47)</div>
+                        <div class="chapter-item"><div class="chapter-dot"></div> Market Equilibrium (28:10)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Features Visual Showcase -->
+    <section class="ai-showcase-section">
+        <div class="ai-showcase-container">
+            <div class="ai-showcase-header">
+                <h2>AI Features That Transform Learning</h2>
+                <p>Intelligent processing turns recordings into powerful study tools</p>
+            </div>
+            <div class="ai-showcase-grid">
+                <div class="ai-showcase-card">
+                    <div class="ai-showcase-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);"><i class="fas fa-user-check"></i></div>
+                    <h4>Speaker Tracking</h4>
+                    <p>Camera follows presenter automatically across the entire teaching space</p>
+                    <span class="ai-showcase-tag">Real-Time</span>
+                </div>
+                <div class="ai-showcase-card">
+                    <div class="ai-showcase-icon" style="background: linear-gradient(135deg, #10b981, #059669);"><i class="fas fa-crop-alt"></i></div>
+                    <h4>Auto-Framing</h4>
+                    <p>Intelligent zoom maintains optimal composition as presenter moves</p>
+                    <span class="ai-showcase-tag">Adaptive</span>
+                </div>
+                <div class="ai-showcase-card">
+                    <div class="ai-showcase-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fas fa-th-large"></i></div>
+                    <h4>Scene Detection</h4>
+                    <p>Switches between presenter, slides, and PiP based on activity</p>
+                    <span class="ai-showcase-tag">Automatic</span>
+                </div>
+                <div class="ai-showcase-card">
+                    <div class="ai-showcase-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);"><i class="fas fa-exchange-alt"></i></div>
+                    <h4>Multi-Camera</h4>
+                    <p>Seamlessly cuts between multiple camera angles like a production</p>
+                    <span class="ai-showcase-tag">Pro Quality</span>
+                </div>
+                <div class="ai-showcase-card">
+                    <div class="ai-showcase-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);"><i class="fas fa-book-open"></i></div>
+                    <h4>Chapter Markers</h4>
+                    <p>AI detects topic changes and creates navigable chapters</p>
+                    <span class="ai-showcase-tag">Smart Index</span>
+                </div>
+                <div class="ai-showcase-card">
+                    <div class="ai-showcase-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);"><i class="fas fa-search"></i></div>
+                    <h4>Content Search</h4>
+                    <p>Find any word spoken in any lecture across the semester</p>
+                    <span class="ai-showcase-tag">Searchable</span>
+                </div>
+                <div class="ai-showcase-card">
+                    <div class="ai-showcase-icon" style="background: linear-gradient(135deg, #84cc16, #65a30d);"><i class="fas fa-file-alt"></i></div>
+                    <h4>Slide Recognition</h4>
+                    <p>OCR extracts text from slides making visual content searchable</p>
+                    <span class="ai-showcase-tag">OCR</span>
+                </div>
+                <div class="ai-showcase-card">
+                    <div class="ai-showcase-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);"><i class="fas fa-question-circle"></i></div>
+                    <h4>Quiz Generation</h4>
+                    <p>AI creates practice questions from lecture content</p>
+                    <span class="ai-showcase-tag">Study Aid</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -349,6 +1908,397 @@
         </div>
     </section>
 
+    <!-- Room Types Gallery -->
+    <section class="rooms-gallery-section">
+        <div class="rooms-gallery-container">
+            <div class="rooms-gallery-header">
+                <h2>Capture Solutions for Every Space</h2>
+                <p>AI-powered recording configured for different classroom environments</p>
+            </div>
+            <div class="rooms-carousel">
+                <div class="rooms-track" id="roomsTrack">
+                    <div class="room-slide">
+                        <div class="room-slide-visual lecture-hall">
+                            <div class="room-camera-setup">
+                                <div class="room-camera-icon"><i class="fas fa-video"></i></div>
+                                <div class="room-seats">
+                                    <div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div>
+                                    <div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div>
+                                    <div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Large Lecture Halls</h4>
+                            <div class="room-slide-capacity">200-500 Seats</div>
+                            <p>Multi-camera setup with PTZ tracking, ceiling mics, and dedicated presentation capture for auditorium-style classrooms.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> Multi-Camera</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> PTZ Tracking</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Ceiling Arrays</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-slide">
+                        <div class="room-slide-visual medium-room">
+                            <div class="room-camera-setup">
+                                <div class="room-camera-icon"><i class="fas fa-video"></i></div>
+                                <div class="room-seats">
+                                    <div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div>
+                                    <div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div>
+                                    <div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Medium Classrooms</h4>
+                            <div class="room-slide-capacity">40-100 Seats</div>
+                            <p>Single AI camera with presenter tracking, integrated ceiling mic, and HDMI capture for standard classrooms.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> AI Tracking</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> HDMI Capture</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Ceiling Mic</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-slide">
+                        <div class="room-slide-visual seminar">
+                            <div class="room-camera-setup">
+                                <div class="room-camera-icon"><i class="fas fa-video"></i></div>
+                                <div class="room-seats">
+                                    <div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div>
+                                    <div class="room-seat"></div><div class="room-seat"></div><div class="room-seat"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Seminar Rooms</h4>
+                            <div class="room-slide-capacity">15-40 Seats</div>
+                            <p>Compact AI camera with multi-speaker tracking for discussion-based courses and collaborative settings.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> Multi-Speaker</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Discussion Mode</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Compact</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-slide">
+                        <div class="room-slide-visual lab-space">
+                            <div class="room-camera-setup">
+                                <div class="room-camera-icon"><i class="fas fa-video"></i></div>
+                                <div class="room-seats">
+                                    <div class="room-seat"></div><div class="room-seat"></div>
+                                    <div class="room-seat"></div><div class="room-seat"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Lab Spaces</h4>
+                            <div class="room-slide-capacity">20-50 Stations</div>
+                            <p>Overhead camera for demonstrations with close-up capture and instructor tracking for hands-on teaching.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> Overhead Cam</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Demo Focus</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Close-Up</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="room-slide">
+                        <div class="room-slide-visual studio">
+                            <div class="room-camera-setup">
+                                <div class="room-camera-icon"><i class="fas fa-video"></i></div>
+                                <div class="room-camera-icon"><i class="fas fa-video"></i></div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Recording Studios</h4>
+                            <div class="room-slide-capacity">On-Demand Recording</div>
+                            <p>Professional studio setup for faculty to record supplemental content with green screen and lighting.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> Green Screen</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Pro Lighting</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Teleprompter</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rooms-controls">
+                <button class="rooms-btn" onclick="moveRoomsGallery(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="rooms-btn" onclick="moveRoomsGallery(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="rooms-indicators">
+                <span class="rooms-indicator active" onclick="goToRoomSlide(0)"></span>
+                <span class="rooms-indicator" onclick="goToRoomSlide(1)"></span>
+                <span class="rooms-indicator" onclick="goToRoomSlide(2)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Faculty Testimonials -->
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="testimonials-header">
+                <h2>What Faculty Are Saying</h2>
+                <p>Real feedback from universities with automated lecture capture</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">I was skeptical at first — would an AI really capture my lectures well? But after a semester, students tell me the recordings are better than when we had a camera operator. And I don't have to do anything!</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info">
+                            <h5>Dr. Rebecca Foster</h5>
+                            <p>Professor of Chemistry</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The searchable transcripts changed how my students study. They can find exactly where I explained a concept and jump right to that moment. It's like having a textbook that links to video.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info">
+                            <h5>Prof. Marcus Chen</h5>
+                            <p>Economics Department</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">International students in my class are thriving now. The AI captions in their native language mean they can follow along better and review in a way that wasn't possible before.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info">
+                            <h5>Dr. Sarah Williams</h5>
+                            <p>College of Engineering</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">When I was out for surgery, every one of my lectures was still captured and available for students. Zero disruption. That's the kind of resilience our university needs.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info">
+                            <h5>Dr. James Rodriguez</h5>
+                            <p>History Department</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LMS Integration Hub -->
+    <section class="integration-section">
+        <div class="integration-container">
+            <div class="integration-header">
+                <h2>Seamless LMS Integration</h2>
+                <p>Recordings automatically appear where students already work — no extra steps</p>
+            </div>
+            <div class="integration-diagram">
+                <div class="integration-connections">
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #e44d26, #f16529);">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <h5>Canvas LMS</h5>
+                            <p>Auto-publish to course pages</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div>
+                            <h5>Panopto</h5>
+                            <p>Native video platform sync</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div>
+                            <h5>Kaltura</h5>
+                            <p>Enterprise video management</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Banner/Colleague</h5>
+                            <p>Schedule import automation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="integration-hub">
+                    <i class="fas fa-video"></i>
+                    <span>Lecture<br>Capture</span>
+                </div>
+                <div class="integration-connections">
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div>
+                            <h5>Cloud Storage</h5>
+                            <p>AWS/Azure media hosting</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                            <i class="fas fa-universal-access"></i>
+                        </div>
+                        <div>
+                            <h5>Accessibility Services</h5>
+                            <p>Auto-captions & transcripts</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h5>Learning Analytics</h5>
+                            <p>View & engagement tracking</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #84cc16, #65a30d);">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Mobile Apps</h5>
+                            <p>Watch anywhere, any device</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recording Stats Dashboard -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stats-header">
+                <h2>Analytics That Drive Results</h2>
+                <p>Track engagement, identify struggling students, and measure impact</p>
+            </div>
+            <div class="stats-dashboard">
+                <div class="stats-topbar">
+                    <div class="stats-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Lecture Capture Analytics
+                    </div>
+                    <div class="stats-period">Fall 2025 Semester</div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;"><i class="fas fa-video"></i></div>
+                            <span class="stat-card-label">Recordings</span>
+                        </div>
+                        <div class="stat-card-value">2,847</div>
+                        <div class="stat-card-change positive"><i class="fas fa-arrow-up"></i> 100% capture rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon" style="background: rgba(16, 185, 129, 0.2); color: #10b981;"><i class="fas fa-eye"></i></div>
+                            <span class="stat-card-label">Total Views</span>
+                        </div>
+                        <div class="stat-card-value">142K</div>
+                        <div class="stat-card-change positive"><i class="fas fa-arrow-up"></i> +34% vs last semester</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;"><i class="fas fa-clock"></i></div>
+                            <span class="stat-card-label">Avg. Watch Time</span>
+                        </div>
+                        <div class="stat-card-value">38min</div>
+                        <div class="stat-card-change positive"><i class="fas fa-arrow-up"></i> 78% completion</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon" style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6;"><i class="fas fa-search"></i></div>
+                            <span class="stat-card-label">Searches</span>
+                        </div>
+                        <div class="stat-card-value">18.4K</div>
+                        <div class="stat-card-change neutral">Avg 6.5 per student</div>
+                    </div>
+                </div>
+                <div class="stats-chart-area">
+                    <div class="chart-header">
+                        <span class="chart-title">Weekly Views & Completions</span>
+                        <div class="chart-legend">
+                            <div class="legend-item"><div class="legend-dot" style="background: #3b82f6;"></div> Views</div>
+                            <div class="legend-item"><div class="legend-dot" style="background: #10b981;"></div> Completions</div>
+                        </div>
+                    </div>
+                    <div class="chart-bars">
+                        <div class="chart-bar-group">
+                            <div class="chart-bar-pair">
+                                <div class="chart-bar views" style="height: 40px;"></div>
+                                <div class="chart-bar completions" style="height: 30px;"></div>
+                            </div>
+                            <span class="chart-label">W1</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar-pair">
+                                <div class="chart-bar views" style="height: 55px;"></div>
+                                <div class="chart-bar completions" style="height: 42px;"></div>
+                            </div>
+                            <span class="chart-label">W2</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar-pair">
+                                <div class="chart-bar views" style="height: 48px;"></div>
+                                <div class="chart-bar completions" style="height: 38px;"></div>
+                            </div>
+                            <span class="chart-label">W3</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar-pair">
+                                <div class="chart-bar views" style="height: 70px;"></div>
+                                <div class="chart-bar completions" style="height: 58px;"></div>
+                            </div>
+                            <span class="chart-label">W4</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar-pair">
+                                <div class="chart-bar views" style="height: 95px;"></div>
+                                <div class="chart-bar completions" style="height: 80px;"></div>
+                            </div>
+                            <span class="chart-label">W5</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar-pair">
+                                <div class="chart-bar views" style="height: 65px;"></div>
+                                <div class="chart-bar completions" style="height: 52px;"></div>
+                            </div>
+                            <span class="chart-label">W6</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar-pair">
+                                <div class="chart-bar views" style="height: 85px;"></div>
+                                <div class="chart-bar completions" style="height: 68px;"></div>
+                            </div>
+                            <span class="chart-label">W7</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar-pair">
+                                <div class="chart-bar views" style="height: 100px;"></div>
+                                <div class="chart-bar completions" style="height: 85px;"></div>
+                            </div>
+                            <span class="chart-label">W8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="back-section">
         <a href="../index.html#solutions" class="back-btn">
             <i class="fas fa-arrow-left"></i> Back to All Solutions
@@ -358,5 +2308,33 @@
     <footer>
         <p>Auburn University Campus Production Enhancement Proposal | Confidential</p>
     </footer>
+
+    <script>
+        // Room Types Gallery Carousel
+        let roomCurrentSlide = 0;
+        const roomsTrack = document.getElementById('roomsTrack');
+        const roomSlides = document.querySelectorAll('.room-slide');
+        const roomIndicators = document.querySelectorAll('.rooms-indicator');
+        const roomSlideWidth = 365;
+        const roomVisibleSlides = 3;
+        const roomMaxSlide = Math.max(0, roomSlides.length - roomVisibleSlides);
+
+        function moveRoomsGallery(direction) {
+            roomCurrentSlide = Math.max(0, Math.min(roomCurrentSlide + direction, roomMaxSlide));
+            updateRoomsGallery();
+        }
+
+        function goToRoomSlide(index) {
+            roomCurrentSlide = Math.min(index, roomMaxSlide);
+            updateRoomsGallery();
+        }
+
+        function updateRoomsGallery() {
+            roomsTrack.style.transform = `translateX(-${roomCurrentSlide * roomSlideWidth}px)`;
+            roomIndicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === roomCurrentSlide);
+            });
+        }
+    </script>
 </body>
 </html>
