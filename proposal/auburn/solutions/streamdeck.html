@@ -65,6 +65,967 @@
         .back-btn:hover { background: var(--auburn-orange); }
         footer { background: var(--auburn-navy); color: rgba(255,255,255,0.7); padding: 2rem; text-align: center; font-size: 0.9rem; }
         @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } .button-layout { grid-template-columns: repeat(3, 1fr); } }
+
+        /* Enhanced Hero */
+        .page-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center;
+            background-size: cover;
+            opacity: 0.2;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(221, 85, 12, 0.2);
+            border: 1px solid var(--auburn-orange);
+            color: var(--auburn-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .hero-tagline {
+            font-size: 1.35rem;
+            color: var(--auburn-orange);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .hero-stat {
+            text-align: left;
+        }
+        .hero-stat-value {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--auburn-orange);
+            line-height: 1;
+        }
+        .hero-stat-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Interactive Stream Deck Mockup */
+        .streamdeck-showcase {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+        }
+        .streamdeck-showcase-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .streamdeck-showcase-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .streamdeck-showcase-header h2 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .streamdeck-showcase-header p {
+            color: rgba(255,255,255,0.7);
+        }
+        .streamdeck-device {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .streamdeck-frame {
+            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .streamdeck-screen-bezel {
+            background: #0a0a0a;
+            border-radius: 12px;
+            padding: 0.5rem;
+        }
+        .streamdeck-buttons {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 0.5rem;
+        }
+        .sd-button {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 0.25rem;
+            border: 2px solid transparent;
+        }
+        .sd-button:hover {
+            transform: scale(1.08);
+            z-index: 10;
+        }
+        .sd-button:active {
+            transform: scale(0.95);
+        }
+        .sd-button i {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .sd-button.start {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+        .sd-button.start:hover {
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+        }
+        .sd-button.end {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+        }
+        .sd-button.record {
+            background: linear-gradient(135deg, var(--auburn-orange), #b84400);
+        }
+        .sd-button.record.active {
+            animation: recordPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 25px rgba(221, 85, 12, 0.6);
+        }
+        @keyframes recordPulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(221, 85, 12, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(221, 85, 12, 0.8); }
+        }
+        .sd-button.source {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        .sd-button.source.active {
+            border-color: #60a5fa;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        .sd-button.audio {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+        .sd-button.control {
+            background: linear-gradient(135deg, #374151, #1f2937);
+        }
+        .sd-button.help {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        .sd-button.muted::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 3px;
+            background: #ef4444;
+            transform: rotate(-45deg);
+        }
+        .streamdeck-label {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+        .streamdeck-label strong {
+            color: white;
+        }
+
+        /* Before/After Comparison */
+        .comparison-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .comparison-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .comparison-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .comparison-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .comparison-header p {
+            color: var(--gray-600);
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .comparison-card {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .comparison-card.before {
+            border: 3px solid #fecaca;
+        }
+        .comparison-card.after {
+            border: 3px solid #bbf7d0;
+        }
+        .comparison-card-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .comparison-card.before .comparison-card-header {
+            background: #fef2f2;
+        }
+        .comparison-card.after .comparison-card-header {
+            background: #f0fdf4;
+        }
+        .comparison-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .comparison-card.before .comparison-card-icon {
+            background: #fecaca;
+            color: #991b1b;
+        }
+        .comparison-card.after .comparison-card-icon {
+            background: #bbf7d0;
+            color: #166534;
+        }
+        .comparison-card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .comparison-card.before .comparison-card-header h3 { color: #991b1b; }
+        .comparison-card.after .comparison-card-header h3 { color: #166534; }
+        .comparison-visual {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a2e;
+            position: relative;
+        }
+        .touch-panel-mess {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+            padding: 1rem;
+            background: #2a2a3e;
+            border-radius: 8px;
+            width: 90%;
+        }
+        .touch-btn {
+            background: #3a3a4e;
+            border: 1px solid #4a4a5e;
+            border-radius: 4px;
+            padding: 0.4rem 0.2rem;
+            font-size: 0.45rem;
+            color: #888;
+            text-align: center;
+        }
+        .touch-btn.tiny { font-size: 0.35rem; padding: 0.25rem; }
+        .streamdeck-simple {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            padding: 1rem;
+            background: #1a1a1a;
+            border-radius: 12px;
+        }
+        .simple-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: white;
+        }
+        .simple-btn.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .simple-btn.blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .simple-btn.orange { background: linear-gradient(135deg, var(--auburn-orange), #b84400); }
+        .simple-btn.purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .simple-btn.gray { background: linear-gradient(135deg, #374151, #1f2937); }
+        .simple-btn.red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .comparison-card-body {
+            padding: 1.5rem;
+            background: white;
+        }
+        .comparison-list {
+            list-style: none;
+        }
+        .comparison-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .comparison-card.before .comparison-list li { color: #991b1b; }
+        .comparison-card.after .comparison-list li { color: #166534; }
+        .comparison-list li i {
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        /* Visual Workflow Diagram */
+        .workflow-section {
+            padding: 5rem 2rem;
+        }
+        .workflow-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .workflow-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .workflow-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .workflow-header p {
+            color: var(--gray-600);
+        }
+        .workflow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            flex-wrap: wrap;
+        }
+        .workflow-step {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+        .workflow-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.25rem;
+            margin: 0 auto 1rem;
+            color: white;
+        }
+        .workflow-step h4 {
+            color: var(--auburn-navy);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .workflow-step p {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .workflow-arrow {
+            font-size: 2rem;
+            color: var(--auburn-orange);
+            flex-shrink: 0;
+        }
+
+        /* Room Scenario Cards */
+        .scenarios-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .scenarios-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .scenarios-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .scenarios-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .scenarios-header p {
+            color: var(--gray-600);
+        }
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .scenario-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .scenario-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--auburn-orange);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+        .scenario-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .scenario-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+        }
+        .scenario-header h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+        }
+        .scenario-header p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin-top: 0.15rem;
+        }
+        .scenario-body {
+            padding: 1.5rem;
+        }
+        .scenario-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .scenario-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--auburn-orange), #f97316);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .step-content h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+        .step-content p {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            line-height: 1.4;
+        }
+        .scenario-result {
+            margin-top: 1.25rem;
+            padding: 0.75rem 1rem;
+            background: #f0fdf4;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .scenario-result i {
+            color: #10b981;
+            font-size: 1rem;
+        }
+        .scenario-result span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #166534;
+        }
+
+        /* Animated Button Demo */
+        .demo-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+        }
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .demo-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .demo-header h2 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .demo-header p {
+            color: rgba(255,255,255,0.7);
+        }
+        .demo-device {
+            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .demo-screen {
+            background: #0a0a0a;
+            border-radius: 12px;
+            padding: 1rem;
+        }
+        .demo-buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+        }
+        .demo-btn {
+            aspect-ratio: 1;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            font-size: 0.7rem;
+            font-weight: 600;
+            position: relative;
+            border: 2px solid transparent;
+        }
+        .demo-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 0.35rem;
+        }
+        .demo-btn:hover {
+            transform: scale(1.05);
+        }
+        .demo-btn:active, .demo-btn.pressed {
+            transform: scale(0.92);
+        }
+        .demo-btn.active {
+            border-color: white;
+            box-shadow: 0 0 20px currentColor;
+        }
+        .demo-btn.start { background: linear-gradient(135deg, #10b981, #059669); }
+        .demo-btn.source { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .demo-btn.record { background: linear-gradient(135deg, var(--auburn-orange), #b84400); }
+        .demo-btn.audio { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .demo-btn.control { background: linear-gradient(135deg, #374151, #1f2937); }
+        .demo-btn.end { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .demo-btn.help { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .demo-status {
+            margin-top: 1.5rem;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+        .demo-status-text {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .demo-status-text i {
+            margin-right: 0.5rem;
+            color: var(--auburn-orange);
+        }
+        .demo-instructions {
+            text-align: center;
+            margin-top: 1rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Room Types Gallery */
+        .rooms-gallery-section {
+            padding: 5rem 2rem;
+        }
+        .rooms-gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .rooms-gallery-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .rooms-gallery-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .rooms-gallery-header p {
+            color: var(--gray-600);
+        }
+        .rooms-carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        .rooms-track {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+        .room-slide {
+            min-width: 380px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 2px solid var(--gray-200);
+        }
+        .room-slide-visual {
+            height: 180px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .room-slide-visual.lecture { background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%); }
+        .room-slide-visual.conference { background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); }
+        .room-slide-visual.studio { background: linear-gradient(135deg, #553c9a 0%, #2d2a4a 100%); }
+        .room-slide-visual.huddle { background: linear-gradient(135deg, #065f46 0%, #064e3b 100%); }
+        .room-mini-deck {
+            display: grid;
+            gap: 4px;
+            padding: 0.75rem;
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+        .room-mini-deck.xl { grid-template-columns: repeat(8, 1fr); width: 180px; }
+        .room-mini-deck.mk2 { grid-template-columns: repeat(5, 1fr); width: 120px; }
+        .room-mini-deck.plus { grid-template-columns: repeat(4, 1fr); width: 100px; }
+        .mini-btn {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            background: #333;
+        }
+        .mini-btn.lit { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .mini-btn.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .mini-btn.orange { background: linear-gradient(135deg, var(--auburn-orange), #b84400); }
+        .mini-btn.red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .room-slide-content {
+            padding: 1.5rem;
+        }
+        .room-slide h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+        .room-slide-model {
+            font-size: 0.85rem;
+            color: var(--auburn-orange);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        .room-slide p {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        .room-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .room-feature {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: var(--gray-50);
+            padding: 0.35rem 0.65rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--gray-700);
+        }
+        .room-feature i {
+            color: var(--auburn-orange);
+            font-size: 0.65rem;
+        }
+        .rooms-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .rooms-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--auburn-navy);
+            background: white;
+            color: var(--auburn-navy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .rooms-btn:hover {
+            background: var(--auburn-navy);
+            color: white;
+        }
+        .rooms-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .rooms-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .rooms-indicator.active {
+            background: var(--auburn-orange);
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        /* Faculty Testimonials */
+        .testimonials-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .testimonials-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .testimonials-header p {
+            color: var(--gray-600);
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            position: relative;
+        }
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            font-family: Georgia, serif;
+            color: var(--auburn-orange);
+            opacity: 0.2;
+            line-height: 1;
+        }
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--auburn-navy), #0a3a6e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+        .author-info h5 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+        }
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        /* Integration Hub */
+        .integration-section {
+            padding: 5rem 2rem;
+        }
+        .integration-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .integration-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .integration-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .integration-header p {
+            color: var(--gray-600);
+        }
+        .integration-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .integration-hub {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(3, 36, 77, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        .integration-hub i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--auburn-orange);
+        }
+        .integration-hub span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .integration-connections {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .integration-item {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            min-width: 220px;
+        }
+        .integration-item:hover {
+            border-color: var(--auburn-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        .integration-item-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .integration-item h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.15rem;
+        }
+        .integration-item p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .comparison-grid { grid-template-columns: 1fr; }
+            .scenarios-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .workflow-diagram { flex-direction: column; }
+            .workflow-arrow { transform: rotate(90deg); }
+            .integration-diagram { flex-direction: column; }
+            .integration-connections { grid-template-columns: 1fr; }
+            .room-slide { min-width: 300px; }
+            .streamdeck-buttons { grid-template-columns: repeat(4, 1fr); }
+            .demo-buttons { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .hero-stats { gap: 1.5rem; }
+            .streamdeck-buttons { grid-template-columns: repeat(4, 1fr); }
+        }
     </style>
 </head>
 <body>
@@ -89,149 +1050,671 @@
                 <i class="fas fa-chevron-right"></i>
                 <span>Stream Deck Integration</span>
             </div>
-            <h1><i class="fas fa-th"></i> Stream Deck Integration</h1>
-            <p>Simplify classroom AV operations with intuitive, one-touch controls using Elgato Stream Deck hardware integrated with Q-SYS systems for faculty-friendly room management.</p>
-        </div>
-    </section>
-
-    <section>
-        <div class="section-container">
-            <div class="section-header">
-                <h2>One-Touch Room Controls</h2>
-                <p>Simplified AV operation that any faculty member can master in minutes</p>
+            <div class="hero-badge">
+                <i class="fas fa-magic"></i>
+                Faculty-Friendly Technology
             </div>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-play-circle"></i></div>
-                    <h3>Instant Room Start</h3>
-                    <p>Single button press powers on all AV equipment, sets default inputs, and prepares the room for instruction.</p>
-                    <table class="component-table">
-                        <tr><th>Action</th><th>Result</th></tr>
-                        <tr><td>"Start Class"</td><td>Powers projector, sets laptop input, enables audio</td></tr>
-                        <tr><td>"End Class"</td><td>Powers down all systems, blank screen</td></tr>
-                        <tr><td>"Quick Restart"</td><td>Resets room to default state</td></tr>
-                    </table>
+            <h1>One Touch. Every Control.</h1>
+            <p class="hero-tagline">Classroom AV that just works — no training required.</p>
+            <p>Replace complex touch panels with intuitive Stream Deck buttons. Visual icons mean faculty can start class, switch sources, and control recordings without ever calling IT.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">15 sec</div>
+                    <div class="hero-stat-label">Room Startup</div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-exchange-alt"></i></div>
-                    <h3>Source Selection</h3>
-                    <p>Dedicated buttons for each input source with visual feedback showing current selection.</p>
-                    <table class="component-table">
-                        <tr><th>Source</th><th>Button</th></tr>
-                        <tr><td>Laptop (HDMI)</td><td>Illuminated icon</td></tr>
-                        <tr><td>Document Camera</td><td>Illuminated icon</td></tr>
-                        <tr><td>Wireless Display</td><td>Illuminated icon</td></tr>
-                        <tr><td>Blu-ray/Media</td><td>Illuminated icon</td></tr>
-                    </table>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">50%</div>
+                    <div class="hero-stat-label">Fewer IT Calls</div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-volume-up"></i></div>
-                    <h3>Audio Controls</h3>
-                    <p>Intuitive volume adjustment with visual level indicators and mute functionality.</p>
-                    <table class="component-table">
-                        <tr><th>Control</th><th>Function</th></tr>
-                        <tr><td>Volume Up/Down</td><td>5% increments, visual meter</td></tr>
-                        <tr><td>Mute Toggle</td><td>Audio mute with red indicator</td></tr>
-                        <tr><td>Mic Mute</td><td>Separate microphone control</td></tr>
-                    </table>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">Zero</div>
+                    <div class="hero-stat-label">Training Needed</div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-video"></i></div>
-                    <h3>Recording Controls</h3>
-                    <p>One-touch lecture capture with clear recording status and pause functionality.</p>
-                    <table class="component-table">
-                        <tr><th>Control</th><th>Function</th></tr>
-                        <tr><td>Start Recording</td><td>Begins capture, shows red "REC"</td></tr>
-                        <tr><td>Pause</td><td>Temporarily stops, yellow indicator</td></tr>
-                        <tr><td>Stop & Save</td><td>Ends recording, confirms upload</td></tr>
-                    </table>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">Q-SYS</div>
+                    <div class="hero-stat-label">Native Integration</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-alt">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>Sample Classroom Layout</h2>
-                <p>Standard 15-button configuration for Auburn classrooms</p>
+    <!-- Interactive Stream Deck Showcase -->
+    <section class="streamdeck-showcase">
+        <div class="streamdeck-showcase-container">
+            <div class="streamdeck-showcase-header">
+                <h2>Visual Controls Faculty Actually Love</h2>
+                <p>Every button shows exactly what it does — no guessing, no menus, no frustration</p>
             </div>
-            <div class="feature-card" style="max-width: 600px; margin: 0 auto;">
-                <h3 style="text-align: center; margin-bottom: 1rem;">Stream Deck XL - Classroom Profile</h3>
-                <div class="button-layout">
-                    <div class="button-key green">START CLASS</div>
-                    <div class="button-key">Laptop</div>
-                    <div class="button-key">Doc Cam</div>
-                    <div class="button-key">Wireless</div>
-                    <div class="button-key">Blu-ray</div>
+            <div class="streamdeck-device">
+                <div class="streamdeck-frame">
+                    <div class="streamdeck-screen-bezel">
+                        <div class="streamdeck-buttons">
+                            <div class="sd-button start"><i class="fas fa-power-off"></i>START</div>
+                            <div class="sd-button source active"><i class="fas fa-laptop"></i>Laptop</div>
+                            <div class="sd-button source"><i class="fas fa-camera"></i>Doc Cam</div>
+                            <div class="sd-button source"><i class="fas fa-wifi"></i>Wireless</div>
+                            <div class="sd-button source"><i class="fas fa-compact-disc"></i>Blu-ray</div>
+                            <div class="sd-button audio"><i class="fas fa-volume-up"></i>Vol +</div>
+                            <div class="sd-button audio"><i class="fas fa-volume-down"></i>Vol -</div>
+                            <div class="sd-button control"><i class="fas fa-volume-mute"></i>Mute</div>
 
-                    <div class="button-key orange">REC</div>
-                    <div class="button-key">Pause</div>
-                    <div class="button-key">STOP</div>
-                    <div class="button-key">Vol +</div>
-                    <div class="button-key">Vol -</div>
-
-                    <div class="button-key">Mute</div>
-                    <div class="button-key">Mic Mute</div>
-                    <div class="button-key">Blank</div>
-                    <div class="button-key">Lights</div>
-                    <div class="button-key orange">END CLASS</div>
+                            <div class="sd-button record active"><i class="fas fa-circle"></i>REC</div>
+                            <div class="sd-button control"><i class="fas fa-pause"></i>Pause</div>
+                            <div class="sd-button control"><i class="fas fa-stop"></i>Stop</div>
+                            <div class="sd-button control"><i class="fas fa-microphone"></i>Mic</div>
+                            <div class="sd-button control"><i class="fas fa-tv"></i>Blank</div>
+                            <div class="sd-button control"><i class="fas fa-lightbulb"></i>Lights</div>
+                            <div class="sd-button help"><i class="fas fa-headset"></i>Help</div>
+                            <div class="sd-button end"><i class="fas fa-power-off"></i>END</div>
+                        </div>
+                    </div>
                 </div>
-                <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--gray-500);">Dynamic button icons change based on current state</p>
+                <div class="streamdeck-label">
+                    <strong>Stream Deck XL</strong> — 32 programmable keys with dynamic LCD icons
+                </div>
             </div>
         </div>
     </section>
 
-    <section>
-        <div class="section-container">
-            <div class="section-header">
-                <h2>Q-SYS Integration</h2>
-                <p>Seamless connection between Stream Deck and campus AV infrastructure</p>
+    <!-- Before/After Comparison -->
+    <section class="comparison-section">
+        <div class="comparison-container">
+            <div class="comparison-header">
+                <h2>The Difference Is Obvious</h2>
+                <p>See why faculty prefer dedicated buttons over complex touch panels</p>
             </div>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-plug"></i></div>
-                    <h3>Native Q-SYS Plugin</h3>
-                    <p>Direct integration between Elgato Stream Deck and Q-SYS cores using the official plugin.</p>
-                    <table class="component-table">
-                        <tr><th>Feature</th><th>Capability</th></tr>
-                        <tr><td>Control Protocol</td><td>Q-SYS UCI/ECP</td></tr>
-                        <tr><td>Bi-directional</td><td>Status feedback to buttons</td></tr>
-                        <tr><td>Configuration</td><td>Designer-based profiles</td></tr>
-                    </table>
+            <div class="comparison-grid">
+                <div class="comparison-card before">
+                    <div class="comparison-card-header">
+                        <div class="comparison-card-icon">
+                            <i class="fas fa-tablet-alt"></i>
+                        </div>
+                        <h3>Traditional Touch Panel</h3>
+                    </div>
+                    <div class="comparison-visual">
+                        <div class="touch-panel-mess">
+                            <div class="touch-btn tiny">System</div>
+                            <div class="touch-btn tiny">Display</div>
+                            <div class="touch-btn tiny">Audio</div>
+                            <div class="touch-btn tiny">Video</div>
+                            <div class="touch-btn tiny">Config</div>
+                            <div class="touch-btn tiny">Help</div>
+                            <div class="touch-btn">HDMI 1</div>
+                            <div class="touch-btn">HDMI 2</div>
+                            <div class="touch-btn">VGA</div>
+                            <div class="touch-btn">USB-C</div>
+                            <div class="touch-btn">Wireless</div>
+                            <div class="touch-btn">Preview</div>
+                            <div class="touch-btn tiny">Proj On</div>
+                            <div class="touch-btn tiny">Proj Off</div>
+                            <div class="touch-btn tiny">Blank</div>
+                            <div class="touch-btn tiny">Freeze</div>
+                            <div class="touch-btn tiny">Aspect</div>
+                            <div class="touch-btn tiny">PIP</div>
+                            <div class="touch-btn tiny">Vol +</div>
+                            <div class="touch-btn tiny">Vol -</div>
+                            <div class="touch-btn tiny">Mute</div>
+                            <div class="touch-btn tiny">Bass</div>
+                            <div class="touch-btn tiny">Treble</div>
+                            <div class="touch-btn tiny">EQ</div>
+                        </div>
+                    </div>
+                    <div class="comparison-card-body">
+                        <ul class="comparison-list">
+                            <li><i class="fas fa-times-circle"></i> 40+ buttons across multiple menus</li>
+                            <li><i class="fas fa-times-circle"></i> Requires training to understand</li>
+                            <li><i class="fas fa-times-circle"></i> Easy to press wrong button</li>
+                            <li><i class="fas fa-times-circle"></i> No visual feedback on state</li>
+                            <li><i class="fas fa-times-circle"></i> Faculty avoid using it</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-sync"></i></div>
-                    <h3>Real-Time Feedback</h3>
-                    <p>Button icons update dynamically to reflect current system state and active sources.</p>
-                    <table class="component-table">
-                        <tr><th>State</th><th>Visual Indicator</th></tr>
-                        <tr><td>Active Source</td><td>Highlighted icon</td></tr>
-                        <tr><td>Muted</td><td>Red slash overlay</td></tr>
-                        <tr><td>Recording</td><td>Pulsing red border</td></tr>
-                    </table>
+                <div class="comparison-card after">
+                    <div class="comparison-card-header">
+                        <div class="comparison-card-icon">
+                            <i class="fas fa-th"></i>
+                        </div>
+                        <h3>Stream Deck</h3>
+                    </div>
+                    <div class="comparison-visual">
+                        <div class="streamdeck-simple">
+                            <div class="simple-btn green"><i class="fas fa-power-off"></i></div>
+                            <div class="simple-btn blue"><i class="fas fa-laptop"></i></div>
+                            <div class="simple-btn blue"><i class="fas fa-camera"></i></div>
+                            <div class="simple-btn blue"><i class="fas fa-wifi"></i></div>
+                            <div class="simple-btn blue"><i class="fas fa-compact-disc"></i></div>
+                            <div class="simple-btn orange"><i class="fas fa-circle"></i></div>
+                            <div class="simple-btn gray"><i class="fas fa-pause"></i></div>
+                            <div class="simple-btn gray"><i class="fas fa-stop"></i></div>
+                            <div class="simple-btn purple"><i class="fas fa-volume-up"></i></div>
+                            <div class="simple-btn purple"><i class="fas fa-volume-down"></i></div>
+                            <div class="simple-btn gray"><i class="fas fa-volume-mute"></i></div>
+                            <div class="simple-btn gray"><i class="fas fa-microphone"></i></div>
+                            <div class="simple-btn gray"><i class="fas fa-lightbulb"></i></div>
+                            <div class="simple-btn gray"><i class="fas fa-headset"></i></div>
+                            <div class="simple-btn red"><i class="fas fa-power-off"></i></div>
+                        </div>
+                    </div>
+                    <div class="comparison-card-body">
+                        <ul class="comparison-list">
+                            <li><i class="fas fa-check-circle"></i> 15 buttons with clear icons</li>
+                            <li><i class="fas fa-check-circle"></i> Intuitive — no training needed</li>
+                            <li><i class="fas fa-check-circle"></i> Color-coded by function</li>
+                            <li><i class="fas fa-check-circle"></i> Live feedback shows current state</li>
+                            <li><i class="fas fa-check-circle"></i> Faculty actually use it</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-copy"></i></div>
-                    <h3>Profile Management</h3>
-                    <p>Centrally managed profiles deployed across all campus Stream Decks for consistency.</p>
-                    <table class="component-table">
-                        <tr><th>Profile Type</th><th>Application</th></tr>
-                        <tr><td>Standard Classroom</td><td>Lecture halls, classrooms</td></tr>
-                        <tr><td>Conference Room</td><td>Meeting spaces</td></tr>
-                        <tr><td>Production Studio</td><td>Advanced media facilities</td></tr>
-                    </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Workflow Diagram -->
+    <section class="workflow-section">
+        <div class="workflow-container">
+            <div class="workflow-header">
+                <h2>How It All Connects</h2>
+                <p>Stream Deck seamlessly integrates with existing Q-SYS infrastructure</p>
+            </div>
+            <div class="workflow-diagram">
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                        <i class="fas fa-th"></i>
+                    </div>
+                    <h4>Stream Deck</h4>
+                    <p>Faculty presses a button — each key is a clear, dedicated action</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
-                    <h3>Help Request</h3>
-                    <p>Dedicated help button creates support ticket with room info, automatically alerting IT staff.</p>
-                    <table class="component-table">
-                        <tr><th>Feature</th><th>Details</th></tr>
-                        <tr><td>Auto-populate</td><td>Room number, system status</td></tr>
-                        <tr><td>Notification</td><td>Instant alert to support team</td></tr>
-                        <tr><td>Confirmation</td><td>Visual "Help Requested" status</td></tr>
-                    </table>
+                <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h4>Q-SYS Core</h4>
+                    <p>Native plugin translates button press into system commands instantly</p>
+                </div>
+                <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h4>Room Equipment</h4>
+                    <p>Projector, displays, audio, cameras, and lights respond immediately</p>
+                </div>
+                <div class="workflow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="workflow-step">
+                    <div class="workflow-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Live Feedback</h4>
+                    <p>Button icons update in real-time to show current system state</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Room Scenario Cards -->
+    <section class="scenarios-section">
+        <div class="scenarios-container">
+            <div class="scenarios-header">
+                <h2>Real Classroom Scenarios</h2>
+                <p>See how Stream Deck simplifies everyday teaching tasks</p>
+            </div>
+            <div class="scenarios-grid">
+                <div class="scenario-card">
+                    <div class="scenario-header">
+                        <div class="scenario-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div>
+                            <h4>Starting a Lecture</h4>
+                            <p>From dark room to teaching-ready</p>
+                        </div>
+                    </div>
+                    <div class="scenario-body">
+                        <div class="scenario-steps">
+                            <div class="scenario-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Press "START CLASS"</h5>
+                                    <p>One button powers on projector, sets laptop input, enables audio, and adjusts lighting</p>
+                                </div>
+                            </div>
+                            <div class="scenario-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Connect laptop (optional)</h5>
+                                    <p>Plug in HDMI or use wireless display — system auto-detects</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-result">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Ready to teach in under 15 seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-header">
+                        <div class="scenario-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Mid-Class Source Switch</h4>
+                            <p>Seamlessly change what's on screen</p>
+                        </div>
+                    </div>
+                    <div class="scenario-body">
+                        <div class="scenario-steps">
+                            <div class="scenario-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Press "Doc Cam" button</h5>
+                                    <p>Display instantly switches from laptop to document camera</p>
+                                </div>
+                            </div>
+                            <div class="scenario-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Button illuminates</h5>
+                                    <p>Active source button glows to confirm which input is live</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-result">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Switch sources without interrupting your lecture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-header">
+                        <div class="scenario-icon" style="background: linear-gradient(135deg, var(--auburn-orange), #b84400);">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div>
+                            <h4>Recording a Session</h4>
+                            <p>Capture lectures for students</p>
+                        </div>
+                    </div>
+                    <div class="scenario-body">
+                        <div class="scenario-steps">
+                            <div class="scenario-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Press "REC" button</h5>
+                                    <p>Button pulses red to show recording is active</p>
+                                </div>
+                            </div>
+                            <div class="scenario-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Press "STOP" when done</h5>
+                                    <p>Recording saves and uploads automatically to Canvas</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-result">
+                            <i class="fas fa-check-circle"></i>
+                            <span>No complicated recording software to learn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-header">
+                        <div class="scenario-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div>
+                            <h4>Getting Help</h4>
+                            <p>Instant IT support when needed</p>
+                        </div>
+                    </div>
+                    <div class="scenario-body">
+                        <div class="scenario-steps">
+                            <div class="scenario-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Press "Help" button</h5>
+                                    <p>Creates support ticket with room info and system status automatically</p>
+                                </div>
+                            </div>
+                            <div class="scenario-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Button shows "Help Requested"</h5>
+                                    <p>IT receives instant notification with your location</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="scenario-result">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Support en route — no phone call needed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated Button Demo -->
+    <section class="demo-section">
+        <div class="demo-container">
+            <div class="demo-header">
+                <h2>Try It Yourself</h2>
+                <p>Click the buttons below to see how Stream Deck responds</p>
+            </div>
+            <div class="demo-device">
+                <div class="demo-screen">
+                    <div class="demo-buttons">
+                        <div class="demo-btn start" id="demoStart"><i class="fas fa-power-off"></i>START</div>
+                        <div class="demo-btn source" id="demoLaptop"><i class="fas fa-laptop"></i>Laptop</div>
+                        <div class="demo-btn source" id="demoDocCam"><i class="fas fa-camera"></i>Doc Cam</div>
+                        <div class="demo-btn source" id="demoWireless"><i class="fas fa-wifi"></i>Wireless</div>
+                        <div class="demo-btn source" id="demoBluray"><i class="fas fa-compact-disc"></i>Blu-ray</div>
+                        <div class="demo-btn record" id="demoRecord"><i class="fas fa-circle"></i>REC</div>
+                        <div class="demo-btn control" id="demoPause"><i class="fas fa-pause"></i>Pause</div>
+                        <div class="demo-btn control" id="demoStop"><i class="fas fa-stop"></i>Stop</div>
+                        <div class="demo-btn audio" id="demoVolUp"><i class="fas fa-volume-up"></i>Vol +</div>
+                        <div class="demo-btn audio" id="demoVolDown"><i class="fas fa-volume-down"></i>Vol -</div>
+                        <div class="demo-btn control" id="demoMute"><i class="fas fa-volume-mute"></i>Mute</div>
+                        <div class="demo-btn control" id="demoMic"><i class="fas fa-microphone"></i>Mic</div>
+                        <div class="demo-btn control" id="demoBlank"><i class="fas fa-tv"></i>Blank</div>
+                        <div class="demo-btn help" id="demoHelp"><i class="fas fa-headset"></i>Help</div>
+                        <div class="demo-btn end" id="demoEnd"><i class="fas fa-power-off"></i>END</div>
+                    </div>
+                </div>
+                <div class="demo-status">
+                    <div class="demo-status-text" id="demoStatusText">
+                        <i class="fas fa-info-circle"></i> Click a button to see the response
+                    </div>
+                </div>
+            </div>
+            <div class="demo-instructions">Click any button to simulate the Stream Deck experience</div>
+        </div>
+    </section>
+
+    <!-- Room Types Gallery -->
+    <section class="rooms-gallery-section">
+        <div class="rooms-gallery-container">
+            <div class="rooms-gallery-header">
+                <h2>Configured for Every Room Type</h2>
+                <p>Different profiles for different spaces — all managed centrally</p>
+            </div>
+            <div class="rooms-carousel">
+                <div class="rooms-track" id="roomsTrack">
+                    <div class="room-slide">
+                        <div class="room-slide-visual lecture">
+                            <div class="room-mini-deck xl">
+                                <div class="mini-btn green"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn red"></div>
+                                <div class="mini-btn orange"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Lecture Halls</h4>
+                            <div class="room-slide-model">Stream Deck XL (32 keys)</div>
+                            <p>Full control suite for large classrooms with recording, multiple sources, and advanced lighting presets.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> Lecture Capture</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> 4+ Sources</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> PTZ Camera</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Lighting Scenes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="room-slide">
+                        <div class="room-slide-visual conference">
+                            <div class="room-mini-deck mk2">
+                                <div class="mini-btn green"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn red"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Conference Rooms</h4>
+                            <div class="room-slide-model">Stream Deck MK.2 (15 keys)</div>
+                            <p>Streamlined setup for meetings with video conferencing, wireless sharing, and quick Zoom/Teams access.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> Zoom/Teams</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Wireless Share</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Room Combine</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="room-slide">
+                        <div class="room-slide-visual studio">
+                            <div class="room-mini-deck xl">
+                                <div class="mini-btn green"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn red"></div>
+                                <div class="mini-btn orange"></div>
+                                <div class="mini-btn orange"></div>
+                                <div class="mini-btn orange"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn"></div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Production Studios</h4>
+                            <div class="room-slide-model">Stream Deck XL (32 keys)</div>
+                            <p>Advanced profiles for media production with scene switching, graphics triggers, and multi-camera control.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> Multi-Camera</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Graphics Overlay</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Live Streaming</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Audio Mixing</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="room-slide">
+                        <div class="room-slide-visual huddle">
+                            <div class="room-mini-deck plus">
+                                <div class="mini-btn green"></div>
+                                <div class="mini-btn lit"></div>
+                                <div class="mini-btn"></div>
+                                <div class="mini-btn red"></div>
+                            </div>
+                        </div>
+                        <div class="room-slide-content">
+                            <h4>Huddle Spaces</h4>
+                            <div class="room-slide-model">Stream Deck + (8 keys + dials)</div>
+                            <p>Compact controller with volume dials for small collaboration spaces and informal meeting rooms.</p>
+                            <div class="room-features">
+                                <span class="room-feature"><i class="fas fa-check"></i> Volume Dials</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Quick Share</span>
+                                <span class="room-feature"><i class="fas fa-check"></i> Compact</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rooms-controls">
+                <button class="rooms-btn" onclick="moveRoomsGallery(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="rooms-btn" onclick="moveRoomsGallery(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="rooms-indicators">
+                <span class="rooms-indicator active" onclick="goToRoomSlide(0)"></span>
+                <span class="rooms-indicator" onclick="goToRoomSlide(1)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Faculty Testimonials -->
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="testimonials-header">
+                <h2>What Faculty Are Saying</h2>
+                <p>Real feedback from universities using Stream Deck in classrooms</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">I used to dread the first five minutes of every class fighting with the AV system. Now I press one button and I'm teaching. It's transformed my relationship with classroom technology.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info">
+                            <h5>Dr. Sarah Mitchell</h5>
+                            <p>Professor of Biology</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The recording feature is brilliant. My students can review lectures anytime, and I don't have to remember a complicated sequence of steps. Just press REC.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info">
+                            <h5>Prof. James Chen</h5>
+                            <p>Engineering Department</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Our IT support calls dropped dramatically after installing Stream Decks. Faculty who never touched the AV panel before are now confidently running their own sessions.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user-tie"></i></div>
+                        <div class="author-info">
+                            <h5>Mike Torres</h5>
+                            <p>AV Systems Manager</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Switching between my slides and the document camera used to interrupt my flow. Now it's seamless — one button and I'm showing student work. The class engagement is noticeably better.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"><i class="fas fa-user"></i></div>
+                        <div class="author-info">
+                            <h5>Dr. Amanda Rodriguez</h5>
+                            <p>Art History Department</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Hub Diagram -->
+    <section class="integration-section">
+        <div class="integration-container">
+            <div class="integration-header">
+                <h2>Connected to Everything</h2>
+                <p>Stream Deck talks to your entire classroom ecosystem through Q-SYS</p>
+            </div>
+            <div class="integration-diagram">
+                <div class="integration-connections">
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div>
+                            <h5>Projectors & Displays</h5>
+                            <p>Power, input selection, blanking</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                        <div>
+                            <h5>Audio Systems</h5>
+                            <p>Volume, EQ, source routing</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div>
+                            <h5>Lecture Capture</h5>
+                            <p>Record, pause, stop, upload</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h5>Room Lighting</h5>
+                            <p>Presets, dimming, scenes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="integration-hub">
+                    <i class="fas fa-th"></i>
+                    <span>Stream Deck<br>+ Q-SYS</span>
+                </div>
+                <div class="integration-connections">
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div>
+                            <h5>PTZ Cameras</h5>
+                            <p>Presets, tracking, recording</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                            <i class="fas fa-broadcast-tower"></i>
+                        </div>
+                        <div>
+                            <h5>Wireless Sharing</h5>
+                            <p>Accept, switch, disconnect</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h5>Video Conferencing</h5>
+                            <p>Zoom, Teams, WebEx control</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #84cc16, #65a30d);">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div>
+                            <h5>IT Support</h5>
+                            <p>Help requests, diagnostics</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -282,37 +1765,6 @@
         </div>
     </section>
 
-    <section>
-        <div class="section-container">
-            <div class="section-header">
-                <h2>Faculty Benefits</h2>
-                <p>How Stream Deck improves the teaching experience</p>
-            </div>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h3>Zero Learning Curve</h3>
-                    <p>Visual icons eliminate the need for training. Faculty intuitively understand button functions.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-clock"></i></div>
-                    <h3>Faster Class Starts</h3>
-                    <p>One-touch startup reduces room prep time from minutes to seconds, maximizing instruction time.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                    <h3>Reduced Errors</h3>
-                    <p>Dedicated buttons prevent accidental inputs, eliminating fumbling with complex touch panels.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-smile"></i></div>
-                    <h3>Increased Confidence</h3>
-                    <p>Clear visual feedback builds faculty confidence, reducing anxiety about technology failures.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="back-section">
         <a href="../index.html#solutions" class="back-btn">
             <i class="fas fa-arrow-left"></i> Back to All Solutions
@@ -322,5 +1774,138 @@
     <footer>
         <p>Auburn University Campus Production Enhancement Proposal | Confidential</p>
     </footer>
+
+    <script>
+        // Interactive Demo
+        const demoStatus = document.getElementById('demoStatusText');
+        const demoBtns = document.querySelectorAll('.demo-btn');
+        const sourceButtons = ['demoLaptop', 'demoDocCam', 'demoWireless', 'demoBluray'];
+        let isRecording = false;
+        let isPaused = false;
+        let isMuted = false;
+        let isMicMuted = false;
+        let isBlank = false;
+        let roomOn = false;
+
+        const statusMessages = {
+            demoStart: { icon: 'fa-power-off', text: 'Room powering on... Projector warming up, audio enabled', color: '#10b981' },
+            demoEnd: { icon: 'fa-power-off', text: 'Room shutting down... All systems powering off', color: '#ef4444' },
+            demoLaptop: { icon: 'fa-laptop', text: 'Source: Laptop (HDMI) — Now displaying', color: '#3b82f6' },
+            demoDocCam: { icon: 'fa-camera', text: 'Source: Document Camera — Now displaying', color: '#3b82f6' },
+            demoWireless: { icon: 'fa-wifi', text: 'Source: Wireless Display — Waiting for connection', color: '#3b82f6' },
+            demoBluray: { icon: 'fa-compact-disc', text: 'Source: Blu-ray Player — Press play on remote', color: '#3b82f6' },
+            demoRecord: { icon: 'fa-circle', text: 'Recording started — Lecture capture active', color: '#DD550C' },
+            demoRecordStop: { icon: 'fa-stop', text: 'Recording stopped — Saving and uploading...', color: '#6b7280' },
+            demoPause: { icon: 'fa-pause', text: 'Recording paused — Press again to resume', color: '#f59e0b' },
+            demoStop: { icon: 'fa-stop', text: 'Recording stopped and saved successfully', color: '#10b981' },
+            demoVolUp: { icon: 'fa-volume-up', text: 'Volume: 75% ████████░░', color: '#8b5cf6' },
+            demoVolDown: { icon: 'fa-volume-down', text: 'Volume: 65% ██████░░░░', color: '#8b5cf6' },
+            demoMute: { icon: 'fa-volume-mute', text: 'Audio muted — Press again to unmute', color: '#ef4444' },
+            demoMuteOff: { icon: 'fa-volume-up', text: 'Audio unmuted — Volume restored', color: '#10b981' },
+            demoMic: { icon: 'fa-microphone-slash', text: 'Microphone muted — Press again to unmute', color: '#ef4444' },
+            demoMicOff: { icon: 'fa-microphone', text: 'Microphone active — You are live', color: '#10b981' },
+            demoBlank: { icon: 'fa-tv', text: 'Screen blanked — Press again to restore', color: '#6b7280' },
+            demoBlankOff: { icon: 'fa-tv', text: 'Screen restored — Content visible', color: '#10b981' },
+            demoHelp: { icon: 'fa-headset', text: 'Help requested — IT support notified, Room 204', color: '#f59e0b' }
+        };
+
+        demoBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.id;
+
+                // Visual press effect
+                this.classList.add('pressed');
+                setTimeout(() => this.classList.remove('pressed'), 150);
+
+                // Handle source buttons
+                if (sourceButtons.includes(id)) {
+                    sourceButtons.forEach(srcId => {
+                        document.getElementById(srcId).classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+
+                // Handle special toggles
+                let messageKey = id;
+
+                if (id === 'demoMute') {
+                    isMuted = !isMuted;
+                    this.classList.toggle('active', isMuted);
+                    messageKey = isMuted ? 'demoMute' : 'demoMuteOff';
+                }
+
+                if (id === 'demoMic') {
+                    isMicMuted = !isMicMuted;
+                    this.classList.toggle('active', isMicMuted);
+                    messageKey = isMicMuted ? 'demoMic' : 'demoMicOff';
+                }
+
+                if (id === 'demoBlank') {
+                    isBlank = !isBlank;
+                    this.classList.toggle('active', isBlank);
+                    messageKey = isBlank ? 'demoBlank' : 'demoBlankOff';
+                }
+
+                if (id === 'demoRecord') {
+                    isRecording = !isRecording;
+                    this.classList.toggle('active', isRecording);
+                    if (isRecording) {
+                        this.innerHTML = '<i class="fas fa-circle" style="animation: pulse 1s infinite;"></i>REC';
+                    } else {
+                        this.innerHTML = '<i class="fas fa-circle"></i>REC';
+                        messageKey = 'demoRecordStop';
+                    }
+                }
+
+                if (id === 'demoStart') {
+                    roomOn = true;
+                    this.classList.add('active');
+                    document.getElementById('demoEnd').classList.remove('active');
+                }
+
+                if (id === 'demoEnd') {
+                    roomOn = false;
+                    this.classList.add('active');
+                    document.getElementById('demoStart').classList.remove('active');
+                    // Reset other states
+                    sourceButtons.forEach(srcId => {
+                        document.getElementById(srcId).classList.remove('active');
+                    });
+                }
+
+                // Update status
+                const msg = statusMessages[messageKey];
+                if (msg) {
+                    demoStatus.innerHTML = `<i class="fas ${msg.icon}" style="color: ${msg.color}"></i> ${msg.text}`;
+                }
+            });
+        });
+
+        // Room Types Gallery Carousel
+        let roomCurrentSlide = 0;
+        const roomsTrack = document.getElementById('roomsTrack');
+        const roomSlides = document.querySelectorAll('.room-slide');
+        const roomIndicators = document.querySelectorAll('.rooms-indicator');
+        const roomSlideWidth = 396; // slide width + gap
+        const roomVisibleSlides = 3;
+        const roomMaxSlide = Math.max(0, roomSlides.length - roomVisibleSlides);
+
+        function moveRoomsGallery(direction) {
+            roomCurrentSlide = Math.max(0, Math.min(roomCurrentSlide + direction, roomMaxSlide));
+            updateRoomsGallery();
+        }
+
+        function goToRoomSlide(index) {
+            roomCurrentSlide = Math.min(index, roomMaxSlide);
+            updateRoomsGallery();
+        }
+
+        function updateRoomsGallery() {
+            roomsTrack.style.transform = `translateX(-${roomCurrentSlide * roomSlideWidth}px)`;
+            roomIndicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === roomCurrentSlide);
+            });
+        }
+    </script>
 </body>
 </html>
