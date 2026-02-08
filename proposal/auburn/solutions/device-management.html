@@ -23,13 +23,102 @@
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover { color: var(--auburn-orange); }
-        .page-hero { background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%); padding: 8rem 2rem 4rem; position: relative; overflow: hidden; }
-        .page-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: url('https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center center; background-size: cover; opacity: 0.15; }
-        .hero-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+
+        /* Enhanced Hero */
+        .page-hero {
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%);
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center center;
+            background-size: cover;
+            opacity: 0.2;
+        }
+        .hero-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; width: 100%; }
         .breadcrumb { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1.5rem; }
         .breadcrumb a { color: var(--auburn-orange); text-decoration: none; }
-        .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); margin-bottom: 1rem; }
-        .page-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.8); max-width: 700px; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(221, 85, 12, 0.2);
+            border: 1px solid var(--auburn-orange);
+            color: var(--auburn-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .hero-tagline {
+            font-size: 1.25rem;
+            color: var(--auburn-orange);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .page-hero h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; color: var(--white); margin-bottom: 1.25rem; line-height: 1.1; }
+        .page-hero > .hero-container > p { font-size: 1.2rem; color: rgba(255,255,255,0.85); max-width: 650px; margin-bottom: 2.5rem; }
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+        .hero-stat {
+            text-align: left;
+        }
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--auburn-orange);
+            line-height: 1;
+        }
+        .hero-stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 0.25rem;
+        }
+
+        /* Metrics Banner */
+        .metrics-banner {
+            background: linear-gradient(135deg, var(--auburn-orange) 0%, #c44a0a 100%);
+            padding: 3rem 2rem;
+        }
+        .metrics-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .metric-item {
+            text-align: center;
+            color: var(--white);
+        }
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .metric-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
         section { padding: 4rem 2rem; }
         .section-container { max-width: 1200px; margin: 0 auto; }
         .section-alt { background: var(--gray-50); }
@@ -46,24 +135,78 @@
         .component-table th, .component-table td { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--gray-200); font-size: 0.9rem; }
         .component-table th { background: var(--gray-50); font-weight: 600; color: var(--auburn-navy); }
         .component-table td { color: var(--gray-600); }
-        .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .system-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 1.75rem; position: relative; }
-        .system-card.recommended { border-color: var(--auburn-orange); background: linear-gradient(135deg, rgba(221, 85, 12, 0.03) 0%, rgba(3, 36, 77, 0.03) 100%); }
-        .system-badge { position: absolute; top: -10px; right: 20px; background: var(--auburn-orange); color: white; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; }
-        .system-card h4 { font-size: 1.1rem; font-weight: 600; color: var(--auburn-navy); margin-bottom: 0.5rem; }
-        .system-card .vendor { color: var(--gray-500); font-size: 0.85rem; margin-bottom: 1rem; }
-        .system-card p { color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem; }
-        .system-features { list-style: none; }
-        .system-features li { display: flex; align-items: center; gap: 0.5rem; color: var(--gray-600); font-size: 0.85rem; padding: 0.3rem 0; }
-        .system-features li i { color: var(--success); font-size: 0.75rem; }
-        .refresh-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        .refresh-table th, .refresh-table td { text-align: left; padding: 1rem; border-bottom: 1px solid var(--gray-200); font-size: 0.9rem; }
-        .refresh-table th { background: var(--auburn-navy); color: white; font-weight: 600; }
-        .refresh-table tr:nth-child(even) { background: var(--gray-50); }
-        .priority-badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
-        .priority-critical { background: #fecaca; color: #991b1b; }
-        .priority-high { background: #fed7aa; color: #9a3412; }
-        .priority-medium { background: #fef08a; color: #854d0e; }
+
+        /* Platform Comparison Table */
+        .platform-comparison {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .platform-header {
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            background: var(--auburn-navy);
+            color: var(--white);
+        }
+        .platform-header > div {
+            padding: 1.25rem 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .platform-header > div:first-child {
+            text-align: left;
+            padding-left: 1.5rem;
+        }
+        .platform-header .recommended-header {
+            background: var(--auburn-orange);
+        }
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        .comparison-row > div {
+            padding: 0.85rem 0.75rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+        .comparison-row > div:first-child {
+            text-align: left;
+            justify-content: flex-start;
+            padding-left: 1.5rem;
+            font-weight: 500;
+            color: var(--gray-800);
+        }
+        .comparison-row:nth-child(even) {
+            background: var(--gray-50);
+        }
+        .comparison-row .check {
+            color: var(--success);
+            font-size: 1.1rem;
+        }
+        .comparison-row .partial {
+            color: var(--auburn-orange);
+            font-size: 0.8rem;
+        }
+        .comparison-row > div:nth-child(2),
+        .comparison-row > div:nth-child(3) {
+            background: rgba(221, 85, 12, 0.05);
+        }
+
+        /* Lifecycle Flow */
+        .lifecycle-section {
+            background: linear-gradient(180deg, var(--gray-50) 0%, white 100%);
+            padding: 5rem 2rem;
+        }
         .lifecycle-flow { display: flex; align-items: stretch; gap: 0; flex-wrap: nowrap; overflow-x: auto; padding: 1rem 0; }
         .lifecycle-card { flex: 1; min-width: 180px; background: white; border-radius: 16px; padding: 1.5rem 1rem; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.08); border: 2px solid var(--gray-200); position: relative; transition: all 0.3s ease; }
         .lifecycle-card:hover { transform: translateY(-4px); border-color: var(--auburn-orange); box-shadow: 0 8px 32px rgba(221, 85, 12, 0.15); }
@@ -75,12 +218,103 @@
         .lifecycle-card ul li { font-size: 0.85rem; color: var(--gray-600); padding: 0.35rem 0; display: flex; align-items: center; gap: 0.5rem; }
         .lifecycle-card ul li i { color: var(--auburn-orange); font-size: 0.7rem; flex-shrink: 0; }
         .lifecycle-arrow { display: flex; align-items: center; justify-content: center; padding: 0 0.5rem; color: var(--auburn-orange); font-size: 1.5rem; flex-shrink: 0; }
-        @media (max-width: 992px) { .lifecycle-flow { flex-wrap: wrap; gap: 1rem; justify-content: center; } .lifecycle-card { min-width: 160px; max-width: 200px; } .lifecycle-arrow { display: none; } }
+
+        /* Refresh Table */
+        .refresh-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .refresh-table th, .refresh-table td { text-align: left; padding: 1rem; border-bottom: 1px solid var(--gray-200); font-size: 0.9rem; }
+        .refresh-table th { background: var(--auburn-navy); color: white; font-weight: 600; }
+        .refresh-table tr:nth-child(even) { background: var(--gray-50); }
+        .priority-badge { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .priority-critical { background: #fecaca; color: #991b1b; }
+        .priority-high { background: #fed7aa; color: #9a3412; }
+        .priority-medium { background: #fef08a; color: #854d0e; }
+
+        /* Security Visual */
+        .security-visual {
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            color: var(--white);
+            margin-bottom: 2rem;
+        }
+        .security-visual h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .security-visual > p {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+        }
+        .security-layers {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .security-layer {
+            flex: 1;
+            min-width: 200px;
+            max-width: 280px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .security-layer i {
+            font-size: 2rem;
+            color: var(--auburn-orange);
+            margin-bottom: 1rem;
+        }
+        .security-layer h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .security-layer p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .system-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 1.75rem; position: relative; }
+        .system-card.recommended { border-color: var(--auburn-orange); background: linear-gradient(135deg, rgba(221, 85, 12, 0.03) 0%, rgba(3, 36, 77, 0.03) 100%); }
+        .system-badge { position: absolute; top: -10px; right: 20px; background: var(--auburn-orange); color: white; font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; }
+        .system-card h4 { font-size: 1.1rem; font-weight: 600; color: var(--auburn-navy); margin-bottom: 0.5rem; }
+        .system-card .vendor { color: var(--gray-500); font-size: 0.85rem; margin-bottom: 1rem; }
+        .system-card p { color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem; }
+        .system-features { list-style: none; }
+        .system-features li { display: flex; align-items: center; gap: 0.5rem; color: var(--gray-600); font-size: 0.85rem; padding: 0.3rem 0; }
+        .system-features li i { color: var(--success); font-size: 0.75rem; }
+
         .back-section { padding: 3rem 2rem; text-align: center; background: var(--gray-50); }
         .back-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--auburn-navy); color: white; padding: 0.875rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500; transition: background 0.3s; }
         .back-btn:hover { background: var(--auburn-orange); }
         footer { background: var(--auburn-navy); color: rgba(255,255,255,0.7); padding: 2rem; text-align: center; font-size: 0.9rem; }
-        @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } .lifecycle-flow { flex-direction: column; align-items: center; } .lifecycle-card { width: 100%; max-width: 280px; } .refresh-table { font-size: 0.8rem; } .refresh-table th, .refresh-table td { padding: 0.5rem; } }
+
+        @media (max-width: 992px) {
+            .lifecycle-flow { flex-wrap: wrap; gap: 1rem; justify-content: center; }
+            .lifecycle-card { min-width: 160px; max-width: 200px; }
+            .lifecycle-arrow { display: none; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .page-hero { padding: 6rem 1.5rem 3rem; min-height: auto; }
+            section { padding: 3rem 1.5rem; }
+            .feature-grid, .systems-grid { grid-template-columns: 1fr; }
+            .lifecycle-flow { flex-direction: column; align-items: center; }
+            .lifecycle-card { width: 100%; max-width: 280px; }
+            .refresh-table { font-size: 0.8rem; }
+            .refresh-table th, .refresh-table td { padding: 0.5rem; }
+            .hero-stats { gap: 1.5rem; }
+            .hero-stat-value { font-size: 2rem; }
+            .platform-comparison { overflow-x: auto; }
+            .platform-header, .comparison-row { min-width: 700px; }
+            .metrics-container { gap: 1.5rem; }
+            .metric-value { font-size: 2.25rem; }
+            .security-layers { flex-direction: column; align-items: center; }
+        }
     </style>
 </head>
 <body>
@@ -105,8 +339,53 @@
                 <i class="fas fa-chevron-right"></i>
                 <span>Device Management</span>
             </div>
-            <h1><i class="fas fa-laptop"></i> Technology Device Management</h1>
+            <div class="hero-badge">
+                <i class="fas fa-laptop"></i>
+                Enterprise Endpoint Management
+            </div>
+            <p class="hero-tagline">Complete Lifecycle Control</p>
+            <h1>Technology Device Management</h1>
             <p>Comprehensive asset management for all university-owned computers, laptops, tablets, and mobile devices with automated lifecycle tracking and security compliance.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">5,000+</div>
+                    <div class="hero-stat-label">Devices Managed</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">99.2%</div>
+                    <div class="hero-stat-label">Compliance Rate</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">&lt;4hrs</div>
+                    <div class="hero-stat-label">Deployment Time</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">Zero</div>
+                    <div class="hero-stat-label">Touch Provisioning</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Banner -->
+    <section class="metrics-banner">
+        <div class="metrics-container">
+            <div class="metric-item">
+                <div class="metric-value">75%</div>
+                <div class="metric-label">Reduction in Setup Time</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">20%</div>
+                <div class="metric-label">Hardware Cost Savings</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">100%</div>
+                <div class="metric-label">Encryption Coverage</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">24/7</div>
+                <div class="metric-label">Remote Management</div>
+            </div>
         </div>
     </section>
 
@@ -118,7 +397,7 @@
             </div>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-magic"></i></div>
+                    <div class="feature-icon"><i class="fab fa-apple"></i></div>
                     <h3>Apple Device Enrollment</h3>
                     <p>New Macs and iPads automatically enroll in Jamf Pro through Apple Business Manager for zero-touch setup.</p>
                     <table class="component-table">
@@ -129,7 +408,7 @@
                     </table>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-windows"></i></div>
+                    <div class="feature-icon"><i class="fab fa-windows"></i></div>
                     <h3>Windows Autopilot</h3>
                     <p>Windows devices self-configure via Intune during first boot, joining Azure AD and applying policies.</p>
                     <table class="component-table">
@@ -168,45 +447,86 @@
     <section class="section-alt">
         <div class="section-container">
             <div class="section-header">
-                <h2>Top Device Management Platforms</h2>
+                <h2>Platform Comparison</h2>
                 <p>Industry-leading solutions for endpoint management</p>
             </div>
-            <div class="systems-grid">
-                <div class="system-card recommended">
-                    <span class="system-badge">Apple Devices</span>
-                    <h4>Jamf Pro</h4>
-                    <div class="vendor">Jamf Software</div>
-                    <p>Gold standard for Apple device management with deep macOS, iOS, iPadOS, and tvOS integration.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> Apple Business Manager integration</li>
-                        <li><i class="fas fa-check"></i> Zero-touch deployment</li>
-                        <li><i class="fas fa-check"></i> Education-specific features</li>
-                        <li><i class="fas fa-check"></i> 70,000+ organizations</li>
-                    </ul>
+            <div class="platform-comparison">
+                <div class="platform-header">
+                    <div>Feature</div>
+                    <div class="recommended-header">Jamf Pro</div>
+                    <div class="recommended-header">MS Intune</div>
+                    <div>NinjaOne</div>
+                    <div>JumpCloud</div>
                 </div>
-                <div class="system-card recommended">
-                    <span class="system-badge">Windows Devices</span>
-                    <h4>Microsoft Intune</h4>
-                    <div class="vendor">Microsoft</div>
-                    <p>Cloud-native endpoint management with deep Microsoft 365 and Azure AD integration.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> Windows Autopilot</li>
-                        <li><i class="fas fa-check"></i> Conditional access policies</li>
-                        <li><i class="fas fa-check"></i> Co-management with SCCM</li>
-                        <li><i class="fas fa-check"></i> Cross-platform support</li>
-                    </ul>
+                <div class="comparison-row">
+                    <div>Primary Platform</div>
+                    <div>Apple</div>
+                    <div>Windows</div>
+                    <div>Cross-platform</div>
+                    <div>Cross-platform</div>
                 </div>
-                <div class="system-card">
-                    <span class="system-badge">Asset Lifecycle</span>
-                    <h4>ServiceNow ITAM</h4>
-                    <div class="vendor">ServiceNow</div>
-                    <p>Enterprise asset lifecycle management with procurement, tracking, and disposal workflows.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> CMDB integration</li>
-                        <li><i class="fas fa-check"></i> Financial tracking</li>
-                        <li><i class="fas fa-check"></i> Warranty management</li>
-                        <li><i class="fas fa-check"></i> ITSM ticket linking</li>
-                    </ul>
+                <div class="comparison-row">
+                    <div>Zero-Touch Deployment</div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Apple Business Manager</div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><span class="partial">Limited</span></div>
+                    <div><span class="partial">Basic</span></div>
+                    <div><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Windows Autopilot</div>
+                    <div><span class="partial">N/A</span></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Azure AD Integration</div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Conditional Access</div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><span class="partial">Basic</span></div>
+                    <div><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Patch Management</div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Self-Service Portal</div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><span class="partial">Limited</span></div>
+                    <div><i class="fas fa-check check"></i></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Remote Support Built-in</div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><span class="partial">Add-on</span></div>
+                    <div><i class="fas fa-check check"></i></div>
+                    <div><span class="partial">Basic</span></div>
+                </div>
+                <div class="comparison-row">
+                    <div>Higher Ed Customers</div>
+                    <div>10,000+</div>
+                    <div>50,000+</div>
+                    <div>17,000+</div>
+                    <div>200,000+</div>
                 </div>
             </div>
         </div>
@@ -215,91 +535,34 @@
     <section>
         <div class="section-container">
             <div class="section-header">
-                <h2>Cross-Platform & Alternative Solutions</h2>
-                <p>Additional unified endpoint management platforms for diverse device ecosystems</p>
-            </div>
-            <div class="systems-grid">
-                <div class="system-card">
-                    <span class="system-badge">Full UEM</span>
-                    <h4>IBM MaaS360</h4>
-                    <div class="vendor">IBM Security</div>
-                    <p>Full unified endpoint management from IBM with AI-powered analytics for Windows, macOS, iOS, and Android devices.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> Watson AI threat analytics</li>
-                        <li><i class="fas fa-check"></i> Container-based security</li>
-                        <li><i class="fas fa-check"></i> Identity access management</li>
-                        <li><i class="fas fa-check"></i> App wrapping & VPN</li>
-                    </ul>
-                </div>
-                <div class="system-card">
-                    <span class="system-badge">Cross-Platform</span>
-                    <h4>Scalefusion</h4>
-                    <div class="vendor">Scalefusion</div>
-                    <p>Comprehensive MDM supporting Windows, macOS, Android, iOS, ChromeOS, and Linux from a single console.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> 6 operating systems supported</li>
-                        <li><i class="fas fa-check"></i> Kiosk & digital signage mode</li>
-                        <li><i class="fas fa-check"></i> Remote cast & control</li>
-                        <li><i class="fas fa-check"></i> Geofencing capabilities</li>
-                    </ul>
-                </div>
-                <div class="system-card">
-                    <span class="system-badge">Unified MDM</span>
-                    <h4>Hexnode MDM</h4>
-                    <div class="vendor">Mitsogo</div>
-                    <p>Unified endpoint management with robust app management, compliance policies, and kiosk mode capabilities.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> App management & blocking</li>
-                        <li><i class="fas fa-check"></i> Compliance enforcement</li>
-                        <li><i class="fas fa-check"></i> Multi-mode kiosk</li>
-                        <li><i class="fas fa-check"></i> Location tracking</li>
-                    </ul>
-                </div>
-                <div class="system-card recommended">
-                    <span class="system-badge">Cloud Directory</span>
-                    <h4>JumpCloud</h4>
-                    <div class="vendor">JumpCloud Inc.</div>
-                    <p>Cloud directory platform combining device management with identity tools, SSO, and LDAP/RADIUS services.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> Unified identity management</li>
-                        <li><i class="fas fa-check"></i> SSO & MFA integration</li>
-                        <li><i class="fas fa-check"></i> LDAP & RADIUS services</li>
-                        <li><i class="fas fa-check"></i> Windows, Mac, Linux support</li>
-                    </ul>
-                </div>
-                <div class="system-card">
-                    <span class="system-badge">Remote Support</span>
-                    <h4>LogMeIn Resolve / Miradore</h4>
-                    <div class="vendor">GoTo</div>
-                    <p>Cross-platform device management with integrated remote support, remote access, and helpdesk ticketing.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> Built-in remote support</li>
-                        <li><i class="fas fa-check"></i> Zero-touch enrollment</li>
-                        <li><i class="fas fa-check"></i> Helpdesk integration</li>
-                        <li><i class="fas fa-check"></i> Device compliance policies</li>
-                    </ul>
-                </div>
-                <div class="system-card recommended">
-                    <span class="system-badge">RMM Leader</span>
-                    <h4>NinjaOne</h4>
-                    <div class="vendor">NinjaOne (formerly NinjaRMM)</div>
-                    <p>Top-rated endpoint management for Windows, Mac, Linux, and mobile with automated patching and monitoring.</p>
-                    <ul class="system-features">
-                        <li><i class="fas fa-check"></i> Automated patch management</li>
-                        <li><i class="fas fa-check"></i> Real-time monitoring & alerts</li>
-                        <li><i class="fas fa-check"></i> Remote access built-in</li>
-                        <li><i class="fas fa-check"></i> #1 rated on G2 & Capterra</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-alt">
-        <div class="section-container">
-            <div class="section-header">
                 <h2>Security & Compliance</h2>
                 <p>Enforce security policies and maintain compliance across all devices</p>
+            </div>
+            <div class="security-visual">
+                <h3>Multi-Layer Security Architecture</h3>
+                <p>Defense in depth across all managed endpoints</p>
+                <div class="security-layers">
+                    <div class="security-layer">
+                        <i class="fas fa-lock"></i>
+                        <h4>Encryption</h4>
+                        <p>FileVault & BitLocker with escrowed recovery keys</p>
+                    </div>
+                    <div class="security-layer">
+                        <i class="fas fa-sync"></i>
+                        <h4>Patch Management</h4>
+                        <p>Automated OS & app updates with compliance deadlines</p>
+                    </div>
+                    <div class="security-layer">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Conditional Access</h4>
+                        <p>Block non-compliant devices from resources</p>
+                    </div>
+                    <div class="security-layer">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>Remote Lock & Wipe</h4>
+                        <p>Instant response to lost or stolen devices</p>
+                    </div>
+                </div>
             </div>
             <div class="feature-grid">
                 <div class="feature-card">
@@ -324,98 +587,12 @@
                         <tr><td>App Updates</td><td>Automatic + silent</td></tr>
                     </table>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
-                    <h3>Remote Lock & Wipe</h3>
-                    <p>Lost or stolen devices can be remotely locked or wiped to protect university data.</p>
-                    <table class="component-table">
-                        <tr><th>Action</th><th>Result</th></tr>
-                        <tr><td>Remote Lock</td><td>Device locked immediately</td></tr>
-                        <tr><td>Remote Wipe</td><td>All data erased</td></tr>
-                        <tr><td>Location</td><td>Last known GPS/network</td></tr>
-                    </table>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Conditional Access</h3>
-                    <p>Block non-compliant devices from accessing university resources until remediated.</p>
-                    <table class="component-table">
-                        <tr><th>Requirement</th><th>Enforcement</th></tr>
-                        <tr><td>Encryption On</td><td>Block email if off</td></tr>
-                        <tr><td>OS Current</td><td>Block VPN if outdated</td></tr>
-                        <tr><td>Enrolled</td><td>Block all if unenrolled</td></tr>
-                    </table>
-                </div>
             </div>
         </div>
     </section>
 
-    <section class="section-alt">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>Device Refresh Cycles</h2>
-                <p>Strategic replacement schedules based on usage and importance</p>
-            </div>
-            <div class="feature-card">
-                <table class="refresh-table">
-                    <thead>
-                        <tr>
-                            <th>Device Category</th>
-                            <th>Refresh Cycle</th>
-                            <th>Priority</th>
-                            <th>Rationale</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Executive/Leadership Devices</strong></td>
-                            <td>3 years</td>
-                            <td><span class="priority-badge priority-critical">Critical</span></td>
-                            <td>High visibility, productivity essential</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Faculty Primary Laptops</strong></td>
-                            <td>3-4 years</td>
-                            <td><span class="priority-badge priority-high">High</span></td>
-                            <td>Teaching continuity, research demands</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Lab Computers (High-Use)</strong></td>
-                            <td>3 years</td>
-                            <td><span class="priority-badge priority-high">High</span></td>
-                            <td>Heavy daily usage, student-facing</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Lab Computers (Standard)</strong></td>
-                            <td>4 years</td>
-                            <td><span class="priority-badge priority-medium">Medium</span></td>
-                            <td>Moderate usage patterns</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Administrative Workstations</strong></td>
-                            <td>4-5 years</td>
-                            <td><span class="priority-badge priority-medium">Medium</span></td>
-                            <td>Standard office productivity</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Student Loaner Devices</strong></td>
-                            <td>3 years</td>
-                            <td><span class="priority-badge priority-high">High</span></td>
-                            <td>Heavy circulation, wear and tear</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mobile Devices (iPads/Tablets)</strong></td>
-                            <td>3-4 years</td>
-                            <td><span class="priority-badge priority-medium">Medium</span></td>
-                            <td>OS support lifecycle limitations</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <section style="background: linear-gradient(180deg, var(--gray-50) 0%, white 100%);">
+    <!-- Lifecycle Section -->
+    <section class="lifecycle-section">
         <div class="section-container">
             <div class="section-header">
                 <h2>Asset Lifecycle Management</h2>
@@ -483,88 +660,64 @@
     <section class="section-alt">
         <div class="section-container">
             <div class="section-header">
-                <h2>Lifecycle Stage Details</h2>
-                <p>Detailed processes and automation at each stage of the asset journey</p>
+                <h2>Device Refresh Cycles</h2>
+                <p>Strategic replacement schedules based on usage and importance</p>
             </div>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-shopping-cart"></i></div>
-                    <h3>Stage 1: Procurement</h3>
-                    <p>Streamlined purchasing with automated asset creation and vendor management.</p>
-                    <table class="component-table">
-                        <tr><th>Process</th><th>Automation</th></tr>
-                        <tr><td>Purchase Request</td><td>ServiceNow catalog integration</td></tr>
-                        <tr><td>PO Generation</td><td>Budget validation & approval workflow</td></tr>
-                        <tr><td>Vendor Portal</td><td>Order status & shipping tracking</td></tr>
-                        <tr><td>Receiving</td><td>Auto-create asset record on receipt</td></tr>
-                        <tr><td>Asset Tagging</td><td>QR/barcode label generation</td></tr>
-                    </table>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-rocket"></i></div>
-                    <h3>Stage 2: Deployment</h3>
-                    <p>Zero-touch provisioning gets devices to users faster with less IT effort.</p>
-                    <table class="component-table">
-                        <tr><th>Process</th><th>Automation</th></tr>
-                        <tr><td>User Assignment</td><td>Link to ServiceNow request</td></tr>
-                        <tr><td>MDM Enrollment</td><td>Apple DEP / Windows Autopilot</td></tr>
-                        <tr><td>Configuration</td><td>Policies, apps, settings applied</td></tr>
-                        <tr><td>Verification</td><td>Compliance check before handoff</td></tr>
-                        <tr><td>User Notification</td><td>Ready-for-pickup or shipping alert</td></tr>
-                    </table>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-cogs"></i></div>
-                    <h3>Stage 3: Management</h3>
-                    <p>Continuous monitoring ensures devices remain secure, compliant, and productive.</p>
-                    <table class="component-table">
-                        <tr><th>Process</th><th>Automation</th></tr>
-                        <tr><td>Health Monitoring</td><td>Battery, storage, performance alerts</td></tr>
-                        <tr><td>Patch Management</td><td>Scheduled OS & app updates</td></tr>
-                        <tr><td>Compliance Checks</td><td>Daily policy validation scans</td></tr>
-                        <tr><td>Support Integration</td><td>Asset data in help desk tickets</td></tr>
-                        <tr><td>Usage Analytics</td><td>Login frequency, app usage reports</td></tr>
-                    </table>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
-                    <h3>Stage 4: Refresh</h3>
-                    <p>Proactive replacement planning based on age, performance, and strategic needs.</p>
-                    <table class="component-table">
-                        <tr><th>Process</th><th>Automation</th></tr>
-                        <tr><td>Age Tracking</td><td>Alerts at 80% of lifecycle</td></tr>
-                        <tr><td>Performance Scoring</td><td>Hardware health assessment</td></tr>
-                        <tr><td>Cascade Eligibility</td><td>Auto-identify redeployment options</td></tr>
-                        <tr><td>Replacement Order</td><td>Pre-approved refresh requests</td></tr>
-                        <tr><td>Data Migration</td><td>User data backup & transfer</td></tr>
-                    </table>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-recycle"></i></div>
-                    <h3>Stage 5: Retirement</h3>
-                    <p>Secure, compliant disposal with complete chain-of-custody documentation.</p>
-                    <table class="component-table">
-                        <tr><th>Process</th><th>Automation</th></tr>
-                        <tr><td>Data Sanitization</td><td>NIST 800-88 compliant wipe</td></tr>
-                        <tr><td>MDM Unenrollment</td><td>Remote wipe & license release</td></tr>
-                        <tr><td>E-Waste Vendor</td><td>R2/e-Stewards certified pickup</td></tr>
-                        <tr><td>Certificate of Destruction</td><td>Documented proof of disposal</td></tr>
-                        <tr><td>Asset Record Close</td><td>Archived with full history</td></tr>
-                    </table>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Lifecycle Analytics</h3>
-                    <p>Data-driven insights to optimize spending and predict future needs.</p>
-                    <table class="component-table">
-                        <tr><th>Metric</th><th>Business Value</th></tr>
-                        <tr><td>Total Cost of Ownership</td><td>True cost per device category</td></tr>
-                        <tr><td>Mean Time to Deploy</td><td>Provisioning efficiency tracking</td></tr>
-                        <tr><td>Compliance Rate</td><td>Security posture visibility</td></tr>
-                        <tr><td>Refresh Forecast</td><td>Budget planning accuracy</td></tr>
-                        <tr><td>Cascade Savings</td><td>ROI from device redeployment</td></tr>
-                    </table>
-                </div>
+            <div class="feature-card">
+                <table class="refresh-table">
+                    <thead>
+                        <tr>
+                            <th>Device Category</th>
+                            <th>Refresh Cycle</th>
+                            <th>Priority</th>
+                            <th>Rationale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Executive/Leadership Devices</strong></td>
+                            <td>3 years</td>
+                            <td><span class="priority-badge priority-critical">Critical</span></td>
+                            <td>High visibility, productivity essential</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Faculty Primary Laptops</strong></td>
+                            <td>3-4 years</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Teaching continuity, research demands</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lab Computers (High-Use)</strong></td>
+                            <td>3 years</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Heavy daily usage, student-facing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lab Computers (Standard)</strong></td>
+                            <td>4 years</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Moderate usage patterns</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Administrative Workstations</strong></td>
+                            <td>4-5 years</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Standard office productivity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Student Loaner Devices</strong></td>
+                            <td>3 years</td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Heavy circulation, wear and tear</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile Devices (iPads/Tablets)</strong></td>
+                            <td>3-4 years</td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>OS support lifecycle limitations</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -697,28 +850,6 @@
                         <tr><td>TCO by Category</td><td>True cost per device type</td></tr>
                         <tr><td>Depreciation Schedule</td><td>Book value tracking</td></tr>
                         <tr><td>Refresh Forecast</td><td>5-year budget projection</td></tr>
-                    </table>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-cubes"></i></div>
-                    <h3>Software Inventory</h3>
-                    <p>Automatic discovery of all installed applications with version tracking and license compliance.</p>
-                    <table class="component-table">
-                        <tr><th>Capability</th><th>Benefit</th></tr>
-                        <tr><td>App Discovery</td><td>Complete software inventory</td></tr>
-                        <tr><td>Version Tracking</td><td>Identify outdated software</td></tr>
-                        <tr><td>License Compliance</td><td>Avoid audit penalties</td></tr>
-                    </table>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-server"></i></div>
-                    <h3>Hardware Specifications</h3>
-                    <p>Automatic capture of detailed hardware specs for capacity planning and support.</p>
-                    <table class="component-table">
-                        <tr><th>Attribute</th><th>Auto-Captured</th></tr>
-                        <tr><td>Serial/Model</td><td>Yes - from MDM</td></tr>
-                        <tr><td>CPU/RAM/Storage</td><td>Yes - real-time</td></tr>
-                        <tr><td>Battery Health</td><td>Yes - % capacity</td></tr>
                     </table>
                 </div>
             </div>
