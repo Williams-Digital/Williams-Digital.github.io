@@ -77,6 +77,706 @@
         .back-btn:hover { background: var(--auburn-orange); }
         footer { background: var(--auburn-navy); color: rgba(255,255,255,0.7); padding: 2rem; text-align: center; font-size: 0.9rem; }
         @media (max-width: 768px) { .nav-links { display: none; } .page-hero { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; } .feature-grid, .systems-grid { grid-template-columns: 1fr; } }
+
+        /* Enhanced Hero */
+        .page-hero {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(221, 85, 12, 0.2);
+            border: 1px solid var(--auburn-orange);
+            color: var(--auburn-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .hero-tagline {
+            font-size: 1.35rem;
+            color: var(--auburn-orange);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .hero-stat {
+            text-align: left;
+        }
+        .hero-stat-value {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--auburn-orange);
+            line-height: 1;
+        }
+        .hero-stat-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Live Dashboard Preview */
+        .dashboard-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+        }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .dashboard-header h2 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .dashboard-header p {
+            color: rgba(255,255,255,0.7);
+        }
+        .dashboard-mockup {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .dashboard-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+        }
+        .dashboard-title {
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .dashboard-title i { color: var(--auburn-orange); }
+        .dashboard-live {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #10b981;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        .occupancy-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .occupancy-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--auburn-orange);
+        }
+        .occupancy-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .occupancy-card h4 {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .occupancy-count {
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .occupancy-current {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+        }
+        .occupancy-max {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+        }
+        .occupancy-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        .occupancy-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+        .occupancy-fill.low { background: #10b981; }
+        .occupancy-fill.medium { background: #f59e0b; }
+        .occupancy-fill.high { background: #ef4444; }
+        .occupancy-status {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .status-available { color: #10b981; }
+        .status-busy { color: #f59e0b; }
+        .status-full { color: #ef4444; }
+
+        /* Data Flow Diagram */
+        .flow-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .flow-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .flow-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .flow-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .flow-header p {
+            color: var(--gray-600);
+        }
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .flow-step {
+            flex: 1;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .flow-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            color: white;
+        }
+        .flow-step h4 {
+            color: var(--auburn-navy);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .flow-step p {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--auburn-orange);
+            flex-shrink: 0;
+        }
+
+        /* Privacy Comparison */
+        .privacy-section {
+            padding: 5rem 2rem;
+        }
+        .privacy-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .privacy-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .privacy-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .privacy-header p {
+            color: var(--gray-600);
+        }
+        .privacy-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .privacy-card {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+        }
+        .privacy-card.traditional {
+            border: 2px solid #fecaca;
+        }
+        .privacy-card.thermal {
+            border: 2px solid #bbf7d0;
+        }
+        .privacy-card-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .privacy-card.traditional .privacy-card-header {
+            background: #fef2f2;
+        }
+        .privacy-card.thermal .privacy-card-header {
+            background: #f0fdf4;
+        }
+        .privacy-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .privacy-card.traditional .privacy-card-icon {
+            background: #fecaca;
+            color: #991b1b;
+        }
+        .privacy-card.thermal .privacy-card-icon {
+            background: #bbf7d0;
+            color: #166534;
+        }
+        .privacy-card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .privacy-card.traditional .privacy-card-header h3 { color: #991b1b; }
+        .privacy-card.thermal .privacy-card-header h3 { color: #166534; }
+        .privacy-visual {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a2e;
+            position: relative;
+        }
+        .privacy-visual.traditional-view {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 100%);
+        }
+        .privacy-visual.thermal-view {
+            background: linear-gradient(135deg, #0a2540 0%, #0d3a5c 100%);
+        }
+        .face-icons {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .face-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .face-icon.visible {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .heat-blobs {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .heat-blob {
+            width: 50px;
+            height: 60px;
+            border-radius: 50% 50% 45% 45%;
+            background: radial-gradient(ellipse at center, #ff6b35 0%, #ff4444 50%, transparent 70%);
+            opacity: 0.8;
+        }
+        .privacy-card-body {
+            padding: 1.5rem;
+            background: white;
+        }
+        .privacy-list {
+            list-style: none;
+        }
+        .privacy-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        .privacy-card.traditional .privacy-list li { color: #991b1b; }
+        .privacy-card.thermal .privacy-list li { color: #166534; }
+        .privacy-list li i {
+            font-size: 0.75rem;
+        }
+
+        /* Campus Deployment Map */
+        .deploy-map-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .deploy-map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .deploy-map-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .deploy-map-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .deploy-map-header p {
+            color: var(--gray-600);
+        }
+        .deploy-map-wrapper {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        .deploy-map-visual {
+            position: relative;
+            background: linear-gradient(135deg, #e8f4e8 0%, #d4e8d4 100%);
+            border-radius: 12px;
+            height: 400px;
+            overflow: hidden;
+        }
+        .deploy-zone {
+            position: absolute;
+            padding: 0.75rem 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .deploy-zone:hover {
+            transform: scale(1.05);
+            border-color: var(--auburn-orange);
+            z-index: 10;
+        }
+        .deploy-zone .zone-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .deploy-zone h5 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+        .deploy-zone p {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            margin: 0;
+        }
+        .deploy-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .deploy-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gray-600);
+        }
+        .deploy-legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* System Integration */
+        .integration-section {
+            padding: 5rem 2rem;
+        }
+        .integration-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .integration-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .integration-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .integration-header p {
+            color: var(--gray-600);
+        }
+        .integration-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .integration-hub {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #0a3a6e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 8px 32px rgba(3, 36, 77, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        .integration-hub i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--auburn-orange);
+        }
+        .integration-hub span {
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .integration-connections {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .integration-item {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            min-width: 220px;
+        }
+        .integration-item:hover {
+            border-color: var(--auburn-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        .integration-item-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .integration-item h5 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.15rem;
+        }
+        .integration-item p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin: 0;
+        }
+
+        /* University Gallery */
+        .uni-gallery-section {
+            padding: 5rem 2rem;
+            background: var(--gray-50);
+        }
+        .uni-gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .uni-gallery-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .uni-gallery-header h2 {
+            color: var(--auburn-navy);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .uni-gallery-header p {
+            color: var(--gray-600);
+        }
+        .uni-gallery-carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        .uni-gallery-track {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+        .uni-gallery-slide {
+            min-width: 350px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--gray-200);
+        }
+        .uni-gallery-slide img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .uni-gallery-content {
+            padding: 1.25rem;
+        }
+        .uni-gallery-slide h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+        .uni-gallery-venue {
+            font-size: 0.85rem;
+            color: var(--auburn-orange);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .uni-gallery-slide p {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+        .uni-gallery-stat {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: #f0fdf4;
+            color: #166534;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.35rem 0.65rem;
+            border-radius: 20px;
+        }
+        .uni-gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .uni-gallery-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--auburn-navy);
+            background: white;
+            color: var(--auburn-navy);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        .uni-gallery-btn:hover {
+            background: var(--auburn-navy);
+            color: white;
+        }
+        .uni-gallery-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .uni-gallery-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .uni-gallery-indicator.active {
+            background: var(--auburn-orange);
+            width: 30px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .privacy-comparison { grid-template-columns: 1fr; }
+            .integration-diagram { flex-direction: column; }
+            .integration-connections { grid-template-columns: 1fr; }
+            .uni-gallery-slide { min-width: 280px; }
+        }
+        @media (max-width: 600px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .hero-stats { gap: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -101,8 +801,214 @@
                 <i class="fas fa-chevron-right"></i>
                 <span>People Tracking & Analytics</span>
             </div>
-            <h1><i class="fas fa-users"></i> People Tracking & Analytics</h1>
-            <p>Deploy an intelligent people-counting and flow analytics system to optimize campus operations, enhance safety protocols, and provide actionable data for facility management.</p>
+            <div class="hero-badge">
+                <i class="fas fa-shield-alt"></i>
+                Privacy-First Technology
+            </div>
+            <h1>Know Your Spaces — Without Compromising Privacy</h1>
+            <p class="hero-tagline">Intelligent occupancy analytics that count people, not faces.</p>
+            <p>Deploy an intelligent people-counting and flow analytics system to optimize campus operations, enhance safety protocols, and provide actionable data for facility management — all while protecting student privacy.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">98%+</div>
+                    <div class="hero-stat-label">Counting Accuracy</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">Real-Time</div>
+                    <div class="hero-stat-label">Data Updates</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">100%</div>
+                    <div class="hero-stat-label">Privacy-Safe</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">FERPA</div>
+                    <div class="hero-stat-label">Compliant</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Dashboard Preview -->
+    <section class="dashboard-section">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2>Real-Time Campus Occupancy Dashboard</h2>
+                <p>See availability across campus at a glance — students, staff, and visitors all benefit</p>
+            </div>
+            <div class="dashboard-mockup">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-title">
+                        <i class="fas fa-th-large"></i>
+                        Auburn Campus Occupancy
+                    </div>
+                    <div class="dashboard-live">
+                        <span class="live-dot"></span>
+                        Live Data
+                    </div>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="occupancy-card">
+                        <div class="occupancy-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>RBD Library</h4>
+                        <div class="occupancy-count">
+                            <span class="occupancy-current" id="lib-count">847</span>
+                            <span class="occupancy-max">/ 1,200</span>
+                        </div>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill medium" style="width: 71%;"></div>
+                        </div>
+                        <span class="occupancy-status status-busy">71% — Moderately Busy</span>
+                    </div>
+                    <div class="occupancy-card">
+                        <div class="occupancy-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h4>Recreation Center</h4>
+                        <div class="occupancy-count">
+                            <span class="occupancy-current" id="rec-count">234</span>
+                            <span class="occupancy-max">/ 800</span>
+                        </div>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill low" style="width: 29%;"></div>
+                        </div>
+                        <span class="occupancy-status status-available">29% — Plenty of Space</span>
+                    </div>
+                    <div class="occupancy-card">
+                        <div class="occupancy-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h4>Village Dining</h4>
+                        <div class="occupancy-count">
+                            <span class="occupancy-current" id="dining-count">412</span>
+                            <span class="occupancy-max">/ 450</span>
+                        </div>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill high" style="width: 92%;"></div>
+                        </div>
+                        <span class="occupancy-status status-full">92% — Near Capacity</span>
+                    </div>
+                    <div class="occupancy-card">
+                        <div class="occupancy-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Student Center</h4>
+                        <div class="occupancy-count">
+                            <span class="occupancy-current" id="student-count">567</span>
+                            <span class="occupancy-max">/ 1,000</span>
+                        </div>
+                        <div class="occupancy-bar">
+                            <div class="occupancy-fill medium" style="width: 57%;"></div>
+                        </div>
+                        <span class="occupancy-status status-busy">57% — Moderate</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Flow Diagram -->
+    <section class="flow-section">
+        <div class="flow-container">
+            <div class="flow-header">
+                <h2>How It Works</h2>
+                <p>From sensor to action in milliseconds — fully automated, fully private</p>
+            </div>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="flow-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <h4>Sensors Detect</h4>
+                    <p>Thermal and beam sensors count bodies entering/exiting — no cameras, no faces</p>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="flow-step">
+                    <div class="flow-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h4>Edge Processing</h4>
+                    <p>On-device AI converts heat signatures to anonymous counts instantly</p>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="flow-step">
+                    <div class="flow-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h4>Dashboard Updates</h4>
+                    <p>Real-time counts appear on screens, apps, and admin portals campus-wide</p>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="flow-step">
+                    <div class="flow-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h4>Alerts & Actions</h4>
+                    <p>Automatic notifications at thresholds, emergency counts, HVAC adjustments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Comparison -->
+    <section class="privacy-section">
+        <div class="privacy-container">
+            <div class="privacy-header">
+                <h2>Privacy by Design</h2>
+                <p>See the difference between traditional surveillance and our privacy-first approach</p>
+            </div>
+            <div class="privacy-comparison">
+                <div class="privacy-card traditional">
+                    <div class="privacy-card-header">
+                        <div class="privacy-card-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>Traditional Cameras</h3>
+                    </div>
+                    <div class="privacy-visual traditional-view">
+                        <div class="face-icons">
+                            <div class="face-icon visible"><i class="fas fa-user"></i></div>
+                            <div class="face-icon visible"><i class="fas fa-user"></i></div>
+                            <div class="face-icon visible"><i class="fas fa-user"></i></div>
+                        </div>
+                    </div>
+                    <div class="privacy-card-body">
+                        <ul class="privacy-list">
+                            <li><i class="fas fa-times-circle"></i> Captures identifiable faces</li>
+                            <li><i class="fas fa-times-circle"></i> Video footage stored on servers</li>
+                            <li><i class="fas fa-times-circle"></i> Potential for misuse or breaches</li>
+                            <li><i class="fas fa-times-circle"></i> Students feel surveilled</li>
+                            <li><i class="fas fa-times-circle"></i> Complex FERPA compliance</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="privacy-card thermal">
+                    <div class="privacy-card-header">
+                        <div class="privacy-card-icon">
+                            <i class="fas fa-temperature-high"></i>
+                        </div>
+                        <h3>Thermal Counting</h3>
+                    </div>
+                    <div class="privacy-visual thermal-view">
+                        <div class="heat-blobs">
+                            <div class="heat-blob"></div>
+                            <div class="heat-blob"></div>
+                            <div class="heat-blob"></div>
+                        </div>
+                    </div>
+                    <div class="privacy-card-body">
+                        <ul class="privacy-list">
+                            <li><i class="fas fa-check-circle"></i> Only detects heat signatures</li>
+                            <li><i class="fas fa-check-circle"></i> No video or images stored</li>
+                            <li><i class="fas fa-check-circle"></i> Data is just numbers: "47 people"</li>
+                            <li><i class="fas fa-check-circle"></i> Anonymous by design</li>
+                            <li><i class="fas fa-check-circle"></i> FERPA/HIPAA compliant</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -261,6 +1167,217 @@
         </div>
     </section>
 
+    <!-- Campus Deployment Map -->
+    <section class="deploy-map-section">
+        <div class="deploy-map-container">
+            <div class="deploy-map-header">
+                <h2>Campus Sensor Deployment</h2>
+                <p>Strategic placement across high-traffic buildings and spaces</p>
+            </div>
+            <div class="deploy-map-wrapper">
+                <div class="deploy-map-visual">
+                    <div class="deploy-zone" style="top: 12%; left: 8%;">
+                        <div class="zone-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);"><i class="fas fa-book"></i></div>
+                        <h5>RBD Library</h5>
+                        <p>12 sensors, 4 floors</p>
+                    </div>
+                    <div class="deploy-zone" style="top: 25%; left: 55%;">
+                        <div class="zone-icon" style="background: linear-gradient(135deg, #10b981, #059669);"><i class="fas fa-dumbbell"></i></div>
+                        <h5>Recreation Center</h5>
+                        <p>8 sensors, gym + pool</p>
+                    </div>
+                    <div class="deploy-zone" style="top: 55%; left: 20%;">
+                        <div class="zone-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);"><i class="fas fa-utensils"></i></div>
+                        <h5>Village Dining</h5>
+                        <p>6 sensors, all entrances</p>
+                    </div>
+                    <div class="deploy-zone" style="top: 45%; left: 70%;">
+                        <div class="zone-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);"><i class="fas fa-users"></i></div>
+                        <h5>Student Center</h5>
+                        <p>10 sensors, 3 floors</p>
+                    </div>
+                    <div class="deploy-zone" style="top: 70%; left: 45%;">
+                        <div class="zone-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);"><i class="fas fa-graduation-cap"></i></div>
+                        <h5>Haley Center</h5>
+                        <p>15 sensors, classrooms</p>
+                    </div>
+                    <div class="deploy-zone" style="top: 18%; left: 32%;">
+                        <div class="zone-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);"><i class="fas fa-football-ball"></i></div>
+                        <h5>Jordan-Hare</h5>
+                        <p>20+ sensors, all gates</p>
+                    </div>
+                </div>
+                <div class="deploy-legend">
+                    <div class="deploy-legend-item"><div class="deploy-legend-dot" style="background: #3b82f6;"></div> Academic</div>
+                    <div class="deploy-legend-item"><div class="deploy-legend-dot" style="background: #10b981;"></div> Recreation</div>
+                    <div class="deploy-legend-item"><div class="deploy-legend-dot" style="background: #f59e0b;"></div> Dining</div>
+                    <div class="deploy-legend-item"><div class="deploy-legend-dot" style="background: #8b5cf6;"></div> Student Services</div>
+                    <div class="deploy-legend-item"><div class="deploy-legend-dot" style="background: #ef4444;"></div> Athletics</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Integration -->
+    <section class="integration-section">
+        <div class="integration-container">
+            <div class="integration-header">
+                <h2>Connected Campus Ecosystem</h2>
+                <p>People tracking data powers multiple campus systems for unified operations</p>
+            </div>
+            <div class="integration-diagram">
+                <div class="integration-connections">
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                            <i class="fas fa-tv"></i>
+                        </div>
+                        <div>
+                            <h5>Digital Signage</h5>
+                            <p>Live occupancy on lobby screens</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Auburn Mobile App</h5>
+                            <p>Find open spaces on your phone</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div>
+                            <h5>Emergency Alerts</h5>
+                            <p>Instant headcounts for first responders</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div>
+                            <h5>HVAC Systems</h5>
+                            <p>Demand-based climate control</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="integration-hub">
+                    <i class="fas fa-users"></i>
+                    <span>People Tracking<br>Analytics</span>
+                </div>
+                <div class="integration-connections">
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Room Scheduling</h5>
+                            <p>Optimize space assignments</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <h5>Staffing Systems</h5>
+                            <p>Dynamic personnel allocation</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                            <i class="fas fa-parking"></i>
+                        </div>
+                        <div>
+                            <h5>Parking Guidance</h5>
+                            <p>Predict lot demand patterns</p>
+                        </div>
+                    </div>
+                    <div class="integration-item">
+                        <div class="integration-item-icon" style="background: linear-gradient(135deg, #84cc16, #65a30d);">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div>
+                            <h5>Analytics Platform</h5>
+                            <p>Long-term trend reporting</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- University Examples Gallery -->
+    <section class="uni-gallery-section">
+        <div class="uni-gallery-container">
+            <div class="uni-gallery-header">
+                <h2>Proven at Leading Universities</h2>
+                <p>See how other campuses are using occupancy analytics to improve student experience</p>
+            </div>
+            <div class="uni-gallery-carousel">
+                <div class="uni-gallery-track" id="uniGalleryTrack">
+                    <div class="uni-gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&h=400&fit=crop" alt="Library">
+                        <div class="uni-gallery-content">
+                            <h4>Library Occupancy Display</h4>
+                            <div class="uni-gallery-venue">University of Michigan</div>
+                            <p>Real-time floor-by-floor occupancy helps students find quiet study spaces during finals week.</p>
+                            <span class="uni-gallery-stat"><i class="fas fa-arrow-down"></i> 35% less search time</span>
+                        </div>
+                    </div>
+                    <div class="uni-gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&h=400&fit=crop" alt="Gym">
+                        <div class="uni-gallery-content">
+                            <h4>Rec Center Tracking</h4>
+                            <div class="uni-gallery-venue">University of Texas</div>
+                            <p>Students check gym occupancy on the app before heading over, reducing peak-time frustration.</p>
+                            <span class="uni-gallery-stat"><i class="fas fa-arrow-up"></i> 28% better distribution</span>
+                        </div>
+                    </div>
+                    <div class="uni-gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=600&h=400&fit=crop" alt="Dining">
+                        <div class="uni-gallery-content">
+                            <h4>Dining Hall Analytics</h4>
+                            <div class="uni-gallery-venue">Penn State University</div>
+                            <p>Predictive staffing based on historical patterns reduced wait times during lunch rush.</p>
+                            <span class="uni-gallery-stat"><i class="fas fa-arrow-down"></i> 40% shorter lines</span>
+                        </div>
+                    </div>
+                    <div class="uni-gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=400&fit=crop" alt="Campus">
+                        <div class="uni-gallery-content">
+                            <h4>Gameday Crowd Flow</h4>
+                            <div class="uni-gallery-venue">Ohio State University</div>
+                            <p>Real-time pedestrian density at key intersections enables dynamic wayfinding adjustments.</p>
+                            <span class="uni-gallery-stat"><i class="fas fa-arrow-down"></i> 25% fewer bottlenecks</span>
+                        </div>
+                    </div>
+                    <div class="uni-gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=400&fit=crop" alt="Building">
+                        <div class="uni-gallery-content">
+                            <h4>Classroom Utilization</h4>
+                            <div class="uni-gallery-venue">Georgia Tech</div>
+                            <p>Actual vs. scheduled occupancy data informed a campus-wide room reassignment saving $2M.</p>
+                            <span class="uni-gallery-stat"><i class="fas fa-arrow-up"></i> 45% better utilization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uni-gallery-controls">
+                <button class="uni-gallery-btn" onclick="moveUniGallery(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="uni-gallery-btn" onclick="moveUniGallery(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="uni-gallery-indicators">
+                <span class="uni-gallery-indicator active" onclick="goToUniSlide(0)"></span>
+                <span class="uni-gallery-indicator" onclick="goToUniSlide(1)"></span>
+                <span class="uni-gallery-indicator" onclick="goToUniSlide(2)"></span>
+            </div>
+        </div>
+    </section>
+
     <section class="section-alt">
         <div class="section-container">
             <div class="section-header">
@@ -305,5 +1422,56 @@
     <footer>
         <p>Auburn University Campus Production Enhancement Proposal | Confidential</p>
     </footer>
+
+    <script>
+        // University Gallery Carousel
+        let uniCurrentSlide = 0;
+        const uniTrack = document.getElementById('uniGalleryTrack');
+        const uniSlides = document.querySelectorAll('.uni-gallery-slide');
+        const uniIndicators = document.querySelectorAll('.uni-gallery-indicator');
+        const uniSlideWidth = 365;
+        const uniVisibleSlides = 3;
+        const uniMaxSlide = Math.max(0, uniSlides.length - uniVisibleSlides);
+
+        function moveUniGallery(direction) {
+            uniCurrentSlide = Math.max(0, Math.min(uniCurrentSlide + direction, uniMaxSlide));
+            updateUniGallery();
+        }
+
+        function goToUniSlide(index) {
+            uniCurrentSlide = Math.min(index, uniMaxSlide);
+            updateUniGallery();
+        }
+
+        function updateUniGallery() {
+            uniTrack.style.transform = `translateX(-${uniCurrentSlide * uniSlideWidth}px)`;
+            uniIndicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === uniCurrentSlide);
+            });
+        }
+
+        // Animate dashboard counts
+        function animateCounts() {
+            const variations = {
+                'lib-count': [820, 847, 865, 842, 851, 839],
+                'rec-count': [228, 234, 241, 237, 230, 245],
+                'dining-count': [405, 412, 418, 409, 421, 415],
+                'student-count': [560, 567, 573, 565, 578, 571]
+            };
+
+            setInterval(() => {
+                Object.keys(variations).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        const values = variations[id];
+                        const newValue = values[Math.floor(Math.random() * values.length)];
+                        el.textContent = newValue;
+                    }
+                });
+            }, 3000);
+        }
+
+        animateCounts();
+    </script>
 </body>
 </html>
