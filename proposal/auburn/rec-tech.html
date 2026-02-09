@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recreation Technology & Systems Administrator | Dylan Williams</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --auburn-navy: #03244d;
+            --auburn-orange: #DD550C;
+            --auburn-orange-light: #F56600;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--auburn-navy);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.75rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-brand span {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--auburn-orange);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%);
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.recwellness.auburn.edu/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Ffbwn6o8qf8ib%2F3YLGPdJvZ2SqDfNXGDY9zl%2F2b1b23d3cd48f4e8e0a4f1c5d5f5e9a7%2FRWC_Exterior.jpg&w=1920&q=75') center center;
+            background-size: cover;
+            opacity: 0.2;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(221, 85, 12, 0.2);
+            border: 1px solid var(--auburn-orange);
+            color: var(--auburn-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: left;
+        }
+
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--auburn-orange);
+        }
+
+        .hero-stat-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--auburn-navy);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Qualifications Grid */
+        .qual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .qual-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .qual-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(3, 36, 77, 0.1);
+            border-color: var(--auburn-orange);
+        }
+
+        .qual-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .qual-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, var(--auburn-orange) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+
+        .qual-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+        }
+
+        .qual-card p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+        }
+
+        .qual-match {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50px;
+            color: var(--success);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Facility Section */
+        .facility-bg {
+            background: var(--gray-50);
+        }
+
+        .facility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .facility-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(3, 36, 77, 0.1);
+        }
+
+        .facility-card i {
+            font-size: 2rem;
+            color: var(--auburn-orange);
+            margin-bottom: 1rem;
+        }
+
+        .facility-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .facility-card p {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+
+        /* Architecture Section */
+        .arch-diagram {
+            background: var(--auburn-navy);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .arch-diagram pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        /* Improvement Cards */
+        .improvement-section {
+            margin-bottom: 3rem;
+        }
+
+        .improvement-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .phase-badge {
+            background: var(--auburn-orange);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .improvement-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+        }
+
+        .improvement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .improvement-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .improvement-card:hover {
+            border-color: var(--auburn-orange);
+            box-shadow: 0 8px 30px rgba(3, 36, 77, 0.1);
+        }
+
+        .improvement-card h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.75rem;
+        }
+
+        .improvement-card .problem {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .improvement-card .solution {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .improvement-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .improvement-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--gray-600);
+            font-size: 0.95rem;
+        }
+
+        .improvement-card li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--auburn-orange);
+            border-radius: 50%;
+        }
+
+        /* Experience Badge */
+        .experience-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(3, 36, 77, 0.1);
+            border-radius: 8px;
+            color: var(--auburn-navy);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .experience-badge i {
+            color: var(--auburn-orange);
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(3, 36, 77, 0.15);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, var(--auburn-orange) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portfolio-image i {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-content p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .portfolio-tag {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-200);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--auburn-orange);
+            border-radius: 50%;
+            transform: translateX(-7px);
+        }
+
+        .timeline-item h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--auburn-navy);
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-item p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+        }
+
+        /* Skills Table */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .skills-table th {
+            background: var(--auburn-navy);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .skills-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .skills-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .skills-table tr:hover td {
+            background: var(--gray-50);
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--auburn-navy) 0%, var(--auburn-orange) 100%);
+            border-radius: 4px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--auburn-navy) 0%, #041e3a 100%);
+            color: var(--white);
+        }
+
+        .contact-section .section-header h2 {
+            color: var(--white);
+        }
+
+        .contact-section .section-header p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .contact-item {
+            padding: 2rem;
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--auburn-orange);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--auburn-orange);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: rgba(255,255,255,0.6);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer strong {
+            color: var(--auburn-orange);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .hero-stat-value {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .qual-grid,
+            .facility-grid,
+            .improvement-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-diagram pre {
+                font-size: 0.65rem;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Auburn_Tigers_logo.svg/1200px-Auburn_Tigers_logo.svg.png" alt="Auburn">
+                <span>Recreation Technology Pitch</span>
+            </a>
+            <div class="nav-links">
+                <a href="#qualifications">Qualifications</a>
+                <a href="#facility">Facility</a>
+                <a href="#improvements">Improvements</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-badge">
+                <i class="fas fa-briefcase"></i>
+                Position S4973P - Recreation and Wellness
+            </div>
+            <h1>Recreation Technology & Systems Administrator</h1>
+            <p>Transforming Auburn's 240,000 sq ft Recreation and Wellness Center through integrated technology systems, enhanced user experiences, and data-driven operations.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">8+</div>
+                    <div class="hero-stat-label">Projects Delivered</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">100%</div>
+                    <div class="hero-stat-label">Client Satisfaction</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">5+</div>
+                    <div class="hero-stat-label">Years Experience</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section id="qualifications">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Qualifications Alignment</h2>
+                <p>Direct experience match for every core requirement of the position</p>
+            </div>
+            <div class="qual-grid">
+                <div class="qual-card fade-in">
+                    <div class="qual-card-header">
+                        <div class="qual-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Software Platform Management</h3>
+                    </div>
+                    <p>8+ projects delivered including fitness & membership systems. Experience with scheduling, user management, and payment integrations.</p>
+                    <div class="qual-match"><i class="fas fa-check-circle"></i> PulseFit Studio - Fitness Platform</div>
+                </div>
+                <div class="qual-card fade-in">
+                    <div class="qual-card-header">
+                        <div class="qual-icon"><i class="fas fa-plug"></i></div>
+                        <h3>Innosoft Fusion Integration</h3>
+                    </div>
+                    <p>Full-stack development expertise (React, Node.js, Python) enabling seamless API integrations with existing recreation management systems.</p>
+                    <div class="qual-match"><i class="fas fa-check-circle"></i> REST/GraphQL API Experience</div>
+                </div>
+                <div class="qual-card fade-in">
+                    <div class="qual-card-header">
+                        <div class="qual-icon"><i class="fas fa-video"></i></div>
+                        <h3>A/V Setup & Troubleshooting</h3>
+                    </div>
+                    <p>Professional video production background with motion graphics, color grading, and live event experience.</p>
+                    <div class="qual-match"><i class="fas fa-check-circle"></i> Video Production Portfolio</div>
+                </div>
+                <div class="qual-card fade-in">
+                    <div class="qual-card-header">
+                        <div class="qual-icon"><i class="fas fa-microchip"></i></div>
+                        <h3>Hardware & Facility Systems</h3>
+                    </div>
+                    <p>IoT and mobile development experience (Swift, responsive design) for equipment monitoring and facility management.</p>
+                    <div class="qual-match"><i class="fas fa-check-circle"></i> Mobile App Development</div>
+                </div>
+                <div class="qual-card fade-in">
+                    <div class="qual-card-header">
+                        <div class="qual-icon"><i class="fas fa-book"></i></div>
+                        <h3>Training & Documentation</h3>
+                    </div>
+                    <p>Built SOPs and training materials for client platforms. Experience creating user guides and technical documentation.</p>
+                    <div class="qual-match"><i class="fas fa-check-circle"></i> Client Onboarding Systems</div>
+                </div>
+                <div class="qual-card fade-in">
+                    <div class="qual-card-header">
+                        <div class="qual-icon"><i class="fas fa-handshake"></i></div>
+                        <h3>Vendor Coordination</h3>
+                    </div>
+                    <p>End-to-end project management with external partners and stakeholders. Procurement and lifecycle management experience.</p>
+                    <div class="qual-match"><i class="fas fa-check-circle"></i> Williams Digital Clients</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="facility" class="facility-bg">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>RWC Facility Analysis</h2>
+                <p>240,000 sq ft of opportunity for technology enhancement</p>
+            </div>
+            <div class="facility-grid">
+                <div class="facility-card fade-in">
+                    <i class="fas fa-building"></i>
+                    <h3>Five-Story Cardio Tower</h3>
+                    <p>Suspension training, group cycling, yoga studio with automated hangar windows</p>
+                </div>
+                <div class="facility-card fade-in">
+                    <i class="fas fa-running"></i>
+                    <h3>1/3 Mile Indoor Track</h3>
+                    <p>Unique corkscrew design spanning both gymnasiums and atrium</p>
+                </div>
+                <div class="facility-card fade-in">
+                    <i class="fas fa-mountain"></i>
+                    <h3>50ft Climbing Towers (2)</h3>
+                    <p>5,000+ sq ft climbing surface with bouldering cave</p>
+                </div>
+                <div class="facility-card fade-in">
+                    <i class="fas fa-basketball-ball"></i>
+                    <h3>Multi-Activity Courts</h3>
+                    <p>8 basketball courts, Mondo flooring, multi-sport capability</p>
+                </div>
+                <div class="facility-card fade-in">
+                    <i class="fas fa-swimmer"></i>
+                    <h3>Aquatic Center</h3>
+                    <p>Resort-style pool, cold tubs, hot tub with monitoring needs</p>
+                </div>
+                <div class="facility-card fade-in">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>5 Group Fitness Studios</h3>
+                    <p>Olympic powerlifting, personal training, functional fitness</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 4rem;">
+                <h2>Current Technology Stack</h2>
+            </div>
+            <div class="arch-diagram">
+<pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                    CURRENT SYSTEMS (SILOED)                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐       │
+│  │   Innosoft   │    │   IMLeagues  │    │   Facility   │       │
+│  │    Fusion    │    │   Platform   │    │   Hardware   │       │
+│  │              │    │              │    │              │       │
+│  │ • Membership │    │ • Intramural │    │ • Turnstiles │       │
+│  │ • Check-in   │    │ • Club Sports│    │ • Time Clocks│       │
+│  │ • Scheduling │    │ • Team Mgmt  │    │ • Scoreboards│       │
+│  │ • Payments   │    │ • Registration│   │ • A/V Systems│       │
+│  └──────────────┘    └──────────────┘    └──────────────┘       │
+│         │                   │                    │               │
+│         └─────────┬─────────┘                    │               │
+│                   ▼                              ▼               │
+│         ┌─────────────────┐          ┌─────────────────┐        │
+│         │   Auburn Rec    │          │   Manual Mgmt   │        │
+│         │   Mobile App    │          │   (No Central   │        │
+│         │   (FusionGO)    │          │    Dashboard)   │        │
+│         └─────────────────┘          └─────────────────┘        │
+│                                                                  │
+│  ❌ Siloed Systems    ❌ Limited Analytics    ❌ No Real-time   │
+└─────────────────────────────────────────────────────────────────┘
+</pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="improvements">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Proposed Technology Improvements</h2>
+                <p>Phased approach to transform RWC operations</p>
+            </div>
+
+            <div class="improvement-section">
+                <div class="improvement-header">
+                    <span class="phase-badge">Phase 1</span>
+                    <h3>Integration & Optimization</h3>
+                </div>
+                <div class="improvement-grid">
+                    <div class="improvement-card fade-in">
+                        <h4>Unified Operations Dashboard</h4>
+                        <div class="problem"><i class="fas fa-exclamation-triangle"></i> Problem: Innosoft Fusion, IMLeagues, and facility systems operate in silos</div>
+                        <div class="solution"><i class="fas fa-check"></i> Solution: Centralized dashboard integrating all data sources</div>
+                        <ul>
+                            <li>Real-time facility occupancy (turnstile data)</li>
+                            <li>Equipment status monitoring</li>
+                            <li>Booking/reservation aggregation</li>
+                            <li>Staff scheduling views</li>
+                        </ul>
+                        <div class="experience-badge"><i class="fas fa-star"></i> PulseFit Studio - Same core architecture</div>
+                    </div>
+                    <div class="improvement-card fade-in">
+                        <h4>Smart Facility Monitoring</h4>
+                        <div class="problem"><i class="fas fa-exclamation-triangle"></i> Problem: No real-time visibility into equipment and space usage</div>
+                        <div class="solution"><i class="fas fa-check"></i> Solution: IoT sensor network across all zones</div>
+                        <ul>
+                            <li>Equipment usage analytics per floor</li>
+                            <li>Predictive maintenance alerts</li>
+                            <li>Real-time availability displays</li>
+                            <li>Climbing queue management</li>
+                        </ul>
+                        <div class="experience-badge"><i class="fas fa-star"></i> Full-stack IoT integration experience</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="improvement-section">
+                <div class="improvement-header">
+                    <span class="phase-badge">Phase 2</span>
+                    <h3>Enhanced User Experience</h3>
+                </div>
+                <div class="improvement-grid">
+                    <div class="improvement-card fade-in">
+                        <h4>Auburn Rec App 2.0</h4>
+                        <div class="problem"><i class="fas fa-exclamation-triangle"></i> Problem: Basic FusionGO implementation with limited features</div>
+                        <div class="solution"><i class="fas fa-check"></i> Solution: Enhanced mobile experience</div>
+                        <ul>
+                            <li>Real-time equipment availability</li>
+                            <li>Social features (find workout partners)</li>
+                            <li>Achievement/gamification system</li>
+                            <li>Wearable integration (Apple Watch, Fitbit)</li>
+                        </ul>
+                        <div class="experience-badge"><i class="fas fa-star"></i> Swift development + Milestone Journey gamification</div>
+                    </div>
+                    <div class="improvement-card fade-in">
+                        <h4>Digital Signage Network</h4>
+                        <div class="problem"><i class="fas fa-exclamation-triangle"></i> Problem: Static or outdated facility information</div>
+                        <div class="solution"><i class="fas fa-check"></i> Solution: Dynamic displays throughout facility</div>
+                        <ul>
+                            <li>Floor-specific occupancy</li>
+                            <li>Group fitness countdowns</li>
+                            <li>Intramural live scores</li>
+                            <li>Emergency alert integration</li>
+                        </ul>
+                        <div class="experience-badge"><i class="fas fa-star"></i> Auburn Gameday presentation systems</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="improvement-section">
+                <div class="improvement-header">
+                    <span class="phase-badge">Phase 3</span>
+                    <h3>Advanced Systems</h3>
+                </div>
+                <div class="improvement-grid">
+                    <div class="improvement-card fade-in">
+                        <h4>A/V Infrastructure Upgrade</h4>
+                        <ul>
+                            <li>Centralized A/V control room</li>
+                            <li>Wireless presentation systems</li>
+                            <li>Livestream capability for classes</li>
+                            <li>Instructional content production</li>
+                        </ul>
+                        <div class="experience-badge"><i class="fas fa-star"></i> Professional video production background</div>
+                    </div>
+                    <div class="improvement-card fade-in">
+                        <h4>Data Analytics Platform</h4>
+                        <ul>
+                            <li>Usage patterns by zone/time/demographic</li>
+                            <li>Equipment utilization rates</li>
+                            <li>Program registration trends</li>
+                            <li>Predictive capacity planning</li>
+                        </ul>
+                        <div class="experience-badge"><i class="fas fa-star"></i> PostgreSQL + analytics dashboard experience</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 4rem;">
+                <h2>Proposed Architecture</h2>
+            </div>
+            <div class="arch-diagram">
+<pre>
+┌─────────────────────────────────────────────────────────────────────────┐
+│                     RWC UNIFIED TECHNOLOGY PLATFORM                      │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  ┌────────────────────────────────────────────────────────────────────┐ │
+│  │                    PRESENTATION LAYER                               │ │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌─────────┐ │ │
+│  │  │   Staff      │  │   Member     │  │   Digital    │  │  Admin  │ │ │
+│  │  │  Dashboard   │  │  Mobile App  │  │   Signage    │  │  Portal │ │ │
+│  │  │   (React)    │  │   (Swift)    │  │   Network    │  │  (Web)  │ │ │
+│  │  └──────────────┘  └──────────────┘  └──────────────┘  └─────────┘ │ │
+│  └────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                     │
+│  ┌────────────────────────────────────────────────────────────────────┐ │
+│  │                     INTEGRATION LAYER (Node.js/Python)              │ │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────┐ │ │
+│  │  │   API Gateway   │  │  Event Bus      │  │  Auth Service       │ │ │
+│  │  │   (REST/GraphQL)│  │  (Real-time)    │  │  (Auburn SSO)       │ │ │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────────┘ │ │
+│  └────────────────────────────────────────────────────────────────────┘ │
+│                                    │                                     │
+│         ┌──────────────────────────┼──────────────────────────┐         │
+│         ▼                          ▼                          ▼         │
+│  ┌──────────────┐        ┌──────────────┐        ┌──────────────┐       │
+│  │   Innosoft   │        │   IMLeagues  │        │   IoT Layer  │       │
+│  │  Fusion API  │        │     API      │        │  (Equipment) │       │
+│  └──────────────┘        └──────────────┘        └──────────────┘       │
+│                                                                          │
+│  ✅ Unified Data    ✅ Real-time Updates    ✅ Predictive Analytics    │
+└─────────────────────────────────────────────────────────────────────────┘
+</pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="facility-bg">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Relevant Portfolio</h2>
+                <p>Projects demonstrating direct experience for this role</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-image">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>PulseFit Studio</h3>
+                        <p>Fitness platform featuring class scheduling, membership management, and user dashboards—directly applicable to RWC operations.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">React</span>
+                            <span class="portfolio-tag">Scheduling</span>
+                            <span class="portfolio-tag">Membership</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-image">
+                        <i class="fas fa-football-ball"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Auburn Gameday</h3>
+                        <p>Interactive presentation system for athletics events—demonstrates A/V and event technology expertise within Auburn's ecosystem.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Auburn</span>
+                            <span class="portfolio-tag">A/V Systems</span>
+                            <span class="portfolio-tag">Events</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-image">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Milestone Journey</h3>
+                        <p>Goal-tracking application showcasing gamification principles—applicable to member engagement initiatives.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">iOS/Swift</span>
+                            <span class="portfolio-tag">Gamification</span>
+                            <span class="portfolio-tag">Goals</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-card fade-in">
+                    <div class="portfolio-image">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Oakwood Builders Portal</h3>
+                        <p>Staff access management system—relevant to equipment checkout and facility management needs.</p>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Portal</span>
+                            <span class="portfolio-tag">Access Control</span>
+                            <span class="portfolio-tag">Staff</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Technical Skills</h2>
+                <p>Full-stack capabilities aligned to position requirements</p>
+            </div>
+            <table class="skills-table">
+                <thead>
+                    <tr>
+                        <th>Skill Category</th>
+                        <th>Technologies</th>
+                        <th>Application to Role</th>
+                        <th>Proficiency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Frontend</strong></td>
+                        <td>React, TypeScript, Next.js</td>
+                        <td>Dashboard and web interfaces</td>
+                        <td>
+                            <div class="skill-bar"><div class="skill-bar-fill" style="width: 95%"></div></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Backend</strong></td>
+                        <td>Node.js, Python, Express</td>
+                        <td>API integrations, automation</td>
+                        <td>
+                            <div class="skill-bar"><div class="skill-bar-fill" style="width: 90%"></div></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile</strong></td>
+                        <td>Swift (iOS)</td>
+                        <td>Auburn Rec app enhancements</td>
+                        <td>
+                            <div class="skill-bar"><div class="skill-bar-fill" style="width: 80%"></div></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Database</strong></td>
+                        <td>PostgreSQL, MongoDB</td>
+                        <td>Data management and analytics</td>
+                        <td>
+                            <div class="skill-bar"><div class="skill-bar-fill" style="width: 90%"></div></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cloud</strong></td>
+                        <td>AWS</td>
+                        <td>Scalable deployment</td>
+                        <td>
+                            <div class="skill-bar"><div class="skill-bar-fill" style="width: 75%"></div></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Video Production</strong></td>
+                        <td>Editing, Motion Graphics</td>
+                        <td>Training content, event A/V</td>
+                        <td>
+                            <div class="skill-bar"><div class="skill-bar-fill" style="width: 95%"></div></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Year 1 Implementation Roadmap</h2>
+                <p>Phased approach to maximize impact</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <h4>Q1: Assessment & Planning</h4>
+                    <p>Complete technology audit, establish vendor relationships, document current systems and pain points</p>
+                </div>
+                <div class="timeline-item fade-in">
+                    <h4>Q2: Quick Wins</h4>
+                    <p>Deploy digital signage pilot, build dashboard prototype, begin staff training program development</p>
+                </div>
+                <div class="timeline-item fade-in">
+                    <h4>Q3: Core Integration</h4>
+                    <p>Implement unified Fusion/IMLeagues data layer, launch real-time occupancy tracking</p>
+                </div>
+                <div class="timeline-item fade-in">
+                    <h4>Q4: User Experience</h4>
+                    <p>Roll out app enhancements, deploy equipment monitoring pilot, establish analytics baseline</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Let's Connect</h2>
+                <p>Ready to transform Recreation and Wellness technology</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <a href="mailto:Dylan@williamsdigital.io">Dylan@williamsdigital.io</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/williamsdg" target="_blank">github.com/williamsdg</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-globe"></i>
+                    <h3>Portfolio</h3>
+                    <a href="https://williamsdigital.io" target="_blank">williamsdigital.io</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Prepared February 2026 | <strong>War Eagle!</strong></p>
+        <p style="margin-top: 0.5rem;">Dylan Williams | Williams Digital</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
