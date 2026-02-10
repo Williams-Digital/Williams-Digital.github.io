@@ -1004,46 +1004,57 @@
 
         /* Social Cards Section */
         .social-section {
-            background: #f8f6f3;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 5rem 0;
+        }
+
+        .social-section .section-header h2 {
+            color: #fff;
+        }
+
+        .social-section .section-header p {
+            color: rgba(255,255,255,0.7);
         }
 
         .social-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .social-card {
-            background: #fff;
-            border-radius: 12px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
             transition: all 0.4s ease;
-            border: 1px solid rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
         }
 
         .social-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+            transform: translateY(-6px);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         .social-card-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1.5rem 1.5rem 0;
+            gap: 0.75rem;
+            padding: 1.25rem 1.25rem 0;
         }
 
         .social-platform {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #fff;
             flex-shrink: 0;
         }
@@ -1058,44 +1069,57 @@
 
         .social-card-header h3 {
             font-family: var(--heading-font);
-            font-size: 1.05rem;
-            color: var(--deep-green);
+            font-size: 1rem;
+            color: #fff;
             margin: 0;
+            line-height: 1.2;
         }
 
         .social-handle {
-            font-size: 0.85rem;
-            color: var(--text-light);
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
         }
 
         .social-card-body {
-            padding: 1rem 1.5rem;
+            padding: 1rem 1.25rem;
             flex: 1;
         }
 
         .social-role {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-light);
-            margin-bottom: 0.75rem;
+            letter-spacing: 1.5px;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
-        .social-card-body p {
+        .social-card-body .social-quote {
             font-size: 0.95rem;
-            color: var(--text-primary);
+            color: rgba(255,255,255,0.85);
             line-height: 1.6;
+            font-style: italic;
+            position: relative;
+            padding-left: 1rem;
+            border-left: 2px solid var(--accent-gold);
+        }
+
+        .social-card-body .social-context {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 0.5rem;
+            line-height: 1.5;
         }
 
         .social-tag {
             display: inline-block;
             margin-top: 0.75rem;
-            padding: 0.3rem 0.75rem;
+            padding: 0.25rem 0.6rem;
             background: linear-gradient(135deg, var(--accent-gold), #d4a853);
-            color: #fff;
+            color: #1a1a2e;
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            font-size: 0.7rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -1103,18 +1127,32 @@
         .social-card-link {
             display: block;
             text-align: center;
-            padding: 1rem;
-            border-top: 1px solid rgba(0,0,0,0.06);
-            color: var(--deep-green);
+            padding: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.6);
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-decoration: none;
             transition: all 0.3s;
         }
 
         .social-card-link:hover {
-            background: var(--deep-green);
+            background: rgba(255,255,255,0.1);
             color: #fff;
+        }
+
+        .social-card-link.instagram-link:hover {
+            color: #e1306c;
+        }
+
+        .social-card-link.twitter-link:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -1777,12 +1815,12 @@
     <section id="social" class="social-section">
         <div class="section-container">
             <div class="section-header">
-                <h2>On Social Media</h2>
-                <p>What celebrities and influencers are sharing about their Bolt Farm experience.</p>
+                <h2><i class="fab fa-instagram" style="background: linear-gradient(135deg, #f09433, #e6683c, #dc2743); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i> &nbsp;Social Buzz</h2>
+                <p>What celebrities, influencers, and leaders are sharing about their Bolt Farm experience.</p>
             </div>
 
             <div class="social-grid">
-                <!-- Hannah Brown -->
+                <!-- Hannah Brown - Instagram -->
                 <div class="social-card fade-in">
                     <div class="social-card-header">
                         <div class="social-platform instagram"><i class="fab fa-instagram"></i></div>
@@ -1792,16 +1830,36 @@
                         </div>
                     </div>
                     <div class="social-card-body">
-                        <div class="social-role">The Bachelorette Season 15</div>
-                        <p>"Living like kings and playing like kids!" Hannah got <strong>ENGAGED</strong> at Bolt Farm, calling it "a magical place and the definition of a getaway."</p>
+                        <div class="social-role">The Bachelorette &bull; DWTS Champion</div>
+                        <p class="social-quote">"Living like kings and playing like kids! A magical place and the definition of a getaway."</p>
+                        <p class="social-context">Hannah got ENGAGED at Bolt Farm, sharing the moment with millions of followers.</p>
                         <span class="social-tag">Engaged Here!</span>
                     </div>
-                    <a href="https://www.boltfarmtreehouse.com/blog/hannah-brown-adam-woolard-engaged" target="_blank" class="social-card-link">
-                        <i class="fab fa-instagram"></i> View Post
+                    <a href="https://www.boltfarmtreehouse.com/blog/hannah-brown-adam-woolard-engaged" target="_blank" class="social-card-link instagram-link">
+                        <i class="fab fa-instagram"></i> View on Instagram
                     </a>
                 </div>
 
-                <!-- Brian Kelley -->
+                <!-- Brian Chesky - X -->
+                <div class="social-card fade-in">
+                    <div class="social-card-header">
+                        <div class="social-platform twitter"><i class="fab fa-x-twitter"></i></div>
+                        <div>
+                            <h3>Brian Chesky</h3>
+                            <span class="social-handle">@bchesky</span>
+                        </div>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-role">CEO of Airbnb</div>
+                        <p class="social-quote">"This is the most magical creation! Extraordinary!"</p>
+                        <p class="social-context">The Airbnb CEO personally recognized Bolt Farm as one of the platform's most extraordinary stays.</p>
+                    </div>
+                    <a href="https://x.com/bchesky" target="_blank" class="social-card-link twitter-link">
+                        <i class="fab fa-x-twitter"></i> View on X
+                    </a>
+                </div>
+
+                <!-- Brian Kelley - Instagram -->
                 <div class="social-card fade-in">
                     <div class="social-card-header">
                         <div class="social-platform instagram"><i class="fab fa-instagram"></i></div>
@@ -1812,14 +1870,33 @@
                     </div>
                     <div class="social-card-body">
                         <div class="social-role">Florida Georgia Line</div>
-                        <p>"Trust me, y'all have to put this on your travel bucket list ASAP! We already can't wait to get back!"</p>
+                        <p class="social-quote">"Trust me, y'all have to put this on your travel bucket list ASAP! We already can't wait to get back!"</p>
                     </div>
-                    <a href="https://www.instagram.com/bfranchise11/" target="_blank" class="social-card-link">
-                        <i class="fab fa-instagram"></i> View Post
+                    <a href="https://www.instagram.com/bfranchise11/" target="_blank" class="social-card-link instagram-link">
+                        <i class="fab fa-instagram"></i> View on Instagram
                     </a>
                 </div>
 
-                <!-- Madison Prewett -->
+                <!-- Bolt Farm - X -->
+                <div class="social-card fade-in">
+                    <div class="social-card-header">
+                        <div class="social-platform twitter"><i class="fab fa-x-twitter"></i></div>
+                        <div>
+                            <h3>Bolt Farm Treehouse</h3>
+                            <span class="social-handle">@BoltFarm</span>
+                        </div>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-role">Inc. Magazine Feature</div>
+                        <p class="social-quote">"It started with one hand-built treehouse. Now it's a $6M resort featured in Inc. Magazine."</p>
+                        <p class="social-context">A decade of hard work, big risks, and even bigger faith.</p>
+                    </div>
+                    <a href="https://x.com/BoltFarm/status/1957569698087706974" target="_blank" class="social-card-link twitter-link">
+                        <i class="fab fa-x-twitter"></i> View on X
+                    </a>
+                </div>
+
+                <!-- Madison Prewett - Instagram -->
                 <div class="social-card fade-in">
                     <div class="social-card-header">
                         <div class="social-platform instagram"><i class="fab fa-instagram"></i></div>
@@ -1829,11 +1906,89 @@
                         </div>
                     </div>
                     <div class="social-card-body">
-                        <div class="social-role">Author & The Bachelor Alum</div>
-                        <p>The faith-forward author and influencer experienced the magic of Bolt Farm during the first-ever Treehouse Olympics charity event.</p>
+                        <div class="social-role">Author &bull; The Bachelor Alum</div>
+                        <p class="social-quote">"The most magical experience on top of a mountain!"</p>
+                        <p class="social-context">The faith-forward author competed in the first-ever Treehouse Olympics charity event.</p>
                     </div>
-                    <a href="https://www.instagram.com/madiprewett/" target="_blank" class="social-card-link">
-                        <i class="fab fa-instagram"></i> View Post
+                    <a href="https://www.instagram.com/madiprewett/" target="_blank" class="social-card-link instagram-link">
+                        <i class="fab fa-instagram"></i> View on Instagram
+                    </a>
+                </div>
+
+                <!-- Ali Manno - Instagram -->
+                <div class="social-card fade-in">
+                    <div class="social-card-header">
+                        <div class="social-platform instagram"><i class="fab fa-instagram"></i></div>
+                        <div>
+                            <h3>Ali Manno</h3>
+                            <span class="social-handle">@alimanno</span>
+                        </div>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-role">Former Bachelorette &bull; Lifestyle Influencer</div>
+                        <p class="social-quote">"An absolute dream escape in the mountains!"</p>
+                        <p class="social-context">Ali joined the celebrity lineup at Bolt Farm's Treehouse Olympics, competing for charity.</p>
+                    </div>
+                    <a href="https://www.instagram.com/alimanno/" target="_blank" class="social-card-link instagram-link">
+                        <i class="fab fa-instagram"></i> View on Instagram
+                    </a>
+                </div>
+
+                <!-- Southern Charm - Bravo -->
+                <div class="social-card fade-in">
+                    <div class="social-card-header">
+                        <div class="social-platform instagram"><i class="fab fa-instagram"></i></div>
+                        <div>
+                            <h3>Southern Charm</h3>
+                            <span class="social-handle">@baborealnetwork</span>
+                        </div>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-role">Bravo TV Series</div>
+                        <p class="social-quote">"It's like being in a real-life fairytale!"</p>
+                        <p class="social-context">The Bravo cast visited Bolt Farm's original treehouses for a memorable group trip episode.</p>
+                        <span class="social-tag">As Seen on Bravo</span>
+                    </div>
+                    <a href="https://www.instagram.com/boltfarmtreehouse/" target="_blank" class="social-card-link instagram-link">
+                        <i class="fab fa-instagram"></i> View on Instagram
+                    </a>
+                </div>
+
+                <!-- Bolt Farm Wellness - X -->
+                <div class="social-card fade-in">
+                    <div class="social-card-header">
+                        <div class="social-platform twitter"><i class="fab fa-x-twitter"></i></div>
+                        <div>
+                            <h3>Bolt Farm Treehouse</h3>
+                            <span class="social-handle">@BoltFarm</span>
+                        </div>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-role">Wellness Haven</div>
+                        <p class="social-quote">"Building our Wellness Haven wasn't just about creating a spa — it was about bringing a vision to life."</p>
+                        <p class="social-context">Hot springs, cold plunges, mirrored saunas, and steam rooms on a mountaintop.</p>
+                    </div>
+                    <a href="https://x.com/BoltFarm/status/1899951034182885413" target="_blank" class="social-card-link twitter-link">
+                        <i class="fab fa-x-twitter"></i> View on X
+                    </a>
+                </div>
+
+                <!-- Jeanine Amapola - Instagram -->
+                <div class="social-card fade-in">
+                    <div class="social-card-header">
+                        <div class="social-platform instagram"><i class="fab fa-instagram"></i></div>
+                        <div>
+                            <h3>Jeanine Amapola</h3>
+                            <span class="social-handle">@jeanineamapola</span>
+                        </div>
+                    </div>
+                    <div class="social-card-body">
+                        <div class="social-role">YouTuber &bull; Content Creator</div>
+                        <p class="social-quote">"This place is unreal — like something out of a movie!"</p>
+                        <p class="social-context">The Texas-based creator with millions of followers shared her mountain retreat with her audience.</p>
+                    </div>
+                    <a href="https://www.instagram.com/jeanineamapola/" target="_blank" class="social-card-link instagram-link">
+                        <i class="fab fa-instagram"></i> View on Instagram
                     </a>
                 </div>
             </div>
