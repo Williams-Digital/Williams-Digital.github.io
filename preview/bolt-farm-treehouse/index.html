@@ -54,8 +54,9 @@
             z-index: 100;
             background: rgba(44, 62, 45, 0.95);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
+            padding: 1rem 3rem;
             transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(201, 169, 98, 0.15);
         }
 
         .nav-container {
@@ -68,38 +69,65 @@
 
         .nav-brand {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 600;
             color: var(--warm-white);
             text-decoration: none;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .nav-brand::after {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 1px;
+            background: var(--accent-gold);
+            margin-top: 2px;
         }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 1.5rem;
             align-items: center;
+            margin-left: auto;
         }
 
         .nav-links a {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             transition: color 0.3s;
+            padding: 0.4rem 0;
+            position: relative;
         }
 
         .nav-links a:hover {
             color: var(--accent-gold);
         }
 
+        .nav-links a:not(.nav-cta):hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--accent-gold);
+        }
+
         .nav-cta {
             background: var(--accent-gold) !important;
             color: var(--primary-dark) !important;
-            padding: 0.75rem 1.5rem;
+            padding: 0.65rem 1.25rem;
             border-radius: 2px;
+            margin-left: 0.5rem;
+            font-size: 0.7rem !important;
+            letter-spacing: 1.5px !important;
         }
 
         .nav-cta:hover {
