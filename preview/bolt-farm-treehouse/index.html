@@ -460,6 +460,205 @@
             font-size: 0.9rem;
         }
 
+        /* Influencer Section */
+        .influencer-section {
+            background: var(--warm-white);
+        }
+
+        .influencer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .influencer-card {
+            background: var(--warm-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .influencer-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .influencer-card.featured {
+            grid-column: span 2;
+        }
+
+        .influencer-thumbnail {
+            position: relative;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .influencer-card.featured .influencer-thumbnail {
+            height: 280px;
+        }
+
+        .influencer-thumbnail::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+        }
+
+        .influencer-thumbnail::after {
+            content: '\f04b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            opacity: 0.9;
+            transition: all 0.3s;
+        }
+
+        .influencer-card:hover .influencer-thumbnail::after {
+            transform: translate(-50%, -50%) scale(1.1);
+            opacity: 1;
+            background: var(--accent-gold);
+        }
+
+        .influencer-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #FF0000;
+            color: white;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 2;
+        }
+
+        .influencer-badge.netflix {
+            background: #E50914;
+        }
+
+        .influencer-badge.tiktok {
+            background: #000;
+        }
+
+        .influencer-badge.instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .influencer-views {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        .influencer-content {
+            padding: 1.5rem;
+        }
+
+        .influencer-content h3 {
+            font-size: 1.35rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .influencer-role {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .influencer-content p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .influencer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .influencer-link:hover {
+            color: var(--accent-gold);
+        }
+
+        .as-seen-on {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .as-seen-label {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+
+        .as-seen-logos {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .as-seen-logos span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            .influencer-card.featured {
+                grid-column: span 1;
+            }
+
+            .influencer-card.featured .influencer-thumbnail {
+                height: 200px;
+            }
+        }
+
         /* CTA Section */
         .cta-section {
             background: linear-gradient(rgba(44, 62, 45, 0.85), rgba(44, 62, 45, 0.9)),
@@ -831,6 +1030,125 @@
                 </div>
                 <div class="testimonial-author">Pastor Michael & Sarah Thompson</div>
                 <div class="testimonial-context">Shepherd's Retreat Guests</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="creators" class="influencer-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>As Experienced By</h2>
+                <p>Join the creators, authors, and world-changers who have found rest and inspiration at Bolt Farm Treehouse.</p>
+            </div>
+
+            <div class="influencer-grid">
+                <div class="influencer-card featured fade-in">
+                    <a href="https://www.youtube.com/results?search_query=bolt+farm+treehouse+roloff" target="_blank" rel="noopener">
+                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1587502624372-45217a8e9523?w=800');">
+                            <span class="influencer-badge"><i class="fab fa-youtube"></i> YouTube</span>
+                            <span class="influencer-views">25M+ Views</span>
+                        </div>
+                    </a>
+                    <div class="influencer-content">
+                        <h3>Jeremy & Audrey Roloff</h3>
+                        <div class="influencer-role">New York Times Bestselling Authors</div>
+                        <p>"This place is so dreamy, cozy, romantic, and inspiring!" The Roloffs shared their Bolt Farm experience with millions, showcasing the perfect marriage retreat getaway.</p>
+                        <a href="https://www.youtube.com/results?search_query=jeremy+audrey+roloff+bolt+farm" target="_blank" rel="noopener" class="influencer-link">
+                            <i class="fab fa-youtube"></i> Watch Their Experience
+                        </a>
+                    </div>
+                </div>
+
+                <div class="influencer-card fade-in">
+                    <a href="https://www.boltfarmtreehouse.com/blog/hannah-brown-adam-woolard-engaged" target="_blank" rel="noopener">
+                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800');">
+                            <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Instagram</span>
+                        </div>
+                    </a>
+                    <div class="influencer-content">
+                        <h3>Hannah Brown</h3>
+                        <div class="influencer-role">The Bachelorette Season 15</div>
+                        <p>"Living like kings and playing like kids!" Hannah got ENGAGED at Bolt Farm, calling it "a magical place and the definition of a getaway."</p>
+                        <a href="https://www.instagram.com/hannahbrown/" target="_blank" rel="noopener" class="influencer-link">
+                            <i class="fab fa-instagram"></i> @hannahbrown
+                        </a>
+                    </div>
+                </div>
+
+                <div class="influencer-card fade-in">
+                    <a href="https://www.netflix.com/title/81060530" target="_blank" rel="noopener">
+                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800');">
+                            <span class="influencer-badge netflix"><i class="fas fa-play"></i> Netflix</span>
+                        </div>
+                    </a>
+                    <div class="influencer-content">
+                        <h3>Netflix Feature</h3>
+                        <div class="influencer-role">World's Most Amazing Vacation Rentals</div>
+                        <p>Featured alongside the world's most extraordinary stays, Bolt Farm's Honeymoon Treehouse captured hearts globally on this hit Netflix series.</p>
+                        <a href="https://www.netflix.com/title/81060530" target="_blank" rel="noopener" class="influencer-link">
+                            <i class="fas fa-external-link-alt"></i> Watch on Netflix
+                        </a>
+                    </div>
+                </div>
+
+                <div class="influencer-card fade-in">
+                    <a href="https://www.tiktok.com/@annewilsonmusic" target="_blank" rel="noopener">
+                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800');">
+                            <span class="influencer-badge tiktok"><i class="fab fa-tiktok"></i> TikTok</span>
+                        </div>
+                    </a>
+                    <div class="influencer-content">
+                        <h3>Anne Wilson</h3>
+                        <div class="influencer-role">Christian Music Artist</div>
+                        <p>"Bolt Farm Treehouse was a DREAM!" The Grammy-nominated Christian artist shared her mountain retreat experience with her faith-filled community.</p>
+                        <a href="https://www.tiktok.com/@annewilsonmusic" target="_blank" rel="noopener" class="influencer-link">
+                            <i class="fab fa-tiktok"></i> @annewilsonmusic
+                        </a>
+                    </div>
+                </div>
+
+                <div class="influencer-card fade-in">
+                    <a href="https://www.instagram.com/briannakellyfoster/" target="_blank" rel="noopener">
+                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800');">
+                            <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Instagram</span>
+                        </div>
+                    </a>
+                    <div class="influencer-content">
+                        <h3>Brian Kelley</h3>
+                        <div class="influencer-role">Florida Georgia Line</div>
+                        <p>"Trust me, y'all have to put this on your travel bucket list ASAP! We already can't wait to get back!"</p>
+                        <a href="https://www.instagram.com/bfranchise11/" target="_blank" rel="noopener" class="influencer-link">
+                            <i class="fab fa-instagram"></i> @bfranchise11
+                        </a>
+                    </div>
+                </div>
+
+                <div class="influencer-card fade-in">
+                    <a href="https://www.instagram.com/madiprewett/" target="_blank" rel="noopener">
+                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800');">
+                            <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Instagram</span>
+                        </div>
+                    </a>
+                    <div class="influencer-content">
+                        <h3>Madison Prewett</h3>
+                        <div class="influencer-role">Author & The Bachelor Alum</div>
+                        <p>The faith-forward author and influencer experienced the magic of Bolt Farm during the first-ever Treehouse Olympics charity event.</p>
+                        <a href="https://www.instagram.com/madiprewett/" target="_blank" rel="noopener" class="influencer-link">
+                            <i class="fab fa-instagram"></i> @madiprewett
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="as-seen-on">
+                <span class="as-seen-label">As Seen On</span>
+                <div class="as-seen-logos">
+                    <span>Netflix</span>
+                    <span>Good Morning America</span>
+                    <span>Southern Living</span>
+                    <span>Travel + Leisure</span>
+                    <span>National Geographic</span>
+                </div>
             </div>
         </div>
     </section>
