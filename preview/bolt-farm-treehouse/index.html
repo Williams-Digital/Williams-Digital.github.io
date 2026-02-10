@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Experiences | Bolt Farm Treehouse</title>
+    <meta name="description" content="Faith-centered luxury retreats in the Tennessee mountains. Reconnect with God, nature, and each other at Bolt Farm Treehouse.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #2C3E2D;
+            --primary-green: #4A6741;
+            --accent-gold: #C9A962;
+            --accent-cream: #F5F1E8;
+            --warm-white: #FDFCFA;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #7a7a7a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--warm-white);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(44, 62, 45, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--warm-white);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-cta {
+            background: var(--accent-gold) !important;
+            color: var(--primary-dark) !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2px;
+        }
+
+        .nav-cta:hover {
+            background: #d4b56e !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(44, 62, 45, 0.7), rgba(44, 62, 45, 0.8)),
+                        url('https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=1920') center center;
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .scripture-badge {
+            display: inline-block;
+            background: rgba(201, 169, 98, 0.2);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5rem);
+            color: var(--warm-white);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: var(--warm-white);
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-scripture {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        /* Daily Devotional Banner */
+        .devotional-banner {
+            background: var(--accent-cream);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--accent-gold);
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        .devotional-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .devotional-label {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        .devotional-verse {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-style: italic;
+            color: var(--primary-dark);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .devotional-reference {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        /* Experience Cards */
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .experience-card {
+            background: var(--warm-white);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+
+        .experience-image {
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .experience-badge {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .experience-content {
+            padding: 2rem;
+        }
+
+        .experience-content h3 {
+            font-size: 1.75rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--primary-green);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .experience-content p {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-features li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .experience-features li::before {
+            content: '\f4c4';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-size: 0.75rem;
+        }
+
+        .experience-cta {
+            display: inline-block;
+            background: var(--primary-dark);
+            color: var(--warm-white);
+            padding: 0.875rem 2rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .experience-cta:hover {
+            background: var(--primary-green);
+        }
+
+        /* Ministry Section */
+        .ministry-section {
+            background: var(--primary-dark);
+            color: var(--warm-white);
+        }
+
+        .ministry-section .section-header h2 {
+            color: var(--warm-white);
+        }
+
+        .ministry-section .section-header p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .ministry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .ministry-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .ministry-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .ministry-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+        }
+
+        .ministry-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .ministry-card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            background: var(--accent-cream);
+        }
+
+        .testimonial-card {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--primary-dark);
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--accent-gold);
+            display: block;
+            line-height: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .testimonial-context {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(44, 62, 45, 0.85), rgba(44, 62, 45, 0.9)),
+                        url('https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=1920') center center;
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+            color: var(--warm-white);
+        }
+
+        .cta-section h2 {
+            color: var(--warm-white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .cta-primary:hover {
+            background: var(--warm-white);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--warm-white);
+            border: 2px solid var(--warm-white);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .cta-secondary:hover {
+            background: var(--warm-white);
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: rgba(255,255,255,0.6);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.25rem;
+            color: var(--warm-white);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-col a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.4rem 0;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom .scripture {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem;
+            }
+
+            .experiences-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-brand">BOLT FARM TREEHOUSE</a>
+            <div class="nav-links">
+                <a href="#experiences">Sacred Experiences</a>
+                <a href="#ministry">Ministry</a>
+                <a href="#retreats">Retreats</a>
+                <a href="#about">Our Story</a>
+                <a href="#book" class="nav-cta">Book Your Retreat</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="scripture-badge">
+                "Be still, and know that I am God" — Psalm 46:10
+            </div>
+            <h1>Sacred Experiences in His Creation</h1>
+            <p>Retreat to the Tennessee mountains for a transformative encounter with God. Where luxury hospitality meets spiritual renewal, and every moment invites you closer to the Creator.</p>
+            <a href="#experiences" class="hero-cta">
+                <i class="fas fa-cross"></i>
+                Explore Experiences
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <div class="devotional-banner">
+        <div class="devotional-content">
+            <div class="devotional-label">Today's Devotional</div>
+            <div class="devotional-verse">
+                "Come to me, all you who are weary and burdened, and I will give you rest."
+            </div>
+            <div class="devotional-reference">Matthew 11:28 (NIV)</div>
+        </div>
+    </div>
+
+    <section id="experiences">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Curated Sacred Experiences</h2>
+                <p>Intentionally designed retreats that nurture your soul, strengthen relationships, and draw you into deeper communion with God.</p>
+                <div class="section-scripture">"The heavens declare the glory of God; the skies proclaim the work of his hands." — Psalm 19:1</div>
+            </div>
+
+            <div class="experiences-grid">
+                <div class="experience-card fade-in">
+                    <div class="experience-image" style="background-image: url('https://images.unsplash.com/photo-1529604278261-8bfcdb00a7b9?w=800');">
+                        <span class="experience-badge">Most Popular</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Covenant Retreat</h3>
+                        <div class="experience-tagline">For Married Couples</div>
+                        <p>Strengthen your marriage covenant through intentional connection, guided devotionals, and sacred time away from the distractions of daily life.</p>
+                        <ul class="experience-features">
+                            <li>Couples devotional guide & prayer journal</li>
+                            <li>Candlelit dinner with communion elements</li>
+                            <li>Sunrise prayer walk on the mountain</li>
+                            <li>Marriage blessing ceremony (optional)</li>
+                            <li>Gourmet breakfast & spa treatments</li>
+                        </ul>
+                        <a href="#book" class="experience-cta">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in">
+                    <div class="experience-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800');">
+                        <span class="experience-badge">Spiritual Renewal</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Selah Retreat</h3>
+                        <div class="experience-tagline">Pause. Reflect. Renew.</div>
+                        <p>Named after the Hebrew word for "pause," this experience invites you to step away from the noise and rediscover peace in God's presence.</p>
+                        <ul class="experience-features">
+                            <li>Personal devotional & journaling kit</li>
+                            <li>Guided Scripture meditation sessions</li>
+                            <li>Forest prayer walking paths</li>
+                            <li>Thermal spa & wellness access</li>
+                            <li>Farm-to-table nourishment</li>
+                        </ul>
+                        <a href="#book" class="experience-cta">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in">
+                    <div class="experience-image" style="background-image: url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800');">
+                        <span class="experience-badge">Groups</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Gather Retreat</h3>
+                        <div class="experience-tagline">For Small Groups & Bible Studies</div>
+                        <p>Bring your small group, Bible study, or ministry team for an immersive retreat experience designed for fellowship and spiritual growth.</p>
+                        <ul class="experience-features">
+                            <li>Private gathering space for worship</li>
+                            <li>Customizable group devotional plans</li>
+                            <li>Campfire fellowship & s'mores</li>
+                            <li>Group photo session in creation</li>
+                            <li>Catered meals for your group</li>
+                        </ul>
+                        <a href="#book" class="experience-cta">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in">
+                    <div class="experience-image" style="background-image: url('https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?w=800');">
+                        <span class="experience-badge">Church Groups</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Shepherd's Retreat</h3>
+                        <div class="experience-tagline">For Pastors & Ministry Leaders</div>
+                        <p>Designed for those who pour out for others. A sanctuary for pastors, worship leaders, and ministry workers to be renewed and refreshed.</p>
+                        <ul class="experience-features">
+                            <li>Sabbath rest-focused itinerary</li>
+                            <li>Private prayer chapel access</li>
+                            <li>Pastoral care resources & books</li>
+                            <li>Spouse retreat option available</li>
+                            <li>Ministry discount available</li>
+                        </ul>
+                        <a href="#book" class="experience-cta">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in">
+                    <div class="experience-image" style="background-image: url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=800');">
+                        <span class="experience-badge">Special Occasion</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Proposal Blessing</h3>
+                        <div class="experience-tagline">Begin Your Covenant Journey</div>
+                        <p>Create a proposal moment that honors God and sets the foundation for a Christ-centered marriage from the very first "yes."</p>
+                        <ul class="experience-features">
+                            <li>Romantic mountaintop setup</li>
+                            <li>Rose petals & champagne or sparkling cider</li>
+                            <li>Professional photography available</li>
+                            <li>Prayer & blessing card for your union</li>
+                            <li>Keepsake Scripture frame</li>
+                        </ul>
+                        <a href="#book" class="experience-cta">Learn More</a>
+                    </div>
+                </div>
+
+                <div class="experience-card fade-in">
+                    <div class="experience-image" style="background-image: url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=800');">
+                        <span class="experience-badge">New</span>
+                    </div>
+                    <div class="experience-content">
+                        <h3>Creation Encounter</h3>
+                        <div class="experience-tagline">Adventure in His Majesty</div>
+                        <p>Experience the wonder of God's creation through guided outdoor adventures that inspire worship and awe of our Creator.</p>
+                        <ul class="experience-features">
+                            <li>Guided sunrise devotional hike</li>
+                            <li>Stargazing with creation meditation</li>
+                            <li>Nature journaling supplies</li>
+                            <li>Outdoor worship playlist & speaker</li>
+                            <li>Adventure photography included</li>
+                        </ul>
+                        <a href="#book" class="experience-cta">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ministry" class="ministry-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Ministry Partnerships</h2>
+                <p>We're honored to partner with churches, ministries, and Christian organizations to provide sacred space for spiritual growth.</p>
+            </div>
+
+            <div class="ministry-grid">
+                <div class="ministry-card fade-in">
+                    <div class="ministry-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3>Church Retreats</h3>
+                    <p>Host your leadership team, staff, or congregation groups in a setting designed for renewal and vision-casting.</p>
+                </div>
+
+                <div class="ministry-card fade-in">
+                    <div class="ministry-icon">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <h3>Marriage Ministries</h3>
+                    <p>Partner with us for marriage enrichment weekends, pre-marital counseling retreats, and anniversary celebrations.</p>
+                </div>
+
+                <div class="ministry-card fade-in">
+                    <div class="ministry-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Women's & Men's Retreats</h3>
+                    <p>Create transformative experiences for your women's or men's ministry in an atmosphere of peace and beauty.</p>
+                </div>
+
+                <div class="ministry-card fade-in">
+                    <div class="ministry-icon">
+                        <i class="fas fa-hands-praying"></i>
+                    </div>
+                    <h3>Prayer Retreats</h3>
+                    <p>Dedicated spaces and programming for prayer summits, intercessory gatherings, and soaking worship experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial-section">
+        <div class="section-container">
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-quote">
+                    We came exhausted from ministry, and left completely restored. The way Bolt Farm integrates faith into every detail—from the devotionals waiting in our room to the prayer paths through the forest—it wasn't just a vacation. It was a holy encounter.
+                </div>
+                <div class="testimonial-author">Pastor Michael & Sarah Thompson</div>
+                <div class="testimonial-context">Shepherd's Retreat Guests</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="retreats" class="cta-section">
+        <div class="section-container">
+            <h2>Plan Your Sacred Retreat</h2>
+            <p>Our retreat planning team will help you design the perfect experience for your spiritual journey—whether you're celebrating, healing, or simply seeking rest in His presence.</p>
+            <div class="cta-buttons">
+                <a href="#book" class="cta-primary">
+                    <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+                <a href="#contact" class="cta-secondary">
+                    <i class="fas fa-phone"></i> Speak With Our Team
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Bolt Farm Treehouse</h4>
+                    <p>A Christ-centered luxury retreat destination nestled in the Tennessee mountains. Where creation speaks of the Creator, and every stay is an invitation to rest, restore, and reconnect.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Sacred Experiences</h4>
+                    <a href="#">Covenant Retreat (Couples)</a>
+                    <a href="#">Selah Retreat (Individual)</a>
+                    <a href="#">Gather Retreat (Groups)</a>
+                    <a href="#">Shepherd's Retreat (Pastors)</a>
+                    <a href="#">Creation Encounter</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Ministry Partners</h4>
+                    <a href="#">Church Group Booking</a>
+                    <a href="#">Marriage Ministry Retreats</a>
+                    <a href="#">Pastor Sabbatical Program</a>
+                    <a href="#">Non-Profit Discounts</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="tel:+1234567890"><i class="fas fa-phone"></i> (123) 456-7890</a>
+                    <a href="mailto:retreat@boltfarmtreehouse.com"><i class="fas fa-envelope"></i> retreat@boltfarmtreehouse.com</a>
+                    <a href="#"><i class="fab fa-instagram"></i> @boltfarmtreehouse</a>
+                    <a href="#"><i class="fab fa-facebook"></i> Bolt Farm Treehouse</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="scripture">"He makes me lie down in green pastures, he leads me beside quiet waters, he refreshes my soul." — Psalm 23:2-3</div>
+                <p>&copy; 2026 Bolt Farm Treehouse. All rights reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fade in animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Navbar opacity on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(44, 62, 45, 0.98)';
+            } else {
+                nav.style.background = 'rgba(44, 62, 45, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
