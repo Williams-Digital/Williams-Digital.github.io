@@ -407,8 +407,30 @@
 
         /* Ministry Section */
         .ministry-section {
-            background: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2f1a 100%);
             color: var(--warm-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ministry-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://cdn.prod.website-files.com/66ba28fe803ffaf09afcc1c0/66d828363cdecc9b041c6842_Spring-Serenity-bolt-farm.jpeg') center/cover;
+            opacity: 0.08;
+        }
+
+        .ministry-section .section-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .ministry-section .section-header {
+            margin-bottom: 1rem;
         }
 
         .ministry-section .section-header h2 {
@@ -416,13 +438,60 @@
         }
 
         .ministry-section .section-header p {
+            color: rgba(255,255,255,0.8);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .ministry-scripture {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--accent-gold);
+            margin-bottom: 3rem;
+            padding: 1.5rem 2rem;
+            background: rgba(201, 169, 98, 0.1);
+            border-left: 3px solid var(--accent-gold);
+            border-right: 3px solid var(--accent-gold);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ministry-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .ministry-stat {
+            text-align: center;
+        }
+
+        .ministry-stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            font-family: 'Cormorant Gainsborough', serif;
+            line-height: 1;
+        }
+
+        .ministry-stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             color: rgba(255,255,255,0.7);
+            margin-top: 0.5rem;
         }
 
         .ministry-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .ministry-card {
@@ -430,35 +499,197 @@
             border: 1px solid rgba(255,255,255,0.1);
             padding: 2.5rem;
             text-align: center;
-            transition: all 0.3s;
+            transition: all 0.4s ease;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ministry-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .ministry-card:hover {
             background: rgba(255,255,255,0.1);
             border-color: var(--accent-gold);
+            transform: translateY(-5px);
+        }
+
+        .ministry-card:hover::before {
+            opacity: 1;
         }
 
         .ministry-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--accent-gold);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #d4b896 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--primary-dark);
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
         }
 
         .ministry-card h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
+            color: var(--warm-white);
         }
 
         .ministry-card p {
             color: rgba(255,255,255,0.7);
             font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .ministry-card-features {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0;
+            text-align: left;
+        }
+
+        .ministry-card-features li {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .ministry-card-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        .ministry-highlight {
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.2) 0%, rgba(201, 169, 98, 0.1) 100%);
+            border: 2px solid var(--accent-gold);
+            padding: 3rem;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .ministry-highlight {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .ministry-highlight-content h3 {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .ministry-highlight-content p {
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .ministry-highlight-badge {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+
+        .ministry-highlight-image {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .ministry-highlight-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .ministry-cta {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+        }
+
+        .ministry-cta h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .ministry-cta p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ministry-cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .ministry-btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ministry-btn-primary {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        .ministry-btn-primary:hover {
+            background: #d4b896;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.4);
+        }
+
+        .ministry-btn-secondary {
+            background: transparent;
+            color: var(--warm-white);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .ministry-btn-secondary:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
         }
 
         /* Testimonial Section */
@@ -1121,7 +1352,39 @@
         <div class="section-container">
             <div class="section-header">
                 <h2>Ministry Partnerships</h2>
-                <p>We're honored to partner with churches, ministries, and Christian organizations to provide sacred space for spiritual growth.</p>
+                <p>We're honored to partner with churches, ministries, and Christian organizations to provide sacred space for spiritual growth and kingdom impact.</p>
+            </div>
+
+            <div class="ministry-scripture">
+                "And let us consider how we may spur one another on toward love and good deeds, not giving up meeting together..."<br>
+                <span style="font-size: 1rem; opacity: 0.8;">— Hebrews 10:24-25</span>
+            </div>
+
+            <div class="ministry-stats">
+                <div class="ministry-stat">
+                    <div class="ministry-stat-number">500+</div>
+                    <div class="ministry-stat-label">Churches Served</div>
+                </div>
+                <div class="ministry-stat">
+                    <div class="ministry-stat-number">10,000+</div>
+                    <div class="ministry-stat-label">Lives Impacted</div>
+                </div>
+                <div class="ministry-stat">
+                    <div class="ministry-stat-number">25%</div>
+                    <div class="ministry-stat-label">Ministry Discount</div>
+                </div>
+            </div>
+
+            <div class="ministry-highlight fade-in">
+                <div class="ministry-highlight-content">
+                    <span class="ministry-highlight-badge"><i class="fas fa-cross"></i> Pastor Sabbatical Program</span>
+                    <h3>Rest for the Shepherds</h3>
+                    <p>We believe those who pour out for others deserve intentional restoration. Our Pastor Sabbatical Program offers deeply discounted extended stays for full-time ministry workers—because you can't pour from an empty cup.</p>
+                    <p style="font-style: italic; color: var(--accent-gold);">"Come to me, all you who are weary and burdened, and I will give you rest." — Matthew 11:28</p>
+                </div>
+                <div class="ministry-highlight-image">
+                    <img src="https://cdn.prod.website-files.com/66ba28fe803ffaf09afcc19c/67f6eec30f798dbdc1d3bbdc_Copy%20of%20Chris%20Funk%20June%2022%20-%20Luxe_16.jpg" alt="Peaceful retreat space">
+                </div>
             </div>
 
             <div class="ministry-grid">
@@ -1129,32 +1392,69 @@
                     <div class="ministry-icon">
                         <i class="fas fa-church"></i>
                     </div>
-                    <h3>Church Retreats</h3>
-                    <p>Host your leadership team, staff, or congregation groups in a setting designed for renewal and vision-casting.</p>
+                    <h3>Church Leadership Retreats</h3>
+                    <p>Host your leadership team, elders, or staff in a setting designed for vision-casting, team building, and spiritual renewal.</p>
+                    <ul class="ministry-card-features">
+                        <li>Private group accommodations</li>
+                        <li>Meeting space with AV setup</li>
+                        <li>Customized devotional materials</li>
+                        <li>Group dining options available</li>
+                    </ul>
                 </div>
 
                 <div class="ministry-card fade-in">
                     <div class="ministry-icon">
                         <i class="fas fa-ring"></i>
                     </div>
-                    <h3>Marriage Ministries</h3>
-                    <p>Partner with us for marriage enrichment weekends, pre-marital counseling retreats, and anniversary celebrations.</p>
+                    <h3>Marriage Enrichment</h3>
+                    <p>Partner with us for marriage retreats, pre-marital counseling weekends, and covenant renewal celebrations.</p>
+                    <ul class="ministry-card-features">
+                        <li>Romantic couples accommodations</li>
+                        <li>Marriage workshop resources</li>
+                        <li>Private ceremony locations</li>
+                        <li>Couples devotional guides</li>
+                    </ul>
                 </div>
 
                 <div class="ministry-card fade-in">
                     <div class="ministry-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3>Women's & Men's Retreats</h3>
-                    <p>Create transformative experiences for your women's or men's ministry in an atmosphere of peace and beauty.</p>
+                    <h3>Women's & Men's Ministry</h3>
+                    <p>Create transformative experiences for your women's or men's groups in an atmosphere of authentic community.</p>
+                    <ul class="ministry-card-features">
+                        <li>Multi-unit group bookings</li>
+                        <li>Outdoor gathering spaces</li>
+                        <li>Bonfire worship nights</li>
+                        <li>Nature-based activities</li>
+                    </ul>
                 </div>
 
                 <div class="ministry-card fade-in">
                     <div class="ministry-icon">
                         <i class="fas fa-hands-praying"></i>
                     </div>
-                    <h3>Prayer Retreats</h3>
-                    <p>Dedicated spaces and programming for prayer summits, intercessory gatherings, and soaking worship experiences.</p>
+                    <h3>Prayer & Worship Retreats</h3>
+                    <p>Dedicated spaces for prayer summits, soaking worship, intercessory gatherings, and listening prayer experiences.</p>
+                    <ul class="ministry-card-features">
+                        <li>Quiet, distraction-free environment</li>
+                        <li>Prayer walking trails</li>
+                        <li>Acoustic-friendly spaces</li>
+                        <li>Extended stay options</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ministry-cta fade-in">
+                <h3>Partner With Us in Kingdom Work</h3>
+                <p>Whether you're planning a staff retreat, hosting a marriage conference, or need a place of rest for your ministry team—we'd love to serve you.</p>
+                <div class="ministry-cta-buttons">
+                    <a href="#contact" class="ministry-btn ministry-btn-primary">
+                        <i class="fas fa-envelope"></i> Request Group Quote
+                    </a>
+                    <a href="tel:+1-615-555-0123" class="ministry-btn ministry-btn-secondary">
+                        <i class="fas fa-phone"></i> Call Our Ministry Team
+                    </a>
                 </div>
             </div>
         </div>
