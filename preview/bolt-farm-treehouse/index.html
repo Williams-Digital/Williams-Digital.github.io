@@ -3855,7 +3855,8 @@
                     else if (selectingCheckout && checkinDate && thisDate <= checkinDate) {
                         dayEl.classList.add('disabled');
                     } else {
-                        dayEl.addEventListener('click', function() {
+                        dayEl.addEventListener('click', function(e) {
+                            e.stopPropagation();
                             const clicked = new Date(calYear, calMonth, d);
                             clicked.setHours(0,0,0,0);
 
@@ -3864,14 +3865,16 @@
                                 checkinDate = clicked;
                                 checkoutDate = null;
                                 selectingCheckout = true;
+                                updateLabels();
+                                renderCalendar();
                             } else {
                                 // Selecting checkout
                                 checkoutDate = clicked;
                                 selectingCheckout = false;
-                                setTimeout(() => cal.classList.remove('open'), 400);
+                                updateLabels();
+                                renderCalendar();
+                                setTimeout(() => cal.classList.remove('open'), 500);
                             }
-                            updateLabels();
-                            renderCalendar();
                         });
                     }
 
