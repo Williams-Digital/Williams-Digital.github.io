@@ -463,6 +463,309 @@
         .footer-bottom .scripture { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--accent-gold); margin-bottom: 1.5rem; font-size: 1.35rem; line-height: 1.8; max-width: 700px; margin-left: auto; margin-right: auto; padding: 1.5rem 2rem; border-top: 1px solid rgba(196,164,75,0.3); border-bottom: 1px solid rgba(196,164,75,0.3); position: relative; }
         .footer-bottom .scripture::before { content: '\201C'; font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--accent-gold); opacity: 0.3; position: absolute; top: -0.5rem; left: 0.5rem; line-height: 1; }
 
+        /* Spa Booking Modal */
+        .spa-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .spa-modal-overlay.active { display: flex; }
+
+        .spa-modal {
+            background: var(--warm-white);
+            border-radius: 16px;
+            max-width: 580px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            animation: spaModalIn 0.35s ease;
+        }
+
+        @keyframes spaModalIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .spa-modal-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2a1b 100%);
+            padding: 2rem 2.5rem;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+        }
+
+        .spa-modal-header h2 {
+            font-size: 1.8rem;
+            color: var(--warm-white);
+            margin-bottom: 0.25rem;
+        }
+
+        .spa-modal-header p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+
+        .spa-modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: rgba(255,255,255,0.7);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .spa-modal-close:hover { background: rgba(255,255,255,0.2); color: white; }
+
+        .spa-modal-body {
+            padding: 2rem 2.5rem 2.5rem;
+        }
+
+        .spa-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .spa-field label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 0.6rem;
+        }
+
+        .spa-field select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1.5px solid #e0dcd4;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7a7a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+        .spa-field select:focus { outline: none; border-color: var(--accent-gold); }
+
+        .spa-treatment-preview {
+            background: var(--accent-cream);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        .spa-treatment-preview.visible { display: block; }
+
+        .spa-treatment-preview h4 {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+        .spa-treatment-preview .stp-duration {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .spa-treatment-preview p {
+            font-size: 0.82rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Spa Calendar */
+        .spa-cal-trigger {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1.5px solid #e0dcd4;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-align: left;
+        }
+        .spa-cal-trigger:hover { border-color: var(--accent-gold); }
+        .spa-cal-trigger i { color: var(--accent-gold); }
+
+        .spa-cal-wrap { position: relative; }
+
+        .spa-calendar {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            padding: 1.25rem;
+            z-index: 10;
+        }
+        .spa-calendar.open { display: block; }
+
+        .spa-cal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .spa-cal-head h4 {
+            font-size: 1rem;
+            color: var(--primary-dark);
+        }
+        .spa-cal-btn {
+            background: none;
+            border: 1.5px solid #ddd;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--text-medium);
+            transition: all 0.2s;
+        }
+        .spa-cal-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+        .spa-cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            text-align: center;
+        }
+        .spa-cal-grid .dlabel {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.4rem 0;
+        }
+        .spa-cal-grid .day {
+            padding: 0.5rem 0;
+            font-size: 0.82rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-dark);
+        }
+        .spa-cal-grid .day:hover:not(.disabled):not(.chosen) { background: var(--accent-cream); }
+        .spa-cal-grid .day.disabled { color: #ccc; cursor: default; }
+        .spa-cal-grid .day.chosen { background: var(--accent-gold); color: var(--primary-dark); font-weight: 600; }
+        .spa-cal-grid .day.today { border: 1.5px solid var(--accent-gold); }
+
+        /* Time Slots */
+        .spa-times {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        .spa-time-slot {
+            padding: 0.7rem 0.5rem;
+            border: 1.5px solid #e0dcd4;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .spa-time-slot:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .spa-time-slot.picked { background: var(--accent-gold); color: var(--primary-dark); border-color: var(--accent-gold); font-weight: 600; }
+
+        /* Book Button */
+        .spa-book-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 0.5rem;
+        }
+        .spa-book-btn:hover { background: #d4b56e; transform: translateY(-1px); }
+        .spa-book-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+        /* Confirmation */
+        .spa-confirmation {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .spa-confirmation.visible { display: block; }
+        .spa-confirmation .conf-icon {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            background: rgba(201, 169, 98, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+        }
+        .spa-confirmation h3 {
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+        .spa-confirmation p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 0.25rem;
+        }
+        .spa-confirmation .conf-details {
+            background: var(--accent-cream);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        .spa-confirmation .conf-details p {
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
+        }
+        .spa-confirmation .conf-details strong {
+            color: var(--text-dark);
+        }
+
         /* Animations */
         .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -478,6 +781,10 @@
             .treatment-panels { grid-template-columns: 1fr; }
             .treatment-panel { padding: 2rem 1.5rem; }
             section { padding: 4rem 1.5rem; }
+            .spa-modal-overlay { padding: 0; align-items: flex-end; }
+            .spa-modal { max-height: 95vh; border-radius: 16px 16px 0 0; }
+            .spa-modal-body { padding: 1.5rem; }
+            .spa-times { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -551,7 +858,7 @@
                             <span>Facial</span>
                             <span>Body Scrub</span>
                         </div>
-                        <a href="https://www.boltfarmtreehouse.com/spa-wellness" target="_blank" class="spa-card-cta">Learn More</a>
+                        <button class="spa-card-cta" onclick="openSpaModal('packages')">Book Now</button>
                     </div>
                 </div>
 
@@ -570,7 +877,7 @@
                             <span>Champagne</span>
                             <span>Photo Session</span>
                         </div>
-                        <a href="https://www.boltfarmtreehouse.com/spa-wellness" target="_blank" class="spa-card-cta">Learn More</a>
+                        <button class="spa-card-cta" onclick="openSpaModal('packages')">Book Now</button>
                     </div>
                 </div>
 
@@ -589,7 +896,7 @@
                             <span>Salt Scrub</span>
                             <span>Men's Facial</span>
                         </div>
-                        <a href="https://www.boltfarmtreehouse.com/spa-wellness" target="_blank" class="spa-card-cta">Learn More</a>
+                        <button class="spa-card-cta" onclick="openSpaModal('packages')">Book Now</button>
                     </div>
                 </div>
 
@@ -608,7 +915,7 @@
                             <span>Live Music</span>
                             <span>Photo/Video</span>
                         </div>
-                        <a href="https://www.boltfarmtreehouse.com/spa-wellness" target="_blank" class="spa-card-cta">Apply Now</a>
+                        <button class="spa-card-cta" onclick="openSpaModal('packages')">Book Now</button>
                     </div>
                 </div>
             </div>
@@ -729,11 +1036,97 @@
         <div class="section-container">
             <h2>Ready to Be Restored?</h2>
             <p>Our concierge team will help you build the perfect spa experience for your stay. Call us or book a planning call.</p>
-            <a href="https://www.boltfarmtreehouse.com/spa-wellness" target="_blank" class="cta-btn">
-                <i class="fas fa-phone"></i> Book Spa Services
-            </a>
+            <button class="cta-btn" onclick="openSpaModal()" style="border:none;cursor:pointer;font-family:'Montserrat',sans-serif;">
+                <i class="fas fa-calendar-check"></i> Book Spa Services
+            </button>
         </div>
     </section>
+
+    <!-- Spa Booking Modal -->
+    <div class="spa-modal-overlay" id="spaModal">
+        <div class="spa-modal">
+            <div class="spa-modal-header">
+                <h2><i class="fas fa-spa" style="margin-right:0.5rem;font-size:1.4rem;opacity:0.7;"></i> Book Spa Service</h2>
+                <p>Select your treatment, date, and preferred time</p>
+                <button class="spa-modal-close" onclick="closeSpaModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="spa-modal-body">
+                <!-- Form -->
+                <div id="spaForm">
+                    <div class="spa-field">
+                        <label>Treatment Category</label>
+                        <select id="spaCat" onchange="updateTreatments()">
+                            <option value="">Choose a category...</option>
+                            <option value="packages">Couples Spa Packages</option>
+                            <option value="massage">Massage Therapy</option>
+                            <option value="facial">HydraFacial Treatments</option>
+                        </select>
+                    </div>
+
+                    <div class="spa-field">
+                        <label>Treatment</label>
+                        <select id="spaTreatment" onchange="showPreview()" disabled>
+                            <option value="">Select a category first...</option>
+                        </select>
+                    </div>
+
+                    <div class="spa-treatment-preview" id="spaPreview">
+                        <h4 id="prevName"></h4>
+                        <div class="stp-duration" id="prevDuration"></div>
+                        <p id="prevDesc"></p>
+                    </div>
+
+                    <div class="spa-field">
+                        <label>Preferred Date</label>
+                        <div class="spa-cal-wrap">
+                            <button class="spa-cal-trigger" id="spaDateBtn" type="button" onclick="toggleSpaCal()">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span id="spaDateLabel">Select a date...</span>
+                            </button>
+                            <div class="spa-calendar" id="spaCal">
+                                <div class="spa-cal-head">
+                                    <button class="spa-cal-btn" onclick="spaCalNav(-1)"><i class="fas fa-chevron-left"></i></button>
+                                    <h4 id="spaCalTitle"></h4>
+                                    <button class="spa-cal-btn" onclick="spaCalNav(1)"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                                <div class="spa-cal-grid" id="spaCalGrid"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="spa-field">
+                        <label>Preferred Time</label>
+                        <div class="spa-times" id="spaTimes">
+                            <div class="spa-time-slot" onclick="pickTime(this)">9:00 AM</div>
+                            <div class="spa-time-slot" onclick="pickTime(this)">10:00 AM</div>
+                            <div class="spa-time-slot" onclick="pickTime(this)">11:00 AM</div>
+                            <div class="spa-time-slot" onclick="pickTime(this)">1:00 PM</div>
+                            <div class="spa-time-slot" onclick="pickTime(this)">2:00 PM</div>
+                            <div class="spa-time-slot" onclick="pickTime(this)">3:00 PM</div>
+                        </div>
+                    </div>
+
+                    <button class="spa-book-btn" id="spaBookBtn" disabled onclick="confirmBooking()">
+                        <i class="fas fa-check"></i> &nbsp;Confirm Booking
+                    </button>
+                </div>
+
+                <!-- Confirmation -->
+                <div class="spa-confirmation" id="spaConf">
+                    <div class="conf-icon"><i class="fas fa-check"></i></div>
+                    <h3>Booking Confirmed!</h3>
+                    <p>Your spa appointment has been reserved.</p>
+                    <div class="conf-details">
+                        <p><strong>Treatment:</strong> <span id="confTreatment"></span></p>
+                        <p><strong>Date:</strong> <span id="confDate"></span></p>
+                        <p><strong>Time:</strong> <span id="confTime"></span></p>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--text-light);">A confirmation email will be sent to your address on file.</p>
+                    <button class="spa-book-btn" style="margin-top:1.25rem;" onclick="closeSpaModal()">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-container">
@@ -773,6 +1166,7 @@
     </footer>
 
     <script>
+        // Fade-in & nav scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
@@ -783,6 +1177,221 @@
             if (window.scrollY > 100) { nav.style.padding = '0.6rem 2rem'; nav.style.background = 'rgba(44, 62, 45, 0.98)'; }
             else { nav.style.padding = '1rem 2rem'; nav.style.background = 'rgba(44, 62, 45, 0.95)'; }
         });
+
+        // Treatment data
+        const treatments = {
+            packages: [
+                { name: "Founders' Signature Experience", duration: "Multi-treatment ritual", desc: "Herbal mud wrap, heated bamboo massage, body scrub, hot stone massage, and chocolate mousse hydrating mask." },
+                { name: "Ultimate Couple's Spa Escape", duration: "Two-day journey", desc: "Three signature spa experiences, champagne & truffles, professional photo, and $300 spa credit." },
+                { name: "His & Hers Pairing", duration: "Side-by-side treatments", desc: "She receives a Signature HydraFacial; he enjoys the Gentleman's Ritual with hot stone, salt scrub, and men's facial." },
+                { name: "Sunset Summit Ritual", duration: "120 min · By application", desc: "Bespoke couples ritual, candlelit setup with florals and live music, champagne toast, photo/video team." }
+            ],
+            massage: [
+                { name: "Couple's Massage", duration: "50 or 80 min", desc: "Side-by-side relaxation journey personalized to your shared needs." },
+                { name: "Individual Massage", duration: "50 or 80 min", desc: "Tailored session using a variety of methods to address your specific requests." },
+                { name: "Massage Add-On", duration: "30 min", desc: "Supplement and elevate an existing treatment. Single or couples." }
+            ],
+            facial: [
+                { name: "LVV Signature HydraFacial", duration: "100 min", desc: "The 5-star luxury experience. Fully customized, safe for all skin types." },
+                { name: "LVV Deluxe HydraFacial", duration: "~60 min", desc: "Face, neck, and decolletage with LED lights, cryotherapy mask, and signature massage." },
+                { name: '"Her Glow" Deluxe', duration: "80 min", desc: "LED light therapy, cooling cryo mask, and radiance ritual pre-treatment." },
+                { name: "LVV Classic HydraFacial", duration: "~60 min", desc: "Vortex-Fusion technology — peel, extract, hydrate with antioxidant infusion." },
+                { name: "Custom Facial", duration: "50 min", desc: "Extractions, massage, and tailored treatment mask with hot or cold therapy." },
+                { name: "Perk — Lips or Eyes", duration: "30 min add-on", desc: "Roller-flex technology to exfoliate, hydrate, and plump lips or firm the eye area." }
+            ]
+        };
+
+        let selectedDate = null;
+        let selectedTime = null;
+        let spaCalMonth, spaCalYear;
+
+        // Modal open/close
+        function openSpaModal(category) {
+            const modal = document.getElementById('spaModal');
+            document.getElementById('spaForm').style.display = '';
+            document.getElementById('spaConf').classList.remove('visible');
+            selectedDate = null;
+            selectedTime = null;
+            document.getElementById('spaDateLabel').textContent = 'Select a date...';
+            document.querySelectorAll('.spa-time-slot').forEach(s => s.classList.remove('picked'));
+            document.getElementById('spaBookBtn').disabled = true;
+            document.getElementById('spaPreview').classList.remove('visible');
+
+            const catSel = document.getElementById('spaCat');
+            if (category) {
+                catSel.value = category;
+                updateTreatments();
+            } else {
+                catSel.value = '';
+                document.getElementById('spaTreatment').innerHTML = '<option value="">Select a category first...</option>';
+                document.getElementById('spaTreatment').disabled = true;
+            }
+
+            const now = new Date();
+            spaCalMonth = now.getMonth();
+            spaCalYear = now.getFullYear();
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSpaModal() {
+            document.getElementById('spaModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('spaModal').addEventListener('click', function(e) {
+            if (e.target === this) closeSpaModal();
+        });
+
+        // Treatment dropdown population
+        function updateTreatments() {
+            const cat = document.getElementById('spaCat').value;
+            const sel = document.getElementById('spaTreatment');
+            sel.innerHTML = '';
+            document.getElementById('spaPreview').classList.remove('visible');
+
+            if (!cat) {
+                sel.innerHTML = '<option value="">Select a category first...</option>';
+                sel.disabled = true;
+                return;
+            }
+
+            sel.disabled = false;
+            sel.innerHTML = '<option value="">Choose a treatment...</option>';
+            treatments[cat].forEach((t, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = t.name;
+                sel.appendChild(opt);
+            });
+            checkReady();
+        }
+
+        function showPreview() {
+            const cat = document.getElementById('spaCat').value;
+            const idx = document.getElementById('spaTreatment').value;
+            const preview = document.getElementById('spaPreview');
+
+            if (!cat || idx === '') {
+                preview.classList.remove('visible');
+                return;
+            }
+
+            const t = treatments[cat][parseInt(idx)];
+            document.getElementById('prevName').textContent = t.name;
+            document.getElementById('prevDuration').textContent = t.duration;
+            document.getElementById('prevDesc').textContent = t.desc;
+            preview.classList.add('visible');
+            checkReady();
+        }
+
+        // Calendar
+        function toggleSpaCal() {
+            const cal = document.getElementById('spaCal');
+            if (cal.classList.contains('open')) {
+                cal.classList.remove('open');
+            } else {
+                renderSpaCal();
+                cal.classList.add('open');
+            }
+        }
+
+        function spaCalNav(dir) {
+            spaCalMonth += dir;
+            if (spaCalMonth > 11) { spaCalMonth = 0; spaCalYear++; }
+            if (spaCalMonth < 0) { spaCalMonth = 11; spaCalYear--; }
+            renderSpaCal();
+        }
+
+        function renderSpaCal() {
+            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            document.getElementById('spaCalTitle').textContent = months[spaCalMonth] + ' ' + spaCalYear;
+
+            const grid = document.getElementById('spaCalGrid');
+            grid.innerHTML = '';
+
+            ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d => {
+                const lbl = document.createElement('div');
+                lbl.className = 'dlabel';
+                lbl.textContent = d;
+                grid.appendChild(lbl);
+            });
+
+            const first = new Date(spaCalYear, spaCalMonth, 1);
+            const daysInMonth = new Date(spaCalYear, spaCalMonth + 1, 0).getDate();
+            const today = new Date(); today.setHours(0,0,0,0);
+
+            for (let i = 0; i < first.getDay(); i++) {
+                grid.appendChild(document.createElement('div'));
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'day';
+                dayEl.textContent = d;
+
+                const thisDate = new Date(spaCalYear, spaCalMonth, d);
+                thisDate.setHours(0,0,0,0);
+
+                if (thisDate < today) {
+                    dayEl.classList.add('disabled');
+                } else {
+                    if (thisDate.getTime() === today.getTime()) dayEl.classList.add('today');
+                    if (selectedDate && thisDate.getTime() === selectedDate.getTime()) dayEl.classList.add('chosen');
+
+                    dayEl.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        selectedDate = thisDate;
+                        const opts = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+                        document.getElementById('spaDateLabel').textContent = thisDate.toLocaleDateString('en-US', opts);
+                        document.getElementById('spaCal').classList.remove('open');
+                        renderSpaCal();
+                        checkReady();
+                    });
+                }
+                grid.appendChild(dayEl);
+            }
+        }
+
+        // Close calendar on outside click
+        document.addEventListener('click', function(e) {
+            const cal = document.getElementById('spaCal');
+            const btn = document.getElementById('spaDateBtn');
+            if (cal.classList.contains('open') && !cal.contains(e.target) && !btn.contains(e.target)) {
+                cal.classList.remove('open');
+            }
+        });
+
+        // Time slot selection
+        function pickTime(el) {
+            document.querySelectorAll('.spa-time-slot').forEach(s => s.classList.remove('picked'));
+            el.classList.add('picked');
+            selectedTime = el.textContent;
+            checkReady();
+        }
+
+        // Validation
+        function checkReady() {
+            const cat = document.getElementById('spaCat').value;
+            const treatment = document.getElementById('spaTreatment').value;
+            const ready = cat && treatment !== '' && selectedDate && selectedTime;
+            document.getElementById('spaBookBtn').disabled = !ready;
+        }
+
+        // Confirmation
+        function confirmBooking() {
+            const cat = document.getElementById('spaCat').value;
+            const idx = parseInt(document.getElementById('spaTreatment').value);
+            const t = treatments[cat][idx];
+
+            document.getElementById('confTreatment').textContent = t.name + ' (' + t.duration + ')';
+            document.getElementById('confDate').textContent = selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+            document.getElementById('confTime').textContent = selectedTime;
+
+            document.getElementById('spaForm').style.display = 'none';
+            document.getElementById('spaConf').classList.add('visible');
+        }
     </script>
 </body>
 </html>
