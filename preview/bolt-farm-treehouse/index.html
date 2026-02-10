@@ -2086,7 +2086,7 @@
             border-color: var(--accent-gold);
         }
 
-        .bm-date-input {
+        .bm-date-trigger {
             flex: 1;
             min-width: 160px;
             padding: 0.75rem 1rem;
@@ -2098,11 +2098,152 @@
             background: white;
             cursor: pointer;
             transition: border-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            user-select: none;
+            position: relative;
         }
 
-        .bm-date-input:focus {
-            outline: none;
+        .bm-date-trigger:hover {
             border-color: var(--accent-gold);
+        }
+
+        .bm-date-trigger i {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+        }
+
+        .bm-calendar-wrap {
+            position: relative;
+        }
+
+        .bm-calendar {
+            display: none;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 12px 50px rgba(0,0,0,0.18);
+            padding: 1.25rem;
+            z-index: 20;
+            width: 320px;
+            border: 1px solid #eee;
+        }
+
+        .bm-calendar.open {
+            display: block;
+            animation: calFadeIn 0.25s ease;
+        }
+
+        @keyframes calFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bm-cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .bm-cal-header h4 {
+            font-size: 1.05rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .bm-cal-nav {
+            background: none;
+            border: 1.5px solid #ddd;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-medium);
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .bm-cal-nav:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .bm-cal-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            text-align: center;
+        }
+
+        .bm-cal-days .day-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.4rem 0;
+        }
+
+        .bm-cal-days .day {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-dark);
+            margin: 0 auto;
+        }
+
+        .bm-cal-days .day:hover:not(.disabled):not(.selected) {
+            background: var(--accent-cream);
+        }
+
+        .bm-cal-days .day.selected {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .bm-cal-days .day.today:not(.selected) {
+            border: 1.5px solid var(--accent-gold);
+        }
+
+        .bm-cal-days .day.disabled {
+            color: #d0d0d0;
+            cursor: default;
+        }
+
+        .bm-cal-days .day.empty {
+            cursor: default;
+        }
+
+        .bm-cal-checkout {
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #f0ece4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bm-cal-checkout span {
+            font-size: 0.78rem;
+            color: var(--text-medium);
+        }
+
+        .bm-cal-checkout strong {
+            color: var(--primary-dark);
         }
 
         .bm-book-btn {
@@ -2160,9 +2301,14 @@
             .bm-booking-row {
                 flex-direction: column;
             }
-            .bm-room-select, .bm-date-input, .bm-book-btn {
+            .bm-room-select, .bm-date-trigger, .bm-book-btn {
                 width: 100%;
                 justify-content: center;
+            }
+            .bm-calendar {
+                width: 100%;
+                left: 0;
+                right: 0;
             }
         }
     </style>
@@ -2951,7 +3097,24 @@
                 <hr class="bm-divider">
                 <div class="bm-booking-row">
                     <select class="bm-room-select" id="bmRoomSelect" aria-label="Select room"></select>
-                    <input type="date" class="bm-date-input" id="bmDate" aria-label="Select check-in date">
+                    <div class="bm-calendar-wrap">
+                        <div class="bm-date-trigger" id="bmDateTrigger" tabindex="0">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span id="bmDateLabel">Select check-in date</span>
+                        </div>
+                        <div class="bm-calendar" id="bmCalendar">
+                            <div class="bm-cal-header">
+                                <button class="bm-cal-nav" id="bmCalPrev"><i class="fas fa-chevron-left"></i></button>
+                                <h4 id="bmCalMonth"></h4>
+                                <button class="bm-cal-nav" id="bmCalNext"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                            <div class="bm-cal-days" id="bmCalDays"></div>
+                            <div class="bm-cal-checkout">
+                                <span>Check-in: <strong id="bmCheckinLabel">—</strong></span>
+                                <span>Checkout: <strong id="bmCheckoutLabel">—</strong></span>
+                            </div>
+                        </div>
+                    </div>
                     <a id="bmBookBtn" class="bm-book-btn" href="#" target="_blank">
                         <i class="fas fa-calendar-check"></i> Book This Stay
                     </a>
@@ -3529,15 +3692,11 @@
             const select = document.getElementById('bmRoomSelect');
             select.innerHTML = rooms.map((r, i) => `<option value="${i}" ${i === index ? 'selected' : ''}>${r.name} (${r.badge})</option>`).join('');
 
-            // Set min date to tomorrow
-            const dateInput = document.getElementById('bmDate');
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            dateInput.min = tomorrow.toISOString().split('T')[0];
-            if (!dateInput.value) dateInput.value = tomorrow.toISOString().split('T')[0];
-
             // Book button URL
             document.getElementById('bmBookBtn').href = room.url;
+
+            // Close calendar if open
+            document.getElementById('bmCalendar').classList.remove('open');
 
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -3557,6 +3716,126 @@
         document.getElementById('bookingModal').addEventListener('click', function(e) {
             if (e.target === this) closeBookingModal();
         });
+
+        // Custom Calendar
+        (function() {
+            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const dayLabels = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+            let calYear, calMonth, selectedDate = null;
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            calYear = tomorrow.getFullYear();
+            calMonth = tomorrow.getMonth();
+
+            const cal = document.getElementById('bmCalendar');
+            const calDays = document.getElementById('bmCalDays');
+            const calMonthLabel = document.getElementById('bmCalMonth');
+            const trigger = document.getElementById('bmDateTrigger');
+            const dateLabel = document.getElementById('bmDateLabel');
+            const checkinLabel = document.getElementById('bmCheckinLabel');
+            const checkoutLabel = document.getElementById('bmCheckoutLabel');
+
+            function formatDate(d) {
+                return months[d.getMonth()].slice(0,3) + ' ' + d.getDate() + ', ' + d.getFullYear();
+            }
+
+            function renderCalendar() {
+                calMonthLabel.textContent = months[calMonth] + ' ' + calYear;
+                calDays.innerHTML = '';
+
+                // Day labels
+                dayLabels.forEach(d => {
+                    const el = document.createElement('span');
+                    el.className = 'day-label';
+                    el.textContent = d;
+                    calDays.appendChild(el);
+                });
+
+                const firstDay = new Date(calYear, calMonth, 1).getDay();
+                const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+                // Empty cells before first day
+                for (let i = 0; i < firstDay; i++) {
+                    const empty = document.createElement('span');
+                    empty.className = 'day empty';
+                    calDays.appendChild(empty);
+                }
+
+                // Days
+                for (let d = 1; d <= daysInMonth; d++) {
+                    const dayEl = document.createElement('span');
+                    dayEl.className = 'day';
+                    dayEl.textContent = d;
+
+                    const thisDate = new Date(calYear, calMonth, d);
+                    thisDate.setHours(0,0,0,0);
+
+                    if (thisDate < tomorrow) {
+                        dayEl.classList.add('disabled');
+                    } else {
+                        dayEl.addEventListener('click', function() {
+                            selectedDate = new Date(calYear, calMonth, d);
+                            const checkout = new Date(selectedDate);
+                            checkout.setDate(checkout.getDate() + 1);
+                            dateLabel.textContent = formatDate(selectedDate);
+                            checkinLabel.textContent = formatDate(selectedDate);
+                            checkoutLabel.textContent = formatDate(checkout);
+                            renderCalendar();
+                            setTimeout(() => cal.classList.remove('open'), 350);
+                        });
+                    }
+
+                    if (thisDate.getTime() === today.getTime()) {
+                        dayEl.classList.add('today');
+                    }
+
+                    if (selectedDate && thisDate.getTime() === selectedDate.getTime()) {
+                        dayEl.classList.add('selected');
+                    }
+
+                    calDays.appendChild(dayEl);
+                }
+            }
+
+            // Toggle calendar
+            trigger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                cal.classList.toggle('open');
+            });
+
+            // Nav buttons
+            document.getElementById('bmCalPrev').addEventListener('click', function(e) {
+                e.stopPropagation();
+                calMonth--;
+                if (calMonth < 0) { calMonth = 11; calYear--; }
+                // Don't go before current month
+                const minMonth = today.getMonth();
+                const minYear = today.getFullYear();
+                if (calYear < minYear || (calYear === minYear && calMonth < minMonth)) {
+                    calMonth = minMonth; calYear = minYear;
+                }
+                renderCalendar();
+            });
+
+            document.getElementById('bmCalNext').addEventListener('click', function(e) {
+                e.stopPropagation();
+                calMonth++;
+                if (calMonth > 11) { calMonth = 0; calYear++; }
+                renderCalendar();
+            });
+
+            // Close calendar on outside click
+            document.addEventListener('click', function(e) {
+                if (!cal.contains(e.target) && e.target !== trigger && !trigger.contains(e.target)) {
+                    cal.classList.remove('open');
+                }
+            });
+
+            renderCalendar();
+        })();
     </script>
 </body>
 </html>
