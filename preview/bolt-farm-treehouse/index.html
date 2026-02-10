@@ -2215,7 +2215,30 @@
             font-weight: 700;
         }
 
-        .bm-cal-days .day.today:not(.selected) {
+        .bm-cal-days .day.in-range {
+            background: rgba(201, 169, 98, 0.15);
+            border-radius: 0;
+        }
+
+        .bm-cal-days .day.range-start {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            font-weight: 700;
+            border-radius: 50% 0 0 50%;
+        }
+
+        .bm-cal-days .day.range-end {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            font-weight: 700;
+            border-radius: 0 50% 50% 0;
+        }
+
+        .bm-cal-days .day.range-single {
+            border-radius: 50%;
+        }
+
+        .bm-cal-days .day.today:not(.selected):not(.range-start):not(.range-end) {
             border: 1.5px solid var(--accent-gold);
         }
 
@@ -2226,6 +2249,23 @@
 
         .bm-cal-days .day.empty {
             cursor: default;
+        }
+
+        .bm-cal-hint {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .bm-cal-nights {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-top: 0.5rem;
         }
 
         .bm-cal-checkout {
@@ -3108,7 +3148,9 @@
                                 <h4 id="bmCalMonth"></h4>
                                 <button class="bm-cal-nav" id="bmCalNext"><i class="fas fa-chevron-right"></i></button>
                             </div>
+                            <div class="bm-cal-hint" id="bmCalHint">Select check-in date</div>
                             <div class="bm-cal-days" id="bmCalDays"></div>
+                            <div id="bmCalNights" class="bm-cal-nights" style="display:none;"></div>
                             <div class="bm-cal-checkout">
                                 <span>Check-in: <strong id="bmCheckinLabel">—</strong></span>
                                 <span>Checkout: <strong id="bmCheckoutLabel">—</strong></span>
@@ -3717,11 +3759,13 @@
             if (e.target === this) closeBookingModal();
         });
 
-        // Custom Calendar
+        // Custom Calendar with Check-in / Checkout
         (function() {
             const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
             const dayLabels = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-            let calYear, calMonth, selectedDate = null;
+            let calYear, calMonth;
+            let checkinDate = null, checkoutDate = null;
+            let selectingCheckout = false;
             const today = new Date();
             today.setHours(0,0,0,0);
             const tomorrow = new Date(today);
@@ -3737,16 +3781,47 @@
             const dateLabel = document.getElementById('bmDateLabel');
             const checkinLabel = document.getElementById('bmCheckinLabel');
             const checkoutLabel = document.getElementById('bmCheckoutLabel');
+            const calHint = document.getElementById('bmCalHint');
+            const calNights = document.getElementById('bmCalNights');
 
             function formatDate(d) {
                 return months[d.getMonth()].slice(0,3) + ' ' + d.getDate() + ', ' + d.getFullYear();
             }
 
+            function formatShort(d) {
+                return months[d.getMonth()].slice(0,3) + ' ' + d.getDate();
+            }
+
+            function daysBetween(a, b) {
+                return Math.round((b - a) / (1000 * 60 * 60 * 24));
+            }
+
+            function updateLabels() {
+                if (checkinDate && checkoutDate) {
+                    const nights = daysBetween(checkinDate, checkoutDate);
+                    dateLabel.textContent = formatShort(checkinDate) + ' \u2192 ' + formatShort(checkoutDate) + ' (' + nights + ' night' + (nights > 1 ? 's' : '') + ')';
+                    checkinLabel.textContent = formatDate(checkinDate);
+                    checkoutLabel.textContent = formatDate(checkoutDate);
+                    calNights.textContent = nights + ' night' + (nights > 1 ? 's' : '');
+                    calNights.style.display = '';
+                } else if (checkinDate) {
+                    dateLabel.textContent = formatShort(checkinDate) + ' \u2192 ...';
+                    checkinLabel.textContent = formatDate(checkinDate);
+                    checkoutLabel.textContent = '\u2014';
+                    calNights.style.display = 'none';
+                } else {
+                    dateLabel.textContent = 'Select dates';
+                    checkinLabel.textContent = '\u2014';
+                    checkoutLabel.textContent = '\u2014';
+                    calNights.style.display = 'none';
+                }
+            }
+
             function renderCalendar() {
                 calMonthLabel.textContent = months[calMonth] + ' ' + calYear;
+                calHint.textContent = selectingCheckout ? 'Now select checkout date' : 'Select check-in date';
                 calDays.innerHTML = '';
 
-                // Day labels
                 dayLabels.forEach(d => {
                     const el = document.createElement('span');
                     el.className = 'day-label';
@@ -3757,14 +3832,12 @@
                 const firstDay = new Date(calYear, calMonth, 1).getDay();
                 const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
 
-                // Empty cells before first day
                 for (let i = 0; i < firstDay; i++) {
                     const empty = document.createElement('span');
                     empty.className = 'day empty';
                     calDays.appendChild(empty);
                 }
 
-                // Days
                 for (let d = 1; d <= daysInMonth; d++) {
                     const dayEl = document.createElement('span');
                     dayEl.className = 'day';
@@ -3772,28 +3845,56 @@
 
                     const thisDate = new Date(calYear, calMonth, d);
                     thisDate.setHours(0,0,0,0);
+                    const ts = thisDate.getTime();
 
+                    // Disable past dates
                     if (thisDate < tomorrow) {
+                        dayEl.classList.add('disabled');
+                    }
+                    // When selecting checkout, disable dates on or before check-in
+                    else if (selectingCheckout && checkinDate && thisDate <= checkinDate) {
                         dayEl.classList.add('disabled');
                     } else {
                         dayEl.addEventListener('click', function() {
-                            selectedDate = new Date(calYear, calMonth, d);
-                            const checkout = new Date(selectedDate);
-                            checkout.setDate(checkout.getDate() + 1);
-                            dateLabel.textContent = formatDate(selectedDate);
-                            checkinLabel.textContent = formatDate(selectedDate);
-                            checkoutLabel.textContent = formatDate(checkout);
+                            const clicked = new Date(calYear, calMonth, d);
+                            clicked.setHours(0,0,0,0);
+
+                            if (!selectingCheckout) {
+                                // Selecting check-in
+                                checkinDate = clicked;
+                                checkoutDate = null;
+                                selectingCheckout = true;
+                            } else {
+                                // Selecting checkout
+                                checkoutDate = clicked;
+                                selectingCheckout = false;
+                                setTimeout(() => cal.classList.remove('open'), 400);
+                            }
+                            updateLabels();
                             renderCalendar();
-                            setTimeout(() => cal.classList.remove('open'), 350);
                         });
                     }
 
-                    if (thisDate.getTime() === today.getTime()) {
+                    // Today indicator
+                    if (ts === today.getTime()) {
                         dayEl.classList.add('today');
                     }
 
-                    if (selectedDate && thisDate.getTime() === selectedDate.getTime()) {
-                        dayEl.classList.add('selected');
+                    // Range highlighting
+                    if (checkinDate && checkoutDate) {
+                        const ciTs = checkinDate.getTime();
+                        const coTs = checkoutDate.getTime();
+                        if (ts === ciTs && ts === coTs) {
+                            dayEl.classList.add('selected', 'range-single');
+                        } else if (ts === ciTs) {
+                            dayEl.classList.add('range-start');
+                        } else if (ts === coTs) {
+                            dayEl.classList.add('range-end');
+                        } else if (ts > ciTs && ts < coTs) {
+                            dayEl.classList.add('in-range');
+                        }
+                    } else if (checkinDate && ts === checkinDate.getTime()) {
+                        dayEl.classList.add('selected', 'range-single');
                     }
 
                     calDays.appendChild(dayEl);
@@ -3811,7 +3912,6 @@
                 e.stopPropagation();
                 calMonth--;
                 if (calMonth < 0) { calMonth = 11; calYear--; }
-                // Don't go before current month
                 const minMonth = today.getMonth();
                 const minYear = today.getFullYear();
                 if (calYear < minYear || (calYear === minYear && calMonth < minMonth)) {
@@ -3835,6 +3935,7 @@
             });
 
             renderCalendar();
+            updateLabels();
         })();
     </script>
 </body>
