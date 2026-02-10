@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolt Farm Treehouse — Staff Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #2C3E2D;
+            --primary-green: #3A5A40;
+            --accent-gold: #C9A96E;
+            --warm-white: #FAF8F5;
+            --text-dark: #1a1a1a;
+            --text-medium: #5a5a5a;
+            --sidebar-width: 260px;
+            --topbar-height: 60px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f0ede8;
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* ═══════════════════════════════════════ */
+        /*            LOGIN PAGE                    */
+        /* ═══════════════════════════════════════ */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2C3E2D 0%, #1a2a1c 50%, #2C2420 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201,169,110,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .login-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            width: 420px;
+            max-width: 90vw;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+            margin-bottom: 0.25rem;
+        }
+
+        .login-subtitle {
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 2.5rem;
+        }
+
+        .login-field {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .login-field label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.4rem;
+        }
+
+        .login-field input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+
+        .login-field input::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+
+        .login-field input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #d4b56e;
+            transform: translateY(-1px);
+        }
+
+        .login-demo-note {
+            margin-top: 1.5rem;
+            padding: 0.85rem 1rem;
+            background: rgba(201,169,110,0.1);
+            border: 1px solid rgba(201,169,110,0.25);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.5;
+        }
+
+        .login-demo-note i {
+            color: var(--accent-gold);
+            margin-right: 0.35rem;
+        }
+
+        /* ═══════════════════════════════════════ */
+        /*            DASHBOARD LAYOUT              */
+        /* ═══════════════════════════════════════ */
+        .dashboard { display: none; min-height: 100vh; }
+        .dashboard.active { display: flex; }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-dark);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            transition: transform 0.3s;
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .sidebar-brand h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+        }
+
+        .sidebar-brand span {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-section-label {
+            font-size: 0.6rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            padding: 1.25rem 1.25rem 0.5rem;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .sidebar-link:hover {
+            color: white;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .sidebar-link.active {
+            color: var(--accent-gold);
+            background: rgba(201,169,110,0.1);
+            border-right: 3px solid var(--accent-gold);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .sidebar-link .badge {
+            margin-left: auto;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+        }
+
+        .sidebar-footer {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .sidebar-user-info {
+            flex: 1;
+        }
+
+        .sidebar-user-info strong {
+            display: block;
+            font-size: 0.78rem;
+            color: white;
+        }
+
+        .sidebar-user-info span {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .sidebar-logout {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .sidebar-logout:hover { color: #e57373; }
+
+        /* Topbar */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            height: var(--topbar-height);
+            background: white;
+            border-bottom: 1px solid #e0ddd8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 90;
+        }
+
+        .topbar-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .topbar-icon {
+            position: relative;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: var(--text-medium);
+            cursor: pointer;
+            padding: 0.4rem;
+            transition: color 0.2s;
+        }
+
+        .topbar-icon:hover { color: var(--primary-dark); }
+
+        .topbar-icon .notif-dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background: #e57373;
+            border-radius: 50%;
+        }
+
+        .topbar-date {
+            font-size: 0.75rem;
+            color: var(--text-medium);
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--topbar-height);
+            padding: 2rem;
+            min-height: calc(100vh - var(--topbar-height));
+        }
+
+        /* Panel (each section) */
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* ═══════════════════════════════════════ */
+        /*            OVERVIEW PANEL                */
+        /* ═══════════════════════════════════════ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e8e5e0;
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-card-header i {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .stat-icon-green { background: rgba(58,90,64,0.1); color: var(--primary-green); }
+        .stat-icon-gold { background: rgba(201,169,110,0.15); color: var(--accent-gold); }
+        .stat-icon-blue { background: rgba(66,133,244,0.1); color: #4285f4; }
+        .stat-icon-red { background: rgba(229,115,115,0.1); color: #e57373; }
+
+        .stat-trend {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+        }
+
+        .trend-up { background: rgba(58,90,64,0.1); color: var(--primary-green); }
+        .trend-down { background: rgba(229,115,115,0.1); color: #e57373; }
+
+        .stat-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1;
+        }
+
+        .stat-card p {
+            font-size: 0.7rem;
+            color: var(--text-medium);
+            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e8e5e0;
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #f0ede8;
+        }
+
+        .card-header h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .card-header-action {
+            font-size: 0.7rem;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .card-body { padding: 1.25rem 1.5rem; }
+
+        /* Activity feed */
+        .activity-item {
+            display: flex;
+            gap: 0.85rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid #f5f3f0;
+        }
+
+        .activity-item:last-child { border-bottom: none; }
+
+        .activity-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.green { background: rgba(58,90,64,0.1); color: var(--primary-green); }
+        .activity-icon.gold { background: rgba(201,169,110,0.15); color: var(--accent-gold); }
+        .activity-icon.blue { background: rgba(66,133,244,0.1); color: #4285f4; }
+        .activity-icon.red { background: rgba(229,115,115,0.1); color: #e57373; }
+
+        .activity-text {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            line-height: 1.4;
+        }
+
+        .activity-text strong { font-weight: 600; }
+
+        .activity-time {
+            font-size: 0.65rem;
+            color: var(--text-medium);
+            margin-top: 0.2rem;
+        }
+
+        /* Quick occupancy */
+        .occupancy-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f5f3f0;
+        }
+
+        .occupancy-item:last-child { border-bottom: none; }
+
+        .occupancy-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .occupancy-status {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .status-occupied { background: rgba(58,90,64,0.1); color: var(--primary-green); }
+        .status-available { background: rgba(66,133,244,0.1); color: #4285f4; }
+        .status-cleaning { background: rgba(201,169,110,0.15); color: #b8942e; }
+        .status-maintenance { background: rgba(229,115,115,0.1); color: #e57373; }
+
+        /* ═══════════════════════════════════════ */
+        /*            STAFF CHAT                    */
+        /* ═══════════════════════════════════════ */
+        .chat-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            height: calc(100vh - var(--topbar-height) - 4rem);
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e8e5e0;
+            overflow: hidden;
+        }
+
+        .chat-channels {
+            border-right: 1px solid #e8e5e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-channels-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid #f0ede8;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .chat-channel-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .chat-channel {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .chat-channel:hover { background: #f8f6f3; }
+        .chat-channel.active { background: rgba(201,169,110,0.1); }
+
+        .chat-channel-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--primary-dark);
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .chat-channel-info { flex: 1; min-width: 0; }
+
+        .chat-channel-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .chat-channel-preview {
+            font-size: 0.68rem;
+            color: var(--text-medium);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-channel-badge {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            font-size: 0.6rem;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #f0ede8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header-info h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .chat-header-info span {
+            font-size: 0.68rem;
+            color: var(--text-medium);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .chat-msg {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 75%;
+        }
+
+        .chat-msg-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .chat-msg-content {
+            background: #f8f6f3;
+            padding: 0.75rem 1rem;
+            border-radius: 0 12px 12px 12px;
+        }
+
+        .chat-msg-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .chat-msg-text {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
+        .chat-msg-time {
+            font-size: 0.6rem;
+            color: var(--text-medium);
+            margin-top: 0.3rem;
+        }
+
+        .chat-input-area {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #f0ede8;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e0ddd8;
+            border-radius: 24px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input:focus { border-color: var(--accent-gold); }
+
+        .chat-send {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .chat-send:hover { background: #d4b56e; }
+
+        /* ═══════════════════════════════════════ */
+        /*            STAFF SCHEDULING              */
+        /* ═══════════════════════════════════════ */
+        .schedule-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .schedule-week-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .schedule-week-nav button {
+            background: white;
+            border: 1px solid #e0ddd8;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-medium);
+            transition: all 0.2s;
+        }
+
+        .schedule-week-nav button:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .schedule-week-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .add-shift-btn {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .add-shift-btn:hover { background: #d4b56e; }
+
+        .schedule-table {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e8e5e0;
+            overflow: hidden;
+        }
+
+        .schedule-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th {
+            padding: 0.85rem 0.5rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-medium);
+            background: #faf9f7;
+            border-bottom: 1px solid #e8e5e0;
+            text-align: center;
+        }
+
+        .schedule-table th:first-child {
+            text-align: left;
+            padding-left: 1.25rem;
+            width: 160px;
+        }
+
+        .schedule-table td {
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid #f5f3f0;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .schedule-table td:first-child {
+            text-align: left;
+            padding-left: 1.25rem;
+        }
+
+        .schedule-dept {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .schedule-dept-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+
+        .schedule-dept-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .shift-chip {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            margin: 0.15rem;
+            white-space: nowrap;
+        }
+
+        .shift-morning { background: rgba(66,133,244,0.1); color: #4285f4; }
+        .shift-afternoon { background: rgba(201,169,110,0.15); color: #b8942e; }
+        .shift-evening { background: rgba(128,90,213,0.1); color: #805ad5; }
+        .shift-off { background: #f5f3f0; color: #bbb; }
+
+        /* ═══════════════════════════════════════ */
+        /*            HOUSEKEEPING                  */
+        /* ═══════════════════════════════════════ */
+        .hk-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hk-tab {
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #e0ddd8;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hk-tab:hover { border-color: var(--accent-gold); }
+
+        .hk-tab.active {
+            background: var(--primary-dark);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .hk-tab .hk-tab-count {
+            background: rgba(0,0,0,0.15);
+            padding: 0.1rem 0.45rem;
+            border-radius: 10px;
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+
+        .hk-tab.active .hk-tab-count {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .hk-panel { display: none; }
+        .hk-panel.active { display: block; }
+
+        /* Room cleaning grid */
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e8e5e0;
+            padding: 1.25rem;
+            transition: border-color 0.2s;
+        }
+
+        .room-card:hover { border-color: var(--accent-gold); }
+
+        .room-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .room-card-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .room-card-status {
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .room-card-detail {
+            font-size: 0.72rem;
+            color: var(--text-medium);
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .room-card-detail i { width: 14px; text-align: center; font-size: 0.65rem; }
+
+        .room-card-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.85rem;
+        }
+
+        .room-action-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #e0ddd8;
+            background: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .room-action-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .room-action-btn.primary {
+            background: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .room-action-btn.primary:hover {
+            background: #2f4a35;
+        }
+
+        /* Lost & found / damage reports */
+        .report-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+        .report-card {
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e8e5e0;
+            padding: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .report-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .report-info { flex: 1; }
+
+        .report-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .report-meta {
+            font-size: 0.7rem;
+            color: var(--text-medium);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .report-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .report-status-badge {
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            white-space: nowrap;
+            align-self: center;
+        }
+
+        .badge-pending { background: rgba(201,169,110,0.15); color: #b8942e; }
+        .badge-resolved { background: rgba(58,90,64,0.1); color: var(--primary-green); }
+        .badge-urgent { background: rgba(229,115,115,0.1); color: #e57373; }
+
+        /* ═══════════════════════════════════════ */
+        /*            SPECIAL REQUESTS              */
+        /* ═══════════════════════════════════════ */
+        .requests-list { display: flex; flex-direction: column; gap: 1rem; }
+
+        .request-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e8e5e0;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+
+        .request-card:hover { border-color: var(--accent-gold); }
+
+        .request-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 0.85rem;
+        }
+
+        .request-guest {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .request-room {
+            font-size: 0.7rem;
+            color: var(--text-medium);
+            margin-top: 0.15rem;
+        }
+
+        .request-priority {
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-high { background: rgba(229,115,115,0.1); color: #e57373; }
+        .priority-medium { background: rgba(201,169,110,0.15); color: #b8942e; }
+        .priority-low { background: rgba(66,133,244,0.1); color: #4285f4; }
+
+        .request-body {
+            font-size: 0.82rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            padding: 0.85rem;
+            background: #faf9f7;
+            border-radius: 8px;
+        }
+
+        .request-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .request-time {
+            font-size: 0.7rem;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .request-assign {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .request-assign select {
+            padding: 0.45rem 0.75rem;
+            border: 1px solid #e0ddd8;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-dark);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .request-assign select:focus { border-color: var(--accent-gold); }
+
+        .assign-btn {
+            padding: 0.45rem 1rem;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .assign-btn:hover { background: #2f4a35; }
+
+        .assigned-to {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .assigned-to i { font-size: 0.85rem; }
+
+        /* ═══════════════════════════════════════ */
+        /*            RESORT MAP                    */
+        /* ═══════════════════════════════════════ */
+        .map-container {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e8e5e0;
+            overflow: hidden;
+        }
+
+        .map-container img {
+            width: 100%;
+            display: block;
+        }
+
+        .map-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .map-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: white;
+            padding: 0.85rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
+        }
+
+        .map-legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .map-legend-item span {
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        /* ═══════════════════════════════════════ */
+        /*            RESPONSIVE                    */
+        /* ═══════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .overview-grid { grid-template-columns: 1fr; }
+            .chat-layout { grid-template-columns: 1fr; }
+            .chat-channels { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .topbar { left: 0; }
+            .main-content { margin-left: 0; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .schedule-table { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ LOGIN PAGE ═══════════ -->
+    <div class="login-page" id="loginPage">
+        <div class="login-card">
+            <div class="login-logo">BOLT FARM</div>
+            <div class="login-subtitle">Staff Portal</div>
+
+            <div class="login-field">
+                <label>Email</label>
+                <input type="email" placeholder="admin@boltfarm.com">
+            </div>
+            <div class="login-field">
+                <label>Password</label>
+                <input type="password" placeholder="••••••••">
+            </div>
+
+            <button class="login-btn" onclick="doLogin()">Log In</button>
+
+            <div class="login-demo-note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Demo Mode</strong> — For proposal viewing purposes, simply click "Log In" with no credentials needed.
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ DASHBOARD ═══════════ -->
+    <div class="dashboard" id="dashboard">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <h2>BOLT FARM</h2>
+                <span>Staff Portal</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="sidebar-section-label">Main</div>
+                <button class="sidebar-link active" onclick="switchPanel('overview', this)">
+                    <i class="fas fa-th-large"></i> Overview
+                </button>
+                <button class="sidebar-link" onclick="switchPanel('chat', this)">
+                    <i class="fas fa-comments"></i> Staff Chat
+                    <span class="badge">3</span>
+                </button>
+                <button class="sidebar-link" onclick="switchPanel('scheduling', this)">
+                    <i class="fas fa-calendar-alt"></i> Scheduling
+                </button>
+
+                <div class="sidebar-section-label">Operations</div>
+                <button class="sidebar-link" onclick="switchPanel('housekeeping', this)">
+                    <i class="fas fa-broom"></i> Housekeeping
+                    <span class="badge">2</span>
+                </button>
+                <button class="sidebar-link" onclick="switchPanel('requests', this)">
+                    <i class="fas fa-concierge-bell"></i> Special Requests
+                    <span class="badge">4</span>
+                </button>
+
+                <div class="sidebar-section-label">Property</div>
+                <button class="sidebar-link" onclick="switchPanel('map', this)">
+                    <i class="fas fa-map-marked-alt"></i> Resort Map
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar">AD</div>
+                    <div class="sidebar-user-info">
+                        <strong>Admin Demo</strong>
+                        <span>General Manager</span>
+                    </div>
+                    <button class="sidebar-logout" onclick="doLogout()" title="Log out">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-title" id="topbarTitle">Overview</div>
+            <div class="topbar-right">
+                <span class="topbar-date" id="topbarDate"></span>
+                <button class="topbar-icon">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-dot"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main content area -->
+        <main class="main-content">
+
+            <!-- ═══ OVERVIEW ═══ -->
+            <div class="panel active" id="panel-overview">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <i class="fas fa-bed stat-icon-green"></i>
+                            <span class="stat-trend trend-up"><i class="fas fa-arrow-up"></i> 12%</span>
+                        </div>
+                        <h3>87%</h3>
+                        <p>Occupancy Rate</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <i class="fas fa-users stat-icon-gold"></i>
+                        </div>
+                        <h3>14</h3>
+                        <p>Staff On Duty</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <i class="fas fa-concierge-bell stat-icon-blue"></i>
+                        </div>
+                        <h3>4</h3>
+                        <p>Pending Requests</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <i class="fas fa-exclamation-triangle stat-icon-red"></i>
+                        </div>
+                        <h3>1</h3>
+                        <p>Maintenance Alert</p>
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Recent Activity</h3>
+                            <button class="card-header-action">View All</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-item">
+                                <div class="activity-icon green"><i class="fas fa-check"></i></div>
+                                <div>
+                                    <div class="activity-text"><strong>Maria S.</strong> marked <strong>Eden Suite</strong> as cleaned</div>
+                                    <div class="activity-time">12 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon gold"><i class="fas fa-concierge-bell"></i></div>
+                                <div>
+                                    <div class="activity-text">New special request from <strong>Covenant Cabin</strong> — anniversary flowers</div>
+                                    <div class="activity-time">34 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon blue"><i class="fas fa-spa"></i></div>
+                                <div>
+                                    <div class="activity-text"><strong>Rachel T.</strong> confirmed spa booking for Cabin 3 guests</div>
+                                    <div class="activity-time">1 hour ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon red"><i class="fas fa-tools"></i></div>
+                                <div>
+                                    <div class="activity-text"><strong>James W.</strong> reported deck railing issue at <strong>Summit Lodge</strong></div>
+                                    <div class="activity-time">2 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon green"><i class="fas fa-sign-in-alt"></i></div>
+                                <div>
+                                    <div class="activity-text">Guest check-in completed — <strong>The Ark</strong></div>
+                                    <div class="activity-time">3 hours ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Room Status</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="occupancy-item">
+                                <span class="occupancy-name">Eden Suite</span>
+                                <span class="occupancy-status status-occupied">Occupied</span>
+                            </div>
+                            <div class="occupancy-item">
+                                <span class="occupancy-name">The Ark</span>
+                                <span class="occupancy-status status-occupied">Occupied</span>
+                            </div>
+                            <div class="occupancy-item">
+                                <span class="occupancy-name">Covenant Cabin</span>
+                                <span class="occupancy-status status-occupied">Occupied</span>
+                            </div>
+                            <div class="occupancy-item">
+                                <span class="occupancy-name">Summit Lodge</span>
+                                <span class="occupancy-status status-maintenance">Maintenance</span>
+                            </div>
+                            <div class="occupancy-item">
+                                <span class="occupancy-name">Shepherd's Rest</span>
+                                <span class="occupancy-status status-cleaning">Cleaning</span>
+                            </div>
+                            <div class="occupancy-item">
+                                <span class="occupancy-name">Promised Land</span>
+                                <span class="occupancy-status status-available">Available</span>
+                            </div>
+                            <div class="occupancy-item">
+                                <span class="occupancy-name">Mustard Seed</span>
+                                <span class="occupancy-status status-occupied">Occupied</span>
+                            </div>
+                            <div class="occupancy-item">
+                                <span class="occupancy-name">The Vineyard</span>
+                                <span class="occupancy-status status-available">Available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ STAFF CHAT ═══ -->
+            <div class="panel" id="panel-chat">
+                <div class="chat-layout">
+                    <div class="chat-channels">
+                        <div class="chat-channels-header">
+                            <i class="fas fa-comments"></i> &nbsp;Channels
+                        </div>
+                        <div class="chat-channel-list">
+                            <div class="chat-channel active" onclick="switchChannel(this, 'general')">
+                                <div class="chat-channel-icon"><i class="fas fa-hashtag"></i></div>
+                                <div class="chat-channel-info">
+                                    <div class="chat-channel-name">General</div>
+                                    <div class="chat-channel-preview">Sarah: Morning meeting at 8am</div>
+                                </div>
+                                <div class="chat-channel-badge">3</div>
+                            </div>
+                            <div class="chat-channel" onclick="switchChannel(this, 'housekeeping')">
+                                <div class="chat-channel-icon"><i class="fas fa-broom"></i></div>
+                                <div class="chat-channel-info">
+                                    <div class="chat-channel-name">Housekeeping</div>
+                                    <div class="chat-channel-preview">Maria: Eden Suite done</div>
+                                </div>
+                            </div>
+                            <div class="chat-channel" onclick="switchChannel(this, 'maintenance')">
+                                <div class="chat-channel-icon"><i class="fas fa-tools"></i></div>
+                                <div class="chat-channel-info">
+                                    <div class="chat-channel-name">Maintenance</div>
+                                    <div class="chat-channel-preview">James: Railing fix ETA 2pm</div>
+                                </div>
+                            </div>
+                            <div class="chat-channel" onclick="switchChannel(this, 'spa')">
+                                <div class="chat-channel-icon"><i class="fas fa-spa"></i></div>
+                                <div class="chat-channel-info">
+                                    <div class="chat-channel-name">Spa Team</div>
+                                    <div class="chat-channel-preview">Rachel: 2 bookings today</div>
+                                </div>
+                            </div>
+                            <div class="chat-channel" onclick="switchChannel(this, 'front-desk')">
+                                <div class="chat-channel-icon"><i class="fas fa-door-open"></i></div>
+                                <div class="chat-channel-info">
+                                    <div class="chat-channel-name">Front Desk</div>
+                                    <div class="chat-channel-preview">Tom: Check-in at 3pm</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-main">
+                        <div class="chat-header">
+                            <div class="chat-header-info">
+                                <h3># General</h3>
+                                <span>All staff — 14 members</span>
+                            </div>
+                        </div>
+
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-msg">
+                                <div class="chat-msg-avatar" style="background: var(--primary-green);">SB</div>
+                                <div class="chat-msg-content">
+                                    <div class="chat-msg-name">Sarah Bennett</div>
+                                    <div class="chat-msg-text">Good morning team! Reminder — morning devotional and briefing at 8am in the main lodge. We have 6 rooms occupied today and 2 checkouts expected.</div>
+                                    <div class="chat-msg-time">7:15 AM</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-msg">
+                                <div class="chat-msg-avatar" style="background: var(--accent-gold); color: var(--primary-dark);">MS</div>
+                                <div class="chat-msg-content">
+                                    <div class="chat-msg-name">Maria Sanchez</div>
+                                    <div class="chat-msg-text">Good morning! I'll have Eden Suite and Shepherd's Rest turned over by 11am. Any special prep needed for the new arrivals?</div>
+                                    <div class="chat-msg-time">7:22 AM</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-msg">
+                                <div class="chat-msg-avatar" style="background: #4285f4;">TH</div>
+                                <div class="chat-msg-content">
+                                    <div class="chat-msg-name">Tom Henderson</div>
+                                    <div class="chat-msg-text">The guests in Covenant Cabin requested anniversary flowers and a bottle of local wine. I'll handle the wine — can someone grab flowers from town?</div>
+                                    <div class="chat-msg-time">7:28 AM</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-msg">
+                                <div class="chat-msg-avatar" style="background: #805ad5;">RT</div>
+                                <div class="chat-msg-content">
+                                    <div class="chat-msg-name">Rachel Torres</div>
+                                    <div class="chat-msg-text">I can pick up flowers on my way in! Also heads up — we have 2 couples spa sessions booked today at 10am and 2pm. Cabin 3 guests and the Covenant Cabin anniversary couple.</div>
+                                    <div class="chat-msg-time">7:31 AM</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-msg">
+                                <div class="chat-msg-avatar" style="background: #e57373;">JW</div>
+                                <div class="chat-msg-content">
+                                    <div class="chat-msg-name">James Walker</div>
+                                    <div class="chat-msg-text">Quick update on Summit Lodge — the deck railing repair parts arrived. I'll have it fixed by 2pm. Keeping the room blocked until then.</div>
+                                    <div class="chat-msg-time">7:35 AM</div>
+                                </div>
+                            </div>
+
+                            <div class="chat-msg">
+                                <div class="chat-msg-avatar" style="background: var(--primary-green);">SB</div>
+                                <div class="chat-msg-content">
+                                    <div class="chat-msg-name">Sarah Bennett</div>
+                                    <div class="chat-msg-text">Perfect teamwork everyone. Rachel, thank you for grabbing the flowers! Let's make today a blessing for our guests. 🙏</div>
+                                    <div class="chat-msg-time">7:38 AM</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-input-area">
+                            <input type="text" class="chat-input" placeholder="Type a message..." id="chatInput" onkeydown="if(event.key==='Enter')sendMessage()">
+                            <button class="chat-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SCHEDULING ═══ -->
+            <div class="panel" id="panel-scheduling">
+                <div class="schedule-header">
+                    <div class="schedule-week-nav">
+                        <button><i class="fas fa-chevron-left"></i></button>
+                        <span class="schedule-week-label" id="scheduleWeek"></span>
+                        <button><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <button class="add-shift-btn"><i class="fas fa-plus"></i> Add Shift</button>
+                </div>
+
+                <div class="schedule-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                                <th>Sun</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="schedule-dept">
+                                        <div class="schedule-dept-icon stat-icon-green"><i class="fas fa-door-open"></i></div>
+                                        <span class="schedule-dept-name">Host</span>
+                                    </div>
+                                </td>
+                                <td><span class="shift-chip shift-morning">Tom 7a-3p</span></td>
+                                <td><span class="shift-chip shift-morning">Tom 7a-3p</span></td>
+                                <td><span class="shift-chip shift-morning">Sarah 7a-3p</span></td>
+                                <td><span class="shift-chip shift-morning">Tom 7a-3p</span></td>
+                                <td><span class="shift-chip shift-morning">Sarah 7a-3p</span></td>
+                                <td><span class="shift-chip shift-morning">Tom 7a-3p</span><br><span class="shift-chip shift-afternoon">Sarah 3p-11p</span></td>
+                                <td><span class="shift-chip shift-morning">Sarah 7a-3p</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="schedule-dept">
+                                        <div class="schedule-dept-icon stat-icon-gold"><i class="fas fa-broom"></i></div>
+                                        <span class="schedule-dept-name">Cleaning</span>
+                                    </div>
+                                </td>
+                                <td><span class="shift-chip shift-morning">Maria 8a-4p</span></td>
+                                <td><span class="shift-chip shift-morning">Maria 8a-4p</span><br><span class="shift-chip shift-morning">Ana 8a-4p</span></td>
+                                <td><span class="shift-chip shift-morning">Ana 8a-4p</span></td>
+                                <td><span class="shift-chip shift-morning">Maria 8a-4p</span></td>
+                                <td><span class="shift-chip shift-morning">Maria 8a-4p</span><br><span class="shift-chip shift-morning">Ana 8a-4p</span></td>
+                                <td><span class="shift-chip shift-morning">Maria 8a-4p</span><br><span class="shift-chip shift-morning">Ana 8a-4p</span></td>
+                                <td><span class="shift-chip shift-morning">Ana 8a-4p</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="schedule-dept">
+                                        <div class="schedule-dept-icon stat-icon-red"><i class="fas fa-tools"></i></div>
+                                        <span class="schedule-dept-name">Maintenance</span>
+                                    </div>
+                                </td>
+                                <td><span class="shift-chip shift-morning">James 7a-3p</span></td>
+                                <td><span class="shift-chip shift-morning">James 7a-3p</span></td>
+                                <td><span class="shift-chip shift-morning">James 7a-3p</span></td>
+                                <td><span class="shift-chip shift-off">Off</span></td>
+                                <td><span class="shift-chip shift-morning">James 7a-3p</span></td>
+                                <td><span class="shift-chip shift-morning">James 7a-3p</span></td>
+                                <td><span class="shift-chip shift-off">Off</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="schedule-dept">
+                                        <div class="schedule-dept-icon stat-icon-blue"><i class="fas fa-spa"></i></div>
+                                        <span class="schedule-dept-name">Spa</span>
+                                    </div>
+                                </td>
+                                <td><span class="shift-chip shift-morning">Rachel 9a-5p</span></td>
+                                <td><span class="shift-chip shift-off">Off</span></td>
+                                <td><span class="shift-chip shift-morning">Rachel 9a-5p</span></td>
+                                <td><span class="shift-chip shift-morning">Rachel 9a-5p</span><br><span class="shift-chip shift-afternoon">Lisa 12p-6p</span></td>
+                                <td><span class="shift-chip shift-morning">Rachel 9a-5p</span></td>
+                                <td><span class="shift-chip shift-morning">Rachel 9a-5p</span><br><span class="shift-chip shift-afternoon">Lisa 12p-6p</span></td>
+                                <td><span class="shift-chip shift-morning">Lisa 10a-4p</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="schedule-dept">
+                                        <div class="schedule-dept-icon" style="background:rgba(128,90,213,0.1);color:#805ad5;"><i class="fas fa-utensils"></i></div>
+                                        <span class="schedule-dept-name">Kitchen</span>
+                                    </div>
+                                </td>
+                                <td><span class="shift-chip shift-morning">Chef Dan 6a-2p</span></td>
+                                <td><span class="shift-chip shift-morning">Chef Dan 6a-2p</span></td>
+                                <td><span class="shift-chip shift-morning">Chef Dan 6a-2p</span></td>
+                                <td><span class="shift-chip shift-morning">Chef Dan 6a-2p</span></td>
+                                <td><span class="shift-chip shift-morning">Chef Dan 6a-2p</span><br><span class="shift-chip shift-evening">Sous Amy 4p-10p</span></td>
+                                <td><span class="shift-chip shift-morning">Chef Dan 6a-2p</span><br><span class="shift-chip shift-evening">Sous Amy 4p-10p</span></td>
+                                <td><span class="shift-chip shift-off">Off</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ═══ HOUSEKEEPING ═══ -->
+            <div class="panel" id="panel-housekeeping">
+                <div class="hk-tabs">
+                    <button class="hk-tab active" onclick="switchHkTab('cleaning', this)">
+                        <i class="fas fa-broom"></i> Room Status <span class="hk-tab-count">8</span>
+                    </button>
+                    <button class="hk-tab" onclick="switchHkTab('lost', this)">
+                        <i class="fas fa-box-open"></i> Lost &amp; Found <span class="hk-tab-count">3</span>
+                    </button>
+                    <button class="hk-tab" onclick="switchHkTab('damage', this)">
+                        <i class="fas fa-exclamation-circle"></i> Damage Reports <span class="hk-tab-count">1</span>
+                    </button>
+                </div>
+
+                <!-- Room Cleaning Status -->
+                <div class="hk-panel active" id="hk-cleaning">
+                    <div class="room-grid">
+                        <div class="room-card">
+                            <div class="room-card-top">
+                                <span class="room-card-name">Eden Suite</span>
+                                <span class="room-card-status status-occupied">Occupied</span>
+                            </div>
+                            <div class="room-card-detail"><i class="fas fa-user"></i> Johnson Family</div>
+                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 12</div>
+                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today — Maria S.</div>
+                        </div>
+
+                        <div class="room-card">
+                            <div class="room-card-top">
+                                <span class="room-card-name">The Ark</span>
+                                <span class="room-card-status status-occupied">Occupied</span>
+                            </div>
+                            <div class="room-card-detail"><i class="fas fa-user"></i> Williams Couple</div>
+                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 14</div>
+                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today — Ana R.</div>
+                        </div>
+
+                        <div class="room-card">
+                            <div class="room-card-top">
+                                <span class="room-card-name">Covenant Cabin</span>
+                                <span class="room-card-status status-occupied">Occupied</span>
+                            </div>
+                            <div class="room-card-detail"><i class="fas fa-user"></i> Davis Anniversary</div>
+                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 13</div>
+                            <div class="room-card-detail"><i class="fas fa-clock" style="color:var(--accent-gold)"></i> Scheduled for 2pm</div>
+                        </div>
+
+                        <div class="room-card">
+                            <div class="room-card-top">
+                                <span class="room-card-name">Summit Lodge</span>
+                                <span class="room-card-status status-maintenance">Maintenance</span>
+                            </div>
+                            <div class="room-card-detail"><i class="fas fa-tools"></i> Deck railing repair</div>
+                            <div class="room-card-detail"><i class="fas fa-user-cog"></i> Assigned: James W.</div>
+                            <div class="room-card-detail"><i class="fas fa-clock" style="color:#e57373"></i> ETA: 2:00 PM</div>
+                        </div>
+
+                        <div class="room-card">
+                            <div class="room-card-top">
+                                <span class="room-card-name">Shepherd's Rest</span>
+                                <span class="room-card-status status-cleaning">Cleaning</span>
+                            </div>
+                            <div class="room-card-detail"><i class="fas fa-sign-out-alt"></i> Checked out 10am</div>
+                            <div class="room-card-detail"><i class="fas fa-user-cog"></i> Assigned: Maria S.</div>
+                            <div class="room-card-actions">
+                                <button class="room-action-btn primary">Mark Clean</button>
+                                <button class="room-action-btn">Report Issue</button>
+                            </div>
+                        </div>
+
+                        <div class="room-card">
+                            <div class="room-card-top">
+                                <span class="room-card-name">Promised Land</span>
+                                <span class="room-card-status status-available">Available</span>
+                            </div>
+                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Clean &amp; inspected</div>
+                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Next arrival: Feb 12</div>
+                        </div>
+
+                        <div class="room-card">
+                            <div class="room-card-top">
+                                <span class="room-card-name">Mustard Seed</span>
+                                <span class="room-card-status status-occupied">Occupied</span>
+                            </div>
+                            <div class="room-card-detail"><i class="fas fa-user"></i> Pastor Mitchell</div>
+                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 11</div>
+                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today — Ana R.</div>
+                        </div>
+
+                        <div class="room-card">
+                            <div class="room-card-top">
+                                <span class="room-card-name">The Vineyard</span>
+                                <span class="room-card-status status-available">Available</span>
+                            </div>
+                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Clean &amp; inspected</div>
+                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Next arrival: Feb 15</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lost & Found -->
+                <div class="hk-panel" id="hk-lost">
+                    <div class="report-list">
+                        <div class="report-card">
+                            <div class="report-icon stat-icon-gold"><i class="fas fa-ring"></i></div>
+                            <div class="report-info">
+                                <div class="report-title">Gold Bracelet</div>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-map-pin"></i> Eden Suite — nightstand</span>
+                                    <span><i class="fas fa-user"></i> Found by Maria S.</span>
+                                    <span><i class="fas fa-clock"></i> Today, 9:15 AM</span>
+                                </div>
+                            </div>
+                            <span class="report-status-badge badge-pending">Pending Pickup</span>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-icon stat-icon-blue"><i class="fas fa-book-bible"></i></div>
+                            <div class="report-info">
+                                <div class="report-title">Leather-bound Bible (personalized)</div>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-map-pin"></i> Mustard Seed — desk drawer</span>
+                                    <span><i class="fas fa-user"></i> Found by Ana R.</span>
+                                    <span><i class="fas fa-clock"></i> Yesterday, 2:30 PM</span>
+                                </div>
+                            </div>
+                            <span class="report-status-badge badge-pending">Contacting Guest</span>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-icon stat-icon-green"><i class="fas fa-mobile-alt"></i></div>
+                            <div class="report-info">
+                                <div class="report-title">Phone Charger (USB-C)</div>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-map-pin"></i> The Vineyard — outlet by bed</span>
+                                    <span><i class="fas fa-user"></i> Found by Maria S.</span>
+                                    <span><i class="fas fa-clock"></i> Feb 8</span>
+                                </div>
+                            </div>
+                            <span class="report-status-badge badge-resolved">Returned</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Damage Reports -->
+                <div class="hk-panel" id="hk-damage">
+                    <div class="report-list">
+                        <div class="report-card">
+                            <div class="report-icon stat-icon-red"><i class="fas fa-exclamation-triangle"></i></div>
+                            <div class="report-info">
+                                <div class="report-title">Deck Railing — Loose Bolts</div>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-map-pin"></i> Summit Lodge — rear deck</span>
+                                    <span><i class="fas fa-user"></i> Reported by James W.</span>
+                                    <span><i class="fas fa-clock"></i> Today, 8:00 AM</span>
+                                </div>
+                            </div>
+                            <span class="report-status-badge badge-urgent">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ SPECIAL REQUESTS ═══ -->
+            <div class="panel" id="panel-requests">
+                <div class="requests-list">
+                    <div class="request-card">
+                        <div class="request-card-top">
+                            <div>
+                                <div class="request-guest">Davis Family — Anniversary Celebration</div>
+                                <div class="request-room"><i class="fas fa-home"></i> Covenant Cabin</div>
+                            </div>
+                            <span class="request-priority priority-high">High Priority</span>
+                        </div>
+                        <div class="request-body">
+                            "We're celebrating our 25th wedding anniversary! Could we get fresh flowers in the room, a bottle of local wine, and if possible a handwritten note of blessing? This trip is very special to us."
+                        </div>
+                        <div class="request-footer">
+                            <div class="request-time"><i class="fas fa-clock"></i> Requested 6 hours ago</div>
+                            <div class="assigned-to"><i class="fas fa-check-circle"></i> Assigned to Rachel T. &amp; Tom H.</div>
+                        </div>
+                    </div>
+
+                    <div class="request-card">
+                        <div class="request-card-top">
+                            <div>
+                                <div class="request-guest">Pastor Mitchell — Ministry Retreat Prep</div>
+                                <div class="request-room"><i class="fas fa-home"></i> Mustard Seed</div>
+                            </div>
+                            <span class="request-priority priority-medium">Medium</span>
+                        </div>
+                        <div class="request-body">
+                            "I'll be leading a small group devotional on the main deck tomorrow morning at sunrise. Could we set up 8 chairs in a circle with blankets? Also need a small table for my Bible and notes."
+                        </div>
+                        <div class="request-footer">
+                            <div class="request-time"><i class="fas fa-clock"></i> Requested 3 hours ago</div>
+                            <div class="request-assign">
+                                <select>
+                                    <option value="">Assign staff...</option>
+                                    <option>Tom Henderson</option>
+                                    <option>Sarah Bennett</option>
+                                    <option>Maria Sanchez</option>
+                                    <option>James Walker</option>
+                                </select>
+                                <button class="assign-btn">Assign</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="request-card">
+                        <div class="request-card-top">
+                            <div>
+                                <div class="request-guest">Williams Couple — Romantic Setup</div>
+                                <div class="request-room"><i class="fas fa-home"></i> The Ark</div>
+                            </div>
+                            <span class="request-priority priority-medium">Medium</span>
+                        </div>
+                        <div class="request-body">
+                            "We'd love a private dinner on our cabin deck tomorrow evening — candles, string lights, something cozy. We'll order off the dinner menu. Also, could we book a couple's massage for the afternoon?"
+                        </div>
+                        <div class="request-footer">
+                            <div class="request-time"><i class="fas fa-clock"></i> Requested 2 hours ago</div>
+                            <div class="request-assign">
+                                <select>
+                                    <option value="">Assign staff...</option>
+                                    <option>Tom Henderson</option>
+                                    <option>Sarah Bennett</option>
+                                    <option>Chef Dan</option>
+                                    <option>Rachel Torres</option>
+                                </select>
+                                <button class="assign-btn">Assign</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="request-card">
+                        <div class="request-card-top">
+                            <div>
+                                <div class="request-guest">Johnson Family — Kids Activities</div>
+                                <div class="request-room"><i class="fas fa-home"></i> Eden Suite</div>
+                            </div>
+                            <span class="request-priority priority-low">Low</span>
+                        </div>
+                        <div class="request-body">
+                            "Do you have any family-friendly hiking trail recommendations? Our kids are 8 and 10. Also, are s'mores kits available for the fire pit tonight?"
+                        </div>
+                        <div class="request-footer">
+                            <div class="request-time"><i class="fas fa-clock"></i> Requested 45 minutes ago</div>
+                            <div class="request-assign">
+                                <select>
+                                    <option value="">Assign staff...</option>
+                                    <option>Tom Henderson</option>
+                                    <option>Sarah Bennett</option>
+                                </select>
+                                <button class="assign-btn">Assign</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══ RESORT MAP ═══ -->
+            <div class="panel" id="panel-map">
+                <div class="map-container">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHGzTRKZWNuuYVBldY9ZXVUCfUurUDUOAhg&s" alt="Bolt Farm Treehouse Resort Map">
+                </div>
+                <div class="map-legend">
+                    <div class="map-legend-item">
+                        <div class="map-legend-dot" style="background: var(--primary-green);"></div>
+                        <span>Occupied Rooms</span>
+                    </div>
+                    <div class="map-legend-item">
+                        <div class="map-legend-dot" style="background: #4285f4;"></div>
+                        <span>Available Rooms</span>
+                    </div>
+                    <div class="map-legend-item">
+                        <div class="map-legend-dot" style="background: var(--accent-gold);"></div>
+                        <span>Spa &amp; Wellness</span>
+                    </div>
+                    <div class="map-legend-item">
+                        <div class="map-legend-dot" style="background: #805ad5;"></div>
+                        <span>Common Areas</span>
+                    </div>
+                    <div class="map-legend-item">
+                        <div class="map-legend-dot" style="background: #e57373;"></div>
+                        <span>Maintenance Zone</span>
+                    </div>
+                    <div class="map-legend-item">
+                        <div class="map-legend-dot" style="background: var(--text-dark);"></div>
+                        <span>Staff Only</span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // ═══ Login / Logout ═══
+        function doLogin() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboard').classList.add('active');
+        }
+
+        function doLogout() {
+            document.getElementById('dashboard').classList.remove('active');
+            document.getElementById('loginPage').style.display = 'flex';
+        }
+
+        // ═══ Panel switching ═══
+        const panelTitles = {
+            overview: 'Overview',
+            chat: 'Staff Chat',
+            scheduling: 'Staff Scheduling',
+            housekeeping: 'Housekeeping',
+            requests: 'Special Requests',
+            map: 'Resort Map'
+        };
+
+        function switchPanel(id, btn) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + id).classList.add('active');
+
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.getElementById('topbarTitle').textContent = panelTitles[id] || 'Overview';
+        }
+
+        // ═══ Chat ═══
+        function switchChannel(el, channel) {
+            document.querySelectorAll('.chat-channel').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'chat-msg';
+            msgDiv.style.alignSelf = 'flex-end';
+            msgDiv.innerHTML = `
+                <div class="chat-msg-avatar" style="background: var(--accent-gold); color: var(--primary-dark);">AD</div>
+                <div class="chat-msg-content" style="background: rgba(201,169,110,0.15); border-radius: 12px 0 12px 12px;">
+                    <div class="chat-msg-name">Admin Demo</div>
+                    <div class="chat-msg-text">${text}</div>
+                    <div class="chat-msg-time">Just now</div>
+                </div>
+            `;
+            document.getElementById('chatMessages').appendChild(msgDiv);
+            input.value = '';
+            document.getElementById('chatMessages').scrollTop = 99999;
+        }
+
+        // ═══ Housekeeping tabs ═══
+        function switchHkTab(tab, btn) {
+            document.querySelectorAll('.hk-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('hk-' + tab).classList.add('active');
+            document.querySelectorAll('.hk-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // ═══ Date display ═══
+        const now = new Date();
+        const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('topbarDate').textContent = now.toLocaleDateString('en-US', opts);
+
+        // ═══ Schedule week label ═══
+        const monday = new Date(now);
+        monday.setDate(now.getDate() - now.getDay() + 1);
+        const sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+        const fmt = { month: 'short', day: 'numeric' };
+        document.getElementById('scheduleWeek').textContent =
+            monday.toLocaleDateString('en-US', fmt) + ' — ' + sunday.toLocaleDateString('en-US', fmt) + ', ' + now.getFullYear();
+    </script>
+</body>
+</html>
