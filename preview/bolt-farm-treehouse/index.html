@@ -1895,6 +1895,276 @@
                 font-size: 2rem;
             }
         }
+
+        /* Booking Detail Modal */
+        .booking-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .booking-modal.active {
+            display: flex;
+        }
+
+        .booking-modal-inner {
+            background: white;
+            border-radius: 16px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.35s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .booking-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .booking-modal-close:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .bm-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .bm-body {
+            padding: 2rem 2.5rem 1.5rem;
+        }
+
+        .bm-badge {
+            display: inline-block;
+            background: var(--accent-cream);
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            margin-bottom: 0.75rem;
+        }
+
+        .bm-body h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.3rem;
+            text-align: left;
+        }
+
+        .bm-verse {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--primary-dark);
+            background: linear-gradient(135deg, #f9f5ec, #f0ebdd);
+            border-left: 3px solid var(--accent-gold);
+            padding: 0.6rem 0.85rem;
+            margin-bottom: 1.25rem;
+            border-radius: 0 6px 6px 0;
+            line-height: 1.5;
+        }
+
+        .bm-desc {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .bm-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .bm-features span {
+            background: var(--accent-cream);
+            color: var(--primary-dark);
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 0.4rem 0.85rem;
+            border-radius: 50px;
+        }
+
+        .bm-amenities {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 1.5rem;
+            margin-bottom: 1.75rem;
+            padding: 1.25rem;
+            background: #faf8f4;
+            border-radius: 10px;
+        }
+
+        .bm-amenities li {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            padding-left: 1.4rem;
+            position: relative;
+        }
+
+        .bm-amenities li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+            top: 3px;
+        }
+
+        .bm-divider {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 1.5rem 0;
+        }
+
+        .bm-booking-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .bm-room-select {
+            flex: 1;
+            min-width: 180px;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            background: white;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a4a4a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .bm-room-select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .bm-date-input {
+            flex: 1;
+            min-width: 160px;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .bm-date-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .bm-book-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .bm-book-btn:hover {
+            background: var(--primary-dark);
+            color: white;
+        }
+
+        .bm-footer-note {
+            text-align: center;
+            margin-top: 1rem;
+            padding-bottom: 0.5rem;
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        .bm-footer-note i {
+            color: var(--accent-gold);
+            margin-right: 0.25rem;
+        }
+
+        @media (max-width: 600px) {
+            .booking-modal {
+                padding: 1rem;
+            }
+            .bm-image {
+                height: 220px;
+            }
+            .bm-body {
+                padding: 1.5rem;
+            }
+            .bm-body h2 {
+                font-size: 1.7rem;
+            }
+            .bm-amenities {
+                grid-template-columns: 1fr;
+            }
+            .bm-booking-row {
+                flex-direction: column;
+            }
+            .bm-room-select, .bm-date-input, .bm-book-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2413,7 +2683,7 @@
 
             <div class="booking-grid">
                 <!-- The Refuge - Treehouse More Luxury -->
-                <div class="booking-card" data-category="treehouse">
+                <div class="booking-card" data-room="0">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/Screenshot%202025-11-12%20at%2010.38.08%E2%80%AFAM.png" alt="The Refuge Treehouse" loading="lazy">
                         <span class="booking-card-badge">Treehouse</span>
@@ -2431,12 +2701,12 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/treehouses" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(0)">View Details</button>
                     </div>
                 </div>
 
                 <!-- The Secret Place - Treehouse More Privacy -->
-                <div class="booking-card" data-category="treehouse">
+                <div class="booking-card" data-room="1">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/hm_outdoor.jpg" alt="The Secret Place Treehouse" loading="lazy">
                         <span class="booking-card-badge">Treehouse</span>
@@ -2454,12 +2724,12 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/treehouses" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(1)">View Details</button>
                     </div>
                 </div>
 
                 <!-- The Tabernacle - Arhaus Treehaus -->
-                <div class="booking-card" data-category="treehouse">
+                <div class="booking-card" data-room="2">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/Screenshot%202025-11-12%20at%2010.38.08%E2%80%AFAM.png" alt="The Tabernacle Treehaus" loading="lazy">
                         <span class="booking-card-badge">Treehouse</span>
@@ -2477,12 +2747,12 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/treehouses" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(2)">View Details</button>
                     </div>
                 </div>
 
                 <!-- Living Waters - Waterfall Treehouse -->
-                <div class="booking-card" data-category="treehouse">
+                <div class="booking-card" data-room="3">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/hm_outdoor.jpg" alt="Living Waters Treehouse" loading="lazy">
                         <span class="booking-card-badge">Treehouse</span>
@@ -2500,12 +2770,12 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/treehouses" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(3)">View Details</button>
                     </div>
                 </div>
 
                 <!-- Mount Zion - Dome Luxe -->
-                <div class="booking-card" data-category="dome">
+                <div class="booking-card" data-room="4">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/Dome-MP-1.jpg" alt="Mount Zion Dome" loading="lazy">
                         <span class="booking-card-badge">Dome</span>
@@ -2523,12 +2793,12 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/domes" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(4)">View Details</button>
                     </div>
                 </div>
 
                 <!-- Pisgah - Dome Best Views -->
-                <div class="booking-card" data-category="dome">
+                <div class="booking-card" data-room="5">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/domes-views.jpg" alt="Pisgah Dome" loading="lazy">
                         <span class="booking-card-badge">Dome</span>
@@ -2546,12 +2816,12 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/domes" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(5)">View Details</button>
                     </div>
                 </div>
 
                 <!-- Selah - Mirror Cabin Cliffside -->
-                <div class="booking-card" data-category="mirror">
+                <div class="booking-card" data-room="6">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/mirror-cabin-outside-day.jpg" alt="Selah Mirror Cabin" loading="lazy">
                         <span class="booking-card-badge">Mirror Cabin</span>
@@ -2569,12 +2839,12 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/mirror-cabins" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(6)">View Details</button>
                     </div>
                 </div>
 
                 <!-- Eden - Mirror Cabin Forest -->
-                <div class="booking-card" data-category="mirror">
+                <div class="booking-card" data-room="7">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/MC-MAIN4.jpg" alt="Eden Mirror Cabin" loading="lazy">
                         <span class="booking-card-badge">Mirror Cabin</span>
@@ -2592,12 +2862,12 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/mirror-cabins" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(7)">View Details</button>
                     </div>
                 </div>
 
                 <!-- Still Waters - Floating Mirror -->
-                <div class="booking-card" data-category="mirror">
+                <div class="booking-card" data-room="8">
                     <div class="booking-card-image">
                         <img src="https://assets.boltfarmtennessee.com/mirror_cabin_3.jpg" alt="Still Waters Mirror Cabin" loading="lazy">
                         <span class="booking-card-badge">Mirror Cabin</span>
@@ -2615,7 +2885,7 @@
                     </div>
                     <div class="booking-card-footer">
                         <span class="booking-sleeps"><i class="fas fa-user-friends"></i> Sleeps 2</span>
-                        <a href="https://www.boltfarmtreehouse.com/accommodations/mirror-cabins" target="_blank" class="booking-btn">View Details</a>
+                        <button class="booking-btn" onclick="openBookingModal(8)">View Details</button>
                     </div>
                 </div>
             </div>
@@ -2665,6 +2935,31 @@
             </div>
         </div>
     </footer>
+
+    <!-- Booking Detail Modal -->
+    <div id="bookingModal" class="booking-modal">
+        <div class="booking-modal-inner">
+            <button class="booking-modal-close" aria-label="Close">&times;</button>
+            <img id="bmImage" class="bm-image" src="" alt="">
+            <div class="bm-body">
+                <span class="bm-badge" id="bmBadge"></span>
+                <h2 id="bmTitle"></h2>
+                <div class="bm-verse" id="bmVerse"></div>
+                <p class="bm-desc" id="bmDesc"></p>
+                <div class="bm-features" id="bmFeatures"></div>
+                <ul class="bm-amenities" id="bmAmenities"></ul>
+                <hr class="bm-divider">
+                <div class="bm-booking-row">
+                    <select class="bm-room-select" id="bmRoomSelect" aria-label="Select room"></select>
+                    <input type="date" class="bm-date-input" id="bmDate" aria-label="Select check-in date">
+                    <a id="bmBookBtn" class="bm-book-btn" href="#" target="_blank">
+                        <i class="fas fa-calendar-check"></i> Book This Stay
+                    </a>
+                </div>
+                <p class="bm-footer-note"><i class="fas fa-shield-alt"></i> You'll be redirected to Bolt Farm's secure booking site</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Video Modal -->
     <div id="videoModal" class="video-modal">
@@ -3133,6 +3428,134 @@
             if (e.key === 'Escape' && videoModal.classList.contains('active')) {
                 closeModal();
             }
+            if (e.key === 'Escape' && document.getElementById('bookingModal').classList.contains('active')) {
+                closeBookingModal();
+            }
+        });
+
+        // Booking Modal
+        const rooms = [
+            {
+                name: 'The Refuge', badge: 'Treehouse', verse: '\u201cGod is our refuge and strength\u201d \u2014 Psalm 46:1',
+                desc: 'A cliffside sanctuary with upgraded amenities. Copper soaking tub, heated outdoor shower, and sweeping valley views from your private terrace. Motorized privacy curtains, A/C & heating, luxury linens, and a fully equipped kitchenette make this treehouse truly luxurious.',
+                img: 'https://assets.boltfarmtennessee.com/Screenshot%202025-11-12%20at%2010.38.08%E2%80%AFAM.png',
+                features: ['Hot Tub','Pizza Oven','Copper Tub','A/C & Heat','Heated Outdoor Shower','Exercise Deck'],
+                amenities: ['King bed with luxury linens','Motorized privacy curtains','Indoor & heated outdoor shower','Copper soaking tub','Private terrace with valley views','Hot tub & fire pit','BBQ & Gozney pizza oven','Kitchenette & French press','Fast WiFi & projector','Record player & Bluetooth speaker'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/treehouses'
+            },
+            {
+                name: 'The Secret Place', badge: 'Treehouse', verse: '\u201cHe who dwells in the secret place of the Most High\u201d \u2014 Psalm 91:1',
+                desc: 'Featured in Travel & Leisure\'s Top Treehouse Hotels in the World. A secluded escape among the treetops where luxury meets sacred solitude. The original treehouse built by Seth Bolt and his father for Seth & Tori\'s wedding.',
+                img: 'https://assets.boltfarmtennessee.com/hm_outdoor.jpg',
+                features: ['Hot Tub','Canopy Bed','Pod Chairs','Projector','Record Player','Outdoor Shower'],
+                amenities: ['King bed with luxury linens','Copper tub & dream vanity','Private terrace with hot tub','Outdoor shower & canopy bed','Hanging pod chairs','Fast WiFi & projector','Record player & Bluetooth speaker','Propane heater','BBQ & pizza oven','S\'mores fire pit'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/treehouses'
+            },
+            {
+                name: 'The Tabernacle', badge: 'Treehouse', verse: '\u201cHave them make a sanctuary for me, and I will dwell among them\u201d \u2014 Exodus 25:8',
+                desc: 'Crafted in partnership with premium home furnishings brand Arhaus. A masterfully designed dwelling that combines nature, sustainability, and artisan luxury into one sacred space.',
+                img: 'https://assets.boltfarmtennessee.com/Screenshot%202025-11-12%20at%2010.38.08%E2%80%AFAM.png',
+                features: ['Stone Hot Tub','Cedar Shower','Fire Table','Pizza Oven','Exercise Deck','A/C & Heat'],
+                amenities: ['King bed with luxury linens','Motorized privacy curtains','Copper tub & A/C heating','Stone hot tub','Outdoor cedar barrel shower','Gas fire table','Gozney pizza oven','Exercise deck','Fast WiFi & projector','Record player & Bluetooth speaker'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/treehouses'
+            },
+            {
+                name: 'Living Waters', badge: 'Treehouse', verse: '\u201cThe water I give will become a spring of water welling up to eternal life\u201d \u2014 John 4:14',
+                desc: 'Immerse yourself in the sound bath of a seasonal waterfall. Newly designed to deepen your connection to creation and each other with thoughtful upgrades to outdoor amenities.',
+                img: 'https://assets.boltfarmtennessee.com/hm_outdoor.jpg',
+                features: ['Stone Hot Tub','Cedar Shower','Fire Table','Waterfall Views','Pizza Oven','Exercise Deck'],
+                amenities: ['King bed with luxury linens','Motorized privacy curtains','Copper tub & A/C heating','Stone hot tub','Cedar barrel shower','Seasonal waterfall views','Gas fire table','Gozney pizza oven','Exercise deck','Fast WiFi & projector'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/treehouses'
+            },
+            {
+                name: 'Mount Zion', badge: 'Dome', verse: '\u201cBeautiful in its loftiness, the joy of the whole earth\u201d \u2014 Psalm 48:2',
+                desc: '1,175 sq ft of panoramic mountaintop luxury. Breathtaking views from the king bed, copper tub, and private outdoor living terrace. A full kitchen and spacious living make this dome a true home in the sky.',
+                img: 'https://assets.boltfarmtennessee.com/Dome-MP-1.jpg',
+                features: ['Hot Tub','Fire Pit','Full Kitchen','Canopy Bed','1,175 sq ft','Outdoor Shower'],
+                amenities: ['King bed with copper tub','Propane fireplace','Full kitchen with stovetop & fridge','French press coffee','Private terrace & fire pit','Hot tub & outdoor shower','BBQ grill & pizza oven','Canopy bed & pod chairs','Projector & record player','Fast WiFi & Bluetooth speaker'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/domes'
+            },
+            {
+                name: 'Pisgah', badge: 'Dome', verse: '\u201cThe Lord showed him the whole land\u201d \u2014 Deuteronomy 34:1',
+                desc: 'The largest at 1,500 sq ft with the biggest hot tub and your own mountain section. Like Moses atop Pisgah, behold the promised land stretching to the horizon from every angle.',
+                img: 'https://assets.boltfarmtennessee.com/domes-views.jpg',
+                features: ['Largest Hot Tub','1,500 sq ft','Valley Views','Fire Pit','Full Kitchen','Canopy Bed'],
+                amenities: ['King bed with copper tub','Largest hot tub on property','Own mountain section','Premium valley views','Propane fireplace','Full kitchen with stovetop & fridge','Private terrace & fire pit','BBQ grill & pizza oven','Canopy bed & pod chairs','Fast WiFi & projector'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/domes'
+            },
+            {
+                name: 'Selah', badge: 'Mirror Cabin', verse: '\u201cPause, and know that I am God\u201d \u2014 Psalm 46:10',
+                desc: 'The first of their kind in the United States. Floor-to-ceiling mirrored glass reflects God\'s creation while you pause, reflect, and rest. Valley views with complete privacy\u2014you can see out, but no one can see in.',
+                img: 'https://assets.boltfarmtennessee.com/mirror-cabin-outside-day.jpg',
+                features: ['Hot Tub','Pizza Oven','Fire Pit','Valley Views','Mirrored Glass','Blackout Curtains'],
+                amenities: ['Queen bed with luxury linens','Floor-to-ceiling mirrored glass','Valley views with full privacy','Indoor bathroom & shower','Kitchenette & fast WiFi','Record player & projector','Blackout curtains for evening','Private patio with hot tub','BBQ & pizza oven','Smokeless fire pit'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/mirror-cabins'
+            },
+            {
+                name: 'Eden', badge: 'Mirror Cabin', verse: '\u201cThe Lord God planted a garden in the east, in Eden\u201d \u2014 Genesis 2:8',
+                desc: 'Set under the forest canopy, mirrored walls dissolve into the garden around you. A return to paradise never before experienced in the U.S. Stunning forest views and a sense of serenity that restores.',
+                img: 'https://assets.boltfarmtennessee.com/MC-MAIN4.jpg',
+                features: ['Hot Tub','Pizza Oven','Fire Pit','Forest Views','Mirrored Glass','Blackout Curtains'],
+                amenities: ['Queen bed with luxury linens','Floor-to-ceiling mirrored glass','Forest canopy views','Indoor bathroom & shower','Kitchenette & fast WiFi','Record player & projector','Blackout curtains for evening','Private patio with hot tub','BBQ & pizza oven','Smokeless fire pit'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/mirror-cabins'
+            },
+            {
+                name: 'Still Waters', badge: 'Mirror Cabin', verse: '\u201cHe leads me beside still waters. He restores my soul\u201d \u2014 Psalm 23:2-3',
+                desc: 'Nature-immersive luxury that seems to float among the trees. A mirrored sanctuary where your soul finds the restoration promised in Psalm 23. The exterior dissolves into the surrounding forest landscape.',
+                img: 'https://assets.boltfarmtennessee.com/mirror_cabin_3.jpg',
+                features: ['Hot Tub','Kitchenette','Projector','Record Player','Mirrored Glass','Blackout Curtains'],
+                amenities: ['Queen bed with luxury linens','Floor-to-ceiling mirrored glass','Nature-immersive views','Indoor bathroom & shower','Kitchenette & fast WiFi','Record player & projector','Blackout curtains for evening','Private patio with hot tub','BBQ & pizza oven','Smokeless fire pit'],
+                url: 'https://www.boltfarmtreehouse.com/accommodations/mirror-cabins'
+            }
+        ];
+
+        function openBookingModal(index) {
+            const room = rooms[index];
+            const modal = document.getElementById('bookingModal');
+            document.getElementById('bmImage').src = room.img;
+            document.getElementById('bmImage').alt = room.name;
+            document.getElementById('bmBadge').textContent = room.badge;
+            document.getElementById('bmTitle').textContent = room.name;
+            document.getElementById('bmVerse').textContent = room.verse;
+            document.getElementById('bmDesc').textContent = room.desc;
+
+            const featuresEl = document.getElementById('bmFeatures');
+            featuresEl.innerHTML = room.features.map(f => `<span>${f}</span>`).join('');
+
+            const amenitiesEl = document.getElementById('bmAmenities');
+            amenitiesEl.innerHTML = room.amenities.map(a => `<li>${a}</li>`).join('');
+
+            // Room selector
+            const select = document.getElementById('bmRoomSelect');
+            select.innerHTML = rooms.map((r, i) => `<option value="${i}" ${i === index ? 'selected' : ''}>${r.name} (${r.badge})</option>`).join('');
+
+            // Set min date to tomorrow
+            const dateInput = document.getElementById('bmDate');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dateInput.min = tomorrow.toISOString().split('T')[0];
+            if (!dateInput.value) dateInput.value = tomorrow.toISOString().split('T')[0];
+
+            // Book button URL
+            document.getElementById('bmBookBtn').href = room.url;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Room selector change
+        document.getElementById('bmRoomSelect').addEventListener('change', function() {
+            openBookingModal(parseInt(this.value));
+        });
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelector('.booking-modal-close').addEventListener('click', closeBookingModal);
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) closeBookingModal();
         });
     </script>
 </body>
