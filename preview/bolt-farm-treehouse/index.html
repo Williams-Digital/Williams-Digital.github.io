@@ -1487,7 +1487,7 @@
 
             <div class="influencer-grid">
                 <!-- Kara and Nate - Featured -->
-                <div class="influencer-card featured fade-in" data-video="youtube" data-video-id="dQw4w9WgXcQ" data-video-search="kara+and+nate+treehouse+tennessee" data-title="Kara and Nate" data-subtitle="Travel YouTubers • 4M+ Subscribers">
+                <div class="influencer-card featured fade-in" data-video="youtube" data-video-id="-Xohw5yQ92E" data-title="Kara and Nate" data-subtitle="Travel YouTubers • 4M+ Subscribers">
                     <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800');">
                         <span class="influencer-badge"><i class="fab fa-youtube"></i> YouTube</span>
                         <span class="influencer-views">4M+ Subscribers</span>
@@ -1719,9 +1719,11 @@
                 if (videoType === 'youtube') {
                     const videoId = this.dataset.videoId;
                     const searchQuery = this.dataset.videoSearch;
+                    const startTime = this.dataset.videoStart;
 
                     if (videoId) {
-                        embedHtml = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                        const startParam = startTime ? `&start=${startTime}` : '';
+                        embedHtml = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0${startParam}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                     } else if (searchQuery) {
                         // Open YouTube search in new tab for videos without specific IDs
                         window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
