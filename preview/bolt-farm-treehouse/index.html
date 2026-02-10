@@ -252,6 +252,12 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--accent-gold);
+            margin-bottom: 0.25rem;
+        }
+
+        .devotional-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
             margin-bottom: 1rem;
         }
 
@@ -268,6 +274,25 @@
             font-size: 0.95rem;
             color: var(--text-medium);
             font-weight: 500;
+            margin-bottom: 1.25rem;
+        }
+
+        .devotional-readings {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .devotional-readings span {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            background: rgba(196, 164, 75, 0.12);
+            color: var(--deep-green);
+            font-weight: 600;
         }
 
         /* Experience Cards */
@@ -1503,10 +1528,12 @@
     <div class="devotional-banner">
         <div class="devotional-content">
             <div class="devotional-label">Today's Devotional</div>
-            <div class="devotional-verse">
+            <div class="devotional-date" id="devotionalDate"></div>
+            <div class="devotional-verse" id="devotionalVerse">
                 "Come to me, all you who are weary and burdened, and I will give you rest."
             </div>
-            <div class="devotional-reference">Matthew 11:28 (NIV)</div>
+            <div class="devotional-reference" id="devotionalRef">Matthew 11:28 (NIV)</div>
+            <div class="devotional-readings" id="devotionalReadings"></div>
         </div>
     </div>
 
@@ -2133,6 +2160,372 @@
     </div>
 
     <script>
+        // Daily Devotional - One Year Bible Reading Plan
+        (function() {
+            const devotionals = [
+                // January
+                {v:'"In the beginning God created the heavens and the earth."',r:'Genesis 1:1',ot:'Genesis 1-2',nt:'Matthew 1',ps:'Psalm 1',pr:'Proverbs 1:1-6'},
+                {v:'"The Lord God said, \\"It is not good for the man to be alone. I will make a helper suitable for him.\\""',r:'Genesis 2:18',ot:'Genesis 3-5',nt:'Matthew 2',ps:'Psalm 2',pr:'Proverbs 1:7-9'},
+                {v:'"Noah found favor in the eyes of the Lord."',r:'Genesis 6:8',ot:'Genesis 6-7',nt:'Matthew 3',ps:'Psalm 3',pr:'Proverbs 1:10-19'},
+                {v:'"I have set my rainbow in the clouds, and it will be the sign of the covenant between me and the earth."',r:'Genesis 9:13',ot:'Genesis 8-10',nt:'Matthew 4',ps:'Psalm 4',pr:'Proverbs 1:20-23'},
+                {v:'"I will make you into a great nation, and I will bless you."',r:'Genesis 12:2',ot:'Genesis 11-13',nt:'Matthew 5:1-26',ps:'Psalm 5',pr:'Proverbs 1:24-28'},
+                {v:'"Do not be afraid, Abram. I am your shield, your very great reward."',r:'Genesis 15:1',ot:'Genesis 14-16',nt:'Matthew 5:27-48',ps:'Psalm 6',pr:'Proverbs 1:29-33'},
+                {v:'"Is anything too hard for the Lord?"',r:'Genesis 18:14',ot:'Genesis 17-18',nt:'Matthew 6:1-24',ps:'Psalm 7',pr:'Proverbs 2:1-5'},
+                {v:'"God himself will provide the lamb for the burnt offering, my son."',r:'Genesis 22:8',ot:'Genesis 19-21',nt:'Matthew 6:25-34',ps:'Psalm 8',pr:'Proverbs 2:6-15'},
+                {v:'"The Lord has blessed my master abundantly, and he has become wealthy."',r:'Genesis 24:35',ot:'Genesis 22-24',nt:'Matthew 7',ps:'Psalm 9:1-12',pr:'Proverbs 2:16-22'},
+                {v:'"Surely the Lord is in this place, and I was not aware of it."',r:'Genesis 28:16',ot:'Genesis 25-26',nt:'Matthew 8:1-17',ps:'Psalm 9:13-20',pr:'Proverbs 3:1-6'},
+                {v:'"Trust in the Lord with all your heart and lean not on your own understanding."',r:'Proverbs 3:5',ot:'Genesis 27-28',nt:'Matthew 8:18-34',ps:'Psalm 10:1-15',pr:'Proverbs 3:7-8'},
+                {v:'"I will not let you go unless you bless me."',r:'Genesis 32:26',ot:'Genesis 29-30',nt:'Matthew 9:1-17',ps:'Psalm 10:16-18',pr:'Proverbs 3:9-10'},
+                {v:'"You intended to harm me, but God intended it for good."',r:'Genesis 50:20',ot:'Genesis 31-32',nt:'Matthew 9:18-38',ps:'Psalm 11',pr:'Proverbs 3:11-12'},
+                {v:'"How can I do this great wickedness and sin against God?"',r:'Genesis 39:9',ot:'Genesis 33-35',nt:'Matthew 10:1-23',ps:'Psalm 12',pr:'Proverbs 3:13-15'},
+                {v:'"The Lord was with Joseph so that he prospered."',r:'Genesis 39:2',ot:'Genesis 36-38',nt:'Matthew 10:24-42',ps:'Psalm 13',pr:'Proverbs 3:16-18'},
+                {v:'"God sent me ahead of you to preserve for you a remnant on earth."',r:'Genesis 45:7',ot:'Genesis 39-40',nt:'Matthew 11',ps:'Psalm 14',pr:'Proverbs 3:19-20'},
+                {v:'"Do not be afraid to go down to Egypt, for I will make you into a great nation there."',r:'Genesis 46:3',ot:'Genesis 41',nt:'Matthew 12:1-21',ps:'Psalm 15',pr:'Proverbs 3:21-26'},
+                {v:'"The scepter will not depart from Judah."',r:'Genesis 49:10',ot:'Genesis 42-43',nt:'Matthew 12:22-45',ps:'Psalm 16',pr:'Proverbs 3:27-32'},
+                {v:'"I am the God of your father. Do not be afraid to go down to Egypt."',r:'Genesis 46:3',ot:'Genesis 44-45',nt:'Matthew 12:46-13:23',ps:'Psalm 17',pr:'Proverbs 3:33-35'},
+                {v:'"The Lord bless you and keep you; the Lord make his face shine on you."',r:'Numbers 6:24-25',ot:'Genesis 46-47',nt:'Matthew 13:24-46',ps:'Psalm 18:1-15',pr:'Proverbs 4:1-6'},
+                {v:'"He brought me out into a spacious place; he rescued me because he delighted in me."',r:'Psalm 18:19',ot:'Genesis 48-50',nt:'Matthew 13:47-14:12',ps:'Psalm 18:16-36',pr:'Proverbs 4:7-10'},
+                {v:'"The midwives feared God and did not do what the king of Egypt had told them to do."',r:'Exodus 1:17',ot:'Exodus 1-2',nt:'Matthew 14:13-36',ps:'Psalm 18:37-50',pr:'Proverbs 4:11-13'},
+                {v:'"Take off your sandals, for the place where you are standing is holy ground."',r:'Exodus 3:5',ot:'Exodus 3-4',nt:'Matthew 15:1-28',ps:'Psalm 19',pr:'Proverbs 4:14-19'},
+                {v:'"The heavens declare the glory of God; the skies proclaim the work of his hands."',r:'Psalm 19:1',ot:'Exodus 5-7',nt:'Matthew 15:29-16:12',ps:'Psalm 20',pr:'Proverbs 4:20-27'},
+                {v:'"Who is the Lord, that I should obey him?"',r:'Exodus 5:2',ot:'Exodus 8-9',nt:'Matthew 16:13-17:9',ps:'Psalm 21',pr:'Proverbs 5:1-6'},
+                {v:'"You are the Christ, the Son of the living God."',r:'Matthew 16:16',ot:'Exodus 10-12',nt:'Matthew 17:10-27',ps:'Psalm 22:1-18',pr:'Proverbs 5:7-14'},
+                {v:'"My God, my God, why have you forsaken me?"',r:'Psalm 22:1',ot:'Exodus 13-14',nt:'Matthew 18:1-20',ps:'Psalm 22:19-31',pr:'Proverbs 5:15-21'},
+                {v:'"The Lord is my strength and my defense; he has become my salvation."',r:'Exodus 15:2',ot:'Exodus 15-16',nt:'Matthew 18:21-19:12',ps:'Psalm 23',pr:'Proverbs 5:22-23'},
+                {v:'"The Lord is my shepherd, I lack nothing. He makes me lie down in green pastures."',r:'Psalm 23:1-2',ot:'Exodus 17-19',nt:'Matthew 19:13-30',ps:'Psalm 24',pr:'Proverbs 6:1-5'},
+                {v:'"I am the Lord your God, who brought you out of Egypt, out of the land of slavery."',r:'Exodus 20:2',ot:'Exodus 20-21',nt:'Matthew 20:1-28',ps:'Psalm 25:1-15',pr:'Proverbs 6:6-11'},
+                {v:'"Show me your ways, Lord, teach me your paths."',r:'Psalm 25:4',ot:'Exodus 22-24',nt:'Matthew 20:29-21:22',ps:'Psalm 25:16-22',pr:'Proverbs 6:12-15'},
+                // February
+                {v:'"Have them make a sanctuary for me, and I will dwell among them."',r:'Exodus 25:8',ot:'Exodus 25-27',nt:'Matthew 21:23-46',ps:'Psalm 26',pr:'Proverbs 6:16-19'},
+                {v:'"I will consecrate the tent of meeting and the altar."',r:'Exodus 29:44',ot:'Exodus 28',nt:'Matthew 22:1-33',ps:'Psalm 27:1-6',pr:'Proverbs 6:20-26'},
+                {v:'"The Lord, the Lord, the compassionate and gracious God, slow to anger, abounding in love."',r:'Exodus 34:6',ot:'Exodus 28-29',nt:'Matthew 22:34-23:12',ps:'Psalm 27:7-14',pr:'Proverbs 6:27-35'},
+                {v:'"See, I have chosen Bezalel... and I have filled him with the Spirit of God, with wisdom."',r:'Exodus 31:2-3',ot:'Exodus 30-31',nt:'Matthew 23:13-39',ps:'Psalm 28',pr:'Proverbs 7:1-5'},
+                {v:'"Moses did not know that his face was radiant because he had spoken with the Lord."',r:'Exodus 34:29',ot:'Exodus 32-33',nt:'Matthew 24:1-28',ps:'Psalm 29',pr:'Proverbs 7:6-23'},
+                {v:'"The Lord, the Lord, the compassionate and gracious God, slow to anger, abounding in love and faithfulness."',r:'Exodus 34:6',ot:'Exodus 34-35',nt:'Matthew 24:29-51',ps:'Psalm 30',pr:'Proverbs 7:24-27'},
+                {v:'"Then the cloud covered the tent of meeting, and the glory of the Lord filled the tabernacle."',r:'Exodus 40:34',ot:'Exodus 36-38',nt:'Matthew 25:1-30',ps:'Psalm 31:1-8',pr:'Proverbs 8:1-11'},
+                {v:'"Into your hands I commit my spirit; deliver me, Lord, my faithful God."',r:'Psalm 31:5',ot:'Exodus 39-40',nt:'Matthew 25:31-26:13',ps:'Psalm 31:9-18',pr:'Proverbs 8:12-13'},
+                {v:'"How abundant are the good things that you have stored up for those who fear you."',r:'Psalm 31:19',ot:'Leviticus 1-3',nt:'Matthew 26:14-46',ps:'Psalm 31:19-24',pr:'Proverbs 8:14-26'},
+                {v:'"Be strong and take heart, all you who hope in the Lord."',r:'Psalm 31:24',ot:'Leviticus 4-5',nt:'Matthew 26:47-68',ps:'Psalm 32',pr:'Proverbs 8:27-32'},
+                {v:'"Blessed is the one whose transgressions are forgiven, whose sins are covered."',r:'Psalm 32:1',ot:'Leviticus 6-7',nt:'Matthew 26:69-27:14',ps:'Psalm 33:1-11',pr:'Proverbs 8:33-36'},
+                {v:'"The eyes of the Lord are on those who fear him, on those whose hope is in his unfailing love."',r:'Psalm 33:18',ot:'Leviticus 8-10',nt:'Matthew 27:15-31',ps:'Psalm 33:12-22',pr:'Proverbs 9:1-6'},
+                {v:'"He himself bore our sins in his body on the cross, so that we might die to sins and live for righteousness."',r:'1 Peter 2:24',ot:'Leviticus 11-12',nt:'Matthew 27:32-66',ps:'Psalm 34:1-10',pr:'Proverbs 9:7-8'},
+                {v:'"Taste and see that the Lord is good; blessed is the one who takes refuge in him."',r:'Psalm 34:8',ot:'Leviticus 13',nt:'Matthew 28',ps:'Psalm 34:11-22',pr:'Proverbs 9:9-10'},
+                {v:'"He is not here; he has risen, just as he said."',r:'Matthew 28:6',ot:'Leviticus 14',nt:'Mark 1:1-28',ps:'Psalm 35:1-16',pr:'Proverbs 9:11-12'},
+                {v:'"The time has come. The kingdom of God has come near. Repent and believe the good news!"',r:'Mark 1:15',ot:'Leviticus 15-16',nt:'Mark 1:29-2:12',ps:'Psalm 35:17-28',pr:'Proverbs 9:13-18'},
+                {v:'"It is not the healthy who need a doctor, but the sick. I have not come to call the righteous, but sinners."',r:'Mark 2:17',ot:'Leviticus 17-18',nt:'Mark 2:13-3:6',ps:'Psalm 36',pr:'Proverbs 10:1-2'},
+                {v:'"Your love, Lord, reaches to the heavens, your faithfulness to the skies."',r:'Psalm 36:5',ot:'Leviticus 19-20',nt:'Mark 3:7-30',ps:'Psalm 37:1-11',pr:'Proverbs 10:3-4'},
+                {v:'"Be still before the Lord and wait patiently for him."',r:'Psalm 37:7',ot:'Leviticus 21-22',nt:'Mark 3:31-4:25',ps:'Psalm 37:12-29',pr:'Proverbs 10:5'},
+                {v:'"The meek will inherit the land and enjoy peace and prosperity."',r:'Psalm 37:11',ot:'Leviticus 23-24',nt:'Mark 4:26-5:20',ps:'Psalm 37:30-40',pr:'Proverbs 10:6-7'},
+                {v:'"Daughter, your faith has healed you. Go in peace and be freed from your suffering."',r:'Mark 5:34',ot:'Leviticus 25',nt:'Mark 5:21-43',ps:'Psalm 38',pr:'Proverbs 10:8-9'},
+                {v:'"I will walk among you and be your God, and you will be my people."',r:'Leviticus 26:12',ot:'Leviticus 26-27',nt:'Mark 6:1-29',ps:'Psalm 39',pr:'Proverbs 10:10'},
+                {v:'"I waited patiently for the Lord; he turned to me and heard my cry."',r:'Psalm 40:1',ot:'Numbers 1-2',nt:'Mark 6:30-56',ps:'Psalm 40:1-10',pr:'Proverbs 10:11-12'},
+                {v:'"The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you."',r:'Numbers 6:24-25',ot:'Numbers 3-4',nt:'Mark 7:1-23',ps:'Psalm 40:11-17',pr:'Proverbs 10:13-14'},
+                {v:'"Blessed is the one who considers the weak; the Lord delivers them in times of trouble."',r:'Psalm 41:1',ot:'Numbers 5-6',nt:'Mark 7:24-8:10',ps:'Psalm 41',pr:'Proverbs 10:15-16'},
+                {v:'"As the deer pants for streams of water, so my soul pants for you, my God."',r:'Psalm 42:1',ot:'Numbers 7-8',nt:'Mark 8:11-38',ps:'Psalm 42',pr:'Proverbs 10:17'},
+                {v:'"If anyone would come after me, let him deny himself and take up his cross and follow me."',r:'Mark 8:34',ot:'Numbers 9-11',nt:'Mark 9:1-29',ps:'Psalm 43',pr:'Proverbs 10:18'},
+                {v:'"Anyone who wants to be first must be the very last, and the servant of all."',r:'Mark 9:35',ot:'Numbers 12-14',nt:'Mark 9:30-10:12',ps:'Psalm 44',pr:'Proverbs 10:19'},
+                // March
+                {v:'"Let the little children come to me, and do not hinder them, for the kingdom of God belongs to such as these."',r:'Mark 10:14',ot:'Numbers 15-16',nt:'Mark 10:13-31',ps:'Psalm 45',pr:'Proverbs 10:20-21'},
+                {v:'"For even the Son of Man did not come to be served, but to serve, and to give his life as a ransom for many."',r:'Mark 10:45',ot:'Numbers 17-19',nt:'Mark 10:32-52',ps:'Psalm 46',pr:'Proverbs 10:22'},
+                {v:'"God is our refuge and strength, an ever-present help in trouble."',r:'Psalm 46:1',ot:'Numbers 20-22',nt:'Mark 11:1-26',ps:'Psalm 47',pr:'Proverbs 10:23'},
+                {v:'"Have faith in God. Truly I tell you, if anyone says to this mountain, \\"Go, throw yourself into the sea,\\" and does not doubt... it will be done."',r:'Mark 11:22-23',ot:'Numbers 23-25',nt:'Mark 11:27-12:17',ps:'Psalm 48',pr:'Proverbs 10:24-25'},
+                {v:'"Love the Lord your God with all your heart and with all your soul and with all your mind and with all your strength."',r:'Mark 12:30',ot:'Numbers 26-27',nt:'Mark 12:18-37',ps:'Psalm 49',pr:'Proverbs 10:26'},
+                {v:'"Heaven and earth will pass away, but my words will never pass away."',r:'Mark 13:31',ot:'Numbers 28-30',nt:'Mark 12:38-13:13',ps:'Psalm 50',pr:'Proverbs 10:27-28'},
+                {v:'"Call on me in the day of trouble; I will deliver you, and you will honor me."',r:'Psalm 50:15',ot:'Numbers 31-32',nt:'Mark 13:14-37',ps:'Psalm 51:1-9',pr:'Proverbs 10:29-30'},
+                {v:'"Create in me a pure heart, O God, and renew a steadfast spirit within me."',r:'Psalm 51:10',ot:'Numbers 33-34',nt:'Mark 14:1-21',ps:'Psalm 51:10-19',pr:'Proverbs 10:31-32'},
+                {v:'"Watch and pray so that you will not fall into temptation. The spirit is willing, but the flesh is weak."',r:'Mark 14:38',ot:'Numbers 35-36',nt:'Mark 14:22-52',ps:'Psalm 52',pr:'Proverbs 11:1-3'},
+                {v:'"Surely God is my help; the Lord is the one who sustains me."',r:'Psalm 54:4',ot:'Deuteronomy 1-2',nt:'Mark 14:53-72',ps:'Psalm 53',pr:'Proverbs 11:4'},
+                {v:'"Cast your cares on the Lord and he will sustain you."',r:'Psalm 55:22',ot:'Deuteronomy 3-4',nt:'Mark 15:1-20',ps:'Psalm 54',pr:'Proverbs 11:5-6'},
+                {v:'"Hear, O Israel: The Lord our God, the Lord is one."',r:'Deuteronomy 6:4',ot:'Deuteronomy 5-7',nt:'Mark 15:21-47',ps:'Psalm 55',pr:'Proverbs 11:7'},
+                {v:'"He is not here. He has risen!"',r:'Mark 16:6',ot:'Deuteronomy 8-10',nt:'Mark 16',ps:'Psalm 56',pr:'Proverbs 11:8'},
+                {v:'"Man does not live on bread alone but on every word that comes from the mouth of the Lord."',r:'Deuteronomy 8:3',ot:'Deuteronomy 11-13',nt:'Luke 1:1-25',ps:'Psalm 57',pr:'Proverbs 11:9-11'},
+                {v:'"For nothing will be impossible with God."',r:'Luke 1:37',ot:'Deuteronomy 14-16',nt:'Luke 1:26-56',ps:'Psalm 58',pr:'Proverbs 11:12-13'},
+                {v:'"My soul glorifies the Lord and my spirit rejoices in God my Savior."',r:'Luke 1:46-47',ot:'Deuteronomy 17-20',nt:'Luke 1:57-80',ps:'Psalm 59',pr:'Proverbs 11:14'},
+                {v:'"Glory to God in the highest heaven, and on earth peace to those on whom his favor rests."',r:'Luke 2:14',ot:'Deuteronomy 21-23',nt:'Luke 2:1-35',ps:'Psalm 60',pr:'Proverbs 11:15'},
+                {v:'"He has sent me to proclaim freedom for the prisoners and recovery of sight for the blind."',r:'Luke 4:18',ot:'Deuteronomy 24-27',nt:'Luke 2:36-52',ps:'Psalm 61',pr:'Proverbs 11:16-17'},
+                {v:'"Truly my soul finds rest in God; my salvation comes from him."',r:'Psalm 62:1',ot:'Deuteronomy 28-29',nt:'Luke 3',ps:'Psalm 62',pr:'Proverbs 11:18-19'},
+                {v:'"You shall love the Lord your God with all your heart, with all your soul, and with all your strength."',r:'Deuteronomy 6:5',ot:'Deuteronomy 30-31',nt:'Luke 4:1-30',ps:'Psalm 63',pr:'Proverbs 11:20-21'},
+                {v:'"Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go."',r:'Joshua 1:9',ot:'Deuteronomy 32-34',nt:'Luke 4:31-5:11',ps:'Psalm 64',pr:'Proverbs 11:22'},
+                {v:'"Blessed are those whose strength is in you, whose hearts are set on pilgrimage."',r:'Psalm 84:5',ot:'Joshua 1-3',nt:'Luke 5:12-28',ps:'Psalm 65',pr:'Proverbs 11:23'},
+                {v:'"Consecrate yourselves, for tomorrow the Lord will do amazing things among you."',r:'Joshua 3:5',ot:'Joshua 4-6',nt:'Luke 5:29-6:11',ps:'Psalm 66',pr:'Proverbs 11:24-26'},
+                {v:'"Blessed are you who are poor, for yours is the kingdom of God."',r:'Luke 6:20',ot:'Joshua 7-9',nt:'Luke 6:12-38',ps:'Psalm 67',pr:'Proverbs 11:27'},
+                {v:'"Give, and it will be given to you. A good measure, pressed down, shaken together and running over."',r:'Luke 6:38',ot:'Joshua 10-12',nt:'Luke 6:39-7:10',ps:'Psalm 68:1-18',pr:'Proverbs 11:28'},
+                {v:'"Praise be to the Lord, to God our Savior, who daily bears our burdens."',r:'Psalm 68:19',ot:'Joshua 13-14',nt:'Luke 7:11-35',ps:'Psalm 68:19-35',pr:'Proverbs 11:29-31'},
+                {v:'"Your faith has saved you; go in peace."',r:'Luke 7:50',ot:'Joshua 15-17',nt:'Luke 7:36-8:3',ps:'Psalm 69:1-18',pr:'Proverbs 12:1'},
+                {v:'"The seed on good soil stands for those with a noble and good heart, who hear the word, retain it, and by persevering produce a crop."',r:'Luke 8:15',ot:'Joshua 18-20',nt:'Luke 8:4-21',ps:'Psalm 69:19-36',pr:'Proverbs 12:2-3'},
+                {v:'"Who is this? He commands even the winds and the water, and they obey him."',r:'Luke 8:25',ot:'Joshua 21-22',nt:'Luke 8:22-39',ps:'Psalm 70',pr:'Proverbs 12:4'},
+                {v:'"Do not let your hearts be troubled. You believe in God; believe also in me."',r:'John 14:1',ot:'Joshua 23-24',nt:'Luke 8:40-9:6',ps:'Psalm 71:1-16',pr:'Proverbs 12:5-7'},
+                {v:'"As for me and my household, we will serve the Lord."',r:'Joshua 24:15',ot:'Judges 1-2',nt:'Luke 9:7-27',ps:'Psalm 71:17-24',pr:'Proverbs 12:8-9'},
+                // April
+                {v:'"Whoever wants to save their life will lose it, but whoever loses their life for me will save it."',r:'Luke 9:24',ot:'Judges 3-4',nt:'Luke 9:28-50',ps:'Psalm 72',pr:'Proverbs 12:10'},
+                {v:'"The Lord is your mighty warrior who saves. He will take great delight in you."',r:'Zephaniah 3:17',ot:'Judges 5-6',nt:'Luke 9:51-10:12',ps:'Psalm 73:1-14',pr:'Proverbs 12:11'},
+                {v:'"Yet I am always with you; you hold me by my right hand."',r:'Psalm 73:23',ot:'Judges 7-8',nt:'Luke 10:13-37',ps:'Psalm 73:15-28',pr:'Proverbs 12:12-14'},
+                {v:'"Love the Lord your God... and love your neighbor as yourself."',r:'Luke 10:27',ot:'Judges 9-10',nt:'Luke 10:38-11:13',ps:'Psalm 74',pr:'Proverbs 12:15-17'},
+                {v:'"Ask and it will be given to you; seek and you will find; knock and the door will be opened to you."',r:'Luke 11:9',ot:'Judges 11-12',nt:'Luke 11:14-36',ps:'Psalm 75',pr:'Proverbs 12:18'},
+                {v:'"Are not five sparrows sold for two pennies? Yet not one of them is forgotten by God."',r:'Luke 12:6',ot:'Judges 13-14',nt:'Luke 11:37-12:7',ps:'Psalm 76',pr:'Proverbs 12:19-20'},
+                {v:'"Do not be afraid, little flock, for your Father has been pleased to give you the kingdom."',r:'Luke 12:32',ot:'Judges 15-17',nt:'Luke 12:8-34',ps:'Psalm 77',pr:'Proverbs 12:21-23'},
+                {v:'"For where your treasure is, there your heart will be also."',r:'Luke 12:34',ot:'Judges 18-19',nt:'Luke 12:35-59',ps:'Psalm 78:1-16',pr:'Proverbs 12:24'},
+                {v:'"He split the rocks in the wilderness and gave them water as abundant as the seas."',r:'Psalm 78:15',ot:'Judges 20-21',nt:'Luke 13:1-21',ps:'Psalm 78:17-31',pr:'Proverbs 12:25'},
+                {v:'"There will be more rejoicing in heaven over one sinner who repents than over ninety-nine righteous persons who do not need to repent."',r:'Luke 15:7',ot:'Ruth 1-4',nt:'Luke 13:22-14:6',ps:'Psalm 78:32-55',pr:'Proverbs 12:26'},
+                {v:'"Where you go I will go, and where you stay I will stay. Your people will be my people and your God my God."',r:'Ruth 1:16',ot:'1 Samuel 1-2',nt:'Luke 14:7-35',ps:'Psalm 78:56-72',pr:'Proverbs 12:27-28'},
+                {v:'"Speak, Lord, for your servant is listening."',r:'1 Samuel 3:10',ot:'1 Samuel 3-5',nt:'Luke 15:1-32',ps:'Psalm 79',pr:'Proverbs 13:1'},
+                {v:'"This son of mine was dead and is alive again; he was lost and is found."',r:'Luke 15:24',ot:'1 Samuel 6-8',nt:'Luke 16:1-18',ps:'Psalm 80',pr:'Proverbs 13:2-3'},
+                {v:'"Whoever can be trusted with very little can also be trusted with much."',r:'Luke 16:10',ot:'1 Samuel 9-11',nt:'Luke 16:19-17:10',ps:'Psalm 81',pr:'Proverbs 13:4'},
+                {v:'"Were not all ten cleansed? Where are the other nine? Has no one returned to give praise to God?"',r:'Luke 17:17-18',ot:'1 Samuel 12-14',nt:'Luke 17:11-37',ps:'Psalm 82',pr:'Proverbs 13:5-6'},
+                {v:'"The Lord does not look at the things people look at. People look at the outward appearance, but the Lord looks at the heart."',r:'1 Samuel 16:7',ot:'1 Samuel 15-16',nt:'Luke 18:1-17',ps:'Psalm 83',pr:'Proverbs 13:7-8'},
+                {v:'"Let the little children come to me, and do not hinder them, for the kingdom of God belongs to such as these."',r:'Luke 18:16',ot:'1 Samuel 17-18',nt:'Luke 18:18-43',ps:'Psalm 84',pr:'Proverbs 13:9-10'},
+                {v:'"How lovely is your dwelling place, Lord Almighty! My soul yearns, even faints, for the courts of the Lord."',r:'Psalm 84:1-2',ot:'1 Samuel 19-21',nt:'Luke 19:1-27',ps:'Psalm 85',pr:'Proverbs 13:11'},
+                {v:'"For the Son of Man came to seek and to save the lost."',r:'Luke 19:10',ot:'1 Samuel 22-24',nt:'Luke 19:28-48',ps:'Psalm 86',pr:'Proverbs 13:12-14'},
+                {v:'"Teach me your way, Lord, that I may rely on your faithfulness; give me an undivided heart."',r:'Psalm 86:11',ot:'1 Samuel 25-26',nt:'Luke 20:1-26',ps:'Psalm 87',pr:'Proverbs 13:15-16'},
+                {v:'"Heaven and earth will pass away, but my words will never pass away."',r:'Luke 21:33',ot:'1 Samuel 27-29',nt:'Luke 20:27-47',ps:'Psalm 88',pr:'Proverbs 13:17-19'},
+                {v:'"I will sing of the Lord\'s great love forever; with my mouth I will make your faithfulness known through all generations."',r:'Psalm 89:1',ot:'1 Samuel 30-31',nt:'Luke 21:1-28',ps:'Psalm 89:1-13',pr:'Proverbs 13:20-23'},
+                {v:'"Stand firm, and you will win life."',r:'Luke 21:19',ot:'2 Samuel 1-3',nt:'Luke 21:29-22:13',ps:'Psalm 89:14-37',pr:'Proverbs 13:24-25'},
+                {v:'"This is my body given for you; do this in remembrance of me."',r:'Luke 22:19',ot:'2 Samuel 4-6',nt:'Luke 22:14-34',ps:'Psalm 89:38-52',pr:'Proverbs 14:1-2'},
+                {v:'"Father, if you are willing, take this cup from me; yet not my will, but yours be done."',r:'Luke 22:42',ot:'2 Samuel 7-9',nt:'Luke 22:35-53',ps:'Psalm 90',pr:'Proverbs 14:3-4'},
+                {v:'"Lord, you have been our dwelling place throughout all generations."',r:'Psalm 90:1',ot:'2 Samuel 10-12',nt:'Luke 22:54-23:12',ps:'Psalm 91',pr:'Proverbs 14:5-6'},
+                {v:'"He who dwells in the shelter of the Most High will rest in the shadow of the Almighty."',r:'Psalm 91:1',ot:'2 Samuel 13-14',nt:'Luke 23:13-43',ps:'Psalm 92',pr:'Proverbs 14:7-8'},
+                {v:'"Father, into your hands I commit my spirit."',r:'Luke 23:46',ot:'2 Samuel 15-16',nt:'Luke 23:44-24:12',ps:'Psalm 93',pr:'Proverbs 14:9-10'},
+                {v:'"Were not our hearts burning within us while he talked with us on the road?"',r:'Luke 24:32',ot:'2 Samuel 17-18',nt:'Luke 24:13-53',ps:'Psalm 94',pr:'Proverbs 14:11-12'},
+                {v:'"In the beginning was the Word, and the Word was with God, and the Word was God."',r:'John 1:1',ot:'2 Samuel 19-20',nt:'John 1:1-28',ps:'Psalm 95',pr:'Proverbs 14:13-14'},
+                // May
+                {v:'"The Word became flesh and made his dwelling among us."',r:'John 1:14',ot:'2 Samuel 21-22',nt:'John 1:29-51',ps:'Psalm 96',pr:'Proverbs 14:15-16'},
+                {v:'"He is the Lord our God; his judgments are in all the earth."',r:'Psalm 105:7',ot:'2 Samuel 23-24',nt:'John 2',ps:'Psalm 97',pr:'Proverbs 14:17-19'},
+                {v:'"For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."',r:'John 3:16',ot:'1 Kings 1-2',nt:'John 3:1-21',ps:'Psalm 98',pr:'Proverbs 14:20-21'},
+                {v:'"God is spirit, and his worshipers must worship in the Spirit and in truth."',r:'John 4:24',ot:'1 Kings 3-4',nt:'John 3:22-4:3',ps:'Psalm 99',pr:'Proverbs 14:22-24'},
+                {v:'"Whoever drinks the water I give them will never thirst."',r:'John 4:14',ot:'1 Kings 5-6',nt:'John 4:4-42',ps:'Psalm 100',pr:'Proverbs 14:25'},
+                {v:'"Shout for joy to the Lord, all the earth. Worship the Lord with gladness."',r:'Psalm 100:1-2',ot:'1 Kings 7',nt:'John 4:43-54',ps:'Psalm 101',pr:'Proverbs 14:26-27'},
+                {v:'"If my people, who are called by my name, will humble themselves and pray... I will heal their land."',r:'2 Chronicles 7:14',ot:'1 Kings 8',nt:'John 5:1-23',ps:'Psalm 102:1-11',pr:'Proverbs 14:28-29'},
+                {v:'"The Father judges no one, but has entrusted all judgment to the Son."',r:'John 5:22',ot:'1 Kings 9-10',nt:'John 5:24-47',ps:'Psalm 102:12-28',pr:'Proverbs 14:30-31'},
+                {v:'"I am the bread of life. Whoever comes to me will never go hungry."',r:'John 6:35',ot:'1 Kings 11-12',nt:'John 6:1-21',ps:'Psalm 103',pr:'Proverbs 14:32-33'},
+                {v:'"Praise the Lord, my soul, and forget not all his benefits."',r:'Psalm 103:2',ot:'1 Kings 13-14',nt:'John 6:22-42',ps:'Psalm 104:1-23',pr:'Proverbs 14:34-35'},
+                {v:'"The words I have spoken to you—they are full of the Spirit and life."',r:'John 6:63',ot:'1 Kings 15-17',nt:'John 6:43-71',ps:'Psalm 104:24-35',pr:'Proverbs 15:1-3'},
+                {v:'"A gentle answer turns away wrath, but a harsh word stirs up anger."',r:'Proverbs 15:1',ot:'1 Kings 18-19',nt:'John 7:1-24',ps:'Psalm 105:1-15',pr:'Proverbs 15:4'},
+                {v:'"Go out and stand on the mountain in the presence of the Lord, for the Lord is about to pass by."',r:'1 Kings 19:11',ot:'1 Kings 20-21',nt:'John 7:25-52',ps:'Psalm 105:16-36',pr:'Proverbs 15:5-7'},
+                {v:'"Let any one of you who is without sin be the first to throw a stone."',r:'John 8:7',ot:'1 Kings 22',nt:'John 7:53-8:20',ps:'Psalm 105:37-45',pr:'Proverbs 15:8-10'},
+                {v:'"Then you will know the truth, and the truth will set you free."',r:'John 8:32',ot:'2 Kings 1-3',nt:'John 8:21-47',ps:'Psalm 106:1-12',pr:'Proverbs 15:11'},
+                {v:'"Before Abraham was born, I am!"',r:'John 8:58',ot:'2 Kings 4-5',nt:'John 8:48-9:12',ps:'Psalm 106:13-31',pr:'Proverbs 15:12-14'},
+                {v:'"All the days of the afflicted are bad, but a cheerful heart has a continual feast."',r:'Proverbs 15:15',ot:'2 Kings 6-7',nt:'John 9:13-41',ps:'Psalm 106:32-48',pr:'Proverbs 15:15-17'},
+                {v:'"I am the gate; whoever enters through me will be saved."',r:'John 10:9',ot:'2 Kings 8-9',nt:'John 10:1-21',ps:'Psalm 107:1-22',pr:'Proverbs 15:18-19'},
+                {v:'"Give thanks to the Lord, for he is good; his love endures forever."',r:'Psalm 107:1',ot:'2 Kings 10-12',nt:'John 10:22-42',ps:'Psalm 107:23-43',pr:'Proverbs 15:20-21'},
+                {v:'"I am the resurrection and the life. The one who believes in me will live, even though they die."',r:'John 11:25',ot:'2 Kings 13-14',nt:'John 11:1-37',ps:'Psalm 108',pr:'Proverbs 15:22-23'},
+                {v:'"Jesus wept."',r:'John 11:35',ot:'2 Kings 15-17',nt:'John 11:38-57',ps:'Psalm 109',pr:'Proverbs 15:24-26'},
+                {v:'"Unless a kernel of wheat falls to the ground and dies, it remains only a single seed. But if it dies, it produces many seeds."',r:'John 12:24',ot:'2 Kings 18-19',nt:'John 12:1-19',ps:'Psalm 110',pr:'Proverbs 15:27-28'},
+                {v:'"I, when I am lifted up from the earth, will draw all people to myself."',r:'John 12:32',ot:'2 Kings 20-22',nt:'John 12:20-50',ps:'Psalm 111',pr:'Proverbs 15:29-30'},
+                {v:'"Now that I, your Lord and Teacher, have washed your feet, you also should wash one another\'s feet."',r:'John 13:14',ot:'2 Kings 23-25',nt:'John 13:1-30',ps:'Psalm 112',pr:'Proverbs 15:31-32'},
+                {v:'"A new command I give you: Love one another. As I have loved you, so you must love one another."',r:'John 13:34',ot:'1 Chronicles 1-2',nt:'John 13:31-14:14',ps:'Psalm 113',pr:'Proverbs 15:33'},
+                {v:'"I am the way and the truth and the life. No one comes to the Father except through me."',r:'John 14:6',ot:'1 Chronicles 3-5',nt:'John 14:15-31',ps:'Psalm 114',pr:'Proverbs 16:1-3'},
+                {v:'"Peace I leave with you; my peace I give you. I do not give to you as the world gives."',r:'John 14:27',ot:'1 Chronicles 6-7',nt:'John 15:1-17',ps:'Psalm 115',pr:'Proverbs 16:4-5'},
+                {v:'"I am the vine; you are the branches. If you remain in me and I in you, you will bear much fruit."',r:'John 15:5',ot:'1 Chronicles 8-10',nt:'John 15:18-16:4',ps:'Psalm 116',pr:'Proverbs 16:6-7'},
+                {v:'"Greater love has no one than this: to lay down one\'s life for one\'s friends."',r:'John 15:13',ot:'1 Chronicles 11-13',nt:'John 16:5-33',ps:'Psalm 117',pr:'Proverbs 16:8-9'},
+                {v:'"In this world you will have trouble. But take heart! I have overcome the world."',r:'John 16:33',ot:'1 Chronicles 14-16',nt:'John 17',ps:'Psalm 118',pr:'Proverbs 16:10-11'},
+                {v:'"Now this is eternal life: that they know you, the only true God, and Jesus Christ, whom you have sent."',r:'John 17:3',ot:'1 Chronicles 17-19',nt:'John 18:1-24',ps:'Psalm 119:1-16',pr:'Proverbs 16:12-13'},
+                // June
+                {v:'"My kingdom is not of this world."',r:'John 18:36',ot:'1 Chronicles 20-23',nt:'John 18:25-19:22',ps:'Psalm 119:17-32',pr:'Proverbs 16:14-15'},
+                {v:'"It is finished."',r:'John 19:30',ot:'1 Chronicles 24-26',nt:'John 19:23-42',ps:'Psalm 119:33-48',pr:'Proverbs 16:16-17'},
+                {v:'"Because you have seen me, you have believed; blessed are those who have not seen and yet have believed."',r:'John 20:29',ot:'1 Chronicles 27-29',nt:'John 20',ps:'Psalm 119:49-64',pr:'Proverbs 16:18'},
+                {v:'"Feed my sheep."',r:'John 21:17',ot:'2 Chronicles 1-3',nt:'John 21',ps:'Psalm 119:65-80',pr:'Proverbs 16:19-20'},
+                {v:'"You will receive power when the Holy Spirit comes on you; and you will be my witnesses."',r:'Acts 1:8',ot:'2 Chronicles 4-6',nt:'Acts 1',ps:'Psalm 119:81-96',pr:'Proverbs 16:21-23'},
+                {v:'"All of them were filled with the Holy Spirit and began to speak in other tongues."',r:'Acts 2:4',ot:'2 Chronicles 7-9',nt:'Acts 2:1-21',ps:'Psalm 119:97-112',pr:'Proverbs 16:24'},
+                {v:'"Pleasant words are a honeycomb, sweet to the soul and healing to the bones."',r:'Proverbs 16:24',ot:'2 Chronicles 10-12',nt:'Acts 2:22-47',ps:'Psalm 119:113-128',pr:'Proverbs 16:25'},
+                {v:'"Repent and be baptized, every one of you, in the name of Jesus Christ for the forgiveness of your sins."',r:'Acts 2:38',ot:'2 Chronicles 13-16',nt:'Acts 3',ps:'Psalm 119:129-152',pr:'Proverbs 16:26-27'},
+                {v:'"Your word is a lamp for my feet, a light on my path."',r:'Psalm 119:105',ot:'2 Chronicles 17-18',nt:'Acts 4:1-22',ps:'Psalm 119:153-176',pr:'Proverbs 16:28-30'},
+                {v:'"There is no other name under heaven given to mankind by which we must be saved."',r:'Acts 4:12',ot:'2 Chronicles 19-21',nt:'Acts 4:23-5:11',ps:'Psalm 120',pr:'Proverbs 16:31-33'},
+                {v:'"I lift up my eyes to the mountains—where does my help come from? My help comes from the Lord."',r:'Psalm 121:1-2',ot:'2 Chronicles 22-24',nt:'Acts 5:12-42',ps:'Psalm 121',pr:'Proverbs 17:1'},
+                {v:'"We must obey God rather than human beings!"',r:'Acts 5:29',ot:'2 Chronicles 25-27',nt:'Acts 6',ps:'Psalm 122',pr:'Proverbs 17:2-3'},
+                {v:'"Lord, do not hold this sin against them."',r:'Acts 7:60',ot:'2 Chronicles 28-29',nt:'Acts 7:1-29',ps:'Psalm 123',pr:'Proverbs 17:4-5'},
+                {v:'"Our help is in the name of the Lord, the Maker of heaven and earth."',r:'Psalm 124:8',ot:'2 Chronicles 30-31',nt:'Acts 7:30-50',ps:'Psalm 124',pr:'Proverbs 17:6'},
+                {v:'"Those who trust in the Lord are like Mount Zion, which cannot be shaken but endures forever."',r:'Psalm 125:1',ot:'2 Chronicles 32-33',nt:'Acts 7:51-8:13',ps:'Psalm 125',pr:'Proverbs 17:7-8'},
+                {v:'"How can I understand unless someone explains it to me?"',r:'Acts 8:31',ot:'2 Chronicles 34-36',nt:'Acts 8:14-40',ps:'Psalm 126',pr:'Proverbs 17:9-11'},
+                {v:'"Unless the Lord builds the house, the builders labor in vain."',r:'Psalm 127:1',ot:'Ezra 1-2',nt:'Acts 9:1-25',ps:'Psalm 127',pr:'Proverbs 17:12-13'},
+                {v:'"He is my chosen instrument to proclaim my name to the Gentiles and their kings."',r:'Acts 9:15',ot:'Ezra 3-4',nt:'Acts 9:26-43',ps:'Psalm 128',pr:'Proverbs 17:14-15'},
+                {v:'"Blessed are all who fear the Lord, who walk in obedience to him."',r:'Psalm 128:1',ot:'Ezra 5-6',nt:'Acts 10:1-23',ps:'Psalm 129',pr:'Proverbs 17:16'},
+                {v:'"God does not show favoritism but accepts from every nation the one who fears him and does what is right."',r:'Acts 10:34-35',ot:'Ezra 7-8',nt:'Acts 10:24-48',ps:'Psalm 130',pr:'Proverbs 17:17-18'},
+                {v:'"I put my hope in the Lord, more than watchmen wait for the morning."',r:'Psalm 130:6',ot:'Ezra 9-10',nt:'Acts 11:1-30',ps:'Psalm 131',pr:'Proverbs 17:19-21'},
+                {v:'"A cheerful heart is good medicine, but a crushed spirit dries up the bones."',r:'Proverbs 17:22',ot:'Nehemiah 1-3',nt:'Acts 12',ps:'Psalm 132',pr:'Proverbs 17:22'},
+                {v:'"The joy of the Lord is your strength."',r:'Nehemiah 8:10',ot:'Nehemiah 4-6',nt:'Acts 13:1-25',ps:'Psalm 133',pr:'Proverbs 17:23-24'},
+                {v:'"How good and pleasant it is when God\'s people live together in unity!"',r:'Psalm 133:1',ot:'Nehemiah 7-8',nt:'Acts 13:26-52',ps:'Psalm 134',pr:'Proverbs 17:25'},
+                {v:'"Through him everyone who believes is set free from every sin."',r:'Acts 13:39',ot:'Nehemiah 9-10',nt:'Acts 14',ps:'Psalm 135',pr:'Proverbs 17:26'},
+                {v:'"Give thanks to the Lord, for he is good. His love endures forever."',r:'Psalm 136:1',ot:'Nehemiah 11-12',nt:'Acts 15:1-21',ps:'Psalm 136',pr:'Proverbs 17:27-28'},
+                {v:'"We believe it is through the grace of our Lord Jesus that we are saved."',r:'Acts 15:11',ot:'Nehemiah 13',nt:'Acts 15:22-41',ps:'Psalm 137',pr:'Proverbs 18:1'},
+                {v:'"I will praise you, Lord, with all my heart; I will tell of all your marvelous deeds."',r:'Psalm 138:1',ot:'Esther 1-2',nt:'Acts 16:1-15',ps:'Psalm 138',pr:'Proverbs 18:2-3'},
+                {v:'"Believe in the Lord Jesus, and you will be saved—you and your household."',r:'Acts 16:31',ot:'Esther 3-5',nt:'Acts 16:16-40',ps:'Psalm 139:1-12',pr:'Proverbs 18:4-5'},
+                {v:'"I praise you because I am fearfully and wonderfully made; your works are wonderful."',r:'Psalm 139:14',ot:'Esther 6-8',nt:'Acts 17:1-15',ps:'Psalm 139:13-24',pr:'Proverbs 18:6-7'},
+                // July
+                {v:'"For in him we live and move and have our being."',r:'Acts 17:28',ot:'Esther 9-10',nt:'Acts 17:16-34',ps:'Psalm 140',pr:'Proverbs 18:8'},
+                {v:'"The name of the Lord is a fortified tower; the righteous run to it and are safe."',r:'Proverbs 18:10',ot:'Job 1-3',nt:'Acts 18',ps:'Psalm 141',pr:'Proverbs 18:9-10'},
+                {v:'"The Lord gave and the Lord has taken away; may the name of the Lord be praised."',r:'Job 1:21',ot:'Job 4-7',nt:'Acts 19:1-20',ps:'Psalm 142',pr:'Proverbs 18:11-12'},
+                {v:'"I know that my redeemer lives, and that in the end he will stand on the earth."',r:'Job 19:25',ot:'Job 8-11',nt:'Acts 19:21-41',ps:'Psalm 143',pr:'Proverbs 18:13'},
+                {v:'"The Lord is my strength and my shield; my heart trusts in him, and he helps me."',r:'Psalm 28:7',ot:'Job 12-15',nt:'Acts 20:1-16',ps:'Psalm 144',pr:'Proverbs 18:14-15'},
+                {v:'"It is more blessed to give than to receive."',r:'Acts 20:35',ot:'Job 16-19',nt:'Acts 20:17-38',ps:'Psalm 145',pr:'Proverbs 18:16-18'},
+                {v:'"The Lord is gracious and compassionate, slow to anger and rich in love."',r:'Psalm 145:8',ot:'Job 20-22',nt:'Acts 21:1-17',ps:'Psalm 146',pr:'Proverbs 18:19'},
+                {v:'"He heals the brokenhearted and binds up their wounds."',r:'Psalm 147:3',ot:'Job 23-28',nt:'Acts 21:18-36',ps:'Psalm 147',pr:'Proverbs 18:20-21'},
+                {v:'"The fear of the Lord—that is wisdom, and to shun evil is understanding."',r:'Job 28:28',ot:'Job 29-31',nt:'Acts 21:37-22:16',ps:'Psalm 148',pr:'Proverbs 18:22'},
+                {v:'"Let everything that has breath praise the Lord."',r:'Psalm 150:6',ot:'Job 32-34',nt:'Acts 22:17-23:10',ps:'Psalm 149',pr:'Proverbs 18:23-24'},
+                {v:'"A friend loves at all times, and a brother is born for a time of adversity."',r:'Proverbs 17:17',ot:'Job 35-37',nt:'Acts 23:11-35',ps:'Psalm 150',pr:'Proverbs 18:24'},
+                {v:'"Where were you when I laid the earth\'s foundation? Tell me, if you understand."',r:'Job 38:4',ot:'Job 38-40',nt:'Acts 24',ps:'Psalm 1',pr:'Proverbs 19:1-2'},
+                {v:'"My ears had heard of you but now my eyes have seen you."',r:'Job 42:5',ot:'Job 41-42',nt:'Acts 25',ps:'Psalm 2',pr:'Proverbs 19:3'},
+                {v:'"Blessed is the one who does not walk in step with the wicked."',r:'Psalm 1:1',ot:'Ecclesiastes 1-3',nt:'Acts 26',ps:'Psalm 3',pr:'Proverbs 19:4-5'},
+                {v:'"There is a time for everything, and a season for every activity under the heavens."',r:'Ecclesiastes 3:1',ot:'Ecclesiastes 4-6',nt:'Acts 27:1-20',ps:'Psalm 4',pr:'Proverbs 19:6-7'},
+                {v:'"He has made everything beautiful in its time."',r:'Ecclesiastes 3:11',ot:'Ecclesiastes 7-9',nt:'Acts 27:21-44',ps:'Psalm 5',pr:'Proverbs 19:8-9'},
+                {v:'"Two are better than one, because they have a good return for their labor."',r:'Ecclesiastes 4:9',ot:'Ecclesiastes 10-12',nt:'Acts 28:1-15',ps:'Psalm 6',pr:'Proverbs 19:10-12'},
+                {v:'"I am not ashamed of the gospel, because it is the power of God that brings salvation."',r:'Romans 1:16',ot:'Song of Solomon 1-4',nt:'Acts 28:16-31',ps:'Psalm 7',pr:'Proverbs 19:13-14'},
+                {v:'"Place me like a seal over your heart, like a seal on your arm; for love is as strong as death."',r:'Song of Solomon 8:6',ot:'Song of Solomon 5-8',nt:'Romans 1',ps:'Psalm 8',pr:'Proverbs 19:15-16'},
+                {v:'"Holy, holy, holy is the Lord Almighty; the whole earth is full of his glory."',r:'Isaiah 6:3',ot:'Isaiah 1-4',nt:'Romans 2',ps:'Psalm 9:1-12',pr:'Proverbs 19:17'},
+                {v:'"Here am I. Send me!"',r:'Isaiah 6:8',ot:'Isaiah 5-8',nt:'Romans 3',ps:'Psalm 9:13-20',pr:'Proverbs 19:18-19'},
+                // August
+                {v:'"For to us a child is born, to us a son is given, and the government will be on his shoulders."',r:'Isaiah 9:6',ot:'Isaiah 9-12',nt:'Romans 4',ps:'Psalm 10:1-15',pr:'Proverbs 19:20-21'},
+                {v:'"Therefore we have been justified through faith, and we have peace with God through our Lord Jesus Christ."',r:'Romans 5:1',ot:'Isaiah 13-17',nt:'Romans 5',ps:'Psalm 10:16-18',pr:'Proverbs 19:22-23'},
+                {v:'"Where sin increased, grace increased all the more."',r:'Romans 5:20',ot:'Isaiah 18-22',nt:'Romans 6',ps:'Psalm 11',pr:'Proverbs 19:24-25'},
+                {v:'"For the wages of sin is death, but the gift of God is eternal life in Christ Jesus our Lord."',r:'Romans 6:23',ot:'Isaiah 23-27',nt:'Romans 7',ps:'Psalm 12',pr:'Proverbs 19:26-27'},
+                {v:'"There is now no condemnation for those who are in Christ Jesus."',r:'Romans 8:1',ot:'Isaiah 28-30',nt:'Romans 8:1-17',ps:'Psalm 13',pr:'Proverbs 19:28-29'},
+                {v:'"And we know that in all things God works for the good of those who love him."',r:'Romans 8:28',ot:'Isaiah 31-35',nt:'Romans 8:18-39',ps:'Psalm 14',pr:'Proverbs 20:1'},
+                {v:'"If God is for us, who can be against us?"',r:'Romans 8:31',ot:'Isaiah 36-39',nt:'Romans 9:1-21',ps:'Psalm 15',pr:'Proverbs 20:2-3'},
+                {v:'"Comfort, comfort my people, says your God."',r:'Isaiah 40:1',ot:'Isaiah 40-42',nt:'Romans 9:22-10:4',ps:'Psalm 16',pr:'Proverbs 20:4-6'},
+                {v:'"But those who hope in the Lord will renew their strength. They will soar on wings like eagles."',r:'Isaiah 40:31',ot:'Isaiah 43-45',nt:'Romans 10:5-21',ps:'Psalm 17',pr:'Proverbs 20:7'},
+                {v:'"If you declare with your mouth, \\"Jesus is Lord,\\" and believe in your heart that God raised him from the dead, you will be saved."',r:'Romans 10:9',ot:'Isaiah 46-49',nt:'Romans 11:1-24',ps:'Psalm 18:1-15',pr:'Proverbs 20:8-10'},
+                {v:'"See, I have engraved you on the palms of my hands."',r:'Isaiah 49:16',ot:'Isaiah 50-52',nt:'Romans 11:25-36',ps:'Psalm 18:16-36',pr:'Proverbs 20:11-12'},
+                {v:'"Oh, the depth of the riches of the wisdom and knowledge of God!"',r:'Romans 11:33',ot:'Isaiah 53-56',nt:'Romans 12',ps:'Psalm 18:37-50',pr:'Proverbs 20:13-15'},
+                {v:'"Do not conform to the pattern of this world, but be transformed by the renewing of your mind."',r:'Romans 12:2',ot:'Isaiah 57-59',nt:'Romans 13',ps:'Psalm 19',pr:'Proverbs 20:16-18'},
+                {v:'"The Spirit of the Sovereign Lord is on me, because the Lord has anointed me to proclaim good news to the poor."',r:'Isaiah 61:1',ot:'Isaiah 60-62',nt:'Romans 14',ps:'Psalm 20',pr:'Proverbs 20:19'},
+                {v:'"May the God of hope fill you with all joy and peace as you trust in him."',r:'Romans 15:13',ot:'Isaiah 63-65',nt:'Romans 15:1-22',ps:'Psalm 21',pr:'Proverbs 20:20-21'},
+                {v:'"See, I will create new heavens and a new earth."',r:'Isaiah 65:17',ot:'Isaiah 66',nt:'Romans 15:23-16:7',ps:'Psalm 22:1-18',pr:'Proverbs 20:22-23'},
+                {v:'"Before I formed you in the womb I knew you, before you were born I set you apart."',r:'Jeremiah 1:5',ot:'Jeremiah 1-3',nt:'Romans 16:8-27',ps:'Psalm 22:19-31',pr:'Proverbs 20:24-25'},
+                {v:'"For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you."',r:'Jeremiah 29:11',ot:'Jeremiah 4-6',nt:'1 Corinthians 1',ps:'Psalm 23',pr:'Proverbs 20:26-27'},
+                {v:'"God chose the foolish things of the world to shame the wise."',r:'1 Corinthians 1:27',ot:'Jeremiah 7-9',nt:'1 Corinthians 2',ps:'Psalm 24',pr:'Proverbs 20:28-30'},
+                {v:'"No eye has seen, no ear has heard, no mind has conceived what God has prepared for those who love him."',r:'1 Corinthians 2:9',ot:'Jeremiah 10-13',nt:'1 Corinthians 3',ps:'Psalm 25:1-15',pr:'Proverbs 21:1-2'},
+                {v:'"Don\'t you know that you yourselves are God\'s temple and that God\'s Spirit dwells in your midst?"',r:'1 Corinthians 3:16',ot:'Jeremiah 14-17',nt:'1 Corinthians 4',ps:'Psalm 25:16-22',pr:'Proverbs 21:3'},
+                // September
+                {v:'"No temptation has overtaken you except what is common to mankind. God is faithful."',r:'1 Corinthians 10:13',ot:'Jeremiah 18-22',nt:'1 Corinthians 5-6',ps:'Psalm 26',pr:'Proverbs 21:4-5'},
+                {v:'"Whether you eat or drink or whatever you do, do it all for the glory of God."',r:'1 Corinthians 10:31',ot:'Jeremiah 23-25',nt:'1 Corinthians 7:1-19',ps:'Psalm 27:1-6',pr:'Proverbs 21:6-7'},
+                {v:'"The Lord is my light and my salvation—whom shall I fear?"',r:'Psalm 27:1',ot:'Jeremiah 26-29',nt:'1 Corinthians 7:20-40',ps:'Psalm 27:7-14',pr:'Proverbs 21:8-10'},
+                {v:'"Now the body is not made up of one part but of many."',r:'1 Corinthians 12:14',ot:'Jeremiah 30-31',nt:'1 Corinthians 8-9',ps:'Psalm 28',pr:'Proverbs 21:11-12'},
+                {v:'"I will put my law in their minds and write it on their hearts."',r:'Jeremiah 31:33',ot:'Jeremiah 32-34',nt:'1 Corinthians 10:1-13',ps:'Psalm 29',pr:'Proverbs 21:13'},
+                {v:'"If I have the gift of prophecy and can fathom all mysteries... but do not have love, I am nothing."',r:'1 Corinthians 13:2',ot:'Jeremiah 35-37',nt:'1 Corinthians 10:14-33',ps:'Psalm 30',pr:'Proverbs 21:14-16'},
+                {v:'"And now these three remain: faith, hope and love. But the greatest of these is love."',r:'1 Corinthians 13:13',ot:'Jeremiah 38-40',nt:'1 Corinthians 11:1-16',ps:'Psalm 31:1-8',pr:'Proverbs 21:17-18'},
+                {v:'"Love is patient, love is kind. It does not envy, it does not boast, it is not proud."',r:'1 Corinthians 13:4',ot:'Jeremiah 41-44',nt:'1 Corinthians 11:17-34',ps:'Psalm 31:9-18',pr:'Proverbs 21:19-20'},
+                {v:'"Be on your guard; stand firm in the faith; be courageous; be strong."',r:'1 Corinthians 16:13',ot:'Jeremiah 45-48',nt:'1 Corinthians 12',ps:'Psalm 31:19-24',pr:'Proverbs 21:21-22'},
+                {v:'"Where, O death, is your victory? Where, O death, is your sting?"',r:'1 Corinthians 15:55',ot:'Jeremiah 49-50',nt:'1 Corinthians 13',ps:'Psalm 32',pr:'Proverbs 21:23-24'},
+                {v:'"Blessed is the one whose transgressions are forgiven."',r:'Psalm 32:1',ot:'Jeremiah 51-52',nt:'1 Corinthians 14:1-17',ps:'Psalm 33:1-11',pr:'Proverbs 21:25-26'},
+                {v:'"Praise the Lord with the harp; make music to him on the ten-stringed lyre."',r:'Psalm 33:2',ot:'Lamentations 1-2',nt:'1 Corinthians 14:18-40',ps:'Psalm 33:12-22',pr:'Proverbs 21:27'},
+                {v:'"Because of the Lord\'s great love we are not consumed, for his compassions never fail. They are new every morning."',r:'Lamentations 3:22-23',ot:'Lamentations 3-5',nt:'1 Corinthians 15:1-28',ps:'Psalm 34:1-10',pr:'Proverbs 21:28-29'},
+                {v:'"But thanks be to God! He gives us the victory through our Lord Jesus Christ."',r:'1 Corinthians 15:57',ot:'Ezekiel 1-3',nt:'1 Corinthians 15:29-58',ps:'Psalm 34:11-22',pr:'Proverbs 21:30-31'},
+                {v:'"Praise be to the God and Father of our Lord Jesus Christ, the Father of compassion and the God of all comfort."',r:'2 Corinthians 1:3',ot:'Ezekiel 4-7',nt:'1 Corinthians 16',ps:'Psalm 35:1-16',pr:'Proverbs 22:1'},
+                {v:'"A good name is more desirable than great riches."',r:'Proverbs 22:1',ot:'Ezekiel 8-11',nt:'2 Corinthians 1',ps:'Psalm 35:17-28',pr:'Proverbs 22:2-4'},
+                {v:'"But we have this treasure in jars of clay to show that this all-surpassing power is from God and not from us."',r:'2 Corinthians 4:7',ot:'Ezekiel 12-14',nt:'2 Corinthians 2-3',ps:'Psalm 36',pr:'Proverbs 22:5-6'},
+                {v:'"Train up a child in the way he should go: and when he is old, he will not depart from it."',r:'Proverbs 22:6',ot:'Ezekiel 15-17',nt:'2 Corinthians 4',ps:'Psalm 37:1-11',pr:'Proverbs 22:7'},
+                {v:'"So we fix our eyes not on what is seen, but on what is unseen, since what is seen is temporary."',r:'2 Corinthians 4:18',ot:'Ezekiel 18-20',nt:'2 Corinthians 5',ps:'Psalm 37:12-29',pr:'Proverbs 22:8-9'},
+                {v:'"Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!"',r:'2 Corinthians 5:17',ot:'Ezekiel 21-23',nt:'2 Corinthians 6-7',ps:'Psalm 37:30-40',pr:'Proverbs 22:10-12'},
+                // October
+                {v:'"God loves a cheerful giver."',r:'2 Corinthians 9:7',ot:'Ezekiel 24-27',nt:'2 Corinthians 8',ps:'Psalm 38',pr:'Proverbs 22:13'},
+                {v:'"My grace is sufficient for you, for my power is made perfect in weakness."',r:'2 Corinthians 12:9',ot:'Ezekiel 28-30',nt:'2 Corinthians 9-10',ps:'Psalm 39',pr:'Proverbs 22:14'},
+                {v:'"I delight to do your will, my God; your law is within my heart."',r:'Psalm 40:8',ot:'Ezekiel 31-33',nt:'2 Corinthians 11',ps:'Psalm 40:1-10',pr:'Proverbs 22:15'},
+                {v:'"When I am weak, then I am strong."',r:'2 Corinthians 12:10',ot:'Ezekiel 34-36',nt:'2 Corinthians 12',ps:'Psalm 40:11-17',pr:'Proverbs 22:16'},
+                {v:'"I will give you a new heart and put a new spirit in you."',r:'Ezekiel 36:26',ot:'Ezekiel 37-39',nt:'2 Corinthians 13',ps:'Psalm 41',pr:'Proverbs 22:17-19'},
+                {v:'"I have been crucified with Christ and I no longer live, but Christ lives in me."',r:'Galatians 2:20',ot:'Ezekiel 40-42',nt:'Galatians 1',ps:'Psalm 42',pr:'Proverbs 22:20-21'},
+                {v:'"As the deer pants for streams of water, so my soul pants for you, my God."',r:'Psalm 42:1',ot:'Ezekiel 43-45',nt:'Galatians 2',ps:'Psalm 43',pr:'Proverbs 22:22-23'},
+                {v:'"It is for freedom that Christ has set us free. Stand firm, then, and do not let yourselves be burdened again by a yoke of slavery."',r:'Galatians 5:1',ot:'Ezekiel 46-48',nt:'Galatians 3',ps:'Psalm 44',pr:'Proverbs 22:24-25'},
+                {v:'"But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness, gentleness and self-control."',r:'Galatians 5:22-23',ot:'Daniel 1-2',nt:'Galatians 4',ps:'Psalm 45',pr:'Proverbs 22:26-27'},
+                {v:'"God is our refuge and strength, an ever-present help in trouble."',r:'Psalm 46:1',ot:'Daniel 3-4',nt:'Galatians 5',ps:'Psalm 46',pr:'Proverbs 22:28-29'},
+                {v:'"Do not be deceived: God cannot be mocked. A man reaps what he sows."',r:'Galatians 6:7',ot:'Daniel 5-7',nt:'Galatians 6',ps:'Psalm 47',pr:'Proverbs 23:1-3'},
+                {v:'"For it is by grace you have been saved, through faith—and this is not from yourselves, it is the gift of God."',r:'Ephesians 2:8',ot:'Daniel 8-10',nt:'Ephesians 1',ps:'Psalm 48',pr:'Proverbs 23:4-5'},
+                {v:'"For we are God\'s handiwork, created in Christ Jesus to do good works."',r:'Ephesians 2:10',ot:'Daniel 11-12',nt:'Ephesians 2',ps:'Psalm 49',pr:'Proverbs 23:6-8'},
+                {v:'"Now to him who is able to do immeasurably more than all we ask or imagine."',r:'Ephesians 3:20',ot:'Hosea 1-4',nt:'Ephesians 3',ps:'Psalm 50',pr:'Proverbs 23:9-11'},
+                {v:'"Be completely humble and gentle; be patient, bearing with one another in love."',r:'Ephesians 4:2',ot:'Hosea 5-8',nt:'Ephesians 4:1-16',ps:'Psalm 51:1-9',pr:'Proverbs 23:12'},
+                {v:'"Create in me a pure heart, O God, and renew a steadfast spirit within me."',r:'Psalm 51:10',ot:'Hosea 9-12',nt:'Ephesians 4:17-32',ps:'Psalm 51:10-19',pr:'Proverbs 23:13-14'},
+                {v:'"Follow God\'s example, therefore, as dearly loved children and walk in the way of love."',r:'Ephesians 5:1-2',ot:'Hosea 13-Joel 1',nt:'Ephesians 5:1-16',ps:'Psalm 52',pr:'Proverbs 23:15-16'},
+                {v:'"Be filled with the Spirit, speaking to one another with psalms, hymns, and songs from the Spirit."',r:'Ephesians 5:18-19',ot:'Joel 2-3',nt:'Ephesians 5:17-33',ps:'Psalm 53',pr:'Proverbs 23:17-18'},
+                {v:'"Put on the full armor of God, so that you can take your stand against the devil\'s schemes."',r:'Ephesians 6:11',ot:'Amos 1-3',nt:'Ephesians 6',ps:'Psalm 54',pr:'Proverbs 23:19-21'},
+                {v:'"Cast your cares on the Lord and he will sustain you; he will never let the righteous be shaken."',r:'Psalm 55:22',ot:'Amos 4-6',nt:'Philippians 1',ps:'Psalm 55',pr:'Proverbs 23:22-25'},
+                {v:'"He who began a good work in you will carry it on to completion until the day of Christ Jesus."',r:'Philippians 1:6',ot:'Amos 7-9',nt:'Philippians 2',ps:'Psalm 56',pr:'Proverbs 23:26-28'},
+                // November
+                {v:'"Do nothing out of selfish ambition, but value others above yourselves."',r:'Philippians 2:3',ot:'Obadiah-Jonah',nt:'Philippians 3',ps:'Psalm 57',pr:'Proverbs 23:29-35'},
+                {v:'"I can do all this through him who gives me strength."',r:'Philippians 4:13',ot:'Micah 1-4',nt:'Philippians 4',ps:'Psalm 58',pr:'Proverbs 24:1-2'},
+                {v:'"And my God will meet all your needs according to the riches of his glory in Christ Jesus."',r:'Philippians 4:19',ot:'Micah 5-7',nt:'Colossians 1',ps:'Psalm 59',pr:'Proverbs 24:3-4'},
+                {v:'"He is before all things, and in him all things hold together."',r:'Colossians 1:17',ot:'Nahum 1-3',nt:'Colossians 2',ps:'Psalm 60',pr:'Proverbs 24:5-6'},
+                {v:'"Set your minds on things above, not on earthly things."',r:'Colossians 3:2',ot:'Habakkuk 1-3',nt:'Colossians 3',ps:'Psalm 61',pr:'Proverbs 24:7'},
+                {v:'"The Sovereign Lord is my strength; he makes my feet like the feet of a deer."',r:'Habakkuk 3:19',ot:'Zephaniah 1-3',nt:'Colossians 4',ps:'Psalm 62',pr:'Proverbs 24:8'},
+                {v:'"Truly my soul finds rest in God; my salvation comes from him."',r:'Psalm 62:1',ot:'Haggai 1-2',nt:'1 Thessalonians 1-2',ps:'Psalm 63',pr:'Proverbs 24:9-10'},
+                {v:'"The Lord your God is with you, the Mighty Warrior who saves."',r:'Zephaniah 3:17',ot:'Zechariah 1-4',nt:'1 Thessalonians 3-4',ps:'Psalm 64',pr:'Proverbs 24:11-12'},
+                {v:'"Rejoice always, pray continually, give thanks in all circumstances."',r:'1 Thessalonians 5:16-18',ot:'Zechariah 5-8',nt:'1 Thessalonians 5',ps:'Psalm 65',pr:'Proverbs 24:13-14'},
+                {v:'"May the Lord make your love increase and overflow for each other and for everyone else."',r:'1 Thessalonians 3:12',ot:'Zechariah 9-12',nt:'2 Thessalonians 1-2',ps:'Psalm 66',pr:'Proverbs 24:15-16'},
+                {v:'"May God himself, the God of peace, sanctify you through and through."',r:'1 Thessalonians 5:23',ot:'Zechariah 13-14',nt:'2 Thessalonians 3',ps:'Psalm 67',pr:'Proverbs 24:17-20'},
+                {v:'"Praise be to the Lord, to God our Savior, who daily bears our burdens."',r:'Psalm 68:19',ot:'Malachi 1-2',nt:'1 Timothy 1',ps:'Psalm 68:1-18',pr:'Proverbs 24:21-22'},
+                {v:'"Christ Jesus came into the world to save sinners—of whom I am the worst."',r:'1 Timothy 1:15',ot:'Malachi 3-4',nt:'1 Timothy 2-3',ps:'Psalm 68:19-35',pr:'Proverbs 24:23-25'},
+                {v:'"For the word of God is alive and active. Sharper than any double-edged sword."',r:'Hebrews 4:12',ot:'Daniel 1-2',nt:'1 Timothy 4',ps:'Psalm 69:1-18',pr:'Proverbs 24:26'},
+                {v:'"Don\'t let anyone look down on you because you are young, but set an example for the believers."',r:'1 Timothy 4:12',ot:'Daniel 3-4',nt:'1 Timothy 5-6',ps:'Psalm 69:19-36',pr:'Proverbs 24:27'},
+                {v:'"For the love of money is a root of all kinds of evil."',r:'1 Timothy 6:10',ot:'Daniel 5-6',nt:'2 Timothy 1',ps:'Psalm 70',pr:'Proverbs 24:28-29'},
+                {v:'"For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline."',r:'2 Timothy 1:7',ot:'Daniel 7-8',nt:'2 Timothy 2',ps:'Psalm 71:1-16',pr:'Proverbs 24:30-34'},
+                {v:'"All Scripture is God-breathed and is useful for teaching, rebuking, correcting and training in righteousness."',r:'2 Timothy 3:16',ot:'Daniel 9-10',nt:'2 Timothy 3',ps:'Psalm 71:17-24',pr:'Proverbs 25:1-5'},
+                {v:'"I have fought the good fight, I have finished the race, I have kept the faith."',r:'2 Timothy 4:7',ot:'Daniel 11-12',nt:'2 Timothy 4',ps:'Psalm 72',pr:'Proverbs 25:6-8'},
+                {v:'"The grace of God has appeared that offers salvation to all people."',r:'Titus 2:11',ot:'Hosea 1-3',nt:'Titus 1-2',ps:'Psalm 73:1-14',pr:'Proverbs 25:9-10'},
+                {v:'"Yet I am always with you; you hold me by my right hand."',r:'Psalm 73:23',ot:'Hosea 4-6',nt:'Titus 3-Philemon',ps:'Psalm 73:15-28',pr:'Proverbs 25:11-14'},
+                // December
+                {v:'"The Son is the radiance of God\'s glory and the exact representation of his being."',r:'Hebrews 1:3',ot:'Hosea 7-10',nt:'Hebrews 1',ps:'Psalm 74',pr:'Proverbs 25:15'},
+                {v:'"Let us then approach God\'s throne of grace with confidence."',r:'Hebrews 4:16',ot:'Hosea 11-14',nt:'Hebrews 2-3',ps:'Psalm 75',pr:'Proverbs 25:16-17'},
+                {v:'"Now faith is confidence in what we hope for and assurance about what we do not see."',r:'Hebrews 11:1',ot:'Joel 1-3',nt:'Hebrews 4:1-5:10',ps:'Psalm 76',pr:'Proverbs 25:18-19'},
+                {v:'"Without faith it is impossible to please God."',r:'Hebrews 11:6',ot:'Amos 1-3',nt:'Hebrews 5:11-6:20',ps:'Psalm 77',pr:'Proverbs 25:20-22'},
+                {v:'"Jesus Christ is the same yesterday and today and forever."',r:'Hebrews 13:8',ot:'Amos 4-6',nt:'Hebrews 7',ps:'Psalm 78:1-16',pr:'Proverbs 25:23-24'},
+                {v:'"Let us run with perseverance the race marked out for us, fixing our eyes on Jesus."',r:'Hebrews 12:1-2',ot:'Amos 7-9',nt:'Hebrews 8-9',ps:'Psalm 78:17-31',pr:'Proverbs 25:25-27'},
+                {v:'"Let us consider how we may spur one another on toward love and good deeds."',r:'Hebrews 10:24',ot:'Obadiah 1-Jonah 4',nt:'Hebrews 10',ps:'Psalm 78:32-55',pr:'Proverbs 25:28'},
+                {v:'"The Lord disciplines the one he loves, and he chastens everyone he accepts as his son."',r:'Hebrews 12:6',ot:'Micah 1-4',nt:'Hebrews 11:1-19',ps:'Psalm 78:56-72',pr:'Proverbs 26:1-2'},
+                {v:'"By faith Abraham, when called to go to a place he would later receive as his inheritance, obeyed and went."',r:'Hebrews 11:8',ot:'Micah 5-7',nt:'Hebrews 11:20-40',ps:'Psalm 79',pr:'Proverbs 26:3-5'},
+                {v:'"Keep on loving one another as brothers and sisters."',r:'Hebrews 13:1',ot:'Nahum 1-3',nt:'Hebrews 12',ps:'Psalm 80',pr:'Proverbs 26:6-8'},
+                {v:'"Every good and perfect gift is from above, coming down from the Father of the heavenly lights."',r:'James 1:17',ot:'Habakkuk 1-3',nt:'Hebrews 13',ps:'Psalm 81',pr:'Proverbs 26:9-12'},
+                {v:'"Blessed is the one who perseveres under trial because, having stood the test, that person will receive the crown of life."',r:'James 1:12',ot:'Zephaniah 1-3',nt:'James 1',ps:'Psalm 82',pr:'Proverbs 26:13-16'},
+                {v:'"Faith by itself, if it is not accompanied by action, is dead."',r:'James 2:17',ot:'Haggai 1-2',nt:'James 2',ps:'Psalm 83',pr:'Proverbs 26:17'},
+                {v:'"Who is wise and understanding among you? Let them show it by their good life."',r:'James 3:13',ot:'Zechariah 1-4',nt:'James 3',ps:'Psalm 84',pr:'Proverbs 26:18-19'},
+                {v:'"How lovely is your dwelling place, Lord Almighty!"',r:'Psalm 84:1',ot:'Zechariah 5-8',nt:'James 4',ps:'Psalm 85',pr:'Proverbs 26:20-22'},
+                {v:'"Come near to God and he will come near to you."',r:'James 4:8',ot:'Zechariah 9-12',nt:'James 5',ps:'Psalm 86',pr:'Proverbs 26:23-26'},
+                {v:'"The prayer of a righteous person is powerful and effective."',r:'James 5:16',ot:'Zechariah 13-14',nt:'1 Peter 1',ps:'Psalm 87',pr:'Proverbs 26:27-28'},
+                {v:'"You are a chosen people, a royal priesthood, a holy nation, God\'s special possession."',r:'1 Peter 2:9',ot:'Malachi 1-2',nt:'1 Peter 2',ps:'Psalm 88',pr:'Proverbs 27:1-2'},
+                {v:'"Cast all your anxiety on him because he cares for you."',r:'1 Peter 5:7',ot:'Malachi 3-4',nt:'1 Peter 3-4',ps:'Psalm 89:1-13',pr:'Proverbs 27:3'},
+                {v:'"His divine power has given us everything we need for a godly life."',r:'2 Peter 1:3',ot:'Revelation 1',nt:'1 Peter 5',ps:'Psalm 89:14-37',pr:'Proverbs 27:4-6'},
+                {v:'"The Lord is not slow in keeping his promise... Instead he is patient with you, not wanting anyone to perish."',r:'2 Peter 3:9',ot:'Revelation 2-3',nt:'2 Peter 1-2',ps:'Psalm 89:38-52',pr:'Proverbs 27:7-9'},
+                {v:'"Lord, you have been our dwelling place throughout all generations."',r:'Psalm 90:1',ot:'Revelation 4-6',nt:'2 Peter 3',ps:'Psalm 90',pr:'Proverbs 27:10'},
+                {v:'"If we confess our sins, he is faithful and just and will forgive us our sins."',r:'1 John 1:9',ot:'Revelation 7-9',nt:'1 John 1-2',ps:'Psalm 91',pr:'Proverbs 27:11-12'},
+                {v:'"See what great love the Father has lavished on us, that we should be called children of God!"',r:'1 John 3:1',ot:'Revelation 10-12',nt:'1 John 3-4',ps:'Psalm 92',pr:'Proverbs 27:13'},
+                {v:'"God is love. Whoever lives in love lives in God, and God in them."',r:'1 John 4:16',ot:'Revelation 13-15',nt:'1 John 5-3 John',ps:'Psalm 93',pr:'Proverbs 27:14'},
+                {v:'"To him who is able to keep you from stumbling and to present you before his glorious presence without fault."',r:'Jude 1:24',ot:'Revelation 16-18',nt:'Jude',ps:'Psalm 94',pr:'Proverbs 27:15-16'},
+                {v:'"Behold, I am making all things new."',r:'Revelation 21:5',ot:'Revelation 19-20',nt:'Revelation 1 (re-read)',ps:'Psalm 95',pr:'Proverbs 27:17'},
+                {v:'"As iron sharpens iron, so one person sharpens another."',r:'Proverbs 27:17',ot:'Revelation 21-22',nt:'Revelation 22 (re-read)',ps:'Psalm 96',pr:'Proverbs 27:18-20'},
+                {v:'"He who was seated on the throne said, \\"I am making everything new!\\""',r:'Revelation 21:5',ot:'Revelation 21-22',nt:'Revelation 22',ps:'Psalm 97',pr:'Proverbs 27:21-22'},
+                {v:'"The grace of the Lord Jesus be with God\'s people. Amen."',r:'Revelation 22:21',ot:'Revelation 22',nt:'Revelation 22',ps:'Psalm 98',pr:'Proverbs 27:23-27'},
+                {v:'"Great is the Lord and most worthy of praise; his greatness no one can fathom."',r:'Psalm 145:3',ot:'Psalm 148-150',nt:'Revelation 22',ps:'Psalm 150',pr:'Proverbs 31:30-31'}
+            ];
+
+            function getDayOfYear() {
+                const now = new Date();
+                const start = new Date(now.getFullYear(), 0, 0);
+                const diff = now - start;
+                const oneDay = 1000 * 60 * 60 * 24;
+                return Math.floor(diff / oneDay);
+            }
+
+            function formatDate() {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date().toLocaleDateString('en-US', options);
+            }
+
+            const dayIndex = (getDayOfYear() - 1) % devotionals.length;
+            const today = devotionals[dayIndex];
+
+            const dateEl = document.getElementById('devotionalDate');
+            const verseEl = document.getElementById('devotionalVerse');
+            const refEl = document.getElementById('devotionalRef');
+            const readingsEl = document.getElementById('devotionalReadings');
+
+            if (dateEl) dateEl.textContent = formatDate();
+            if (verseEl) verseEl.innerHTML = today.v;
+            if (refEl) refEl.textContent = today.r;
+            if (readingsEl) {
+                readingsEl.innerHTML =
+                    '<span><i class="fas fa-scroll"></i> ' + today.ot + '</span>' +
+                    '<span><i class="fas fa-cross"></i> ' + today.nt + '</span>' +
+                    '<span><i class="fas fa-music"></i> ' + today.ps + '</span>' +
+                    '<span><i class="fas fa-lightbulb"></i> ' + today.pr + '</span>';
+            }
+        })();
+
         // Fade in animation on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
