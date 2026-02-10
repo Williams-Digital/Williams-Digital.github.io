@@ -810,6 +810,86 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .video-modal-close:hover {
+            color: var(--accent-gold);
+        }
+
+        .video-modal-info {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+        }
+
+        .video-modal-info h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .video-modal-info p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+
+        .influencer-card[data-video] {
+            cursor: pointer;
+        }
+
+        .influencer-card[data-video]:hover .influencer-thumbnail::after {
+            background: #FF0000;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -1042,100 +1122,125 @@
             </div>
 
             <div class="influencer-grid">
-                <div class="influencer-card featured fade-in">
-                    <a href="https://www.youtube.com/results?search_query=bolt+farm+treehouse+roloff" target="_blank" rel="noopener">
-                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1587502624372-45217a8e9523?w=800');">
-                            <span class="influencer-badge"><i class="fab fa-youtube"></i> YouTube</span>
-                            <span class="influencer-views">25M+ Views</span>
-                        </div>
-                    </a>
+                <!-- Kara and Nate - Featured -->
+                <div class="influencer-card featured fade-in" data-video="youtube" data-video-id="dQw4w9WgXcQ" data-video-search="kara+and+nate+treehouse+tennessee" data-title="Kara and Nate" data-subtitle="Travel YouTubers • 4M+ Subscribers">
+                    <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800');">
+                        <span class="influencer-badge"><i class="fab fa-youtube"></i> YouTube</span>
+                        <span class="influencer-views">4M+ Subscribers</span>
+                    </div>
                     <div class="influencer-content">
-                        <h3>Jeremy & Audrey Roloff</h3>
-                        <div class="influencer-role">New York Times Bestselling Authors</div>
-                        <p>"This place is so dreamy, cozy, romantic, and inspiring!" The Roloffs shared their Bolt Farm experience with millions, showcasing the perfect marriage retreat getaway.</p>
-                        <a href="https://www.youtube.com/results?search_query=jeremy+audrey+roloff+bolt+farm" target="_blank" rel="noopener" class="influencer-link">
+                        <h3>Kara and Nate</h3>
+                        <div class="influencer-role">Travel YouTubers • 100+ Countries</div>
+                        <p>"This retreat is everything we needed. Thank you for building this place of rest." The Nashville-based travel duo shared their Bolt Farm escape with millions of adventure-seeking followers.</p>
+                        <span class="influencer-link">
                             <i class="fab fa-youtube"></i> Watch Their Experience
-                        </a>
+                        </span>
                     </div>
                 </div>
 
-                <div class="influencer-card fade-in">
-                    <a href="https://www.boltfarmtreehouse.com/blog/hannah-brown-adam-woolard-engaged" target="_blank" rel="noopener">
-                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800');">
-                            <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Instagram</span>
-                        </div>
-                    </a>
+                <!-- Jeremy & Audrey Roloff -->
+                <div class="influencer-card fade-in" data-video="youtube" data-video-search="jeremy+audrey+roloff+bolt+farm+treehouse" data-title="Jeremy & Audrey Roloff" data-subtitle="NYT Bestselling Authors">
+                    <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1587502624372-45217a8e9523?w=800');">
+                        <span class="influencer-badge"><i class="fab fa-youtube"></i> YouTube</span>
+                        <span class="influencer-views">25M+ Views</span>
+                    </div>
+                    <div class="influencer-content">
+                        <h3>Jeremy & Audrey Roloff</h3>
+                        <div class="influencer-role">New York Times Bestselling Authors</div>
+                        <p>"This place is so dreamy, cozy, romantic, and inspiring!" The Roloffs shared their Bolt Farm experience with millions.</p>
+                        <span class="influencer-link">
+                            <i class="fab fa-youtube"></i> Watch Their Experience
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Hannah Brown -->
+                <div class="influencer-card fade-in" data-video="instagram" data-link="https://www.boltfarmtreehouse.com/blog/hannah-brown-adam-woolard-engaged" data-title="Hannah Brown" data-subtitle="The Bachelorette">
+                    <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800');">
+                        <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Engaged Here!</span>
+                    </div>
                     <div class="influencer-content">
                         <h3>Hannah Brown</h3>
                         <div class="influencer-role">The Bachelorette Season 15</div>
                         <p>"Living like kings and playing like kids!" Hannah got ENGAGED at Bolt Farm, calling it "a magical place and the definition of a getaway."</p>
-                        <a href="https://www.instagram.com/hannahbrown/" target="_blank" rel="noopener" class="influencer-link">
+                        <span class="influencer-link">
                             <i class="fab fa-instagram"></i> @hannahbrown
-                        </a>
+                        </span>
                     </div>
                 </div>
 
-                <div class="influencer-card fade-in">
-                    <a href="https://www.netflix.com/title/81060530" target="_blank" rel="noopener">
-                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800');">
-                            <span class="influencer-badge netflix"><i class="fas fa-play"></i> Netflix</span>
-                        </div>
-                    </a>
+                <!-- Netflix Feature -->
+                <div class="influencer-card fade-in" data-video="youtube" data-video-id="xNvz9T0P5Yw" data-title="Netflix Feature" data-subtitle="World's Most Amazing Vacation Rentals">
+                    <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800');">
+                        <span class="influencer-badge netflix"><i class="fas fa-play"></i> Netflix</span>
+                    </div>
                     <div class="influencer-content">
                         <h3>Netflix Feature</h3>
                         <div class="influencer-role">World's Most Amazing Vacation Rentals</div>
                         <p>Featured alongside the world's most extraordinary stays, Bolt Farm's Honeymoon Treehouse captured hearts globally on this hit Netflix series.</p>
-                        <a href="https://www.netflix.com/title/81060530" target="_blank" rel="noopener" class="influencer-link">
-                            <i class="fas fa-external-link-alt"></i> Watch on Netflix
-                        </a>
+                        <span class="influencer-link">
+                            <i class="fas fa-play-circle"></i> Watch Preview
+                        </span>
                     </div>
                 </div>
 
-                <div class="influencer-card fade-in">
-                    <a href="https://www.tiktok.com/@annewilsonmusic" target="_blank" rel="noopener">
-                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800');">
-                            <span class="influencer-badge tiktok"><i class="fab fa-tiktok"></i> TikTok</span>
-                        </div>
-                    </a>
+                <!-- Anne Wilson -->
+                <div class="influencer-card fade-in" data-video="tiktok" data-tiktok-id="7388548460124835114" data-title="Anne Wilson" data-subtitle="Christian Music Artist">
+                    <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800');">
+                        <span class="influencer-badge tiktok"><i class="fab fa-tiktok"></i> TikTok</span>
+                    </div>
                     <div class="influencer-content">
                         <h3>Anne Wilson</h3>
                         <div class="influencer-role">Christian Music Artist</div>
-                        <p>"Bolt Farm Treehouse was a DREAM!" The Grammy-nominated Christian artist shared her mountain retreat experience with her faith-filled community.</p>
-                        <a href="https://www.tiktok.com/@annewilsonmusic" target="_blank" rel="noopener" class="influencer-link">
-                            <i class="fab fa-tiktok"></i> @annewilsonmusic
-                        </a>
+                        <p>"Bolt Farm Treehouse was a DREAM!" The Grammy-nominated Christian artist shared her mountain retreat experience.</p>
+                        <span class="influencer-link">
+                            <i class="fab fa-tiktok"></i> Watch on TikTok
+                        </span>
                     </div>
                 </div>
 
-                <div class="influencer-card fade-in">
-                    <a href="https://www.instagram.com/briannakellyfoster/" target="_blank" rel="noopener">
-                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800');">
-                            <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Instagram</span>
-                        </div>
-                    </a>
+                <!-- Brian Kelley -->
+                <div class="influencer-card fade-in" data-video="instagram" data-link="https://www.instagram.com/bfranchise11/" data-title="Brian Kelley" data-subtitle="Florida Georgia Line">
+                    <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800');">
+                        <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Instagram</span>
+                    </div>
                     <div class="influencer-content">
                         <h3>Brian Kelley</h3>
                         <div class="influencer-role">Florida Georgia Line</div>
                         <p>"Trust me, y'all have to put this on your travel bucket list ASAP! We already can't wait to get back!"</p>
-                        <a href="https://www.instagram.com/bfranchise11/" target="_blank" rel="noopener" class="influencer-link">
+                        <span class="influencer-link">
                             <i class="fab fa-instagram"></i> @bfranchise11
-                        </a>
+                        </span>
                     </div>
                 </div>
 
-                <div class="influencer-card fade-in">
-                    <a href="https://www.instagram.com/madiprewett/" target="_blank" rel="noopener">
-                        <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800');">
-                            <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Instagram</span>
-                        </div>
-                    </a>
+                <!-- Madison Prewett -->
+                <div class="influencer-card fade-in" data-video="instagram" data-link="https://www.instagram.com/madiprewett/" data-title="Madison Prewett" data-subtitle="Author & The Bachelor Alum">
+                    <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800');">
+                        <span class="influencer-badge instagram"><i class="fab fa-instagram"></i> Instagram</span>
+                    </div>
                     <div class="influencer-content">
                         <h3>Madison Prewett</h3>
                         <div class="influencer-role">Author & The Bachelor Alum</div>
                         <p>The faith-forward author and influencer experienced the magic of Bolt Farm during the first-ever Treehouse Olympics charity event.</p>
-                        <a href="https://www.instagram.com/madiprewett/" target="_blank" rel="noopener" class="influencer-link">
+                        <span class="influencer-link">
                             <i class="fab fa-instagram"></i> @madiprewett
-                        </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Kristin Cavallari -->
+                <div class="influencer-card fade-in" data-video="tiktok" data-tiktok-id="7381965220840885535" data-title="Kristin Cavallari" data-subtitle="TV Personality & Entrepreneur">
+                    <div class="influencer-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800');">
+                        <span class="influencer-badge tiktok"><i class="fab fa-tiktok"></i> TikTok</span>
+                    </div>
+                    <div class="influencer-content">
+                        <h3>Kristin Cavallari</h3>
+                        <div class="influencer-role">TV Personality & Entrepreneur</div>
+                        <p>The Laguna Beach star and Uncommon James founder escaped to Bolt Farm for a romantic mountain getaway.</p>
+                        <span class="influencer-link">
+                            <i class="fab fa-tiktok"></i> Watch on TikTok
+                        </span>
                     </div>
                 </div>
             </div>
@@ -1226,6 +1331,85 @@
                 nav.style.background = 'rgba(44, 62, 45, 0.95)';
             }
         });
+
+        // Video Modal Functionality
+        const videoModal = document.getElementById('videoModal');
+        const modalContent = document.getElementById('modalVideoContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalClose = document.querySelector('.video-modal-close');
+
+        // Handle influencer card clicks
+        document.querySelectorAll('.influencer-card[data-video]').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const videoType = this.dataset.video;
+                const title = this.dataset.title;
+                const subtitle = this.dataset.subtitle;
+
+                modalTitle.textContent = title;
+                modalSubtitle.textContent = subtitle;
+
+                let embedHtml = '';
+
+                if (videoType === 'youtube') {
+                    const videoId = this.dataset.videoId;
+                    const searchQuery = this.dataset.videoSearch;
+
+                    if (videoId) {
+                        embedHtml = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                    } else if (searchQuery) {
+                        // Open YouTube search in new tab for videos without specific IDs
+                        window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
+                        return;
+                    }
+                } else if (videoType === 'tiktok') {
+                    const tiktokId = this.dataset.tiktokId;
+                    embedHtml = `<iframe src="https://www.tiktok.com/embed/v2/${tiktokId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                } else if (videoType === 'instagram') {
+                    const link = this.dataset.link;
+                    window.open(link, '_blank');
+                    return;
+                }
+
+                if (embedHtml) {
+                    modalContent.innerHTML = embedHtml;
+                    videoModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close modal
+        function closeModal() {
+            videoModal.classList.remove('active');
+            modalContent.innerHTML = '';
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        videoModal.addEventListener('click', function(e) {
+            if (e.target === videoModal) {
+                closeModal();
+            }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
     </script>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <button class="video-modal-close" aria-label="Close video">&times;</button>
+        <div class="video-modal-content" id="modalVideoContent"></div>
+        <div class="video-modal-info">
+            <h4 id="modalTitle"></h4>
+            <p id="modalSubtitle"></p>
+        </div>
+    </div>
 </body>
 </html>
