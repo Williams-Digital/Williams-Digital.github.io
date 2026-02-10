@@ -297,59 +297,80 @@
 
         /* Experience Cards */
         .experiences-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
         }
 
         .experience-card {
-            background: var(--warm-white);
-            border-radius: 4px;
+            background: #fff;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.06);
             transition: all 0.4s ease;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .experience-card:nth-child(even) {
+            direction: rtl;
+        }
+
+        .experience-card:nth-child(even) > * {
+            direction: ltr;
         }
 
         .experience-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .experience-image-wrap {
+            position: relative;
+            overflow: hidden;
         }
 
         .experience-image {
-            height: 280px;
+            height: 100%;
+            min-height: 440px;
             background-size: cover;
             background-position: center;
-            position: relative;
+            transition: transform 0.6s ease;
+        }
+
+        .experience-card:hover .experience-image {
+            transform: scale(1.06);
         }
 
         .experience-badge {
             position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
+            top: 1.25rem;
+            left: 1.25rem;
             background: var(--accent-gold);
             color: var(--primary-dark);
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 1px;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            border-radius: 4px;
+            z-index: 2;
         }
 
         .lodging-type {
             position: absolute;
-            bottom: 1rem;
-            left: 1.5rem;
-            right: 1.5rem;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
+            bottom: 1.25rem;
+            left: 1.25rem;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
             color: white;
-            padding: 0.6rem 1rem;
-            font-size: 0.8rem;
+            padding: 0.45rem 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            border-radius: 4px;
+            border-radius: 6px;
+            z-index: 2;
         }
 
         .lodging-type i {
@@ -361,33 +382,52 @@
             font-style: italic;
             font-size: 0.9rem;
             color: var(--text-light);
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(0,0,0,0.08);
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            line-height: 1.5;
         }
 
         .experience-content {
-            padding: 2rem;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .experience-content h3 {
-            font-size: 1.75rem;
+            font-family: var(--heading-font);
+            font-size: 2rem;
             color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+            line-height: 1.2;
+        }
+
+        .experience-price {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 600;
             margin-bottom: 0.75rem;
+        }
+
+        .experience-price span {
+            color: var(--text-light);
+            font-weight: 400;
         }
 
         .experience-tagline {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             color: var(--primary-green);
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            margin-bottom: 1.25rem;
         }
 
         .experience-content p {
             color: var(--text-medium);
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
 
         .experience-features {
@@ -396,11 +436,11 @@
         }
 
         .experience-features li {
-            padding: 0.4rem 0;
+            padding: 0.35rem 0;
             padding-left: 1.5rem;
             position: relative;
             color: var(--text-medium);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         .experience-features li::before {
@@ -410,7 +450,7 @@
             position: absolute;
             left: 0;
             color: var(--accent-gold);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
         }
 
         .experience-cta {
@@ -419,15 +459,18 @@
             color: var(--warm-white);
             padding: 0.875rem 2rem;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             transition: all 0.3s;
+            border-radius: 6px;
+            align-self: flex-start;
         }
 
         .experience-cta:hover {
             background: var(--primary-green);
+            transform: translateY(-2px);
         }
 
         /* Ministry Section */
@@ -1392,8 +1435,16 @@
                 padding: 6rem 1.5rem;
             }
 
-            .experiences-grid {
+            .experience-card {
                 grid-template-columns: 1fr;
+            }
+
+            .experience-card:nth-child(even) {
+                direction: ltr;
+            }
+
+            .experience-image {
+                min-height: 280px;
             }
 
             section {
@@ -1548,12 +1599,14 @@
             <div class="experiences-grid">
                 <!-- Abide Retreat - Honeymoon Treehouse -->
                 <div class="experience-card fade-in">
-                    <div class="experience-image" style="background-image: url('https://cdn.prod.website-files.com/66ba28fe803ffaf09afcc1c0/66d828363cdecc9b041c6842_Spring-Serenity-bolt-farm.jpeg');">
+                    <div class="experience-image-wrap">
+                        <div class="experience-image" style="background-image: url('https://cdn.prod.website-files.com/66ba28fe803ffaf09afcc1c0/66d828363cdecc9b041c6842_Spring-Serenity-bolt-farm.jpeg');"></div>
                         <span class="experience-badge">Most Popular</span>
                         <div class="lodging-type"><i class="fas fa-tree"></i> Honeymoon Treehouse</div>
                     </div>
                     <div class="experience-content">
                         <h3>The Abide Retreat</h3>
+                        <div class="experience-price">From $495 <span>/ night</span></div>
                         <div class="experience-tagline">For Married Couples</div>
                         <p>Rooted in John 15:4—"Abide in me, and I in you"—this couples retreat invites you to dwell together in God's presence, strengthening your marriage covenant.</p>
                         <ul class="experience-features">
@@ -1570,12 +1623,14 @@
 
                 <!-- Selah Escape - Mirror Cabin -->
                 <div class="experience-card fade-in">
-                    <div class="experience-image" style="background-image: url('https://newsmakeralert.com/boltfarmtreehouse-082322-hero.jpg');">
+                    <div class="experience-image-wrap">
+                        <div class="experience-image" style="background-image: url('https://newsmakeralert.com/boltfarmtreehouse-082322-hero.jpg');"></div>
                         <span class="experience-badge">Spiritual Renewal</span>
                         <div class="lodging-type"><i class="fas fa-square"></i> Mirror Cabin</div>
                     </div>
                     <div class="experience-content">
                         <h3>The Selah Escape</h3>
+                        <div class="experience-price">From $395 <span>/ night</span></div>
                         <div class="experience-tagline">Pause. Reflect. Renew.</div>
                         <p>Named after the Hebrew word for "pause" found throughout Psalms, this experience invites you to step away from the noise and rediscover peace. The Mirror Cabin's reflective walls create the perfect space for introspection.</p>
                         <ul class="experience-features">
@@ -1592,12 +1647,14 @@
 
                 <!-- Upper Room - XL Dome -->
                 <div class="experience-card fade-in">
-                    <div class="experience-image" style="background-image: url('https://assets.boltfarmtennessee.com/XLDome-1.jpeg');">
+                    <div class="experience-image-wrap">
+                        <div class="experience-image" style="background-image: url('https://assets.boltfarmtennessee.com/XLDome-1.jpeg');"></div>
                         <span class="experience-badge">Groups</span>
                         <div class="lodging-type"><i class="fas fa-circle"></i> XL Dome</div>
                     </div>
                     <div class="experience-content">
                         <h3>The Upper Room</h3>
+                        <div class="experience-price">From $595 <span>/ night</span></div>
                         <div class="experience-tagline">For Small Groups & Bible Studies</div>
                         <p>Inspired by Acts 1—where believers gathered in unity—the spacious XL Dome becomes your Upper Room for fellowship, prayer, and spiritual breakthrough.</p>
                         <ul class="experience-features">
@@ -1614,12 +1671,14 @@
 
                 <!-- Sabbath Rest - Luxe Dome -->
                 <div class="experience-card fade-in">
-                    <div class="experience-image" style="background-image: url('https://cdn.prod.website-files.com/66ba28fe803ffaf09afcc19c/67f6eec30f798dbdc1d3bbdc_Copy%20of%20Chris%20Funk%20June%2022%20-%20Luxe_16.jpg');">
+                    <div class="experience-image-wrap">
+                        <div class="experience-image" style="background-image: url('https://cdn.prod.website-files.com/66ba28fe803ffaf09afcc19c/67f6eec30f798dbdc1d3bbdc_Copy%20of%20Chris%20Funk%20June%2022%20-%20Luxe_16.jpg');"></div>
                         <span class="experience-badge">For Pastors</span>
                         <div class="lodging-type"><i class="fas fa-circle"></i> Luxe Dome</div>
                     </div>
                     <div class="experience-content">
                         <h3>The Sabbath Rest</h3>
+                        <div class="experience-price">From $450 <span>/ night</span></div>
                         <div class="experience-tagline">For Pastors & Ministry Leaders</div>
                         <p>Designed for those who pour out for others. God rested on the seventh day—and He invites you to do the same. A sanctuary for pastors and ministry workers to be renewed.</p>
                         <ul class="experience-features">
@@ -1636,12 +1695,14 @@
 
                 <!-- Refuge Proposal - Honeymoon Treehouse -->
                 <div class="experience-card fade-in">
-                    <div class="experience-image" style="background-image: url('https://cdn.prod.website-files.com/66ba28fe803ffaf09afcc1c0/66d828363cdecc9b041c6842_Spring-Serenity-bolt-farm.jpeg');">
+                    <div class="experience-image-wrap">
+                        <div class="experience-image" style="background-image: url('https://cdn.prod.website-files.com/66ba28fe803ffaf09afcc1c0/66d828363cdecc9b041c6842_Spring-Serenity-bolt-farm.jpeg');"></div>
                         <span class="experience-badge">Special Occasion</span>
                         <div class="lodging-type"><i class="fas fa-tree"></i> Honeymoon Treehouse</div>
                     </div>
                     <div class="experience-content">
                         <h3>The Covenant Proposal</h3>
+                        <div class="experience-price">From $695 <span>/ night</span></div>
                         <div class="experience-tagline">Begin Your Forever</div>
                         <p>Create a proposal moment that honors God and sets the foundation for a Christ-centered marriage from the very first "yes." The iconic Treehouse provides an unforgettable backdrop.</p>
                         <ul class="experience-features">
@@ -1658,12 +1719,14 @@
 
                 <!-- Still Waters - Mirror Cabin -->
                 <div class="experience-card fade-in">
-                    <div class="experience-image" style="background-image: url('https://mms.businesswire.com/media/20220818005819/en/1547351/5/Bolt_Farm_-_Photo_credit_ÖÖD.jpg');">
+                    <div class="experience-image-wrap">
+                        <div class="experience-image" style="background-image: url('https://mms.businesswire.com/media/20220818005819/en/1547351/5/Bolt_Farm_-_Photo_credit_ÖÖD.jpg');"></div>
                         <span class="experience-badge">New</span>
                         <div class="lodging-type"><i class="fas fa-square"></i> Mirror Cabin</div>
                     </div>
                     <div class="experience-content">
                         <h3>Still Waters</h3>
+                        <div class="experience-price">From $395 <span>/ night</span></div>
                         <div class="experience-tagline">Adventure in His Majesty</div>
                         <p>Inspired by Psalm 23, experience the wonder of God's creation through guided outdoor adventures. The Mirror Cabin reflects the beauty of the surrounding forest, blending you into His masterpiece.</p>
                         <ul class="experience-features">
