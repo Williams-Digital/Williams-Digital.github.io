@@ -2191,7 +2191,6 @@
         /*            RESORT MAP                    */
         /* ═══════════════════════════════════════ */
 
-        /* Map top bar */
         .map-toolbar {
             display: flex;
             align-items: center;
@@ -2224,7 +2223,6 @@
             font-size: 0.6rem;
             font-weight: 600;
             color: #4caf50;
-            letter-spacing: 0.5px;
         }
 
         .map-live-badge::before {
@@ -2281,7 +2279,7 @@
         /* Main map layout */
         .map-layout {
             display: grid;
-            grid-template-columns: 1fr 320px;
+            grid-template-columns: 1fr 260px;
             gap: 1.25rem;
         }
 
@@ -2293,120 +2291,179 @@
             overflow: hidden;
         }
 
-        .map-image-wrap {
+        .map-canvas-wrap {
             position: relative;
             overflow: hidden;
+            height: 640px;
+            background: linear-gradient(170deg, #4a7a2a 0%, #3a6b1e 40%, #2d5a16 100%);
+            cursor: grab;
+            user-select: none;
         }
-
-        .map-image-wrap img {
+        .map-canvas-wrap:active { cursor: grabbing; }
+        .map-canvas-wrap svg {
             width: 100%;
-            display: block;
+            height: 100%;
+            transform-origin: 0 0;
         }
 
-        /* Hotspot pins */
-        .map-hotspot {
+        /* Zoom controls */
+        .map-zoom-controls {
             position: absolute;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
+            top: 0.75rem;
+            right: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            z-index: 15;
+        }
+        .map-zoom-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.92);
+            color: var(--primary-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.6rem;
-            font-weight: 700;
-            color: white;
+            font-size: 0.85rem;
             cursor: pointer;
-            z-index: 5;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.15s;
+            backdrop-filter: blur(4px);
+        }
+        .map-zoom-btn:hover { background: white; box-shadow: 0 3px 12px rgba(0,0,0,0.2); }
+        .map-zoom-level {
+            text-align: center;
+            font-size: 0.52rem;
+            font-weight: 600;
+            color: white;
+            background: rgba(0,0,0,0.45);
+            border-radius: 6px;
+            padding: 0.25rem 0;
+            backdrop-filter: blur(4px);
         }
 
-        .map-hotspot:hover {
-            transform: scale(1.3);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-            z-index: 10;
-        }
-
-        .map-hotspot.pulse::after {
-            content: '';
+        /* Map legend */
+        .map-legend {
             position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            border: 2px solid currentColor;
-            opacity: 0;
-            animation: hotspotPulse 2s infinite;
+            bottom: 0.75rem;
+            left: 0.75rem;
+            display: flex;
+            gap: 0.85rem;
+            padding: 0.55rem 1rem;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 15;
         }
-
-        @keyframes hotspotPulse {
-            0% { transform: scale(1); opacity: 0.6; }
-            100% { transform: scale(1.6); opacity: 0; }
+        .map-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.58rem;
+            font-weight: 500;
+            color: var(--text-dark);
         }
+        .map-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
 
-        .hotspot-room { background: var(--primary-green); }
-        .hotspot-available { background: #4285f4; }
-        .hotspot-spa { background: var(--accent-gold); color: var(--primary-dark); }
-        .hotspot-common { background: #805ad5; }
-        .hotspot-maintenance { background: #e57373; }
-        .hotspot-staff { background: var(--text-dark); }
-        .hotspot-trail { background: #66bb6a; }
-        .hotspot-parking { background: #78909c; }
+        /* SVG interactive elements */
+        .svg-building { cursor: pointer; transition: filter 0.2s; }
+        .svg-building:hover { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35)) brightness(1.1); }
+        .svg-amenity { cursor: pointer; transition: filter 0.2s; }
+        .svg-amenity:hover { filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3)) brightness(1.08); }
+        .svg-trail { pointer-events: none; }
+        .svg-parking { cursor: pointer; transition: filter 0.2s; }
+        .svg-parking:hover { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+        .svg-staff { cursor: pointer; transition: filter 0.2s; }
+        .svg-staff:hover { filter: drop-shadow(0 2px 5px rgba(0,0,0,0.25)); }
+        .svg-maint { cursor: pointer; transition: filter 0.2s; }
+        .svg-maint:hover { filter: drop-shadow(0 2px 5px rgba(0,0,0,0.25)); }
+        @keyframes svgPulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 0.4; }
+        }
+        .svg-pulse { animation: svgPulse 2s ease-in-out infinite; }
 
-        /* Hotspot tooltip */
+        /* Map tooltip */
         .map-tooltip {
             display: none;
             position: absolute;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            padding: 1rem;
-            width: 220px;
-            z-index: 20;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 1.1rem 1.2rem;
+            width: 250px;
+            z-index: 25;
             border: 1px solid #e8e5e0;
+            pointer-events: auto;
         }
-
-        .map-tooltip.show { display: block; }
+        .map-tooltip.show { display: block; animation: ttFadeIn 0.15s ease-out; }
+        @keyframes ttFadeIn { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
 
         .map-tooltip-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.55rem;
+            padding-bottom: 0.45rem;
+            border-bottom: 1px solid #f0ede8;
         }
-
         .map-tooltip-name {
-            font-size: 0.82rem;
-            font-weight: 600;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 700;
             color: var(--primary-dark);
         }
-
         .map-tooltip-status {
             font-size: 0.55rem;
             font-weight: 600;
-            padding: 0.2rem 0.5rem;
+            padding: 0.2rem 0.55rem;
             border-radius: 10px;
         }
-
         .map-tooltip-detail {
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             color: var(--text-medium);
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.3rem;
             display: flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.4rem;
         }
-
-        .map-tooltip-detail i { width: 12px; text-align: center; font-size: 0.6rem; }
-
+        .map-tooltip-detail i { width: 14px; text-align: center; font-size: 0.6rem; color: var(--accent-gold); }
+        .map-tooltip-actions {
+            display: flex;
+            gap: 0.4rem;
+            margin-top: 0.65rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #f0ede8;
+        }
+        .map-tooltip-action {
+            flex: 1;
+            padding: 0.4rem;
+            border-radius: 6px;
+            border: 1px solid #e8e5e0;
+            background: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.58rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s;
+        }
+        .map-tooltip-action:hover { border-color: var(--accent-gold); background: #fdfcfa; }
         .map-tooltip-close {
             position: absolute;
             top: 0.5rem;
-            right: 0.5rem;
+            right: 0.6rem;
             background: none;
             border: none;
             color: #ccc;
             cursor: pointer;
             font-size: 0.7rem;
         }
+        .map-tooltip-close:hover { color: #999; }
 
         /* Map stats footer */
         .map-stats-bar {
@@ -3895,41 +3952,316 @@
                 </div>
 
                 <div class="map-layout">
-                    <!-- Map with interactive hotspots -->
+                    <!-- Interactive SVG Illustrated Map -->
                     <div>
                         <div class="map-card">
-                            <div class="map-image-wrap" id="mapImageWrap">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHGzTRKZWNuuYVBldY9ZXVUCfUurUDUOAhg&s" alt="Bolt Farm Treehouse Resort Map">
+                            <div class="map-canvas-wrap" id="mapCanvasWrap">
+                                <!-- Zoom controls -->
+                                <div class="map-zoom-controls">
+                                    <button class="map-zoom-btn" onclick="mapZoom(1)" title="Zoom In"><i class="fas fa-plus"></i></button>
+                                    <div class="map-zoom-level" id="mapZoomLevel">100%</div>
+                                    <button class="map-zoom-btn" onclick="mapZoom(-1)" title="Zoom Out"><i class="fas fa-minus"></i></button>
+                                    <button class="map-zoom-btn" onclick="mapReset()" title="Reset View" style="margin-top:0.3rem;"><i class="fas fa-compress-arrows-alt"></i></button>
+                                </div>
 
-                                <!-- Room hotspots -->
-                                <div class="map-hotspot hotspot-room pulse" data-layer="rooms" style="top:18%;left:22%;" onclick="showTooltip(this,'Eden Suite','Occupied','Johnson Family','Check-out Feb 12','Cleaned today')" title="Eden Suite"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-room" data-layer="rooms" style="top:32%;left:14%;" onclick="showTooltip(this,'The Ark','Occupied','Williams Couple','Check-out Feb 14','Cleaned today')" title="The Ark"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-room" data-layer="rooms" style="top:25%;left:38%;" onclick="showTooltip(this,'Covenant Cabin','Occupied','Davis Anniversary','Check-out Feb 13','Special request active')" title="Covenant Cabin"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-maintenance pulse" data-layer="rooms" style="top:48%;left:28%;" onclick="showTooltip(this,'Summit Lodge','Maintenance','Deck railing repair','Assigned: James W.','ETA: 2:00 PM')" title="Summit Lodge"><i class="fas fa-tools" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-available" data-layer="rooms" style="top:42%;left:52%;" onclick="showTooltip(this,'Shepherd\\'s Rest','Cleaning','Checked out 10am','Assigned: Maria S.','')" title="Shepherd's Rest"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-available" data-layer="rooms" style="top:58%;left:18%;" onclick="showTooltip(this,'Promised Land','Available','Clean &amp; inspected','Next arrival: Feb 12','')" title="Promised Land"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-room" data-layer="rooms" style="top:65%;left:42%;" onclick="showTooltip(this,'Mustard Seed','Occupied','Pastor Mitchell','Check-out Feb 11','Cleaned today')" title="Mustard Seed"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-available" data-layer="rooms" style="top:72%;left:62%;" onclick="showTooltip(this,'The Vineyard','Available','Clean &amp; inspected','Next arrival: Feb 15','')" title="The Vineyard"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
+                                <!-- Legend -->
+                                <div class="map-legend">
+                                    <div class="map-legend-item"><div class="map-legend-dot" style="background:#3a5a40;"></div> Occupied</div>
+                                    <div class="map-legend-item"><div class="map-legend-dot" style="background:#4285f4;"></div> Available</div>
+                                    <div class="map-legend-item"><div class="map-legend-dot" style="background:#c9a96e;"></div> Cleaning</div>
+                                    <div class="map-legend-item"><div class="map-legend-dot" style="background:#e57373;"></div> Maintenance</div>
+                                    <div class="map-legend-item"><div class="map-legend-dot" style="background:#805ad5;"></div> Amenity</div>
+                                </div>
 
-                                <!-- Amenity hotspots -->
-                                <div class="map-hotspot hotspot-spa" data-layer="amenities" style="top:35%;left:68%;" onclick="showTooltip(this,'Spa &amp; Wellness','Open','2 sessions today','Rachel on duty','')" title="Spa"><i class="fas fa-spa" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-common" data-layer="amenities" style="top:15%;left:50%;" onclick="showTooltip(this,'Main Lodge','Open','Morning briefing 8am','Dining &amp; lounge','')" title="Main Lodge"><i class="fas fa-landmark" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-common" data-layer="amenities" style="top:80%;left:35%;" onclick="showTooltip(this,'Fire Pit','Available','S\\'mores kits stocked','Sunset gathering area','')" title="Fire Pit"><i class="fas fa-fire" style="font-size:0.55rem;"></i></div>
+                                <!-- SVG Illustrated Resort Map -->
+                                <svg id="resortMapSvg" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <defs>
+                                        <linearGradient id="terrainBg" x1="0" y1="0" x2="0.3" y2="1">
+                                            <stop offset="0%" stop-color="#5a8e30"/>
+                                            <stop offset="50%" stop-color="#4a7a2a"/>
+                                            <stop offset="100%" stop-color="#3a6b1e"/>
+                                        </linearGradient>
+                                        <linearGradient id="creekWater" x1="0" y1="0" x2="1" y2="0">
+                                            <stop offset="0%" stop-color="#6bb5e0"/>
+                                            <stop offset="50%" stop-color="#7cc4ea"/>
+                                            <stop offset="100%" stop-color="#6bb5e0"/>
+                                        </linearGradient>
+                                        <linearGradient id="cabinFill" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#e8d5b0"/>
+                                            <stop offset="100%" stop-color="#d4be90"/>
+                                        </linearGradient>
+                                        <linearGradient id="roofFill" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#8b6f47"/>
+                                            <stop offset="100%" stop-color="#725a38"/>
+                                        </linearGradient>
+                                        <linearGradient id="lodgeFill" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#f5e6cc"/>
+                                            <stop offset="100%" stop-color="#e2cfa8"/>
+                                        </linearGradient>
+                                        <linearGradient id="spaFill" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#dceefb"/>
+                                            <stop offset="100%" stop-color="#c5e0f5"/>
+                                        </linearGradient>
+                                        <filter id="treeShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                            <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.15)"/>
+                                        </filter>
+                                    </defs>
 
-                                <!-- Trail hotspots -->
-                                <div class="map-hotspot hotspot-trail" data-layer="trails" style="top:55%;left:78%;display:none;" onclick="showTooltip(this,'Summit Trail','Open','2.4 miles · Moderate','Sunrise viewpoint','')" title="Summit Trail"><i class="fas fa-hiking" style="font-size:0.55rem;"></i></div>
-                                <div class="map-hotspot hotspot-trail" data-layer="trails" style="top:75%;left:82%;display:none;" onclick="showTooltip(this,'Creek Path','Open','0.8 miles · Easy','Family friendly','')" title="Creek Path"><i class="fas fa-hiking" style="font-size:0.55rem;"></i></div>
+                                    <!-- Base terrain -->
+                                    <rect width="1400" height="900" fill="url(#terrainBg)"/>
 
-                                <!-- Parking -->
-                                <div class="map-hotspot hotspot-parking" data-layer="parking" style="top:88%;left:15%;display:none;" onclick="showTooltip(this,'Main Parking','12/20 spots','Guest &amp; staff','EV charging available','')" title="Main Parking"><i class="fas fa-parking" style="font-size:0.55rem;"></i></div>
+                                    <!-- Hill contours -->
+                                    <ellipse cx="250" cy="120" rx="280" ry="100" fill="#62962e" opacity="0.3"/>
+                                    <ellipse cx="900" cy="100" rx="320" ry="90" fill="#62962e" opacity="0.25"/>
+                                    <ellipse cx="1200" cy="500" rx="200" ry="150" fill="#4f8226" opacity="0.2"/>
+                                    <ellipse cx="400" cy="750" rx="350" ry="120" fill="#4f8226" opacity="0.25"/>
+                                    <ellipse cx="700" cy="450" rx="250" ry="80" fill="#62962e" opacity="0.15"/>
 
-                                <!-- Staff zones -->
-                                <div class="map-hotspot hotspot-staff" data-layer="staff" style="top:10%;left:82%;" onclick="showTooltip(this,'Staff Building','Staff Only','Break room &amp; lockers','Storage &amp; supplies','')" title="Staff Building"><i class="fas fa-user-shield" style="font-size:0.55rem;"></i></div>
+                                    <!-- Grass texture -->
+                                    <g opacity="0.08" stroke="#2d5a16" stroke-width="1">
+                                        <line x1="50" y1="200" x2="90" y2="195"/>
+                                        <line x1="200" y1="400" x2="240" y2="395"/>
+                                        <line x1="800" y1="200" x2="840" y2="198"/>
+                                        <line x1="600" y1="650" x2="640" y2="645"/>
+                                        <line x1="1100" y1="300" x2="1140" y2="298"/>
+                                        <line x1="300" y1="600" x2="340" y2="598"/>
+                                        <line x1="1000" y1="700" x2="1040" y2="695"/>
+                                        <line x1="150" y1="750" x2="190" y2="748"/>
+                                    </g>
 
-                                <!-- Maintenance -->
-                                <div class="map-hotspot hotspot-maintenance" data-layer="maintenance" style="top:90%;left:70%;display:none;" onclick="showTooltip(this,'Maintenance Shed','Active','Tools &amp; equipment','James on site','')" title="Maintenance Shed"><i class="fas fa-wrench" style="font-size:0.55rem;"></i></div>
+                                    <!-- ═══ CREEK ═══ -->
+                                    <path d="M1400,180 Q1200,200 1050,280 Q900,360 750,340 Q600,320 450,400 Q300,480 150,460 Q50,450 0,480" fill="none" stroke="url(#creekWater)" stroke-width="24" stroke-linecap="round" opacity="0.65"/>
+                                    <path d="M1400,180 Q1200,200 1050,280 Q900,360 750,340 Q600,320 450,400 Q300,480 150,460 Q50,450 0,480" fill="none" stroke="#8ed4f0" stroke-width="10" stroke-linecap="round" opacity="0.35"/>
+                                    <circle cx="1100" cy="250" r="2" fill="white" opacity="0.4"/>
+                                    <circle cx="900" cy="345" r="1.5" fill="white" opacity="0.5"/>
+                                    <circle cx="650" cy="335" r="2" fill="white" opacity="0.35"/>
+                                    <circle cx="350" cy="445" r="1.5" fill="white" opacity="0.45"/>
 
-                                <!-- Tooltip (positioned by JS) -->
+                                    <!-- ═══ WALKING PATHS ═══ -->
+                                    <g opacity="0.55">
+                                        <path d="M680,170 L680,250 L500,280 L350,320 L200,350 L200,450 L280,520 L200,580 L200,650 L350,700 L500,680 L650,650 L700,550 L800,500 L950,380 L1000,300 L950,200 L680,170" fill="none" stroke="#c4a862" stroke-width="5" stroke-dasharray="14,8" stroke-linecap="round"/>
+                                        <path d="M200,650 L180,750 L180,820" fill="none" stroke="#c4a862" stroke-width="4" stroke-dasharray="10,6" stroke-linecap="round"/>
+                                        <path d="M950,380 L1050,360 L1100,350" fill="none" stroke="#c4a862" stroke-width="4" stroke-dasharray="10,6" stroke-linecap="round"/>
+                                        <path d="M950,200 L1080,150 L1160,120" fill="none" stroke="#c4a862" stroke-width="4" stroke-dasharray="10,6" stroke-linecap="round"/>
+                                        <path d="M500,680 L480,740" fill="none" stroke="#c4a862" stroke-width="4" stroke-dasharray="10,6" stroke-linecap="round"/>
+                                    </g>
+
+                                    <!-- ═══ TRAILS ═══ -->
+                                    <g class="svg-trail" data-layer="trails" style="display:none;">
+                                        <path d="M1050,200 Q1150,150 1250,180 Q1300,220 1350,150 L1380,80" fill="none" stroke="#8bc34a" stroke-width="4" stroke-dasharray="6,4" stroke-linecap="round" opacity="0.8"/>
+                                        <text x="1280" y="130" font-family="Montserrat" font-size="11" fill="#8bc34a" font-weight="600" opacity="0.9">Summit Trail</text>
+                                        <text x="1280" y="145" font-family="Montserrat" font-size="9" fill="#a8d65e" opacity="0.7">2.4 mi · Moderate</text>
+                                        <path d="M850,620 Q950,650 1050,600 Q1150,560 1250,590 L1350,570" fill="none" stroke="#8bc34a" stroke-width="4" stroke-dasharray="6,4" stroke-linecap="round" opacity="0.8"/>
+                                        <text x="1150" y="555" font-family="Montserrat" font-size="11" fill="#8bc34a" font-weight="600" opacity="0.9">Creek Path</text>
+                                        <text x="1150" y="570" font-family="Montserrat" font-size="9" fill="#a8d65e" opacity="0.7">0.8 mi · Easy</text>
+                                    </g>
+
+                                    <!-- ═══ TREES ═══ -->
+                                    <g filter="url(#treeShadow)">
+                                        <polygon points="80,140 90,95 100,140" fill="#2d6b12"/>
+                                        <polygon points="70,155 90,105 110,155" fill="#357a18" opacity="0.7"/>
+                                        <polygon points="120,170 130,130 140,170" fill="#2d6b12"/>
+                                        <polygon points="50,190 60,150 70,190" fill="#357a18"/>
+                                        <polygon points="110,210 120,170 130,210" fill="#2d6b12" opacity="0.8"/>
+                                        <polygon points="380,290 390,250 400,290" fill="#2d6b12"/>
+                                        <polygon points="430,310 440,275 450,310" fill="#357a18" opacity="0.8"/>
+                                        <polygon points="280,460 290,420 300,460" fill="#2d6b12"/>
+                                        <polygon points="620,400 630,365 640,400" fill="#357a18"/>
+                                        <polygon points="560,480 570,445 580,480" fill="#2d6b12" opacity="0.8"/>
+                                        <polygon points="1050,430 1060,390 1070,430" fill="#2d6b12"/>
+                                        <polygon points="1100,460 1110,425 1120,460" fill="#357a18" opacity="0.8"/>
+                                        <polygon points="1200,350 1210,310 1220,350" fill="#2d6b12"/>
+                                        <polygon points="100,680 110,640 120,680" fill="#2d6b12"/>
+                                        <polygon points="300,750 310,715 320,750" fill="#357a18" opacity="0.8"/>
+                                        <polygon points="650,730 660,695 670,730" fill="#2d6b12"/>
+                                        <polygon points="750,680 760,645 770,680" fill="#357a18"/>
+                                        <polygon points="900,720 910,685 920,720" fill="#2d6b12" opacity="0.8"/>
+                                        <circle cx="160" cy="280" r="14" fill="#4a8a28" opacity="0.6"/>
+                                        <circle cx="480" cy="200" r="12" fill="#3d7a1f" opacity="0.5"/>
+                                        <circle cx="820" cy="250" r="15" fill="#4a8a28" opacity="0.55"/>
+                                        <circle cx="1050" cy="220" r="13" fill="#3d7a1f" opacity="0.5"/>
+                                        <circle cx="350" cy="550" r="14" fill="#4a8a28" opacity="0.6"/>
+                                        <circle cx="750" cy="600" r="12" fill="#3d7a1f" opacity="0.5"/>
+                                        <circle cx="550" cy="550" r="13" fill="#4a8a28" opacity="0.55"/>
+                                        <circle cx="180" cy="500" r="11" fill="#3d7a1f" opacity="0.5"/>
+                                    </g>
+
+                                    <!-- ═══ ROOMS ═══ -->
+                                    <g data-layer="rooms">
+                                        <!-- Eden Suite (Occupied) -->
+                                        <g class="svg-building" data-name="Eden Suite" data-status="Occupied" data-d1="Johnson Family" data-d2="Check-out Feb 12" data-d3="Cleaned today">
+                                            <rect x="230" y="145" width="75" height="50" rx="3" fill="url(#cabinFill)" stroke="#b8963e" stroke-width="1.5"/>
+                                            <polygon points="230,145 267,112 305,145" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1"/>
+                                            <rect x="258" y="165" width="10" height="16" rx="1" fill="#8b6f47" opacity="0.6"/>
+                                            <rect x="280" y="155" width="8" height="8" rx="1" fill="#a8d4f0" opacity="0.4"/>
+                                            <circle cx="305" cy="140" r="6" fill="#3a5a40" class="svg-pulse"/>
+                                            <rect x="225" y="200" width="85" height="20" rx="4" fill="rgba(0,0,0,0.45)"/>
+                                            <text x="267" y="214" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Eden Suite</text>
+                                        </g>
+
+                                        <!-- The Ark (Occupied) -->
+                                        <g class="svg-building" data-name="The Ark" data-status="Occupied" data-d1="Williams Couple" data-d2="Check-out Feb 14" data-d3="Cleaned today">
+                                            <rect x="145" y="320" width="80" height="55" rx="3" fill="url(#cabinFill)" stroke="#b8963e" stroke-width="1.5"/>
+                                            <polygon points="145,320 185,282 225,320" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1"/>
+                                            <rect x="176" y="342" width="10" height="18" rx="1" fill="#8b6f47" opacity="0.6"/>
+                                            <rect x="196" y="332" width="8" height="8" rx="1" fill="#a8d4f0" opacity="0.4"/>
+                                            <circle cx="225" cy="315" r="6" fill="#3a5a40" class="svg-pulse"/>
+                                            <rect x="140" y="382" width="90" height="20" rx="4" fill="rgba(0,0,0,0.45)"/>
+                                            <text x="185" y="396" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">The Ark</text>
+                                        </g>
+
+                                        <!-- Covenant Cabin (Occupied) -->
+                                        <g class="svg-building" data-name="Covenant Cabin" data-status="Occupied" data-d1="Davis Anniversary" data-d2="Check-out Feb 13" data-d3="Special request active">
+                                            <rect x="460" y="240" width="80" height="50" rx="3" fill="url(#cabinFill)" stroke="#b8963e" stroke-width="1.5"/>
+                                            <polygon points="460,240 500,208 540,240" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1"/>
+                                            <rect x="490" y="258" width="10" height="16" rx="1" fill="#8b6f47" opacity="0.6"/>
+                                            <circle cx="540" cy="235" r="6" fill="#3a5a40" class="svg-pulse"/>
+                                            <rect x="445" y="296" width="110" height="20" rx="4" fill="rgba(0,0,0,0.45)"/>
+                                            <text x="500" y="310" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Covenant Cabin</text>
+                                        </g>
+
+                                        <!-- Summit Lodge (Maintenance) -->
+                                        <g class="svg-building" data-name="Summit Lodge" data-status="Maintenance" data-d1="Deck railing repair" data-d2="Assigned: James W." data-d3="ETA: 2:00 PM">
+                                            <rect x="310" y="430" width="85" height="55" rx="3" fill="#e8d5b0" stroke="#e57373" stroke-width="2.5" stroke-dasharray="6,3"/>
+                                            <polygon points="310,430 352,392 395,430" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1"/>
+                                            <rect x="342" y="452" width="10" height="18" rx="1" fill="#8b6f47" opacity="0.6"/>
+                                            <circle cx="395" cy="425" r="7" fill="#e57373" class="svg-pulse"/>
+                                            <rect x="300" y="492" width="105" height="20" rx="4" fill="rgba(229,115,115,0.7)"/>
+                                            <text x="352" y="506" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Summit Lodge</text>
+                                        </g>
+
+                                        <!-- Shepherd's Rest (Cleaning) -->
+                                        <g class="svg-building" data-name="Shepherd's Rest" data-status="Cleaning" data-d1="Checked out 10am" data-d2="Assigned: Maria S." data-d3="">
+                                            <rect x="690" y="440" width="78" height="50" rx="3" fill="url(#cabinFill)" stroke="#c9a96e" stroke-width="2"/>
+                                            <polygon points="690,440 729,410 768,440" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1"/>
+                                            <rect x="720" y="458" width="10" height="16" rx="1" fill="#8b6f47" opacity="0.6"/>
+                                            <circle cx="768" cy="435" r="6" fill="#c9a96e"/>
+                                            <rect x="675" y="496" width="110" height="20" rx="4" fill="rgba(0,0,0,0.45)"/>
+                                            <text x="729" y="510" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Shepherd's Rest</text>
+                                        </g>
+
+                                        <!-- Promised Land (Available) -->
+                                        <g class="svg-building" data-name="Promised Land" data-status="Available" data-d1="Clean &amp; inspected" data-d2="Next arrival: Feb 12" data-d3="">
+                                            <rect x="155" y="560" width="78" height="50" rx="3" fill="url(#cabinFill)" stroke="#4285f4" stroke-width="2"/>
+                                            <polygon points="155,560 194,528 233,560" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1"/>
+                                            <rect x="185" y="578" width="10" height="16" rx="1" fill="#8b6f47" opacity="0.6"/>
+                                            <circle cx="233" cy="555" r="6" fill="#4285f4"/>
+                                            <rect x="142" y="616" width="105" height="20" rx="4" fill="rgba(0,0,0,0.45)"/>
+                                            <text x="194" y="630" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Promised Land</text>
+                                        </g>
+
+                                        <!-- Mustard Seed (Occupied) -->
+                                        <g class="svg-building" data-name="Mustard Seed" data-status="Occupied" data-d1="Pastor Mitchell" data-d2="Check-out Feb 11" data-d3="Cleaned today">
+                                            <rect x="520" y="610" width="78" height="50" rx="3" fill="url(#cabinFill)" stroke="#b8963e" stroke-width="1.5"/>
+                                            <polygon points="520,610 559,578 598,610" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1"/>
+                                            <rect x="550" y="628" width="10" height="16" rx="1" fill="#8b6f47" opacity="0.6"/>
+                                            <circle cx="598" cy="605" r="6" fill="#3a5a40" class="svg-pulse"/>
+                                            <rect x="510" y="666" width="100" height="20" rx="4" fill="rgba(0,0,0,0.45)"/>
+                                            <text x="559" y="680" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Mustard Seed</text>
+                                        </g>
+
+                                        <!-- The Vineyard (Available) -->
+                                        <g class="svg-building" data-name="The Vineyard" data-status="Available" data-d1="Clean &amp; inspected" data-d2="Next arrival: Feb 15" data-d3="">
+                                            <rect x="810" y="600" width="78" height="50" rx="3" fill="url(#cabinFill)" stroke="#4285f4" stroke-width="2"/>
+                                            <polygon points="810,600 849,568 888,600" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1"/>
+                                            <rect x="840" y="618" width="10" height="16" rx="1" fill="#8b6f47" opacity="0.6"/>
+                                            <circle cx="888" cy="595" r="6" fill="#4285f4"/>
+                                            <rect x="800" y="656" width="100" height="20" rx="4" fill="rgba(0,0,0,0.45)"/>
+                                            <text x="849" y="670" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">The Vineyard</text>
+                                        </g>
+                                    </g>
+
+                                    <!-- ═══ AMENITIES ═══ -->
+                                    <g data-layer="amenities">
+                                        <!-- Main Lodge -->
+                                        <g class="svg-amenity" data-name="Main Lodge" data-status="Open" data-d1="Morning briefing 8am" data-d2="Dining &amp; lounge" data-d3="">
+                                            <rect x="620" y="110" width="120" height="70" rx="4" fill="url(#lodgeFill)" stroke="#b8963e" stroke-width="2"/>
+                                            <polygon points="620,110 680,65 740,110" fill="url(#roofFill)" stroke="#7a5f3a" stroke-width="1.5"/>
+                                            <line x1="680" y1="55" x2="680" y2="72" stroke="#c9a96e" stroke-width="2.5"/>
+                                            <line x1="673" y1="62" x2="687" y2="62" stroke="#c9a96e" stroke-width="2.5"/>
+                                            <rect x="662" y="140" width="14" height="22" rx="2" fill="#8b6f47" opacity="0.6"/>
+                                            <rect x="635" y="125" width="10" height="10" rx="1" fill="#a8d4f0" opacity="0.35"/>
+                                            <rect x="712" y="125" width="10" height="10" rx="1" fill="#a8d4f0" opacity="0.35"/>
+                                            <circle cx="740" cy="105" r="6" fill="#805ad5"/>
+                                            <rect x="618" y="186" width="124" height="22" rx="4" fill="rgba(0,0,0,0.5)"/>
+                                            <text x="680" y="201" text-anchor="middle" fill="white" font-family="Montserrat" font-size="11" font-weight="700">MAIN LODGE</text>
+                                        </g>
+
+                                        <!-- Spa & Wellness Haven -->
+                                        <g class="svg-amenity" data-name="Spa &amp; Wellness" data-status="Open" data-d1="2 sessions today" data-d2="Rachel on duty" data-d3="">
+                                            <rect x="1060" y="310" width="110" height="70" rx="20" fill="url(#spaFill)" stroke="#74b9e8" stroke-width="2"/>
+                                            <circle cx="1090" cy="345" r="12" fill="#a8d4f0" opacity="0.4"/>
+                                            <circle cx="1115" cy="340" r="14" fill="#a8d4f0" opacity="0.3"/>
+                                            <circle cx="1140" cy="348" r="10" fill="#a8d4f0" opacity="0.5"/>
+                                            <path d="M1090,325 Q1088,318 1092,310" fill="none" stroke="#cce8f5" stroke-width="1.5" opacity="0.6"/>
+                                            <path d="M1115,320 Q1113,313 1117,305" fill="none" stroke="#cce8f5" stroke-width="1.5" opacity="0.6"/>
+                                            <circle cx="1170" cy="305" r="6" fill="#805ad5"/>
+                                            <rect x="1050" y="386" width="130" height="22" rx="4" fill="rgba(116,185,232,0.7)"/>
+                                            <text x="1115" y="401" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="700">SPA &amp; WELLNESS</text>
+                                        </g>
+
+                                        <!-- Fire Pit -->
+                                        <g class="svg-amenity" data-name="Fire Pit" data-status="Available" data-d1="S'mores kits stocked" data-d2="Sunset gathering area" data-d3="">
+                                            <circle cx="480" cy="740" r="22" fill="#5a3a1e" stroke="#8b6f47" stroke-width="2"/>
+                                            <circle cx="480" cy="740" r="14" fill="#d4592a" opacity="0.7"/>
+                                            <circle cx="480" cy="740" r="8" fill="#f5a623" opacity="0.8"/>
+                                            <path d="M475,730 Q478,720 480,725 Q482,718 485,730" fill="#f5a623" opacity="0.6"/>
+                                            <circle cx="458" cy="720" r="5" fill="#8a8a7a" opacity="0.5"/>
+                                            <circle cx="502" cy="720" r="5" fill="#8a8a7a" opacity="0.5"/>
+                                            <circle cx="458" cy="760" r="5" fill="#8a8a7a" opacity="0.5"/>
+                                            <circle cx="502" cy="760" r="5" fill="#8a8a7a" opacity="0.5"/>
+                                            <rect x="452" y="775" width="56" height="18" rx="4" fill="rgba(0,0,0,0.45)"/>
+                                            <text x="480" y="788" text-anchor="middle" fill="white" font-family="Montserrat" font-size="9" font-weight="600">Fire Pit</text>
+                                        </g>
+                                    </g>
+
+                                    <!-- ═══ PARKING ═══ -->
+                                    <g class="svg-parking" data-layer="parking" style="display:none;" data-name="Main Parking" data-status="12/20 spots" data-d1="Guest &amp; staff" data-d2="EV charging available" data-d3="">
+                                        <rect x="110" y="790" width="140" height="70" rx="4" fill="none" stroke="#90a4ae" stroke-width="2" stroke-dasharray="8,4"/>
+                                        <line x1="140" y1="800" x2="140" y2="850" stroke="#90a4ae" stroke-width="1" opacity="0.5"/>
+                                        <line x1="170" y1="800" x2="170" y2="850" stroke="#90a4ae" stroke-width="1" opacity="0.5"/>
+                                        <line x1="200" y1="800" x2="200" y2="850" stroke="#90a4ae" stroke-width="1" opacity="0.5"/>
+                                        <line x1="230" y1="800" x2="230" y2="850" stroke="#90a4ae" stroke-width="1" opacity="0.5"/>
+                                        <rect x="144" y="815" width="22" height="12" rx="3" fill="#78909c" opacity="0.6"/>
+                                        <rect x="174" y="815" width="22" height="12" rx="3" fill="#78909c" opacity="0.6"/>
+                                        <rect x="204" y="815" width="22" height="12" rx="3" fill="#78909c" opacity="0.6"/>
+                                        <rect x="98" y="865" width="105" height="20" rx="4" fill="rgba(0,0,0,0.4)"/>
+                                        <text x="150" y="879" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Parking (12/20)</text>
+                                    </g>
+
+                                    <!-- ═══ STAFF BUILDING ═══ -->
+                                    <g class="svg-staff" data-layer="staff" data-name="Staff Building" data-status="Staff Only" data-d1="Break room &amp; lockers" data-d2="Storage &amp; supplies" data-d3="">
+                                        <rect x="1140" y="80" width="95" height="55" rx="3" fill="#d5d0c8" stroke="#a09888" stroke-width="1.5"/>
+                                        <polygon points="1140,80 1187,52 1235,80" fill="#8a8278" stroke="#7a7268" stroke-width="1"/>
+                                        <rect x="1178" y="100" width="10" height="18" rx="1" fill="#8a8278" opacity="0.6"/>
+                                        <circle cx="1235" cy="75" r="5" fill="#37474f"/>
+                                        <rect x="1130" y="140" width="115" height="20" rx="4" fill="rgba(55,71,79,0.6)"/>
+                                        <text x="1187" y="154" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Staff Building</text>
+                                    </g>
+
+                                    <!-- ═══ MAINTENANCE SHED ═══ -->
+                                    <g class="svg-maint" data-layer="maintenance" style="display:none;" data-name="Maintenance Shed" data-status="Active" data-d1="Tools &amp; equipment" data-d2="James on site" data-d3="">
+                                        <rect x="1080" y="700" width="70" height="45" rx="3" fill="#d5d0c8" stroke="#e57373" stroke-width="2"/>
+                                        <polygon points="1080,700 1115,678 1150,700" fill="#8a8278" stroke="#7a7268" stroke-width="1"/>
+                                        <rect x="1102" y="715" width="10" height="14" rx="1" fill="#8a8278" opacity="0.6"/>
+                                        <circle cx="1150" cy="695" r="5" fill="#e57373"/>
+                                        <rect x="1065" y="750" width="100" height="20" rx="4" fill="rgba(229,115,115,0.6)"/>
+                                        <text x="1115" y="764" text-anchor="middle" fill="white" font-family="Montserrat" font-size="10" font-weight="600">Maint. Shed</text>
+                                    </g>
+
+                                    <!-- Property label -->
+                                    <text x="700" y="50" text-anchor="middle" font-family="Cormorant Garamond" font-size="28" fill="rgba(255,255,255,0.2)" font-weight="700" letter-spacing="8">BOLT FARM TREEHOUSE</text>
+
+                                    <!-- Compass -->
+                                    <g transform="translate(60,60)">
+                                        <circle cx="0" cy="0" r="20" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                                        <text x="0" y="-6" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Montserrat" font-size="10" font-weight="700">N</text>
+                                        <polygon points="0,-3 -3,5 3,5" fill="rgba(255,255,255,0.5)"/>
+                                        <text x="0" y="14" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Montserrat" font-size="7">S</text>
+                                    </g>
+                                </svg>
+
+                                <!-- Tooltip -->
                                 <div class="map-tooltip" id="mapTooltip">
                                     <button class="map-tooltip-close" onclick="hideTooltip()"><i class="fas fa-times"></i></button>
                                     <div class="map-tooltip-header">
@@ -3939,6 +4271,10 @@
                                     <div class="map-tooltip-detail" id="ttD1"><i class="fas fa-info-circle"></i> <span id="ttD1t"></span></div>
                                     <div class="map-tooltip-detail" id="ttD2"><i class="fas fa-user"></i> <span id="ttD2t"></span></div>
                                     <div class="map-tooltip-detail" id="ttD3"><i class="fas fa-clock"></i> <span id="ttD3t"></span></div>
+                                    <div class="map-tooltip-actions">
+                                        <button class="map-tooltip-action" onclick="hideTooltip()"><i class="fas fa-eye"></i> Details</button>
+                                        <button class="map-tooltip-action" onclick="hideTooltip()"><i class="fas fa-bell"></i> Alert</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -4323,52 +4659,142 @@
         });
 
         // ═══ Resort Map ═══
-        // Overlay toggle
+        let mapScale = 1;
+        let mapX = 0, mapY = 0;
+        let isDragging = false;
+        let dragStartX, dragStartY, dragMapX, dragMapY;
+        const mapSvg = document.getElementById('resortMapSvg');
+        const mapWrap = document.getElementById('mapCanvasWrap');
+
+        function updateMapTransform() {
+            mapSvg.style.transform = `translate(${mapX}px, ${mapY}px) scale(${mapScale})`;
+            document.getElementById('mapZoomLevel').textContent = Math.round(mapScale * 100) + '%';
+        }
+
+        function mapZoom(dir) {
+            const step = 0.15;
+            mapScale = Math.min(3, Math.max(0.5, mapScale + dir * step));
+            updateMapTransform();
+            hideTooltip();
+        }
+
+        function mapReset() {
+            mapScale = 1; mapX = 0; mapY = 0;
+            updateMapTransform();
+            hideTooltip();
+        }
+
+        // Mouse wheel zoom
+        mapWrap.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            const dir = e.deltaY < 0 ? 1 : -1;
+            mapZoom(dir);
+        }, { passive: false });
+
+        // Drag to pan
+        mapWrap.addEventListener('mousedown', function(e) {
+            if (e.target.closest('.map-tooltip') || e.target.closest('.map-zoom-controls') || e.target.closest('.map-legend')) return;
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            dragMapX = mapX;
+            dragMapY = mapY;
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            mapX = dragMapX + (e.clientX - dragStartX);
+            mapY = dragMapY + (e.clientY - dragStartY);
+            updateMapTransform();
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        // Touch support for pan
+        mapWrap.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 1) {
+                const t = e.touches[0];
+                isDragging = true;
+                dragStartX = t.clientX;
+                dragStartY = t.clientY;
+                dragMapX = mapX;
+                dragMapY = mapY;
+            }
+        }, { passive: true });
+
+        mapWrap.addEventListener('touchmove', function(e) {
+            if (!isDragging || e.touches.length !== 1) return;
+            const t = e.touches[0];
+            mapX = dragMapX + (t.clientX - dragStartX);
+            mapY = dragMapY + (t.clientY - dragStartY);
+            updateMapTransform();
+        }, { passive: true });
+
+        mapWrap.addEventListener('touchend', function() { isDragging = false; });
+
+        // Overlay toggle for SVG layers
         function toggleOverlay(layer, btn) {
             btn.classList.toggle('active');
             const show = btn.classList.contains('active');
-            document.querySelectorAll(`.map-hotspot[data-layer="${layer}"]`).forEach(h => {
-                h.style.display = show ? '' : 'none';
+            // Toggle SVG groups with matching data-layer
+            document.querySelectorAll(`[data-layer="${layer}"]`).forEach(el => {
+                el.style.display = show ? '' : 'none';
             });
+            hideTooltip();
         }
 
-        // Tooltip
-        function showTooltip(el, name, status, d1, d2, d3) {
+        // SVG Building click → tooltip
+        document.querySelectorAll('.svg-building, .svg-amenity, .svg-parking, .svg-staff, .svg-maint').forEach(el => {
+            el.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const name = this.dataset.name || '';
+                const status = this.dataset.status || '';
+                const d1 = this.dataset.d1 || '';
+                const d2 = this.dataset.d2 || '';
+                const d3 = this.dataset.d3 || '';
+                showBuildingTooltip(this, name, status, d1, d2, d3);
+            });
+        });
+
+        function showBuildingTooltip(svgEl, name, status, d1, d2, d3) {
             const tt = document.getElementById('mapTooltip');
             document.getElementById('ttName').textContent = name;
 
             const statusEl = document.getElementById('ttStatus');
             statusEl.textContent = status;
             statusEl.className = 'map-tooltip-status';
-            if (status === 'Occupied') { statusEl.style.background = 'rgba(58,90,64,0.1)'; statusEl.style.color = 'var(--primary-green)'; }
-            else if (status === 'Available') { statusEl.style.background = 'rgba(66,133,244,0.1)'; statusEl.style.color = '#4285f4'; }
-            else if (status === 'Maintenance') { statusEl.style.background = 'rgba(229,115,115,0.1)'; statusEl.style.color = '#e57373'; }
-            else if (status === 'Cleaning') { statusEl.style.background = 'rgba(201,169,110,0.15)'; statusEl.style.color = '#b8942e'; }
-            else { statusEl.style.background = 'rgba(201,169,110,0.12)'; statusEl.style.color = 'var(--accent-gold)'; }
-
-            const d1El = document.getElementById('ttD1');
-            const d2El = document.getElementById('ttD2');
-            const d3El = document.getElementById('ttD3');
+            const statusColors = {
+                'Occupied': ['rgba(58,90,64,0.12)', 'var(--primary-green)'],
+                'Available': ['rgba(66,133,244,0.12)', '#4285f4'],
+                'Maintenance': ['rgba(229,115,115,0.12)', '#e57373'],
+                'Cleaning': ['rgba(201,169,110,0.15)', '#b8942e'],
+                'Open': ['rgba(128,90,213,0.12)', '#805ad5'],
+                'Staff Only': ['rgba(55,71,79,0.12)', '#37474f'],
+                'Active': ['rgba(229,115,115,0.12)', '#e57373'],
+            };
+            const sc = statusColors[status] || ['rgba(201,169,110,0.12)', 'var(--accent-gold)'];
+            statusEl.style.background = sc[0];
+            statusEl.style.color = sc[1];
 
             document.getElementById('ttD1t').textContent = d1;
-            d1El.style.display = d1 ? '' : 'none';
-
+            document.getElementById('ttD1').style.display = d1 ? '' : 'none';
             document.getElementById('ttD2t').textContent = d2;
-            d2El.style.display = d2 ? '' : 'none';
-
+            document.getElementById('ttD2').style.display = d2 ? '' : 'none';
             document.getElementById('ttD3t').textContent = d3;
-            d3El.style.display = d3 ? '' : 'none';
+            document.getElementById('ttD3').style.display = d3 ? '' : 'none';
 
-            // Position tooltip near the hotspot
-            const wrap = document.getElementById('mapImageWrap');
-            const wrapRect = wrap.getBoundingClientRect();
-            const elRect = el.getBoundingClientRect();
-            let left = elRect.left - wrapRect.left + 35;
-            let top = elRect.top - wrapRect.top - 20;
+            // Position tooltip near the clicked SVG element
+            const wrapRect = mapWrap.getBoundingClientRect();
+            const elRect = svgEl.getBoundingClientRect();
+            let left = elRect.right - wrapRect.left + 12;
+            let top = elRect.top - wrapRect.top + (elRect.height / 2) - 60;
 
             // Keep within bounds
-            if (left + 220 > wrapRect.width) left = elRect.left - wrapRect.left - 230;
-            if (top < 0) top = 10;
+            if (left + 260 > wrapRect.width) left = elRect.left - wrapRect.left - 260;
+            if (top < 10) top = 10;
+            if (top + 200 > wrapRect.height) top = wrapRect.height - 210;
 
             tt.style.left = left + 'px';
             tt.style.top = top + 'px';
@@ -4380,10 +4806,34 @@
         }
 
         // Close tooltip when clicking elsewhere on map
-        document.getElementById('mapImageWrap').addEventListener('click', function(e) {
-            if (!e.target.closest('.map-hotspot') && !e.target.closest('.map-tooltip')) {
+        mapWrap.addEventListener('click', function(e) {
+            if (!e.target.closest('.svg-building') && !e.target.closest('.svg-amenity') &&
+                !e.target.closest('.svg-parking') && !e.target.closest('.svg-staff') &&
+                !e.target.closest('.svg-maint') && !e.target.closest('.map-tooltip') &&
+                !e.target.closest('.map-zoom-controls') && !e.target.closest('.map-legend')) {
                 hideTooltip();
             }
+        });
+
+        // Highlight room in sidebar on hover
+        document.querySelectorAll('.map-room-item').forEach((item, idx) => {
+            item.addEventListener('click', function() {
+                const roomName = this.querySelector('.map-room-name').textContent;
+                const building = document.querySelector(`.svg-building[data-name="${roomName}"]`);
+                if (building) {
+                    building.dispatchEvent(new Event('click', { bubbles: true }));
+                    // Scroll building into view by centering
+                    const bRect = building.getBoundingClientRect();
+                    const wRect = mapWrap.getBoundingClientRect();
+                    const centerX = wRect.width / 2;
+                    const centerY = wRect.height / 2;
+                    const bCenterX = bRect.left + bRect.width / 2 - wRect.left;
+                    const bCenterY = bRect.top + bRect.height / 2 - wRect.top;
+                    mapX += (centerX - bCenterX);
+                    mapY += (centerY - bCenterY);
+                    updateMapTransform();
+                }
+            });
         });
     </script>
 </body>
