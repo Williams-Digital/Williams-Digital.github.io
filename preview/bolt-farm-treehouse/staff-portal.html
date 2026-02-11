@@ -378,175 +378,239 @@
         /* ═══════════════════════════════════════ */
         /*            OVERVIEW PANEL                */
         /* ═══════════════════════════════════════ */
+
+        /* ── Stat Cards ── */
         .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
-            margin-bottom: 2rem;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 1rem; margin-bottom: 1.5rem;
         }
-
         .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid #e8e5e0;
+            background: white; border-radius: 14px; padding: 1.35rem 1.4rem;
+            border: 1px solid #e8e5e0; position: relative; overflow: hidden;
+            transition: all 0.25s;
         }
-
+        .stat-card:hover { border-color: var(--accent-gold); box-shadow: 0 4px 20px rgba(0,0,0,0.05); transform: translateY(-2px); }
+        .stat-card::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+        }
+        .stat-card.sc-green::after { background: var(--primary-green); }
+        .stat-card.sc-gold::after { background: var(--accent-gold); }
+        .stat-card.sc-blue::after { background: #4285f4; }
+        .stat-card.sc-red::after { background: #e57373; }
         .stat-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.75rem;
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem;
         }
-
         .stat-card-header i {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
+            width: 42px; height: 42px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 1rem;
         }
-
         .stat-icon-green { background: rgba(58,90,64,0.1); color: var(--primary-green); }
         .stat-icon-gold { background: rgba(201,169,110,0.15); color: var(--accent-gold); }
         .stat-icon-blue { background: rgba(66,133,244,0.1); color: #4285f4; }
         .stat-icon-red { background: rgba(229,115,115,0.1); color: #e57373; }
-
         .stat-trend {
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 0.2rem 0.5rem;
-            border-radius: 20px;
+            font-size: 0.62rem; font-weight: 700; padding: 0.2rem 0.55rem;
+            border-radius: 20px; display: flex; align-items: center; gap: 0.2rem;
         }
-
         .trend-up { background: rgba(58,90,64,0.1); color: var(--primary-green); }
         .trend-down { background: rgba(229,115,115,0.1); color: #e57373; }
-
         .stat-card h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            line-height: 1;
+            font-family: 'Cormorant Garamond', serif; font-size: 2.2rem;
+            font-weight: 700; color: var(--primary-dark); line-height: 1;
         }
-
         .stat-card p {
-            font-size: 0.7rem;
-            color: var(--text-medium);
-            letter-spacing: 0.5px;
-            margin-top: 0.25rem;
+            font-size: 0.68rem; color: var(--text-medium);
+            letter-spacing: 0.5px; margin-top: 0.2rem; text-transform: uppercase; font-weight: 500;
+        }
+        .stat-progress {
+            margin-top: 0.75rem; height: 4px; background: #eee; border-radius: 4px; overflow: hidden;
+        }
+        .stat-progress-fill {
+            height: 100%; border-radius: 4px; transition: width 0.5s ease;
         }
 
+        /* ── Quick Actions ── */
+        .quick-actions {
+            display: flex; gap: 0.65rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+        }
+        .quick-action-btn {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.6rem 1.15rem; border-radius: 10px; border: 1px solid #e0ddd8;
+            background: white; font-family: 'Montserrat', sans-serif; font-size: 0.72rem;
+            font-weight: 600; color: var(--text-dark); cursor: pointer; transition: all 0.2s;
+        }
+        .quick-action-btn:hover {
+            border-color: var(--accent-gold); color: var(--accent-gold);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .quick-action-btn i { font-size: 0.8rem; }
+
+        /* ── Dashboard Grid ── */
         .overview-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.25rem;
+            display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 1rem;
+            margin-bottom: 1rem;
         }
-
+        .overview-row-2 {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+        }
         .card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e8e5e0;
-            overflow: hidden;
+            background: white; border-radius: 14px; border: 1px solid #e8e5e0; overflow: hidden;
         }
-
         .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid #f0ede8;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.1rem 1.35rem; border-bottom: 1px solid #f0ede8;
         }
-
         .card-header h3 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--primary-dark);
+            font-size: 0.85rem; font-weight: 600; color: var(--primary-dark);
+            display: flex; align-items: center; gap: 0.5rem;
         }
-
+        .card-header h3 i { font-size: 0.75rem; color: var(--text-medium); }
         .card-header-action {
-            font-size: 0.7rem;
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-            background: none;
-            border: none;
+            font-size: 0.68rem; color: var(--accent-gold); text-decoration: none;
+            font-weight: 600; cursor: pointer; background: none; border: none;
             font-family: 'Montserrat', sans-serif;
         }
+        .card-body { padding: 1.15rem 1.35rem; }
 
-        .card-body { padding: 1.25rem 1.5rem; }
-
-        /* Activity feed */
+        /* ── Activity Feed ── */
         .activity-item {
-            display: flex;
-            gap: 0.85rem;
-            padding: 0.85rem 0;
-            border-bottom: 1px solid #f5f3f0;
+            display: flex; gap: 0.85rem; padding: 0.75rem 0; border-bottom: 1px solid #f5f3f0;
         }
-
         .activity-item:last-child { border-bottom: none; }
-
         .activity-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            flex-shrink: 0;
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; flex-shrink: 0;
         }
-
         .activity-icon.green { background: rgba(58,90,64,0.1); color: var(--primary-green); }
         .activity-icon.gold { background: rgba(201,169,110,0.15); color: var(--accent-gold); }
         .activity-icon.blue { background: rgba(66,133,244,0.1); color: #4285f4; }
         .activity-icon.red { background: rgba(229,115,115,0.1); color: #e57373; }
-
-        .activity-text {
-            font-size: 0.8rem;
-            color: var(--text-dark);
-            line-height: 1.4;
-        }
-
+        .activity-text { font-size: 0.78rem; color: var(--text-dark); line-height: 1.4; }
         .activity-text strong { font-weight: 600; }
+        .activity-time { font-size: 0.62rem; color: var(--text-medium); margin-top: 0.15rem; }
 
-        .activity-time {
-            font-size: 0.65rem;
-            color: var(--text-medium);
-            margin-top: 0.2rem;
+        /* ── Today's Timeline ── */
+        .timeline-list { position: relative; padding-left: 1.5rem; }
+        .timeline-list::before {
+            content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px;
+            width: 2px; background: #e8e5e0;
         }
-
-        /* Quick occupancy */
-        .occupancy-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #f5f3f0;
+        .timeline-item {
+            position: relative; padding: 0.6rem 0; display: flex; align-items: flex-start; gap: 0.75rem;
         }
-
-        .occupancy-item:last-child { border-bottom: none; }
-
-        .occupancy-name {
-            font-size: 0.8rem;
-            font-weight: 500;
+        .timeline-dot {
+            position: absolute; left: -1.5rem; top: 0.85rem;
+            width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;
+            box-shadow: 0 0 0 2px #e8e5e0; z-index: 1;
         }
-
-        .occupancy-status {
-            font-size: 0.65rem;
-            font-weight: 600;
-            padding: 0.25rem 0.65rem;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
+        .timeline-dot.done { background: var(--primary-green); box-shadow: 0 0 0 2px var(--primary-green); }
+        .timeline-dot.active { background: var(--accent-gold); box-shadow: 0 0 0 2px var(--accent-gold); animation: pulse-dot 2s infinite; }
+        .timeline-dot.upcoming { background: #e8e5e0; }
+        @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 2px var(--accent-gold); } 50% { box-shadow: 0 0 0 5px rgba(201,169,110,0.25); } }
+        .timeline-time {
+            font-size: 0.65rem; font-weight: 700; color: var(--text-medium);
+            min-width: 52px; padding-top: 0.1rem;
         }
+        .timeline-content { flex: 1; }
+        .timeline-title { font-size: 0.78rem; font-weight: 600; color: var(--primary-dark); }
+        .timeline-desc { font-size: 0.68rem; color: var(--text-medium); margin-top: 0.1rem; }
 
-        .status-occupied { background: rgba(58,90,64,0.1); color: var(--primary-green); }
-        .status-available { background: rgba(66,133,244,0.1); color: #4285f4; }
-        .status-cleaning { background: rgba(201,169,110,0.15); color: #b8942e; }
-        .status-maintenance { background: rgba(229,115,115,0.1); color: #e57373; }
+        /* ── Weather Widget ── */
+        .weather-card { text-align: center; }
+        .weather-top {
+            display: flex; align-items: center; justify-content: center; gap: 1rem;
+            padding: 1rem 0 0.75rem;
+        }
+        .weather-temp {
+            font-family: 'Cormorant Garamond', serif; font-size: 2.8rem;
+            font-weight: 700; color: var(--primary-dark); line-height: 1;
+        }
+        .weather-icon { font-size: 2.2rem; color: var(--accent-gold); }
+        .weather-condition {
+            font-size: 0.78rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.25rem;
+        }
+        .weather-location {
+            font-size: 0.65rem; color: var(--text-medium);
+        }
+        .weather-details {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 0; margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid #f0ede8;
+        }
+        .weather-detail { text-align: center; }
+        .weather-detail-val { font-size: 0.82rem; font-weight: 700; color: var(--primary-dark); }
+        .weather-detail-label { font-size: 0.58rem; color: var(--text-medium); text-transform: uppercase; letter-spacing: 0.5px; }
+        .weather-forecast {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.25rem;
+            margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #f0ede8;
+        }
+        .forecast-day { text-align: center; padding: 0.35rem; }
+        .forecast-label { font-size: 0.58rem; font-weight: 600; color: var(--text-medium); }
+        .forecast-icon { font-size: 0.85rem; color: var(--accent-gold); margin: 0.2rem 0; }
+        .forecast-temp { font-size: 0.68rem; font-weight: 700; color: var(--primary-dark); }
+
+        /* ── Guest Arrivals/Departures ── */
+        .guest-row {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.65rem 0; border-bottom: 1px solid #f5f3f0;
+        }
+        .guest-row:last-child { border-bottom: none; }
+        .guest-row-icon {
+            width: 32px; height: 32px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0;
+        }
+        .guest-row-icon.arrival { background: rgba(58,90,64,0.1); color: var(--primary-green); }
+        .guest-row-icon.departure { background: rgba(229,115,115,0.1); color: #e57373; }
+        .guest-row-info { flex: 1; }
+        .guest-row-name { font-size: 0.78rem; font-weight: 600; color: var(--primary-dark); }
+        .guest-row-detail { font-size: 0.65rem; color: var(--text-medium); }
+        .guest-row-time { font-size: 0.62rem; font-weight: 600; color: var(--text-medium); }
+
+        /* ── Staff On Duty ── */
+        .staff-duty-item {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.6rem 0; border-bottom: 1px solid #f5f3f0;
+        }
+        .staff-duty-item:last-child { border-bottom: none; }
+        .staff-duty-avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem; font-weight: 700; color: white; flex-shrink: 0;
+            position: relative;
+        }
+        .staff-duty-dot {
+            width: 9px; height: 9px; border-radius: 50%;
+            border: 2px solid white; position: absolute; bottom: -1px; right: -1px;
+        }
+        .staff-duty-dot.online { background: #4caf50; }
+        .staff-duty-dot.away { background: var(--accent-gold); }
+        .staff-duty-info { flex: 1; }
+        .staff-duty-name { font-size: 0.78rem; font-weight: 600; color: var(--primary-dark); }
+        .staff-duty-role { font-size: 0.62rem; color: var(--text-medium); }
+
+        /* ── Daily Devotional ── */
+        .devotional-card-inner {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #2a3a2e 100%);
+            border-radius: 14px; padding: 1.5rem; color: white; position: relative; overflow: hidden;
+        }
+        .devotional-card-inner::before {
+            content: '\201C'; position: absolute; top: -10px; right: 20px;
+            font-family: 'Cormorant Garamond', serif; font-size: 8rem;
+            color: rgba(255,255,255,0.05); line-height: 1;
+        }
+        .devotional-verse {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+            font-style: italic; line-height: 1.6; margin-bottom: 0.75rem;
+            position: relative; z-index: 1;
+        }
+        .devotional-ref {
+            font-family: 'Montserrat', sans-serif; font-size: 0.68rem;
+            font-weight: 600; color: var(--accent-gold); letter-spacing: 0.5px;
+        }
+        .devotional-label {
+            font-size: 0.58rem; text-transform: uppercase; letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; font-weight: 600;
+        }
 
         /* ═══════════════════════════════════════ */
         /*            STAFF CHAT                    */
@@ -2981,123 +3045,390 @@
 
             <!-- ═══ OVERVIEW ═══ -->
             <div class="panel active" id="panel-overview">
+
+                <!-- ── Stat Cards ── -->
                 <div class="stats-grid">
-                    <div class="stat-card">
+                    <div class="stat-card sc-green">
                         <div class="stat-card-header">
                             <i class="fas fa-bed stat-icon-green"></i>
                             <span class="stat-trend trend-up"><i class="fas fa-arrow-up"></i> 12%</span>
                         </div>
                         <h3>87%</h3>
                         <p>Occupancy Rate</p>
+                        <div class="stat-progress"><div class="stat-progress-fill" style="width:87%;background:var(--primary-green)"></div></div>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card sc-gold">
                         <div class="stat-card-header">
                             <i class="fas fa-users stat-icon-gold"></i>
+                            <span class="stat-trend trend-up"><i class="fas fa-arrow-up"></i> Full</span>
                         </div>
                         <h3>14</h3>
                         <p>Staff On Duty</p>
+                        <div class="stat-progress"><div class="stat-progress-fill" style="width:100%;background:var(--accent-gold)"></div></div>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card sc-blue">
                         <div class="stat-card-header">
                             <i class="fas fa-concierge-bell stat-icon-blue"></i>
+                            <span class="stat-trend trend-down"><i class="fas fa-arrow-down"></i> 2 new</span>
                         </div>
                         <h3>4</h3>
                         <p>Pending Requests</p>
+                        <div class="stat-progress"><div class="stat-progress-fill" style="width:50%;background:#4285f4"></div></div>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card sc-red">
                         <div class="stat-card-header">
                             <i class="fas fa-exclamation-triangle stat-icon-red"></i>
                         </div>
                         <h3>1</h3>
                         <p>Maintenance Alert</p>
+                        <div class="stat-progress"><div class="stat-progress-fill" style="width:12%;background:#e57373"></div></div>
                     </div>
                 </div>
 
+                <!-- ── Quick Actions ── -->
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="switchPanel('housekeeping', document.querySelector('[onclick*=housekeeping]'))"><i class="fas fa-broom"></i> Room Status</button>
+                    <button class="quick-action-btn" onclick="switchPanel('requests', document.querySelector('[onclick*=requests]'))"><i class="fas fa-concierge-bell"></i> Requests</button>
+                    <button class="quick-action-btn" onclick="switchPanel('scheduling', document.querySelector('[onclick*=scheduling]'))"><i class="fas fa-calendar-alt"></i> Schedule</button>
+                    <button class="quick-action-btn" onclick="switchPanel('chat', document.querySelector('[onclick*=chat]'))"><i class="fas fa-comments"></i> Staff Chat</button>
+                    <button class="quick-action-btn" onclick="switchPanel('map', document.querySelector('[onclick*=map]'))"><i class="fas fa-map-marked-alt"></i> Resort Map</button>
+                </div>
+
+                <!-- ── Main Dashboard Grid (3 columns) ── -->
                 <div class="overview-grid">
+
+                    <!-- Column 1: Today's Timeline -->
                     <div class="card">
                         <div class="card-header">
-                            <h3>Recent Activity</h3>
-                            <button class="card-header-action">View All</button>
+                            <h3><i class="fas fa-stream"></i> Today's Schedule</h3>
+                            <button class="card-header-action" onclick="switchPanel('scheduling', document.querySelector('[onclick*=scheduling]'))">Full Schedule</button>
                         </div>
                         <div class="card-body">
-                            <div class="activity-item">
-                                <div class="activity-icon green"><i class="fas fa-check"></i></div>
-                                <div>
-                                    <div class="activity-text"><strong>Maria S.</strong> marked <strong>Eden Suite</strong> as cleaned</div>
-                                    <div class="activity-time">12 minutes ago</div>
+                            <div class="timeline-list">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot done"></div>
+                                    <div class="timeline-time">6:00 AM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Sunrise Prayer Walk</div>
+                                        <div class="timeline-desc">Optional — Summit Trail viewpoint</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon gold"><i class="fas fa-concierge-bell"></i></div>
-                                <div>
-                                    <div class="activity-text">New special request from <strong>Covenant Cabin</strong> — anniversary flowers</div>
-                                    <div class="activity-time">34 minutes ago</div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot done"></div>
+                                    <div class="timeline-time">7:00 AM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Breakfast Service Opens</div>
+                                        <div class="timeline-desc">Chef Dan — Main Lodge dining</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon blue"><i class="fas fa-spa"></i></div>
-                                <div>
-                                    <div class="activity-text"><strong>Rachel T.</strong> confirmed spa booking for Cabin 3 guests</div>
-                                    <div class="activity-time">1 hour ago</div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot done"></div>
+                                    <div class="timeline-time">8:00 AM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Staff Morning Devotional &amp; Briefing</div>
+                                        <div class="timeline-desc">Sarah Bennett — Main Lodge</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon red"><i class="fas fa-tools"></i></div>
-                                <div>
-                                    <div class="activity-text"><strong>James W.</strong> reported deck railing issue at <strong>Summit Lodge</strong></div>
-                                    <div class="activity-time">2 hours ago</div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot done"></div>
+                                    <div class="timeline-time">9:00 AM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Housekeeping Rounds Begin</div>
+                                        <div class="timeline-desc">Maria S. &amp; Ana R. — 8 cabins</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon green"><i class="fas fa-sign-in-alt"></i></div>
-                                <div>
-                                    <div class="activity-text">Guest check-in completed — <strong>The Ark</strong></div>
-                                    <div class="activity-time">3 hours ago</div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot active"></div>
+                                    <div class="timeline-time">10:00 AM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Spa Sessions — Morning Block</div>
+                                        <div class="timeline-desc">Rachel T. — Couples massage + HydraFacial</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot upcoming"></div>
+                                    <div class="timeline-time">12:00 PM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Lunch Service</div>
+                                        <div class="timeline-desc">Chef Dan — Light menu at Main Lodge</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot upcoming"></div>
+                                    <div class="timeline-time">2:00 PM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Afternoon Spa Sessions</div>
+                                        <div class="timeline-desc">Williams couple massage + Mitchell cabin setup</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot upcoming"></div>
+                                    <div class="timeline-time">5:00 PM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Davis Anniversary Dinner Prep</div>
+                                        <div class="timeline-desc">Flowers, wine, candles — Covenant Cabin</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot upcoming"></div>
+                                    <div class="timeline-time">6:30 PM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Dinner Service &amp; Deck Dining</div>
+                                        <div class="timeline-desc">Chef Dan + Rachel — Williams private dinner on deck</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot upcoming"></div>
+                                    <div class="timeline-time">8:30 PM</div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Fire Pit &amp; S'mores</div>
+                                        <div class="timeline-desc">Johnson family — Tom H. setup</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Room Status</h3>
+                    <!-- Column 2: Activity Feed + Guest Arrivals -->
+                    <div style="display:flex;flex-direction:column;gap:1rem">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-bolt"></i> Recent Activity</h3>
+                                <button class="card-header-action">View All</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-item">
+                                    <div class="activity-icon green"><i class="fas fa-check"></i></div>
+                                    <div>
+                                        <div class="activity-text"><strong>Maria S.</strong> marked <strong>Eden Suite</strong> as cleaned</div>
+                                        <div class="activity-time">12 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon gold"><i class="fas fa-concierge-bell"></i></div>
+                                    <div>
+                                        <div class="activity-text">New request from <strong>Covenant Cabin</strong> — anniversary setup</div>
+                                        <div class="activity-time">34 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon blue"><i class="fas fa-spa"></i></div>
+                                    <div>
+                                        <div class="activity-text"><strong>Rachel T.</strong> confirmed spa booking for Ark guests</div>
+                                        <div class="activity-time">1 hour ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon red"><i class="fas fa-tools"></i></div>
+                                    <div>
+                                        <div class="activity-text"><strong>James W.</strong> reported deck railing issue at <strong>Summit Lodge</strong></div>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon green"><i class="fas fa-sign-in-alt"></i></div>
+                                    <div>
+                                        <div class="activity-text">Guest check-in completed — <strong>The Ark</strong></div>
+                                        <div class="activity-time">3 hours ago</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="occupancy-item">
-                                <span class="occupancy-name">Eden Suite</span>
-                                <span class="occupancy-status status-occupied">Occupied</span>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-exchange-alt"></i> Guest Movement</h3>
                             </div>
-                            <div class="occupancy-item">
-                                <span class="occupancy-name">The Ark</span>
-                                <span class="occupancy-status status-occupied">Occupied</span>
+                            <div class="card-body">
+                                <div class="guest-row">
+                                    <div class="guest-row-icon departure"><i class="fas fa-sign-out-alt"></i></div>
+                                    <div class="guest-row-info">
+                                        <div class="guest-row-name">Pastor Mitchell</div>
+                                        <div class="guest-row-detail">Mustard Seed — 2-night stay</div>
+                                    </div>
+                                    <div class="guest-row-time">11:00 AM</div>
+                                </div>
+                                <div class="guest-row">
+                                    <div class="guest-row-icon arrival"><i class="fas fa-sign-in-alt"></i></div>
+                                    <div class="guest-row-info">
+                                        <div class="guest-row-name">Thompson Family</div>
+                                        <div class="guest-row-detail">Promised Land — 4 nights</div>
+                                    </div>
+                                    <div class="guest-row-time">3:00 PM</div>
+                                </div>
+                                <div class="guest-row">
+                                    <div class="guest-row-icon departure"><i class="fas fa-sign-out-alt"></i></div>
+                                    <div class="guest-row-info">
+                                        <div class="guest-row-name">Shepherd's Rest Guests</div>
+                                        <div class="guest-row-detail">Checked out — room in cleaning</div>
+                                    </div>
+                                    <div class="guest-row-time">10:00 AM</div>
+                                </div>
                             </div>
-                            <div class="occupancy-item">
-                                <span class="occupancy-name">Covenant Cabin</span>
-                                <span class="occupancy-status status-occupied">Occupied</span>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Weather + Staff -->
+                    <div style="display:flex;flex-direction:column;gap:1rem">
+                        <div class="card weather-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-cloud-sun"></i> Weather</h3>
+                                <span style="font-size:0.62rem;color:var(--text-medium)">Dunlap, TN</span>
                             </div>
-                            <div class="occupancy-item">
-                                <span class="occupancy-name">Summit Lodge</span>
-                                <span class="occupancy-status status-maintenance">Maintenance</span>
+                            <div class="card-body">
+                                <div class="weather-top">
+                                    <div class="weather-icon"><i class="fas fa-sun"></i></div>
+                                    <div>
+                                        <div class="weather-temp">54°</div>
+                                    </div>
+                                </div>
+                                <div class="weather-condition">Partly Sunny</div>
+                                <div class="weather-location">Sequatchie Valley · Elevation 1,800 ft</div>
+                                <div class="weather-details">
+                                    <div class="weather-detail">
+                                        <div class="weather-detail-val">68°</div>
+                                        <div class="weather-detail-label">High</div>
+                                    </div>
+                                    <div class="weather-detail">
+                                        <div class="weather-detail-val">42°</div>
+                                        <div class="weather-detail-label">Low</div>
+                                    </div>
+                                    <div class="weather-detail">
+                                        <div class="weather-detail-val">5%</div>
+                                        <div class="weather-detail-label">Rain</div>
+                                    </div>
+                                </div>
+                                <div class="weather-forecast">
+                                    <div class="forecast-day">
+                                        <div class="forecast-label">Tue</div>
+                                        <div class="forecast-icon"><i class="fas fa-cloud-sun"></i></div>
+                                        <div class="forecast-temp">65°</div>
+                                    </div>
+                                    <div class="forecast-day">
+                                        <div class="forecast-label">Wed</div>
+                                        <div class="forecast-icon"><i class="fas fa-cloud-rain"></i></div>
+                                        <div class="forecast-temp">58°</div>
+                                    </div>
+                                    <div class="forecast-day">
+                                        <div class="forecast-label">Thu</div>
+                                        <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+                                        <div class="forecast-temp">72°</div>
+                                    </div>
+                                    <div class="forecast-day">
+                                        <div class="forecast-label">Fri</div>
+                                        <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+                                        <div class="forecast-temp">70°</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="occupancy-item">
-                                <span class="occupancy-name">Shepherd's Rest</span>
-                                <span class="occupancy-status status-cleaning">Cleaning</span>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-user-friends"></i> Staff On Duty</h3>
+                                <span style="font-size:0.62rem;color:var(--primary-green);font-weight:600">8 online</span>
                             </div>
-                            <div class="occupancy-item">
-                                <span class="occupancy-name">Promised Land</span>
-                                <span class="occupancy-status status-available">Available</span>
-                            </div>
-                            <div class="occupancy-item">
-                                <span class="occupancy-name">Mustard Seed</span>
-                                <span class="occupancy-status status-occupied">Occupied</span>
-                            </div>
-                            <div class="occupancy-item">
-                                <span class="occupancy-name">The Vineyard</span>
-                                <span class="occupancy-status status-available">Available</span>
+                            <div class="card-body" style="padding-top:0.65rem;padding-bottom:0.65rem">
+                                <div class="staff-duty-item">
+                                    <div class="staff-duty-avatar" style="background:var(--primary-green)">SB<div class="staff-duty-dot online"></div></div>
+                                    <div class="staff-duty-info">
+                                        <div class="staff-duty-name">Sarah Bennett</div>
+                                        <div class="staff-duty-role">General Manager</div>
+                                    </div>
+                                </div>
+                                <div class="staff-duty-item">
+                                    <div class="staff-duty-avatar" style="background:var(--accent-gold);color:var(--primary-dark)">MS<div class="staff-duty-dot online"></div></div>
+                                    <div class="staff-duty-info">
+                                        <div class="staff-duty-name">Maria Sanchez</div>
+                                        <div class="staff-duty-role">Housekeeping Lead</div>
+                                    </div>
+                                </div>
+                                <div class="staff-duty-item">
+                                    <div class="staff-duty-avatar" style="background:#4285f4">TH<div class="staff-duty-dot online"></div></div>
+                                    <div class="staff-duty-info">
+                                        <div class="staff-duty-name">Tom Henderson</div>
+                                        <div class="staff-duty-role">Front Desk</div>
+                                    </div>
+                                </div>
+                                <div class="staff-duty-item">
+                                    <div class="staff-duty-avatar" style="background:#805ad5">RT<div class="staff-duty-dot online"></div></div>
+                                    <div class="staff-duty-info">
+                                        <div class="staff-duty-name">Rachel Torres</div>
+                                        <div class="staff-duty-role">Spa &amp; Wellness</div>
+                                    </div>
+                                </div>
+                                <div class="staff-duty-item">
+                                    <div class="staff-duty-avatar" style="background:#e57373">JW<div class="staff-duty-dot away"></div></div>
+                                    <div class="staff-duty-info">
+                                        <div class="staff-duty-name">James Walker</div>
+                                        <div class="staff-duty-role">Maintenance — on repair</div>
+                                    </div>
+                                </div>
+                                <div class="staff-duty-item">
+                                    <div class="staff-duty-avatar" style="background:#d4a24e">CD<div class="staff-duty-dot online"></div></div>
+                                    <div class="staff-duty-info">
+                                        <div class="staff-duty-name">Chef Dan</div>
+                                        <div class="staff-duty-role">Kitchen &amp; Dining</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- ── Bottom Row: Devotional ── -->
+                <div class="overview-row-2" style="margin-top:1rem">
+                    <div class="devotional-card-inner">
+                        <div class="devotional-label"><i class="fas fa-bible"></i> &nbsp;Daily Devotional</div>
+                        <div class="devotional-verse">
+                            "And let us not grow weary of doing good, for in due season we will reap, if we do not give up. So then, as we have opportunity, let us do good to everyone, and especially to those who are of the household of faith."
+                        </div>
+                        <div class="devotional-ref">— Galatians 6:9–10 (ESV)</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-door-open"></i> Room Status</h3>
+                            <button class="card-header-action" onclick="switchPanel('housekeeping', document.querySelector('[onclick*=housekeeping]'))">Manage</button>
+                        </div>
+                        <div class="card-body" style="padding:0.75rem 1.35rem">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.25rem 1.5rem">
+                                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid #f5f3f0">
+                                    <span style="font-size:0.78rem;font-weight:500">Eden Suite</span>
+                                    <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(58,90,64,0.1);color:var(--primary-green)">Occupied</span>
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid #f5f3f0">
+                                    <span style="font-size:0.78rem;font-weight:500">The Ark</span>
+                                    <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(58,90,64,0.1);color:var(--primary-green)">Occupied</span>
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid #f5f3f0">
+                                    <span style="font-size:0.78rem;font-weight:500">Covenant Cabin</span>
+                                    <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(58,90,64,0.1);color:var(--primary-green)">Occupied</span>
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid #f5f3f0">
+                                    <span style="font-size:0.78rem;font-weight:500">Summit Lodge</span>
+                                    <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(229,115,115,0.1);color:#e57373">Maintenance</span>
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid #f5f3f0">
+                                    <span style="font-size:0.78rem;font-weight:500">Shepherd's Rest</span>
+                                    <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(201,169,110,0.15);color:#b8942e">Cleaning</span>
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid #f5f3f0">
+                                    <span style="font-size:0.78rem;font-weight:500">Promised Land</span>
+                                    <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(66,133,244,0.1);color:#4285f4">Available</span>
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0;border-bottom:1px solid #f5f3f0">
+                                    <span style="font-size:0.78rem;font-weight:500">Mustard Seed</span>
+                                    <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(58,90,64,0.1);color:var(--primary-green)">Occupied</span>
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:space-between;padding:0.45rem 0">
+                                    <span style="font-size:0.78rem;font-weight:500">The Vineyard</span>
+                                    <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:rgba(66,133,244,0.1);color:#4285f4">Available</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- ═══ STAFF CHAT ═══ -->
