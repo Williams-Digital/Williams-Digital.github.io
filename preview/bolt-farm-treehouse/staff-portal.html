@@ -1883,194 +1883,305 @@
         /* ═══════════════════════════════════════ */
         /*            HOUSEKEEPING                  */
         /* ═══════════════════════════════════════ */
+
+        /* HK Stats Bar */
+        .hk-stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+        .hk-stat-card {
+            background: white; border-radius: 12px; border: 1px solid #e8e5e0;
+            padding: 1rem 1.15rem; text-align: center; position: relative; overflow: hidden;
+        }
+        .hk-stat-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        }
+        .hk-stat-card.stat-clean::before { background: var(--primary-green); }
+        .hk-stat-card.stat-pending::before { background: var(--accent-gold); }
+        .hk-stat-card.stat-cleaning::before { background: #4285f4; }
+        .hk-stat-card.stat-maint::before { background: #e57373; }
+        .hk-stat-card.stat-available::before { background: #81c784; }
+        .hk-stat-number {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700;
+            color: var(--primary-dark); line-height: 1;
+        }
+        .hk-stat-label {
+            font-size: 0.65rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+            color: var(--text-medium); margin-top: 0.25rem;
+        }
+
+        /* HK Tabs */
         .hk-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            display: flex; gap: 0; margin-bottom: 1.25rem;
+            border-bottom: 2px solid #e8e5e0;
         }
-
         .hk-tab {
-            padding: 0.6rem 1.25rem;
-            border-radius: 8px;
-            background: white;
-            border: 1px solid #e0ddd8;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--text-medium);
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            padding: 0.7rem 1.5rem; border: none; background: none;
+            font-family: 'Montserrat', sans-serif; font-size: 0.78rem; font-weight: 600;
+            color: var(--text-medium); cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 0.5rem; position: relative;
+            border-bottom: 2px solid transparent; margin-bottom: -2px;
         }
-
-        .hk-tab:hover { border-color: var(--accent-gold); }
-
+        .hk-tab:hover { color: var(--primary-dark); }
         .hk-tab.active {
-            background: var(--primary-dark);
-            color: white;
-            border-color: var(--primary-dark);
+            color: var(--primary-dark); border-bottom-color: var(--accent-gold);
         }
-
         .hk-tab .hk-tab-count {
-            background: rgba(0,0,0,0.15);
-            padding: 0.1rem 0.45rem;
-            border-radius: 10px;
-            font-size: 0.6rem;
-            font-weight: 700;
+            background: #e8e5e0; padding: 0.1rem 0.5rem; border-radius: 10px;
+            font-size: 0.6rem; font-weight: 700; color: var(--text-medium);
         }
-
         .hk-tab.active .hk-tab-count {
-            background: rgba(255,255,255,0.2);
+            background: var(--primary-dark); color: white;
         }
-
         .hk-panel { display: none; }
         .hk-panel.active { display: block; }
 
-        /* Room cleaning grid */
+        /* HK Filter Bar */
+        .hk-filter-bar {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;
+        }
+        .hk-filters { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+        .hk-filter-pill {
+            padding: 0.4rem 0.85rem; border-radius: 20px; border: 1px solid #e0ddd8;
+            background: white; font-family: 'Montserrat', sans-serif; font-size: 0.7rem;
+            font-weight: 500; color: var(--text-medium); cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 0.35rem;
+        }
+        .hk-filter-pill:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .hk-filter-pill.active {
+            background: var(--primary-dark); color: white; border-color: var(--primary-dark);
+        }
+        .hk-filter-pill .hk-dot {
+            width: 7px; height: 7px; border-radius: 50%; display: inline-block;
+        }
+
+        /* Enhanced Room Cards */
         .room-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 1rem;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem;
         }
-
         .room-card {
-            background: white;
-            border-radius: 10px;
-            border: 1px solid #e8e5e0;
-            padding: 1.25rem;
-            transition: border-color 0.2s;
+            background: white; border-radius: 12px; border: 1px solid #e8e5e0;
+            overflow: hidden; transition: all 0.25s; position: relative;
         }
-
-        .room-card:hover { border-color: var(--accent-gold); }
-
+        .room-card:hover { border-color: var(--accent-gold); box-shadow: 0 4px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+        .room-card-stripe {
+            height: 4px; width: 100%;
+        }
+        .stripe-occupied { background: var(--accent-gold); }
+        .stripe-cleaning { background: #4285f4; }
+        .stripe-available { background: var(--primary-green); }
+        .stripe-maintenance { background: #e57373; }
+        .room-card-body { padding: 1.15rem; }
         .room-card-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.75rem;
+            display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.65rem;
         }
-
         .room-card-name {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary-dark);
+            font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700;
+            color: var(--primary-dark); line-height: 1.2;
         }
-
         .room-card-status {
-            font-size: 0.6rem;
-            font-weight: 600;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
+            font-size: 0.6rem; font-weight: 700; padding: 0.25rem 0.7rem;
+            border-radius: 20px; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap;
         }
+        .status-occupied { background: rgba(201,169,110,0.15); color: #b8942e; }
+        .status-cleaning { background: rgba(66,133,244,0.1); color: #4285f4; }
+        .status-available { background: rgba(58,90,64,0.1); color: var(--primary-green); }
+        .status-maintenance { background: rgba(229,115,115,0.1); color: #e57373; }
 
         .room-card-detail {
-            font-size: 0.72rem;
-            color: var(--text-medium);
-            margin-bottom: 0.35rem;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
+            font-size: 0.75rem; color: var(--text-medium); margin-bottom: 0.4rem;
+            display: flex; align-items: center; gap: 0.45rem;
         }
+        .room-card-detail i { width: 15px; text-align: center; font-size: 0.68rem; }
 
-        .room-card-detail i { width: 14px; text-align: center; font-size: 0.65rem; }
-
-        .room-card-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.85rem;
+        /* Staff Chip in Room Card */
+        .room-staff-row {
+            display: flex; align-items: center; gap: 0.5rem; margin-top: 0.65rem;
+            padding-top: 0.65rem; border-top: 1px solid #f0ede8;
         }
-
-        .room-action-btn {
-            flex: 1;
-            padding: 0.5rem;
-            border-radius: 6px;
-            border: 1px solid #e0ddd8;
-            background: white;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: var(--text-medium);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .room-action-btn:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
-        }
-
-        .room-action-btn.primary {
-            background: var(--primary-green);
-            color: white;
-            border-color: var(--primary-green);
-        }
-
-        .room-action-btn.primary:hover {
-            background: #2f4a35;
-        }
-
-        /* Lost & found / damage reports */
-        .report-list { display: flex; flex-direction: column; gap: 0.75rem; }
-
-        .report-card {
-            background: white;
-            border-radius: 10px;
-            border: 1px solid #e8e5e0;
-            padding: 1.25rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .report-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
+        .room-staff-chip {
+            width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 0.55rem; font-weight: 700; color: white;
             flex-shrink: 0;
         }
+        .room-staff-name { font-size: 0.72rem; color: var(--text-medium); }
 
+        /* Cleaning Checklist */
+        .room-checklist-toggle {
+            display: flex; align-items: center; gap: 0.4rem; font-size: 0.7rem;
+            color: var(--accent-gold); cursor: pointer; margin-top: 0.75rem; font-weight: 600;
+            border: none; background: none; padding: 0; font-family: 'Montserrat', sans-serif;
+        }
+        .room-checklist-toggle i { transition: transform 0.2s; font-size: 0.6rem; }
+        .room-checklist-toggle.open i { transform: rotate(90deg); }
+        .room-checklist {
+            margin-top: 0.65rem; padding: 0.75rem; background: #faf9f7; border-radius: 8px;
+            display: none;
+        }
+        .room-checklist.open { display: block; }
+        .checklist-item {
+            display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0;
+            font-size: 0.72rem; color: var(--text-medium); cursor: pointer;
+        }
+        .checklist-item:not(:last-child) { border-bottom: 1px solid #f0ede8; }
+        .checklist-box {
+            width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid #ccc;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+            transition: all 0.2s; font-size: 0.55rem; color: white;
+        }
+        .checklist-item.checked .checklist-box {
+            background: var(--primary-green); border-color: var(--primary-green);
+        }
+        .checklist-item.checked .checklist-label { text-decoration: line-through; opacity: 0.5; }
+        .checklist-progress {
+            display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;
+        }
+        .checklist-progress-bar {
+            flex: 1; height: 4px; background: #e8e5e0; border-radius: 4px; overflow: hidden;
+        }
+        .checklist-progress-fill {
+            height: 100%; background: var(--primary-green); border-radius: 4px;
+            transition: width 0.3s;
+        }
+        .checklist-progress-text { font-size: 0.65rem; color: var(--text-medium); font-weight: 600; white-space: nowrap; }
+
+        /* Room Card Actions */
+        .room-card-actions {
+            display: flex; gap: 0.5rem; margin-top: 0.85rem;
+        }
+        .room-action-btn {
+            flex: 1; padding: 0.55rem 0.5rem; border-radius: 8px; border: 1px solid #e0ddd8;
+            background: white; font-family: 'Montserrat', sans-serif; font-size: 0.68rem;
+            font-weight: 600; color: var(--text-medium); cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 0.35rem;
+        }
+        .room-action-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .room-action-btn.primary {
+            background: var(--primary-green); color: white; border-color: var(--primary-green);
+        }
+        .room-action-btn.primary:hover { background: #2f4a35; }
+        .room-action-btn.inspect {
+            background: rgba(66,133,244,0.08); color: #4285f4; border-color: rgba(66,133,244,0.2);
+        }
+        .room-action-btn.inspect:hover { background: rgba(66,133,244,0.15); }
+
+        /* Enhanced Report Cards (Lost & Found / Damage) */
+        .report-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .report-add-btn {
+            padding: 0.5rem 1rem; border-radius: 8px; border: none;
+            background: var(--primary-dark); color: white; font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .report-add-btn:hover { background: #1a1a1a; }
+        .report-list { display: flex; flex-direction: column; gap: 0.75rem; }
+        .report-card {
+            background: white; border-radius: 12px; border: 1px solid #e8e5e0;
+            padding: 1.25rem; display: flex; align-items: flex-start; gap: 1rem;
+            transition: all 0.2s;
+        }
+        .report-card:hover { border-color: var(--accent-gold); box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+        .report-icon {
+            width: 44px; height: 44px; border-radius: 12px; display: flex;
+            align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0;
+        }
         .report-info { flex: 1; }
-
         .report-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin-bottom: 0.25rem;
+            font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700;
+            color: var(--primary-dark); margin-bottom: 0.3rem;
         }
-
         .report-meta {
-            font-size: 0.7rem;
-            color: var(--text-medium);
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            font-size: 0.7rem; color: var(--text-medium); display: flex;
+            gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem;
         }
-
-        .report-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
+        .report-meta span { display: flex; align-items: center; gap: 0.3rem; }
+        .report-actions {
+            display: flex; gap: 0.4rem; margin-top: 0.5rem;
         }
-
+        .report-action-btn {
+            padding: 0.35rem 0.75rem; border-radius: 6px; border: 1px solid #e0ddd8;
+            background: white; font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+            font-weight: 600; color: var(--text-medium); cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; gap: 0.3rem;
+        }
+        .report-action-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+        .report-action-btn.resolve {
+            background: var(--primary-green); color: white; border-color: var(--primary-green);
+        }
+        .report-action-btn.resolve:hover { background: #2f4a35; }
+        .report-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
         .report-status-badge {
-            font-size: 0.6rem;
-            font-weight: 600;
-            padding: 0.3rem 0.75rem;
-            border-radius: 20px;
-            white-space: nowrap;
-            align-self: center;
+            font-size: 0.6rem; font-weight: 700; padding: 0.3rem 0.75rem;
+            border-radius: 20px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.3px;
         }
-
         .badge-pending { background: rgba(201,169,110,0.15); color: #b8942e; }
         .badge-resolved { background: rgba(58,90,64,0.1); color: var(--primary-green); }
         .badge-urgent { background: rgba(229,115,115,0.1); color: #e57373; }
+        .badge-contacted { background: rgba(66,133,244,0.1); color: #4285f4; }
+
+        /* Severity badges for damage */
+        .severity-badge {
+            font-size: 0.58rem; font-weight: 700; padding: 0.2rem 0.6rem;
+            border-radius: 20px; text-transform: uppercase; letter-spacing: 0.3px;
+        }
+        .severity-low { background: rgba(129,199,132,0.15); color: #4caf50; }
+        .severity-medium { background: rgba(201,169,110,0.15); color: #b8942e; }
+        .severity-high { background: rgba(229,115,115,0.15); color: #e57373; }
+        .severity-critical { background: rgba(229,57,53,0.15); color: #e53935; }
+
+        /* HK Modal */
+        .hk-modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px);
+        }
+        .hk-modal {
+            background: white; border-radius: 16px; width: 90%; max-width: 520px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15); overflow: hidden;
+        }
+        .hk-modal-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.25rem 1.5rem; border-bottom: 1px solid #f0ede8;
+        }
+        .hk-modal-head h3 {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700;
+            color: var(--primary-dark); margin: 0;
+        }
+        .hk-modal-close {
+            width: 32px; height: 32px; border-radius: 8px; border: none; background: #f0ede8;
+            font-size: 1.1rem; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; color: var(--text-medium); transition: all 0.2s;
+        }
+        .hk-modal-close:hover { background: #e0ddd8; }
+        .hk-modal-body { padding: 1.25rem 1.5rem; }
+        .hk-modal-foot {
+            display: flex; justify-content: flex-end; gap: 0.5rem;
+            padding: 1rem 1.5rem; border-top: 1px solid #f0ede8; background: #faf9f7;
+        }
+        .hk-form-group { margin-bottom: 1rem; }
+        .hk-form-label {
+            display: block; font-size: 0.7rem; font-weight: 600; color: var(--text-medium);
+            margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .hk-form-input {
+            width: 100%; padding: 0.6rem 0.85rem; border-radius: 8px; border: 1px solid #e0ddd8;
+            font-family: 'Montserrat', sans-serif; font-size: 0.8rem; color: var(--primary-dark);
+            background: white; transition: border-color 0.2s; box-sizing: border-box;
+        }
+        .hk-form-input:focus { outline: none; border-color: var(--accent-gold); }
+        .hk-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        .hk-btn-cancel {
+            padding: 0.55rem 1.25rem; border-radius: 8px; border: 1px solid #e0ddd8;
+            background: white; font-family: 'Montserrat', sans-serif; font-size: 0.75rem;
+            font-weight: 600; color: var(--text-medium); cursor: pointer;
+        }
+        .hk-btn-submit {
+            padding: 0.55rem 1.25rem; border-radius: 8px; border: none;
+            background: var(--primary-dark); color: white; font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem; font-weight: 600; cursor: pointer; display: flex;
+            align-items: center; gap: 0.4rem; transition: background 0.2s;
+        }
+        .hk-btn-submit:hover { background: #1a1a1a; }
 
         /* ═══════════════════════════════════════ */
         /*            SPECIAL REQUESTS              */
@@ -3770,6 +3881,32 @@
 
             <!-- ═══ HOUSEKEEPING ═══ -->
             <div class="panel" id="panel-housekeeping">
+
+                <!-- Stats Dashboard -->
+                <div class="hk-stats">
+                    <div class="hk-stat-card stat-clean">
+                        <div class="hk-stat-number" id="hkStatClean">5</div>
+                        <div class="hk-stat-label">Cleaned</div>
+                    </div>
+                    <div class="hk-stat-card stat-pending">
+                        <div class="hk-stat-number" id="hkStatPending">1</div>
+                        <div class="hk-stat-label">Pending</div>
+                    </div>
+                    <div class="hk-stat-card stat-cleaning">
+                        <div class="hk-stat-number" id="hkStatCleaning">1</div>
+                        <div class="hk-stat-label">In Cleaning</div>
+                    </div>
+                    <div class="hk-stat-card stat-available">
+                        <div class="hk-stat-number" id="hkStatAvailable">2</div>
+                        <div class="hk-stat-label">Available</div>
+                    </div>
+                    <div class="hk-stat-card stat-maint">
+                        <div class="hk-stat-number" id="hkStatMaint">1</div>
+                        <div class="hk-stat-label">Maintenance</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
                 <div class="hk-tabs">
                     <button class="hk-tab active" onclick="switchHkTab('cleaning', this)">
                         <i class="fas fa-broom"></i> Room Status <span class="hk-tab-count">8</span>
@@ -3778,99 +3915,290 @@
                         <i class="fas fa-box-open"></i> Lost &amp; Found <span class="hk-tab-count">3</span>
                     </button>
                     <button class="hk-tab" onclick="switchHkTab('damage', this)">
-                        <i class="fas fa-exclamation-circle"></i> Damage Reports <span class="hk-tab-count">1</span>
+                        <i class="fas fa-exclamation-circle"></i> Damage Reports <span class="hk-tab-count">2</span>
                     </button>
                 </div>
 
-                <!-- Room Cleaning Status -->
+                <!-- ─── Room Status ─── -->
                 <div class="hk-panel active" id="hk-cleaning">
-                    <div class="room-grid">
-                        <div class="room-card">
-                            <div class="room-card-top">
-                                <span class="room-card-name">Eden Suite</span>
-                                <span class="room-card-status status-occupied">Occupied</span>
-                            </div>
-                            <div class="room-card-detail"><i class="fas fa-user"></i> Johnson Family</div>
-                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 12</div>
-                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today — Maria S.</div>
+                    <div class="hk-filter-bar">
+                        <div class="hk-filters">
+                            <button class="hk-filter-pill active" data-room-filter="all">All Rooms</button>
+                            <button class="hk-filter-pill" data-room-filter="occupied"><span class="hk-dot" style="background:var(--accent-gold)"></span> Occupied</button>
+                            <button class="hk-filter-pill" data-room-filter="cleaning"><span class="hk-dot" style="background:#4285f4"></span> Cleaning</button>
+                            <button class="hk-filter-pill" data-room-filter="available"><span class="hk-dot" style="background:var(--primary-green)"></span> Available</button>
+                            <button class="hk-filter-pill" data-room-filter="maintenance"><span class="hk-dot" style="background:#e57373"></span> Maintenance</button>
                         </div>
+                    </div>
 
-                        <div class="room-card">
-                            <div class="room-card-top">
-                                <span class="room-card-name">The Ark</span>
-                                <span class="room-card-status status-occupied">Occupied</span>
-                            </div>
-                            <div class="room-card-detail"><i class="fas fa-user"></i> Williams Couple</div>
-                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 14</div>
-                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today — Ana R.</div>
-                        </div>
+                    <div class="room-grid" id="roomGrid">
 
-                        <div class="room-card">
-                            <div class="room-card-top">
-                                <span class="room-card-name">Covenant Cabin</span>
-                                <span class="room-card-status status-occupied">Occupied</span>
-                            </div>
-                            <div class="room-card-detail"><i class="fas fa-user"></i> Davis Anniversary</div>
-                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 13</div>
-                            <div class="room-card-detail"><i class="fas fa-clock" style="color:var(--accent-gold)"></i> Scheduled for 2pm</div>
-                        </div>
-
-                        <div class="room-card">
-                            <div class="room-card-top">
-                                <span class="room-card-name">Summit Lodge</span>
-                                <span class="room-card-status status-maintenance">Maintenance</span>
-                            </div>
-                            <div class="room-card-detail"><i class="fas fa-tools"></i> Deck railing repair</div>
-                            <div class="room-card-detail"><i class="fas fa-user-cog"></i> Assigned: James W.</div>
-                            <div class="room-card-detail"><i class="fas fa-clock" style="color:#e57373"></i> ETA: 2:00 PM</div>
-                        </div>
-
-                        <div class="room-card">
-                            <div class="room-card-top">
-                                <span class="room-card-name">Shepherd's Rest</span>
-                                <span class="room-card-status status-cleaning">Cleaning</span>
-                            </div>
-                            <div class="room-card-detail"><i class="fas fa-sign-out-alt"></i> Checked out 10am</div>
-                            <div class="room-card-detail"><i class="fas fa-user-cog"></i> Assigned: Maria S.</div>
-                            <div class="room-card-actions">
-                                <button class="room-action-btn primary">Mark Clean</button>
-                                <button class="room-action-btn">Report Issue</button>
+                        <!-- Eden Suite — Occupied, Cleaned -->
+                        <div class="room-card" data-room-status="occupied">
+                            <div class="room-card-stripe stripe-occupied"></div>
+                            <div class="room-card-body">
+                                <div class="room-card-top">
+                                    <span class="room-card-name">Eden Suite</span>
+                                    <span class="room-card-status status-occupied">Occupied</span>
+                                </div>
+                                <div class="room-card-detail"><i class="fas fa-user"></i> Johnson Family</div>
+                                <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 12</div>
+                                <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today</div>
+                                <div class="room-staff-row">
+                                    <div class="room-staff-chip" style="background:var(--accent-gold)" title="Maria Sanchez">MS</div>
+                                    <span class="room-staff-name">Maria S. — 9:45 AM</span>
+                                </div>
+                                <button class="room-checklist-toggle" onclick="toggleChecklist(this)">
+                                    <i class="fas fa-chevron-right"></i> Cleaning Checklist
+                                </button>
+                                <div class="room-checklist">
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Beds made &amp; linens fresh</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Bathroom sanitized</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Floors vacuumed &amp; mopped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Kitchen / kitchenette wiped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Amenities restocked</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Trash emptied</span></div>
+                                    <div class="checklist-progress">
+                                        <div class="checklist-progress-bar"><div class="checklist-progress-fill" style="width:100%"></div></div>
+                                        <span class="checklist-progress-text">6/6</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="room-card">
-                            <div class="room-card-top">
-                                <span class="room-card-name">Promised Land</span>
-                                <span class="room-card-status status-available">Available</span>
+                        <!-- The Ark — Occupied, Cleaned -->
+                        <div class="room-card" data-room-status="occupied">
+                            <div class="room-card-stripe stripe-occupied"></div>
+                            <div class="room-card-body">
+                                <div class="room-card-top">
+                                    <span class="room-card-name">The Ark</span>
+                                    <span class="room-card-status status-occupied">Occupied</span>
+                                </div>
+                                <div class="room-card-detail"><i class="fas fa-user"></i> Williams Couple</div>
+                                <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 14</div>
+                                <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today</div>
+                                <div class="room-staff-row">
+                                    <div class="room-staff-chip" style="background:#ab47bc" title="Ana Rodriguez">AR</div>
+                                    <span class="room-staff-name">Ana R. — 10:30 AM</span>
+                                </div>
+                                <button class="room-checklist-toggle" onclick="toggleChecklist(this)">
+                                    <i class="fas fa-chevron-right"></i> Cleaning Checklist
+                                </button>
+                                <div class="room-checklist">
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Beds made &amp; linens fresh</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Bathroom sanitized</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Floors vacuumed &amp; mopped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Kitchen / kitchenette wiped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Amenities restocked</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Trash emptied</span></div>
+                                    <div class="checklist-progress">
+                                        <div class="checklist-progress-bar"><div class="checklist-progress-fill" style="width:100%"></div></div>
+                                        <span class="checklist-progress-text">6/6</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Clean &amp; inspected</div>
-                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Next arrival: Feb 12</div>
                         </div>
 
-                        <div class="room-card">
-                            <div class="room-card-top">
-                                <span class="room-card-name">Mustard Seed</span>
-                                <span class="room-card-status status-occupied">Occupied</span>
+                        <!-- Covenant Cabin — Occupied, Scheduled -->
+                        <div class="room-card" data-room-status="occupied">
+                            <div class="room-card-stripe stripe-occupied"></div>
+                            <div class="room-card-body">
+                                <div class="room-card-top">
+                                    <span class="room-card-name">Covenant Cabin</span>
+                                    <span class="room-card-status status-occupied">Occupied</span>
+                                </div>
+                                <div class="room-card-detail"><i class="fas fa-user"></i> Davis Anniversary</div>
+                                <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 13</div>
+                                <div class="room-card-detail"><i class="fas fa-clock" style="color:var(--accent-gold)"></i> Cleaning scheduled 2:00 PM</div>
+                                <div class="room-staff-row">
+                                    <div class="room-staff-chip" style="background:var(--accent-gold)" title="Maria Sanchez">MS</div>
+                                    <span class="room-staff-name">Assigned: Maria S.</span>
+                                </div>
+                                <button class="room-checklist-toggle" onclick="toggleChecklist(this)">
+                                    <i class="fas fa-chevron-right"></i> Cleaning Checklist
+                                </button>
+                                <div class="room-checklist">
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Beds made &amp; linens fresh</span></div>
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Bathroom sanitized</span></div>
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Floors vacuumed &amp; mopped</span></div>
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Kitchen / kitchenette wiped</span></div>
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Amenities restocked</span></div>
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Trash emptied</span></div>
+                                    <div class="checklist-progress">
+                                        <div class="checklist-progress-bar"><div class="checklist-progress-fill" style="width:0%"></div></div>
+                                        <span class="checklist-progress-text">0/6</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="room-card-detail"><i class="fas fa-user"></i> Pastor Mitchell</div>
-                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 11</div>
-                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today — Ana R.</div>
                         </div>
 
-                        <div class="room-card">
-                            <div class="room-card-top">
-                                <span class="room-card-name">The Vineyard</span>
-                                <span class="room-card-status status-available">Available</span>
+                        <!-- Summit Lodge — Maintenance -->
+                        <div class="room-card" data-room-status="maintenance">
+                            <div class="room-card-stripe stripe-maintenance"></div>
+                            <div class="room-card-body">
+                                <div class="room-card-top">
+                                    <span class="room-card-name">Summit Lodge</span>
+                                    <span class="room-card-status status-maintenance">Maintenance</span>
+                                </div>
+                                <div class="room-card-detail"><i class="fas fa-tools"></i> Deck railing repair</div>
+                                <div class="room-card-detail"><i class="fas fa-clock" style="color:#e57373"></i> ETA: 2:00 PM today</div>
+                                <div class="room-staff-row">
+                                    <div class="room-staff-chip" style="background:#e57373" title="James Walker">JW</div>
+                                    <span class="room-staff-name">James W. — in progress</span>
+                                </div>
+                                <div class="room-card-actions">
+                                    <button class="room-action-btn primary" onclick="markRoomClean(this)"><i class="fas fa-check"></i> Mark Complete</button>
+                                    <button class="room-action-btn" onclick="reportIssue(this)"><i class="fas fa-exclamation-triangle"></i> Escalate</button>
+                                </div>
                             </div>
-                            <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Clean &amp; inspected</div>
-                            <div class="room-card-detail"><i class="fas fa-calendar"></i> Next arrival: Feb 15</div>
                         </div>
+
+                        <!-- Shepherd's Rest — Cleaning in Progress -->
+                        <div class="room-card" data-room-status="cleaning">
+                            <div class="room-card-stripe stripe-cleaning"></div>
+                            <div class="room-card-body">
+                                <div class="room-card-top">
+                                    <span class="room-card-name">Shepherd's Rest</span>
+                                    <span class="room-card-status status-cleaning">Cleaning</span>
+                                </div>
+                                <div class="room-card-detail"><i class="fas fa-sign-out-alt"></i> Checked out 10:00 AM</div>
+                                <div class="room-card-detail"><i class="fas fa-clock" style="color:#4285f4"></i> Started 25 min ago</div>
+                                <div class="room-staff-row">
+                                    <div class="room-staff-chip" style="background:var(--accent-gold)" title="Maria Sanchez">MS</div>
+                                    <span class="room-staff-name">Maria S. — cleaning now</span>
+                                </div>
+                                <button class="room-checklist-toggle" onclick="toggleChecklist(this)">
+                                    <i class="fas fa-chevron-right"></i> Cleaning Checklist
+                                </button>
+                                <div class="room-checklist">
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Beds made &amp; linens fresh</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Bathroom sanitized</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Floors vacuumed &amp; mopped</span></div>
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Kitchen / kitchenette wiped</span></div>
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Amenities restocked</span></div>
+                                    <div class="checklist-item" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Trash emptied</span></div>
+                                    <div class="checklist-progress">
+                                        <div class="checklist-progress-bar"><div class="checklist-progress-fill" style="width:50%"></div></div>
+                                        <span class="checklist-progress-text">3/6</span>
+                                    </div>
+                                </div>
+                                <div class="room-card-actions">
+                                    <button class="room-action-btn primary" onclick="markRoomClean(this)"><i class="fas fa-sparkles"></i> Mark Clean</button>
+                                    <button class="room-action-btn inspect" onclick="inspectRoom(this)"><i class="fas fa-clipboard-check"></i> Inspect</button>
+                                    <button class="room-action-btn" onclick="reportIssue(this)"><i class="fas fa-flag"></i> Issue</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Promised Land — Available -->
+                        <div class="room-card" data-room-status="available">
+                            <div class="room-card-stripe stripe-available"></div>
+                            <div class="room-card-body">
+                                <div class="room-card-top">
+                                    <span class="room-card-name">Promised Land</span>
+                                    <span class="room-card-status status-available">Available</span>
+                                </div>
+                                <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Clean &amp; inspected</div>
+                                <div class="room-card-detail"><i class="fas fa-calendar"></i> Next arrival: Feb 12</div>
+                                <div class="room-card-detail"><i class="fas fa-clipboard-check" style="color:#4285f4"></i> Inspected by Tom H.</div>
+                                <div class="room-staff-row">
+                                    <div class="room-staff-chip" style="background:#ab47bc" title="Ana Rodriguez">AR</div>
+                                    <span class="room-staff-name">Ana R. — cleaned 8:30 AM</span>
+                                </div>
+                                <button class="room-checklist-toggle" onclick="toggleChecklist(this)">
+                                    <i class="fas fa-chevron-right"></i> Cleaning Checklist
+                                </button>
+                                <div class="room-checklist">
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Beds made &amp; linens fresh</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Bathroom sanitized</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Floors vacuumed &amp; mopped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Kitchen / kitchenette wiped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Amenities restocked</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Trash emptied</span></div>
+                                    <div class="checklist-progress">
+                                        <div class="checklist-progress-bar"><div class="checklist-progress-fill" style="width:100%"></div></div>
+                                        <span class="checklist-progress-text">6/6</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mustard Seed — Occupied, Cleaned -->
+                        <div class="room-card" data-room-status="occupied">
+                            <div class="room-card-stripe stripe-occupied"></div>
+                            <div class="room-card-body">
+                                <div class="room-card-top">
+                                    <span class="room-card-name">Mustard Seed</span>
+                                    <span class="room-card-status status-occupied">Occupied</span>
+                                </div>
+                                <div class="room-card-detail"><i class="fas fa-user"></i> Pastor Mitchell</div>
+                                <div class="room-card-detail"><i class="fas fa-calendar"></i> Check-out: Feb 11</div>
+                                <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Cleaned today</div>
+                                <div class="room-staff-row">
+                                    <div class="room-staff-chip" style="background:#ab47bc" title="Ana Rodriguez">AR</div>
+                                    <span class="room-staff-name">Ana R. — 11:15 AM</span>
+                                </div>
+                                <button class="room-checklist-toggle" onclick="toggleChecklist(this)">
+                                    <i class="fas fa-chevron-right"></i> Cleaning Checklist
+                                </button>
+                                <div class="room-checklist">
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Beds made &amp; linens fresh</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Bathroom sanitized</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Floors vacuumed &amp; mopped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Kitchen / kitchenette wiped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Amenities restocked</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Trash emptied</span></div>
+                                    <div class="checklist-progress">
+                                        <div class="checklist-progress-bar"><div class="checklist-progress-fill" style="width:100%"></div></div>
+                                        <span class="checklist-progress-text">6/6</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- The Vineyard — Available -->
+                        <div class="room-card" data-room-status="available">
+                            <div class="room-card-stripe stripe-available"></div>
+                            <div class="room-card-body">
+                                <div class="room-card-top">
+                                    <span class="room-card-name">The Vineyard</span>
+                                    <span class="room-card-status status-available">Available</span>
+                                </div>
+                                <div class="room-card-detail"><i class="fas fa-check-circle" style="color:var(--primary-green)"></i> Clean &amp; inspected</div>
+                                <div class="room-card-detail"><i class="fas fa-calendar"></i> Next arrival: Feb 15</div>
+                                <div class="room-card-detail"><i class="fas fa-clipboard-check" style="color:#4285f4"></i> Inspected by Tom H.</div>
+                                <div class="room-staff-row">
+                                    <div class="room-staff-chip" style="background:var(--accent-gold)" title="Maria Sanchez">MS</div>
+                                    <span class="room-staff-name">Maria S. — cleaned yesterday</span>
+                                </div>
+                                <button class="room-checklist-toggle" onclick="toggleChecklist(this)">
+                                    <i class="fas fa-chevron-right"></i> Cleaning Checklist
+                                </button>
+                                <div class="room-checklist">
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Beds made &amp; linens fresh</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Bathroom sanitized</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Floors vacuumed &amp; mopped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Kitchen / kitchenette wiped</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Amenities restocked</span></div>
+                                    <div class="checklist-item checked" onclick="toggleCheckItem(this)"><div class="checklist-box"><i class="fas fa-check"></i></div><span class="checklist-label">Trash emptied</span></div>
+                                    <div class="checklist-progress">
+                                        <div class="checklist-progress-bar"><div class="checklist-progress-fill" style="width:100%"></div></div>
+                                        <span class="checklist-progress-text">6/6</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Lost & Found -->
+                <!-- ─── Lost & Found ─── -->
                 <div class="hk-panel" id="hk-lost">
-                    <div class="report-list">
+                    <div class="report-header">
+                        <div style="font-size:0.75rem;color:var(--text-medium)">Showing <strong>3</strong> items — <span style="color:var(--accent-gold)">2 pending</span>, <span style="color:var(--primary-green)">1 resolved</span></div>
+                        <button class="report-add-btn" onclick="openHkModal('lost')"><i class="fas fa-plus"></i> Log Item</button>
+                    </div>
+                    <div class="report-list" id="lostFoundList">
                         <div class="report-card">
                             <div class="report-icon stat-icon-gold"><i class="fas fa-ring"></i></div>
                             <div class="report-info">
@@ -3880,8 +4208,14 @@
                                     <span><i class="fas fa-user"></i> Found by Maria S.</span>
                                     <span><i class="fas fa-clock"></i> Today, 9:15 AM</span>
                                 </div>
+                                <div class="report-actions">
+                                    <button class="report-action-btn" onclick="contactGuest(this)"><i class="fas fa-phone"></i> Contact Guest</button>
+                                    <button class="report-action-btn resolve" onclick="resolveReport(this)"><i class="fas fa-check"></i> Mark Returned</button>
+                                </div>
                             </div>
-                            <span class="report-status-badge badge-pending">Pending Pickup</span>
+                            <div class="report-right">
+                                <span class="report-status-badge badge-pending">Pending Pickup</span>
+                            </div>
                         </div>
 
                         <div class="report-card">
@@ -3893,28 +4227,40 @@
                                     <span><i class="fas fa-user"></i> Found by Ana R.</span>
                                     <span><i class="fas fa-clock"></i> Yesterday, 2:30 PM</span>
                                 </div>
+                                <div class="report-actions">
+                                    <button class="report-action-btn" onclick="contactGuest(this)"><i class="fas fa-phone"></i> Contact Guest</button>
+                                    <button class="report-action-btn resolve" onclick="resolveReport(this)"><i class="fas fa-check"></i> Mark Returned</button>
+                                </div>
                             </div>
-                            <span class="report-status-badge badge-pending">Contacting Guest</span>
+                            <div class="report-right">
+                                <span class="report-status-badge badge-contacted">Contacting Guest</span>
+                            </div>
                         </div>
 
-                        <div class="report-card">
+                        <div class="report-card" style="opacity:0.6">
                             <div class="report-icon stat-icon-green"><i class="fas fa-mobile-alt"></i></div>
                             <div class="report-info">
                                 <div class="report-title">Phone Charger (USB-C)</div>
                                 <div class="report-meta">
                                     <span><i class="fas fa-map-pin"></i> The Vineyard — outlet by bed</span>
                                     <span><i class="fas fa-user"></i> Found by Maria S.</span>
-                                    <span><i class="fas fa-clock"></i> Feb 8</span>
+                                    <span><i class="fas fa-clock"></i> Feb 8 — returned Feb 9</span>
                                 </div>
                             </div>
-                            <span class="report-status-badge badge-resolved">Returned</span>
+                            <div class="report-right">
+                                <span class="report-status-badge badge-resolved">Returned</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Damage Reports -->
+                <!-- ─── Damage Reports ─── -->
                 <div class="hk-panel" id="hk-damage">
-                    <div class="report-list">
+                    <div class="report-header">
+                        <div style="font-size:0.75rem;color:var(--text-medium)">Showing <strong>2</strong> reports — <span style="color:#e57373">1 urgent</span>, <span style="color:var(--accent-gold)">1 monitoring</span></div>
+                        <button class="report-add-btn" onclick="openHkModal('damage')"><i class="fas fa-plus"></i> Report Damage</button>
+                    </div>
+                    <div class="report-list" id="damageList">
                         <div class="report-card">
                             <div class="report-icon stat-icon-red"><i class="fas fa-exclamation-triangle"></i></div>
                             <div class="report-info">
@@ -3924,11 +4270,158 @@
                                     <span><i class="fas fa-user"></i> Reported by James W.</span>
                                     <span><i class="fas fa-clock"></i> Today, 8:00 AM</span>
                                 </div>
+                                <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.4rem">
+                                    <span class="severity-badge severity-high">High Severity</span>
+                                    <span style="font-size:0.65rem;color:var(--text-medium)">Safety hazard — guests redirected</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="report-action-btn resolve" onclick="resolveReport(this)"><i class="fas fa-check"></i> Mark Resolved</button>
+                                    <button class="report-action-btn" onclick="escalateReport(this)"><i class="fas fa-arrow-up"></i> Escalate</button>
+                                </div>
                             </div>
-                            <span class="report-status-badge badge-urgent">In Progress</span>
+                            <div class="report-right">
+                                <span class="report-status-badge badge-urgent">In Progress</span>
+                            </div>
+                        </div>
+
+                        <div class="report-card">
+                            <div class="report-icon stat-icon-gold"><i class="fas fa-tint"></i></div>
+                            <div class="report-info">
+                                <div class="report-title">Minor Water Stain — Ceiling</div>
+                                <div class="report-meta">
+                                    <span><i class="fas fa-map-pin"></i> Covenant Cabin — master bedroom</span>
+                                    <span><i class="fas fa-user"></i> Noticed by Ana R.</span>
+                                    <span><i class="fas fa-clock"></i> Yesterday, 3:45 PM</span>
+                                </div>
+                                <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.4rem">
+                                    <span class="severity-badge severity-low">Low Severity</span>
+                                    <span style="font-size:0.65rem;color:var(--text-medium)">Cosmetic — schedule repaint next turnover</span>
+                                </div>
+                                <div class="report-actions">
+                                    <button class="report-action-btn resolve" onclick="resolveReport(this)"><i class="fas fa-check"></i> Mark Resolved</button>
+                                    <button class="report-action-btn"><i class="fas fa-calendar"></i> Schedule Repair</button>
+                                </div>
+                            </div>
+                            <div class="report-right">
+                                <span class="report-status-badge badge-pending">Monitoring</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- ─── Log Lost Item Modal ─── -->
+                <div class="hk-modal-overlay" id="hkModalLost" onclick="if(event.target===this)closeHkModal('lost')">
+                    <div class="hk-modal">
+                        <div class="hk-modal-head">
+                            <h3>Log Lost &amp; Found Item</h3>
+                            <button class="hk-modal-close" onclick="closeHkModal('lost')">&times;</button>
+                        </div>
+                        <div class="hk-modal-body">
+                            <div class="hk-form-row">
+                                <div class="hk-form-group">
+                                    <label class="hk-form-label">Item Description</label>
+                                    <input type="text" class="hk-form-input" id="lfItemName" placeholder="e.g. Gold watch">
+                                </div>
+                                <div class="hk-form-group">
+                                    <label class="hk-form-label">Location Found</label>
+                                    <select class="hk-form-input" id="lfRoom">
+                                        <option value="">Select room...</option>
+                                        <option>Eden Suite</option><option>The Ark</option><option>Covenant Cabin</option>
+                                        <option>Summit Lodge</option><option>Shepherd's Rest</option><option>Promised Land</option>
+                                        <option>Mustard Seed</option><option>The Vineyard</option><option>Common Area</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hk-form-group">
+                                <label class="hk-form-label">Specific Location Detail</label>
+                                <input type="text" class="hk-form-input" id="lfDetail" placeholder="e.g. nightstand drawer, bathroom counter">
+                            </div>
+                            <div class="hk-form-row">
+                                <div class="hk-form-group">
+                                    <label class="hk-form-label">Found By</label>
+                                    <select class="hk-form-input" id="lfFoundBy">
+                                        <option value="">Select staff...</option>
+                                        <option>Maria Sanchez</option><option>Ana Rodriguez</option>
+                                        <option>Tom Henderson</option><option>James Walker</option><option>Sarah Bennett</option>
+                                    </select>
+                                </div>
+                                <div class="hk-form-group">
+                                    <label class="hk-form-label">Category</label>
+                                    <select class="hk-form-input" id="lfCategory">
+                                        <option>Jewelry</option><option>Electronics</option><option>Clothing</option>
+                                        <option>Books / Documents</option><option>Personal Items</option><option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hk-modal-foot">
+                            <button class="hk-btn-cancel" onclick="closeHkModal('lost')">Cancel</button>
+                            <button class="hk-btn-submit" onclick="submitLostItem()"><i class="fas fa-plus"></i> Log Item</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ─── Report Damage Modal ─── -->
+                <div class="hk-modal-overlay" id="hkModalDamage" onclick="if(event.target===this)closeHkModal('damage')">
+                    <div class="hk-modal">
+                        <div class="hk-modal-head">
+                            <h3>Report Damage</h3>
+                            <button class="hk-modal-close" onclick="closeHkModal('damage')">&times;</button>
+                        </div>
+                        <div class="hk-modal-body">
+                            <div class="hk-form-group">
+                                <label class="hk-form-label">Damage Description</label>
+                                <input type="text" class="hk-form-input" id="dmgTitle" placeholder="e.g. Cracked window pane">
+                            </div>
+                            <div class="hk-form-row">
+                                <div class="hk-form-group">
+                                    <label class="hk-form-label">Location</label>
+                                    <select class="hk-form-input" id="dmgRoom">
+                                        <option value="">Select room...</option>
+                                        <option>Eden Suite</option><option>The Ark</option><option>Covenant Cabin</option>
+                                        <option>Summit Lodge</option><option>Shepherd's Rest</option><option>Promised Land</option>
+                                        <option>Mustard Seed</option><option>The Vineyard</option><option>Common Area</option>
+                                    </select>
+                                </div>
+                                <div class="hk-form-group">
+                                    <label class="hk-form-label">Severity</label>
+                                    <select class="hk-form-input" id="dmgSeverity">
+                                        <option value="low">Low — Cosmetic</option>
+                                        <option value="medium">Medium — Functional</option>
+                                        <option value="high" selected>High — Safety</option>
+                                        <option value="critical">Critical — Immediate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hk-form-group">
+                                <label class="hk-form-label">Location Detail</label>
+                                <input type="text" class="hk-form-input" id="dmgDetail" placeholder="e.g. rear deck, master bathroom">
+                            </div>
+                            <div class="hk-form-row">
+                                <div class="hk-form-group">
+                                    <label class="hk-form-label">Reported By</label>
+                                    <select class="hk-form-input" id="dmgReporter">
+                                        <option value="">Select staff...</option>
+                                        <option>Maria Sanchez</option><option>Ana Rodriguez</option>
+                                        <option>Tom Henderson</option><option>James Walker</option><option>Sarah Bennett</option>
+                                    </select>
+                                </div>
+                                <div class="hk-form-group">
+                                    <label class="hk-form-label">Priority Action</label>
+                                    <select class="hk-form-input" id="dmgAction">
+                                        <option>Monitor</option><option>Schedule Repair</option>
+                                        <option>Immediate Fix</option><option>Guest Relocation</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hk-modal-foot">
+                            <button class="hk-btn-cancel" onclick="closeHkModal('damage')">Cancel</button>
+                            <button class="hk-btn-submit" onclick="submitDamageReport()"><i class="fas fa-exclamation-circle"></i> Submit Report</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- ═══ SPECIAL REQUESTS ═══ -->
@@ -4641,6 +5134,182 @@
             document.getElementById('hk-' + tab).classList.add('active');
             document.querySelectorAll('.hk-tab').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
+        }
+
+        // ═══ Housekeeping: Room Filters ═══
+        document.querySelectorAll('.hk-filter-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                document.querySelectorAll('.hk-filter-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.roomFilter;
+                document.querySelectorAll('#roomGrid .room-card').forEach(card => {
+                    if (filter === 'all') { card.style.display = ''; }
+                    else { card.style.display = card.dataset.roomStatus === filter ? '' : 'none'; }
+                });
+            });
+        });
+
+        // ═══ Housekeeping: Checklists ═══
+        function toggleChecklist(btn) {
+            btn.classList.toggle('open');
+            const cl = btn.nextElementSibling;
+            cl.classList.toggle('open');
+        }
+
+        function toggleCheckItem(item) {
+            item.classList.toggle('checked');
+            const card = item.closest('.room-card');
+            updateChecklistProgress(card);
+        }
+
+        function updateChecklistProgress(card) {
+            const items = card.querySelectorAll('.checklist-item');
+            const checked = card.querySelectorAll('.checklist-item.checked');
+            const pct = items.length ? Math.round((checked.length / items.length) * 100) : 0;
+            const fill = card.querySelector('.checklist-progress-fill');
+            const text = card.querySelector('.checklist-progress-text');
+            if (fill) fill.style.width = pct + '%';
+            if (text) text.textContent = checked.length + '/' + items.length;
+        }
+
+        // ═══ Housekeeping: Room Actions ═══
+        function markRoomClean(btn) {
+            const card = btn.closest('.room-card');
+            card.dataset.roomStatus = 'available';
+            const stripe = card.querySelector('.room-card-stripe');
+            stripe.className = 'room-card-stripe stripe-available';
+            const badge = card.querySelector('.room-card-status');
+            badge.className = 'room-card-status status-available';
+            badge.textContent = 'Available';
+            btn.innerHTML = '<i class="fas fa-check-double"></i> Done!';
+            btn.style.background = 'var(--primary-green)'; btn.style.color = 'white';
+            btn.disabled = true;
+            // Check all checklist items
+            card.querySelectorAll('.checklist-item:not(.checked)').forEach(item => item.classList.add('checked'));
+            updateChecklistProgress(card);
+            updateHkStats();
+        }
+
+        function inspectRoom(btn) {
+            btn.innerHTML = '<i class="fas fa-check-circle"></i> Inspected';
+            btn.style.background = '#4285f4'; btn.style.color = 'white'; btn.style.borderColor = '#4285f4';
+            btn.disabled = true;
+            const card = btn.closest('.room-card');
+            const details = card.querySelectorAll('.room-card-detail');
+            const inspectDetail = document.createElement('div');
+            inspectDetail.className = 'room-card-detail';
+            inspectDetail.innerHTML = '<i class="fas fa-clipboard-check" style="color:#4285f4"></i> Inspected — passed';
+            inspectDetail.style.opacity = '0';
+            details[details.length - 1].after(inspectDetail);
+            requestAnimationFrame(() => { inspectDetail.style.transition = 'opacity 0.3s'; inspectDetail.style.opacity = '1'; });
+        }
+
+        function reportIssue(btn) {
+            openHkModal('damage');
+        }
+
+        function updateHkStats() {
+            const cards = document.querySelectorAll('#roomGrid .room-card');
+            let clean = 0, pending = 0, cleaning = 0, available = 0, maint = 0;
+            cards.forEach(c => {
+                const s = c.dataset.roomStatus;
+                if (s === 'available') available++;
+                else if (s === 'cleaning') cleaning++;
+                else if (s === 'maintenance') maint++;
+                else if (s === 'occupied') {
+                    const hasClean = c.querySelector('.room-card-detail .fa-check-circle');
+                    if (hasClean) clean++; else pending++;
+                }
+            });
+            document.getElementById('hkStatClean').textContent = clean;
+            document.getElementById('hkStatPending').textContent = pending;
+            document.getElementById('hkStatCleaning').textContent = cleaning;
+            document.getElementById('hkStatAvailable').textContent = available;
+            document.getElementById('hkStatMaint').textContent = maint;
+        }
+
+        // ═══ Housekeeping: Modals ═══
+        function openHkModal(type) {
+            document.getElementById('hkModal' + type.charAt(0).toUpperCase() + type.slice(1)).style.display = 'flex';
+        }
+        function closeHkModal(type) {
+            document.getElementById('hkModal' + type.charAt(0).toUpperCase() + type.slice(1)).style.display = 'none';
+        }
+
+        // ═══ Housekeeping: Report Actions ═══
+        function contactGuest(btn) {
+            const card = btn.closest('.report-card');
+            const badge = card.querySelector('.report-status-badge');
+            badge.className = 'report-status-badge badge-contacted';
+            badge.textContent = 'Contacted';
+            btn.innerHTML = '<i class="fas fa-check"></i> Contacted';
+            btn.disabled = true;
+            btn.style.opacity = '0.5';
+        }
+
+        function resolveReport(btn) {
+            const card = btn.closest('.report-card');
+            const badge = card.querySelector('.report-status-badge');
+            badge.className = 'report-status-badge badge-resolved';
+            badge.textContent = 'Resolved';
+            card.style.transition = 'opacity 0.4s';
+            card.style.opacity = '0.5';
+            btn.innerHTML = '<i class="fas fa-check-double"></i> Resolved';
+            btn.disabled = true;
+        }
+
+        function escalateReport(btn) {
+            const card = btn.closest('.report-card');
+            const badge = card.querySelector('.report-status-badge');
+            badge.className = 'report-status-badge badge-urgent';
+            badge.textContent = 'Escalated';
+            btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Escalated';
+            btn.style.background = '#e57373'; btn.style.color = 'white'; btn.style.borderColor = '#e57373';
+            btn.disabled = true;
+        }
+
+        // ═══ Housekeeping: Submit Lost Item ═══
+        function submitLostItem() {
+            const name = document.getElementById('lfItemName').value.trim();
+            const room = document.getElementById('lfRoom').value;
+            const detail = document.getElementById('lfDetail').value.trim();
+            const foundBy = document.getElementById('lfFoundBy').value;
+            const category = document.getElementById('lfCategory').value;
+            if (!name || !room) { alert('Please enter item name and location.'); return; }
+            const catIcons = { 'Jewelry':'fa-ring', 'Electronics':'fa-mobile-alt', 'Clothing':'fa-tshirt', 'Books / Documents':'fa-book', 'Personal Items':'fa-briefcase', 'Other':'fa-box' };
+            const card = document.createElement('div');
+            card.className = 'report-card';
+            card.innerHTML = '<div class="report-icon stat-icon-gold"><i class="fas '+(catIcons[category]||'fa-box')+'"></i></div><div class="report-info"><div class="report-title">'+name.replace(/</g,'&lt;')+'</div><div class="report-meta"><span><i class="fas fa-map-pin"></i> '+room+(detail?' — '+detail.replace(/</g,'&lt;'):'')+'</span><span><i class="fas fa-user"></i> Found by '+(foundBy||'Staff')+'</span><span><i class="fas fa-clock"></i> Just now</span></div><div class="report-actions"><button class="report-action-btn" onclick="contactGuest(this)"><i class="fas fa-phone"></i> Contact Guest</button><button class="report-action-btn resolve" onclick="resolveReport(this)"><i class="fas fa-check"></i> Mark Returned</button></div></div><div class="report-right"><span class="report-status-badge badge-pending">Pending Pickup</span></div>';
+            const list = document.getElementById('lostFoundList');
+            list.insertBefore(card, list.firstChild);
+            card.style.opacity = '0'; card.style.transform = 'translateY(-8px)';
+            requestAnimationFrame(() => { card.style.transition = 'all 0.35s'; card.style.opacity = '1'; card.style.transform = 'translateY(0)'; });
+            document.getElementById('lfItemName').value = '';
+            document.getElementById('lfDetail').value = '';
+            closeHkModal('lost');
+        }
+
+        // ═══ Housekeeping: Submit Damage Report ═══
+        function submitDamageReport() {
+            const title = document.getElementById('dmgTitle').value.trim();
+            const room = document.getElementById('dmgRoom').value;
+            const severity = document.getElementById('dmgSeverity').value;
+            const detail = document.getElementById('dmgDetail').value.trim();
+            const reporter = document.getElementById('dmgReporter').value;
+            if (!title || !room) { alert('Please enter damage description and location.'); return; }
+            const sevLabels = { low:'Low Severity', medium:'Medium Severity', high:'High Severity', critical:'Critical' };
+            const sevIcons = { low:'fa-info-circle', medium:'fa-exclamation-circle', high:'fa-exclamation-triangle', critical:'fa-radiation-alt' };
+            const iconColors = { low:'stat-icon-gold', medium:'stat-icon-gold', high:'stat-icon-red', critical:'stat-icon-red' };
+            const card = document.createElement('div');
+            card.className = 'report-card';
+            card.innerHTML = '<div class="report-icon '+iconColors[severity]+'"><i class="fas '+sevIcons[severity]+'"></i></div><div class="report-info"><div class="report-title">'+title.replace(/</g,'&lt;')+'</div><div class="report-meta"><span><i class="fas fa-map-pin"></i> '+room+(detail?' — '+detail.replace(/</g,'&lt;'):'')+'</span><span><i class="fas fa-user"></i> Reported by '+(reporter||'Staff')+'</span><span><i class="fas fa-clock"></i> Just now</span></div><div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.4rem"><span class="severity-badge severity-'+severity+'">'+sevLabels[severity]+'</span></div><div class="report-actions"><button class="report-action-btn resolve" onclick="resolveReport(this)"><i class="fas fa-check"></i> Mark Resolved</button><button class="report-action-btn" onclick="escalateReport(this)"><i class="fas fa-arrow-up"></i> Escalate</button></div></div><div class="report-right"><span class="report-status-badge badge-urgent">New</span></div>';
+            const list = document.getElementById('damageList');
+            list.insertBefore(card, list.firstChild);
+            card.style.opacity = '0'; card.style.transform = 'translateY(-8px)';
+            requestAnimationFrame(() => { card.style.transition = 'all 0.35s'; card.style.opacity = '1'; card.style.transform = 'translateY(0)'; });
+            document.getElementById('dmgTitle').value = '';
+            document.getElementById('dmgDetail').value = '';
+            closeHkModal('damage');
         }
 
         // ═══ Date display ═══
