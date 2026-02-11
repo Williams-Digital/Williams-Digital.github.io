@@ -2190,45 +2190,402 @@
         /* ═══════════════════════════════════════ */
         /*            RESORT MAP                    */
         /* ═══════════════════════════════════════ */
-        .map-container {
+
+        /* Map top bar */
+        .map-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .map-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .map-toolbar-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .map-live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            background: rgba(76,175,80,0.1);
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #4caf50;
+            letter-spacing: 0.5px;
+        }
+
+        .map-live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4caf50;
+            animation: livePulse 2s infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Overlay filter toggles */
+        .map-overlays {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .map-overlay-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid #e0ddd8;
+            background: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .map-overlay-toggle:hover { border-color: var(--accent-gold); }
+
+        .map-overlay-toggle.active {
+            background: var(--primary-dark);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .map-overlay-toggle .ov-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        /* Main map layout */
+        .map-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 1.25rem;
+        }
+
+        /* Map with hotspots */
+        .map-card {
             background: white;
             border-radius: 12px;
             border: 1px solid #e8e5e0;
             overflow: hidden;
         }
 
-        .map-container img {
+        .map-image-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-image-wrap img {
             width: 100%;
             display: block;
         }
 
-        .map-legend {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 0.75rem;
-            margin-top: 1.25rem;
-        }
-
-        .map-legend-item {
+        /* Hotspot pins */
+        .map-hotspot {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            z-index: 5;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .map-hotspot:hover {
+            transform: scale(1.3);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .map-hotspot.pulse::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            opacity: 0;
+            animation: hotspotPulse 2s infinite;
+        }
+
+        @keyframes hotspotPulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        .hotspot-room { background: var(--primary-green); }
+        .hotspot-available { background: #4285f4; }
+        .hotspot-spa { background: var(--accent-gold); color: var(--primary-dark); }
+        .hotspot-common { background: #805ad5; }
+        .hotspot-maintenance { background: #e57373; }
+        .hotspot-staff { background: var(--text-dark); }
+        .hotspot-trail { background: #66bb6a; }
+        .hotspot-parking { background: #78909c; }
+
+        /* Hotspot tooltip */
+        .map-tooltip {
+            display: none;
+            position: absolute;
             background: white;
-            padding: 0.85rem 1rem;
-            border-radius: 8px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            padding: 1rem;
+            width: 220px;
+            z-index: 20;
             border: 1px solid #e8e5e0;
         }
 
-        .map-legend-dot {
+        .map-tooltip.show { display: block; }
+
+        .map-tooltip-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .map-tooltip-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .map-tooltip-status {
+            font-size: 0.55rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+        }
+
+        .map-tooltip-detail {
+            font-size: 0.68rem;
+            color: var(--text-medium);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .map-tooltip-detail i { width: 12px; text-align: center; font-size: 0.6rem; }
+
+        .map-tooltip-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+
+        /* Map stats footer */
+        .map-stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid #e8e5e0;
+        }
+
+        .map-stat-item {
+            padding: 0.85rem;
+            text-align: center;
+            border-right: 1px solid #f0ede8;
+        }
+
+        .map-stat-item:last-child { border-right: none; }
+
+        .map-stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1;
+        }
+
+        .map-stat-label {
+            font-size: 0.58rem;
+            color: var(--text-medium);
+            margin-top: 0.15rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* ── Map sidebar panels ── */
+        .map-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .map-side-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e8e5e0;
+            overflow: hidden;
+        }
+
+        .map-side-header {
+            padding: 0.85rem 1.15rem;
+            border-bottom: 1px solid #f0ede8;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .map-side-header i { color: var(--accent-gold); font-size: 0.8rem; }
+
+        /* Weather widget */
+        .map-weather {
+            padding: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .map-weather-icon {
+            font-size: 2.2rem;
+        }
+
+        .map-weather-temp {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1;
+        }
+
+        .map-weather-desc {
+            font-size: 0.7rem;
+            color: var(--text-medium);
+            margin-top: 0.1rem;
+        }
+
+        .map-weather-details {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .map-weather-detail {
+            font-size: 0.62rem;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            justify-content: flex-end;
+            margin-bottom: 0.2rem;
+        }
+
+        .map-weather-detail i { width: 12px; text-align: center; }
+
+        /* Room status list */
+        .map-room-list { padding: 0.35rem; }
+
+        .map-room-item {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.55rem 0.65rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .map-room-item:hover { background: #f8f6f3; }
+
+        .map-room-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             flex-shrink: 0;
         }
 
-        .map-legend-item span {
-            font-size: 0.78rem;
+        .map-room-info { flex: 1; min-width: 0; }
+
+        .map-room-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .map-room-sub {
+            font-size: 0.58rem;
+            color: var(--text-medium);
+        }
+
+        .map-room-status {
+            font-size: 0.55rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+
+        /* Quick actions */
+        .map-actions { padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+
+        .map-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
+            background: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
             font-weight: 500;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.15s;
+            width: 100%;
+            text-align: left;
+        }
+
+        .map-action-btn:hover { border-color: var(--accent-gold); background: #fdfcfa; }
+
+        .map-action-btn i {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 1200px) {
+            .map-layout { grid-template-columns: 1fr; }
         }
 
         /* ═══════════════════════════════════════ */
@@ -3508,33 +3865,217 @@
 
             <!-- ═══ RESORT MAP ═══ -->
             <div class="panel" id="panel-map">
-                <div class="map-container">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHGzTRKZWNuuYVBldY9ZXVUCfUurUDUOAhg&s" alt="Bolt Farm Treehouse Resort Map">
+
+                <!-- Toolbar -->
+                <div class="map-toolbar">
+                    <div class="map-toolbar-left">
+                        <span class="map-toolbar-title">Property Map</span>
+                        <span class="map-live-badge">LIVE</span>
+                    </div>
+                    <div class="map-overlays">
+                        <button class="map-overlay-toggle active" onclick="toggleOverlay('rooms', this)" data-layer="rooms">
+                            <span class="ov-dot" style="background:var(--primary-green);"></span> Rooms
+                        </button>
+                        <button class="map-overlay-toggle active" onclick="toggleOverlay('amenities', this)" data-layer="amenities">
+                            <span class="ov-dot" style="background:var(--accent-gold);"></span> Amenities
+                        </button>
+                        <button class="map-overlay-toggle" onclick="toggleOverlay('trails', this)" data-layer="trails">
+                            <span class="ov-dot" style="background:#66bb6a;"></span> Trails
+                        </button>
+                        <button class="map-overlay-toggle" onclick="toggleOverlay('parking', this)" data-layer="parking">
+                            <span class="ov-dot" style="background:#78909c;"></span> Parking
+                        </button>
+                        <button class="map-overlay-toggle active" onclick="toggleOverlay('staff', this)" data-layer="staff">
+                            <span class="ov-dot" style="background:var(--text-dark);"></span> Staff Zones
+                        </button>
+                        <button class="map-overlay-toggle" onclick="toggleOverlay('maintenance', this)" data-layer="maintenance">
+                            <span class="ov-dot" style="background:#e57373;"></span> Maintenance
+                        </button>
+                    </div>
                 </div>
-                <div class="map-legend">
-                    <div class="map-legend-item">
-                        <div class="map-legend-dot" style="background: var(--primary-green);"></div>
-                        <span>Occupied Rooms</span>
+
+                <div class="map-layout">
+                    <!-- Map with interactive hotspots -->
+                    <div>
+                        <div class="map-card">
+                            <div class="map-image-wrap" id="mapImageWrap">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHGzTRKZWNuuYVBldY9ZXVUCfUurUDUOAhg&s" alt="Bolt Farm Treehouse Resort Map">
+
+                                <!-- Room hotspots -->
+                                <div class="map-hotspot hotspot-room pulse" data-layer="rooms" style="top:18%;left:22%;" onclick="showTooltip(this,'Eden Suite','Occupied','Johnson Family','Check-out Feb 12','Cleaned today')" title="Eden Suite"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-room" data-layer="rooms" style="top:32%;left:14%;" onclick="showTooltip(this,'The Ark','Occupied','Williams Couple','Check-out Feb 14','Cleaned today')" title="The Ark"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-room" data-layer="rooms" style="top:25%;left:38%;" onclick="showTooltip(this,'Covenant Cabin','Occupied','Davis Anniversary','Check-out Feb 13','Special request active')" title="Covenant Cabin"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-maintenance pulse" data-layer="rooms" style="top:48%;left:28%;" onclick="showTooltip(this,'Summit Lodge','Maintenance','Deck railing repair','Assigned: James W.','ETA: 2:00 PM')" title="Summit Lodge"><i class="fas fa-tools" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-available" data-layer="rooms" style="top:42%;left:52%;" onclick="showTooltip(this,'Shepherd\\'s Rest','Cleaning','Checked out 10am','Assigned: Maria S.','')" title="Shepherd's Rest"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-available" data-layer="rooms" style="top:58%;left:18%;" onclick="showTooltip(this,'Promised Land','Available','Clean &amp; inspected','Next arrival: Feb 12','')" title="Promised Land"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-room" data-layer="rooms" style="top:65%;left:42%;" onclick="showTooltip(this,'Mustard Seed','Occupied','Pastor Mitchell','Check-out Feb 11','Cleaned today')" title="Mustard Seed"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-available" data-layer="rooms" style="top:72%;left:62%;" onclick="showTooltip(this,'The Vineyard','Available','Clean &amp; inspected','Next arrival: Feb 15','')" title="The Vineyard"><i class="fas fa-home" style="font-size:0.55rem;"></i></div>
+
+                                <!-- Amenity hotspots -->
+                                <div class="map-hotspot hotspot-spa" data-layer="amenities" style="top:35%;left:68%;" onclick="showTooltip(this,'Spa &amp; Wellness','Open','2 sessions today','Rachel on duty','')" title="Spa"><i class="fas fa-spa" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-common" data-layer="amenities" style="top:15%;left:50%;" onclick="showTooltip(this,'Main Lodge','Open','Morning briefing 8am','Dining &amp; lounge','')" title="Main Lodge"><i class="fas fa-landmark" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-common" data-layer="amenities" style="top:80%;left:35%;" onclick="showTooltip(this,'Fire Pit','Available','S\\'mores kits stocked','Sunset gathering area','')" title="Fire Pit"><i class="fas fa-fire" style="font-size:0.55rem;"></i></div>
+
+                                <!-- Trail hotspots -->
+                                <div class="map-hotspot hotspot-trail" data-layer="trails" style="top:55%;left:78%;display:none;" onclick="showTooltip(this,'Summit Trail','Open','2.4 miles · Moderate','Sunrise viewpoint','')" title="Summit Trail"><i class="fas fa-hiking" style="font-size:0.55rem;"></i></div>
+                                <div class="map-hotspot hotspot-trail" data-layer="trails" style="top:75%;left:82%;display:none;" onclick="showTooltip(this,'Creek Path','Open','0.8 miles · Easy','Family friendly','')" title="Creek Path"><i class="fas fa-hiking" style="font-size:0.55rem;"></i></div>
+
+                                <!-- Parking -->
+                                <div class="map-hotspot hotspot-parking" data-layer="parking" style="top:88%;left:15%;display:none;" onclick="showTooltip(this,'Main Parking','12/20 spots','Guest &amp; staff','EV charging available','')" title="Main Parking"><i class="fas fa-parking" style="font-size:0.55rem;"></i></div>
+
+                                <!-- Staff zones -->
+                                <div class="map-hotspot hotspot-staff" data-layer="staff" style="top:10%;left:82%;" onclick="showTooltip(this,'Staff Building','Staff Only','Break room &amp; lockers','Storage &amp; supplies','')" title="Staff Building"><i class="fas fa-user-shield" style="font-size:0.55rem;"></i></div>
+
+                                <!-- Maintenance -->
+                                <div class="map-hotspot hotspot-maintenance" data-layer="maintenance" style="top:90%;left:70%;display:none;" onclick="showTooltip(this,'Maintenance Shed','Active','Tools &amp; equipment','James on site','')" title="Maintenance Shed"><i class="fas fa-wrench" style="font-size:0.55rem;"></i></div>
+
+                                <!-- Tooltip (positioned by JS) -->
+                                <div class="map-tooltip" id="mapTooltip">
+                                    <button class="map-tooltip-close" onclick="hideTooltip()"><i class="fas fa-times"></i></button>
+                                    <div class="map-tooltip-header">
+                                        <span class="map-tooltip-name" id="ttName"></span>
+                                        <span class="map-tooltip-status" id="ttStatus"></span>
+                                    </div>
+                                    <div class="map-tooltip-detail" id="ttD1"><i class="fas fa-info-circle"></i> <span id="ttD1t"></span></div>
+                                    <div class="map-tooltip-detail" id="ttD2"><i class="fas fa-user"></i> <span id="ttD2t"></span></div>
+                                    <div class="map-tooltip-detail" id="ttD3"><i class="fas fa-clock"></i> <span id="ttD3t"></span></div>
+                                </div>
+                            </div>
+
+                            <!-- Stats bar -->
+                            <div class="map-stats-bar">
+                                <div class="map-stat-item">
+                                    <div class="map-stat-value">8</div>
+                                    <div class="map-stat-label">Total Rooms</div>
+                                </div>
+                                <div class="map-stat-item">
+                                    <div class="map-stat-value" style="color:var(--primary-green);">5</div>
+                                    <div class="map-stat-label">Occupied</div>
+                                </div>
+                                <div class="map-stat-item">
+                                    <div class="map-stat-value" style="color:#4285f4;">2</div>
+                                    <div class="map-stat-label">Available</div>
+                                </div>
+                                <div class="map-stat-item">
+                                    <div class="map-stat-value" style="color:#e57373;">1</div>
+                                    <div class="map-stat-label">Maintenance</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="map-legend-item">
-                        <div class="map-legend-dot" style="background: #4285f4;"></div>
-                        <span>Available Rooms</span>
-                    </div>
-                    <div class="map-legend-item">
-                        <div class="map-legend-dot" style="background: var(--accent-gold);"></div>
-                        <span>Spa &amp; Wellness</span>
-                    </div>
-                    <div class="map-legend-item">
-                        <div class="map-legend-dot" style="background: #805ad5;"></div>
-                        <span>Common Areas</span>
-                    </div>
-                    <div class="map-legend-item">
-                        <div class="map-legend-dot" style="background: #e57373;"></div>
-                        <span>Maintenance Zone</span>
-                    </div>
-                    <div class="map-legend-item">
-                        <div class="map-legend-dot" style="background: var(--text-dark);"></div>
-                        <span>Staff Only</span>
+
+                    <!-- Sidebar -->
+                    <div class="map-sidebar">
+                        <!-- Weather -->
+                        <div class="map-side-card">
+                            <div class="map-side-header"><i class="fas fa-cloud-sun"></i> Current Weather</div>
+                            <div class="map-weather">
+                                <div class="map-weather-icon">⛅</div>
+                                <div>
+                                    <div class="map-weather-temp">48°F</div>
+                                    <div class="map-weather-desc">Partly Cloudy</div>
+                                </div>
+                                <div class="map-weather-details">
+                                    <div class="map-weather-detail"><i class="fas fa-wind"></i> 8 mph</div>
+                                    <div class="map-weather-detail"><i class="fas fa-tint"></i> 62%</div>
+                                    <div class="map-weather-detail"><i class="fas fa-sun"></i> Sunset 6:12p</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Room status list -->
+                        <div class="map-side-card">
+                            <div class="map-side-header"><i class="fas fa-bed"></i> Room Status</div>
+                            <div class="map-room-list">
+                                <div class="map-room-item">
+                                    <div class="map-room-dot" style="background:var(--primary-green);"></div>
+                                    <div class="map-room-info">
+                                        <div class="map-room-name">Eden Suite</div>
+                                        <div class="map-room-sub">Johnson Family</div>
+                                    </div>
+                                    <span class="map-room-status status-occupied">Occupied</span>
+                                </div>
+                                <div class="map-room-item">
+                                    <div class="map-room-dot" style="background:var(--primary-green);"></div>
+                                    <div class="map-room-info">
+                                        <div class="map-room-name">The Ark</div>
+                                        <div class="map-room-sub">Williams Couple</div>
+                                    </div>
+                                    <span class="map-room-status status-occupied">Occupied</span>
+                                </div>
+                                <div class="map-room-item">
+                                    <div class="map-room-dot" style="background:var(--primary-green);"></div>
+                                    <div class="map-room-info">
+                                        <div class="map-room-name">Covenant Cabin</div>
+                                        <div class="map-room-sub">Davis Anniversary</div>
+                                    </div>
+                                    <span class="map-room-status status-occupied">Occupied</span>
+                                </div>
+                                <div class="map-room-item">
+                                    <div class="map-room-dot" style="background:#e57373;"></div>
+                                    <div class="map-room-info">
+                                        <div class="map-room-name">Summit Lodge</div>
+                                        <div class="map-room-sub">Deck railing repair</div>
+                                    </div>
+                                    <span class="map-room-status status-maintenance">Maint.</span>
+                                </div>
+                                <div class="map-room-item">
+                                    <div class="map-room-dot" style="background:var(--accent-gold);"></div>
+                                    <div class="map-room-info">
+                                        <div class="map-room-name">Shepherd's Rest</div>
+                                        <div class="map-room-sub">Maria cleaning</div>
+                                    </div>
+                                    <span class="map-room-status status-cleaning">Cleaning</span>
+                                </div>
+                                <div class="map-room-item">
+                                    <div class="map-room-dot" style="background:#4285f4;"></div>
+                                    <div class="map-room-info">
+                                        <div class="map-room-name">Promised Land</div>
+                                        <div class="map-room-sub">Next: Feb 12</div>
+                                    </div>
+                                    <span class="map-room-status status-available">Available</span>
+                                </div>
+                                <div class="map-room-item">
+                                    <div class="map-room-dot" style="background:var(--primary-green);"></div>
+                                    <div class="map-room-info">
+                                        <div class="map-room-name">Mustard Seed</div>
+                                        <div class="map-room-sub">Pastor Mitchell</div>
+                                    </div>
+                                    <span class="map-room-status status-occupied">Occupied</span>
+                                </div>
+                                <div class="map-room-item">
+                                    <div class="map-room-dot" style="background:#4285f4;"></div>
+                                    <div class="map-room-info">
+                                        <div class="map-room-name">The Vineyard</div>
+                                        <div class="map-room-sub">Next: Feb 15</div>
+                                    </div>
+                                    <span class="map-room-status status-available">Available</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="map-side-card">
+                            <div class="map-side-header"><i class="fas fa-bolt"></i> Quick Actions</div>
+                            <div class="map-actions">
+                                <button class="map-action-btn">
+                                    <i class="fas fa-bell stat-icon-gold" style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;"></i>
+                                    Send Property Alert
+                                </button>
+                                <button class="map-action-btn">
+                                    <i class="fas fa-walkie-talkie stat-icon-green" style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;"></i>
+                                    Page All Staff
+                                </button>
+                                <button class="map-action-btn">
+                                    <i class="fas fa-door-closed stat-icon-blue" style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;"></i>
+                                    Block / Unblock Room
+                                </button>
+                                <button class="map-action-btn">
+                                    <i class="fas fa-print stat-icon-red" style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;"></i>
+                                    Print Property Report
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3779,6 +4320,70 @@
         // Close modal on backdrop click
         document.getElementById('shiftModal').addEventListener('click', function(e) {
             if (e.target === this) closeShiftModal();
+        });
+
+        // ═══ Resort Map ═══
+        // Overlay toggle
+        function toggleOverlay(layer, btn) {
+            btn.classList.toggle('active');
+            const show = btn.classList.contains('active');
+            document.querySelectorAll(`.map-hotspot[data-layer="${layer}"]`).forEach(h => {
+                h.style.display = show ? '' : 'none';
+            });
+        }
+
+        // Tooltip
+        function showTooltip(el, name, status, d1, d2, d3) {
+            const tt = document.getElementById('mapTooltip');
+            document.getElementById('ttName').textContent = name;
+
+            const statusEl = document.getElementById('ttStatus');
+            statusEl.textContent = status;
+            statusEl.className = 'map-tooltip-status';
+            if (status === 'Occupied') { statusEl.style.background = 'rgba(58,90,64,0.1)'; statusEl.style.color = 'var(--primary-green)'; }
+            else if (status === 'Available') { statusEl.style.background = 'rgba(66,133,244,0.1)'; statusEl.style.color = '#4285f4'; }
+            else if (status === 'Maintenance') { statusEl.style.background = 'rgba(229,115,115,0.1)'; statusEl.style.color = '#e57373'; }
+            else if (status === 'Cleaning') { statusEl.style.background = 'rgba(201,169,110,0.15)'; statusEl.style.color = '#b8942e'; }
+            else { statusEl.style.background = 'rgba(201,169,110,0.12)'; statusEl.style.color = 'var(--accent-gold)'; }
+
+            const d1El = document.getElementById('ttD1');
+            const d2El = document.getElementById('ttD2');
+            const d3El = document.getElementById('ttD3');
+
+            document.getElementById('ttD1t').textContent = d1;
+            d1El.style.display = d1 ? '' : 'none';
+
+            document.getElementById('ttD2t').textContent = d2;
+            d2El.style.display = d2 ? '' : 'none';
+
+            document.getElementById('ttD3t').textContent = d3;
+            d3El.style.display = d3 ? '' : 'none';
+
+            // Position tooltip near the hotspot
+            const wrap = document.getElementById('mapImageWrap');
+            const wrapRect = wrap.getBoundingClientRect();
+            const elRect = el.getBoundingClientRect();
+            let left = elRect.left - wrapRect.left + 35;
+            let top = elRect.top - wrapRect.top - 20;
+
+            // Keep within bounds
+            if (left + 220 > wrapRect.width) left = elRect.left - wrapRect.left - 230;
+            if (top < 0) top = 10;
+
+            tt.style.left = left + 'px';
+            tt.style.top = top + 'px';
+            tt.classList.add('show');
+        }
+
+        function hideTooltip() {
+            document.getElementById('mapTooltip').classList.remove('show');
+        }
+
+        // Close tooltip when clicking elsewhere on map
+        document.getElementById('mapImageWrap').addEventListener('click', function(e) {
+            if (!e.target.closest('.map-hotspot') && !e.target.closest('.map-tooltip')) {
+                hideTooltip();
+            }
         });
     </script>
 </body>
