@@ -559,42 +559,102 @@
             overflow: hidden;
         }
 
+        /* ── Channel sidebar ── */
         .chat-channels {
             border-right: 1px solid #e8e5e0;
             display: flex;
             flex-direction: column;
+            background: #faf9f7;
         }
 
         .chat-channels-header {
-            padding: 1.25rem;
+            padding: 1rem 1.25rem;
             border-bottom: 1px solid #f0ede8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-channels-title {
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chat-search-btn {
+            background: none;
+            border: none;
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .chat-search-btn:hover { background: #eee; color: var(--text-dark); }
+
+        .chat-search-bar {
+            display: none;
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid #f0ede8;
+        }
+
+        .chat-search-bar.open { display: block; }
+
+        .chat-search-bar input {
+            width: 100%;
+            padding: 0.55rem 0.75rem;
+            border: 1px solid #e0ddd8;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            outline: none;
+        }
+
+        .chat-search-bar input:focus { border-color: var(--accent-gold); }
+
+        .chat-section-label {
+            font-size: 0.58rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-medium);
+            padding: 1rem 1rem 0.35rem;
         }
 
         .chat-channel-list {
             flex: 1;
             overflow-y: auto;
-            padding: 0.5rem;
+            padding: 0 0.5rem 0.5rem;
         }
 
         .chat-channel {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.75rem;
+            padding: 0.65rem 0.75rem;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.15s;
+            position: relative;
         }
 
-        .chat-channel:hover { background: #f8f6f3; }
-        .chat-channel.active { background: rgba(201,169,110,0.1); }
+        .chat-channel:hover { background: white; }
+
+        .chat-channel.active {
+            background: white;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .chat-channel.unread .chat-channel-name { font-weight: 700; color: var(--text-dark); }
 
         .chat-channel-icon {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
             background: var(--primary-dark);
             color: var(--accent-gold);
@@ -603,128 +663,469 @@
             justify-content: center;
             font-size: 0.8rem;
             flex-shrink: 0;
+            position: relative;
         }
 
         .chat-channel-info { flex: 1; min-width: 0; }
 
+        .chat-channel-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         .chat-channel-name {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
             color: var(--text-dark);
         }
 
+        .chat-channel-time {
+            font-size: 0.58rem;
+            color: var(--text-medium);
+            flex-shrink: 0;
+        }
+
         .chat-channel-preview {
-            font-size: 0.68rem;
+            font-size: 0.66rem;
             color: var(--text-medium);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-top: 0.15rem;
         }
 
         .chat-channel-badge {
             background: var(--accent-gold);
             color: var(--primary-dark);
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 0.35rem;
+            border-radius: 9px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        /* Online members row */
+        .chat-online-row {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f0ede8;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .chat-online-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            margin-left: -6px;
+            border: 2px solid #faf9f7;
+        }
+
+        .chat-online-avatar:first-child { margin-left: 0; }
+
+        .chat-online-dot {
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 8px;
+            height: 8px;
+            background: #4caf50;
+            border-radius: 50%;
+            border: 1.5px solid white;
+        }
+
+        .chat-online-count {
+            font-size: 0.62rem;
+            color: var(--text-medium);
+            margin-left: 0.4rem;
+        }
+
+        /* ── Chat main area ── */
         .chat-main {
             display: flex;
             flex-direction: column;
+            background: white;
         }
 
         .chat-header {
-            padding: 1rem 1.5rem;
+            padding: 0.85rem 1.5rem;
             border-bottom: 1px solid #f0ede8;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-header-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: rgba(201,169,110,0.12);
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+
         .chat-header-info h3 {
             font-size: 0.9rem;
             font-weight: 600;
+            color: var(--primary-dark);
         }
 
         .chat-header-info span {
-            font-size: 0.68rem;
+            font-size: 0.62rem;
             color: var(--text-medium);
         }
 
+        .chat-header-actions {
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .chat-header-btn {
+            background: none;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .chat-header-btn:hover { background: #f0ede8; color: var(--text-dark); }
+
+        /* Pinned message */
+        .chat-pinned {
+            padding: 0.6rem 1.5rem;
+            background: rgba(201,169,110,0.06);
+            border-bottom: 1px solid #f0ede8;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.72rem;
+        }
+
+        .chat-pinned i { color: var(--accent-gold); font-size: 0.75rem; }
+        .chat-pinned strong { font-weight: 600; color: var(--primary-dark); }
+        .chat-pinned span { color: var(--text-medium); }
+
+        /* Messages */
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 1.5rem;
+            padding: 1.25rem 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1.25rem;
+            gap: 0.25rem;
         }
+
+        .chat-date-divider {
+            text-align: center;
+            padding: 0.75rem 0;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .chat-date-divider::before,
+        .chat-date-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            height: 1px;
+            background: #eee;
+            width: calc(50% - 60px);
+        }
+
+        .chat-date-divider::before { left: 0; }
+        .chat-date-divider::after { right: 0; }
 
         .chat-msg {
             display: flex;
-            gap: 0.75rem;
-            max-width: 75%;
+            gap: 0.65rem;
+            max-width: 80%;
+            padding: 0.35rem 0.5rem;
+            border-radius: 8px;
+            transition: background 0.15s;
         }
 
+        .chat-msg:hover { background: #faf9f7; }
+
         .chat-msg-avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 700;
             flex-shrink: 0;
             color: white;
+            margin-top: 0.15rem;
         }
 
-        .chat-msg-content {
-            background: #f8f6f3;
-            padding: 0.75rem 1rem;
-            border-radius: 0 12px 12px 12px;
+        .chat-msg-body { flex: 1; min-width: 0; }
+
+        .chat-msg-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-bottom: 0.2rem;
         }
 
         .chat-msg-name {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--primary-dark);
-            margin-bottom: 0.25rem;
+        }
+
+        .chat-msg-role {
+            font-size: 0.55rem;
+            font-weight: 500;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            background: rgba(201,169,110,0.12);
+            color: var(--accent-gold);
+        }
+
+        .chat-msg-time {
+            font-size: 0.58rem;
+            color: #bbb;
         }
 
         .chat-msg-text {
             font-size: 0.82rem;
-            line-height: 1.5;
+            line-height: 1.55;
             color: var(--text-dark);
         }
 
-        .chat-msg-time {
-            font-size: 0.6rem;
-            color: var(--text-medium);
-            margin-top: 0.3rem;
+        .chat-msg-text .mention {
+            background: rgba(66,133,244,0.1);
+            color: #4285f4;
+            padding: 0.05rem 0.3rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.78rem;
         }
 
-        .chat-input-area {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid #f0ede8;
+        /* Reactions */
+        .chat-msg-reactions {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.35rem;
+            margin-top: 0.35rem;
+            flex-wrap: wrap;
+        }
+
+        .chat-reaction {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            background: #f0ede8;
+            font-size: 0.72rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .chat-reaction:hover { border-color: var(--accent-gold); }
+
+        .chat-reaction.active {
+            background: rgba(201,169,110,0.15);
+            border-color: var(--accent-gold);
+        }
+
+        .chat-reaction-count {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--text-medium);
+        }
+
+        /* Read receipts */
+        .chat-msg-read {
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+            margin-top: 0.2rem;
+        }
+
+        .chat-msg-read-avatar {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.35rem;
+            font-weight: 700;
+            color: white;
+            margin-left: -3px;
+        }
+
+        .chat-msg-read-avatar:first-child { margin-left: 0; }
+
+        /* File attachment */
+        .chat-msg-file {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 0.85rem;
+            background: #f5f3f0;
+            border-radius: 8px;
+            margin-top: 0.4rem;
+            border: 1px solid #e8e5e0;
+            cursor: pointer;
+            transition: border-color 0.15s;
+        }
+
+        .chat-msg-file:hover { border-color: var(--accent-gold); }
+
+        .chat-msg-file-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(66,133,244,0.1);
+            color: #4285f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .chat-msg-file-info { min-width: 0; }
+
+        .chat-msg-file-name {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .chat-msg-file-size {
+            font-size: 0.6rem;
+            color: var(--text-medium);
+        }
+
+        /* Thread reply */
+        .chat-msg-thread {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.6rem;
+            margin-top: 0.4rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #4285f4;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background 0.15s;
+        }
+
+        .chat-msg-thread:hover { background: rgba(66,133,244,0.06); }
+
+        .chat-msg-thread i { font-size: 0.6rem; }
+
+        /* Typing indicator */
+        .chat-typing {
+            padding: 0.25rem 1.5rem 0;
+            font-size: 0.65rem;
+            color: var(--text-medium);
+            height: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .typing-dots {
+            display: inline-flex;
+            gap: 3px;
+        }
+
+        .typing-dots span {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+            40% { transform: translateY(-4px); opacity: 1; }
+        }
+
+        /* Input area */
+        .chat-input-area {
+            padding: 0.75rem 1.5rem;
+            border-top: 1px solid #f0ede8;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 0.65rem;
             align-items: center;
         }
 
+        .chat-input-tools {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .chat-tool-btn {
+            background: none;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            color: var(--text-medium);
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+        }
+
+        .chat-tool-btn:hover { background: #f0ede8; color: var(--text-dark); }
+
         .chat-input {
             flex: 1;
-            padding: 0.75rem 1rem;
+            padding: 0.7rem 1rem;
             border: 1px solid #e0ddd8;
             border-radius: 24px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             outline: none;
             transition: border-color 0.2s;
         }
@@ -732,8 +1133,8 @@
         .chat-input:focus { border-color: var(--accent-gold); }
 
         .chat-send {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             background: var(--accent-gold);
             color: var(--primary-dark);
@@ -742,11 +1143,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85rem;
-            transition: background 0.2s;
+            font-size: 0.8rem;
+            transition: all 0.2s;
         }
 
-        .chat-send:hover { background: #d4b56e; }
+        .chat-send:hover { background: #d4b56e; transform: scale(1.05); }
 
         /* ═══════════════════════════════════════ */
         /*            STAFF SCHEDULING              */
@@ -2068,117 +2469,275 @@
             <!-- ═══ STAFF CHAT ═══ -->
             <div class="panel" id="panel-chat">
                 <div class="chat-layout">
+                    <!-- Channel Sidebar -->
                     <div class="chat-channels">
                         <div class="chat-channels-header">
-                            <i class="fas fa-comments"></i> &nbsp;Channels
+                            <div class="chat-channels-title"><i class="fas fa-comments"></i> Messages</div>
+                            <button class="chat-search-btn" onclick="toggleChatSearch()"><i class="fas fa-search"></i></button>
                         </div>
+                        <div class="chat-search-bar" id="chatSearchBar">
+                            <input type="text" placeholder="Search messages..." id="chatSearchInput" oninput="searchMessages(this.value)">
+                        </div>
+
+                        <div class="chat-section-label">Channels</div>
                         <div class="chat-channel-list">
-                            <div class="chat-channel active" onclick="switchChannel(this, 'general')">
+                            <div class="chat-channel active unread" onclick="switchChannel(this, 'general')">
                                 <div class="chat-channel-icon"><i class="fas fa-hashtag"></i></div>
                                 <div class="chat-channel-info">
-                                    <div class="chat-channel-name">General</div>
-                                    <div class="chat-channel-preview">Sarah: Morning meeting at 8am</div>
+                                    <div class="chat-channel-top">
+                                        <div class="chat-channel-name">General</div>
+                                        <span class="chat-channel-time">7:38 AM</span>
+                                    </div>
+                                    <div class="chat-channel-preview">Sarah: Perfect teamwork everyone...</div>
                                 </div>
                                 <div class="chat-channel-badge">3</div>
                             </div>
-                            <div class="chat-channel" onclick="switchChannel(this, 'housekeeping')">
+                            <div class="chat-channel unread" onclick="switchChannel(this, 'housekeeping')">
                                 <div class="chat-channel-icon"><i class="fas fa-broom"></i></div>
                                 <div class="chat-channel-info">
-                                    <div class="chat-channel-name">Housekeeping</div>
-                                    <div class="chat-channel-preview">Maria: Eden Suite done</div>
+                                    <div class="chat-channel-top">
+                                        <div class="chat-channel-name">Housekeeping</div>
+                                        <span class="chat-channel-time">7:22 AM</span>
+                                    </div>
+                                    <div class="chat-channel-preview">Maria: Eden Suite is done, heading to...</div>
                                 </div>
+                                <div class="chat-channel-badge">2</div>
                             </div>
                             <div class="chat-channel" onclick="switchChannel(this, 'maintenance')">
                                 <div class="chat-channel-icon"><i class="fas fa-tools"></i></div>
                                 <div class="chat-channel-info">
-                                    <div class="chat-channel-name">Maintenance</div>
+                                    <div class="chat-channel-top">
+                                        <div class="chat-channel-name">Maintenance</div>
+                                        <span class="chat-channel-time">7:35 AM</span>
+                                    </div>
                                     <div class="chat-channel-preview">James: Railing fix ETA 2pm</div>
                                 </div>
                             </div>
                             <div class="chat-channel" onclick="switchChannel(this, 'spa')">
                                 <div class="chat-channel-icon"><i class="fas fa-spa"></i></div>
                                 <div class="chat-channel-info">
-                                    <div class="chat-channel-name">Spa Team</div>
-                                    <div class="chat-channel-preview">Rachel: 2 bookings today</div>
+                                    <div class="chat-channel-top">
+                                        <div class="chat-channel-name">Spa Team</div>
+                                        <span class="chat-channel-time">7:31 AM</span>
+                                    </div>
+                                    <div class="chat-channel-preview">Rachel: 2 bookings today at 10 and 2</div>
                                 </div>
                             </div>
                             <div class="chat-channel" onclick="switchChannel(this, 'front-desk')">
                                 <div class="chat-channel-icon"><i class="fas fa-door-open"></i></div>
                                 <div class="chat-channel-info">
-                                    <div class="chat-channel-name">Front Desk</div>
-                                    <div class="chat-channel-preview">Tom: Check-in at 3pm</div>
+                                    <div class="chat-channel-top">
+                                        <div class="chat-channel-name">Front Desk</div>
+                                        <span class="chat-channel-time">6:55 AM</span>
+                                    </div>
+                                    <div class="chat-channel-preview">Tom: Check-in at 3pm for The Ark</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chat-section-label">Direct Messages</div>
+                        <div class="chat-channel-list">
+                            <div class="chat-channel" onclick="switchChannel(this, 'dm-sarah')">
+                                <div class="chat-channel-icon" style="background:var(--primary-green);border-radius:50%;"><span style="font-size:0.65rem;font-weight:700;">SB</span></div>
+                                <div class="chat-channel-info">
+                                    <div class="chat-channel-top">
+                                        <div class="chat-channel-name">Sarah Bennett</div>
+                                        <span class="chat-channel-time">6:40 AM</span>
+                                    </div>
+                                    <div class="chat-channel-preview">Can you review the new checkout...</div>
+                                </div>
+                            </div>
+                            <div class="chat-channel" onclick="switchChannel(this, 'dm-tom')">
+                                <div class="chat-channel-icon" style="background:#4285f4;border-radius:50%;"><span style="font-size:0.65rem;font-weight:700;">TH</span></div>
+                                <div class="chat-channel-info">
+                                    <div class="chat-channel-top">
+                                        <div class="chat-channel-name">Tom Henderson</div>
+                                        <span class="chat-channel-time">Yesterday</span>
+                                    </div>
+                                    <div class="chat-channel-preview">Got it, thanks!</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Chat Main Area -->
                     <div class="chat-main">
+                        <!-- Header -->
                         <div class="chat-header">
-                            <div class="chat-header-info">
-                                <h3># General</h3>
-                                <span>All staff — 14 members</span>
+                            <div class="chat-header-left">
+                                <div class="chat-header-icon"><i class="fas fa-hashtag"></i></div>
+                                <div class="chat-header-info">
+                                    <h3>General</h3>
+                                    <span>All staff — 14 members · 8 online</span>
+                                </div>
+                            </div>
+                            <div class="chat-header-actions">
+                                <button class="chat-header-btn" title="Pin messages"><i class="fas fa-thumbtack"></i></button>
+                                <button class="chat-header-btn" title="Search in channel"><i class="fas fa-search"></i></button>
+                                <button class="chat-header-btn" title="Channel settings"><i class="fas fa-cog"></i></button>
                             </div>
                         </div>
 
+                        <!-- Pinned Message -->
+                        <div class="chat-pinned">
+                            <i class="fas fa-thumbtack"></i>
+                            <strong>Pinned:</strong>
+                            <span>Morning devotional &amp; briefing at 8am daily in the main lodge — Sarah B.</span>
+                        </div>
+
+                        <!-- Online Avatars -->
+                        <div class="chat-online-row">
+                            <div class="chat-online-avatar" style="background:var(--primary-green);"><span>SB</span><div class="chat-online-dot"></div></div>
+                            <div class="chat-online-avatar" style="background:var(--accent-gold);color:var(--primary-dark);"><span>MS</span><div class="chat-online-dot"></div></div>
+                            <div class="chat-online-avatar" style="background:#4285f4;"><span>TH</span><div class="chat-online-dot"></div></div>
+                            <div class="chat-online-avatar" style="background:#805ad5;"><span>RT</span><div class="chat-online-dot"></div></div>
+                            <div class="chat-online-avatar" style="background:#e57373;"><span>JW</span><div class="chat-online-dot"></div></div>
+                            <div class="chat-online-avatar" style="background:#d4a24e;"><span>AR</span><div class="chat-online-dot"></div></div>
+                            <div class="chat-online-avatar" style="background:#805ad5;"><span>DC</span><div class="chat-online-dot"></div></div>
+                            <div class="chat-online-avatar" style="background:#7c6bbf;"><span>LM</span><div class="chat-online-dot"></div></div>
+                            <span class="chat-online-count">8 online</span>
+                        </div>
+
+                        <!-- Messages -->
                         <div class="chat-messages" id="chatMessages">
+                            <div class="chat-date-divider">Today</div>
+
+                            <!-- Message 1 -->
                             <div class="chat-msg">
-                                <div class="chat-msg-avatar" style="background: var(--primary-green);">SB</div>
-                                <div class="chat-msg-content">
-                                    <div class="chat-msg-name">Sarah Bennett</div>
-                                    <div class="chat-msg-text">Good morning team! Reminder — morning devotional and briefing at 8am in the main lodge. We have 6 rooms occupied today and 2 checkouts expected.</div>
-                                    <div class="chat-msg-time">7:15 AM</div>
+                                <div class="chat-msg-avatar" style="background:var(--primary-green);">SB</div>
+                                <div class="chat-msg-body">
+                                    <div class="chat-msg-header">
+                                        <span class="chat-msg-name">Sarah Bennett</span>
+                                        <span class="chat-msg-role">Manager</span>
+                                        <span class="chat-msg-time">7:15 AM</span>
+                                    </div>
+                                    <div class="chat-msg-text">Good morning team! Reminder — morning devotional and briefing at 8am in the main lodge. We have 6 rooms occupied today and 2 checkouts expected. <span class="mention">@everyone</span></div>
+                                    <div class="chat-msg-reactions">
+                                        <span class="chat-reaction active" onclick="toggleReaction(this)">🙏 <span class="chat-reaction-count">4</span></span>
+                                        <span class="chat-reaction" onclick="toggleReaction(this)">👍 <span class="chat-reaction-count">2</span></span>
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- Message 2 -->
                             <div class="chat-msg">
-                                <div class="chat-msg-avatar" style="background: var(--accent-gold); color: var(--primary-dark);">MS</div>
-                                <div class="chat-msg-content">
-                                    <div class="chat-msg-name">Maria Sanchez</div>
+                                <div class="chat-msg-avatar" style="background:var(--accent-gold);color:var(--primary-dark);">MS</div>
+                                <div class="chat-msg-body">
+                                    <div class="chat-msg-header">
+                                        <span class="chat-msg-name">Maria Sanchez</span>
+                                        <span class="chat-msg-role">Housekeeping</span>
+                                        <span class="chat-msg-time">7:22 AM</span>
+                                    </div>
                                     <div class="chat-msg-text">Good morning! I'll have Eden Suite and Shepherd's Rest turned over by 11am. Any special prep needed for the new arrivals?</div>
-                                    <div class="chat-msg-time">7:22 AM</div>
+                                    <div class="chat-msg-reactions">
+                                        <span class="chat-reaction" onclick="toggleReaction(this)">✅ <span class="chat-reaction-count">1</span></span>
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- Message 3 - with file -->
                             <div class="chat-msg">
-                                <div class="chat-msg-avatar" style="background: #4285f4;">TH</div>
-                                <div class="chat-msg-content">
-                                    <div class="chat-msg-name">Tom Henderson</div>
-                                    <div class="chat-msg-text">The guests in Covenant Cabin requested anniversary flowers and a bottle of local wine. I'll handle the wine — can someone grab flowers from town?</div>
-                                    <div class="chat-msg-time">7:28 AM</div>
+                                <div class="chat-msg-avatar" style="background:#4285f4;">TH</div>
+                                <div class="chat-msg-body">
+                                    <div class="chat-msg-header">
+                                        <span class="chat-msg-name">Tom Henderson</span>
+                                        <span class="chat-msg-role">Host</span>
+                                        <span class="chat-msg-time">7:28 AM</span>
+                                    </div>
+                                    <div class="chat-msg-text">The guests in Covenant Cabin requested anniversary flowers and a bottle of local wine. I'll handle the wine — <span class="mention">@Maria</span> or <span class="mention">@Rachel</span> can someone grab flowers from town?</div>
+                                    <div class="chat-msg-file">
+                                        <div class="chat-msg-file-icon"><i class="fas fa-file-alt"></i></div>
+                                        <div class="chat-msg-file-info">
+                                            <div class="chat-msg-file-name">special-request-davis.pdf</div>
+                                            <div class="chat-msg-file-size">124 KB</div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-msg-thread" onclick="alert('Thread view coming soon!')">
+                                        <i class="fas fa-reply"></i> 2 replies
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- Message 4 -->
                             <div class="chat-msg">
-                                <div class="chat-msg-avatar" style="background: #805ad5;">RT</div>
-                                <div class="chat-msg-content">
-                                    <div class="chat-msg-name">Rachel Torres</div>
+                                <div class="chat-msg-avatar" style="background:#805ad5;">RT</div>
+                                <div class="chat-msg-body">
+                                    <div class="chat-msg-header">
+                                        <span class="chat-msg-name">Rachel Torres</span>
+                                        <span class="chat-msg-role">Spa</span>
+                                        <span class="chat-msg-time">7:31 AM</span>
+                                    </div>
                                     <div class="chat-msg-text">I can pick up flowers on my way in! Also heads up — we have 2 couples spa sessions booked today at 10am and 2pm. Cabin 3 guests and the Covenant Cabin anniversary couple.</div>
-                                    <div class="chat-msg-time">7:31 AM</div>
+                                    <div class="chat-msg-reactions">
+                                        <span class="chat-reaction active" onclick="toggleReaction(this)">💐 <span class="chat-reaction-count">3</span></span>
+                                        <span class="chat-reaction" onclick="toggleReaction(this)">❤️ <span class="chat-reaction-count">2</span></span>
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- Message 5 - with image -->
                             <div class="chat-msg">
-                                <div class="chat-msg-avatar" style="background: #e57373;">JW</div>
-                                <div class="chat-msg-content">
-                                    <div class="chat-msg-name">James Walker</div>
+                                <div class="chat-msg-avatar" style="background:#e57373;">JW</div>
+                                <div class="chat-msg-body">
+                                    <div class="chat-msg-header">
+                                        <span class="chat-msg-name">James Walker</span>
+                                        <span class="chat-msg-role">Maintenance</span>
+                                        <span class="chat-msg-time">7:35 AM</span>
+                                    </div>
                                     <div class="chat-msg-text">Quick update on Summit Lodge — the deck railing repair parts arrived. I'll have it fixed by 2pm. Keeping the room blocked until then.</div>
-                                    <div class="chat-msg-time">7:35 AM</div>
+                                    <div class="chat-msg-file">
+                                        <div class="chat-msg-file-icon" style="background:rgba(229,115,115,0.1);color:#e57373;"><i class="fas fa-image"></i></div>
+                                        <div class="chat-msg-file-info">
+                                            <div class="chat-msg-file-name">railing-damage-photo.jpg</div>
+                                            <div class="chat-msg-file-size">2.1 MB</div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-msg-reactions">
+                                        <span class="chat-reaction" onclick="toggleReaction(this)">🔨 <span class="chat-reaction-count">1</span></span>
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- Message 6 -->
                             <div class="chat-msg">
-                                <div class="chat-msg-avatar" style="background: var(--primary-green);">SB</div>
-                                <div class="chat-msg-content">
-                                    <div class="chat-msg-name">Sarah Bennett</div>
-                                    <div class="chat-msg-text">Perfect teamwork everyone. Rachel, thank you for grabbing the flowers! Let's make today a blessing for our guests. 🙏</div>
-                                    <div class="chat-msg-time">7:38 AM</div>
+                                <div class="chat-msg-avatar" style="background:var(--primary-green);">SB</div>
+                                <div class="chat-msg-body">
+                                    <div class="chat-msg-header">
+                                        <span class="chat-msg-name">Sarah Bennett</span>
+                                        <span class="chat-msg-role">Manager</span>
+                                        <span class="chat-msg-time">7:38 AM</span>
+                                    </div>
+                                    <div class="chat-msg-text">Perfect teamwork everyone. <span class="mention">@Rachel</span>, thank you for grabbing the flowers! Let's make today a blessing for our guests. 🙏</div>
+                                    <div class="chat-msg-reactions">
+                                        <span class="chat-reaction active" onclick="toggleReaction(this)">🙌 <span class="chat-reaction-count">6</span></span>
+                                        <span class="chat-reaction" onclick="toggleReaction(this)">🙏 <span class="chat-reaction-count">3</span></span>
+                                        <span class="chat-reaction" onclick="toggleReaction(this)">❤️ <span class="chat-reaction-count">4</span></span>
+                                    </div>
+                                    <div class="chat-msg-read">
+                                        <div class="chat-msg-read-avatar" style="background:var(--accent-gold);">M</div>
+                                        <div class="chat-msg-read-avatar" style="background:#4285f4;">T</div>
+                                        <div class="chat-msg-read-avatar" style="background:#805ad5;">R</div>
+                                        <div class="chat-msg-read-avatar" style="background:#e57373;">J</div>
+                                        <div class="chat-msg-read-avatar" style="background:#d4a24e;">A</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Typing indicator -->
+                        <div class="chat-typing" id="chatTyping"></div>
+
+                        <!-- Input -->
                         <div class="chat-input-area">
-                            <input type="text" class="chat-input" placeholder="Type a message..." id="chatInput" onkeydown="if(event.key==='Enter')sendMessage()">
-                            <button class="chat-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                            <div class="chat-input-row">
+                                <div class="chat-input-tools">
+                                    <button class="chat-tool-btn" title="Attach file"><i class="fas fa-paperclip"></i></button>
+                                    <button class="chat-tool-btn" title="Add emoji"><i class="fas fa-smile"></i></button>
+                                    <button class="chat-tool-btn" title="Mention someone"><i class="fas fa-at"></i></button>
+                                </div>
+                                <input type="text" class="chat-input" placeholder="Message #General..." id="chatInput" onkeydown="if(event.key==='Enter')sendMessage()">
+                                <button class="chat-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3017,8 +3576,14 @@
 
         // ═══ Chat ═══
         function switchChannel(el, channel) {
-            document.querySelectorAll('.chat-channel').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.chat-channel').forEach(c => {
+                c.classList.remove('active');
+                c.classList.remove('unread');
+            });
             el.classList.add('active');
+            // Remove badge
+            const badge = el.querySelector('.chat-channel-badge');
+            if (badge) badge.style.display = 'none';
         }
 
         function sendMessage() {
@@ -3026,20 +3591,91 @@
             const text = input.value.trim();
             if (!text) return;
 
+            // Escape HTML
+            const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
             const msgDiv = document.createElement('div');
             msgDiv.className = 'chat-msg';
-            msgDiv.style.alignSelf = 'flex-end';
             msgDiv.innerHTML = `
-                <div class="chat-msg-avatar" style="background: var(--accent-gold); color: var(--primary-dark);">AD</div>
-                <div class="chat-msg-content" style="background: rgba(201,169,110,0.15); border-radius: 12px 0 12px 12px;">
-                    <div class="chat-msg-name">Admin Demo</div>
-                    <div class="chat-msg-text">${text}</div>
-                    <div class="chat-msg-time">Just now</div>
+                <div class="chat-msg-avatar" style="background:var(--accent-gold);color:var(--primary-dark);">AD</div>
+                <div class="chat-msg-body">
+                    <div class="chat-msg-header">
+                        <span class="chat-msg-name">Admin Demo</span>
+                        <span class="chat-msg-role">Admin</span>
+                        <span class="chat-msg-time">Just now</span>
+                    </div>
+                    <div class="chat-msg-text">${safe}</div>
+                    <div class="chat-msg-reactions"></div>
                 </div>
             `;
             document.getElementById('chatMessages').appendChild(msgDiv);
             input.value = '';
             document.getElementById('chatMessages').scrollTop = 99999;
+
+            // Simulate typing response after 1.5s
+            simulateTyping();
+        }
+
+        function toggleReaction(el) {
+            el.classList.toggle('active');
+            const countEl = el.querySelector('.chat-reaction-count');
+            let n = parseInt(countEl.textContent);
+            countEl.textContent = el.classList.contains('active') ? n + 1 : Math.max(0, n - 1);
+        }
+
+        // Search
+        function toggleChatSearch() {
+            const bar = document.getElementById('chatSearchBar');
+            bar.classList.toggle('open');
+            if (bar.classList.contains('open')) {
+                document.getElementById('chatSearchInput').focus();
+            }
+        }
+
+        function searchMessages(query) {
+            const q = query.toLowerCase();
+            document.querySelectorAll('.chat-msg').forEach(msg => {
+                const text = msg.textContent.toLowerCase();
+                msg.style.display = (!q || text.includes(q)) ? '' : 'none';
+            });
+        }
+
+        // Typing indicator simulation
+        const typingResponses = [
+            { name: 'Maria', text: 'Shepherd\'s Rest is almost done, moving to the next room! 🧹' },
+            { name: 'Rachel', text: 'Flowers are picked up, they look beautiful! Heading to the resort now.' },
+            { name: 'Tom', text: 'Just got a call — the afternoon guests might arrive early around 1pm. Heads up team!' },
+        ];
+        let typingIdx = 0;
+
+        function simulateTyping() {
+            if (typingIdx >= typingResponses.length) return;
+            const resp = typingResponses[typingIdx++];
+            const typingEl = document.getElementById('chatTyping');
+            typingEl.innerHTML = `<strong>${resp.name}</strong> is typing <span class="typing-dots"><span></span><span></span><span></span></span>`;
+
+            setTimeout(() => {
+                typingEl.innerHTML = '';
+                const colors = { Maria: 'var(--accent-gold)', Rachel: '#805ad5', Tom: '#4285f4' };
+                const initials = { Maria: 'MS', Rachel: 'RT', Tom: 'TH' };
+                const roles = { Maria: 'Housekeeping', Rachel: 'Spa', Tom: 'Host' };
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'chat-msg';
+                msgDiv.innerHTML = `
+                    <div class="chat-msg-avatar" style="background:${colors[resp.name]};${resp.name==='Maria'?'color:var(--primary-dark);':''}">${initials[resp.name]}</div>
+                    <div class="chat-msg-body">
+                        <div class="chat-msg-header">
+                            <span class="chat-msg-name">${resp.name === 'Maria' ? 'Maria Sanchez' : resp.name === 'Rachel' ? 'Rachel Torres' : 'Tom Henderson'}</span>
+                            <span class="chat-msg-role">${roles[resp.name]}</span>
+                            <span class="chat-msg-time">Just now</span>
+                        </div>
+                        <div class="chat-msg-text">${resp.text}</div>
+                        <div class="chat-msg-reactions"></div>
+                    </div>
+                `;
+                document.getElementById('chatMessages').appendChild(msgDiv);
+                document.getElementById('chatMessages').scrollTop = 99999;
+            }, 2500);
         }
 
         // ═══ Housekeeping tabs ═══
