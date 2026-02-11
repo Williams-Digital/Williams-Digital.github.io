@@ -751,6 +751,8 @@
         /* ═══════════════════════════════════════ */
         /*            STAFF SCHEDULING              */
         /* ═══════════════════════════════════════ */
+
+        /* Stats row */
         .sched-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -766,21 +768,24 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            transition: border-color 0.2s;
         }
 
+        .sched-stat:hover { border-color: var(--accent-gold); }
+
         .sched-stat-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .sched-stat-info h4 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary-dark);
             line-height: 1;
@@ -789,9 +794,10 @@
         .sched-stat-info p {
             font-size: 0.68rem;
             color: var(--text-medium);
-            margin-top: 0.15rem;
+            margin-top: 0.2rem;
         }
 
+        /* Header controls */
         .schedule-header {
             display: flex;
             align-items: center;
@@ -804,13 +810,13 @@
         .schedule-header-left {
             display: flex;
             align-items: center;
-            gap: 1.25rem;
+            gap: 1rem;
         }
 
         .schedule-week-nav {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
         }
 
         .schedule-week-nav button {
@@ -829,10 +835,7 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        .schedule-week-nav button:hover {
-            border-color: var(--accent-gold);
-            color: var(--accent-gold);
-        }
+        .schedule-week-nav button:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
 
         .schedule-week-label {
             font-size: 0.95rem;
@@ -853,10 +856,7 @@
             transition: all 0.2s;
         }
 
-        .sched-today-btn:hover {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-        }
+        .sched-today-btn:hover { background: var(--accent-gold); color: var(--primary-dark); }
 
         .schedule-header-right {
             display: flex;
@@ -884,14 +884,8 @@
             transition: all 0.2s;
         }
 
-        .sched-view-btn.active {
-            background: var(--primary-dark);
-            color: white;
-        }
-
-        .sched-view-btn:not(:last-child) {
-            border-right: 1px solid #e0ddd8;
-        }
+        .sched-view-btn.active { background: var(--primary-dark); color: white; }
+        .sched-view-btn:not(:last-child) { border-right: 1px solid #e0ddd8; }
 
         .add-shift-btn {
             background: var(--accent-gold);
@@ -911,147 +905,319 @@
 
         .add-shift-btn:hover { background: #d4b56e; }
 
+        .sched-export-btn {
+            background: white;
+            border: 1px solid #e0ddd8;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        .sched-export-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+        /* Department filter pills */
+        .dept-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .dept-filter {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: 20px;
+            border: 1px solid #e0ddd8;
+            background: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dept-filter:hover { border-color: var(--accent-gold); }
+
+        .dept-filter.active {
+            background: var(--primary-dark);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .dept-filter .dept-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Main layout */
         .sched-layout {
             display: grid;
             grid-template-columns: 1fr 280px;
             gap: 1.25rem;
         }
 
-        .schedule-table {
+        /* ── Timeline / Gantt view ── */
+        .timeline-card {
             background: white;
             border-radius: 12px;
             border: 1px solid #e8e5e0;
             overflow: hidden;
         }
 
-        .schedule-table table {
-            width: 100%;
-            border-collapse: collapse;
+        .timeline-header-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            border-bottom: 1px solid #e8e5e0;
+            background: #faf9f7;
         }
 
-        .schedule-table th {
-            padding: 0.75rem 0.5rem;
+        .timeline-header-label {
+            padding: 0.75rem 1.25rem;
             font-size: 0.65rem;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--text-medium);
-            background: #faf9f7;
-            border-bottom: 1px solid #e8e5e0;
-            text-align: center;
+            display: flex;
+            align-items: center;
         }
 
-        .schedule-table th:first-child {
-            text-align: left;
-            padding-left: 1.25rem;
-            width: 150px;
-        }
-
-        .schedule-table th.today-col {
-            background: rgba(201,169,110,0.12);
-            color: var(--accent-gold);
+        .timeline-hours {
+            display: grid;
+            grid-template-columns: repeat(17, 1fr);
             position: relative;
         }
 
-        .schedule-table th.today-col::after {
-            content: '●';
-            display: block;
-            font-size: 0.5rem;
-            margin-top: 0.1rem;
-        }
-
-        .schedule-table td {
-            padding: 0.6rem 0.4rem;
-            border-bottom: 1px solid #f5f3f0;
+        .timeline-hour {
+            padding: 0.7rem 0;
+            font-size: 0.58rem;
+            font-weight: 600;
+            color: var(--text-medium);
             text-align: center;
-            vertical-align: top;
+            letter-spacing: 0.5px;
+            border-left: 1px solid #eee;
         }
 
-        .schedule-table td:first-child {
-            text-align: left;
-            padding-left: 1.25rem;
+        .timeline-hour.now-hour {
+            color: var(--accent-gold);
+            font-weight: 700;
         }
 
-        .schedule-table td.today-col {
-            background: rgba(201,169,110,0.04);
-        }
-
-        .schedule-table tbody tr {
+        .timeline-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            border-bottom: 1px solid #f5f3f0;
             transition: background 0.15s;
+            min-height: 60px;
         }
 
-        .schedule-table tbody tr:hover {
-            background: #fdfcfa;
-        }
+        .timeline-row:last-child { border-bottom: none; }
+        .timeline-row:hover { background: #fdfcfa; }
 
-        .schedule-dept {
+        .timeline-row-label {
+            padding: 0.85rem 1.25rem;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.65rem;
+            border-right: 1px solid #f0ede8;
         }
 
-        .schedule-dept-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
+        .tl-dept-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
+            flex-shrink: 0;
         }
 
-        .schedule-dept-name {
+        .tl-dept-info { min-width: 0; }
+
+        .tl-dept-name {
             font-size: 0.78rem;
             font-weight: 600;
+            color: var(--text-dark);
         }
 
-        .schedule-dept-count {
+        .tl-dept-count {
             font-size: 0.6rem;
             color: var(--text-medium);
-            font-weight: 400;
         }
 
-        .shift-chip {
-            display: inline-flex;
-            align-items: center;
+        .timeline-bars {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             gap: 0.3rem;
-            padding: 0.3rem 0.55rem;
+            padding: 0.5rem 0;
+        }
+
+        /* Now indicator line */
+        .timeline-now-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-gold);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .timeline-now-line::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -4px;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+        }
+
+        /* Shift bars */
+        .shift-bar {
+            position: relative;
+            height: 28px;
             border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0 0.5rem;
             font-size: 0.62rem;
             font-weight: 500;
-            margin: 0.12rem;
-            white-space: nowrap;
+            cursor: pointer;
             transition: transform 0.15s, box-shadow 0.15s;
-            cursor: default;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 2px;
         }
 
-        .shift-chip:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        .shift-bar:hover {
+            transform: scaleY(1.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            z-index: 3;
         }
 
-        .shift-chip .shift-avatar {
-            width: 16px;
-            height: 16px;
+        .shift-bar .bar-avatar {
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.45rem;
+            font-size: 0.5rem;
             font-weight: 700;
             color: white;
             flex-shrink: 0;
         }
 
-        .shift-morning { background: rgba(66,133,244,0.1); color: #4285f4; }
-        .shift-morning .shift-avatar { background: #4285f4; }
-        .shift-afternoon { background: rgba(201,169,110,0.15); color: #b8942e; }
-        .shift-afternoon .shift-avatar { background: #b8942e; }
-        .shift-evening { background: rgba(128,90,213,0.1); color: #805ad5; }
-        .shift-evening .shift-avatar { background: #805ad5; }
-        .shift-off { background: #f5f3f0; color: #bbb; font-style: italic; }
+        .shift-bar .bar-name { font-weight: 600; }
+        .shift-bar .bar-time { opacity: 0.7; font-size: 0.58rem; }
 
-        /* Staff roster sidebar */
+        .bar-morning {
+            background: linear-gradient(135deg, rgba(66,133,244,0.15) 0%, rgba(66,133,244,0.08) 100%);
+            color: #3574d4;
+            border-left: 3px solid #4285f4;
+        }
+
+        .bar-morning .bar-avatar { background: #4285f4; }
+
+        .bar-afternoon {
+            background: linear-gradient(135deg, rgba(201,169,110,0.2) 0%, rgba(201,169,110,0.08) 100%);
+            color: #9a7b2e;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .bar-afternoon .bar-avatar { background: var(--accent-gold); }
+
+        .bar-evening {
+            background: linear-gradient(135deg, rgba(128,90,213,0.15) 0%, rgba(128,90,213,0.08) 100%);
+            color: #6a4daf;
+            border-left: 3px solid #805ad5;
+        }
+
+        .bar-evening .bar-avatar { background: #805ad5; }
+
+        /* Coverage indicator */
+        .coverage-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            background: #faf9f7;
+            border-top: 1px solid #e8e5e0;
+        }
+
+        .coverage-label {
+            padding: 0.5rem 1.25rem;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .coverage-blocks {
+            display: grid;
+            grid-template-columns: repeat(17, 1fr);
+            gap: 1px;
+            padding: 0.4rem 0;
+            align-items: center;
+        }
+
+        .coverage-block {
+            height: 12px;
+            border-radius: 2px;
+            transition: transform 0.15s;
+        }
+
+        .coverage-block:hover { transform: scaleY(1.4); }
+
+        .cov-high { background: rgba(58,90,64,0.3); }
+        .cov-med { background: rgba(201,169,110,0.35); }
+        .cov-low { background: rgba(229,115,115,0.3); }
+        .cov-none { background: #eee; }
+
+        /* Shift legend */
+        .shift-legend {
+            display: flex;
+            gap: 1.25rem;
+            padding: 0.85rem 1.25rem;
+            border-top: 1px solid #f0ede8;
+            flex-wrap: wrap;
+        }
+
+        .shift-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.65rem;
+            color: var(--text-medium);
+        }
+
+        .shift-legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+        }
+
+        /* ── Roster sidebar ── */
         .sched-roster {
             display: flex;
             flex-direction: column;
@@ -1084,7 +1250,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.65rem 0.75rem;
+            padding: 0.6rem 0.75rem;
             border-radius: 8px;
             transition: background 0.15s;
         }
@@ -1105,17 +1271,8 @@
         }
 
         .roster-info { flex: 1; min-width: 0; }
-
-        .roster-name {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .roster-role {
-            font-size: 0.62rem;
-            color: var(--text-medium);
-        }
+        .roster-name { font-size: 0.78rem; font-weight: 600; color: var(--text-dark); }
+        .roster-role { font-size: 0.6rem; color: var(--text-medium); }
 
         .roster-status {
             width: 8px;
@@ -1127,39 +1284,18 @@
         .roster-on { background: #4caf50; box-shadow: 0 0 0 2px rgba(76,175,80,0.2); }
         .roster-off-duty { background: #ccc; }
 
-        /* Shift legend */
-        .shift-legend {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem 1.25rem;
-        }
-
-        .shift-legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.65rem;
-            color: var(--text-medium);
-        }
-
-        .shift-legend-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        /* Hours summary mini-bar */
-        .hours-bar-wrap {
-            padding: 0.75rem 1.25rem;
-        }
+        /* Hours bars */
+        .hours-bar-wrap { padding: 0.6rem 1.25rem; }
 
         .hours-bar-label {
             display: flex;
             justify-content: space-between;
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             color: var(--text-medium);
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.3rem;
         }
+
+        .hours-bar-label .hours-over { color: #e57373; font-weight: 600; }
 
         .hours-bar {
             height: 6px;
@@ -1171,12 +1307,174 @@
         .hours-bar-fill {
             height: 100%;
             border-radius: 3px;
-            transition: width 0.4s ease;
+            transition: width 0.6s ease;
         }
+
+        /* ── Add Shift Modal ── */
+        .shift-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shift-modal-overlay.open { display: flex; }
+
+        .shift-modal {
+            background: white;
+            border-radius: 16px;
+            width: 480px;
+            max-width: 92vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .shift-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-bottom: 1px solid #f0ede8;
+        }
+
+        .shift-modal-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .shift-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .shift-modal-close:hover { background: #f0ede8; color: var(--text-dark); }
+
+        .shift-modal-body { padding: 1.5rem; }
+
+        .shift-field {
+            margin-bottom: 1.25rem;
+        }
+
+        .shift-field label {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-medium);
+            margin-bottom: 0.4rem;
+        }
+
+        .shift-field select,
+        .shift-field input {
+            width: 100%;
+            padding: 0.75rem 0.85rem;
+            border: 1px solid #e0ddd8;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s;
+            background: white;
+        }
+
+        .shift-field select:focus,
+        .shift-field input:focus { border-color: var(--accent-gold); }
+
+        .shift-time-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0.75rem;
+            align-items: end;
+        }
+
+        .shift-time-sep {
+            padding-bottom: 0.85rem;
+            font-size: 0.8rem;
+            color: var(--text-medium);
+        }
+
+        .shift-color-options {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .shift-color-opt {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .shift-color-opt:hover { transform: scale(1.15); }
+        .shift-color-opt.selected { border-color: var(--primary-dark); box-shadow: 0 0 0 2px white, 0 0 0 4px var(--primary-dark); }
+
+        .shift-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #f0ede8;
+        }
+
+        .shift-modal-cancel {
+            padding: 0.65rem 1.25rem;
+            border: 1px solid #e0ddd8;
+            border-radius: 8px;
+            background: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .shift-modal-cancel:hover { border-color: var(--text-dark); color: var(--text-dark); }
+
+        .shift-modal-save {
+            padding: 0.65rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--accent-gold);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .shift-modal-save:hover { background: #d4b56e; }
 
         @media (max-width: 1200px) {
             .sched-layout { grid-template-columns: 1fr; }
             .sched-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .sched-stats { grid-template-columns: 1fr; }
+            .timeline-card { overflow-x: auto; }
         }
 
         /* ═══════════════════════════════════════ */
@@ -1933,137 +2231,262 @@
                     </div>
                     <div class="schedule-header-right">
                         <div class="sched-view-toggle">
-                            <button class="sched-view-btn active">Week</button>
-                            <button class="sched-view-btn">Day</button>
+                            <button class="sched-view-btn active">Timeline</button>
+                            <button class="sched-view-btn">Week</button>
                             <button class="sched-view-btn">List</button>
                         </div>
-                        <button class="add-shift-btn"><i class="fas fa-plus"></i> Add Shift</button>
+                        <button class="sched-export-btn"><i class="fas fa-download"></i> Export</button>
+                        <button class="add-shift-btn" onclick="openShiftModal()"><i class="fas fa-plus"></i> Add Shift</button>
                     </div>
                 </div>
 
+                <!-- Department Filters -->
+                <div class="dept-filters">
+                    <button class="dept-filter active" onclick="filterDept('all', this)">
+                        All Departments
+                    </button>
+                    <button class="dept-filter" data-dept="host" onclick="filterDept('host', this)">
+                        <span class="dept-dot" style="background:var(--primary-green);"></span> Host
+                    </button>
+                    <button class="dept-filter" data-dept="cleaning" onclick="filterDept('cleaning', this)">
+                        <span class="dept-dot" style="background:var(--accent-gold);"></span> Cleaning
+                    </button>
+                    <button class="dept-filter" data-dept="maintenance" onclick="filterDept('maintenance', this)">
+                        <span class="dept-dot" style="background:#e57373;"></span> Maintenance
+                    </button>
+                    <button class="dept-filter" data-dept="spa" onclick="filterDept('spa', this)">
+                        <span class="dept-dot" style="background:#4285f4;"></span> Spa
+                    </button>
+                    <button class="dept-filter" data-dept="kitchen" onclick="filterDept('kitchen', this)">
+                        <span class="dept-dot" style="background:#805ad5;"></span> Kitchen
+                    </button>
+                </div>
+
                 <div class="sched-layout">
-                    <!-- Main Schedule Table -->
+                    <!-- Timeline Gantt View -->
                     <div>
-                        <div class="schedule-table">
-                            <table id="schedTable">
-                                <thead>
-                                    <tr>
-                                        <th>Department</th>
-                                        <th>Mon 10</th>
-                                        <th>Tue 11</th>
-                                        <th>Wed 12</th>
-                                        <th>Thu 13</th>
-                                        <th>Fri 14</th>
-                                        <th>Sat 15</th>
-                                        <th>Sun 16</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="schedule-dept">
-                                                <div class="schedule-dept-icon stat-icon-green"><i class="fas fa-door-open"></i></div>
-                                                <div>
-                                                    <span class="schedule-dept-name">Host</span>
-                                                    <div class="schedule-dept-count">2 staff</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#3A5A40">T</span>Tom 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#3A5A40">T</span>Tom 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#6a8e6e">S</span>Sarah 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#3A5A40">T</span>Tom 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#6a8e6e">S</span>Sarah 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#3A5A40">T</span>Tom 7a-3p</span><br><span class="shift-chip shift-afternoon"><span class="shift-avatar" style="background:#6a8e6e">S</span>Sarah 3p-11p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#6a8e6e">S</span>Sarah 7a-3p</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="schedule-dept">
-                                                <div class="schedule-dept-icon stat-icon-gold"><i class="fas fa-broom"></i></div>
-                                                <div>
-                                                    <span class="schedule-dept-name">Cleaning</span>
-                                                    <div class="schedule-dept-count">2 staff</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#C9A96E">M</span>Maria 8a-4p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#C9A96E">M</span>Maria 8a-4p</span><br><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#d4a24e">A</span>Ana 8a-4p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#d4a24e">A</span>Ana 8a-4p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#C9A96E">M</span>Maria 8a-4p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#C9A96E">M</span>Maria 8a-4p</span><br><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#d4a24e">A</span>Ana 8a-4p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#C9A96E">M</span>Maria 8a-4p</span><br><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#d4a24e">A</span>Ana 8a-4p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#d4a24e">A</span>Ana 8a-4p</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="schedule-dept">
-                                                <div class="schedule-dept-icon stat-icon-red"><i class="fas fa-tools"></i></div>
-                                                <div>
-                                                    <span class="schedule-dept-name">Maintenance</span>
-                                                    <div class="schedule-dept-count">1 staff</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#e57373">J</span>James 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#e57373">J</span>James 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#e57373">J</span>James 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-off">— Off</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#e57373">J</span>James 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#e57373">J</span>James 7a-3p</span></td>
-                                        <td><span class="shift-chip shift-off">— Off</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="schedule-dept">
-                                                <div class="schedule-dept-icon stat-icon-blue"><i class="fas fa-spa"></i></div>
-                                                <div>
-                                                    <span class="schedule-dept-name">Spa</span>
-                                                    <div class="schedule-dept-count">2 staff</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#4285f4">R</span>Rachel 9a-5p</span></td>
-                                        <td><span class="shift-chip shift-off">— Off</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#4285f4">R</span>Rachel 9a-5p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#4285f4">R</span>Rachel 9a-5p</span><br><span class="shift-chip shift-afternoon"><span class="shift-avatar" style="background:#7c6bbf">L</span>Lisa 12p-6p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#4285f4">R</span>Rachel 9a-5p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#4285f4">R</span>Rachel 9a-5p</span><br><span class="shift-chip shift-afternoon"><span class="shift-avatar" style="background:#7c6bbf">L</span>Lisa 12p-6p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#7c6bbf">L</span>Lisa 10a-4p</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="schedule-dept">
-                                                <div class="schedule-dept-icon" style="background:rgba(128,90,213,0.1);color:#805ad5;"><i class="fas fa-utensils"></i></div>
-                                                <div>
-                                                    <span class="schedule-dept-name">Kitchen</span>
-                                                    <div class="schedule-dept-count">2 staff</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#805ad5">D</span>Chef Dan 6a-2p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#805ad5">D</span>Chef Dan 6a-2p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#805ad5">D</span>Chef Dan 6a-2p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#805ad5">D</span>Chef Dan 6a-2p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#805ad5">D</span>Chef Dan 6a-2p</span><br><span class="shift-chip shift-evening"><span class="shift-avatar" style="background:#9b7abf">A</span>Sous Amy 4p-10p</span></td>
-                                        <td><span class="shift-chip shift-morning"><span class="shift-avatar" style="background:#805ad5">D</span>Chef Dan 6a-2p</span><br><span class="shift-chip shift-evening"><span class="shift-avatar" style="background:#9b7abf">A</span>Sous Amy 4p-10p</span></td>
-                                        <td><span class="shift-chip shift-off">— Off</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- Shift Legend -->
+                        <div class="timeline-card">
+                            <!-- Hour headers -->
+                            <div class="timeline-header-row">
+                                <div class="timeline-header-label">Staff / Time</div>
+                                <div class="timeline-hours" id="timelineHours">
+                                    <div class="timeline-hour">5a</div>
+                                    <div class="timeline-hour">6a</div>
+                                    <div class="timeline-hour">7a</div>
+                                    <div class="timeline-hour">8a</div>
+                                    <div class="timeline-hour">9a</div>
+                                    <div class="timeline-hour">10a</div>
+                                    <div class="timeline-hour">11a</div>
+                                    <div class="timeline-hour">12p</div>
+                                    <div class="timeline-hour">1p</div>
+                                    <div class="timeline-hour">2p</div>
+                                    <div class="timeline-hour">3p</div>
+                                    <div class="timeline-hour">4p</div>
+                                    <div class="timeline-hour">5p</div>
+                                    <div class="timeline-hour">6p</div>
+                                    <div class="timeline-hour">7p</div>
+                                    <div class="timeline-hour">8p</div>
+                                    <div class="timeline-hour">9p</div>
+                                </div>
+                            </div>
+
+                            <!-- Host -->
+                            <div class="timeline-row" data-dept="host">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon stat-icon-green"><i class="fas fa-door-open"></i></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name">Host</div>
+                                        <div class="tl-dept-count">Tom H.</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:3/11;" class="shift-bar bar-morning">
+                                        <span class="bar-avatar" style="background:#3A5A40;">T</span>
+                                        <span class="bar-name">Tom</span>
+                                        <span class="bar-time">7am – 3pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-row" data-dept="host">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon" style="background:transparent;"></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name" style="color:var(--text-medium);font-weight:500;">Host</div>
+                                        <div class="tl-dept-count">Sarah B.</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:6/14;" class="shift-bar bar-afternoon">
+                                        <span class="bar-avatar" style="background:#6a8e6e;">S</span>
+                                        <span class="bar-name">Sarah</span>
+                                        <span class="bar-time">10am – 6pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cleaning -->
+                            <div class="timeline-row" data-dept="cleaning">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon stat-icon-gold"><i class="fas fa-broom"></i></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name">Cleaning</div>
+                                        <div class="tl-dept-count">Maria S.</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:4/12;" class="shift-bar bar-morning">
+                                        <span class="bar-avatar" style="background:#C9A96E;">M</span>
+                                        <span class="bar-name">Maria</span>
+                                        <span class="bar-time">8am – 4pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-row" data-dept="cleaning">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon" style="background:transparent;"></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name" style="color:var(--text-medium);font-weight:500;">Cleaning</div>
+                                        <div class="tl-dept-count">Ana R.</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:4/12;" class="shift-bar bar-morning">
+                                        <span class="bar-avatar" style="background:#d4a24e;">A</span>
+                                        <span class="bar-name">Ana</span>
+                                        <span class="bar-time">8am – 4pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Maintenance -->
+                            <div class="timeline-row" data-dept="maintenance">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon stat-icon-red"><i class="fas fa-tools"></i></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name">Maintenance</div>
+                                        <div class="tl-dept-count">James W.</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:3/11;" class="shift-bar bar-morning">
+                                        <span class="bar-avatar" style="background:#e57373;">J</span>
+                                        <span class="bar-name">James</span>
+                                        <span class="bar-time">7am – 3pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Spa -->
+                            <div class="timeline-row" data-dept="spa">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon stat-icon-blue"><i class="fas fa-spa"></i></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name">Spa</div>
+                                        <div class="tl-dept-count">Rachel T.</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:5/13;" class="shift-bar bar-morning">
+                                        <span class="bar-avatar" style="background:#4285f4;">R</span>
+                                        <span class="bar-name">Rachel</span>
+                                        <span class="bar-time">9am – 5pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-row" data-dept="spa">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon" style="background:transparent;"></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name" style="color:var(--text-medium);font-weight:500;">Spa</div>
+                                        <div class="tl-dept-count">Lisa M.</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:8/14;" class="shift-bar bar-afternoon">
+                                        <span class="bar-avatar" style="background:#7c6bbf;">L</span>
+                                        <span class="bar-name">Lisa</span>
+                                        <span class="bar-time">12pm – 6pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kitchen -->
+                            <div class="timeline-row" data-dept="kitchen">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon" style="background:rgba(128,90,213,0.1);color:#805ad5;"><i class="fas fa-utensils"></i></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name">Kitchen</div>
+                                        <div class="tl-dept-count">Chef Dan</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:2/10;" class="shift-bar bar-morning">
+                                        <span class="bar-avatar" style="background:#805ad5;">D</span>
+                                        <span class="bar-name">Chef Dan</span>
+                                        <span class="bar-time">6am – 2pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-row" data-dept="kitchen">
+                                <div class="timeline-row-label">
+                                    <div class="tl-dept-icon" style="background:transparent;"></div>
+                                    <div class="tl-dept-info">
+                                        <div class="tl-dept-name" style="color:var(--text-medium);font-weight:500;">Kitchen</div>
+                                        <div class="tl-dept-count">Sous Amy</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-bars" style="display:grid;grid-template-columns:repeat(17,1fr);">
+                                    <div style="grid-column:12/17;" class="shift-bar bar-evening">
+                                        <span class="bar-avatar" style="background:#9b7abf;">A</span>
+                                        <span class="bar-name">Amy</span>
+                                        <span class="bar-time">4pm – 9pm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Coverage indicator -->
+                            <div class="coverage-row">
+                                <div class="coverage-label"><i class="fas fa-shield-alt"></i> Coverage</div>
+                                <div class="coverage-blocks">
+                                    <div class="coverage-block cov-none" title="5am: 0 staff"></div>
+                                    <div class="coverage-block cov-low" title="6am: 1 staff"></div>
+                                    <div class="coverage-block cov-med" title="7am: 3 staff"></div>
+                                    <div class="coverage-block cov-high" title="8am: 5 staff"></div>
+                                    <div class="coverage-block cov-high" title="9am: 7 staff"></div>
+                                    <div class="coverage-block cov-high" title="10am: 8 staff"></div>
+                                    <div class="coverage-block cov-high" title="11am: 8 staff"></div>
+                                    <div class="coverage-block cov-high" title="12pm: 7 staff"></div>
+                                    <div class="coverage-block cov-high" title="1pm: 6 staff"></div>
+                                    <div class="coverage-block cov-med" title="2pm: 5 staff"></div>
+                                    <div class="coverage-block cov-med" title="3pm: 4 staff"></div>
+                                    <div class="coverage-block cov-med" title="4pm: 3 staff"></div>
+                                    <div class="coverage-block cov-low" title="5pm: 2 staff"></div>
+                                    <div class="coverage-block cov-low" title="6pm: 1 staff"></div>
+                                    <div class="coverage-block cov-low" title="7pm: 1 staff"></div>
+                                    <div class="coverage-block cov-low" title="8pm: 1 staff"></div>
+                                    <div class="coverage-block cov-none" title="9pm: 0 staff"></div>
+                                </div>
+                            </div>
+
+                            <!-- Legend -->
                             <div class="shift-legend">
                                 <div class="shift-legend-item">
-                                    <div class="shift-legend-dot" style="background:#4285f4;"></div> Morning
+                                    <div class="shift-legend-dot" style="background:linear-gradient(135deg,rgba(66,133,244,0.4),rgba(66,133,244,0.15));border-left:2px solid #4285f4;border-radius:2px;width:18px;"></div> Morning
                                 </div>
                                 <div class="shift-legend-item">
-                                    <div class="shift-legend-dot" style="background:#b8942e;"></div> Afternoon
+                                    <div class="shift-legend-dot" style="background:linear-gradient(135deg,rgba(201,169,110,0.4),rgba(201,169,110,0.15));border-left:2px solid var(--accent-gold);border-radius:2px;width:18px;"></div> Afternoon
                                 </div>
                                 <div class="shift-legend-item">
-                                    <div class="shift-legend-dot" style="background:#805ad5;"></div> Evening
+                                    <div class="shift-legend-dot" style="background:linear-gradient(135deg,rgba(128,90,213,0.4),rgba(128,90,213,0.15));border-left:2px solid #805ad5;border-radius:2px;width:18px;"></div> Evening
                                 </div>
-                                <div class="shift-legend-item">
-                                    <div class="shift-legend-dot" style="background:#ccc;"></div> Off
+                                <div class="shift-legend-item" style="margin-left:auto;">
+                                    <div class="shift-legend-dot cov-high" style="width:12px;height:8px;border-radius:2px;"></div> High
+                                    <div class="shift-legend-dot cov-med" style="width:12px;height:8px;border-radius:2px;margin-left:0.5rem;"></div> Medium
+                                    <div class="shift-legend-dot cov-low" style="width:12px;height:8px;border-radius:2px;margin-left:0.5rem;"></div> Low
                                 </div>
                             </div>
                         </div>
@@ -2091,7 +2514,7 @@
                                     <div class="roster-status roster-on"></div>
                                 </div>
                                 <div class="roster-item">
-                                    <div class="roster-avatar" style="background:#d4a24e;color:white;">AR</div>
+                                    <div class="roster-avatar" style="background:#d4a24e;">AR</div>
                                     <div class="roster-info">
                                         <div class="roster-name">Ana Rodriguez</div>
                                         <div class="roster-role">Cleaning · 8am – 4pm</div>
@@ -2156,14 +2579,109 @@
                                 <div class="hours-bar"><div class="hours-bar-fill" style="width:45%;background:#4285f4;"></div></div>
                             </div>
                             <div class="hours-bar-wrap">
-                                <div class="hours-bar-label"><span>Chef Dan</span><span>48h</span></div>
-                                <div class="hours-bar"><div class="hours-bar-fill" style="width:100%;background:#805ad5;"></div></div>
+                                <div class="hours-bar-label"><span>Chef Dan</span><span class="hours-over">48h !</span></div>
+                                <div class="hours-bar"><div class="hours-bar-fill" style="width:100%;background:linear-gradient(90deg,#805ad5 83%,#e57373 83%);"></div></div>
                             </div>
                             <div class="hours-bar-wrap">
                                 <div class="hours-bar-label"><span>Sous Amy</span><span>12h</span></div>
                                 <div class="hours-bar"><div class="hours-bar-fill" style="width:30%;background:#805ad5;"></div></div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Shift Modal -->
+            <div class="shift-modal-overlay" id="shiftModal">
+                <div class="shift-modal">
+                    <div class="shift-modal-header">
+                        <h3>Add New Shift</h3>
+                        <button class="shift-modal-close" onclick="closeShiftModal()"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="shift-modal-body">
+                        <div class="shift-field">
+                            <label>Staff Member</label>
+                            <select id="shiftStaff">
+                                <option value="">Select staff...</option>
+                                <option>Tom Henderson</option>
+                                <option>Sarah Bennett</option>
+                                <option>Maria Sanchez</option>
+                                <option>Ana Rodriguez</option>
+                                <option>James Walker</option>
+                                <option>Rachel Torres</option>
+                                <option>Lisa Martinez</option>
+                                <option>Chef Dan Carter</option>
+                                <option>Sous Chef Amy</option>
+                            </select>
+                        </div>
+                        <div class="shift-field">
+                            <label>Department</label>
+                            <select id="shiftDept">
+                                <option value="">Select department...</option>
+                                <option>Host</option>
+                                <option>Cleaning</option>
+                                <option>Maintenance</option>
+                                <option>Spa</option>
+                                <option>Kitchen</option>
+                            </select>
+                        </div>
+                        <div class="shift-field">
+                            <label>Date</label>
+                            <input type="date" id="shiftDate">
+                        </div>
+                        <div class="shift-time-row">
+                            <div class="shift-field">
+                                <label>Start Time</label>
+                                <select id="shiftStart">
+                                    <option>5:00 AM</option>
+                                    <option>6:00 AM</option>
+                                    <option selected>7:00 AM</option>
+                                    <option>8:00 AM</option>
+                                    <option>9:00 AM</option>
+                                    <option>10:00 AM</option>
+                                    <option>11:00 AM</option>
+                                    <option>12:00 PM</option>
+                                    <option>1:00 PM</option>
+                                    <option>2:00 PM</option>
+                                    <option>3:00 PM</option>
+                                    <option>4:00 PM</option>
+                                </select>
+                            </div>
+                            <div class="shift-time-sep">to</div>
+                            <div class="shift-field">
+                                <label>End Time</label>
+                                <select id="shiftEnd">
+                                    <option>12:00 PM</option>
+                                    <option>1:00 PM</option>
+                                    <option>2:00 PM</option>
+                                    <option selected>3:00 PM</option>
+                                    <option>4:00 PM</option>
+                                    <option>5:00 PM</option>
+                                    <option>6:00 PM</option>
+                                    <option>7:00 PM</option>
+                                    <option>8:00 PM</option>
+                                    <option>9:00 PM</option>
+                                    <option>10:00 PM</option>
+                                    <option>11:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="shift-field">
+                            <label>Shift Type</label>
+                            <div class="shift-color-options">
+                                <div class="shift-color-opt selected" style="background:linear-gradient(135deg,rgba(66,133,244,0.4),rgba(66,133,244,0.15));border-left:3px solid #4285f4;" onclick="pickColor(this)" title="Morning"></div>
+                                <div class="shift-color-opt" style="background:linear-gradient(135deg,rgba(201,169,110,0.4),rgba(201,169,110,0.15));border-left:3px solid var(--accent-gold);" onclick="pickColor(this)" title="Afternoon"></div>
+                                <div class="shift-color-opt" style="background:linear-gradient(135deg,rgba(128,90,213,0.4),rgba(128,90,213,0.15));border-left:3px solid #805ad5;" onclick="pickColor(this)" title="Evening"></div>
+                            </div>
+                        </div>
+                        <div class="shift-field">
+                            <label>Notes (optional)</label>
+                            <input type="text" placeholder="e.g. Cover for James, special event...">
+                        </div>
+                    </div>
+                    <div class="shift-modal-footer">
+                        <button class="shift-modal-cancel" onclick="closeShiftModal()">Cancel</button>
+                        <button class="shift-modal-save" onclick="saveShift()">Save Shift</button>
                     </div>
                 </div>
             </div>
@@ -2546,15 +3064,38 @@
         document.getElementById('scheduleWeek').textContent =
             monday.toLocaleDateString('en-US', fmt) + ' — ' + sunday.toLocaleDateString('en-US', fmt) + ', ' + now.getFullYear();
 
-        // ═══ Highlight today's column ═══
-        const dayOfWeek = now.getDay(); // 0=Sun, 1=Mon...
-        const colIdx = dayOfWeek === 0 ? 7 : dayOfWeek; // Map to table col (1=Mon...7=Sun)
-        const schedTable = document.getElementById('schedTable');
-        if (schedTable) {
-            const rows = schedTable.querySelectorAll('tr');
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('th, td');
-                if (cells[colIdx]) cells[colIdx].classList.add('today-col');
+        // ═══ Timeline: "Now" line ═══
+        (function() {
+            const hr = now.getHours();
+            const startHour = 5; // timeline starts at 5am
+            const totalCols = 17;
+            if (hr >= startHour && hr < startHour + totalCols) {
+                const min = now.getMinutes();
+                const colW = 100 / totalCols;
+                const pct = ((hr - startHour) + min / 60) * colW;
+                document.querySelectorAll('.timeline-bars').forEach(bars => {
+                    const line = document.createElement('div');
+                    line.className = 'timeline-now-line';
+                    line.style.left = pct + '%';
+                    bars.appendChild(line);
+                });
+                // Highlight current hour header
+                const hourIdx = hr - startHour;
+                const hourEls = document.querySelectorAll('.timeline-hour');
+                if (hourEls[hourIdx]) hourEls[hourIdx].classList.add('now-hour');
+            }
+        })();
+
+        // ═══ Department filter ═══
+        function filterDept(dept, btn) {
+            document.querySelectorAll('.dept-filter').forEach(f => f.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.timeline-row').forEach(row => {
+                if (dept === 'all' || row.dataset.dept === dept) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             });
         }
 
@@ -2564,6 +3105,44 @@
                 document.querySelectorAll('.sched-view-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
             });
+        });
+
+        // ═══ Add Shift Modal ═══
+        function openShiftModal() {
+            document.getElementById('shiftModal').classList.add('open');
+            // Default date to today
+            const d = now.toISOString().split('T')[0];
+            document.getElementById('shiftDate').value = d;
+        }
+
+        function closeShiftModal() {
+            document.getElementById('shiftModal').classList.remove('open');
+        }
+
+        function pickColor(el) {
+            document.querySelectorAll('.shift-color-opt').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function saveShift() {
+            const staff = document.getElementById('shiftStaff').value;
+            const dept = document.getElementById('shiftDept').value;
+            if (!staff || !dept) {
+                alert('Please select a staff member and department.');
+                return;
+            }
+            closeShiftModal();
+            // Show success feedback
+            const topbar = document.querySelector('.topbar-title');
+            const orig = topbar.textContent;
+            topbar.textContent = '✓ Shift added for ' + staff;
+            topbar.style.color = 'var(--primary-green)';
+            setTimeout(() => { topbar.textContent = orig; topbar.style.color = ''; }, 2500);
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('shiftModal').addEventListener('click', function(e) {
+            if (e.target === this) closeShiftModal();
         });
     </script>
 </body>
