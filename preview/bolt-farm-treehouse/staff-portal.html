@@ -2075,119 +2075,266 @@
         /* ═══════════════════════════════════════ */
         /*            SPECIAL REQUESTS              */
         /* ═══════════════════════════════════════ */
+        /* Request stats */
+        .req-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
+        .req-stat-card {
+            background: white; border-radius: 12px; border: 1px solid #e8e5e0;
+            padding: 1rem 1.15rem; display: flex; align-items: center; gap: 0.85rem;
+        }
+        .req-stat-icon {
+            width: 40px; height: 40px; border-radius: 10px; display: flex;
+            align-items: center; justify-content: center; font-size: 0.85rem;
+        }
+        .req-stat-icon-gold { background: rgba(201,169,110,0.12); color: var(--accent-gold); }
+        .req-stat-icon-orange { background: rgba(255,152,0,0.1); color: #ff9800; }
+        .req-stat-icon-blue { background: rgba(66,133,244,0.1); color: #4285f4; }
+        .req-stat-icon-green { background: rgba(58,90,64,0.1); color: var(--primary-green); }
+        .req-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); line-height: 1; }
+        .req-stat-label { font-size: 0.6rem; color: var(--text-medium); margin-top: 0.1rem; }
+
+        /* Request toolbar */
+        .req-toolbar {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;
+        }
+        .req-filters { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .req-filter-btn {
+            display: flex; align-items: center; gap: 0.3rem;
+            padding: 0.4rem 0.85rem; border-radius: 20px; border: 1px solid #e0ddd8;
+            background: white; font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+            font-weight: 500; color: var(--text-medium); cursor: pointer; transition: all 0.2s;
+        }
+        .req-filter-btn:hover { border-color: var(--accent-gold); }
+        .req-filter-btn.active { background: var(--primary-dark); color: white; border-color: var(--primary-dark); }
+        .req-filter-count {
+            background: rgba(0,0,0,0.08); padding: 0.1rem 0.4rem;
+            border-radius: 10px; font-size: 0.55rem; font-weight: 700;
+        }
+        .req-filter-btn.active .req-filter-count { background: rgba(255,255,255,0.2); }
+        .req-new-btn {
+            display: flex; align-items: center; gap: 0.4rem;
+            padding: 0.55rem 1.15rem; border-radius: 8px; border: none;
+            background: var(--primary-green); color: white;
+            font-family: 'Montserrat', sans-serif; font-size: 0.72rem;
+            font-weight: 600; cursor: pointer; transition: background 0.2s;
+        }
+        .req-new-btn:hover { background: #2f4a35; }
+
+        /* Request cards */
         .requests-list { display: flex; flex-direction: column; gap: 1rem; }
 
         .request-card {
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e8e5e0;
-            padding: 1.5rem;
-            transition: border-color 0.2s;
+            background: white; border-radius: 12px; border: 1px solid #e8e5e0;
+            overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s;
         }
+        .request-card:hover { border-color: var(--accent-gold); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+        .request-card.req-completed { opacity: 0.6; }
+        .request-card.req-completed .req-card-body { text-decoration: line-through; color: var(--text-medium); }
 
-        .request-card:hover { border-color: var(--accent-gold); }
-
-        .request-card-top {
+        /* Priority color bar on left */
+        .req-card-inner {
             display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 0.85rem;
+        }
+        .req-priority-bar {
+            width: 4px; flex-shrink: 0;
+        }
+        .req-priority-bar.bar-high { background: #e57373; }
+        .req-priority-bar.bar-medium { background: var(--accent-gold); }
+        .req-priority-bar.bar-low { background: #4285f4; }
+        .req-priority-bar.bar-completed { background: var(--primary-green); }
+
+        .req-card-content {
+            flex: 1; padding: 1.25rem 1.35rem;
         }
 
-        .request-guest {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--primary-dark);
+        /* Card header */
+        .req-card-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            margin-bottom: 0.65rem;
         }
-
-        .request-room {
-            font-size: 0.7rem;
-            color: var(--text-medium);
-            margin-top: 0.15rem;
+        .req-guest-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem; font-weight: 700; color: var(--primary-dark);
         }
-
-        .request-priority {
-            font-size: 0.6rem;
-            font-weight: 600;
-            padding: 0.25rem 0.65rem;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
+        .req-room-badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            font-size: 0.62rem; color: var(--text-medium); margin-top: 0.15rem;
         }
-
+        .req-room-badge i { font-size: 0.55rem; color: var(--accent-gold); }
+        .req-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem; }
+        .req-priority {
+            font-size: 0.55rem; font-weight: 700; padding: 0.2rem 0.6rem;
+            border-radius: 20px; letter-spacing: 0.3px; text-transform: uppercase;
+        }
         .priority-high { background: rgba(229,115,115,0.1); color: #e57373; }
         .priority-medium { background: rgba(201,169,110,0.15); color: #b8942e; }
         .priority-low { background: rgba(66,133,244,0.1); color: #4285f4; }
+        .req-time-ago { font-size: 0.6rem; color: var(--text-medium); }
+        .req-time-ago.req-urgent { color: #e57373; font-weight: 600; }
 
-        .request-body {
-            font-size: 0.82rem;
-            color: var(--text-dark);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            padding: 0.85rem;
-            background: #faf9f7;
-            border-radius: 8px;
+        /* Category tags */
+        .req-tags { display: flex; gap: 0.35rem; margin-bottom: 0.65rem; flex-wrap: wrap; }
+        .req-tag {
+            font-size: 0.55rem; font-weight: 500; padding: 0.2rem 0.55rem;
+            border-radius: 4px; background: #f5f3f0; color: var(--text-medium);
+        }
+        .req-tag i { margin-right: 0.2rem; font-size: 0.5rem; }
+
+        /* Quote body */
+        .req-card-body {
+            font-size: 0.8rem; color: var(--text-dark); line-height: 1.65;
+            padding: 0.85rem 1rem; background: #faf9f7; border-radius: 8px;
+            border-left: 3px solid #e8e5e0; margin-bottom: 0.85rem;
+            font-style: italic;
         }
 
-        .request-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.75rem;
+        /* Status workflow steps */
+        .req-status-bar {
+            display: flex; align-items: center; gap: 0; margin-bottom: 0.85rem;
+        }
+        .req-step {
+            display: flex; align-items: center; gap: 0.3rem;
+            font-size: 0.58rem; font-weight: 600; padding: 0.3rem 0.7rem;
+            border-radius: 20px; cursor: pointer; transition: all 0.2s;
+            background: #f5f3f0; color: var(--text-medium);
+        }
+        .req-step.step-active { background: var(--primary-dark); color: white; }
+        .req-step.step-done { background: rgba(58,90,64,0.12); color: var(--primary-green); }
+        .req-step i { font-size: 0.5rem; }
+        .req-step-arrow {
+            margin: 0 0.25rem; color: #d0cdc8; font-size: 0.55rem;
         }
 
-        .request-time {
-            font-size: 0.7rem;
-            color: var(--text-medium);
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
+        /* Staff assignment area */
+        .req-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 0.65rem;
+        }
+        .req-staff-area { display: flex; align-items: center; gap: 0.5rem; }
+        .req-staff-avatars { display: flex; gap: -4px; }
+        .req-staff-chip {
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.5rem; font-weight: 700; color: white;
+            border: 2px solid white; margin-left: -6px;
+        }
+        .req-staff-chip:first-child { margin-left: 0; }
+        .req-staff-name { font-size: 0.68rem; font-weight: 500; color: var(--text-dark); }
+        .req-assign-btn {
+            padding: 0.35rem 0.75rem; border-radius: 6px; border: 1px dashed #d0cdc8;
+            background: none; font-family: 'Montserrat', sans-serif;
+            font-size: 0.62rem; color: var(--text-medium); cursor: pointer; transition: all 0.15s;
+        }
+        .req-assign-btn:hover { border-color: var(--accent-gold); color: var(--accent-gold); }
+
+        /* Quick actions row */
+        .req-actions { display: flex; gap: 0.4rem; }
+        .req-action-btn {
+            display: flex; align-items: center; gap: 0.3rem;
+            padding: 0.35rem 0.65rem; border-radius: 6px; border: 1px solid #e8e5e0;
+            background: white; font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem; font-weight: 500; color: var(--text-medium);
+            cursor: pointer; transition: all 0.15s;
+        }
+        .req-action-btn:hover { border-color: var(--accent-gold); color: var(--primary-dark); }
+        .req-action-btn.btn-complete { color: var(--primary-green); }
+        .req-action-btn.btn-complete:hover { background: rgba(58,90,64,0.08); border-color: var(--primary-green); }
+        .req-action-btn.btn-escalate { color: #e57373; }
+        .req-action-btn.btn-escalate:hover { background: rgba(229,115,115,0.08); border-color: #e57373; }
+
+        /* Internal notes */
+        .req-notes-toggle {
+            display: flex; align-items: center; gap: 0.3rem;
+            margin-top: 0.75rem; padding-top: 0.65rem; border-top: 1px solid #f0ede8;
+            font-size: 0.65rem; font-weight: 500; color: var(--text-medium);
+            cursor: pointer; transition: color 0.15s;
+        }
+        .req-notes-toggle:hover { color: var(--primary-dark); }
+        .req-notes-panel {
+            display: none; margin-top: 0.65rem;
+        }
+        .req-notes-panel.open { display: block; }
+        .req-note-item {
+            display: flex; gap: 0.5rem; padding: 0.5rem 0;
+            border-bottom: 1px solid #f5f3f0;
+        }
+        .req-note-item:last-child { border-bottom: none; }
+        .req-note-avatar {
+            width: 24px; height: 24px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.45rem; font-weight: 700; color: white; flex-shrink: 0;
+        }
+        .req-note-text { font-size: 0.68rem; color: var(--text-dark); line-height: 1.5; }
+        .req-note-meta { font-size: 0.55rem; color: var(--text-medium); margin-top: 0.15rem; }
+        .req-note-input-row { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
+        .req-note-input {
+            flex: 1; padding: 0.5rem 0.75rem; border: 1px solid #e0ddd8;
+            border-radius: 6px; font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem; outline: none;
+        }
+        .req-note-input:focus { border-color: var(--accent-gold); }
+        .req-note-send {
+            padding: 0.5rem 0.85rem; border-radius: 6px; border: none;
+            background: var(--primary-dark); color: white;
+            font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+            font-weight: 600; cursor: pointer;
         }
 
-        .request-assign {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        /* New Request Modal */
+        .req-modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            z-index: 1000; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
         }
-
-        .request-assign select {
-            padding: 0.45rem 0.75rem;
-            border: 1px solid #e0ddd8;
-            border-radius: 6px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.72rem;
-            color: var(--text-dark);
-            outline: none;
-            cursor: pointer;
+        .req-modal-overlay.open { display: flex; }
+        .req-modal {
+            background: white; border-radius: 16px; width: 500px; max-width: 92vw;
+            max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
         }
-
-        .request-assign select:focus { border-color: var(--accent-gold); }
-
-        .assign-btn {
-            padding: 0.45rem 1rem;
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
+        .req-modal-header {
+            padding: 1.25rem 1.5rem; border-bottom: 1px solid #f0ede8;
+            display: flex; align-items: center; justify-content: space-between;
         }
-
-        .assign-btn:hover { background: #2f4a35; }
-
-        .assigned-to {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.72rem;
-            color: var(--primary-green);
-            font-weight: 600;
+        .req-modal-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+            font-weight: 700; color: var(--primary-dark);
         }
-
-        .assigned-to i { font-size: 0.85rem; }
+        .req-modal-close {
+            background: none; border: none; font-size: 1.1rem;
+            color: #ccc; cursor: pointer;
+        }
+        .req-modal-close:hover { color: #999; }
+        .req-modal-body { padding: 1.5rem; }
+        .req-form-group { margin-bottom: 1rem; }
+        .req-form-label {
+            display: block; font-size: 0.7rem; font-weight: 600;
+            color: var(--primary-dark); margin-bottom: 0.4rem;
+        }
+        .req-form-input, .req-form-select, .req-form-textarea {
+            width: 100%; padding: 0.6rem 0.85rem; border: 1px solid #e0ddd8;
+            border-radius: 8px; font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem; color: var(--text-dark); outline: none;
+            box-sizing: border-box;
+        }
+        .req-form-input:focus, .req-form-select:focus, .req-form-textarea:focus { border-color: var(--accent-gold); }
+        .req-form-textarea { min-height: 90px; resize: vertical; }
+        .req-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        .req-modal-footer {
+            padding: 1rem 1.5rem; border-top: 1px solid #f0ede8;
+            display: flex; justify-content: flex-end; gap: 0.5rem;
+        }
+        .req-modal-cancel {
+            padding: 0.55rem 1.25rem; border-radius: 8px; border: 1px solid #e0ddd8;
+            background: white; font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem; font-weight: 500; color: var(--text-medium); cursor: pointer;
+        }
+        .req-modal-submit {
+            padding: 0.55rem 1.25rem; border-radius: 8px; border: none;
+            background: var(--primary-green); color: white;
+            font-family: 'Montserrat', sans-serif; font-size: 0.72rem;
+            font-weight: 600; cursor: pointer;
+        }
+        .req-modal-submit:hover { background: #2f4a35; }
 
         /* ═══════════════════════════════════════ */
         /*            RESORT MAP                    */
@@ -3786,100 +3933,362 @@
 
             <!-- ═══ SPECIAL REQUESTS ═══ -->
             <div class="panel" id="panel-requests">
-                <div class="requests-list">
-                    <div class="request-card">
-                        <div class="request-card-top">
-                            <div>
-                                <div class="request-guest">Davis Family — Anniversary Celebration</div>
-                                <div class="request-room"><i class="fas fa-home"></i> Covenant Cabin</div>
+
+                <!-- Stats Bar -->
+                <div class="req-stats">
+                    <div class="req-stat-card">
+                        <div class="req-stat-number" id="reqStatTotal">4</div>
+                        <div class="req-stat-label">Total Requests</div>
+                    </div>
+                    <div class="req-stat-card">
+                        <div class="req-stat-number" style="color:#e57373" id="reqStatNew">1</div>
+                        <div class="req-stat-label">New</div>
+                    </div>
+                    <div class="req-stat-card">
+                        <div class="req-stat-number" style="color:var(--accent-gold)" id="reqStatProgress">2</div>
+                        <div class="req-stat-label">In Progress</div>
+                    </div>
+                    <div class="req-stat-card">
+                        <div class="req-stat-number" style="color:var(--primary-green)" id="reqStatDone">1</div>
+                        <div class="req-stat-label">Completed</div>
+                    </div>
+                </div>
+
+                <!-- Toolbar -->
+                <div class="req-toolbar">
+                    <div class="req-filters">
+                        <button class="req-filter active" data-filter="all">All</button>
+                        <button class="req-filter" data-filter="high"><i class="fas fa-circle" style="color:#e57373;font-size:8px"></i> High</button>
+                        <button class="req-filter" data-filter="medium"><i class="fas fa-circle" style="color:var(--accent-gold);font-size:8px"></i> Medium</button>
+                        <button class="req-filter" data-filter="low"><i class="fas fa-circle" style="color:var(--primary-green);font-size:8px"></i> Low</button>
+                        <span style="width:1px;height:20px;background:rgba(255,255,255,0.15);margin:0 4px"></span>
+                        <button class="req-filter" data-filter="new">New</button>
+                        <button class="req-filter" data-filter="assigned">Assigned</button>
+                        <button class="req-filter" data-filter="in-progress">In Progress</button>
+                        <button class="req-filter" data-filter="completed">Completed</button>
+                    </div>
+                    <button class="req-new-btn" onclick="openReqModal()"><i class="fas fa-plus"></i> New Request</button>
+                </div>
+
+                <!-- Request Cards -->
+                <div class="requests-list" id="requestsList">
+
+                    <!-- Card 1 — Davis Family (High, In Progress) -->
+                    <div class="request-card" data-priority="high" data-status="in-progress">
+                        <div class="req-card-inner">
+                            <div class="req-priority-bar priority-bar-high"></div>
+                            <div class="req-card-content">
+                                <div class="req-card-header">
+                                    <div>
+                                        <div class="req-guest-name">Davis Family</div>
+                                        <div class="req-room-badge"><i class="fas fa-home"></i> Covenant Cabin</div>
+                                    </div>
+                                    <div style="text-align:right">
+                                        <span class="request-priority priority-high">High Priority</span>
+                                        <div class="req-time"><i class="fas fa-clock"></i> 6 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="req-tags">
+                                    <span class="req-tag"><i class="fas fa-birthday-cake"></i> Anniversary</span>
+                                    <span class="req-tag"><i class="fas fa-wine-bottle"></i> Dining</span>
+                                    <span class="req-tag"><i class="fas fa-leaf"></i> Décor</span>
+                                </div>
+                                <div class="request-body">
+                                    "We're celebrating our 25th wedding anniversary! Could we get fresh flowers in the room, a bottle of local wine, and if possible a handwritten note of blessing? This trip is very special to us."
+                                </div>
+
+                                <!-- Status Workflow -->
+                                <div class="req-status-bar">
+                                    <div class="req-step completed" data-step="new"><i class="fas fa-check"></i> New</div>
+                                    <div class="req-step completed" data-step="assigned"><i class="fas fa-check"></i> Assigned</div>
+                                    <div class="req-step active" data-step="in-progress"><i class="fas fa-spinner"></i> In Progress</div>
+                                    <div class="req-step" data-step="completed"><i class="fas fa-flag-checkered"></i> Completed</div>
+                                </div>
+
+                                <!-- Assigned Staff -->
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
+                                    <div style="display:flex;align-items:center;gap:8px">
+                                        <div class="req-staff-chip" title="Rachel Torres" style="background:var(--primary-green)">RT</div>
+                                        <div class="req-staff-chip" title="Tom Henderson" style="background:#4285f4;margin-left:-8px">TH</div>
+                                        <span style="font-size:0.78rem;color:rgba(255,255,255,0.5)">Rachel T. &amp; Tom H.</span>
+                                    </div>
+                                    <div class="req-actions">
+                                        <button class="req-action-btn req-action-complete" onclick="completeRequest(this)"><i class="fas fa-check"></i> Complete</button>
+                                        <button class="req-action-btn req-action-escalate" onclick="escalateRequest(this)"><i class="fas fa-arrow-up"></i> Escalate</button>
+                                        <button class="req-action-btn req-action-note" onclick="toggleNotes(this)"><i class="fas fa-sticky-note"></i> Notes</button>
+                                    </div>
+                                </div>
+
+                                <!-- Internal Notes (collapsed) -->
+                                <div class="req-notes-panel" style="display:none">
+                                    <div class="req-note">
+                                        <strong>Rachel T.</strong> <span style="opacity:0.5;font-size:0.75rem">— 4 hours ago</span>
+                                        <div>Ordered wildflowers from Chattanooga florist — delivery by 3 PM. Wine sourced from local vineyard.</div>
+                                    </div>
+                                    <div class="req-note">
+                                        <strong>Tom H.</strong> <span style="opacity:0.5;font-size:0.75rem">— 2 hours ago</span>
+                                        <div>Handwritten blessing card done. Will arrange flowers + wine on dining table with candles at 5 PM.</div>
+                                    </div>
+                                    <div class="req-note-input">
+                                        <input type="text" placeholder="Add a note..." class="req-note-field">
+                                        <button class="req-note-send" onclick="addNote(this)"><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="request-priority priority-high">High Priority</span>
-                        </div>
-                        <div class="request-body">
-                            "We're celebrating our 25th wedding anniversary! Could we get fresh flowers in the room, a bottle of local wine, and if possible a handwritten note of blessing? This trip is very special to us."
-                        </div>
-                        <div class="request-footer">
-                            <div class="request-time"><i class="fas fa-clock"></i> Requested 6 hours ago</div>
-                            <div class="assigned-to"><i class="fas fa-check-circle"></i> Assigned to Rachel T. &amp; Tom H.</div>
                         </div>
                     </div>
 
-                    <div class="request-card">
-                        <div class="request-card-top">
-                            <div>
-                                <div class="request-guest">Pastor Mitchell — Ministry Retreat Prep</div>
-                                <div class="request-room"><i class="fas fa-home"></i> Mustard Seed</div>
-                            </div>
-                            <span class="request-priority priority-medium">Medium</span>
-                        </div>
-                        <div class="request-body">
-                            "I'll be leading a small group devotional on the main deck tomorrow morning at sunrise. Could we set up 8 chairs in a circle with blankets? Also need a small table for my Bible and notes."
-                        </div>
-                        <div class="request-footer">
-                            <div class="request-time"><i class="fas fa-clock"></i> Requested 3 hours ago</div>
-                            <div class="request-assign">
-                                <select>
-                                    <option value="">Assign staff...</option>
-                                    <option>Tom Henderson</option>
-                                    <option>Sarah Bennett</option>
-                                    <option>Maria Sanchez</option>
-                                    <option>James Walker</option>
-                                </select>
-                                <button class="assign-btn">Assign</button>
+                    <!-- Card 2 — Pastor Mitchell (Medium, Assigned) -->
+                    <div class="request-card" data-priority="medium" data-status="assigned">
+                        <div class="req-card-inner">
+                            <div class="req-priority-bar priority-bar-medium"></div>
+                            <div class="req-card-content">
+                                <div class="req-card-header">
+                                    <div>
+                                        <div class="req-guest-name">Pastor Mitchell</div>
+                                        <div class="req-room-badge"><i class="fas fa-home"></i> Mustard Seed</div>
+                                    </div>
+                                    <div style="text-align:right">
+                                        <span class="request-priority priority-medium">Medium</span>
+                                        <div class="req-time"><i class="fas fa-clock"></i> 3 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="req-tags">
+                                    <span class="req-tag"><i class="fas fa-church"></i> Ministry</span>
+                                    <span class="req-tag"><i class="fas fa-chair"></i> Setup</span>
+                                </div>
+                                <div class="request-body">
+                                    "I'll be leading a small group devotional on the main deck tomorrow morning at sunrise. Could we set up 8 chairs in a circle with blankets? Also need a small table for my Bible and notes."
+                                </div>
+
+                                <div class="req-status-bar">
+                                    <div class="req-step completed" data-step="new"><i class="fas fa-check"></i> New</div>
+                                    <div class="req-step active" data-step="assigned"><i class="fas fa-user-check"></i> Assigned</div>
+                                    <div class="req-step" data-step="in-progress"><i class="fas fa-spinner"></i> In Progress</div>
+                                    <div class="req-step" data-step="completed"><i class="fas fa-flag-checkered"></i> Completed</div>
+                                </div>
+
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
+                                    <div style="display:flex;align-items:center;gap:8px">
+                                        <div class="req-staff-chip" title="Tom Henderson" style="background:#4285f4">TH</div>
+                                        <span style="font-size:0.78rem;color:rgba(255,255,255,0.5)">Tom Henderson</span>
+                                    </div>
+                                    <div class="req-actions">
+                                        <button class="req-action-btn req-action-complete" onclick="completeRequest(this)"><i class="fas fa-check"></i> Complete</button>
+                                        <button class="req-action-btn req-action-escalate" onclick="escalateRequest(this)"><i class="fas fa-arrow-up"></i> Escalate</button>
+                                        <button class="req-action-btn req-action-note" onclick="toggleNotes(this)"><i class="fas fa-sticky-note"></i> Notes</button>
+                                    </div>
+                                </div>
+
+                                <div class="req-notes-panel" style="display:none">
+                                    <div class="req-note">
+                                        <strong>Tom H.</strong> <span style="opacity:0.5;font-size:0.75rem">— 1 hour ago</span>
+                                        <div>Confirmed 8 chairs + blankets from storage. Will set up at 5:45 AM before sunrise.</div>
+                                    </div>
+                                    <div class="req-note-input">
+                                        <input type="text" placeholder="Add a note..." class="req-note-field">
+                                        <button class="req-note-send" onclick="addNote(this)"><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="request-card">
-                        <div class="request-card-top">
-                            <div>
-                                <div class="request-guest">Williams Couple — Romantic Setup</div>
-                                <div class="request-room"><i class="fas fa-home"></i> The Ark</div>
-                            </div>
-                            <span class="request-priority priority-medium">Medium</span>
-                        </div>
-                        <div class="request-body">
-                            "We'd love a private dinner on our cabin deck tomorrow evening — candles, string lights, something cozy. We'll order off the dinner menu. Also, could we book a couple's massage for the afternoon?"
-                        </div>
-                        <div class="request-footer">
-                            <div class="request-time"><i class="fas fa-clock"></i> Requested 2 hours ago</div>
-                            <div class="request-assign">
-                                <select>
-                                    <option value="">Assign staff...</option>
-                                    <option>Tom Henderson</option>
-                                    <option>Sarah Bennett</option>
-                                    <option>Chef Dan</option>
-                                    <option>Rachel Torres</option>
-                                </select>
-                                <button class="assign-btn">Assign</button>
+                    <!-- Card 3 — Williams Couple (Medium, In Progress) -->
+                    <div class="request-card" data-priority="medium" data-status="in-progress">
+                        <div class="req-card-inner">
+                            <div class="req-priority-bar priority-bar-medium"></div>
+                            <div class="req-card-content">
+                                <div class="req-card-header">
+                                    <div>
+                                        <div class="req-guest-name">Williams Couple</div>
+                                        <div class="req-room-badge"><i class="fas fa-home"></i> The Ark</div>
+                                    </div>
+                                    <div style="text-align:right">
+                                        <span class="request-priority priority-medium">Medium</span>
+                                        <div class="req-time"><i class="fas fa-clock"></i> 2 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="req-tags">
+                                    <span class="req-tag"><i class="fas fa-heart"></i> Romance</span>
+                                    <span class="req-tag"><i class="fas fa-utensils"></i> Dining</span>
+                                    <span class="req-tag"><i class="fas fa-spa"></i> Spa</span>
+                                </div>
+                                <div class="request-body">
+                                    "We'd love a private dinner on our cabin deck tomorrow evening — candles, string lights, something cozy. We'll order off the dinner menu. Also, could we book a couple's massage for the afternoon?"
+                                </div>
+
+                                <div class="req-status-bar">
+                                    <div class="req-step completed" data-step="new"><i class="fas fa-check"></i> New</div>
+                                    <div class="req-step completed" data-step="assigned"><i class="fas fa-check"></i> Assigned</div>
+                                    <div class="req-step active" data-step="in-progress"><i class="fas fa-spinner"></i> In Progress</div>
+                                    <div class="req-step" data-step="completed"><i class="fas fa-flag-checkered"></i> Completed</div>
+                                </div>
+
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
+                                    <div style="display:flex;align-items:center;gap:8px">
+                                        <div class="req-staff-chip" title="Chef Dan" style="background:#e57373">CD</div>
+                                        <div class="req-staff-chip" title="Rachel Torres" style="background:var(--primary-green);margin-left:-8px">RT</div>
+                                        <span style="font-size:0.78rem;color:rgba(255,255,255,0.5)">Chef Dan &amp; Rachel T.</span>
+                                    </div>
+                                    <div class="req-actions">
+                                        <button class="req-action-btn req-action-complete" onclick="completeRequest(this)"><i class="fas fa-check"></i> Complete</button>
+                                        <button class="req-action-btn req-action-escalate" onclick="escalateRequest(this)"><i class="fas fa-arrow-up"></i> Escalate</button>
+                                        <button class="req-action-btn req-action-note" onclick="toggleNotes(this)"><i class="fas fa-sticky-note"></i> Notes</button>
+                                    </div>
+                                </div>
+
+                                <div class="req-notes-panel" style="display:none">
+                                    <div class="req-note">
+                                        <strong>Chef Dan</strong> <span style="opacity:0.5;font-size:0.75rem">— 1 hour ago</span>
+                                        <div>Planning a 3-course deck dinner: wild mushroom soup, elk tenderloin, berry cobbler. String lights confirmed.</div>
+                                    </div>
+                                    <div class="req-note">
+                                        <strong>Rachel T.</strong> <span style="opacity:0.5;font-size:0.75rem">— 30 min ago</span>
+                                        <div>Couples massage booked at 2 PM with Therapist Jenna. Confirmed availability.</div>
+                                    </div>
+                                    <div class="req-note-input">
+                                        <input type="text" placeholder="Add a note..." class="req-note-field">
+                                        <button class="req-note-send" onclick="addNote(this)"><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="request-card">
-                        <div class="request-card-top">
-                            <div>
-                                <div class="request-guest">Johnson Family — Kids Activities</div>
-                                <div class="request-room"><i class="fas fa-home"></i> Eden Suite</div>
+                    <!-- Card 4 — Johnson Family (Low, New) -->
+                    <div class="request-card" data-priority="low" data-status="new">
+                        <div class="req-card-inner">
+                            <div class="req-priority-bar priority-bar-low"></div>
+                            <div class="req-card-content">
+                                <div class="req-card-header">
+                                    <div>
+                                        <div class="req-guest-name">Johnson Family</div>
+                                        <div class="req-room-badge"><i class="fas fa-home"></i> Eden Suite</div>
+                                    </div>
+                                    <div style="text-align:right">
+                                        <span class="request-priority priority-low">Low</span>
+                                        <div class="req-time"><i class="fas fa-clock"></i> 45 min ago</div>
+                                    </div>
+                                </div>
+                                <div class="req-tags">
+                                    <span class="req-tag"><i class="fas fa-hiking"></i> Activities</span>
+                                    <span class="req-tag"><i class="fas fa-child"></i> Family</span>
+                                </div>
+                                <div class="request-body">
+                                    "Do you have any family-friendly hiking trail recommendations? Our kids are 8 and 10. Also, are s'mores kits available for the fire pit tonight?"
+                                </div>
+
+                                <div class="req-status-bar">
+                                    <div class="req-step active" data-step="new"><i class="fas fa-bell"></i> New</div>
+                                    <div class="req-step" data-step="assigned"><i class="fas fa-user-check"></i> Assigned</div>
+                                    <div class="req-step" data-step="in-progress"><i class="fas fa-spinner"></i> In Progress</div>
+                                    <div class="req-step" data-step="completed"><i class="fas fa-flag-checkered"></i> Completed</div>
+                                </div>
+
+                                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
+                                    <div style="display:flex;align-items:center;gap:8px">
+                                        <select class="req-assign-select" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:white;padding:5px 10px;border-radius:6px;font-size:0.8rem">
+                                            <option value="">Assign staff...</option>
+                                            <option value="TH">Tom Henderson</option>
+                                            <option value="SB">Sarah Bennett</option>
+                                            <option value="MS">Maria Sanchez</option>
+                                        </select>
+                                        <button class="req-action-btn" onclick="assignRequest(this)" style="background:var(--primary-green);color:white;border-color:var(--primary-green)"><i class="fas fa-user-plus"></i> Assign</button>
+                                    </div>
+                                    <div class="req-actions">
+                                        <button class="req-action-btn req-action-complete" onclick="completeRequest(this)"><i class="fas fa-check"></i> Complete</button>
+                                        <button class="req-action-btn req-action-note" onclick="toggleNotes(this)"><i class="fas fa-sticky-note"></i> Notes</button>
+                                    </div>
+                                </div>
+
+                                <div class="req-notes-panel" style="display:none">
+                                    <div class="req-note-input">
+                                        <input type="text" placeholder="Add a note..." class="req-note-field">
+                                        <button class="req-note-send" onclick="addNote(this)"><i class="fas fa-paper-plane"></i></button>
+                                    </div>
+                                </div>
                             </div>
-                            <span class="request-priority priority-low">Low</span>
                         </div>
-                        <div class="request-body">
-                            "Do you have any family-friendly hiking trail recommendations? Our kids are 8 and 10. Also, are s'mores kits available for the fire pit tonight?"
+                    </div>
+
+                </div>
+
+                <!-- New Request Modal -->
+                <div class="req-modal-overlay" id="reqModal" style="display:none">
+                    <div class="req-modal">
+                        <div class="req-modal-header">
+                            <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;margin:0">New Special Request</h3>
+                            <button class="req-modal-close" onclick="closeReqModal()">&times;</button>
                         </div>
-                        <div class="request-footer">
-                            <div class="request-time"><i class="fas fa-clock"></i> Requested 45 minutes ago</div>
-                            <div class="request-assign">
-                                <select>
-                                    <option value="">Assign staff...</option>
-                                    <option>Tom Henderson</option>
-                                    <option>Sarah Bennett</option>
+                        <div class="req-modal-body">
+                            <div class="req-form-row">
+                                <div class="req-form-group">
+                                    <label class="req-form-label">Guest Name</label>
+                                    <input type="text" class="req-form-input" id="reqGuestName" placeholder="e.g. Smith Family">
+                                </div>
+                                <div class="req-form-group">
+                                    <label class="req-form-label">Room / Cabin</label>
+                                    <select class="req-form-input" id="reqRoom">
+                                        <option value="">Select room...</option>
+                                        <option>Eden Suite</option>
+                                        <option>The Ark</option>
+                                        <option>Covenant Cabin</option>
+                                        <option>Summit Lodge</option>
+                                        <option>Shepherd's Rest</option>
+                                        <option>Promised Land</option>
+                                        <option>Mustard Seed</option>
+                                        <option>The Vineyard</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="req-form-row">
+                                <div class="req-form-group">
+                                    <label class="req-form-label">Priority</label>
+                                    <select class="req-form-input" id="reqPriority">
+                                        <option value="low">Low</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+                                <div class="req-form-group">
+                                    <label class="req-form-label">Category</label>
+                                    <select class="req-form-input" id="reqCategory">
+                                        <option value="general">General</option>
+                                        <option value="dining">Dining</option>
+                                        <option value="romance">Romance</option>
+                                        <option value="activities">Activities</option>
+                                        <option value="ministry">Ministry</option>
+                                        <option value="spa">Spa & Wellness</option>
+                                        <option value="setup">Setup / Décor</option>
+                                        <option value="anniversary">Anniversary</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="req-form-group">
+                                <label class="req-form-label">Request Details</label>
+                                <textarea class="req-form-textarea" id="reqDetails" rows="4" placeholder="Describe the guest's request..."></textarea>
+                            </div>
+                            <div class="req-form-group">
+                                <label class="req-form-label">Assign To (optional)</label>
+                                <select class="req-form-input" id="reqAssign">
+                                    <option value="">Unassigned</option>
+                                    <option value="TH">Tom Henderson</option>
+                                    <option value="SB">Sarah Bennett</option>
+                                    <option value="RT">Rachel Torres</option>
+                                    <option value="MS">Maria Sanchez</option>
+                                    <option value="JW">James Walker</option>
+                                    <option value="CD">Chef Dan</option>
                                 </select>
-                                <button class="assign-btn">Assign</button>
                             </div>
+                        </div>
+                        <div class="req-modal-footer">
+                            <button class="req-modal-cancel" onclick="closeReqModal()">Cancel</button>
+                            <button class="req-modal-submit" onclick="submitNewRequest()"><i class="fas fa-paper-plane"></i> Submit Request</button>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <!-- ═══ RESORT MAP ═══ -->
@@ -4328,6 +4737,167 @@
         document.getElementById('shiftModal').addEventListener('click', function(e) {
             if (e.target === this) closeShiftModal();
         });
+
+        // ═══ Special Requests ═══
+        function filterRequests(filter, btn) {
+            document.querySelectorAll('.req-filter').forEach(f => f.classList.remove('active'));
+            btn.classList.add('active');
+            const cards = document.querySelectorAll('#requestsList .request-card');
+            cards.forEach(card => {
+                const priority = card.dataset.priority;
+                const status = card.dataset.status;
+                if (filter === 'all') { card.style.display = ''; }
+                else if (['high','medium','low'].includes(filter)) { card.style.display = priority === filter ? '' : 'none'; }
+                else { card.style.display = status === filter ? '' : 'none'; }
+            });
+        }
+        document.querySelectorAll('.req-filter').forEach(btn => {
+            btn.addEventListener('click', function() { filterRequests(this.dataset.filter, this); });
+        });
+
+        function toggleNotes(btn) {
+            const card = btn.closest('.request-card');
+            const panel = card.querySelector('.req-notes-panel');
+            if (panel.style.display === 'none') {
+                panel.style.display = 'block';
+                btn.classList.add('active');
+                setTimeout(() => { const input = panel.querySelector('.req-note-field'); if(input) input.focus(); }, 100);
+            } else {
+                panel.style.display = 'none';
+                btn.classList.remove('active');
+            }
+        }
+
+        function addNote(btn) {
+            const panel = btn.closest('.req-notes-panel');
+            const input = panel.querySelector('.req-note-field');
+            const text = input.value.trim();
+            if (!text) return;
+            const note = document.createElement('div');
+            note.className = 'req-note';
+            note.innerHTML = '<strong>You</strong> <span style="opacity:0.5;font-size:0.75rem">— just now</span><div>' + text.replace(/</g,'&lt;') + '</div>';
+            panel.insertBefore(note, panel.querySelector('.req-note-input'));
+            input.value = '';
+            note.style.opacity = '0'; note.style.transform = 'translateY(5px)';
+            requestAnimationFrame(() => { note.style.transition = 'all 0.3s'; note.style.opacity = '1'; note.style.transform = 'translateY(0)'; });
+        }
+        document.querySelectorAll('.req-note-field').forEach(f => {
+            f.addEventListener('keydown', function(e) { if (e.key === 'Enter') addNote(this.nextElementSibling); });
+        });
+
+        function completeRequest(btn) {
+            const card = btn.closest('.request-card');
+            card.dataset.status = 'completed';
+            const steps = card.querySelectorAll('.req-step');
+            steps.forEach(s => { s.classList.remove('active'); s.classList.add('completed'); s.querySelector('i').className = 'fas fa-check'; });
+            card.style.transition = 'opacity 0.4s, transform 0.4s';
+            card.style.opacity = '0.6';
+            btn.innerHTML = '<i class="fas fa-check-double"></i> Done';
+            btn.style.background = 'var(--primary-green)'; btn.style.color = 'white'; btn.style.borderColor = 'var(--primary-green)';
+            btn.disabled = true;
+            updateReqStats();
+        }
+
+        function escalateRequest(btn) {
+            const card = btn.closest('.request-card');
+            card.dataset.priority = 'high';
+            const bar = card.querySelector('.req-priority-bar');
+            bar.className = 'req-priority-bar priority-bar-high';
+            const badge = card.querySelector('.request-priority');
+            badge.className = 'request-priority priority-high';
+            badge.textContent = 'High Priority';
+            btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Escalated';
+            btn.style.background = 'rgba(229,115,115,0.2)'; btn.style.color = '#e57373'; btn.style.borderColor = '#e57373';
+            btn.disabled = true;
+            card.style.animation = 'none';
+            requestAnimationFrame(() => { card.style.animation = 'pulse-border 0.6s'; });
+            updateReqStats();
+        }
+
+        function assignRequest(btn) {
+            const card = btn.closest('.request-card');
+            const select = card.querySelector('.req-assign-select');
+            const val = select.value;
+            if (!val) return;
+            const name = select.options[select.selectedIndex].text;
+            const initials = val;
+            card.dataset.status = 'assigned';
+            const steps = card.querySelectorAll('.req-step');
+            steps[0].classList.remove('active'); steps[0].classList.add('completed'); steps[0].querySelector('i').className = 'fas fa-check';
+            steps[1].classList.add('active');
+            const staffArea = btn.parentElement;
+            const colors = { TH:'#4285f4', SB:'#ab47bc', RT:'var(--primary-green)', MS:'var(--accent-gold)', JW:'#e57373', CD:'#e57373' };
+            staffArea.innerHTML = '<div class="req-staff-chip" title="'+name+'" style="background:'+(colors[initials]||'#4285f4')+'">'+initials+'</div><span style="font-size:0.78rem;color:rgba(255,255,255,0.5)">'+name+'</span>';
+            updateReqStats();
+        }
+
+        function updateReqStats() {
+            const cards = document.querySelectorAll('#requestsList .request-card');
+            let total = cards.length, nw = 0, prog = 0, done = 0;
+            cards.forEach(c => {
+                const s = c.dataset.status;
+                if (s === 'new') nw++;
+                else if (s === 'in-progress') prog++;
+                else if (s === 'completed') done++;
+                else if (s === 'assigned') prog++;
+            });
+            document.getElementById('reqStatTotal').textContent = total;
+            document.getElementById('reqStatNew').textContent = nw;
+            document.getElementById('reqStatProgress').textContent = prog;
+            document.getElementById('reqStatDone').textContent = done;
+        }
+
+        function openReqModal() { document.getElementById('reqModal').style.display = 'flex'; }
+        function closeReqModal() { document.getElementById('reqModal').style.display = 'none'; }
+        document.getElementById('reqModal').addEventListener('click', function(e) { if(e.target === this) closeReqModal(); });
+
+        function submitNewRequest() {
+            const guest = document.getElementById('reqGuestName').value.trim();
+            const room = document.getElementById('reqRoom').value;
+            const priority = document.getElementById('reqPriority').value;
+            const category = document.getElementById('reqCategory').value;
+            const details = document.getElementById('reqDetails').value.trim();
+            const assign = document.getElementById('reqAssign').value;
+            if (!guest || !room || !details) { alert('Please fill in guest name, room, and request details.'); return; }
+
+            const catIcons = { general:'fa-concierge-bell', dining:'fa-utensils', romance:'fa-heart', activities:'fa-hiking', ministry:'fa-church', spa:'fa-spa', setup:'fa-chair', anniversary:'fa-birthday-cake' };
+            const catLabels = { general:'General', dining:'Dining', romance:'Romance', activities:'Activities', ministry:'Ministry', spa:'Spa', setup:'Setup', anniversary:'Anniversary' };
+            const prioLabels = { high:'High Priority', medium:'Medium', low:'Low' };
+            const staffNames = { TH:'Tom Henderson', SB:'Sarah Bennett', RT:'Rachel Torres', MS:'Maria Sanchez', JW:'James Walker', CD:'Chef Dan' };
+            const staffColors = { TH:'#4285f4', SB:'#ab47bc', RT:'var(--primary-green)', MS:'var(--accent-gold)', JW:'#e57373', CD:'#e57373' };
+
+            const status = assign ? 'assigned' : 'new';
+            let staffHTML = '';
+            if (assign) {
+                staffHTML = '<div class="req-staff-chip" title="'+staffNames[assign]+'" style="background:'+staffColors[assign]+'">'+assign+'</div><span style="font-size:0.78rem;color:rgba(255,255,255,0.5)">'+staffNames[assign]+'</span>';
+            } else {
+                staffHTML = '<select class="req-assign-select" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:white;padding:5px 10px;border-radius:6px;font-size:0.8rem"><option value="">Assign staff...</option><option value="TH">Tom Henderson</option><option value="SB">Sarah Bennett</option><option value="RT">Rachel Torres</option><option value="MS">Maria Sanchez</option></select><button class="req-action-btn" onclick="assignRequest(this)" style="background:var(--primary-green);color:white;border-color:var(--primary-green)"><i class="fas fa-user-plus"></i> Assign</button>';
+            }
+
+            const card = document.createElement('div');
+            card.className = 'request-card';
+            card.dataset.priority = priority;
+            card.dataset.status = status;
+            card.innerHTML = '<div class="req-card-inner"><div class="req-priority-bar priority-bar-'+priority+'"></div><div class="req-card-content"><div class="req-card-header"><div><div class="req-guest-name">'+guest.replace(/</g,'&lt;')+'</div><div class="req-room-badge"><i class="fas fa-home"></i> '+room+'</div></div><div style="text-align:right"><span class="request-priority priority-'+priority+'">'+prioLabels[priority]+'</span><div class="req-time"><i class="fas fa-clock"></i> Just now</div></div></div><div class="req-tags"><span class="req-tag"><i class="fas '+catIcons[category]+'"></i> '+catLabels[category]+'</span></div><div class="request-body">"'+details.replace(/</g,'&lt;')+'"</div><div class="req-status-bar"><div class="req-step '+(status==='assigned'?'completed':'active')+'" data-step="new"><i class="fas '+(status==='assigned'?'fa-check':'fa-bell')+'"></i> New</div><div class="req-step '+(status==='assigned'?'active':'')+'" data-step="assigned"><i class="fas fa-user-check"></i> Assigned</div><div class="req-step" data-step="in-progress"><i class="fas fa-spinner"></i> In Progress</div><div class="req-step" data-step="completed"><i class="fas fa-flag-checkered"></i> Completed</div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px"><div style="display:flex;align-items:center;gap:8px">'+staffHTML+'</div><div class="req-actions"><button class="req-action-btn req-action-complete" onclick="completeRequest(this)"><i class="fas fa-check"></i> Complete</button><button class="req-action-btn req-action-note" onclick="toggleNotes(this)"><i class="fas fa-sticky-note"></i> Notes</button></div></div><div class="req-notes-panel" style="display:none"><div class="req-note-input"><input type="text" placeholder="Add a note..." class="req-note-field"><button class="req-note-send" onclick="addNote(this)"><i class="fas fa-paper-plane"></i></button></div></div></div></div>';
+
+            const list = document.getElementById('requestsList');
+            list.insertBefore(card, list.firstChild);
+            card.style.opacity = '0'; card.style.transform = 'translateY(-10px)';
+            requestAnimationFrame(() => { card.style.transition = 'all 0.4s'; card.style.opacity = '1'; card.style.transform = 'translateY(0)'; });
+
+            // Wire up note field enter key
+            card.querySelector('.req-note-field').addEventListener('keydown', function(e) { if(e.key==='Enter') addNote(this.nextElementSibling); });
+
+            // Reset form
+            document.getElementById('reqGuestName').value = '';
+            document.getElementById('reqRoom').value = '';
+            document.getElementById('reqPriority').value = 'medium';
+            document.getElementById('reqCategory').value = 'general';
+            document.getElementById('reqDetails').value = '';
+            document.getElementById('reqAssign').value = '';
+            closeReqModal();
+            updateReqStats();
+        }
 
         // ═══ Resort Map (Leaflet) ═══
         let resortMap = null;
