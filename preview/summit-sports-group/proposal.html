@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Proposal | OFFSZN Marketing Group</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a2e;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --border: #27273a;
+      --accent-1: #6366f1;
+      --accent-2: #8b5cf6;
+      --accent-3: #06b6d4;
+      --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      --surface: #16161f;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+    }
+
+    /* HEADER */
+    .proposal-header {
+      background: var(--bg-secondary);
+      padding: 3rem 6%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .proposal-header .logo {
+      font-size: 1.2rem; font-weight: 700; color: var(--text-primary);
+    }
+    .proposal-header .logo span {
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .proposal-header .from {
+      font-size: 0.8rem; color: var(--text-secondary); font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    /* HERO */
+    .prop-hero {
+      background: var(--bg-primary);
+      padding: 5rem 6% 4rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .prop-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(99,102,241,0.12) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, rgba(6,182,212,0.08) 0%, transparent 50%);
+    }
+    .prop-hero > * { position: relative; }
+    .prop-hero .tag {
+      font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+      font-weight: 500; margin-bottom: 1.25rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .prop-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text-primary); margin-bottom: 1rem; line-height: 1.2;
+      font-weight: 700;
+    }
+    .prop-hero p {
+      color: var(--text-secondary); font-size: 1rem; font-weight: 300;
+      max-width: 580px; margin: 0 auto; line-height: 1.7;
+    }
+    .date-badge {
+      display: inline-block; margin-top: 2rem;
+      padding: 0.5rem 1.5rem; border: 1px solid var(--border);
+      border-radius: 50px; color: var(--accent-3); font-size: 0.8rem;
+      font-weight: 500; letter-spacing: 1px;
+    }
+
+    /* SECTIONS */
+    .section { padding: 4rem 6%; max-width: 900px; margin: auto; }
+    .section-alt { background: var(--bg-secondary); }
+
+    .section .tag {
+      font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 0.75rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .section h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: var(--text-primary); margin-bottom: 1.25rem; line-height: 1.3;
+      font-weight: 700;
+    }
+    .section p, .section li {
+      color: var(--text-secondary); font-size: 0.92rem;
+      line-height: 1.8; font-weight: 300;
+    }
+    .section p + p { margin-top: 0.75rem; }
+
+    /* PREVIEW LINK */
+    .preview-box {
+      margin: 2rem 0;
+      padding: 1.5rem 2rem;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .preview-box .label {
+      font-size: 0.85rem; font-weight: 600; color: var(--text-primary);
+    }
+    .preview-box .sublabel {
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 300;
+    }
+    .preview-link {
+      padding: 0.7rem 1.75rem;
+      background: var(--gradient-1); color: white;
+      text-decoration: none; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .preview-link:hover { opacity: 0.9; transform: scale(1.03); }
+
+    /* SCOPE LIST */
+    .scope-list { list-style: none; margin: 1.5rem 0; }
+    .scope-list li {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 0.75rem;
+    }
+    .scope-list li:last-child { border-bottom: none; }
+    .check {
+      color: var(--accent-3); font-weight: 700; font-size: 1rem;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin: 2rem 0;
+    }
+    .price-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+    .price-card:hover { border-color: var(--accent-1); }
+    .price-card .card-tag {
+      font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 0.5rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .price-card .amount {
+      font-size: 2.8rem; color: var(--text-primary); font-weight: 700;
+    }
+    .price-card .amount sup {
+      font-size: 1.2rem; vertical-align: super; font-weight: 400;
+    }
+    .price-card .period {
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+    .price-card ul {
+      list-style: none; text-align: left;
+    }
+    .price-card li {
+      font-size: 0.82rem; color: var(--text-secondary); font-weight: 300;
+      padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 0.5rem;
+    }
+    .price-card li:last-child { border-bottom: none; }
+    .price-card .dot {
+      color: var(--accent-2); font-size: 0.6rem; margin-top: 4px; flex-shrink: 0;
+    }
+
+    /* NOTE BOX */
+    .note-box {
+      margin: 2rem 0;
+      padding: 1.5rem 2rem;
+      background: rgba(99,102,241,0.06);
+      border-left: 3px solid var(--accent-1);
+      border-radius: 0 12px 12px 0;
+    }
+    .note-box strong {
+      display: block; font-size: 0.85rem; color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .note-box p {
+      font-size: 0.85rem; color: var(--text-secondary); font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* WHY US */
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem; margin: 2rem 0;
+    }
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .why-card:hover {
+      border-color: var(--accent-1);
+      transform: translateY(-4px);
+    }
+    .why-card .why-icon {
+      font-size: 1.5rem; margin-bottom: 1rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .why-card h3 {
+      font-size: 0.9rem; font-weight: 600; color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .why-card p {
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--bg-secondary);
+      padding: 4rem 6%; text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--text-primary); margin-bottom: 1rem; font-weight: 700;
+    }
+    .cta-section p {
+      color: var(--text-secondary); font-size: 0.9rem; font-weight: 300;
+      max-width: 480px; margin: 0 auto 2rem; line-height: 1.7;
+    }
+    .cta-btn {
+      display: inline-block; padding: 0.9rem 2.5rem;
+      background: var(--gradient-1); color: white;
+      text-decoration: none; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .cta-btn:hover { opacity: 0.9; transform: scale(1.04); }
+
+    /* FOOTER */
+    .prop-footer {
+      padding: 2rem 6%;
+      background: var(--bg-primary);
+      text-align: center;
+      font-size: 0.75rem; color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .preview-box { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="proposal-header">
+    <div class="logo">Williams <span>Digital</span></div>
+    <div class="from">Prepared for OFFSZN Marketing Group</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="prop-hero">
+    <p class="tag">Website Proposal</p>
+    <h1>A Premium Digital Presence<br>for OFFSZN Marketing Group</h1>
+    <p>A bold, modern website built to match the energy of your brand &mdash; designed to attract athletes, impress partners, and convert visitors into clients.</p>
+    <div class="date-badge">February 2026</div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <p class="tag">Overview</p>
+    <h2>What We're Proposing</h2>
+    <p>OFFSZN Marketing Group is doing impressive work in the athlete marketing space. Your team, your mission, and your results deserve a website that matches that level of excellence. Right now, there's an opportunity to take your digital presence from good to industry-leading.</p>
+    <p>We've already put together a concept to show what's possible. This isn't a template &mdash; it's a custom design built specifically around what OFFSZN does, who you serve, and how you want to be perceived. Take a look:</p>
+
+    <div class="preview-box">
+      <div>
+        <div class="label">Live Design Preview</div>
+        <div class="sublabel">See the full website concept in action</div>
+      </div>
+      <a href="https://williamsdigital.io/preview/summit-sports-group/" target="_blank" class="preview-link">View Preview</a>
+    </div>
+
+    <p>The preview uses a placeholder brand name and imagery for legal purposes, but the layout, functionality, and design direction are built for OFFSZN. Once approved, we'd swap in your real branding, photos, content, and colors for a seamless final product.</p>
+  </div>
+
+  <!-- SCOPE -->
+  <div class="section section-alt">
+    <p class="tag">Scope of Work</p>
+    <h2>What's Included</h2>
+
+    <ul class="scope-list">
+      <li><span class="check">&#10003;</span><div><strong>Complete Custom Website</strong><br>A fully bespoke, mobile-responsive website designed from scratch to reflect OFFSZN's brand identity &mdash; not a template, not a drag-and-drop builder.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>All Core Sections</strong><br>Hero with video background, About, Services, Athlete Roster, Results metrics, Case Studies, Testimonials, Blog/News, FAQ, and Contact &mdash; everything you need to tell your story.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>Interactive Lead Capture</strong><br>Custom modal popup with sport-selection UI so potential athletes can get in touch instantly from any page &mdash; no hunting for a contact form.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>Premium Animations & Effects</strong><br>Scroll-reveal animations, parallax backgrounds, animated counters, micro-interactions, and smooth page transitions that feel polished and professional.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>Mobile-First Design</strong><br>Fully responsive across all devices with a sticky mobile CTA, hamburger navigation, and touch-optimized interactions.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>SEO Foundations</strong><br>Clean semantic code, proper meta tags, fast load times, and structured content to help athletes and brands find you on Google.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>Brand Partner Integration</strong><br>Scrolling logo ticker, athlete social links, and brand partner showcases to build immediate credibility with visitors.</div></li>
+    </ul>
+  </div>
+
+  <!-- WHY US -->
+  <div class="section">
+    <p class="tag">Why Williams Digital</p>
+    <h2>What Sets Us Apart</h2>
+    <p>We don't just build websites &mdash; we build tools that help businesses grow. Here's why OFFSZN and Williams Digital are a great fit:</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">&#9889;</div>
+        <h3>Fast Turnaround</h3>
+        <p>We move fast without cutting corners. Expect a polished product in weeks, not months.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#127912;</div>
+        <h3>Custom Design</h3>
+        <p>No templates, no page builders. Every pixel is handcrafted for your brand.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#128640;</div>
+        <h3>Ongoing Support</h3>
+        <p>We don't disappear after launch. Monthly support keeps your site fresh and performing.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section section-alt">
+    <p class="tag">Investment</p>
+    <h2>Simple, Transparent Pricing</h2>
+    <p>No hidden fees or surprise charges. One upfront build cost to get your site live, plus an optional monthly plan that keeps everything running, updated, and supported.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <p class="card-tag">One-Time</p>
+        <div class="amount"><sup>$</sup>750</div>
+        <div class="period">Website Setup</div>
+        <ul>
+          <li><span class="dot">&#9679;</span> Full custom design &amp; development</li>
+          <li><span class="dot">&#9679;</span> Content setup &amp; brand integration</li>
+          <li><span class="dot">&#9679;</span> Video hero &amp; animation setup</li>
+          <li><span class="dot">&#9679;</span> Mobile responsive build</li>
+          <li><span class="dot">&#9679;</span> Lead capture modal &amp; forms</li>
+          <li><span class="dot">&#9679;</span> Testing, QA &amp; launch</li>
+          <li><span class="dot">&#9679;</span> Two rounds of revisions</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <p class="card-tag">Monthly</p>
+        <div class="amount"><sup>$</sup>150</div>
+        <div class="period">per month</div>
+        <ul>
+          <li><span class="dot">&#9679;</span> Website hosting</li>
+          <li><span class="dot">&#9679;</span> Ongoing maintenance &amp; updates</li>
+          <li><span class="dot">&#9679;</span> Content edits &amp; new additions</li>
+          <li><span class="dot">&#9679;</span> Security monitoring &amp; backups</li>
+          <li><span class="dot">&#9679;</span> Performance optimization</li>
+          <li><span class="dot">&#9679;</span> Priority email support</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Additional Services Available</strong>
+      <p>Need more? Features like a client portal, athlete dashboard, email marketing integration, custom CRM, or additional landing pages can be added at any time. These would be quoted separately based on scope &mdash; just let us know what you're thinking and we'll put together a plan.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to Level Up?</h2>
+    <p>Your athletes deserve a brand that stands out. Let's build a website that matches OFFSZN's ambition. Reach out and we'll get started.</p>
+    <a href="mailto:Dylan@williamsdigital.io" class="cta-btn">Let's Talk</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="prop-footer">
+    <p>&copy; 2026 Williams Digital. This proposal is confidential and intended solely for OFFSZN Marketing Group.</p>
+  </div>
+
+</body>
+</html>
