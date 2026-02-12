@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Proposal | PowerNIL</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a2e;
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --border: #27273a;
+      --accent-1: #6366f1;
+      --accent-2: #8b5cf6;
+      --accent-3: #06b6d4;
+      --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      --surface: #16161f;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+    }
+
+    /* HEADER */
+    .proposal-header {
+      background: var(--bg-secondary);
+      padding: 3rem 6%;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .proposal-header .logo {
+      font-size: 1.2rem; font-weight: 700; color: var(--text-primary);
+    }
+    .proposal-header .logo span {
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .proposal-header .from {
+      font-size: 0.8rem; color: var(--text-secondary); font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    /* HERO */
+    .prop-hero {
+      background: var(--bg-primary);
+      padding: 5rem 6% 4rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .prop-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(99,102,241,0.12) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, rgba(6,182,212,0.08) 0%, transparent 50%);
+    }
+    .prop-hero > * { position: relative; }
+    .prop-hero .tag {
+      font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+      font-weight: 500; margin-bottom: 1.25rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .prop-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text-primary); margin-bottom: 1rem; line-height: 1.2;
+      font-weight: 700;
+    }
+    .prop-hero p {
+      color: var(--text-secondary); font-size: 1rem; font-weight: 300;
+      max-width: 580px; margin: 0 auto; line-height: 1.7;
+    }
+    .date-badge {
+      display: inline-block; margin-top: 2rem;
+      padding: 0.5rem 1.5rem; border: 1px solid var(--border);
+      border-radius: 50px; color: var(--accent-3); font-size: 0.8rem;
+      font-weight: 500; letter-spacing: 1px;
+    }
+
+    /* SECTIONS */
+    .section { padding: 4rem 6%; max-width: 900px; margin: auto; }
+    .section-alt { background: var(--bg-secondary); }
+
+    .section .tag {
+      font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 0.75rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .section h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: var(--text-primary); margin-bottom: 1.25rem; line-height: 1.3;
+      font-weight: 700;
+    }
+    .section p, .section li {
+      color: var(--text-secondary); font-size: 0.92rem;
+      line-height: 1.8; font-weight: 300;
+    }
+    .section p + p { margin-top: 0.75rem; }
+
+    /* PREVIEW LINK */
+    .preview-box {
+      margin: 2rem 0;
+      padding: 1.5rem 2rem;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .preview-box .label {
+      font-size: 0.85rem; font-weight: 600; color: var(--text-primary);
+    }
+    .preview-box .sublabel {
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 300;
+    }
+    .preview-link {
+      padding: 0.7rem 1.75rem;
+      background: var(--gradient-1); color: white;
+      text-decoration: none; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .preview-link:hover { opacity: 0.9; transform: scale(1.03); }
+
+    /* SCOPE LIST */
+    .scope-list { list-style: none; margin: 1.5rem 0; }
+    .scope-list li {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 0.75rem;
+    }
+    .scope-list li:last-child { border-bottom: none; }
+    .check {
+      color: var(--accent-3); font-weight: 700; font-size: 1rem;
+      flex-shrink: 0; margin-top: 2px;
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin: 2rem 0;
+    }
+    .price-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+    .price-card:hover { border-color: var(--accent-1); }
+    .price-card .card-tag {
+      font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 0.5rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .price-card .amount {
+      font-size: 2.8rem; color: var(--text-primary); font-weight: 700;
+    }
+    .price-card .amount sup {
+      font-size: 1.2rem; vertical-align: super; font-weight: 400;
+    }
+    .price-card .period {
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 400;
+      margin-bottom: 1.25rem;
+    }
+    .price-card ul {
+      list-style: none; text-align: left;
+    }
+    .price-card li {
+      font-size: 0.82rem; color: var(--text-secondary); font-weight: 300;
+      padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-start; gap: 0.5rem;
+    }
+    .price-card li:last-child { border-bottom: none; }
+    .price-card .dot {
+      color: var(--accent-2); font-size: 0.6rem; margin-top: 4px; flex-shrink: 0;
+    }
+
+    /* NOTE BOX */
+    .note-box {
+      margin: 2rem 0;
+      padding: 1.5rem 2rem;
+      background: rgba(99,102,241,0.06);
+      border-left: 3px solid var(--accent-1);
+      border-radius: 0 12px 12px 0;
+    }
+    .note-box strong {
+      display: block; font-size: 0.85rem; color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .note-box p {
+      font-size: 0.85rem; color: var(--text-secondary); font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* WHY US */
+    .why-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem; margin: 2rem 0;
+    }
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .why-card:hover {
+      border-color: var(--accent-1);
+      transform: translateY(-4px);
+    }
+    .why-card .why-icon {
+      font-size: 1.5rem; margin-bottom: 1rem;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .why-card h3 {
+      font-size: 0.9rem; font-weight: 600; color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .why-card p {
+      font-size: 0.8rem; color: var(--text-muted); font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta-section {
+      background: var(--bg-secondary);
+      padding: 4rem 6%; text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--text-primary); margin-bottom: 1rem; font-weight: 700;
+    }
+    .cta-section p {
+      color: var(--text-secondary); font-size: 0.9rem; font-weight: 300;
+      max-width: 480px; margin: 0 auto 2rem; line-height: 1.7;
+    }
+    .cta-btn {
+      display: inline-block; padding: 0.9rem 2.5rem;
+      background: var(--gradient-1); color: white;
+      text-decoration: none; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .cta-btn:hover { opacity: 0.9; transform: scale(1.04); }
+
+    /* FOOTER */
+    .prop-footer {
+      padding: 2rem 6%;
+      background: var(--bg-primary);
+      text-align: center;
+      font-size: 0.75rem; color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .preview-box { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="proposal-header">
+    <div class="logo">Williams <span>Digital</span></div>
+    <div class="from">Prepared for PowerNIL</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="prop-hero">
+    <p class="tag">Website Proposal</p>
+    <h1>A Powerful Digital Home<br>for PowerNIL</h1>
+    <p>A modern, high-converting website designed to connect athletes with brand opportunities, showcase your expertise in the NIL space, and establish PowerNIL as the go-to agency in athlete representation.</p>
+    <div class="date-badge">February 2026</div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <p class="tag">Overview</p>
+    <h2>What We're Proposing</h2>
+    <p>PowerNIL has been pioneering the NIL space since facilitating the very first NIL deal in 2021. With 20+ brand partnerships, a growing roster of athletes, and a reputation built on knowledge, integrity, and performance &mdash; your digital presence should reflect that same level of authority.</p>
+    <p>We're proposing a complete website redesign that positions PowerNIL as the premier NIL agency &mdash; one that athletes trust and brands want to partner with. A site that doesn't just look professional, but actually works harder for your business by capturing leads and building credibility from the first click.</p>
+    <p>To give you a feel for the caliber of work we deliver, here's a recent sports agency concept we built:</p>
+
+    <div class="preview-box">
+      <div>
+        <div class="label">Portfolio Example</div>
+        <div class="sublabel">Sports agency concept &mdash; similar scope to what we'd build for PowerNIL</div>
+      </div>
+      <a href="https://williamsdigital.io/preview/summit-sports-group/" target="_blank" class="preview-link">View Example</a>
+    </div>
+
+    <p>Your site would be fully custom &mdash; built around PowerNIL's brand, services, athletes, and partners. No templates, no cookie-cutter layouts. Just a clean, professional site that matches the caliber of your work.</p>
+  </div>
+
+  <!-- SCOPE -->
+  <div class="section section-alt">
+    <p class="tag">Scope of Work</p>
+    <h2>What's Included</h2>
+
+    <ul class="scope-list">
+      <li><span class="check">&#10003;</span><div><strong>Complete Website Redesign</strong><br>A fully custom, mobile-responsive website built from scratch &mdash; modern design, clean layout, and fast performance that reflects PowerNIL's authority in the NIL space.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>All Core Pages</strong><br>Home, About/Team, Services, Athlete Roster, Partners, News/Blog, Case Studies, and Contact &mdash; every page you need to tell your full story.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>Athlete Inquiry System</strong><br>Custom contact forms segmented by audience &mdash; separate flows for athletes seeking representation, brands looking for partnerships, and institutions needing NIL guidance.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>Athlete Roster &amp; Profiles</strong><br>A dynamic showcase of your current athletes organized by sport &mdash; football, basketball, and more &mdash; with profile cards that highlight each athlete's reach and NIL potential.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>Brand Partner Showcase</strong><br>A dedicated section highlighting your 20+ brand partnerships with logos, case studies, and results &mdash; building instant credibility with new visitors.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>SEO &amp; Local Search</strong><br>Clean semantic code, proper meta tags, Ohio-focused local SEO, and fast load times to help athletes and brands find PowerNIL on Google.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>News &amp; Content Hub</strong><br>A blog/news section to showcase your NIL expertise, share case studies like the Mac &amp; Clay partnership, and keep your audience engaged with industry insights.</div></li>
+      <li><span class="check">&#10003;</span><div><strong>Mobile-First Design</strong><br>Fully responsive across all devices &mdash; phones, tablets, and desktops &mdash; because athletes and brands are browsing on the go.</div></li>
+    </ul>
+  </div>
+
+  <!-- WHY US -->
+  <div class="section">
+    <p class="tag">Why Williams Digital</p>
+    <h2>What Sets Us Apart</h2>
+    <p>We understand the sports industry and the fast-moving world of NIL. Here's why PowerNIL and Williams Digital are a great fit:</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">&#9889;</div>
+        <h3>Sports Industry Focus</h3>
+        <p>We've built websites for sports agencies and athlete-facing brands. We understand your audience.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#127912;</div>
+        <h3>100% Custom</h3>
+        <p>No templates, no Wix, no Squarespace. Every pixel is handcrafted for PowerNIL's brand.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">&#128640;</div>
+        <h3>Ongoing Partnership</h3>
+        <p>We don't disappear after launch. Monthly support keeps your site updated as your roster and partnerships grow.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="section section-alt">
+    <p class="tag">Investment</p>
+    <h2>Simple, Transparent Pricing</h2>
+    <p>No hidden fees or surprise charges. One upfront build cost to get your site live, plus an optional monthly plan that keeps everything running, updated, and supported.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <p class="card-tag">One-Time</p>
+        <div class="amount"><sup>$</sup>750</div>
+        <div class="period">Website Setup</div>
+        <ul>
+          <li><span class="dot">&#9679;</span> Full custom design &amp; development</li>
+          <li><span class="dot">&#9679;</span> Content migration &amp; setup</li>
+          <li><span class="dot">&#9679;</span> Athlete roster &amp; profile pages</li>
+          <li><span class="dot">&#9679;</span> Partner showcase integration</li>
+          <li><span class="dot">&#9679;</span> Contact forms &amp; lead capture</li>
+          <li><span class="dot">&#9679;</span> Mobile responsive build</li>
+          <li><span class="dot">&#9679;</span> Testing, QA &amp; launch</li>
+          <li><span class="dot">&#9679;</span> Two rounds of revisions</li>
+        </ul>
+      </div>
+      <div class="price-card">
+        <p class="card-tag">Monthly</p>
+        <div class="amount"><sup>$</sup>150</div>
+        <div class="period">per month</div>
+        <ul>
+          <li><span class="dot">&#9679;</span> Website hosting</li>
+          <li><span class="dot">&#9679;</span> Ongoing maintenance &amp; updates</li>
+          <li><span class="dot">&#9679;</span> Athlete roster updates</li>
+          <li><span class="dot">&#9679;</span> New blog posts &amp; content edits</li>
+          <li><span class="dot">&#9679;</span> Security monitoring &amp; backups</li>
+          <li><span class="dot">&#9679;</span> Performance optimization</li>
+          <li><span class="dot">&#9679;</span> Priority email support</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>Additional Services Available</strong>
+      <p>Need more? Features like an athlete portal, NIL deal tracking dashboard, email marketing integration, newsletter setup ("Knowledge Is Power!"), custom CRM for managing brand partnerships, or additional landing pages for specific sports can be added at any time. These would be quoted separately based on scope &mdash; just let us know what you're thinking.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Ready to Power Up Your Website?</h2>
+    <p>PowerNIL is already leading the NIL space. Let's make sure your website reflects that. Reach out and we'll get started.</p>
+    <a href="mailto:Dylan@williamsdigital.io" class="cta-btn">Let's Talk</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="prop-footer">
+    <p>&copy; 2026 Williams Digital. This proposal is confidential and intended solely for PowerNIL.</p>
+  </div>
+
+</body>
+</html>
