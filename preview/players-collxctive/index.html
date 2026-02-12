@@ -1195,6 +1195,210 @@
             padding: 0.9rem;
         }
 
+        /* ====== MODAL ====== */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--dark-3);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 60px rgba(139, 92, 246, 0.2);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--gray-4);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .modal-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+
+        .modal-header p {
+            color: var(--gray-4);
+            font-size: 1rem;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modal-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 14px 18px;
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: var(--white);
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: var(--gray-2); }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B6B8A' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 18px;
+            padding-right: 50px;
+        }
+
+        .form-group select option { background: var(--dark-3); color: var(--white); }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-form .btn-primary {
+            width: 100%;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .form-success {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--white);
+            margin: 0 auto 24px;
+        }
+
+        .form-success h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .form-success p {
+            color: var(--gray-4);
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 30px;
+            }
+            .modal-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            .modal-header h2 {
+                font-size: 1.75rem;
+            }
+        }
+
         /* ====== SCROLL ANIMATIONS ====== */
         .reveal {
             opacity: 0;
@@ -1294,7 +1498,7 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#athletes">Athletes</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="#contact" class="nav-cta">Work With Us</a></li>
+                <li><a href="#" class="nav-cta" onclick="openModal(event)">Work With Us</a></li>
             </ul>
             <div class="mobile-toggle" id="mobileToggle">
                 <span></span>
@@ -1817,7 +2021,7 @@
                 <h2>Your Brand Deserves<br><span class="highlight">More.</span></h2>
                 <p>Whether you're a female athlete ready to take your career to the next level, or a brand looking to partner with the most dynamic women in sports &mdash; let's talk.</p>
                 <div class="cta-buttons">
-                    <a href="#contact" class="btn-primary">
+                    <a href="#" class="btn-primary" onclick="openModal(event)">
                         Get in Touch <i class="fas fa-arrow-right"></i>
                     </a>
                     <a href="#athletes" class="btn-secondary">
@@ -1940,6 +2144,56 @@
         </div>
     </footer>
 
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h2>Work With Us</h2>
+                <p>Fill out the form below and our team will reach out within 24 hours.</p>
+            </div>
+            <form id="modalForm" class="modal-form">
+                <div class="form-group">
+                    <label for="modal-name">Full Name</label>
+                    <input type="text" id="modal-name" name="name" placeholder="Your full name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modal-email">Email</label>
+                        <input type="email" id="modal-email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-phone">Phone</label>
+                        <input type="tel" id="modal-phone" name="phone" placeholder="(555) 123-4567">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="modal-type">I am a...</label>
+                    <select id="modal-type" name="type" required>
+                        <option value="" disabled selected>Select one</option>
+                        <option value="athlete">Athlete</option>
+                        <option value="brand">Brand / Business</option>
+                        <option value="team">Team / Organization</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-message">Message</label>
+                    <textarea id="modal-message" name="message" rows="4" placeholder="Tell us about yourself and your goals..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary">
+                    Submit <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            <div id="modalSuccess" class="form-success" style="display: none;">
+                <div class="success-icon">&#10003;</div>
+                <h3>Thank You!</h3>
+                <p>We've received your submission and will be in touch within 24 hours.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Back to Top -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
@@ -1947,7 +2201,7 @@
 
     <!-- Sticky Mobile CTA -->
     <div class="sticky-cta" id="stickyCta">
-        <a href="#contact" class="btn-primary">
+        <a href="#" class="btn-primary" onclick="openModal(event)">
             Work With Us <i class="fas fa-arrow-right"></i>
         </a>
     </div>
@@ -2085,7 +2339,61 @@
             }
         }
 
-        // ── Form submit ──
+        // ── Modal ──
+        const modal = document.getElementById('contactModal');
+        const modalOverlayEl = modal.querySelector('.modal-overlay');
+        const modalCloseBtn = modal.querySelector('.modal-close');
+        const modalForm = document.getElementById('modalForm');
+        const modalSuccess = document.getElementById('modalSuccess');
+
+        function openModal(e) {
+            if (e) e.preventDefault();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Reset to form state
+            if (modalForm) {
+                modalForm.style.display = '';
+                modalForm.reset();
+            }
+            if (modalSuccess) {
+                modalSuccess.style.display = 'none';
+            }
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalOverlayEl.addEventListener('click', closeModal);
+        modalCloseBtn.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+
+        // Modal form submission
+        if (modalForm) {
+            modalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const submitBtn = modalForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span>Sending...</span>';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    modalForm.style.display = 'none';
+                    modalSuccess.style.display = 'block';
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+
+                    // Auto close after 3 seconds
+                    setTimeout(closeModal, 3000);
+                }, 1500);
+            });
+        }
+
+        // ── Form submit (page contact section) ──
         function handleSubmit(e) {
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
