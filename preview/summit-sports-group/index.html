@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summit Sports Group | By Athletes, For Athletes</title>
+    <meta name="description" content="Elite sports marketing agency helping athletes build powerful personal brands. Content creation, NIL guidance, endorsements, and digital strategy.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF3A2F;
+            --primary-dark: #D42E25;
+            --dark: #0A0A0A;
+            --dark-2: #111111;
+            --dark-3: #1A1A1A;
+            --dark-4: #222222;
+            --gray-1: #333333;
+            --gray-2: #555555;
+            --gray-3: #888888;
+            --gray-4: #AAAAAA;
+            --light: #F5F5F5;
+            --white: #FFFFFF;
+            --gradient-primary: linear-gradient(135deg, #FF3A2F, #FF6B4A);
+            --gradient-dark: linear-gradient(180deg, #0A0A0A, #1A1A1A);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ====== NAVIGATION ====== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: -1px;
+            transform: rotate(-3deg);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-4);
+            transition: color 0.3s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-cta {
+            background: var(--gradient-primary);
+            color: var(--white) !important;
+            padding: 0.7rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: transform 0.3s, box-shadow 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 58, 47, 0.3);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ====== HERO ====== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.3);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(10, 10, 10, 0.85) 0%,
+                rgba(10, 10, 10, 0.5) 50%,
+                rgba(10, 10, 10, 0.7) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-accent {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 58, 47, 0.15), transparent 70%);
+            top: -100px;
+            right: -200px;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 750px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 58, 47, 0.1);
+            border: 1px solid rgba(255, 58, 47, 0.3);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge i {
+            font-size: 0.6rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--gray-4);
+            margin-bottom: 2.5rem;
+            max-width: 550px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 58, 47, 0.35);
+        }
+
+        .btn-secondary {
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .stat h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat p {
+            font-size: 0.8rem;
+            color: var(--gray-3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 0.25rem;
+            margin-bottom: 0;
+        }
+
+        /* ====== SECTION STYLES ====== */
+        section {
+            padding: 7rem 0;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.25rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--gray-3);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        /* ====== ABOUT ====== */
+        .about {
+            background: var(--dark-2);
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(10, 10, 10, 0.9));
+        }
+
+        .about-image-stat {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .about-image-stat .number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .about-image-stat .label {
+            font-size: 0.8rem;
+            color: var(--gray-4);
+            line-height: 1.4;
+        }
+
+        .about-content h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: var(--gray-3);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            background: var(--dark-3);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .about-feature i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .about-feature span {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* ====== SERVICES ====== */
+        .services {
+            background: var(--dark);
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .services-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--dark-2);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 58, 47, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: rgba(255, 58, 47, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon i {
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--gray-3);
+            line-height: 1.7;
+        }
+
+        /* ====== ATHLETES / ROSTER ====== */
+        .athletes {
+            background: var(--dark-2);
+            overflow: hidden;
+        }
+
+        .athletes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+        }
+
+        .athletes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .athlete-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            cursor: pointer;
+            group: athlete;
+        }
+
+        .athlete-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .athlete-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .athlete-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(transparent 40%, rgba(10, 10, 10, 0.95));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.75rem;
+            transition: background 0.4s;
+        }
+
+        .athlete-card:hover .athlete-overlay {
+            background: linear-gradient(transparent 20%, rgba(10, 10, 10, 0.95));
+        }
+
+        .athlete-sport {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 0.35rem;
+        }
+
+        .athlete-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .athlete-socials {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s;
+        }
+
+        .athlete-card:hover .athlete-socials {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .athlete-socials a {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--white);
+            transition: background 0.3s;
+        }
+
+        .athlete-socials a:hover {
+            background: var(--primary);
+        }
+
+        /* ====== RESULTS / METRICS ====== */
+        .results {
+            background: var(--dark);
+            position: relative;
+        }
+
+        .results-banner {
+            background: var(--gradient-primary);
+            border-radius: 24px;
+            padding: 4rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .result-item {
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-item h3 {
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .result-item p {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.85;
+            margin-top: 0.5rem;
+        }
+
+        /* ====== TESTIMONIALS ====== */
+        .testimonials {
+            background: var(--dark-2);
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .testimonials-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: var(--dark-3);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(255, 58, 47, 0.1);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-stars i {
+            color: #FFB800;
+            font-size: 0.85rem;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--gray-4);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--gray-1);
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .testimonial-info p {
+            font-size: 0.75rem;
+            color: var(--gray-3);
+            margin-top: 0.15rem;
+        }
+
+        /* ====== FAQ ====== */
+        .faq {
+            background: var(--dark);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .faq-item {
+            background: var(--dark-2);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .faq-item.active {
+            border-color: rgba(255, 58, 47, 0.2);
+        }
+
+        .faq-question {
+            padding: 1.5rem 1.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-question i {
+            font-size: 0.8rem;
+            color: var(--gray-3);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-answer-inner {
+            padding: 0 1.75rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--gray-3);
+            line-height: 1.8;
+        }
+
+        /* ====== CTA ====== */
+        .cta {
+            background: var(--dark-2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-glow {
+            position: absolute;
+            width: 800px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 58, 47, 0.08), transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cta h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.25rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            color: var(--gray-3);
+            margin-bottom: 2.5rem;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* ====== CONTACT ====== */
+        .contact {
+            background: var(--dark);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 58, 47, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: var(--primary);
+        }
+
+        .contact-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item p {
+            font-size: 0.85rem;
+            color: var(--gray-3);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--dark-2);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--gray-2);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            border-color: var(--primary);
+        }
+
+        .contact-form textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .contact-form select option {
+            background: var(--dark-2);
+        }
+
+        .form-submit {
+            align-self: flex-start;
+        }
+
+        /* ====== FOOTER ====== */
+        .footer {
+            background: var(--dark-2);
+            padding: 5rem 0 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.85rem;
+            color: var(--gray-3);
+            margin: 1.25rem 0 1.5rem;
+            line-height: 1.8;
+            max-width: 300px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .footer-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--dark-3);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-3);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .footer-socials a:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .footer-col h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .footer-col a {
+            font-size: 0.85rem;
+            color: var(--gray-3);
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.8rem;
+            color: var(--gray-2);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            font-size: 0.8rem;
+            color: var(--gray-2);
+            transition: color 0.3s;
+        }
+
+        .footer-legal a:hover {
+            color: var(--white);
+        }
+
+        /* ====== SCROLL ANIMATIONS ====== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.35s; }
+
+        /* ====== MOBILE MENU ====== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .mobile-menu.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-menu a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-4);
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--white);
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .athletes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2.5rem;
+            }
+            .results-banner {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-toggle {
+                display: flex;
+            }
+            .mobile-menu {
+                display: flex;
+            }
+            .hero h1 {
+                font-size: clamp(2.5rem, 10vw, 3.5rem);
+            }
+            .hero-stats {
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .athletes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .athletes-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .results-banner {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                padding: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1.25rem;
+            }
+            section {
+                padding: 4.5rem 0;
+            }
+            .athletes-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            .results-banner {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">SS</div>
+                SUMMIT<span>.</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#athletes">Athletes</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact" class="nav-cta">Get Started</a></li>
+            </ul>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobile()">About</a>
+        <a href="#services" onclick="closeMobile()">Services</a>
+        <a href="#athletes" onclick="closeMobile()">Athletes</a>
+        <a href="#results" onclick="closeMobile()">Results</a>
+        <a href="#faq" onclick="closeMobile()">FAQ</a>
+        <a href="#contact" onclick="closeMobile()">Contact</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1461896836934-bd45ba8c0e78?w=1920&q=80" alt="Sports arena">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-accent"></div>
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-bolt"></i>
+                By Athletes, For Athletes
+            </div>
+            <h1>
+                Your Brand.<br>
+                <span class="highlight">Our Strategy.</span><br>
+                Real Results.
+            </h1>
+            <p>We help athletes build powerful personal brands, secure endorsements, and dominate the digital space &mdash; so you can focus on what you do best.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">
+                    Start Your Journey <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#services" class="btn-secondary">
+                    <i class="fas fa-play"></i> See Our Work
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <h3>150+</h3>
+                    <p>Athletes Managed</p>
+                </div>
+                <div class="stat">
+                    <h3>$12M+</h3>
+                    <p>Deals Secured</p>
+                </div>
+                <div class="stat">
+                    <h3>98%</h3>
+                    <p>Client Retention</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image reveal">
+                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=800&q=80" alt="Athletes training">
+                    <div class="about-image-overlay">
+                        <div class="about-image-stat">
+                            <span class="number">8+</span>
+                            <span class="label">Years of<br>Experience</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-content reveal reveal-delay-1">
+                    <span class="section-label">Who We Are</span>
+                    <h2 class="section-title">Built From the<br>Locker Room Up</h2>
+                    <p>Summit Sports Group was founded by former athletes who understood a simple truth: talent alone isn't enough. In today's world, athletes need a brand that's as strong as their game.</p>
+                    <p>We bridge the gap between on-field performance and off-field opportunity. Our team of marketers, content creators, and brand strategists work side-by-side with athletes to build lasting legacies.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Athlete-First Approach</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>NIL Compliance</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Data-Driven Strategy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="services-header reveal">
+                <span class="section-label">What We Do</span>
+                <h2 class="section-title">Comprehensive Athlete<br>Brand Management</h2>
+                <p class="section-subtitle">From content creation to endorsement deals, we handle everything off the field so you can dominate on it.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Content Creation</h3>
+                    <p>Professional photo shoots, video production, and social media content that tells your story and engages your audience authentically.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Digital Strategy</h3>
+                    <p>Data-driven marketing campaigns across all platforms. We grow your audience, boost engagement, and turn followers into fans.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Personal Branding</h3>
+                    <p>Craft a unique identity that sets you apart. Logo design, brand guidelines, messaging, and positioning that resonates.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>NIL & Endorsements</h3>
+                    <p>Navigate the NIL landscape with confidence. We connect you with brands that align with your values and maximize your earning potential.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Merchandising</h3>
+                    <p>Launch and scale your personal merchandise line. From design to fulfillment, we handle the business so you reap the rewards.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Community Impact</h3>
+                    <p>Build a legacy beyond the game. We coordinate community events, charity partnerships, and outreach programs that make a difference.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Athletes -->
+    <section class="athletes" id="athletes">
+        <div class="container">
+            <div class="athletes-header">
+                <div>
+                    <span class="section-label reveal">Our Roster</span>
+                    <h2 class="section-title reveal reveal-delay-1">Athletes Who<br>Trust Summit</h2>
+                </div>
+                <a href="#contact" class="btn-secondary reveal reveal-delay-2">Join the Roster <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="athletes-grid">
+                <div class="athlete-card reveal reveal-delay-1">
+                    <img src="https://images.unsplash.com/photo-1541252260730-0412e8e2108e?w=600&q=80" alt="Basketball player">
+                    <div class="athlete-overlay">
+                        <span class="athlete-sport">Basketball</span>
+                        <span class="athlete-name">Marcus Rivera</span>
+                        <div class="athlete-socials">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="athlete-card reveal reveal-delay-2">
+                    <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&q=80" alt="Runner">
+                    <div class="athlete-overlay">
+                        <span class="athlete-sport">Track & Field</span>
+                        <span class="athlete-name">Jasmine Cole</span>
+                        <div class="athlete-socials">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="athlete-card reveal reveal-delay-3">
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80" alt="Soccer player">
+                    <div class="athlete-overlay">
+                        <span class="athlete-sport">Soccer</span>
+                        <span class="athlete-name">Diego Santos</span>
+                        <div class="athlete-socials">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="athlete-card reveal reveal-delay-4">
+                    <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&q=80" alt="Football player">
+                    <div class="athlete-overlay">
+                        <span class="athlete-sport">Football</span>
+                        <span class="athlete-name">Tyler Washington</span>
+                        <div class="athlete-socials">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section class="results" id="results">
+        <div class="container">
+            <div class="results-banner reveal">
+                <div class="result-item">
+                    <h3>2.4M+</h3>
+                    <p>Combined Followers Grown</p>
+                </div>
+                <div class="result-item">
+                    <h3>350+</h3>
+                    <p>Brand Deals Closed</p>
+                </div>
+                <div class="result-item">
+                    <h3>500%</h3>
+                    <p>Avg. Engagement Increase</p>
+                </div>
+                <div class="result-item">
+                    <h3>45+</h3>
+                    <p>Brand Partners</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="testimonials-header reveal">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">What Our Athletes Say</h2>
+                <p class="section-subtitle">Don't take our word for it. Hear from the athletes who've transformed their brands with Summit.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal reveal-delay-1">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Summit completely changed the game for me. I went from having zero brand deals to signing three major endorsements in my first year. They understand athletes because they are athletes."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="Avatar">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Jordan Mitchell</h4>
+                            <p>College Basketball, NIL Athlete</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-2">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The content they create is on another level. My social media went from an afterthought to my strongest marketing tool. Professional, creative, and always on brand."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Avatar">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Ava Richardson</h4>
+                            <p>Professional Soccer Player</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-3">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Best decision I've made off the field. Summit handles all the business stuff I used to stress about. Now I just focus on training and they handle the rest. Total game-changer."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Avatar">
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Dre Williams</h4>
+                            <p>Semi-Pro Football, Content Creator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="faq-grid">
+                <div class="reveal">
+                    <span class="section-label">FAQ</span>
+                    <h2 class="section-title">Questions?<br>We've Got Answers.</h2>
+                    <p class="section-subtitle" style="margin-top: 1rem;">Everything you need to know about working with Summit Sports Group.</p>
+                </div>
+                <div class="faq-list reveal reveal-delay-1">
+                    <div class="faq-item active">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            What types of athletes do you work with?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer" style="max-height: 200px;">
+                            <div class="faq-answer-inner">We work with athletes at every level &mdash; from rising college stars navigating NIL to professional athletes looking to elevate their brand. Whether you're in basketball, football, soccer, track, or any other sport, we tailor our approach to your unique needs and goals.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            How does the NIL process work?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">We guide you through every step of the NIL landscape. From understanding your school's policies to connecting you with compliant brand partners, we ensure every deal is legal, profitable, and aligned with your personal brand. Our legal team reviews every contract.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            What's included in your content packages?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">Our content packages include professional photography, video production, social media management, graphic design, and copywriting. We create everything from game-day highlights to lifestyle content, ensuring a consistent and engaging presence across all your platforms.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            How do I get started?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">Getting started is simple. Fill out our contact form or reach out directly, and we'll schedule a free consultation call. We'll discuss your goals, evaluate your current brand, and create a custom strategy tailored to your career. No commitments required for the initial call.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            What makes Summit different from other agencies?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">We're built by athletes, for athletes. Our team has walked in your shoes, so we understand the unique challenges you face. We combine that firsthand experience with cutting-edge marketing strategies, giving you an agency that truly gets you &mdash; not just your stats.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-glow"></div>
+            <div class="cta-content reveal">
+                <span class="section-label" style="justify-content: center;">Ready?</span>
+                <h2>Let's Build Your<br><span style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Legacy Together</span></h2>
+                <p>Your talent deserves a spotlight. Let Summit Sports Group take your brand to the next level.</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn-primary">
+                        Schedule a Free Call <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#services" class="btn-secondary">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="reveal">
+                    <span class="section-label">Contact Us</span>
+                    <h2 class="section-title" style="margin-bottom: 1rem;">Let's Talk About<br>Your Goals</h2>
+                    <p class="section-subtitle" style="margin-bottom: 3rem;">Whether you're ready to sign up or just have questions, we'd love to hear from you.</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p>hello@summitsportsgroup.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p>(555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4>Visit Us</h4>
+                                <p>123 Sports Ave, Suite 200<br>Los Angeles, CA 90001</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form reveal reveal-delay-1" onsubmit="handleSubmit(event)">
+                    <div class="form-row">
+                        <input type="text" placeholder="First Name" required>
+                        <input type="text" placeholder="Last Name" required>
+                    </div>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="tel" placeholder="Phone Number">
+                    <select required>
+                        <option value="" disabled selected>Select Your Sport</option>
+                        <option>Basketball</option>
+                        <option>Football</option>
+                        <option>Soccer</option>
+                        <option>Track & Field</option>
+                        <option>Baseball</option>
+                        <option>Tennis</option>
+                        <option>Swimming</option>
+                        <option>Other</option>
+                    </select>
+                    <textarea placeholder="Tell us about your goals..." required></textarea>
+                    <button type="submit" class="btn-primary form-submit">
+                        Send Message <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">SS</div>
+                        SUMMIT<span>.</span>
+                    </a>
+                    <p>By athletes, for athletes. We're redefining how sports talent connects with the world.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#athletes">Athletes</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Content Creation</a></li>
+                        <li><a href="#">Digital Strategy</a></li>
+                        <li><a href="#">NIL Guidance</a></li>
+                        <li><a href="#">Merchandising</a></li>
+                        <li><a href="#">Endorsements</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Media Kit</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Summit Sports Group. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Navbar scroll effect ──
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ── Mobile menu ──
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        function closeMobile() {
+            mobileToggle.classList.remove('active');
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // ── FAQ accordion ──
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            const answer = item.querySelector('.faq-answer');
+            const isActive = item.classList.contains('active');
+
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.faq-answer').style.maxHeight = '0';
+            });
+
+            // Open clicked (if it was closed)
+            if (!isActive) {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        }
+
+        // ── Scroll reveal ──
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealEls.forEach(el => revealObserver.observe(el));
+
+        // ── Animated counter ──
+        function animateCounters() {
+            document.querySelectorAll('.stat h3, .result-item h3').forEach(counter => {
+                const text = counter.textContent;
+                const match = text.match(/[\d.]+/);
+                if (!match) return;
+
+                const target = parseFloat(match[0]);
+                const prefix = text.slice(0, text.indexOf(match[0]));
+                const suffix = text.slice(text.indexOf(match[0]) + match[0].length);
+                const isDecimal = match[0].includes('.');
+                let current = 0;
+                const increment = target / 60;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+                }, 25);
+            });
+        }
+
+        // Trigger counters when stats come into view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const heroStats = document.querySelector('.hero-stats');
+        if (heroStats) statsObserver.observe(heroStats);
+
+        // ── Form submit ──
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+            btn.style.background = '#22c55e';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                e.target.reset();
+            }, 3000);
+        }
+
+        // ── Smooth scroll for anchor links ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
