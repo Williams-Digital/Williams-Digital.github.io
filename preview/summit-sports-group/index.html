@@ -1575,6 +1575,100 @@
         .modal-form textarea { min-height: 100px; resize: vertical; }
         .modal-form select option { background: var(--dark-2); }
 
+        /* Sport Picker */
+        .sport-picker-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.6rem;
+        }
+
+        .sport-picker {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .sport-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.75rem 0.5rem;
+            background: var(--dark-2);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .sport-option:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            background: var(--dark-4);
+        }
+
+        .sport-option.selected {
+            border-color: var(--primary);
+            background: rgba(232, 53, 46, 0.08);
+        }
+
+        .sport-option.selected .sport-option-icon {
+            color: var(--primary);
+            transform: scale(1.15);
+        }
+
+        .sport-option.selected .sport-option-name {
+            color: var(--white);
+        }
+
+        .sport-option.selected::after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            font-size: 0.5rem;
+            color: var(--primary);
+            background: rgba(232, 53, 46, 0.15);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sport-option-icon {
+            font-size: 1.25rem;
+            color: var(--gray-3);
+            transition: all 0.3s;
+        }
+
+        .sport-option-name {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--gray-2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+
+        .sport-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .sport-picker {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         .modal-form .btn-primary {
             width: 100%;
             justify-content: center;
@@ -2414,17 +2508,51 @@
                     </div>
                     <input type="email" placeholder="Email Address" required>
                     <input type="tel" placeholder="Phone Number">
-                    <select required>
-                        <option value="" disabled selected>Select Your Sport</option>
-                        <option>Basketball</option>
-                        <option>Football</option>
-                        <option>Soccer</option>
-                        <option>Track & Field</option>
-                        <option>Baseball</option>
-                        <option>Tennis</option>
-                        <option>Swimming</option>
-                        <option>Other</option>
-                    </select>
+                    <div>
+                        <div class="sport-picker-label">Select Your Sport</div>
+                        <div class="sport-picker" id="contactSportPicker">
+                            <label class="sport-option">
+                                <input type="radio" name="contact-sport" value="Basketball">
+                                <span class="sport-option-icon"><i class="fas fa-basketball"></i></span>
+                                <span class="sport-option-name">Basketball</span>
+                            </label>
+                            <label class="sport-option">
+                                <input type="radio" name="contact-sport" value="Football">
+                                <span class="sport-option-icon"><i class="fas fa-football"></i></span>
+                                <span class="sport-option-name">Football</span>
+                            </label>
+                            <label class="sport-option">
+                                <input type="radio" name="contact-sport" value="Soccer">
+                                <span class="sport-option-icon"><i class="fas fa-futbol"></i></span>
+                                <span class="sport-option-name">Soccer</span>
+                            </label>
+                            <label class="sport-option">
+                                <input type="radio" name="contact-sport" value="Track">
+                                <span class="sport-option-icon"><i class="fas fa-person-running"></i></span>
+                                <span class="sport-option-name">Track</span>
+                            </label>
+                            <label class="sport-option">
+                                <input type="radio" name="contact-sport" value="Baseball">
+                                <span class="sport-option-icon"><i class="fas fa-baseball"></i></span>
+                                <span class="sport-option-name">Baseball</span>
+                            </label>
+                            <label class="sport-option">
+                                <input type="radio" name="contact-sport" value="Tennis">
+                                <span class="sport-option-icon"><i class="fas fa-table-tennis-paddle-ball"></i></span>
+                                <span class="sport-option-name">Tennis</span>
+                            </label>
+                            <label class="sport-option">
+                                <input type="radio" name="contact-sport" value="Swimming">
+                                <span class="sport-option-icon"><i class="fas fa-person-swimming"></i></span>
+                                <span class="sport-option-name">Swimming</span>
+                            </label>
+                            <label class="sport-option">
+                                <input type="radio" name="contact-sport" value="Other">
+                                <span class="sport-option-icon"><i class="fas fa-ellipsis"></i></span>
+                                <span class="sport-option-name">Other</span>
+                            </label>
+                        </div>
+                    </div>
                     <textarea placeholder="Tell us about your goals..." required></textarea>
                     <button type="submit" class="btn-primary form-submit">
                         Send Message <i class="fas fa-paper-plane"></i>
@@ -2511,17 +2639,51 @@
                 </div>
                 <input type="email" placeholder="Email Address" required>
                 <input type="tel" placeholder="Phone Number">
-                <select required>
-                    <option value="" disabled selected>Select Your Sport</option>
-                    <option>Basketball</option>
-                    <option>Football</option>
-                    <option>Soccer</option>
-                    <option>Track & Field</option>
-                    <option>Baseball</option>
-                    <option>Tennis</option>
-                    <option>Swimming</option>
-                    <option>Other</option>
-                </select>
+                <div>
+                    <div class="sport-picker-label">Select Your Sport</div>
+                    <div class="sport-picker" id="modalSportPicker">
+                        <label class="sport-option">
+                            <input type="radio" name="modal-sport" value="Basketball">
+                            <span class="sport-option-icon"><i class="fas fa-basketball"></i></span>
+                            <span class="sport-option-name">Basketball</span>
+                        </label>
+                        <label class="sport-option">
+                            <input type="radio" name="modal-sport" value="Football">
+                            <span class="sport-option-icon"><i class="fas fa-football"></i></span>
+                            <span class="sport-option-name">Football</span>
+                        </label>
+                        <label class="sport-option">
+                            <input type="radio" name="modal-sport" value="Soccer">
+                            <span class="sport-option-icon"><i class="fas fa-futbol"></i></span>
+                            <span class="sport-option-name">Soccer</span>
+                        </label>
+                        <label class="sport-option">
+                            <input type="radio" name="modal-sport" value="Track">
+                            <span class="sport-option-icon"><i class="fas fa-person-running"></i></span>
+                            <span class="sport-option-name">Track</span>
+                        </label>
+                        <label class="sport-option">
+                            <input type="radio" name="modal-sport" value="Baseball">
+                            <span class="sport-option-icon"><i class="fas fa-baseball"></i></span>
+                            <span class="sport-option-name">Baseball</span>
+                        </label>
+                        <label class="sport-option">
+                            <input type="radio" name="modal-sport" value="Tennis">
+                            <span class="sport-option-icon"><i class="fas fa-table-tennis-paddle-ball"></i></span>
+                            <span class="sport-option-name">Tennis</span>
+                        </label>
+                        <label class="sport-option">
+                            <input type="radio" name="modal-sport" value="Swimming">
+                            <span class="sport-option-icon"><i class="fas fa-person-swimming"></i></span>
+                            <span class="sport-option-name">Swimming</span>
+                        </label>
+                        <label class="sport-option">
+                            <input type="radio" name="modal-sport" value="Other">
+                            <span class="sport-option-icon"><i class="fas fa-ellipsis"></i></span>
+                            <span class="sport-option-name">Other</span>
+                        </label>
+                    </div>
+                </div>
                 <textarea placeholder="Tell us about your goals..."></textarea>
                 <button type="submit" class="btn-primary">
                     Submit <i class="fas fa-arrow-right"></i>
@@ -2761,6 +2923,16 @@
                 closeModal();
             }, 2500);
         }
+
+        // ── Sport picker ──
+        document.querySelectorAll('.sport-picker').forEach(picker => {
+            picker.querySelectorAll('.sport-option input').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    picker.querySelectorAll('.sport-option').forEach(opt => opt.classList.remove('selected'));
+                    radio.closest('.sport-option').classList.add('selected');
+                });
+            });
+        });
 
         // ── Smooth scroll for anchor links ──
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
