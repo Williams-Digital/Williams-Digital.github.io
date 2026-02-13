@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Generator | Broadcast Tools | Williams Digital</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/broadcast-theme.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+    <style>
+        /* QR Generator page-specific styles */
+        .qr-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 0.75rem 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            outline: none;
+            resize: vertical;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            line-height: 1.5;
+        }
+        .qr-textarea:focus {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+        .qr-textarea::placeholder {
+            color: #52525b;
+        }
+
+        .input-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+        .char-count {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        .type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            border: 1px solid;
+            color: var(--accent-3);
+            border-color: rgba(6, 182, 212, 0.3);
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        /* Settings layout */
+        .settings-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .slider-row .range-slider {
+            flex: 1;
+        }
+        .slider-value {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-3);
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .color-row {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .color-field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .color-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .color-input-wrap input[type="color"] {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            background: none;
+            cursor: pointer;
+            padding: 2px;
+        }
+        .color-input-wrap input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 2px;
+        }
+        .color-input-wrap input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 4px;
+        }
+        .color-hex-input {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            outline: none;
+        }
+        .color-hex-input:focus {
+            border-color: var(--accent-1);
+        }
+
+        /* QR Preview */
+        .qr-preview-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 350px;
+            padding: 2rem;
+        }
+        .qr-preview-area canvas {
+            border-radius: 4px;
+            image-rendering: pixelated;
+        }
+        .qr-placeholder {
+            color: #52525b;
+            font-size: 0.85rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .qr-placeholder svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.3;
+        }
+
+        /* Export panel */
+        .export-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .export-size {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="scanline-overlay"></div>
+
+    <nav class="broadcast-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="url(#navGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <defs><linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+                </svg>
+                Broadcast Tools
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="youtube.html">YouTube</a></li>
+                <li><a href="image-convert.html">Images</a></li>
+                <li><a href="pdf-tools.html">PDF</a></li>
+                <li><a href="document-convert.html">Documents</a></li>
+            </ul>
+            <div class="nav-status">
+                <span class="status-led" id="serverLed"></span>
+                <span id="serverStatus">Checking...</span>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>QR Code <span>Generator</span></h1>
+            <p>Generate QR codes with custom colors, sizes, and error correction levels</p>
+        </section>
+
+        <div class="panels-grid">
+            <!-- Panel 1: Input -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led" id="inputLed"></span>
+                        Input
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="form-label">Text / URL</label>
+                        <textarea class="qr-textarea" id="qrInput" placeholder="Enter text, URL, email, phone number, or WiFi config..." spellcheck="false"></textarea>
+                        <div class="input-footer">
+                            <span class="type-badge" id="typeBadge">Text</span>
+                            <span class="char-count" id="charCount">0 characters</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 2: Settings -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led"></span>
+                        Settings
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="settings-grid">
+                        <!-- Size slider -->
+                        <div class="form-group">
+                            <label class="form-label">Size</label>
+                            <div class="slider-row">
+                                <input type="range" class="range-slider" id="sizeSlider" min="128" max="1024" value="512" step="8">
+                                <span class="slider-value" id="sizeValue">512px</span>
+                            </div>
+                        </div>
+
+                        <!-- Error correction -->
+                        <div class="form-group">
+                            <label class="form-label">Error Correction</label>
+                            <div class="toggle-group" id="ecGroup">
+                                <button class="toggle-option" data-ec="L" title="7% recovery">L</button>
+                                <button class="toggle-option active" data-ec="M" title="15% recovery">M</button>
+                                <button class="toggle-option" data-ec="Q" title="25% recovery">Q</button>
+                                <button class="toggle-option" data-ec="H" title="30% recovery">H</button>
+                            </div>
+                            <span class="text-xs text-muted mt-1" id="ecDescription">15% error recovery</span>
+                        </div>
+
+                        <!-- Colors -->
+                        <div class="color-row">
+                            <div class="color-field">
+                                <label class="form-label">Foreground</label>
+                                <div class="color-input-wrap">
+                                    <input type="color" id="fgColor" value="#000000">
+                                    <input type="text" class="color-hex-input" id="fgHex" value="#000000" maxlength="7">
+                                </div>
+                            </div>
+                            <div class="color-field">
+                                <label class="form-label">Background</label>
+                                <div class="color-input-wrap">
+                                    <input type="color" id="bgColor" value="#ffffff">
+                                    <input type="text" class="color-hex-input" id="bgHex" value="#ffffff" maxlength="7">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Margin slider -->
+                        <div class="form-group">
+                            <label class="form-label">Margin</label>
+                            <div class="slider-row">
+                                <input type="range" class="range-slider" id="marginSlider" min="0" max="8" value="4" step="1">
+                                <span class="slider-value" id="marginValue">4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 3: Preview (full width) -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led" id="previewLed"></span>
+                        Preview
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="qr-preview-area" id="qrPreviewArea">
+                        <div class="qr-placeholder" id="qrPlaceholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><line x1="21" y1="14" x2="21" y2="17"/><line x1="14" y1="21" x2="17" y2="21"/>
+                            </svg>
+                            Enter text or a URL above to generate a QR code
+                        </div>
+                        <canvas id="qrCanvas" class="hidden"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 4: Export -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led" id="exportLed"></span>
+                        Export
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="export-buttons">
+                        <button class="btn btn-primary" id="downloadPngBtn" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Download PNG
+                        </button>
+                        <button class="btn btn-secondary" id="downloadSvgBtn" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Download SVG
+                        </button>
+                        <button class="btn btn-secondary" id="copyClipboardBtn" disabled>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            Copy to Clipboard
+                        </button>
+                    </div>
+                    <div class="export-size" id="exportSize"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Williams Digital &middot; Broadcast Production Tools</p>
+        <a href="https://williamsdigital.io">Back to Portfolio</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/qr-generator.js"></script>
+</body>
+</html>

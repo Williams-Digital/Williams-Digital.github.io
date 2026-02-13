@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timecode Calculator | Broadcast Tools | Williams Digital</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/broadcast-theme.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+    <style>
+        /* Timecode input group */
+        .tc-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tc-input-group:focus-within {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .tc-input-group input {
+            width: 3.2rem;
+            padding: 0.75rem 0.25rem;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .tc-input-group input::placeholder {
+            color: #3f3f46;
+        }
+
+        .tc-separator {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-3);
+            user-select: none;
+        }
+
+        .tc-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #52525b;
+            text-align: center;
+            margin-top: 0.25rem;
+        }
+
+        .tc-labels-row {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            padding: 0 0.25rem;
+        }
+
+        .tc-labels-row span {
+            width: 3.2rem;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #3f3f46;
+        }
+
+        .tc-labels-row .tc-sep-spacer {
+            width: 0.75rem;
+        }
+
+        /* Operation toggle */
+        .op-toggle {
+            display: flex;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-panel);
+        }
+
+        .op-toggle button {
+            padding: 0.75rem 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.04);
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .op-toggle button.active {
+            background: var(--gradient-1);
+            color: #fff;
+        }
+
+        .op-toggle button:not(.active):hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+
+        /* Result display */
+        .tc-result-display {
+            padding: 1.25rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .tc-result-value {
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--broadcast-green);
+            line-height: 1.2;
+        }
+
+        .tc-result-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-top: 0.35rem;
+        }
+
+        /* Calculator layout */
+        .calc-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .calc-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .calc-row .form-group {
+            flex-shrink: 0;
+        }
+
+        .calc-inputs {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Converter result stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-3);
+            word-break: break-all;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Reverse converter */
+        .reverse-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-panel);
+        }
+
+        .reverse-section h4 {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .tc-input-group input {
+                width: 2.5rem;
+                font-size: 0.95rem;
+                padding: 0.6rem 0.15rem;
+            }
+
+            .tc-result-value {
+                font-size: 1.6rem;
+            }
+
+            .tc-labels-row span {
+                width: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="scanline-overlay"></div>
+
+    <nav class="broadcast-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="url(#navGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <defs><linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+                </svg>
+                Broadcast Tools
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="youtube.html">YouTube</a></li>
+                <li><a href="image-convert.html">Images</a></li>
+                <li><a href="pdf-tools.html">PDF</a></li>
+                <li><a href="document-convert.html">Documents</a></li>
+            </ul>
+            <div class="nav-status">
+                <span class="status-led" id="serverLed"></span>
+                <span id="serverStatus">Checking...</span>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Timecode <span>Calculator</span></h1>
+            <p>SMPTE timecode math, frame rate conversion, and frame counting for broadcast workflows</p>
+        </section>
+
+        <div class="panels-grid">
+            <!-- Panel 1: Timecode Calculator (full width) -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active" id="calcLed"></span>
+                        Timecode Calculator
+                    </div>
+                    <span class="badge badge-green">SMPTE</span>
+                </div>
+                <div class="panel-body">
+                    <div class="calc-layout">
+                        <!-- Timecode A -->
+                        <div class="form-group">
+                            <label class="form-label">Timecode A</label>
+                            <div class="tc-input-group" id="tcGroupA">
+                                <input type="text" id="tcAHH" maxlength="2" placeholder="HH" inputmode="numeric">
+                                <span class="tc-separator">:</span>
+                                <input type="text" id="tcAMM" maxlength="2" placeholder="MM" inputmode="numeric">
+                                <span class="tc-separator">:</span>
+                                <input type="text" id="tcASS" maxlength="2" placeholder="SS" inputmode="numeric">
+                                <span class="tc-separator" id="tcASepFF">:</span>
+                                <input type="text" id="tcAFF" maxlength="2" placeholder="FF" inputmode="numeric">
+                            </div>
+                            <div class="tc-labels-row">
+                                <span>Hours</span><span class="tc-sep-spacer"></span>
+                                <span>Min</span><span class="tc-sep-spacer"></span>
+                                <span>Sec</span><span class="tc-sep-spacer"></span>
+                                <span>Frames</span>
+                            </div>
+                        </div>
+
+                        <!-- Operation + Frame Rate row -->
+                        <div class="calc-row">
+                            <div class="form-group">
+                                <label class="form-label">Operation</label>
+                                <div class="op-toggle" id="opToggle">
+                                    <button class="active" data-op="add">+</button>
+                                    <button data-op="subtract">&minus;</button>
+                                </div>
+                            </div>
+                            <div class="form-group" style="min-width: 200px;">
+                                <label class="form-label">Frame Rate</label>
+                                <select class="select input-mono" id="calcFrameRate">
+                                    <option value="23.976">23.976 fps</option>
+                                    <option value="24">24 fps</option>
+                                    <option value="25" selected>25 fps</option>
+                                    <option value="29.97df">29.97 fps (drop)</option>
+                                    <option value="29.97ndf">29.97 fps (non-drop)</option>
+                                    <option value="30">30 fps</option>
+                                    <option value="50">50 fps</option>
+                                    <option value="59.94df">59.94 fps (drop)</option>
+                                    <option value="60">60 fps</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Timecode B -->
+                        <div class="form-group">
+                            <label class="form-label">Timecode B</label>
+                            <div class="tc-input-group" id="tcGroupB">
+                                <input type="text" id="tcBHH" maxlength="2" placeholder="HH" inputmode="numeric">
+                                <span class="tc-separator">:</span>
+                                <input type="text" id="tcBMM" maxlength="2" placeholder="MM" inputmode="numeric">
+                                <span class="tc-separator">:</span>
+                                <input type="text" id="tcBSS" maxlength="2" placeholder="SS" inputmode="numeric">
+                                <span class="tc-separator" id="tcBSepFF">:</span>
+                                <input type="text" id="tcBFF" maxlength="2" placeholder="FF" inputmode="numeric">
+                            </div>
+                            <div class="tc-labels-row">
+                                <span>Hours</span><span class="tc-sep-spacer"></span>
+                                <span>Min</span><span class="tc-sep-spacer"></span>
+                                <span>Sec</span><span class="tc-sep-spacer"></span>
+                                <span>Frames</span>
+                            </div>
+                        </div>
+
+                        <!-- Result -->
+                        <div class="tc-result-display">
+                            <div class="tc-result-value" id="calcResult">00:00:00:00</div>
+                            <div class="tc-result-label" id="calcResultLabel">Result</div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <button class="btn btn-secondary btn-sm" id="copyResultBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                Copy Result
+                            </button>
+                            <button class="btn btn-secondary btn-sm" id="clearCalcBtn">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 2: Frame Rate Converter -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Frame Rate Converter
+                    </div>
+                </div>
+                <div class="panel-body flex flex-col gap-2">
+                    <div class="form-group">
+                        <label class="form-label">Input Timecode</label>
+                        <div class="tc-input-group" id="tcGroupConv">
+                            <input type="text" id="convHH" maxlength="2" placeholder="HH" inputmode="numeric">
+                            <span class="tc-separator">:</span>
+                            <input type="text" id="convMM" maxlength="2" placeholder="MM" inputmode="numeric">
+                            <span class="tc-separator">:</span>
+                            <input type="text" id="convSS" maxlength="2" placeholder="SS" inputmode="numeric">
+                            <span class="tc-separator" id="convSepFF">:</span>
+                            <input type="text" id="convFF" maxlength="2" placeholder="FF" inputmode="numeric">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Source Frame Rate</label>
+                        <select class="select input-mono" id="convSourceRate">
+                            <option value="23.976">23.976 fps</option>
+                            <option value="24">24 fps</option>
+                            <option value="25" selected>25 fps</option>
+                            <option value="29.97df">29.97 fps (drop)</option>
+                            <option value="29.97ndf">29.97 fps (non-drop)</option>
+                            <option value="30">30 fps</option>
+                            <option value="50">50 fps</option>
+                            <option value="59.94df">59.94 fps (drop)</option>
+                            <option value="60">60 fps</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Target Frame Rate</label>
+                        <select class="select input-mono" id="convTargetRate">
+                            <option value="23.976">23.976 fps</option>
+                            <option value="24">24 fps</option>
+                            <option value="25">25 fps</option>
+                            <option value="29.97df" selected>29.97 fps (drop)</option>
+                            <option value="29.97ndf">29.97 fps (non-drop)</option>
+                            <option value="30">30 fps</option>
+                            <option value="50">50 fps</option>
+                            <option value="59.94df">59.94 fps (drop)</option>
+                            <option value="60">60 fps</option>
+                        </select>
+                    </div>
+
+                    <div class="tc-result-display">
+                        <div class="tc-result-value" id="convResult" style="font-size: 1.8rem;">00:00:00:00</div>
+                        <div class="tc-result-label">Converted Timecode</div>
+                    </div>
+
+                    <div class="stat-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="stat-card">
+                            <div class="stat-value" id="convSourceFrames">0</div>
+                            <div class="stat-label">Source Frames</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="convTargetFrames">0</div>
+                            <div class="stat-label">Target Frames</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 3: Timecode to Frames -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Timecode to Frames
+                    </div>
+                </div>
+                <div class="panel-body flex flex-col gap-2">
+                    <div class="form-group">
+                        <label class="form-label">Input Timecode</label>
+                        <div class="tc-input-group" id="tcGroupFrames">
+                            <input type="text" id="framesHH" maxlength="2" placeholder="HH" inputmode="numeric">
+                            <span class="tc-separator">:</span>
+                            <input type="text" id="framesMM" maxlength="2" placeholder="MM" inputmode="numeric">
+                            <span class="tc-separator">:</span>
+                            <input type="text" id="framesSS" maxlength="2" placeholder="SS" inputmode="numeric">
+                            <span class="tc-separator" id="framesSepFF">:</span>
+                            <input type="text" id="framesFF" maxlength="2" placeholder="FF" inputmode="numeric">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Frame Rate</label>
+                        <select class="select input-mono" id="framesRate">
+                            <option value="23.976">23.976 fps</option>
+                            <option value="24">24 fps</option>
+                            <option value="25" selected>25 fps</option>
+                            <option value="29.97df">29.97 fps (drop)</option>
+                            <option value="29.97ndf">29.97 fps (non-drop)</option>
+                            <option value="30">30 fps</option>
+                            <option value="50">50 fps</option>
+                            <option value="59.94df">59.94 fps (drop)</option>
+                            <option value="60">60 fps</option>
+                        </select>
+                    </div>
+
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalFrames">0</div>
+                            <div class="stat-label">Total Frames</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalSeconds">0.000</div>
+                            <div class="stat-label">Total Seconds</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="totalMs">0</div>
+                            <div class="stat-label">Total Milliseconds</div>
+                        </div>
+                    </div>
+
+                    <!-- Reverse: frames to timecode -->
+                    <div class="reverse-section">
+                        <h4>Frames to Timecode</h4>
+                        <div class="form-group">
+                            <label class="form-label">Input Frames</label>
+                            <input type="number" class="input input-mono" id="reverseFramesInput" placeholder="Enter frame count" min="0">
+                        </div>
+                        <div class="tc-result-display mt-2">
+                            <div class="tc-result-value" id="reverseResult" style="font-size: 1.6rem;">00:00:00:00</div>
+                            <div class="tc-result-label">Timecode from Frames</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Williams Digital &middot; Broadcast Production Tools</p>
+        <a href="https://williamsdigital.io">Back to Portfolio</a>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/timecode.js"></script>
+</body>
+</html>

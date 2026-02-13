@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Pattern Generator | Broadcast Tools | Williams Digital</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/broadcast-theme.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+    <style>
+        .pattern-canvas-wrap {
+            position: relative;
+            background: #000;
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pattern-canvas-wrap canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .pattern-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+
+        .pattern-controls .form-group {
+            flex: 1;
+            min-width: 160px;
+        }
+
+        .pattern-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pattern-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .pattern-type-card {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .pattern-type-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .pattern-type-card.active {
+            border-color: var(--accent-1);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .pattern-type-card .pattern-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .pattern-type-card .pattern-name {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .pattern-type-card.active .pattern-name {
+            color: var(--accent-3);
+        }
+
+        .pattern-info {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding: 0.75rem 1rem;
+            background: rgba(6, 182, 212, 0.06);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            border-radius: 8px;
+        }
+
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: #000;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-overlay canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .fullscreen-hint {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10001;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .fullscreen-overlay.active + .fullscreen-hint {
+            opacity: 1;
+            animation: hintFade 3s 1s forwards;
+        }
+
+        @keyframes hintFade {
+            to { opacity: 0; }
+        }
+
+        .resolution-display {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            padding: 0.4rem 0.75rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-panel);
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="scanline-overlay"></div>
+
+    <nav class="broadcast-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="url(#navGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <defs><linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+                </svg>
+                Broadcast Tools
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="youtube.html">YouTube</a></li>
+                <li><a href="image-convert.html">Images</a></li>
+                <li><a href="pdf-tools.html">PDF</a></li>
+                <li><a href="document-convert.html">Documents</a></li>
+            </ul>
+            <div class="nav-status">
+                <span class="status-led" id="serverLed"></span>
+                <span id="serverStatus">Checking...</span>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Test Pattern <span>Generator</span></h1>
+            <p>Generate SMPTE bars, EBU bars, and calibration patterns for broadcast engineering</p>
+        </section>
+
+        <div class="panels-grid">
+            <!-- Pattern Selection -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Pattern Type
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="pattern-type-grid" id="patternTypeGrid">
+                        <div class="pattern-type-card active" data-pattern="smpte">
+                            <div class="pattern-icon">&#x1F4FA;</div>
+                            <div class="pattern-name">SMPTE Bars</div>
+                        </div>
+                        <div class="pattern-type-card" data-pattern="ebu">
+                            <div class="pattern-icon">&#x1F1EA;&#x1F1FA;</div>
+                            <div class="pattern-name">EBU Bars</div>
+                        </div>
+                        <div class="pattern-type-card" data-pattern="grayscale">
+                            <div class="pattern-icon">&#x25D3;</div>
+                            <div class="pattern-name">Grayscale</div>
+                        </div>
+                        <div class="pattern-type-card" data-pattern="grid">
+                            <div class="pattern-icon">&#x2B1C;</div>
+                            <div class="pattern-name">Grid / Crosshatch</div>
+                        </div>
+                        <div class="pattern-type-card" data-pattern="white">
+                            <div class="pattern-icon">&#x26AA;</div>
+                            <div class="pattern-name">White Field</div>
+                        </div>
+                        <div class="pattern-type-card" data-pattern="black">
+                            <div class="pattern-icon">&#x26AB;</div>
+                            <div class="pattern-name">Black Field</div>
+                        </div>
+                        <div class="pattern-type-card" data-pattern="rgbw">
+                            <div class="pattern-icon">&#x1F308;</div>
+                            <div class="pattern-name">RGBW Fields</div>
+                        </div>
+                        <div class="pattern-type-card" data-pattern="multiburst">
+                            <div class="pattern-icon">&#x1F4C8;</div>
+                            <div class="pattern-name">Multiburst</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview + Controls -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active" id="previewLed"></span>
+                        Preview
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="resolution-display" id="resolutionDisplay">1920 x 1080</span>
+                        <span class="badge badge-green">Browser Only</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="pattern-canvas-wrap">
+                        <canvas id="patternCanvas" width="1920" height="1080"></canvas>
+                    </div>
+
+                    <div class="pattern-controls mt-2">
+                        <div class="form-group">
+                            <label class="form-label">Resolution</label>
+                            <select class="select input-mono" id="resolutionSelect">
+                                <option value="720x480">720 x 480 (SD NTSC)</option>
+                                <option value="720x576">720 x 576 (SD PAL)</option>
+                                <option value="1280x720">1280 x 720 (HD 720p)</option>
+                                <option value="1920x1080" selected>1920 x 1080 (HD 1080p)</option>
+                                <option value="2048x1080">2048 x 1080 (2K DCI)</option>
+                                <option value="3840x2160">3840 x 2160 (UHD 4K)</option>
+                                <option value="4096x2160">4096 x 2160 (4K DCI)</option>
+                                <option value="7680x4320">7680 x 4320 (8K UHD)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="flex: 0;">
+                            <label class="form-label">&nbsp;</label>
+                            <div class="pattern-buttons">
+                                <button class="btn btn-primary" id="fullscreenBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                                    Fullscreen
+                                </button>
+                                <button class="btn btn-secondary" id="downloadBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    Download PNG
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pattern Info -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Pattern Reference
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="pattern-info" id="patternInfo">
+                        <strong>SMPTE Color Bars (SMPTE EG 1-1990):</strong> The standard color bar test pattern used in NTSC television. The top 67% contains seven vertical bars: white (75%), yellow, cyan, green, magenta, red, and blue. The middle strip contains blue, magenta, cyan, white, and the -I/+Q signals. The bottom strip (PLUGE) contains a black set reference at 3.5, 7.5, and 11.5 IRE for setting monitor brightness.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
+        <canvas id="fullscreenCanvas"></canvas>
+    </div>
+    <div class="fullscreen-hint">Click or press Escape to exit</div>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Williams Digital &middot; Broadcast Production Tools</p>
+        <a href="https://williamsdigital.io">Back to Portfolio</a>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/test-patterns.js"></script>
+</body>
+</html>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Tone Generator | Broadcast Tools | Williams Digital</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/broadcast-theme.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+    <style>
+        /* On-Air indicator */
+        .on-air-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .on-air-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-panel);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .on-air-indicator.active {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: var(--broadcast-red);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
+        }
+
+        .on-air-led {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #52525b;
+            transition: all 0.3s ease;
+        }
+
+        .on-air-indicator.active .on-air-led {
+            background: var(--broadcast-red);
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+            animation: ledPulse 1s infinite;
+        }
+
+        /* Play button */
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--border-panel);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            border-color: var(--broadcast-green);
+            color: var(--broadcast-green);
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.2);
+        }
+
+        .play-btn.active {
+            border-color: var(--broadcast-red);
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--broadcast-red);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.2);
+        }
+
+        .play-btn.active:hover {
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Frequency display */
+        .freq-display {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+        }
+
+        .freq-value {
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-3);
+            line-height: 1.2;
+        }
+
+        .freq-unit {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* VU Meter */
+        .vu-meter-large {
+            height: 32px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-panel);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .vu-meter-large .vu-meter-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg,
+                var(--broadcast-green) 0%,
+                var(--broadcast-green) 60%,
+                var(--broadcast-amber) 80%,
+                var(--broadcast-red) 100%);
+            background-size: 200% 100%;
+            transition: width 0.05s linear;
+        }
+
+        .vu-meter-large .vu-meter-fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 4px,
+                rgba(0, 0, 0, 0.3) 4px,
+                rgba(0, 0, 0, 0.3) 5px
+            );
+        }
+
+        .vu-meter-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.25rem;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: #52525b;
+        }
+
+        .vu-stereo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .vu-channel {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .vu-channel-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            width: 16px;
+            text-align: right;
+        }
+
+        .vu-channel .vu-meter-large {
+            flex: 1;
+        }
+
+        /* Preset buttons */
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .preset-btn {
+            padding: 0.6rem 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .preset-btn:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.05);
+            color: var(--text-primary);
+        }
+
+        .preset-btn.active {
+            border-color: var(--accent-1);
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-3);
+        }
+
+        .preset-btn .preset-freq {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.15rem;
+        }
+
+        .preset-btn.active .preset-freq {
+            color: var(--accent-3);
+        }
+
+        /* Controls layout */
+        .tone-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .volume-display {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent-3);
+            min-width: 3rem;
+            text-align: right;
+        }
+
+        @media (max-width: 640px) {
+            .tone-controls {
+                grid-template-columns: 1fr;
+            }
+            .freq-value {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="scanline-overlay"></div>
+
+    <nav class="broadcast-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="url(#navGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <defs><linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+                </svg>
+                Broadcast Tools
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="youtube.html">YouTube</a></li>
+                <li><a href="image-convert.html">Images</a></li>
+                <li><a href="pdf-tools.html">PDF</a></li>
+                <li><a href="document-convert.html">Documents</a></li>
+            </ul>
+            <div class="nav-status">
+                <span class="status-led" id="serverLed"></span>
+                <span id="serverStatus">Checking...</span>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Audio Tone <span>Generator</span></h1>
+            <p>Generate reference tones, calibration signals, and noise for broadcast audio line checks</p>
+        </section>
+
+        <div class="panels-grid">
+            <!-- Play / Status Panel -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led" id="playLed"></span>
+                        Tone Output
+                    </div>
+                    <span class="badge badge-green">Browser Only</span>
+                </div>
+                <div class="panel-body">
+                    <div class="on-air-wrap">
+                        <div class="on-air-indicator" id="onAirIndicator">
+                            <span class="on-air-led"></span>
+                            On Air
+                        </div>
+
+                        <button class="play-btn" id="playBtn" title="Play / Stop">
+                            <svg id="playIcon" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            <svg id="stopIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="display:none;">
+                                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                            </svg>
+                        </button>
+
+                        <div class="freq-display">
+                            <div class="freq-value" id="freqDisplay">1000</div>
+                            <div class="freq-unit" id="freqUnit">Hz &middot; Sine Wave</div>
+                        </div>
+                    </div>
+
+                    <!-- VU Meters -->
+                    <div class="vu-stereo mt-3">
+                        <div class="vu-channel">
+                            <span class="vu-channel-label">L</span>
+                            <div class="vu-meter-large">
+                                <div class="vu-meter-fill" id="vuLeft"></div>
+                            </div>
+                        </div>
+                        <div class="vu-channel">
+                            <span class="vu-channel-label">R</span>
+                            <div class="vu-meter-large">
+                                <div class="vu-meter-fill" id="vuRight"></div>
+                            </div>
+                        </div>
+                        <div class="vu-meter-scale">
+                            <span>-&infin;</span>
+                            <span>-40</span>
+                            <span>-20</span>
+                            <span>-12</span>
+                            <span>-6</span>
+                            <span>-3</span>
+                            <span>0 dB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Presets -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Tone Presets
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="preset-grid" id="presetGrid">
+                        <button class="preset-btn active" data-freq="1000" data-wave="sine" data-type="tone">
+                            <span class="preset-freq">1 kHz</span>
+                            Slate Tone
+                        </button>
+                        <button class="preset-btn" data-freq="440" data-wave="sine" data-type="tone">
+                            <span class="preset-freq">440 Hz</span>
+                            Concert A
+                        </button>
+                        <button class="preset-btn" data-freq="100" data-wave="sine" data-type="tone">
+                            <span class="preset-freq">100 Hz</span>
+                            Low Ref
+                        </button>
+                        <button class="preset-btn" data-freq="400" data-wave="sine" data-type="tone">
+                            <span class="preset-freq">400 Hz</span>
+                            EBU Ref
+                        </button>
+                        <button class="preset-btn" data-freq="10000" data-wave="sine" data-type="tone">
+                            <span class="preset-freq">10 kHz</span>
+                            High Ref
+                        </button>
+                        <button class="preset-btn" data-freq="0" data-wave="sine" data-type="white">
+                            <span class="preset-freq">White</span>
+                            Noise
+                        </button>
+                        <button class="preset-btn" data-freq="0" data-wave="sine" data-type="pink">
+                            <span class="preset-freq">Pink</span>
+                            Noise
+                        </button>
+                        <button class="preset-btn" data-freq="60" data-wave="sine" data-type="tone">
+                            <span class="preset-freq">60 Hz</span>
+                            Mains Hum
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Controls
+                    </div>
+                </div>
+                <div class="panel-body flex flex-col gap-2">
+                    <div class="form-group">
+                        <label class="form-label">Frequency (Hz)</label>
+                        <input type="number" class="input input-mono" id="freqInput" value="1000" min="20" max="20000" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Frequency Slider</label>
+                        <input type="range" class="range-slider" id="freqSlider" min="20" max="20000" value="1000" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Waveform</label>
+                        <select class="select input-mono" id="waveformSelect">
+                            <option value="sine" selected>Sine</option>
+                            <option value="square">Square</option>
+                            <option value="sawtooth">Sawtooth</option>
+                            <option value="triangle">Triangle</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="flex items-center justify-between">
+                            <label class="form-label">Volume</label>
+                            <span class="volume-display" id="volumeDisplay">-12 dB</span>
+                        </div>
+                        <input type="range" class="range-slider" id="volumeSlider" min="0" max="100" value="25" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Channel</label>
+                        <select class="select input-mono" id="channelSelect">
+                            <option value="stereo" selected>Stereo (L+R)</option>
+                            <option value="left">Left Only</option>
+                            <option value="right">Right Only</option>
+                            <option value="mono">Mono (Center)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Williams Digital &middot; Broadcast Production Tools</p>
+        <a href="https://williamsdigital.io">Back to Portfolio</a>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/tone-generator.js"></script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Info | Broadcast Tools | Williams Digital</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/broadcast-theme.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+    <style>
+        /* Page-specific styles */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table tr {
+            border-bottom: 1px solid var(--border-panel);
+        }
+
+        .info-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .info-table td {
+            padding: 0.7rem 0.85rem;
+            font-size: 0.85rem;
+            vertical-align: top;
+        }
+
+        .info-table .info-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            width: 160px;
+            white-space: nowrap;
+        }
+
+        .info-table .info-value {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            word-break: break-all;
+        }
+
+        .info-table .info-value.accent {
+            color: var(--accent-3);
+            font-weight: 600;
+        }
+
+        .copy-all-row {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 1rem;
+        }
+
+        .raw-metadata-content {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            width: 100%;
+        }
+
+        .collapsible-header .chevron {
+            transition: transform 0.2s ease;
+            color: var(--text-secondary);
+        }
+
+        .collapsible-header.expanded .chevron {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-body {
+            display: none;
+        }
+
+        .collapsible-body.expanded {
+            display: block;
+        }
+
+        .media-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            border: 1px solid;
+        }
+
+        .media-type-badge.video {
+            color: var(--accent-1);
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .media-type-badge.audio {
+            color: var(--broadcast-amber);
+            border-color: rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.08);
+        }
+
+        .media-type-badge.image {
+            color: var(--broadcast-green);
+            border-color: rgba(34, 197, 94, 0.3);
+            background: rgba(34, 197, 94, 0.08);
+        }
+
+        .drop-zone-large {
+            padding: 4rem 2rem;
+        }
+
+        .drop-zone-large .drop-zone-icon {
+            width: 64px;
+            height: 64px;
+        }
+
+        @media (max-width: 640px) {
+            .info-table .info-label {
+                width: 120px;
+                font-size: 0.65rem;
+            }
+            .info-table .info-value {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="scanline-overlay"></div>
+
+    <nav class="broadcast-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="url(#navGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <defs><linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+                </svg>
+                Broadcast Tools
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="youtube.html">YouTube</a></li>
+                <li><a href="image-convert.html">Images</a></li>
+                <li><a href="pdf-tools.html">PDF</a></li>
+                <li><a href="document-convert.html">Documents</a></li>
+            </ul>
+            <div class="nav-status">
+                <span class="status-led" id="serverLed"></span>
+                <span id="serverStatus">Checking...</span>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Media <span>Info Inspector</span></h1>
+            <p>Drop any media file to inspect its properties, dimensions, and metadata</p>
+        </section>
+
+        <div class="panels-grid">
+            <!-- Panel 1: Source -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led" id="sourceLed"></span>
+                        Source
+                    </div>
+                    <span class="media-type-badge hidden" id="mediaTypeBadge"></span>
+                </div>
+                <div class="panel-body">
+                    <div class="drop-zone drop-zone-large" id="dropZone">
+                        <svg class="drop-zone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="16"/>
+                            <line x1="8" y1="12" x2="16" y2="12"/>
+                        </svg>
+                        <div class="drop-zone-text">Drop any media file to inspect</div>
+                        <div class="drop-zone-formats">video, audio, or image</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 2: File Info -->
+            <div class="broadcast-panel panel-full hidden" id="fileInfoPanel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        File Info
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="info-table" id="fileInfoTable">
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Panel 3: Media Properties -->
+            <div class="broadcast-panel panel-full hidden" id="mediaPropsPanel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Media Properties
+                    </div>
+                    <button class="btn btn-secondary btn-sm" id="copyAllBtn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        Copy All
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <table class="info-table" id="mediaPropsTable">
+                        <tbody></tbody>
+                    </table>
+                    <div class="copy-all-row">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 4: Raw Metadata (collapsible) -->
+            <div class="broadcast-panel panel-full hidden" id="rawMetaPanel">
+                <div class="panel-header">
+                    <div class="collapsible-header" id="rawMetaToggle">
+                        <div class="panel-header-left">
+                            <span class="status-led active"></span>
+                            Raw Metadata
+                        </div>
+                        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="panel-body collapsible-body" id="rawMetaBody">
+                    <div class="raw-metadata-content" id="rawMetaContent"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Williams Digital &middot; Broadcast Production Tools</p>
+        <a href="https://williamsdigital.io">Back to Portfolio</a>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/media-info.js"></script>
+</body>
+</html>

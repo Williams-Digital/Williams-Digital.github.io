@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitrate Calculator | Broadcast Tools | Williams Digital</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/broadcast-theme.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+    <style>
+        /* File size calculator layout */
+        .calc-trio {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .calc-trio-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .calc-trio-item.calculated {
+            position: relative;
+        }
+
+        .calc-trio-item.calculated::before {
+            content: 'CALCULATED';
+            position: absolute;
+            top: -0.25rem;
+            right: 0;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            letter-spacing: 1px;
+            color: var(--broadcast-green);
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        .input-with-unit {
+            display: flex;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-panel);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-with-unit:focus-within {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .input-with-unit input {
+            flex: 1;
+            min-width: 0;
+            padding: 0.75rem 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
+            border: none;
+            outline: none;
+        }
+
+        .input-with-unit input::placeholder {
+            color: #52525b;
+        }
+
+        .input-with-unit select {
+            padding: 0.75rem 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            border-left: 1px solid var(--border-panel);
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* Duration input (HH:MM:SS) */
+        .duration-input {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .duration-input:focus-within {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .duration-input input {
+            width: 3.5rem;
+            padding: 0.75rem 0.25rem;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .duration-input input::placeholder {
+            color: #3f3f46;
+        }
+
+        .duration-sep {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-3);
+            user-select: none;
+        }
+
+        /* Result indicator */
+        .calc-result-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            background: rgba(34, 197, 94, 0.05);
+            border: 1px solid rgba(34, 197, 94, 0.15);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .calc-result-bar .status-led {
+            width: 10px;
+            height: 10px;
+        }
+
+        .calc-result-text {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        .calc-result-text span {
+            color: var(--broadcast-green);
+            font-weight: 600;
+        }
+
+        /* Preset cards */
+        .preset-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .preset-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 0.85rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .preset-card-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .preset-card-rate {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-3);
+        }
+
+        .preset-card-note {
+            font-size: 0.65rem;
+            color: #52525b;
+            font-family: var(--font-mono);
+        }
+
+        /* Data rate converter output */
+        .rate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .rate-item {
+            padding: 0.85rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .rate-item-value {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-3);
+            word-break: break-all;
+        }
+
+        .rate-item-unit {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+        }
+
+        @media (max-width: 968px) {
+            .calc-trio {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .preset-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .duration-input input {
+                width: 3rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="scanline-overlay"></div>
+
+    <nav class="broadcast-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="url(#navGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <defs><linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+                </svg>
+                Broadcast Tools
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="youtube.html">YouTube</a></li>
+                <li><a href="image-convert.html">Images</a></li>
+                <li><a href="pdf-tools.html">PDF</a></li>
+                <li><a href="document-convert.html">Documents</a></li>
+            </ul>
+            <div class="nav-status">
+                <span class="status-led" id="serverLed"></span>
+                <span id="serverStatus">Checking...</span>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Bitrate <span>Calculator</span></h1>
+            <p>Calculate file sizes, convert data rates, and reference common broadcast bitrate presets</p>
+        </section>
+
+        <div class="panels-grid">
+            <!-- Panel 1: File Size Calculator (full width) -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active" id="fileSizeLed"></span>
+                        File Size Calculator
+                    </div>
+                    <button class="btn btn-secondary btn-sm" id="clearCalcBtn">Clear</button>
+                </div>
+                <div class="panel-body">
+                    <div class="calc-trio">
+                        <!-- Duration -->
+                        <div class="calc-trio-item" id="durationGroup">
+                            <label class="form-label">Duration</label>
+                            <div class="duration-input" id="durationInput">
+                                <input type="text" id="durHH" maxlength="3" placeholder="HH" inputmode="numeric">
+                                <span class="duration-sep">:</span>
+                                <input type="text" id="durMM" maxlength="2" placeholder="MM" inputmode="numeric">
+                                <span class="duration-sep">:</span>
+                                <input type="text" id="durSS" maxlength="2" placeholder="SS" inputmode="numeric">
+                            </div>
+                        </div>
+
+                        <!-- Bitrate -->
+                        <div class="calc-trio-item" id="bitrateGroup">
+                            <label class="form-label">Bitrate</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="bitrateValue" placeholder="e.g. 25" min="0" step="any">
+                                <select id="bitrateUnit">
+                                    <option value="Kbps">Kbps</option>
+                                    <option value="Mbps" selected>Mbps</option>
+                                    <option value="Gbps">Gbps</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- File Size -->
+                        <div class="calc-trio-item" id="fileSizeGroup">
+                            <label class="form-label">File Size</label>
+                            <div class="input-with-unit">
+                                <input type="number" id="fileSizeValue" placeholder="e.g. 2.5" min="0" step="any">
+                                <select id="fileSizeUnit">
+                                    <option value="MB">MB</option>
+                                    <option value="GB" selected>GB</option>
+                                    <option value="TB">TB</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result indicator -->
+                    <div class="calc-result-bar" id="calcResultBar" style="display: none;">
+                        <span class="status-led active"></span>
+                        <div class="calc-result-text" id="calcResultText"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 2: Common Presets -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Common Presets
+                    </div>
+                    <span class="badge badge-blue">Click to Apply</span>
+                </div>
+                <div class="panel-body">
+                    <div class="preset-grid" id="presetGrid">
+                        <div class="preset-card" data-bitrate="8" data-unit="Mbps">
+                            <div class="preset-card-name">YouTube 1080p</div>
+                            <div class="preset-card-rate">8 Mbps</div>
+                            <div class="preset-card-note">H.264 streaming</div>
+                        </div>
+                        <div class="preset-card" data-bitrate="35" data-unit="Mbps">
+                            <div class="preset-card-name">YouTube 4K</div>
+                            <div class="preset-card-rate">35-45 Mbps</div>
+                            <div class="preset-card-note">VP9 / H.264</div>
+                        </div>
+                        <div class="preset-card" data-bitrate="220" data-unit="Mbps">
+                            <div class="preset-card-name">ProRes 422 HQ 1080p</div>
+                            <div class="preset-card-rate">220 Mbps</div>
+                            <div class="preset-card-note">Apple intermediate</div>
+                        </div>
+                        <div class="preset-card" data-bitrate="1300" data-unit="Mbps">
+                            <div class="preset-card-name">ProRes 4444 4K</div>
+                            <div class="preset-card-rate">1.3 Gbps</div>
+                            <div class="preset-card-note">High-quality 4K</div>
+                        </div>
+                        <div class="preset-card" data-bitrate="145" data-unit="Mbps">
+                            <div class="preset-card-name">DNxHD 145</div>
+                            <div class="preset-card-rate">145 Mbps</div>
+                            <div class="preset-card-note">Avid intermediate</div>
+                        </div>
+                        <div class="preset-card" data-bitrate="20" data-unit="Mbps">
+                            <div class="preset-card-name">H.264 Broadcast</div>
+                            <div class="preset-card-rate">15-25 Mbps</div>
+                            <div class="preset-card-note">Typical broadcast</div>
+                        </div>
+                        <div class="preset-card" data-bitrate="12" data-unit="Mbps">
+                            <div class="preset-card-name">H.265 Broadcast</div>
+                            <div class="preset-card-rate">8-15 Mbps</div>
+                            <div class="preset-card-note">HEVC delivery</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 3: Data Rate Converter -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Data Rate Converter
+                    </div>
+                </div>
+                <div class="panel-body flex flex-col gap-2">
+                    <div class="form-group">
+                        <label class="form-label">Input Value</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="rateConvValue" placeholder="Enter value" min="0" step="any">
+                            <select id="rateConvUnit">
+                                <option value="bps">bps</option>
+                                <option value="Kbps">Kbps</option>
+                                <option value="Mbps" selected>Mbps</option>
+                                <option value="Gbps">Gbps</option>
+                                <option value="KB/s">KB/s</option>
+                                <option value="MB/s">MB/s</option>
+                                <option value="GB/s">GB/s</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="rate-grid" id="rateResults">
+                        <div class="rate-item">
+                            <div class="rate-item-value" id="rateBps">0</div>
+                            <div class="rate-item-unit">bps</div>
+                        </div>
+                        <div class="rate-item">
+                            <div class="rate-item-value" id="rateKbps">0</div>
+                            <div class="rate-item-unit">Kbps</div>
+                        </div>
+                        <div class="rate-item">
+                            <div class="rate-item-value" id="rateMbps">0</div>
+                            <div class="rate-item-unit">Mbps</div>
+                        </div>
+                        <div class="rate-item">
+                            <div class="rate-item-value" id="rateGbps">0</div>
+                            <div class="rate-item-unit">Gbps</div>
+                        </div>
+                        <div class="rate-item">
+                            <div class="rate-item-value" id="rateKBs">0</div>
+                            <div class="rate-item-unit">KB/s</div>
+                        </div>
+                        <div class="rate-item">
+                            <div class="rate-item-value" id="rateMBs">0</div>
+                            <div class="rate-item-unit">MB/s</div>
+                        </div>
+                        <div class="rate-item">
+                            <div class="rate-item-value" id="rateGBs">0</div>
+                            <div class="rate-item-unit">GB/s</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Williams Digital &middot; Broadcast Production Tools</p>
+        <a href="https://williamsdigital.io">Back to Portfolio</a>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/bitrate-calc.js"></script>
+</body>
+</html>

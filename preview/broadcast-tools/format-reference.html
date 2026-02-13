@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Format Reference | Broadcast Tools | Williams Digital</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/broadcast-theme.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%9B%EF%B8%8F%3C/text%3E%3C/svg%3E">
+    <style>
+        /* Search bar */
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .search-bar .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-input-wrap {
+            position: relative;
+        }
+
+        .search-input-wrap .input {
+            padding-left: 2.5rem;
+        }
+
+        .search-input-wrap svg {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #52525b;
+            pointer-events: none;
+        }
+
+        .result-count {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+            padding: 0.5rem 0;
+        }
+
+        /* Table overrides for this page */
+        .ref-table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+        }
+
+        .ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+            white-space: nowrap;
+        }
+
+        .ref-table th,
+        .ref-table td {
+            padding: 0.6rem 0.85rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-panel);
+        }
+
+        .ref-table th {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            background: var(--bg-panel-raised);
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+        }
+
+        .ref-table th:hover {
+            color: var(--accent-3);
+        }
+
+        .ref-table th .sort-arrow {
+            display: inline-block;
+            margin-left: 0.35rem;
+            opacity: 0.3;
+            font-size: 0.6rem;
+        }
+
+        .ref-table th.sorted .sort-arrow {
+            opacity: 1;
+            color: var(--accent-3);
+        }
+
+        .ref-table td {
+            color: var(--text-primary);
+        }
+
+        .ref-table tbody tr {
+            transition: background 0.15s;
+        }
+
+        .ref-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .ref-table tbody tr.hidden {
+            display: none;
+        }
+
+        .ref-table .mono {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        .ref-table .format-name {
+            font-weight: 600;
+            color: var(--accent-3);
+        }
+
+        .cat-badge {
+            display: inline-block;
+            padding: 0.15rem 0.45rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            border: 1px solid;
+        }
+
+        .cat-sd { color: #f59e0b; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.08); }
+        .cat-hd { color: #22c55e; border-color: rgba(34, 197, 94, 0.3); background: rgba(34, 197, 94, 0.08); }
+        .cat-uhd { color: #6366f1; border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.08); }
+        .cat-cinema { color: #ec4899; border-color: rgba(236, 72, 153, 0.3); background: rgba(236, 72, 153, 0.08); }
+
+        /* Codec / frame rate tag */
+        .info-tag {
+            display: inline-block;
+            padding: 0.1rem 0.35rem;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 3px;
+            color: var(--text-secondary);
+            margin: 0.1rem;
+        }
+
+        /* Quick ref sections */
+        .quick-ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-ref-card {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-panel);
+            border-radius: 8px;
+        }
+
+        .quick-ref-card h4 {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent-3);
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-ref-card .ref-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.78rem;
+        }
+
+        .quick-ref-card .ref-row:last-child {
+            border-bottom: none;
+        }
+
+        .quick-ref-card .ref-label {
+            color: var(--text-secondary);
+        }
+
+        .quick-ref-card .ref-value {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+    <div class="scanline-overlay"></div>
+
+    <nav class="broadcast-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="url(#navGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <defs><linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+                    <rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/>
+                </svg>
+                Broadcast Tools
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="youtube.html">YouTube</a></li>
+                <li><a href="image-convert.html">Images</a></li>
+                <li><a href="pdf-tools.html">PDF</a></li>
+                <li><a href="document-convert.html">Documents</a></li>
+            </ul>
+            <div class="nav-status">
+                <span class="status-led" id="serverLed"></span>
+                <span id="serverStatus">Checking...</span>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Format <span>Reference</span></h1>
+            <p>Broadcast resolution, frame rate, codec, and color space quick-reference guide</p>
+        </section>
+
+        <div class="panels-grid">
+            <!-- Search & Filter -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Resolution &amp; Format Database
+                    </div>
+                    <span class="badge badge-green">Browser Only</span>
+                </div>
+                <div class="panel-body">
+                    <div class="search-bar">
+                        <div class="form-group">
+                            <label class="form-label">Search</label>
+                            <div class="search-input-wrap">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                <input type="text" class="input" id="searchInput" placeholder="Search formats, codecs, resolutions...">
+                            </div>
+                        </div>
+                        <div class="form-group" style="flex: 0; min-width: 160px;">
+                            <label class="form-label">Category</label>
+                            <select class="select" id="categoryFilter">
+                                <option value="all">All Categories</option>
+                                <option value="sd">SD</option>
+                                <option value="hd">HD</option>
+                                <option value="uhd">UHD / 4K+</option>
+                                <option value="cinema">Cinema</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="result-count" id="resultCount">Showing all formats</div>
+
+                    <div class="ref-table-wrap">
+                        <table class="ref-table" id="formatTable">
+                            <thead>
+                                <tr>
+                                    <th data-col="cat">Cat <span class="sort-arrow">&#x25B2;</span></th>
+                                    <th data-col="name" class="sorted">Format <span class="sort-arrow">&#x25B2;</span></th>
+                                    <th data-col="resolution">Resolution <span class="sort-arrow">&#x25B2;</span></th>
+                                    <th data-col="aspect">Aspect <span class="sort-arrow">&#x25B2;</span></th>
+                                    <th data-col="scan">Scan <span class="sort-arrow">&#x25B2;</span></th>
+                                    <th data-col="framerates">Frame Rates <span class="sort-arrow">&#x25B2;</span></th>
+                                    <th data-col="colorspace">Color Space <span class="sort-arrow">&#x25B2;</span></th>
+                                    <th data-col="codecs">Common Codecs <span class="sort-arrow">&#x25B2;</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="formatTableBody">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frame Rate Reference -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Frame Rates
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="quick-ref-grid" style="grid-template-columns: 1fr;">
+                        <div class="quick-ref-card">
+                            <h4>Common Broadcast Frame Rates</h4>
+                            <div class="ref-row"><span class="ref-label">23.976 fps</span><span class="ref-value">Film-origin (NTSC pulldown)</span></div>
+                            <div class="ref-row"><span class="ref-label">24 fps</span><span class="ref-value">True cinema frame rate</span></div>
+                            <div class="ref-row"><span class="ref-label">25 fps</span><span class="ref-value">PAL / SECAM standard</span></div>
+                            <div class="ref-row"><span class="ref-label">29.97 fps</span><span class="ref-value">NTSC standard (drop/non-drop)</span></div>
+                            <div class="ref-row"><span class="ref-label">30 fps</span><span class="ref-value">Web / digital content</span></div>
+                            <div class="ref-row"><span class="ref-label">50 fps</span><span class="ref-value">PAL high frame rate</span></div>
+                            <div class="ref-row"><span class="ref-label">59.94 fps</span><span class="ref-value">NTSC high frame rate</span></div>
+                            <div class="ref-row"><span class="ref-label">60 fps</span><span class="ref-value">Web / gaming / HFR content</span></div>
+                            <div class="ref-row"><span class="ref-label">120 fps</span><span class="ref-value">HFR / slow-motion source</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Space Reference -->
+            <div class="broadcast-panel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Color Spaces
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="quick-ref-grid" style="grid-template-columns: 1fr;">
+                        <div class="quick-ref-card">
+                            <h4>Broadcast Color Standards</h4>
+                            <div class="ref-row"><span class="ref-label">Rec. 601</span><span class="ref-value">SD video (NTSC/PAL)</span></div>
+                            <div class="ref-row"><span class="ref-label">Rec. 709</span><span class="ref-value">HD video standard</span></div>
+                            <div class="ref-row"><span class="ref-label">Rec. 2020</span><span class="ref-value">UHD / HDR wide gamut</span></div>
+                            <div class="ref-row"><span class="ref-label">DCI-P3</span><span class="ref-value">Digital cinema projection</span></div>
+                            <div class="ref-row"><span class="ref-label">sRGB</span><span class="ref-value">Web / computer displays</span></div>
+                            <div class="ref-row"><span class="ref-label">ACES</span><span class="ref-value">Academy Color Encoding</span></div>
+                        </div>
+                        <div class="quick-ref-card">
+                            <h4>HDR Standards</h4>
+                            <div class="ref-row"><span class="ref-label">HDR10</span><span class="ref-value">Static metadata, PQ, 10-bit</span></div>
+                            <div class="ref-row"><span class="ref-label">HDR10+</span><span class="ref-value">Dynamic metadata (Samsung)</span></div>
+                            <div class="ref-row"><span class="ref-label">Dolby Vision</span><span class="ref-value">Dynamic, 12-bit, dual-layer</span></div>
+                            <div class="ref-row"><span class="ref-label">HLG</span><span class="ref-value">Hybrid Log-Gamma (broadcast)</span></div>
+                            <div class="ref-row"><span class="ref-label">PQ (ST 2084)</span><span class="ref-value">Perceptual Quantizer EOTF</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Codec Reference -->
+            <div class="broadcast-panel panel-full">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Common Codecs
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="quick-ref-grid">
+                        <div class="quick-ref-card">
+                            <h4>Acquisition / Production</h4>
+                            <div class="ref-row"><span class="ref-label">ProRes 422</span><span class="ref-value">~147 Mbps (1080p)</span></div>
+                            <div class="ref-row"><span class="ref-label">ProRes 4444</span><span class="ref-value">~220 Mbps (1080p)</span></div>
+                            <div class="ref-row"><span class="ref-label">ProRes RAW</span><span class="ref-value">Variable (camera sensor)</span></div>
+                            <div class="ref-row"><span class="ref-label">DNxHR HQ</span><span class="ref-value">~176 Mbps (1080p)</span></div>
+                            <div class="ref-row"><span class="ref-label">XAVC-I</span><span class="ref-value">~222 Mbps (4K)</span></div>
+                            <div class="ref-row"><span class="ref-label">BRAW</span><span class="ref-value">Variable (Blackmagic RAW)</span></div>
+                        </div>
+                        <div class="quick-ref-card">
+                            <h4>Delivery / Distribution</h4>
+                            <div class="ref-row"><span class="ref-label">H.264 (AVC)</span><span class="ref-value">5-50 Mbps typical</span></div>
+                            <div class="ref-row"><span class="ref-label">H.265 (HEVC)</span><span class="ref-value">3-30 Mbps typical</span></div>
+                            <div class="ref-row"><span class="ref-label">AV1</span><span class="ref-value">2-20 Mbps typical</span></div>
+                            <div class="ref-row"><span class="ref-label">VP9</span><span class="ref-value">3-25 Mbps typical</span></div>
+                            <div class="ref-row"><span class="ref-label">MPEG-2</span><span class="ref-value">15-50 Mbps (broadcast)</span></div>
+                            <div class="ref-row"><span class="ref-label">XDCAM HD</span><span class="ref-value">25-50 Mbps</span></div>
+                        </div>
+                        <div class="quick-ref-card">
+                            <h4>Mezzanine / Transport</h4>
+                            <div class="ref-row"><span class="ref-label">JPEG 2000</span><span class="ref-value">DCP cinema packaging</span></div>
+                            <div class="ref-row"><span class="ref-label">FFV1</span><span class="ref-value">Lossless archival</span></div>
+                            <div class="ref-row"><span class="ref-label">SMPTE 2110</span><span class="ref-value">Uncompressed IP video</span></div>
+                            <div class="ref-row"><span class="ref-label">NDI</span><span class="ref-value">IP production (~125 Mbps)</span></div>
+                            <div class="ref-row"><span class="ref-label">SRT</span><span class="ref-value">Reliable UDP transport</span></div>
+                            <div class="ref-row"><span class="ref-label">RIST</span><span class="ref-value">Reliable Internet Stream</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Williams Digital &middot; Broadcast Production Tools</p>
+        <a href="https://williamsdigital.io">Back to Portfolio</a>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/format-reference.js"></script>
+</body>
+</html>
