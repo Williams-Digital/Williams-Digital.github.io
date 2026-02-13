@@ -197,24 +197,42 @@
         /* ─── Hero Section ─── */
         .hero {
             min-height: 100vh;
-            background: var(--gradient-dark);
+            background: var(--navy);
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
             padding: 8rem 2rem 6rem;
         }
+        .hero-video-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10,22,40,0.82) 0%, rgba(19,32,56,0.75) 50%, rgba(27,45,74,0.7) 100%);
+            z-index: 1;
+        }
         .hero-bg-pattern {
             position: absolute;
             inset: 0;
+            z-index: 2;
             background-image:
-                radial-gradient(circle at 20% 50%, rgba(59,130,246,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139,92,246,0.06) 0%, transparent 40%),
-                radial-gradient(circle at 60% 80%, rgba(245,158,11,0.04) 0%, transparent 40%);
+                radial-gradient(circle at 20% 50%, rgba(59,130,246,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139,92,246,0.08) 0%, transparent 40%),
+                radial-gradient(circle at 60% 80%, rgba(245,158,11,0.05) 0%, transparent 40%);
         }
         .hero-grid-lines {
             position: absolute;
             inset: 0;
+            z-index: 2;
             background-image:
                 linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
@@ -578,7 +596,18 @@
             text-align: center;
             transition: all 0.3s;
             position: relative;
+            overflow: hidden;
         }
+        .step-card-image {
+            width: 100%;
+            height: 160px;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        .step-card:hover .step-card-image { opacity: 0.9; }
         .step-card:hover {
             background: rgba(255,255,255,0.06);
             border-color: rgba(59,130,246,0.2);
@@ -643,16 +672,24 @@
             position: relative;
         }
         .course-card-image.course-1 {
-            background: linear-gradient(135deg, #1E3A5F, #3B82F6);
+            background: linear-gradient(135deg, rgba(30,58,95,0.4), rgba(59,130,246,0.4)),
+                url('https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=600') center center;
+            background-size: cover;
         }
         .course-card-image.course-2 {
-            background: linear-gradient(135deg, #7C3AED, #A78BFA);
+            background: linear-gradient(135deg, rgba(124,58,237,0.4), rgba(167,139,250,0.4)),
+                url('https://images.pexels.com/photos/5128198/pexels-photo-5128198.jpeg?auto=compress&cs=tinysrgb&w=600') center center;
+            background-size: cover;
         }
         .course-card-image.course-3 {
-            background: linear-gradient(135deg, #059669, #34D399);
+            background: linear-gradient(135deg, rgba(5,150,105,0.4), rgba(52,211,153,0.4)),
+                url('https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg?auto=compress&cs=tinysrgb&w=600') center center;
+            background-size: cover;
         }
         .course-card-image.course-4 {
-            background: linear-gradient(135deg, #D97706, #FCD34D);
+            background: linear-gradient(135deg, rgba(217,119,6,0.4), rgba(252,211,77,0.4)),
+                url('https://images.pexels.com/photos/5634121/pexels-photo-5634121.jpeg?auto=compress&cs=tinysrgb&w=600') center center;
+            background-size: cover;
         }
         .course-card-image .course-icon {
             position: absolute;
@@ -661,7 +698,8 @@
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: rgba(255,255,255,0.25);
+            color: rgba(255,255,255,0.35);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         .course-badge {
             position: absolute;
@@ -770,31 +808,12 @@
             width: 100%;
             aspect-ratio: 4/5;
             border-radius: 24px;
-            background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+            background:
+                linear-gradient(180deg, rgba(10,22,40,0.1) 0%, rgba(10,22,40,0.35) 100%),
+                url('https://images.pexels.com/photos/8941609/pexels-photo-8941609.jpeg?auto=compress&cs=tinysrgb&w=800') center center;
+            background-size: cover;
             position: relative;
             overflow: hidden;
-        }
-        .coaching-image-main .coaching-overlay {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 30% 40%, rgba(59,130,246,0.15) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, rgba(139,92,246,0.1) 0%, transparent 40%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .coaching-avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 4px solid rgba(59,130,246,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.03);
         }
         .coaching-stat-float {
             position: absolute;
@@ -1045,28 +1064,12 @@
             width: 100%;
             aspect-ratio: 3/4;
             border-radius: 24px;
-            background: linear-gradient(135deg, #1E3A5F, #3B82F6);
+            background:
+                linear-gradient(180deg, rgba(10,22,40,0.05) 0%, rgba(10,22,40,0.25) 100%),
+                url('https://images.pexels.com/photos/2774181/pexels-photo-2774181.jpeg?auto=compress&cs=tinysrgb&w=800') center top;
+            background-size: cover;
             position: relative;
             overflow: hidden;
-        }
-        .founder-image .founder-overlay {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.05) 0%, transparent 60%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .founder-placeholder {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 4px solid rgba(255,255,255,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: rgba(255,255,255,0.15);
         }
         .founder-creds {
             position: absolute;
@@ -1189,8 +1192,15 @@
             gap: 0.75rem;
         }
         .testimonial-avatar {
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gray-100);
+        }
+        .testimonial-avatar-fallback {
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1199,9 +1209,9 @@
             font-size: 0.85rem;
             color: var(--white);
         }
-        .testimonial-avatar.t1 { background: var(--gradient-primary); }
-        .testimonial-avatar.t2 { background: var(--gradient-gold); color: var(--gray-800); }
-        .testimonial-avatar.t3 { background: linear-gradient(135deg, #059669, #34D399); }
+        .testimonial-avatar-fallback.t1 { background: var(--gradient-primary); }
+        .testimonial-avatar-fallback.t2 { background: var(--gradient-gold); color: var(--gray-800); }
+        .testimonial-avatar-fallback.t3 { background: linear-gradient(135deg, #059669, #34D399); }
         .testimonial-author-info h4 {
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
@@ -1216,7 +1226,11 @@
         /* ─── CTA Section ─── */
         .cta-section {
             padding: 7rem 2rem;
-            background: var(--navy);
+            background:
+                linear-gradient(135deg, rgba(10,22,40,0.88) 0%, rgba(19,32,56,0.85) 50%, rgba(27,45,74,0.82) 100%),
+                url('https://images.pexels.com/photos/3768722/pexels-photo-3768722.jpeg?auto=compress&cs=tinysrgb&w=1920') center center;
+            background-size: cover;
+            background-attachment: fixed;
             position: relative;
             overflow: hidden;
         }
@@ -1545,6 +1559,12 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
+        <div class="hero-video-bg">
+            <video autoplay muted loop playsinline poster="https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=1920">
+                <source src="https://videos.pexels.com/video-files/854169/854169-hd_1920_1080_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="hero-video-overlay"></div>
+        </div>
         <div class="hero-bg-pattern"></div>
         <div class="hero-grid-lines"></div>
 
@@ -1654,16 +1674,19 @@
             </div>
             <div class="steps-grid">
                 <div class="step-card reveal reveal-delay-1">
+                    <img class="step-card-image" src="https://images.pexels.com/photos/3796802/pexels-photo-3796802.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Athletes training" loading="lazy">
                     <div class="step-number">1</div>
                     <h3>Learn the Fundamentals</h3>
                     <p>Start with our expert-led courses covering everything from NIL basics to advanced brand strategy and deal negotiation.</p>
                 </div>
                 <div class="step-card reveal reveal-delay-2">
+                    <img class="step-card-image" src="https://images.pexels.com/photos/5470373/pexels-photo-5470373.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Building your brand" loading="lazy">
                     <div class="step-number">2</div>
                     <h3>Build Your Brand</h3>
                     <p>Work with Lauren 1-on-1 to develop your personal brand, refine your social media presence, and define your unique value.</p>
                 </div>
                 <div class="step-card reveal reveal-delay-3">
+                    <img class="step-card-image" src="https://images.pexels.com/photos/1198172/pexels-photo-1198172.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Landing deals" loading="lazy">
                     <div class="step-number">3</div>
                     <h3>Land Your Deals</h3>
                     <p>Apply to become a Total NIL athlete and get matched with brands that align with your values and audience.</p>
@@ -1767,9 +1790,6 @@
             <div class="coaching-layout">
                 <div class="coaching-visual reveal">
                     <div class="coaching-image-main">
-                        <div class="coaching-overlay">
-                            <div class="coaching-avatar"><i class="fas fa-user"></i></div>
-                        </div>
                     </div>
                     <div class="coaching-stat-float float-1">
                         <div class="coaching-stat-icon blue"><i class="fas fa-chart-line"></i></div>
@@ -1877,9 +1897,6 @@
             <div class="founder-layout">
                 <div class="founder-visual reveal">
                     <div class="founder-image">
-                        <div class="founder-overlay">
-                            <div class="founder-placeholder"><i class="fas fa-user"></i></div>
-                        </div>
                     </div>
                     <div class="founder-creds">
                         <div class="founder-creds-items">
@@ -1922,7 +1939,7 @@
                     </div>
                     <p class="testimonial-text">"I had no idea where to begin with NIL. After taking the NIL 101 course, I landed my first two deals within a month. Lauren makes it so simple and actionable."</p>
                     <div class="testimonial-author">
-                        <div class="testimonial-avatar t1">JM</div>
+                        <img class="testimonial-avatar" src="https://images.pexels.com/photos/6456023/pexels-photo-6456023.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Jordan M.">
                         <div class="testimonial-author-info">
                             <h4>Jordan M.</h4>
                             <p>D1 Soccer Player</p>
@@ -1935,7 +1952,7 @@
                     </div>
                     <p class="testimonial-text">"The 1-on-1 coaching completely changed my perspective. I went from 800 followers and zero deals to a consistent brand partnership strategy. Can't recommend enough."</p>
                     <div class="testimonial-author">
-                        <div class="testimonial-avatar t2">AT</div>
+                        <img class="testimonial-avatar" src="https://images.pexels.com/photos/5262965/pexels-photo-5262965.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Alyssa T.">
                         <div class="testimonial-author-info">
                             <h4>Alyssa T.</h4>
                             <p>D2 Volleyball Player</p>
@@ -1948,7 +1965,7 @@
                     </div>
                     <p class="testimonial-text">"We brought Total NIL in for a team seminar and it was the best investment we made. Our athletes are more confident and we've seen a huge uptick in positive brand engagement."</p>
                     <div class="testimonial-author">
-                        <div class="testimonial-avatar t3">CB</div>
+                        <img class="testimonial-avatar" src="https://images.pexels.com/photos/9947999/pexels-photo-9947999.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop" alt="Coach B.">
                         <div class="testimonial-author-info">
                             <h4>Coach B.</h4>
                             <p>Athletics Administrator</p>
