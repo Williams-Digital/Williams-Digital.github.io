@@ -307,41 +307,25 @@ h1, h2, h3, h4 {
     z-index: 0;
 }
 
-.hero-gradient {
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.hero-video-overlay {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(247, 183, 46, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(247, 183, 46, 0.05) 0%, transparent 50%);
-}
-
-.hero-grid-pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(90deg, rgba(247, 183, 46, 0.03) 1px, transparent 1px),
-        linear-gradient(rgba(247, 183, 46, 0.03) 1px, transparent 1px);
-    background-size: 80px 80px;
-}
-
-.hero-glow {
-    position: absolute;
-    top: 15%;
-    right: 5%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(247, 183, 46, 0.12) 0%, transparent 70%);
-    filter: blur(80px);
-}
-
-.hero-glow-2 {
-    position: absolute;
-    bottom: 10%;
-    left: 5%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(247, 183, 46, 0.06) 0%, transparent 70%);
-    filter: blur(60px);
+        linear-gradient(180deg, rgba(10, 6, 6, 0.75) 0%, rgba(10, 6, 6, 0.6) 40%, rgba(10, 6, 6, 0.85) 100%),
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(247, 183, 46, 0.08) 0%, transparent 50%);
+    z-index: 1;
 }
 
 .hero-content {
@@ -540,67 +524,48 @@ h1, h2, h3, h4 {
     min-height: 400px;
 }
 
-.visual-card {
-    position: absolute;
-    padding: 2rem;
-    background: rgba(247, 183, 46, 0.03);
-    border: 1px solid rgba(247, 183, 46, 0.12);
-    border-radius: 16px;
-    backdrop-filter: blur(10px);
-}
-
-.main-card {
-    top: 15%;
-    left: 10%;
-    z-index: 2;
-}
-
-.main-card .card-label {
-    display: block;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-}
-
-.main-card .card-value {
-    display: block;
-    font-family: 'Outfit', sans-serif;
-    font-size: 4rem;
-    font-weight: 900;
-    background: var(--gradient-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1;
-}
-
-.main-card .card-sublabel {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--white);
-    margin-top: 0.25rem;
-}
-
-.accent-card {
-    bottom: 15%;
-    right: 10%;
-    z-index: 1;
-}
-
-.accent-card .card-content {
-    display: flex;
-    align-items: center;
+.about-photo-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 1rem;
+    width: 100%;
+    height: 450px;
 }
 
-.accent-card .card-icon svg { stroke: var(--gold); }
+.about-photo {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(247, 183, 46, 0.15);
+    position: relative;
+}
 
-.accent-card .card-text {
-    font-weight: 600;
-    color: var(--white);
+.about-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(10, 6, 6, 0.4) 100%);
+    pointer-events: none;
+}
+
+.about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.about-photo:hover img {
+    transform: scale(1.05);
+}
+
+.about-photo-main {
+    grid-row: 1 / 3;
+}
+
+.about-photo-small-top,
+.about-photo-small-bottom {
+    /* auto grid placement */
 }
 
 @media (max-width: 968px) {
@@ -621,38 +586,48 @@ h1, h2, h3, h4 {
 }
 
 .sport-card {
-    padding: 2rem;
     background: rgba(247, 183, 46, 0.02);
     border: 1px solid rgba(247, 183, 46, 0.08);
     border-radius: 16px;
     transition: all 0.4s ease;
     text-align: center;
+    overflow: hidden;
 }
 
 .sport-card:hover {
-    background: rgba(247, 183, 46, 0.06);
     border-color: rgba(247, 183, 46, 0.25);
     transform: translateY(-4px);
 }
 
-.sport-icon-area {
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(247, 183, 46, 0.08);
-    border-radius: 20px;
-    margin: 0 auto 1.5rem;
-    transition: all 0.3s ease;
+.sport-card-img {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
 }
 
-.sport-card:hover .sport-icon-area {
-    background: rgba(247, 183, 46, 0.15);
-    box-shadow: 0 0 30px rgba(247, 183, 46, 0.1);
+.sport-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(10, 6, 6, 0.8) 100%);
+    pointer-events: none;
 }
 
-.sport-icon-area svg { stroke: var(--gold); }
+.sport-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.sport-card:hover .sport-card-img img {
+    transform: scale(1.08);
+}
+
+.sport-card-body {
+    padding: 1.5rem 2rem 2rem;
+}
 
 .sport-card h3 {
     font-size: 1.25rem;
@@ -785,6 +760,69 @@ h1, h2, h3, h4 {
 
 @media (max-width: 640px) {
     .services-grid { grid-template-columns: 1fr; }
+}
+
+/* Stadium Banner */
+.stadium-banner {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stadium-banner > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stadium-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+        var(--bg-section) 0%,
+        rgba(10, 6, 6, 0.5) 20%,
+        rgba(10, 6, 6, 0.5) 80%,
+        var(--bg-dark) 100%);
+    z-index: 1;
+}
+
+.stadium-banner-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.stadium-banner-content .stat-number {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+}
+
+.stadium-banner-content h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.02em;
+}
+
+.stadium-banner-content p {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .stadium-banner { height: 300px; }
 }
 
 /* Podcast Section */
