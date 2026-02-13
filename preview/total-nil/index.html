@@ -424,17 +424,35 @@
             letter-spacing: 1px;
         }
 
-        /* ─── Social Proof Bar ─── */
+        /* ─── Hero Video Loading ─── */
+        .hero-video-bg video {
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+        .hero-video-bg video.loaded {
+            opacity: 1;
+        }
+        .hero-video-shimmer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.03) 50%, transparent 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s ease-in-out infinite;
+            z-index: 0;
+        }
+        .hero-video-bg video.loaded ~ .hero-video-shimmer { display: none; }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* ─── Social Proof Bar / Marquee ─── */
         .social-proof-bar {
             background: var(--off-white);
             border-top: 1px solid var(--gray-100);
             border-bottom: 1px solid var(--gray-100);
-            padding: 2.5rem 2rem;
-        }
-        .social-proof-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
+            padding: 2rem 0;
+            overflow: hidden;
         }
         .social-proof-label {
             font-size: 0.75rem;
@@ -442,23 +460,69 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--gray-500);
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
-        .brand-logos {
+        .marquee-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .marquee-wrapper::before,
+        .marquee-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .marquee-wrapper::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--off-white), transparent);
+        }
+        .marquee-wrapper::after {
+            right: 0;
+            background: linear-gradient(270deg, var(--off-white), transparent);
+        }
+        .marquee-track {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            opacity: 0.5;
+            gap: 3.5rem;
+            animation: marquee 25s linear infinite;
+            width: max-content;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         .brand-logo-item {
             font-family: 'Syne', sans-serif;
             font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--gray-600);
-            letter-spacing: 1px;
+            font-size: 1.2rem;
+            color: var(--gray-500);
+            letter-spacing: 2px;
             text-transform: uppercase;
+            white-space: nowrap;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .brand-logo-item:hover { opacity: 1; }
+        .brand-logo-item i {
+            font-size: 1.4rem;
+            color: var(--gray-400);
+        }
+        .brand-divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            flex-shrink: 0;
         }
 
         /* ─── Problem / Pain Points ─── */
@@ -1683,6 +1747,302 @@
             .modal-overlay { padding: 0; align-items: flex-end; }
             .form-row { grid-template-columns: 1fr; }
         }
+
+        /* ─── Active Nav Link ─── */
+        .nav-links a.active-section {
+            color: var(--blue-bright) !important;
+        }
+
+        /* ─── Course Bundle Card ─── */
+        .bundle-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+            border: 2px solid rgba(59,130,246,0.2);
+            border-radius: 20px;
+            padding: 2.5rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .bundle-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 50%, rgba(59,130,246,0.08) 0%, transparent 50%);
+        }
+        .bundle-card-content {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+        .bundle-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--gradient-gold);
+            color: var(--gray-800);
+            padding: 0.3rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+        .bundle-card-content h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .bundle-card-content p {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+            max-width: 500px;
+        }
+        .bundle-card-action {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-shrink: 0;
+        }
+        .bundle-pricing {
+            text-align: right;
+        }
+        .bundle-original {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            text-decoration: line-through;
+        }
+        .bundle-sale {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+        }
+        .bundle-save {
+            font-size: 0.72rem;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* ─── FAQ Section ─── */
+        .faq-section {
+            padding: 7rem 2rem;
+            background: var(--white);
+        }
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .faq-item {
+            border: 1px solid var(--gray-100);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .faq-item:hover {
+            border-color: rgba(59,130,246,0.15);
+        }
+        .faq-item.open {
+            border-color: rgba(59,130,246,0.2);
+            box-shadow: 0 4px 20px rgba(59,130,246,0.06);
+        }
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            transition: color 0.2s;
+        }
+        .faq-item.open .faq-question { color: var(--blue-electric); }
+        .faq-question:hover { color: var(--blue-electric); }
+        .faq-toggle {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            border-radius: 8px;
+            background: var(--off-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            transition: all 0.3s;
+        }
+        .faq-item.open .faq-toggle {
+            background: var(--blue-electric);
+            color: var(--white);
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .faq-answer-inner {
+            padding: 0 1.5rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            line-height: 1.8;
+        }
+
+        /* ─── Instagram Feed ─── */
+        .instagram-section {
+            padding: 5rem 2rem;
+            background: var(--off-white);
+            border-top: 1px solid var(--gray-100);
+        }
+        .instagram-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .instagram-header h3 {
+            font-size: 1.5rem;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+        .instagram-header a {
+            color: var(--blue-electric);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .instagram-header a:hover { opacity: 0.75; }
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .instagram-item {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .instagram-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .instagram-item:hover img { transform: scale(1.08); }
+        .instagram-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10,22,40,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .instagram-item:hover .instagram-item-overlay { opacity: 1; }
+        .instagram-item-overlay i {
+            color: var(--white);
+            font-size: 1.4rem;
+        }
+
+        /* ─── Back to Top ─── */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.35s;
+            z-index: 900;
+            pointer-events: none;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(59,130,246,0.4);
+        }
+
+        /* ─── Sticky Mobile CTA ─── */
+        .sticky-mobile-cta {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 950;
+            padding: 0.75rem 1rem;
+            background: rgba(10,22,40,0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(59,130,246,0.1);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sticky-mobile-cta.visible { transform: translateY(0); }
+        .sticky-mobile-cta-inner {
+            display: flex;
+            gap: 0.6rem;
+        }
+        .sticky-mobile-cta .btn-primary,
+        .sticky-mobile-cta .btn-gold {
+            flex: 1;
+            justify-content: center;
+            padding: 0.8rem 1rem;
+            font-size: 0.82rem;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .sticky-mobile-cta { display: block; }
+            .back-to-top { bottom: 5.5rem; right: 1rem; }
+            .instagram-grid { grid-template-columns: repeat(3, 1fr); }
+            .bundle-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem 1.5rem;
+            }
+            .bundle-card-action { flex-direction: column; }
+            .bundle-pricing { text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -1710,9 +2070,10 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-video-bg">
-            <video autoplay muted loop playsinline poster="https://images.pexels.com/photos/2874717/pexels-photo-2874717.jpeg?auto=compress&cs=tinysrgb&w=1920">
+            <video id="heroVideo" autoplay muted loop playsinline poster="https://images.pexels.com/photos/2874717/pexels-photo-2874717.jpeg?auto=compress&cs=tinysrgb&w=1920">
                 <source src="https://videos.pexels.com/video-files/5192026/5192026-hd_1920_1080_25fps.mp4" type="video/mp4">
             </video>
+            <div class="hero-video-shimmer"></div>
             <div class="hero-video-overlay"></div>
         </div>
         <div class="hero-bg-pattern"></div>
@@ -1767,16 +2128,42 @@
     </section>
 
     <!-- Social Proof Bar -->
-    <section class="social-proof-bar reveal">
-        <div class="social-proof-inner">
-            <div class="social-proof-label">Trusted by athletes partnering with leading brands</div>
-            <div class="brand-logos">
-                <div class="brand-logo-item">Nike</div>
-                <div class="brand-logo-item">Gatorade</div>
-                <div class="brand-logo-item">Under Armour</div>
-                <div class="brand-logo-item">Beats</div>
-                <div class="brand-logo-item">Red Bull</div>
-                <div class="brand-logo-item">Oakley</div>
+    <section class="social-proof-bar">
+        <div class="social-proof-label">Trusted by athletes partnering with leading brands</div>
+        <div class="marquee-wrapper">
+            <div class="marquee-track">
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Nike</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Gatorade</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Under Armour</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Beats</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Red Bull</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Oakley</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Celsius</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Bose</div>
+                <div class="brand-divider"></div>
+                <!-- Duplicate for seamless loop -->
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Nike</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Gatorade</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Under Armour</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Beats</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Red Bull</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Oakley</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Celsius</div>
+                <div class="brand-divider"></div>
+                <div class="brand-logo-item"><i class="fas fa-check-circle"></i> Bose</div>
             </div>
         </div>
     </section>
@@ -1928,6 +2315,22 @@
                             <span class="course-price">$89</span>
                             <a href="#" class="course-enroll-btn">Preorder <i class="fas fa-arrow-right"></i></a>
                         </div>
+                    </div>
+                </div>
+                <!-- Bundle Card -->
+                <div class="bundle-card reveal">
+                    <div class="bundle-card-content">
+                        <div class="bundle-badge"><i class="fas fa-fire"></i> Best Value</div>
+                        <h3>Get All 4 Courses — Save 30%</h3>
+                        <p>Unlock the complete NIL mastery toolkit. Everything you need to understand, build, and monetize your personal brand in one bundle.</p>
+                    </div>
+                    <div class="bundle-card-action">
+                        <div class="bundle-pricing">
+                            <div class="bundle-original">$276</div>
+                            <div class="bundle-sale">$189</div>
+                            <div class="bundle-save">You save $87</div>
+                        </div>
+                        <a href="#" class="btn-primary">Get the Bundle <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -2126,6 +2529,73 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="section-container">
+            <div class="section-header center reveal">
+                <div class="section-eyebrow"><i class="fas fa-question-circle"></i> FAQ</div>
+                <h2 class="section-title">Common Questions</h2>
+                <p class="section-subtitle">Everything you need to know about NIL and how Total NIL can help.</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item reveal">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        What exactly is NIL?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">NIL stands for Name, Image, and Likeness. It refers to an athlete's right to profit from their personal brand — including sponsorship deals, social media partnerships, appearances, merchandise, and more. Since 2021, NCAA athletes can legally earn money from their NIL without losing eligibility.</div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Do I need a lot of followers to get NIL deals?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Absolutely not. Brands value authentic engagement over follower count. Many athletes with under 1,000 followers have secured meaningful deals. What matters is your story, your audience connection, and your ability to represent a brand authentically. Our coaching helps you maximize your value regardless of your following.</div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Do I need an agent to get NIL deals?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">No — and that's exactly why Total NIL exists. Our courses and coaching teach you how to evaluate, negotiate, and close deals on your own. You'll learn the same skills an agent would use, so you stay in control of your brand and keep more of your earnings.</div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        What sports do you work with?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">All of them! NIL applies to every NCAA sport — from football and basketball to swimming, golf, track & field, and beyond. Our strategies are sport-agnostic and focus on building your personal brand, which works for any athlete in any division.</div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        What's the difference between courses and 1-on-1 coaching?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Our courses are self-paced video programs that teach you the fundamentals of NIL, branding, and social media. 1-on-1 coaching is a personalized experience where Lauren works directly with you to build a custom strategy for your specific sport, goals, and brand — including hands-on help evaluating deals and negotiating terms.</div>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Is this NCAA compliant?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">Yes. Total NIL operates fully within NCAA guidelines. Our courses include education on compliance, disclosure requirements, and how to work with your school's compliance office. We always recommend athletes consult their school's compliance department before entering any deal.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta-section" id="deals">
         <div class="cta-container reveal">
@@ -2139,6 +2609,42 @@
                 <div class="cta-trust-item"><i class="fas fa-check-circle"></i> No follower minimums</div>
                 <div class="cta-trust-item"><i class="fas fa-check-circle"></i> All sports welcome</div>
                 <div class="cta-trust-item"><i class="fas fa-check-circle"></i> NCAA compliant</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed -->
+    <section class="instagram-section">
+        <div class="section-container">
+            <div class="instagram-header">
+                <h3>Follow the Journey</h3>
+                <a href="https://instagram.com/total.nil" target="_blank" rel="noopener">@total.nil <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i></a>
+            </div>
+            <div class="instagram-grid">
+                <div class="instagram-item">
+                    <img src="https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" alt="Athlete training" loading="lazy">
+                    <div class="instagram-item-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.pexels.com/photos/2874717/pexels-photo-2874717.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" alt="Basketball game" loading="lazy">
+                    <div class="instagram-item-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.pexels.com/photos/8941609/pexels-photo-8941609.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" alt="Coaching session" loading="lazy">
+                    <div class="instagram-item-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.pexels.com/photos/3768722/pexels-photo-3768722.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" alt="Athletes celebrating" loading="lazy">
+                    <div class="instagram-item-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.pexels.com/photos/5128198/pexels-photo-5128198.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" alt="Athlete branding" loading="lazy">
+                    <div class="instagram-item-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
+                <div class="instagram-item">
+                    <img src="https://images.pexels.com/photos/1198172/pexels-photo-1198172.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop" alt="Athletes running" loading="lazy">
+                    <div class="instagram-item-overlay"><i class="fab fa-instagram"></i></div>
+                </div>
             </div>
         </div>
     </section>
@@ -2196,6 +2702,19 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Sticky Mobile CTA -->
+    <div class="sticky-mobile-cta" id="stickyMobileCta">
+        <div class="sticky-mobile-cta-inner">
+            <a href="#courses" class="btn-primary">Explore Courses</a>
+            <a href="#" class="btn-gold" onclick="openNilModal(); return false;">Get a Deal</a>
+        </div>
+    </div>
 
     <!-- NIL Deal Application Modal -->
     <div class="modal-overlay" id="nilModal">
@@ -2366,6 +2885,75 @@
                 }
             });
         });
+
+        // ── Hero video loading ──
+        const heroVideo = document.getElementById('heroVideo');
+        if (heroVideo) {
+            heroVideo.addEventListener('canplaythrough', function() {
+                heroVideo.classList.add('loaded');
+            });
+            if (heroVideo.readyState >= 4) heroVideo.classList.add('loaded');
+        }
+
+        // ── Active nav scroll-spy ──
+        const spySections = document.querySelectorAll('section[id]');
+        const spyLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        function updateActiveNav() {
+            const scrollPos = window.scrollY + 120;
+            spySections.forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                const id = section.getAttribute('id');
+                if (scrollPos >= top && scrollPos < top + height) {
+                    spyLinks.forEach(link => {
+                        link.classList.remove('active-section');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active-section');
+                        }
+                    });
+                }
+            });
+        }
+        window.addEventListener('scroll', updateActiveNav);
+
+        // ── Back to top button ──
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 600) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // ── Sticky mobile CTA ──
+        const stickyMobileCta = document.getElementById('stickyMobileCta');
+        window.addEventListener('scroll', function() {
+            if (window.innerWidth <= 900 && window.scrollY > 500) {
+                stickyMobileCta.classList.add('visible');
+            } else {
+                stickyMobileCta.classList.remove('visible');
+            }
+        });
+
+        // ── FAQ toggle ──
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const answer = item.querySelector('.faq-answer');
+            const isOpen = item.classList.contains('open');
+
+            // Close all
+            document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                openItem.classList.remove('open');
+                openItem.querySelector('.faq-answer').style.maxHeight = '0';
+            });
+
+            // Open clicked if it wasn't already open
+            if (!isOpen) {
+                item.classList.add('open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        }
 
         // ── NIL Deal Modal ──
         const nilModal = document.getElementById('nilModal');
