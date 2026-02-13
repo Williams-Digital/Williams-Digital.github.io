@@ -1527,6 +1527,162 @@
             .footer-top { grid-template-columns: 1fr; }
             .cta-section h2 { font-size: 1.8rem; }
         }
+
+        /* ─── NIL Deal Modal ─── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10,22,40,0.7);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--white);
+            border-radius: 24px;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            animation: modalIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-header {
+            padding: 2rem 2rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .modal-header-text h2 {
+            font-size: 1.6rem;
+            color: var(--gray-800);
+            letter-spacing: -0.5px;
+            margin-bottom: 0.35rem;
+        }
+        .modal-header-text p {
+            font-size: 0.88rem;
+            color: var(--gray-500);
+        }
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid var(--gray-100);
+            background: var(--off-white);
+            color: var(--gray-500);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .modal-close:hover {
+            background: var(--gray-100);
+            color: var(--gray-800);
+        }
+        .modal-body {
+            padding: 1.75rem 2rem 2rem;
+        }
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .form-group label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            letter-spacing: 0.3px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.75rem 1rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--gray-800);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--blue-electric);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .modal-submit {
+            margin-top: 0.5rem;
+            padding: 0.9rem 2rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .modal-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(59,130,246,0.35);
+        }
+        .modal-submit.success {
+            background: var(--success);
+        }
+        .modal-trust {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .modal-trust span {
+            font-size: 0.72rem;
+            color: var(--gray-400);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .modal-trust i { color: var(--success); font-size: 0.65rem; }
+
+        @media (max-width: 480px) {
+            .modal { border-radius: 20px 20px 0 0; max-height: 95vh; align-self: flex-end; }
+            .modal-overlay { padding: 0; align-items: flex-end; }
+            .form-row { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -1542,7 +1698,7 @@
                 <a href="#coaching">Coaching</a>
                 <a href="#seminars">Seminars</a>
                 <a href="#about">About</a>
-                <a href="#deals" class="nav-cta">Get an NIL Deal</a>
+                <a href="#" class="nav-cta" onclick="openNilModal(); return false;">Get an NIL Deal</a>
             </div>
             <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
@@ -1977,7 +2133,7 @@
             <p>Join hundreds of athletes who are turning their name, image, and likeness into real opportunities.</p>
             <div class="cta-buttons">
                 <a href="#courses" class="btn-primary">Start with a Course <i class="fas fa-arrow-right"></i></a>
-                <a href="#" class="btn-gold">Apply for NIL Deals <i class="fas fa-trophy"></i></a>
+                <a href="#" class="btn-gold" onclick="openNilModal(); return false;">Apply for NIL Deals <i class="fas fa-trophy"></i></a>
             </div>
             <div class="cta-trust">
                 <div class="cta-trust-item"><i class="fas fa-check-circle"></i> No follower minimums</div>
@@ -2040,6 +2196,76 @@
             </div>
         </div>
     </footer>
+
+    <!-- NIL Deal Application Modal -->
+    <div class="modal-overlay" id="nilModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-header-text">
+                    <h2>Apply for an NIL Deal</h2>
+                    <p>Tell us about yourself and we'll match you with brands.</p>
+                </div>
+                <button class="modal-close" onclick="closeNilModal()" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form" id="nilForm" onsubmit="submitNilForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nil-first">First Name *</label>
+                            <input type="text" id="nil-first" placeholder="Your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nil-last">Last Name *</label>
+                            <input type="text" id="nil-last" placeholder="Your last name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nil-email">Email Address *</label>
+                        <input type="email" id="nil-email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nil-school">School / University *</label>
+                            <input type="text" id="nil-school" placeholder="e.g. Ole Miss" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nil-sport">Sport *</label>
+                            <select id="nil-sport" required>
+                                <option value="" disabled selected>Select your sport</option>
+                                <option>Basketball</option>
+                                <option>Football</option>
+                                <option>Soccer</option>
+                                <option>Track & Field</option>
+                                <option>Volleyball</option>
+                                <option>Baseball / Softball</option>
+                                <option>Swimming</option>
+                                <option>Tennis</option>
+                                <option>Golf</option>
+                                <option>Gymnastics</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nil-social">Instagram Handle</label>
+                        <input type="text" id="nil-social" placeholder="@yourhandle">
+                    </div>
+                    <div class="form-group">
+                        <label for="nil-message">Tell us about your brand goals</label>
+                        <textarea id="nil-message" placeholder="What type of deals are you looking for? What makes you unique?"></textarea>
+                    </div>
+                    <button type="submit" class="modal-submit" id="nilSubmitBtn">
+                        Submit Application <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <div class="modal-trust">
+                        <span><i class="fas fa-check-circle"></i> No follower minimums</span>
+                        <span><i class="fas fa-check-circle"></i> All sports welcome</span>
+                        <span><i class="fas fa-check-circle"></i> Free to apply</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ── Navigation scroll behavior ──
@@ -2140,6 +2366,45 @@
                 }
             });
         });
+
+        // ── NIL Deal Modal ──
+        const nilModal = document.getElementById('nilModal');
+
+        function openNilModal() {
+            nilModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNilModal() {
+            nilModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        nilModal.addEventListener('click', function(e) {
+            if (e.target === nilModal) closeNilModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && nilModal.classList.contains('active')) closeNilModal();
+        });
+
+        function submitNilForm(e) {
+            e.preventDefault();
+            const btn = document.getElementById('nilSubmitBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            btn.disabled = true;
+            setTimeout(function() {
+                btn.innerHTML = '<i class="fas fa-check"></i> Application Submitted!';
+                btn.classList.add('success');
+                setTimeout(function() {
+                    closeNilModal();
+                    document.getElementById('nilForm').reset();
+                    btn.innerHTML = 'Submit Application <i class="fas fa-arrow-right"></i>';
+                    btn.classList.remove('success');
+                    btn.disabled = false;
+                }, 2000);
+            }, 1500);
+        }
     </script>
 </body>
 </html>
