@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/broadcast-theme.css">
-    
+
     <meta property="og:type" content="website">
     <meta property="og:title" content="Media Info | Broadcast Tools">
     <meta property="og:description" content="Professional-grade media conversion and download tools for broadcast production workflows">
@@ -21,26 +21,22 @@
     <meta name="twitter:image" content="https://williamsdigital.io/preview/broadcast-tools/img/og-image.png">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='%2306b6d4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='15' height='13' rx='2'/%3E%3Cpolygon points='17,9 22,5 22,19 17,15'/%3E%3C/svg%3E">
     <style>
-        /* Page-specific styles */
+        /* Info tables */
         .info-table {
             width: 100%;
             border-collapse: collapse;
         }
-
         .info-table tr {
             border-bottom: 1px solid var(--border-panel);
         }
-
         .info-table tr:last-child {
             border-bottom: none;
         }
-
         .info-table td {
             padding: 0.7rem 0.85rem;
             font-size: 0.85rem;
             vertical-align: top;
         }
-
         .info-table .info-label {
             font-family: var(--font-mono);
             font-size: 0.7rem;
@@ -51,25 +47,18 @@
             width: 160px;
             white-space: nowrap;
         }
-
         .info-table .info-value {
             font-family: var(--font-mono);
             font-size: 0.85rem;
             color: var(--text-primary);
             word-break: break-all;
         }
-
         .info-table .info-value.accent {
             color: var(--accent-3);
             font-weight: 600;
         }
 
-        .copy-all-row {
-            display: flex;
-            justify-content: flex-end;
-            padding-top: 1rem;
-        }
-
+        /* Raw metadata */
         .raw-metadata-content {
             font-family: var(--font-mono);
             font-size: 0.8rem;
@@ -85,6 +74,7 @@
             line-height: 1.6;
         }
 
+        /* Collapsible */
         .collapsible-header {
             display: flex;
             align-items: center;
@@ -93,24 +83,21 @@
             user-select: none;
             width: 100%;
         }
-
         .collapsible-header .chevron {
             transition: transform 0.2s ease;
             color: var(--text-secondary);
         }
-
         .collapsible-header.expanded .chevron {
             transform: rotate(180deg);
         }
-
         .collapsible-body {
             display: none;
         }
-
         .collapsible-body.expanded {
             display: block;
         }
 
+        /* Media type badge */
         .media-type-badge {
             display: inline-flex;
             align-items: center;
@@ -124,19 +111,16 @@
             border-radius: 20px;
             border: 1px solid;
         }
-
         .media-type-badge.video {
             color: var(--accent-1);
             border-color: rgba(99, 102, 241, 0.3);
             background: rgba(99, 102, 241, 0.08);
         }
-
         .media-type-badge.audio {
             color: var(--broadcast-amber);
             border-color: rgba(245, 158, 11, 0.3);
             background: rgba(245, 158, 11, 0.08);
         }
-
         .media-type-badge.image {
             color: var(--broadcast-green);
             border-color: rgba(34, 197, 94, 0.3);
@@ -146,10 +130,171 @@
         .drop-zone-large {
             padding: 4rem 2rem;
         }
-
         .drop-zone-large .drop-zone-icon {
             width: 64px;
             height: 64px;
+        }
+
+        /* Header button group */
+        .header-btn-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        /* Media Preview */
+        .video-frame-preview {
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 8px;
+            border: 1px solid var(--border-panel);
+            display: block;
+            margin: 0 auto;
+        }
+        .waveform-canvas {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            border: 1px solid var(--border-panel);
+            display: block;
+        }
+
+        /* Color Analysis */
+        .color-swatches {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+            justify-content: center;
+        }
+        .color-swatch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .color-swatch-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.15s ease;
+        }
+        .color-swatch-circle:hover {
+            transform: scale(1.15);
+        }
+        .color-swatch-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+        .color-swatch-percent {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        /* Brightness bar */
+        .brightness-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 0 0.85rem;
+        }
+        .brightness-row-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .brightness-track {
+            flex: 1;
+            height: 10px;
+            background: linear-gradient(to right, #000, #fff);
+            border-radius: 5px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .brightness-indicator {
+            position: absolute;
+            top: -5px;
+            width: 6px;
+            height: 20px;
+            background: var(--accent-3);
+            border-radius: 3px;
+            transform: translateX(-50%);
+            box-shadow: 0 0 6px rgba(6, 182, 212, 0.5);
+            transition: left 0.3s ease;
+        }
+        .brightness-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-3);
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* Compare panel */
+        .compare-drop-zone {
+            padding: 1.5rem 2rem;
+        }
+        .compare-drop-zone .drop-zone-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .compare-table-wrap {
+            overflow-x: auto;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .compare-table th {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            padding: 0.6rem 0.85rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border-panel);
+            white-space: nowrap;
+        }
+        .compare-table td {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            padding: 0.55rem 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            vertical-align: top;
+        }
+        .compare-prop {
+            color: var(--text-secondary);
+            font-size: 0.7rem !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            width: 140px;
+        }
+        .compare-diff {
+            color: var(--broadcast-amber) !important;
+            font-weight: 500;
+        }
+
+        .compare-file-name {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-3);
+            padding: 0.3rem 0.6rem;
+            background: rgba(6, 182, 212, 0.08);
+            border-radius: 4px;
         }
 
         @media (max-width: 640px) {
@@ -159,6 +304,16 @@
             }
             .info-table .info-value {
                 font-size: 0.8rem;
+            }
+            .color-swatch-circle {
+                width: 36px;
+                height: 36px;
+            }
+            .color-swatches {
+                gap: 0.5rem;
+            }
+            .header-btn-group {
+                gap: 0.35rem;
             }
         }
     </style>
@@ -197,7 +352,7 @@
     <main class="container">
         <section class="hero">
             <h1>Media <span>Info Inspector</span></h1>
-            <p>Drop any media file to inspect its properties, dimensions, and metadata</p>
+            <p>Drop any media file to inspect its properties, dimensions, metadata, and color profile</p>
         </section>
 
         <div class="panels-grid">
@@ -245,24 +400,73 @@
                         <span class="status-led active"></span>
                         Media Properties
                     </div>
-                    <button class="btn btn-secondary btn-sm" id="copyAllBtn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                        </svg>
-                        Copy All
-                    </button>
+                    <div class="header-btn-group">
+                        <button class="btn btn-secondary btn-sm" id="exportJsonBtn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export JSON
+                        </button>
+                        <button class="btn btn-secondary btn-sm" id="copyAllBtn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                            Copy All
+                        </button>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <table class="info-table" id="mediaPropsTable">
                         <tbody></tbody>
                     </table>
-                    <div class="copy-all-row">
+                </div>
+            </div>
+
+            <!-- Panel 4: Media Preview (video frame / audio waveform) -->
+            <div class="broadcast-panel panel-full hidden" id="mediaPreviewPanel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Media Preview
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="videoThumbContainer" class="hidden">
+                        <img id="videoThumb" class="video-frame-preview" alt="Video frame capture">
+                    </div>
+                    <div id="waveformContainer" class="hidden">
+                        <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- Panel 4: Raw Metadata (collapsible) -->
+            <!-- Panel 5: Color Analysis (images only) -->
+            <div class="broadcast-panel panel-full hidden" id="colorAnalysisPanel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led active"></span>
+                        Color Analysis
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="color-swatches" id="colorSwatches"></div>
+                    <div class="brightness-row">
+                        <span class="brightness-row-label">Brightness</span>
+                        <div class="brightness-track" id="brightnessTrack">
+                            <div class="brightness-indicator" id="brightnessIndicator" style="left:50%"></div>
+                        </div>
+                        <span class="brightness-label" id="brightnessLabel">—</span>
+                    </div>
+                    <table class="info-table mt-2" id="colorInfoTable">
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Panel 6: Raw Metadata (collapsible) -->
             <div class="broadcast-panel panel-full hidden" id="rawMetaPanel">
                 <div class="panel-header">
                     <div class="collapsible-header" id="rawMetaToggle">
@@ -277,6 +481,49 @@
                 </div>
                 <div class="panel-body collapsible-body" id="rawMetaBody">
                     <div class="raw-metadata-content" id="rawMetaContent"></div>
+                </div>
+            </div>
+
+            <!-- Panel 7: Compare -->
+            <div class="broadcast-panel panel-full hidden" id="comparePanel">
+                <div class="panel-header">
+                    <div class="panel-header-left">
+                        <span class="status-led" id="compareLed"></span>
+                        Compare
+                    </div>
+                    <div class="header-btn-group">
+                        <span class="compare-file-name hidden" id="compareFileName"></span>
+                        <button class="btn btn-danger btn-sm hidden" id="clearCompareBtn">Clear</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="compareEmpty">
+                        <div class="drop-zone compare-drop-zone" id="compareDropZone">
+                            <svg class="drop-zone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="9" height="9" rx="1"/>
+                                <rect x="13" y="13" width="9" height="9" rx="1"/>
+                                <line x1="7" y1="17" x2="7" y2="13"/>
+                                <line x1="5" y1="15" x2="9" y2="15"/>
+                                <line x1="15" y1="7" x2="19" y2="7"/>
+                            </svg>
+                            <div class="drop-zone-text">Drop a second file to compare</div>
+                            <div class="drop-zone-formats">Compare properties side by side</div>
+                        </div>
+                    </div>
+                    <div id="compareResults" class="hidden">
+                        <div class="compare-table-wrap">
+                            <table class="compare-table" id="compareTable">
+                                <thead>
+                                    <tr>
+                                        <th>Property</th>
+                                        <th>File A</th>
+                                        <th>File B</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
