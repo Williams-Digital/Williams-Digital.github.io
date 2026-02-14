@@ -137,22 +137,56 @@ h1, h2, h3, h4 {
   letter-spacing: 0.5em;
 }
 
-/* ── Elegant nav logo shimmer ── */
-.nav-logo {
-  background: linear-gradient(135deg, var(--cream), var(--gold-light), var(--cream));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer 5s ease-in-out infinite;
+/* ── Animated nav logo ── */
+@keyframes logoGlow {
+  0%, 100% { filter: drop-shadow(0 0 0px rgba(212,168,75,0)); }
+  50% { filter: drop-shadow(0 0 14px rgba(212,168,75,0.5)); }
 }
-.nav-logo em {
-  -webkit-text-fill-color: transparent;
-  background: linear-gradient(135deg, var(--gold), #F2D978, var(--gold));
-  background-size: 200% auto;
+@keyframes logoLetterIn {
+  0% { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes logoItalicReveal {
+  0% { opacity: 0; transform: translateX(-8px) skewX(-6deg); }
+  100% { opacity: 1; transform: translateX(0) skewX(0); }
+}
+.nav-logo {
+  background: linear-gradient(
+    105deg,
+    var(--cream) 0%, var(--cream) 30%,
+    var(--gold-light) 40%, #FFF0C2 50%,
+    var(--gold-light) 60%, var(--cream) 70%,
+    var(--cream) 100%
+  );
+  background-size: 300% auto;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: shimmer 5s ease-in-out infinite reverse;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite, logoGlow 4s ease-in-out infinite;
+}
+.nav-logo span {
+  display: inline-block;
+  opacity: 0;
+  animation: logoLetterIn 0.5s ease forwards;
+}
+.nav-logo span:nth-child(1) { animation-delay: 0.1s; }
+.nav-logo span:nth-child(2) { animation-delay: 0.18s; }
+.nav-logo em {
+  display: inline-block;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, var(--gold), #F2D978, #FFF0C2, var(--gold));
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite reverse, logoItalicReveal 0.7s 0.25s ease forwards;
+  opacity: 0;
+}
+.nav-logo:hover {
+  animation: shimmer 1.5s ease-in-out infinite, logoGlow 1.5s ease-in-out infinite;
+}
+.nav-logo:hover em {
+  animation: shimmer 1s ease-in-out infinite reverse;
+  opacity: 1;
 }
 
 /* ══════════════════════════════════════
