@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ══════════════════════════════════════
    RESET
@@ -23,7 +23,7 @@
   --wine: #6B2D3E;
   --ember: #C45C3A;
 
-  --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --nav-height: 72px;
@@ -70,8 +70,88 @@ body::before {
 
 h1, h2, h3, h4 {
   font-family: var(--serif);
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.1;
+}
+
+/* ── Gold shimmer for hero & page titles ── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.hero-title,
+.page-header-title,
+.cta-title {
+  background: linear-gradient(
+    105deg,
+    var(--cream) 0%,
+    var(--cream) 35%,
+    var(--gold-light) 42%,
+    #EAD9B5 50%,
+    var(--gold-light) 58%,
+    var(--cream) 65%,
+    var(--cream) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s ease-in-out infinite;
+}
+.hero-title em,
+.page-header-title em,
+.cta-title em {
+  background: linear-gradient(
+    135deg,
+    var(--gold) 0%,
+    #E8D5A8 30%,
+    var(--gold-light) 50%,
+    #F0E2C0 70%,
+    var(--gold) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite reverse;
+}
+
+/* ── Gold gradient for section titles ── */
+.section-title {
+  text-shadow: 0 0 80px rgba(196,162,101,0.08);
+}
+.section-title em {
+  background: linear-gradient(135deg, var(--gold), #E8D5A8, var(--gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Refined label tracking ── */
+.section-label,
+.accolade-source,
+.footer-heading,
+.info-block-label {
+  font-weight: 400;
+  letter-spacing: 0.5em;
+}
+
+/* ── Elegant nav logo shimmer ── */
+.nav-logo {
+  background: linear-gradient(135deg, var(--cream), var(--gold-light), var(--cream));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s ease-in-out infinite;
+}
+.nav-logo em {
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, var(--gold), #E8D5A8, var(--gold));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 5s ease-in-out infinite reverse;
 }
 
 /* ══════════════════════════════════════
@@ -103,9 +183,9 @@ h1, h2, h3, h4 {
 }
 .nav-logo {
   font-family: var(--serif);
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
   color: var(--cream);
   text-transform: uppercase;
 }
@@ -289,10 +369,10 @@ h1, h2, h3, h4 {
 }
 .hero-title {
   font-family: var(--serif);
-  font-size: clamp(3rem, 8vw, 6.5rem);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: 0.02em;
   color: var(--cream);
   margin-bottom: 28px;
   opacity: 0;
@@ -436,13 +516,14 @@ h1, h2, h3, h4 {
 }
 .section-title {
   font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 400;
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 300;
   color: var(--cream);
   margin-bottom: 24px;
   line-height: 1.15;
+  letter-spacing: 0.01em;
 }
-.section-title em { font-style: italic; color: var(--gold); }
+.section-title em { font-style: italic; }
 .section-desc {
   font-size: 1rem;
   font-weight: 300;
@@ -533,13 +614,18 @@ h1, h2, h3, h4 {
 }
 .intro-quote {
   font-family: var(--serif);
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 300;
   font-style: italic;
   color: var(--gold);
-  line-height: 1.6;
+  line-height: 1.5;
   margin-bottom: 32px;
   padding-left: 24px;
   border-left: 2px solid rgba(196,162,101,0.3);
+  background: linear-gradient(135deg, var(--gold), #E8D5A8, var(--gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .intro-text {
   font-size: 1rem;
@@ -749,10 +835,11 @@ h1, h2, h3, h4 {
 }
 .cta-title {
   font-family: var(--serif);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  font-weight: 300;
   color: var(--cream);
   margin-bottom: 20px;
+  letter-spacing: 0.02em;
 }
 .cta-title em { font-style: italic; color: var(--gold); }
 .cta-text {
@@ -784,9 +871,9 @@ h1, h2, h3, h4 {
 }
 .footer-brand h3 {
   font-family: var(--serif);
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
   margin-bottom: 16px;
   color: var(--cream);
 }
@@ -873,10 +960,11 @@ h1, h2, h3, h4 {
 .page-header .section-label { margin-bottom: 16px; }
 .page-header-title {
   font-family: var(--serif);
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 400;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 300;
   color: var(--cream);
   margin-bottom: 16px;
+  letter-spacing: 0.02em;
 }
 .page-header-title em { font-style: italic; color: var(--gold); }
 .page-header-subtitle {
@@ -929,10 +1017,15 @@ h1, h2, h3, h4 {
 }
 .menu-course-title {
   font-family: var(--serif);
-  font-size: 1.8rem;
+  font-size: 2.2rem;
+  font-weight: 300;
   font-style: italic;
   color: var(--gold);
   white-space: nowrap;
+  background: linear-gradient(135deg, var(--gold), #E8D5A8, var(--gold-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .menu-course-line {
   flex: 1;
@@ -953,9 +1046,11 @@ h1, h2, h3, h4 {
 .menu-item:last-child { border-bottom: none; }
 .menu-item-name {
   font-family: var(--serif);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
+  font-weight: 400;
   color: var(--cream);
   margin-bottom: 4px;
+  letter-spacing: 0.01em;
 }
 .menu-item-desc {
   font-size: 0.82rem;
