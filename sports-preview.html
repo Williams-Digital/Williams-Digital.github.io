@@ -496,69 +496,202 @@
             color: var(--text-secondary);
         }
 
-        /* ═══ SERVICES ═══ */
-        .services-grid {
+        /* ═══ WHAT WE DO ═══ */
+        .wwd-intro {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
         }
 
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2.5rem 2rem;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 3px;
-            background: var(--gradient-1);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(200, 16, 46, 0.25);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-num {
+        .wwd-story h2 {
             font-family: 'Oswald', sans-serif;
-            font-size: 3rem;
+            font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+
+        .wwd-story h2 .accent {
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            opacity: 0.3;
-            line-height: 1;
-            margin-bottom: 1rem;
         }
 
-        .service-card h3 {
+        .wwd-story p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .wwd-story .founders {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .founders-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .founders-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .founders-info {
+            font-size: 0.9rem;
+        }
+
+        .founders-info strong {
+            display: block;
             font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-size: 0.95rem;
+        }
+
+        .founders-info span {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .wwd-photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 0.75rem;
+            height: 420px;
+        }
+
+        .wwd-photo {
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .wwd-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .wwd-photo:hover img {
+            transform: scale(1.05);
+        }
+
+        .wwd-photo:first-child {
+            grid-row: 1 / 3;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: all 0.5s ease;
+            border: 1px solid var(--border-color);
+            cursor: default;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(200, 16, 46, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-card-img {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .service-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .service-card:hover .service-card-img img {
+            transform: scale(1.08);
+        }
+
+        .service-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(5,5,5,0) 0%, rgba(5,5,5,0.3) 30%, rgba(5,5,5,0.85) 70%, rgba(5,5,5,0.98) 100%);
+            z-index: 1;
+        }
+
+        .service-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem 2rem;
+        }
+
+        .service-card-num {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--accent-1);
+            text-transform: uppercase;
             margin-bottom: 0.75rem;
         }
 
-        .service-card p {
+        .service-card-content h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            line-height: 1.1;
+        }
+
+        .service-card-content p {
             color: var(--text-secondary);
             font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .service-card-line {
+            width: 40px;
+            height: 3px;
+            background: var(--accent-1);
+            margin-bottom: 1rem;
+            transition: width 0.4s ease;
+        }
+
+        .service-card:hover .service-card-line {
+            width: 60px;
         }
 
         /* ═══ VIDEO REEL ═══ */
@@ -1004,6 +1137,15 @@
 
         /* ═══ RESPONSIVE ═══ */
         @media (max-width: 1024px) {
+            .wwd-intro {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .wwd-photo-grid {
+                height: 300px;
+            }
+
             .services-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -1030,6 +1172,14 @@
 
             .services-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                min-height: 300px;
+            }
+
+            .wwd-photo-grid {
+                height: 250px;
             }
 
             .sports-cards {
@@ -1181,33 +1331,77 @@
         </div>
     </section>
 
-    <!-- Services -->
+    <!-- What We Do -->
     <section id="services">
         <div class="section-header">
             <p class="section-tag">What We Do</p>
             <h2 class="section-title">Our Services</h2>
-            <p class="section-desc">Full-service sports marketing and media production for the modern athlete</p>
         </div>
+
+        <div class="wwd-intro">
+            <div class="wwd-story">
+                <h2>A Different Kind of<br><span class="accent">Sports Agency</span></h2>
+                <p>Founded by former college athletes Tim & Pat Curran, our story starts in Ohio — on the field, on the sidelines as a college coach, and inside athletic marketing departments. We understand the business of sports from every angle.</p>
+                <p>Since relocating to Los Angeles, we've built an agency that works with professional athletes, media companies, brands, and award shows across marketing, branding, social media, and original content.</p>
+                <div class="founders">
+                    <div class="founders-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+                    </div>
+                    <div class="founders-info">
+                        <strong>Tim & Pat Curran</strong>
+                        <span>Former College Athletes &bull; Ohio to Los Angeles</span>
+                    </div>
+                </div>
+            </div>
+            <div class="wwd-photo-grid">
+                <div class="wwd-photo">
+                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80" alt="Football action shot" loading="lazy">
+                </div>
+                <div class="wwd-photo">
+                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&q=80" alt="Basketball game" loading="lazy">
+                </div>
+                <div class="wwd-photo">
+                    <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&q=80" alt="Soccer match" loading="lazy">
+                </div>
+            </div>
+        </div>
+
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-num">01</div>
-                <h3>Sports Marketing & Branding</h3>
-                <p>Athlete marketing, management, video and brand development that positions you for maximum impact.</p>
+                <div class="service-card-img">
+                    <img src="https://images.unsplash.com/photo-1461896836934-bd45ba8fcfa7?w=600&q=80" alt="Athlete marketing" loading="lazy">
+                </div>
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                    <div class="service-card-num">01 &mdash; Service</div>
+                    <div class="service-card-line"></div>
+                    <h3>Marketing, Branding<br>& Management</h3>
+                    <p>We are a different athlete marketing, management, video & brand development company helping athletes maximize their potential in & out of their sport.</p>
+                </div>
             </div>
             <div class="service-card">
-                <div class="service-num">02</div>
-                <h3>Brand Strategy</h3>
-                <p>Cultivating authentic athlete brands that resonate with fans, attract sponsors, and stand the test of time.</p>
+                <div class="service-card-img">
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80" alt="Brand strategy" loading="lazy">
+                </div>
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                    <div class="service-card-num">02 &mdash; Service</div>
+                    <div class="service-card-line" style="background: var(--accent-2);"></div>
+                    <h3>Brand<br>Strategy</h3>
+                    <p>We work with our athletes to cultivate their brand from the ground up and create an authentic brand experience for you and your audience.</p>
+                </div>
             </div>
             <div class="service-card">
-                <div class="service-num">03</div>
-                <h3>Video Production</h3>
-                <p>Original content, documentaries, social media videos, and highlight reels shot and edited to perfection.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-num">04</div>
-                <h3>Business Ventures</h3>
-                <p>Guidance on product lines, startups, company co-founding, and building wealth beyond the game.</p>
+                <div class="service-card-img">
+                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80" alt="Video production" loading="lazy">
+                </div>
+                <div class="service-card-overlay"></div>
+                <div class="service-card-content">
+                    <div class="service-card-num">03 &mdash; Service</div>
+                    <div class="service-card-line" style="background: var(--accent-3);"></div>
+                    <h3>Video<br>Production</h3>
+                    <p>Original content shows, documentaries, social branding, vlogs, and more — cinematic storytelling that amplifies your brand.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1444,7 +1638,7 @@
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        document.querySelectorAll('.service-card, .reel-card, .sport-card, .nil-service-item').forEach(el => {
+        document.querySelectorAll('.service-card, .reel-card, .sport-card, .nil-service-item, .wwd-photo').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
