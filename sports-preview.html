@@ -1286,6 +1286,195 @@
         }
 
 
+        /* ═══ INSTAGRAM FEED ═══ */
+        .ig-section {
+            padding: 7rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .ig-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+        }
+
+        .ig-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .ig-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .ig-icon svg {
+            width: 30px;
+            height: 30px;
+            color: white;
+        }
+
+        .ig-handle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ig-handle a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .ig-handle a:hover {
+            color: var(--accent-1);
+        }
+
+        .ig-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+        }
+
+        .ig-follow-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.75rem;
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .ig-follow-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 39, 67, 0.3);
+        }
+
+        .ig-follow-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .ig-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .ig-post {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.95);
+            animation: igFadeIn 0.5s ease forwards;
+        }
+
+        .ig-post:nth-child(1) { animation-delay: 0s; }
+        .ig-post:nth-child(2) { animation-delay: 0.1s; }
+        .ig-post:nth-child(3) { animation-delay: 0.2s; }
+        .ig-post:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes igFadeIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .ig-post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .ig-post:hover img {
+            transform: scale(1.08);
+        }
+
+        .ig-post-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ig-post:hover .ig-post-overlay {
+            opacity: 1;
+        }
+
+        .ig-post-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .ig-post-stat svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .ig-post-type {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            color: white;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+
+        .ig-post-type svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .ig-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ig-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .ig-header-left {
+                flex-direction: column;
+            }
+        }
+
         /* ═══ FOOTER ═══ */
         footer {
             padding: 3rem 2rem;
@@ -1720,6 +1909,28 @@
         </div>
     </section>
 
+    <!-- Instagram Feed -->
+    <section class="ig-section">
+        <div class="ig-header">
+            <div class="ig-header-left">
+                <div class="ig-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                </div>
+                <div>
+                    <div class="ig-handle"><a href="https://www.instagram.com/curranmediaco" target="_blank" rel="noopener">@curranmediaco</a></div>
+                    <div class="ig-subtitle">Curran Sports & Entertainment</div>
+                </div>
+            </div>
+            <a href="https://www.instagram.com/curranmediaco" target="_blank" rel="noopener" class="ig-follow-btn">
+                Follow
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+        <div class="ig-grid" id="igGrid">
+            <!-- Posts are injected by JavaScript -->
+        </div>
+    </section>
+
     <!-- Contact -->
     <section id="contact" class="contact-section">
         <div class="contact-container">
@@ -1805,7 +2016,77 @@
     </footer>
 
     <script>
-        // Scroll reveal
+        // ═══ Instagram Feed ═══
+        // Pool of posts — add your Instagram post images here
+        // To get image URLs: go to each post, right-click the image, copy image address
+        // Replace these placeholder sports images with actual @curranmediaco post images
+        const igPosts = [
+            { img: 'https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'photo', likes: '1,247', comments: '83' },
+            { img: 'https://images.pexels.com/photos/274517/pexels-photo-274517.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'photo', likes: '2,891', comments: '156' },
+            { img: 'https://images.pexels.com/photos/2834917/pexels-photo-2834917.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'reel', likes: '4,512', comments: '231' },
+            { img: 'https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'photo', likes: '1,893', comments: '97' },
+            { img: 'https://images.pexels.com/photos/29479589/pexels-photo-29479589.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'reel', likes: '3,674', comments: '189' },
+            { img: 'https://images.pexels.com/photos/19918607/pexels-photo-19918607.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'photo', likes: '2,156', comments: '112' },
+            { img: 'https://images.pexels.com/photos/29405615/pexels-photo-29405615.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'reel', likes: '5,023', comments: '274' },
+            { img: 'https://images.pexels.com/photos/1432039/pexels-photo-1432039.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'photo', likes: '1,534', comments: '68' },
+            { img: 'https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'photo', likes: '3,217', comments: '143' },
+            { img: 'https://images.pexels.com/photos/1263426/pexels-photo-1263426.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'reel', likes: '6,891', comments: '352' },
+            { img: 'https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'photo', likes: '2,478', comments: '131' },
+            { img: 'https://images.pexels.com/photos/1171084/pexels-photo-1171084.jpeg?auto=compress&cs=tinysrgb&w=600', type: 'photo', likes: '1,945', comments: '89' },
+        ];
+
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        // Use date as seed so posts change daily but stay consistent within the day
+        function getDailySeed() {
+            const d = new Date();
+            return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+        }
+
+        function seededShuffle(arr, seed) {
+            const a = [...arr];
+            let s = seed;
+            for (let i = a.length - 1; i > 0; i--) {
+                s = (s * 16807 + 0) % 2147483647;
+                const j = s % (i + 1);
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function renderIGFeed() {
+            const grid = document.getElementById('igGrid');
+            if (!grid) return;
+            const seed = getDailySeed();
+            const selected = seededShuffle(igPosts, seed).slice(0, 4);
+            grid.innerHTML = selected.map(post => `
+                <a href="https://www.instagram.com/curranmediaco" target="_blank" rel="noopener" class="ig-post">
+                    <img src="${post.img}" alt="@curranmediaco Instagram post" loading="lazy">
+                    <div class="ig-post-overlay">
+                        <span class="ig-post-stat">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            ${post.likes}
+                        </span>
+                        <span class="ig-post-stat">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            ${post.comments}
+                        </span>
+                    </div>
+                    ${post.type === 'reel' ? '<div class="ig-post-type"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>' : ''}
+                </a>
+            `).join('');
+        }
+
+        renderIGFeed();
+
+        // ═══ Scroll reveal ═══
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
