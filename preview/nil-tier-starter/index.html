@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JT5 — Jaylen Thompson | Your Play. Your Brand.</title>
+    <meta name="description" content="Jaylen Thompson — JT5. Dynamic dual-threat quarterback building a brand centered on discipline, community, and the next generation of athletes.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --primary-light: #34D399;
+            --primary-glow: rgba(16, 185, 129, 0.3);
+            --accent: #F59E0B;
+            --accent-dark: #D97706;
+            --accent-glow: rgba(245, 158, 11, 0.2);
+            --dark: #0B0F14;
+            --dark-2: #111827;
+            --dark-3: #1F2937;
+            --dark-4: #374151;
+            --gray: #9CA3AF;
+            --gray-light: #D1D5DB;
+            --light: #F3F4F6;
+            --white: #FFFFFF;
+            --gradient-primary: linear-gradient(135deg, #10B981, #059669);
+            --gradient-accent: linear-gradient(135deg, #F59E0B, #F97316);
+            --gradient-hero: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(11,15,20,0.95) 50%, rgba(245,158,11,0.1) 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Urbanist', sans-serif;
+            line-height: 1.1;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ====== NAVIGATION ====== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1.25rem 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(11, 15, 20, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-badge {
+            width: 44px; height: 44px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: -0.5px;
+            transform: rotate(-3deg);
+            color: var(--white);
+            font-family: 'Urbanist', sans-serif;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .logo-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .logo-sub {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray);
+            transition: color 0.3s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover { color: var(--white); }
+
+        .nav-cta {
+            background: var(--gradient-primary);
+            color: var(--white) !important;
+            padding: 0.65rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: transform 0.3s, box-shadow 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--primary-glow);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .mobile-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-toggle.open span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 20, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover { color: var(--primary); }
+
+        .mobile-menu .mobile-cta {
+            margin-top: 1rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        /* ====== HERO ====== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--gradient-hero);
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(16,185,129,0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.6;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(16,185,129,0.12), transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-badge .badge-dot {
+            width: 8px; height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .hero-jersey {
+            font-family: 'Urbanist', sans-serif;
+            font-size: clamp(6rem, 15vw, 12rem);
+            font-weight: 900;
+            line-height: 0.85;
+            color: rgba(16, 185, 129, 0.06);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            user-select: none;
+            letter-spacing: -5px;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
+            position: relative;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-title .first-name {
+            display: block;
+            color: var(--white);
+        }
+
+        .hero-title .last-name {
+            display: block;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-position {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-position span {
+            color: var(--primary);
+        }
+
+        .hero-tagline {
+            font-size: 1.15rem;
+            color: var(--gray-light);
+            max-width: 550px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease 0.5s forwards;
+            opacity: 0;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--primary-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            animation: fadeInUp 0.8s ease 0.8s forwards;
+            opacity: 0;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+        }
+
+        .hero-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+        }
+
+        .hero-stat-divider {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            align-self: stretch;
+        }
+
+        /* ====== SECTION COMMON ====== */
+        .section {
+            padding: 7rem 0;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--gray);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ====== ABOUT ====== */
+        .about {
+            background: var(--dark);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-image-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(11,15,20,0.9));
+        }
+
+        .about-image-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .about-text p {
+            color: var(--gray-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .about-feature {
+            background: var(--dark-2);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .about-feature:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .about-feature-icon {
+            width: 40px; height: 40px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .about-feature h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .about-feature p {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        /* ====== STATS ====== */
+        .stats {
+            background: var(--dark-2);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .stats-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover::before { opacity: 1; }
+
+        .stat-card:hover {
+            border-color: rgba(16, 185, 129, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);
+        }
+
+        .stat-icon {
+            width: 50px; height: 50px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .stat-number {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* ====== GALLERY ====== */
+        .gallery {
+            background: var(--dark);
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .gallery-filter {
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--dark-2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .gallery-filter:hover,
+        .gallery-filter.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+
+        .gallery-item:nth-child(1) { grid-row: span 2; }
+        .gallery-item:nth-child(4) { grid-row: span 2; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(transparent 50%, rgba(11,15,20,0.85));
+            opacity: 0;
+            transition: opacity 0.4s;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-caption {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .gallery-item-tag {
+            font-size: 0.7rem;
+            color: var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* ====== PARTNERS ====== */
+        .partners {
+            padding: 4rem 0;
+            background: var(--dark-2);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            overflow: hidden;
+        }
+
+        .partners-label {
+            text-align: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--gray);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .partners-track {
+            display: flex;
+            gap: 4rem;
+            animation: scroll 25s linear infinite;
+            width: max-content;
+        }
+
+        .partner-item {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        .partner-item:hover {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ====== CONTACT ====== */
+        .contact {
+            background: var(--dark);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--gray-light);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item-icon {
+            width: 44px; height: 44px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text {
+            font-size: 0.95rem;
+            color: var(--gray-light);
+        }
+
+        .contact-item-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+
+        .contact-social {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 2.5rem;
+        }
+
+        .contact-social a {
+            width: 44px; height: 44px;
+            background: var(--dark-2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .contact-social a:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .contact-form {
+            background: var(--dark-2);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.9rem 1.25rem;
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: var(--white);
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--primary-glow);
+        }
+
+        .form-submit.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .form-success.show { display: block; }
+
+        .form-success-icon {
+            width: 60px; height: 60px;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .form-success h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-success p {
+            color: var(--gray);
+        }
+
+        /* ====== FOOTER ====== */
+        .footer {
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--dark);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .footer-logo-badge {
+            width: 36px; height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: var(--white);
+        }
+
+        .footer-logo-text {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--white); }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .footer-bottom p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* ====== ANIMATIONS ====== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .about-image { max-height: 400px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: flex; }
+
+            .hero { padding: 7rem 1.5rem 3rem; }
+            .hero-title { font-size: clamp(3rem, 12vw, 5rem); }
+            .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+            .hero-stat-divider { display: none; }
+
+            .section { padding: 4rem 0; }
+
+            .about-features { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(4) { grid-row: auto; }
+
+            .form-row { grid-template-columns: 1fr; }
+
+            .footer-inner { flex-direction: column; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .hero-cta { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <div class="logo-badge">JT5</div>
+                <div class="logo-text">
+                    <span class="logo-name">Jaylen Thompson</span>
+                    <span class="logo-sub">Quarterback</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#stats">Stats</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#partners">Partners</a></li>
+                <li><a href="#contact" class="nav-cta">Book JT5</a></li>
+            </ul>
+            <button class="mobile-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#about">About</a>
+        <a href="#stats">Stats</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#partners">Partners</a>
+        <a href="#contact" class="mobile-cta">Book JT5</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-jersey">#5</div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Available for NIL Partnerships</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="first-name">JAYLEN</span>
+                <span class="last-name">THOMPSON</span>
+            </h1>
+            <div class="hero-position">
+                QB <span>|</span> #5 <span>|</span> University of Georgia
+            </div>
+            <p class="hero-tagline">Dynamic dual-threat quarterback building a brand centered on discipline, community, and the next generation of athletes.</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">
+                    <span>Get in Touch</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#gallery" class="btn btn-secondary">View Highlights</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number" data-count="3847">0</div>
+                    <div class="hero-stat-label">Passing Yards</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number" data-count="32">0</div>
+                    <div class="hero-stat-label">Touchdowns</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number" data-count="68.4" data-decimal="true" data-suffix="%">0</div>
+                    <div class="hero-stat-label">Completion Rate</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number" data-count="1.2" data-decimal="true" data-suffix="M">0</div>
+                    <div class="hero-stat-label">Social Followers</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image reveal">
+                    <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600&q=80" alt="Jaylen Thompson" loading="lazy">
+                    <div class="about-image-overlay">
+                        <span class="about-image-badge">
+                            <i class="fas fa-star"></i> 5-Star Recruit
+                        </span>
+                    </div>
+                </div>
+                <div class="about-text reveal">
+                    <div class="section-tag">About JT5</div>
+                    <h2 class="section-title">Built Different.<br>On and Off the Field.</h2>
+                    <p>Jaylen Thompson is a dynamic dual-threat quarterback from Atlanta, Georgia. With a cannon arm and elite pocket awareness, JT5 has emerged as one of the top QB prospects in college football.</p>
+                    <p>Off the field, Jaylen is building a brand centered on discipline, community, and the next generation of athletes. From youth football camps to brand partnerships, JT5 is redefining what it means to be a student-athlete in the modern era.</p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <div class="about-feature-icon"><i class="fas fa-crown"></i></div>
+                            <h4>Leadership</h4>
+                            <p>Team captain since sophomore year</p>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon"><i class="fas fa-heart"></i></div>
+                            <h4>Community</h4>
+                            <p>Youth football camp founder</p>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon"><i class="fas fa-dumbbell"></i></div>
+                            <h4>Work Ethic</h4>
+                            <p>First in, last out — every day</p>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon"><i class="fas fa-handshake"></i></div>
+                            <h4>Brand Ready</h4>
+                            <p>6+ active brand partnerships</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats" id="stats">
+        <div class="container">
+            <div class="stats-header reveal">
+                <div class="section-tag">By The Numbers</div>
+                <h2 class="section-title">2024 Season Stats</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">The numbers speak for themselves — consistently elite production on and off the field.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card reveal">
+                    <div class="stat-icon"><i class="fas fa-football"></i></div>
+                    <div class="stat-number" data-count="3847">0</div>
+                    <div class="stat-label">Passing Yards</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="stat-number" data-count="32">0</div>
+                    <div class="stat-label">Touchdowns</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-number" data-count="68.4" data-decimal="true" data-suffix="%">0</div>
+                    <div class="stat-label">Completion Rate</div>
+                </div>
+                <div class="stat-card reveal">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number" data-count="1.2" data-decimal="true" data-suffix="M">0</div>
+                    <div class="stat-label">Followers</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="gallery-header reveal">
+                <div class="section-tag">Highlights</div>
+                <h2 class="section-title">On & Off the Field</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">Game day moments, training sessions, and life beyond the field.</p>
+            </div>
+            <div class="gallery-filters reveal">
+                <button class="gallery-filter active" data-filter="all">All</button>
+                <button class="gallery-filter" data-filter="game">Game Day</button>
+                <button class="gallery-filter" data-filter="training">Training</button>
+                <button class="gallery-filter" data-filter="lifestyle">Lifestyle</button>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item reveal" data-category="game">
+                    <img src="https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=600&q=80" alt="Game day" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <div>
+                            <div class="gallery-item-tag">Game Day</div>
+                            <div class="gallery-item-caption">SEC Championship Performance</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" data-category="training">
+                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=80" alt="Training session" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <div>
+                            <div class="gallery-item-tag">Training</div>
+                            <div class="gallery-item-caption">Morning Conditioning</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" data-category="lifestyle">
+                    <img src="https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=600&q=80" alt="Brand shoot" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <div>
+                            <div class="gallery-item-tag">Lifestyle</div>
+                            <div class="gallery-item-caption">Nike Campaign Shoot</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" data-category="game">
+                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80" alt="Stadium atmosphere" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <div>
+                            <div class="gallery-item-tag">Game Day</div>
+                            <div class="gallery-item-caption">Home Opener — 92K Strong</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" data-category="training">
+                    <img src="https://images.unsplash.com/photo-1461896836934-bd45ba3a593d?w=600&q=80" alt="Weight room" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <div>
+                            <div class="gallery-item-tag">Training</div>
+                            <div class="gallery-item-caption">Offseason Grind</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item reveal" data-category="lifestyle">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80" alt="Community event" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <div>
+                            <div class="gallery-item-tag">Lifestyle</div>
+                            <div class="gallery-item-caption">Youth Camp — Atlanta</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Marquee -->
+    <section class="partners" id="partners">
+        <div class="partners-label">Trusted Brand Partners</div>
+        <div class="partners-track">
+            <span class="partner-item">Gatorade</span>
+            <span class="partner-item">Oakley</span>
+            <span class="partner-item">Beats by Dre</span>
+            <span class="partner-item">State Farm</span>
+            <span class="partner-item">Celsius</span>
+            <span class="partner-item">Nike</span>
+            <span class="partner-item">Chipotle</span>
+            <span class="partner-item">Body Armor</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="partner-item">Gatorade</span>
+            <span class="partner-item">Oakley</span>
+            <span class="partner-item">Beats by Dre</span>
+            <span class="partner-item">State Farm</span>
+            <span class="partner-item">Celsius</span>
+            <span class="partner-item">Nike</span>
+            <span class="partner-item">Chipotle</span>
+            <span class="partner-item">Body Armor</span>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="reveal">
+                    <div class="section-tag">Connect</div>
+                    <h2 class="section-title">Let's Build Something Together</h2>
+                    <p class="section-subtitle">Interested in partnering with JT5? Whether it's brand deals, appearances, or media inquiries — let's talk.</p>
+
+                    <div class="contact-info" style="margin-top: 2.5rem;">
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <div class="contact-item-label">Email</div>
+                                <div class="contact-item-text">contact@jt5official.com</div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <div class="contact-item-label">Phone</div>
+                                <div class="contact-item-text">(404) 555-0175</div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon"><i class="fas fa-location-dot"></i></div>
+                            <div>
+                                <div class="contact-item-label">Location</div>
+                                <div class="contact-item-text">Athens, Georgia</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-social">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form reveal" id="contactForm">
+                    <form id="jt5Form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" placeholder="you@company.com" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" placeholder="(555) 000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="inquiry">Inquiry Type</label>
+                                <select id="inquiry">
+                                    <option value="">Select type...</option>
+                                    <option value="brand">Brand Partnership</option>
+                                    <option value="appearance">Appearance/Event</option>
+                                    <option value="media">Media/Interview</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" placeholder="Tell us about the opportunity..." required></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">
+                            <span>Send Message</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </button>
+                    </form>
+                    <div class="form-success" id="formSuccess">
+                        <div class="form-success-icon"><i class="fas fa-check"></i></div>
+                        <h3>Message Sent!</h3>
+                        <p>We'll get back to you within 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-logo">
+                    <div class="footer-logo-badge">JT5</div>
+                    <span class="footer-logo-text">Jaylen Thompson</span>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#stats">Stats</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#partners">Partners</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Jaylen Thompson. All Rights Reserved. | Powered by <a href="https://williamsdigital.io" target="_blank">Williams Digital</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ====== NAVBAR SCROLL ======
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ====== MOBILE MENU ======
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ====== SCROLL REVEAL ======
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ====== ANIMATED COUNTERS ======
+        function animateCounter(el) {
+            const target = parseFloat(el.dataset.count);
+            const isDecimal = el.dataset.decimal === 'true';
+            const suffix = el.dataset.suffix || '';
+            const duration = 2000;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = target * eased;
+
+                if (isDecimal) {
+                    el.textContent = current.toFixed(1) + suffix;
+                } else {
+                    el.textContent = Math.floor(current).toLocaleString() + suffix;
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+        // ====== GALLERY FILTER ======
+        const filterBtns = document.querySelectorAll('.gallery-filter');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.style.display = '';
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.95)';
+                        setTimeout(() => { item.style.display = 'none'; }, 300);
+                    }
+                });
+            });
+        });
+
+        // ====== CONTACT FORM ======
+        document.getElementById('jt5Form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.form-submit');
+            btn.classList.add('loading');
+            btn.innerHTML = '<span>Sending...</span>';
+
+            setTimeout(() => {
+                this.style.display = 'none';
+                document.getElementById('formSuccess').classList.add('show');
+            }, 1500);
+        });
+
+        // ====== SMOOTH SCROLL ======
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
