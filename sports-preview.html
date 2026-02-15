@@ -913,25 +913,75 @@
             align-items: center;
         }
 
-        .about-text h2 {
+        .about-text .about-headline {
             font-family: 'Oswald', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 4vw, 2.8rem);
             font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 1.5rem;
+            line-height: 1.05;
+        }
+
+        .about-text .about-headline .accent {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .about-text p {
             color: var(--text-secondary);
             font-size: 1rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+        }
+
+        .about-founders {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.25rem;
+            background: rgba(200, 16, 46, 0.06);
+            border: 1px solid rgba(200, 16, 46, 0.15);
+            border-radius: 12px;
+        }
+
+        .about-founders-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .about-founders-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .about-founders-text strong {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-founders-text span {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
         }
 
         .stats-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
             padding-top: 2rem;
             border-top: 1px solid var(--border-color);
         }
@@ -942,7 +992,7 @@
 
         .stat-number {
             font-family: 'Oswald', sans-serif;
-            font-size: 2.75rem;
+            font-size: 2.5rem;
             font-weight: 700;
             background: var(--gradient-1);
             -webkit-background-clip: text;
@@ -954,54 +1004,66 @@
         .stat-label {
             font-family: 'Oswald', sans-serif;
             color: var(--text-secondary);
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 0.5rem;
         }
 
-        .location-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+        .about-photo {
+            position: relative;
             border-radius: 16px;
-            padding: 3rem;
-            text-align: center;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            aspect-ratio: 4/5;
         }
 
-        .location-card .city {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 0.5rem;
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
         }
 
-        .location-card .address {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
+        .about-photo:hover img {
+            transform: scale(1.05);
         }
 
-        .location-card .est {
-            font-family: 'Oswald', sans-serif;
-            font-size: 4rem;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0.2;
-            line-height: 1;
-            margin-bottom: 1rem;
+        .about-photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(5,5,5,0) 40%, rgba(5,5,5,0.7) 100%);
         }
 
-        .location-card .est-label {
+        .about-photo-badge {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .about-photo-badge svg {
+            width: 28px;
+            height: 28px;
+            color: var(--accent-2);
+            flex-shrink: 0;
+        }
+
+        .about-photo-badge span {
             font-family: 'Oswald', sans-serif;
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-secondary);
+            letter-spacing: 1.5px;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.9);
         }
 
         /* ═══ CONTACT ═══ */
@@ -1274,7 +1336,11 @@
             }
 
             .stats-row {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-photo {
+                aspect-ratio: 16/9;
             }
 
             footer .footer-content {
@@ -1554,31 +1620,43 @@
         <div class="about-grid">
             <div class="about-text">
                 <p class="section-tag">About Curran Media</p>
-                <h2>The Agency Athletes Trust</h2>
-                <p>Since 2016, Curran Media has been at the forefront of sports marketing and athlete brand development. Recognized by Sports Business Journal as a Top NIL Power Player Agency, we combine deep industry expertise with cutting-edge creative production.</p>
-                <p>Based in Los Angeles, we work with athletes at every level — from college stars navigating NIL to professional athletes building legacy brands. Our full-service approach covers everything from contract negotiations to content creation.</p>
+                <h2 class="about-headline">From Ohio to LA —<br><span class="accent">Built for Athletes</span></h2>
+                <p>Curran Media was founded by Tim & Pat Curran — former college athletes who went from competing on the field and coaching on the sidelines to building one of the most respected sports marketing agencies in Los Angeles.</p>
+                <p>Recognized by Sports Business Journal as a Top NIL Power Player Agency, we combine real athlete experience with cutting-edge creative production. Our team lives and breathes sports — and it shows in every deal we close, every brand we build, and every story we tell.</p>
+                <div class="about-founders">
+                    <div class="about-founders-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+                    </div>
+                    <div class="about-founders-text">
+                        <strong>Tim & Pat Curran</strong>
+                        <span>Former College Athletes &bull; Founders &bull; Los Angeles</span>
+                    </div>
+                </div>
                 <div class="stats-row">
                     <div class="stat">
-                        <div class="stat-number">2016</div>
-                        <div class="stat-label">Established</div>
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Years in Sports</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">LA</div>
-                        <div class="stat-label">Headquarters</div>
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Projects Delivered</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">Sports</div>
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Athletes Served</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">$50M+</div>
+                        <div class="stat-label">Deals Closed</div>
                     </div>
                 </div>
             </div>
-            <div class="about-visual">
-                <div class="location-card">
-                    <div class="est">EST 2016</div>
-                    <div class="est-label">Los Angeles, California</div>
-                    <div class="city" style="margin-top: 2rem;">Curran Media</div>
-                    <div class="address">12575 Beatrice St<br>Los Angeles, CA 90066</div>
-                    <a href="#contact" class="btn btn-primary" style="width:100%; justify-content:center;">Work With Us</a>
+            <div class="about-photo">
+                <img src="https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sports team meeting and strategy" loading="lazy">
+                <div class="about-photo-overlay"></div>
+                <div class="about-photo-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <span>Sports Business Journal<br>Top NIL Power Player Agency</span>
                 </div>
             </div>
         </div>
