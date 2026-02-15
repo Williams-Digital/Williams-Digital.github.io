@@ -1097,50 +1097,107 @@
             font-size: 3rem;
             font-weight: 700;
             text-transform: uppercase;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .contact-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
             position: relative;
         }
 
         .contact-info-bar {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            max-width: 600px;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.25rem;
+            max-width: 700px;
             margin: 0 auto 3rem;
             position: relative;
         }
 
         .contact-detail {
             display: flex;
-            align-items: flex-start;
+            flex-direction: column;
+            align-items: center;
             gap: 0.75rem;
-            text-align: left;
-            padding: 1.25rem;
+            text-align: center;
+            padding: 1.5rem 1rem;
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
 
-        .contact-detail svg {
+        .contact-detail:hover {
+            border-color: rgba(200, 16, 46, 0.3);
+            background: rgba(200, 16, 46, 0.05);
+        }
+
+        .contact-detail-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(200, 16, 46, 0.1);
+            border: 1px solid rgba(200, 16, 46, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-detail-icon svg {
             width: 20px;
             height: 20px;
             color: var(--accent-1);
-            flex-shrink: 0;
-            margin-top: 2px;
         }
 
         .contact-detail strong {
             display: block;
             font-family: 'Oswald', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.15rem;
         }
 
         .contact-detail span {
             color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .contact-social {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .contact-social a {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .contact-social a:hover {
+            border-color: var(--accent-1);
+            color: var(--text-primary);
+            background: rgba(200, 16, 46, 0.1);
+        }
+
+        .contact-social a svg {
+            width: 16px;
+            height: 16px;
         }
 
         .required {
@@ -1325,6 +1382,7 @@
 
             .contact-info-bar {
                 grid-template-columns: 1fr;
+                max-width: 300px;
             }
 
             .contact-container {
@@ -1666,21 +1724,45 @@
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <p class="section-tag">Contact</p>
-            <h2>Get In Touch</h2>
+            <h2>Let's Build Your Brand</h2>
+            <p class="contact-subtitle">Ready to take your brand to the next level? Reach out and let's start the conversation.</p>
 
             <div class="contact-info-bar">
                 <div class="contact-detail">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
                     <div>
-                        <strong>12575 Beatrice St</strong>
-                        <span>Los Angeles, CA 90066, U.S.A.</span>
+                        <strong>Office</strong>
+                        <span>12575 Beatrice St<br>Los Angeles, CA 90066</span>
                     </div>
                 </div>
                 <div class="contact-detail">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
                     <div>
-                        <strong>Tim@CurranMedia.co</strong>
-                        <span>We'll get back to you within 24 hours</span>
+                        <strong>Email</strong>
+                        <span>Tim@CurranMedia.co<br>Response within 24hrs</span>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </div>
+                    <div>
+                        <strong>Social</strong>
+                        <div class="contact-social">
+                            <a href="#" aria-label="Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                            </a>
+                            <a href="#" aria-label="Twitter/X">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </a>
+                            <a href="#" aria-label="LinkedIn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1710,7 +1792,7 @@
                     <label for="message">Message <span class="required">*</span></label>
                     <textarea id="message" name="message" placeholder="Tell us about your goals..." required></textarea>
                 </div>
-                <button type="submit" class="btn-submit">Submit</button>
+                <button type="submit" class="btn-submit">Let's Talk</button>
             </form>
         </div>
     </section>
