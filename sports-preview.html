@@ -41,11 +41,25 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            padding: 1rem 2.5rem;
+            padding: 1.1rem 2.5rem;
             background: rgba(5, 5, 5, 0.6);
             backdrop-filter: blur(24px);
             border-bottom: 1px solid var(--border-color);
-            transition: background 0.3s ease;
+            transition: padding 0.3s ease, background 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.6rem 2.5rem;
+            background: rgba(5, 5, 5, 0.95);
+        }
+
+        .nav-progress {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            width: 0%;
+            transition: width 0.05s linear;
         }
 
         .nav-container {
@@ -113,11 +127,13 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--text-primary);
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
@@ -132,6 +148,7 @@
         }
 
         .nav-cta::after { display: none !important; }
+        .nav-cta.active { background: #a00d24; }
 
         .nav-cta:hover {
             background: #a00d24;
@@ -162,11 +179,14 @@
         .nav-toggle {
             display: none;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
             cursor: pointer;
             background: none;
             border: none;
             padding: 4px;
+            width: 28px;
+            height: 24px;
+            position: relative;
         }
 
         .nav-toggle span {
@@ -174,6 +194,76 @@
             height: 2px;
             background: var(--text-primary);
             transition: all 0.3s ease;
+            position: absolute;
+            left: 2px;
+        }
+
+        .nav-toggle span:nth-child(1) { top: 2px; }
+        .nav-toggle span:nth-child(2) { top: 11px; }
+        .nav-toggle span:nth-child(3) { top: 20px; }
+
+        .nav-toggle.open span:nth-child(1) {
+            top: 11px;
+            transform: rotate(45deg);
+        }
+
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.open span:nth-child(3) {
+            top: 11px;
+            transform: rotate(-45deg);
+        }
+
+        /* Mobile menu overlay */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(5, 5, 5, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .mobile-menu .mobile-cta {
+            margin-top: 1rem;
+            background: var(--accent-1);
+            color: white;
+            padding: 0.9rem 2.5rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .mobile-menu .mobile-cta:hover {
+            background: #a00d24;
         }
 
         /* ═══ HERO ═══ */
@@ -1601,33 +1691,43 @@
 
     <!-- Navigation -->
     <nav>
+        <div class="nav-progress" id="navProgress"></div>
         <div class="nav-container">
             <a href="#" class="logo">
                 Curran<span class="logo-accent"> Media</span>
                 <span class="logo-est">Est. 2016</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#nil">NIL</a></li>
-                <li><a href="#services">What We Do</a></li>
-                <li><a href="#sports">Sports</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact" class="nav-cta">Contact</a></li>
+                <li><a href="#nil" data-section="nil">NIL</a></li>
+                <li><a href="#services" data-section="services">What We Do</a></li>
+                <li><a href="#sports" data-section="sports">Sports</a></li>
+                <li><a href="#about" data-section="about">About</a></li>
+                <li><a href="#contact" class="nav-cta" data-section="contact">Contact</a></li>
             </ul>
             <div class="nav-social">
-                <a href="#" aria-label="Instagram">
+                <a href="https://www.instagram.com/curranmediaco" target="_blank" rel="noopener" aria-label="Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
                 </a>
-                <a href="#" aria-label="Twitter">
+                <a href="https://x.com/CurranMediaCo" target="_blank" rel="noopener" aria-label="Twitter">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
             </div>
-            <button class="nav-toggle" aria-label="Menu">
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#nil" data-section="nil">NIL</a>
+        <a href="#services" data-section="services">What We Do</a>
+        <a href="#sports" data-section="sports">Sports</a>
+        <a href="#about" data-section="about">About</a>
+        <a href="#contact" class="mobile-cta" data-section="contact">Contact</a>
+    </div>
 
     <!-- Hero -->
     <section class="hero">
@@ -2103,34 +2203,64 @@
             observer.observe(el);
         });
 
-        // Nav scroll
+        // ═══ Navigation ═══
         const nav = document.querySelector('nav');
-        window.addEventListener('scroll', () => {
-            nav.style.background = window.scrollY > 50
-                ? 'rgba(5, 5, 5, 0.95)'
-                : 'rgba(5, 5, 5, 0.6)';
+        const navProgress = document.getElementById('navProgress');
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksAll = document.querySelectorAll('.nav-links a[data-section], .mobile-menu a[data-section]');
+
+        function updateNav() {
+            const scrollY = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+            // Shrink nav on scroll
+            if (scrollY > 60) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+
+            // Scroll progress bar
+            const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+            navProgress.style.width = progress + '%';
+
+            // Active section highlighting
+            let currentSection = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 120;
+                if (scrollY >= top) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
+
+        // ═══ Mobile menu ═══
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        navToggle?.addEventListener('click', () => {
+            navToggle.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
         });
 
-        // Mobile toggle
-        const navToggle = document.querySelector('.nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        navToggle?.addEventListener('click', () => {
-            if (navLinks.style.display === 'flex') {
-                navLinks.style.display = 'none';
-            } else {
-                Object.assign(navLinks.style, {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    position: 'absolute',
-                    top: '100%',
-                    left: '0',
-                    right: '0',
-                    background: 'rgba(5, 5, 5, 0.98)',
-                    padding: '1.5rem 2rem',
-                    gap: '1.5rem',
-                    borderBottom: '1px solid var(--border-color)'
-                });
-            }
+        // Close mobile menu on link click
+        mobileMenu?.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
         });
     </script>
 </body>
