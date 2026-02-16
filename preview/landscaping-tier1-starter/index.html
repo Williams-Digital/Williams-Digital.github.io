@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenBlade Landscaping | Your Lawn, Our Passion</title>
+  <meta name="description" content="GreenBlade Landscaping provides professional lawn care and landscaping services. Serving the local community since 2019 with quality you can trust.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+      background: #fff;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', Arial, sans-serif;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ========== CSS VARIABLES ========== */
+    :root {
+      --forest: #2d5a27;
+      --grass: #4a8c3f;
+      --earth: #8B6914;
+      --white: #ffffff;
+      --light: #f5f5f0;
+      --dark: #1a1a1a;
+      --text: #444444;
+      --text-light: #666666;
+      --shadow: 0 2px 20px rgba(0,0,0,0.1);
+      --shadow-hover: 0 8px 30px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
+    }
+
+    /* ========== TIER BADGE ========== */
+    .tier-badge {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 10000;
+      background: linear-gradient(135deg, var(--earth), #a37b1a);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(139,105,20,0.4);
+    }
+
+    /* ========== NAVIGATION ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 9999;
+      padding: 16px 0;
+      transition: var(--transition);
+      background: transparent;
+    }
+
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      padding: 10px 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo svg {
+      transition: var(--transition);
+    }
+
+    .nav-logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled .nav-logo-text {
+      color: var(--forest);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.5px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--grass);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .navbar.scrolled .nav-links a {
+      color: var(--dark);
+    }
+
+    .navbar.scrolled .nav-links a:hover {
+      color: var(--grass);
+    }
+
+    .nav-cta {
+      background: var(--grass) !important;
+      color: var(--white) !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .nav-cta::after {
+      display: none !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--forest) !important;
+      transform: translateY(-1px);
+    }
+
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .mobile-toggle span {
+      width: 26px;
+      height: 2.5px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled .mobile-toggle span {
+      background: var(--dark);
+    }
+
+    /* ========== CONTAINER ========== */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1400') center/cover no-repeat;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.45) 0%,
+        rgba(45,90,39,0.5) 50%,
+        rgba(0,0,0,0.6) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+      max-width: 800px;
+    }
+
+    .hero-content .hero-logo {
+      margin: 0 auto 24px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .hero-tagline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: var(--grass);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--forest);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74,140,63,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.7);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+    }
+
+    .hero-scroll svg {
+      opacity: 0.7;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ========== SECTION STYLES ========== */
+    .section {
+      padding: 90px 0;
+    }
+
+    .section-light {
+      background: var(--light);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--grass), var(--earth));
+      margin: 16px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ========== ABOUT SECTION ========== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-image {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: var(--forest);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .about-badge .badge-num {
+      font-size: 1.8rem;
+      display: block;
+    }
+
+    .about-badge .badge-text {
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      color: var(--forest);
+      margin-bottom: 8px;
+    }
+
+    .about-text .about-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--earth);
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .about-text p {
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.75;
+    }
+
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .about-highlight {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--forest);
+    }
+
+    .about-highlight svg {
+      flex-shrink: 0;
+    }
+
+    /* ========== SERVICES SECTION ========== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .service-icon {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, rgba(74,140,63,0.1), rgba(45,90,39,0.1));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-icon {
+      background: linear-gradient(135deg, var(--grass), var(--forest));
+    }
+
+    .service-card:hover .service-icon svg {
+      stroke: var(--white);
+      fill: none;
+    }
+
+    .service-card:hover .service-icon svg.fill-icon {
+      fill: var(--white);
+      stroke: none;
+    }
+
+    .service-icon svg {
+      transition: var(--transition);
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      color: var(--forest);
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* ========== GALLERY SECTION ========== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-item {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(45,90,39,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay span {
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* ========== CONTACT SECTION ========== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-size: 1.5rem;
+      color: var(--forest);
+      margin-bottom: 8px;
+    }
+
+    .contact-info > p {
+      color: var(--text-light);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .contact-detail-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, rgba(74,140,63,0.12), rgba(45,90,39,0.12));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-detail div {
+      padding-top: 2px;
+    }
+
+    .contact-detail strong {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      color: var(--dark);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .contact-detail span, .contact-detail a {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .contact-detail a:hover {
+      color: var(--grass);
+    }
+
+    .contact-form {
+      background: var(--white);
+      padding: 36px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #e0e0dc;
+      border-radius: 8px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--dark);
+      transition: var(--transition);
+      background: #fafaf8;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--grass);
+      box-shadow: 0 0 0 3px rgba(74,140,63,0.12);
+      background: var(--white);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--grass);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit:hover {
+      background: var(--forest);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74,140,63,0.3);
+    }
+
+    .form-note {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: var(--text-light);
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.7);
+      padding: 50px 0 24px;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-brand .nav-logo {
+      margin-bottom: 16px;
+    }
+
+    .footer-brand .nav-logo-text {
+      color: var(--white);
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 320px;
+    }
+
+    .footer h4 {
+      color: var(--white);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-links a {
+      display: block;
+      font-size: 0.88rem;
+      padding: 4px 0;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--grass);
+      padding-left: 4px;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+    }
+
+    .footer-contact-item a:hover {
+      color: var(--grass);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      font-size: 0.8rem;
+    }
+
+    /* ========== MOBILE RESPONSIVE ========== */
+    @media (max-width: 992px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-image {
+        order: -1;
+      }
+
+      .about-image img {
+        height: 300px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        transition: right 0.4s ease;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-links a {
+        color: var(--dark) !important;
+        font-size: 1rem;
+      }
+
+      .nav-links a::after {
+        display: none;
+      }
+
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 9997;
+      }
+
+      .mobile-overlay.active {
+        display: block;
+      }
+
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-tagline {
+        font-size: 1rem;
+      }
+
+      .hero-desc {
+        font-size: 0.95rem;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .gallery-item img {
+        height: 220px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .tier-badge {
+        top: 10px;
+        right: 10px;
+        font-size: 0.6rem;
+        padding: 5px 10px;
+      }
+
+      .about-highlights {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 260px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TIER BADGE -->
+  <div class="tier-badge">Starter Plan</div>
+
+  <!-- MOBILE OVERLAY -->
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#hero" class="nav-logo">
+        <!-- CUSTOM SVG LOGO -->
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="8" fill="#2d5a27"/>
+          <path d="M20 6C20 6 14 14 14 22C14 26 16.5 30 20 32C23.5 30 26 26 26 22C26 14 20 6 20 6Z" fill="#4a8c3f"/>
+          <path d="M20 10C20 10 16 16 16 22C16 25 17.8 28 20 30C22.2 28 24 25 24 22C24 16 20 10 20 10Z" fill="#6ab85e"/>
+          <line x1="20" y1="14" x2="20" y2="30" stroke="#2d5a27" stroke-width="1.2"/>
+          <path d="M20 18L17 21" stroke="#2d5a27" stroke-width="0.8" stroke-linecap="round"/>
+          <path d="M20 22L23 25" stroke="#2d5a27" stroke-width="0.8" stroke-linecap="round"/>
+        </svg>
+        <span class="nav-logo-text">GreenBlade</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <div class="mobile-toggle" id="mobileToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <!-- Hero Logo (larger version) -->
+      <svg class="hero-logo" width="72" height="72" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="8" fill="rgba(255,255,255,0.15)"/>
+        <path d="M20 6C20 6 14 14 14 22C14 26 16.5 30 20 32C23.5 30 26 26 26 22C26 14 20 6 20 6Z" fill="#4a8c3f"/>
+        <path d="M20 10C20 10 16 16 16 22C16 25 17.8 28 20 30C22.2 28 24 25 24 22C24 16 20 10 20 10Z" fill="#6ab85e"/>
+        <line x1="20" y1="14" x2="20" y2="30" stroke="rgba(255,255,255,0.5)" stroke-width="1.2"/>
+        <path d="M20 18L17 21" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M20 22L23 25" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" stroke-linecap="round"/>
+      </svg>
+      <h1>GreenBlade Landscaping</h1>
+      <div class="hero-tagline">Your Lawn, Our Passion</div>
+      <p class="hero-desc">Professional lawn care and landscaping services that transform your outdoor space into something extraordinary. Proudly serving the community since 2019.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Free Estimate</a>
+        <a href="#services" class="btn btn-outline">Our Services</a>
+      </div>
+    </div>
+    <a href="#about" class="hero-scroll">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+        <path d="M7 13l5 5 5-5"/>
+        <path d="M7 7l5 5 5-5"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600" alt="Beautiful landscaped garden" loading="lazy">
+          <div class="about-badge">
+            <span class="badge-num">7+</span>
+            <span class="badge-text">Years of Service</span>
+          </div>
+        </div>
+        <div class="about-text">
+          <h2>About GreenBlade</h2>
+          <div class="about-subtitle">Trusted Landscaping Professionals Since 2019</div>
+          <p>Founded in 2019 by a team passionate about the outdoors, GreenBlade Landscaping has grown from a small neighborhood operation into one of the area's most trusted landscaping services. We combine old-fashioned hard work with modern techniques to deliver results that speak for themselves.</p>
+          <p>From routine lawn maintenance to full garden redesigns, every job receives the same level of care and attention to detail. We treat your property as if it were our own, because we believe every home deserves a landscape that brings joy.</p>
+          <p>We proudly serve homeowners and small businesses throughout the greater metropolitan area, including Maplewood, Oakdale, Riverdale, and surrounding communities.</p>
+          <div class="about-highlights">
+            <div class="about-highlight">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Licensed &amp; Insured</span>
+            </div>
+            <div class="about-highlight">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Free Estimates</span>
+            </div>
+            <div class="about-highlight">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Eco-Friendly Practices</span>
+            </div>
+            <div class="about-highlight">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Satisfaction Guaranteed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section class="section section-light" id="services">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Services</h2>
+        <p>From routine maintenance to complete landscape transformations, we have you covered.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="services-grid">
+        <!-- Lawn Mowing -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="14" width="16" height="6" rx="2"/>
+              <circle cx="5" cy="20" r="2"/>
+              <circle cx="15" cy="20" r="2"/>
+              <path d="M10 14V8"/>
+              <path d="M6 8h8l2-4H4l2 4z"/>
+            </svg>
+          </div>
+          <h3>Lawn Mowing</h3>
+          <p>Regular mowing services with precision cutting and clean edges. We keep your lawn at the ideal height for healthy, lush growth all season long.</p>
+        </div>
+        <!-- Hedge Trimming -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3L4 9v4l8 6 8-6V9l-8-6z"/>
+              <path d="M12 9v8"/>
+              <path d="M8 11l4 3 4-3"/>
+            </svg>
+          </div>
+          <h3>Hedge Trimming</h3>
+          <p>Expert shaping and trimming of hedges, shrubs, and ornamental plants. We create clean lines and maintain the natural beauty of your greenery.</p>
+        </div>
+        <!-- Garden Design -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3C8 3 5 6 5 9c0 3 3 5 7 12 4-7 7-9 7-12 0-3-3-6-7-6z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+              <path d="M9 21h6"/>
+            </svg>
+          </div>
+          <h3>Garden Design</h3>
+          <p>Custom garden layouts tailored to your taste and property. From flower beds to vegetable gardens, we bring your vision to life with thoughtful planning.</p>
+        </div>
+        <!-- Mulching -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 20h20"/>
+              <path d="M4 20v-4c0-1 1-2 3-2h10c2 0 3 1 3 2v4"/>
+              <path d="M8 14V9"/>
+              <path d="M12 14V6"/>
+              <path d="M16 14V9"/>
+              <path d="M6 9c0-2 2.7-4 6-4s6 2 6 4"/>
+            </svg>
+          </div>
+          <h3>Mulching</h3>
+          <p>Premium mulch installation to retain moisture, suppress weeds, and give your garden beds a polished, professional look throughout the year.</p>
+        </div>
+        <!-- Leaf Cleanup -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 3C12 3 5 8 3 14c5-2 9-2 14-1-1 3-4 6-8 8 8 0 12-5 12-12 0-3-1.5-5-4-6z"/>
+              <path d="M9 15l4-4"/>
+              <path d="M7 12l2 2"/>
+            </svg>
+          </div>
+          <h3>Leaf Cleanup</h3>
+          <p>Thorough fall and spring cleanups to clear leaves and debris. We keep your property looking neat and protect your lawn from seasonal damage.</p>
+        </div>
+        <!-- Sod Installation -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 18h20"/>
+              <path d="M4 18v-4h16v4"/>
+              <path d="M4 14v-3h16v3"/>
+              <path d="M8 7v4"/>
+              <path d="M12 5v6"/>
+              <path d="M16 7v4"/>
+              <path d="M6 8c0 0 2-3 6-3s6 3 6 3"/>
+            </svg>
+          </div>
+          <h3>Sod Installation</h3>
+          <p>Fresh sod laid with expert precision for an instant green lawn. We prepare the soil properly to ensure strong root growth and long-lasting results.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Work</h2>
+        <p>Take a look at some of our recent projects across the community.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600" alt="Lush garden landscape" loading="lazy">
+          <div class="gallery-overlay"><span>Garden Redesign</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600" alt="Manicured garden beds" loading="lazy">
+          <div class="gallery-overlay"><span>Flower Bed Design</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=600" alt="Fresh lawn maintenance" loading="lazy">
+          <div class="gallery-overlay"><span>Lawn Maintenance</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600" alt="Modern home landscaping" loading="lazy">
+          <div class="gallery-overlay"><span>Residential Landscape</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" alt="Beautiful property exterior" loading="lazy">
+          <div class="gallery-overlay"><span>Full Property Care</span></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600" alt="Stunning home exterior" loading="lazy">
+          <div class="gallery-overlay"><span>Curb Appeal Upgrade</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section section-light" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2>Get In Touch</h2>
+        <p>Ready to transform your outdoor space? Reach out for a free, no-obligation estimate.</p>
+        <div class="section-divider"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Let's Talk About Your Yard</h3>
+          <p>Whether you need weekly lawn care or a one-time cleanup, we are here to help. Send us a message or give us a call, and we will get back to you within 24 hours with a personalized quote.</p>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <strong>Phone</strong>
+              <a href="tel:+15551234567">(555) 123-4567</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:info@greenbladelandscaping.com">info@greenbladelandscaping.com</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <strong>Hours</strong>
+              <span>Mon-Fri: 7:00 AM - 6:00 PM<br>Sat: 8:00 AM - 4:00 PM</span>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="John Smith" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project or what services you're interested in..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message</button>
+          <p class="form-note">We typically respond within 24 hours.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo">
+            <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="40" height="40" rx="8" fill="#2d5a27"/>
+              <path d="M20 6C20 6 14 14 14 22C14 26 16.5 30 20 32C23.5 30 26 26 26 22C26 14 20 6 20 6Z" fill="#4a8c3f"/>
+              <path d="M20 10C20 10 16 16 16 22C16 25 17.8 28 20 30C22.2 28 24 25 24 22C24 16 20 10 20 10Z" fill="#6ab85e"/>
+              <line x1="20" y1="14" x2="20" y2="30" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/>
+            </svg>
+            <span class="nav-logo-text">GreenBlade</span>
+          </a>
+          <p>Professional landscaping services dedicated to transforming outdoor spaces since 2019. Licensed, insured, and committed to quality on every job.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h4>Contact Us</h4>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            <a href="tel:+15551234567">(555) 123-4567</a>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:info@greenbladelandscaping.com">info@greenbladelandscaping.com</a>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a8c3f" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Serving the Greater Metro Area</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 GreenBlade Landscaping. All rights reserved.</span>
+        <span>Proudly serving our community since 2019.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // ===== Navbar scroll effect =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 60) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ===== Mobile menu toggle =====
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    mobileToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+    });
+
+    mobileOverlay.addEventListener('click', function() {
+      navLinks.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+    });
+
+    // Close mobile menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+      });
+    });
+
+    // ===== Contact form handler =====
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(contactForm);
+      const name = formData.get('name');
+
+      // Simple visual feedback
+      const btn = contactForm.querySelector('.btn-submit');
+      const originalText = btn.textContent;
+      btn.textContent = 'Message Sent!';
+      btn.style.background = '#2d5a27';
+
+      setTimeout(function() {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        contactForm.reset();
+      }, 3000);
+    });
+
+    // ===== Smooth reveal on scroll =====
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Apply fade-in to key sections
+    document.querySelectorAll('.service-card, .gallery-item, .about-grid, .contact-grid').forEach(function(el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestige Grounds — Where Vision Meets Landscape</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--dark-green:#0d3b1e;--emerald:#047a4e;--gold:#d4a843;--cream:#faf8f0;--white:#ffffff;--charcoal:#1a1a1a;--shadow:0 4px 30px rgba(0,0,0,.12);--shadow-lg:0 12px 50px rgba(0,0,0,.18)}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Montserrat',sans-serif;color:var(--charcoal);background:var(--white);overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Cormorant Garamond',serif;font-weight:700;line-height:1.2}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;padding:14px 36px;border-radius:4px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .35s ease;border:none;letter-spacing:.5px}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#c4943a);color:var(--white);box-shadow:0 4px 15px rgba(212,168,67,.4)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(212,168,67,.55)}
+.btn-outline{border:2px solid var(--gold);color:var(--gold);background:transparent}
+.btn-outline:hover{background:var(--gold);color:var(--white)}
+.section-label{font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block}
+.section-title{font-size:clamp(2rem,4vw,3.2rem);color:var(--dark-green);margin-bottom:16px}
+.section-subtitle{font-size:1.05rem;color:#555;max-width:620px;line-height:1.7;font-weight:300}
+.section-padding{padding:100px 0}
+
+/* TIER BADGE */
+.tier-badge{position:fixed;top:20px;right:20px;z-index:10000;background:linear-gradient(135deg,var(--charcoal),#2a2a2a);color:var(--gold);padding:10px 22px;border-radius:30px;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:2px solid transparent;background-clip:padding-box;box-shadow:0 0 20px rgba(212,168,67,.25),inset 0 0 20px rgba(212,168,67,.05);animation:badgeGlow 3s ease-in-out infinite}
+.tier-badge::before{content:'';position:absolute;inset:-3px;border-radius:32px;background:linear-gradient(135deg,var(--gold),#c4943a,var(--gold));z-index:-1}
+@keyframes badgeGlow{0%,100%{box-shadow:0 0 20px rgba(212,168,67,.25)}50%{box-shadow:0 0 35px rgba(212,168,67,.45)}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;width:100%;z-index:9999;padding:20px 0;transition:all .4s ease}
+.navbar.scrolled{background:rgba(13,59,30,.97);padding:10px 0;backdrop-filter:blur(10px);box-shadow:0 2px 30px rgba(0,0,0,.2)}
+.navbar .container{display:flex;align-items:center;justify-content:space-between}
+.nav-logo svg{height:50px;width:auto;transition:height .3s}
+.navbar.scrolled .nav-logo svg{height:40px}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{color:var(--white);font-size:.85rem;font-weight:500;letter-spacing:.5px;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gold);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.nav-links a:hover{color:var(--gold)}
+.nav-phone{color:var(--gold);font-weight:600;font-size:.9rem}
+.nav-cta{padding:10px 24px;font-size:.8rem}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:5px}
+.hamburger span{width:28px;height:2px;background:var(--white);transition:all .3s}
+.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(13,59,30,.98);z-index:9998;flex-direction:column;align-items:center;justify-content:center;gap:30px}
+.mobile-menu.active{display:flex}
+.mobile-menu a{color:var(--white);font-size:1.4rem;font-family:'Cormorant Garamond',serif}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1600') center/cover no-repeat}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,59,30,.82),rgba(4,122,78,.55),rgba(13,59,30,.75))}
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--white);max-width:900px;padding:0 24px}
+.hero-content .section-label{color:var(--gold);font-size:.85rem;letter-spacing:5px;margin-bottom:24px}
+.hero-title{font-size:clamp(2.8rem,6vw,5rem);margin-bottom:10px;opacity:0;animation:fadeUp .8s ease forwards .3s}
+.hero-title .typed-word{color:var(--gold);display:inline-block;min-width:220px;border-right:3px solid var(--gold);animation:blink .8s infinite}
+@keyframes blink{0%,100%{border-color:var(--gold)}50%{border-color:transparent}}
+.hero-subtitle{font-size:1.15rem;font-weight:300;line-height:1.8;margin-bottom:40px;opacity:0;animation:fadeUp .8s ease forwards .6s}
+.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease forwards .9s}
+.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;animation:bounce 2s infinite}
+.hero-scroll span{display:block;width:28px;height:44px;border:2px solid rgba(255,255,255,.5);border-radius:14px;position:relative}
+.hero-scroll span::after{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:4px;height:8px;background:var(--white);border-radius:2px;animation:scrollDot 2s infinite}
+@keyframes scrollDot{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(16px)}}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(30px)}}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+
+/* STATS */
+.stats{background:var(--dark-green);padding:60px 0}
+.stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.stat-item{text-align:center;color:var(--white)}
+.stat-number{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.5rem);font-weight:700;color:var(--gold)}
+.stat-label{font-size:.85rem;font-weight:400;letter-spacing:1px;margin-top:6px;opacity:.8}
+
+/* ABOUT */
+.about .container{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-image{position:relative;border-radius:8px;overflow:hidden;box-shadow:var(--shadow-lg)}
+.about-image img{width:100%;height:500px;object-fit:cover}
+.about-image::after{content:'';position:absolute;inset:0;border:2px solid var(--gold);border-radius:8px;margin:16px;pointer-events:none}
+.about-story h2{margin-bottom:20px}
+.about-story p{color:#555;line-height:1.8;margin-bottom:20px;font-weight:300}
+.timeline{margin-top:30px;padding-left:30px;border-left:2px solid var(--gold)}
+.timeline-item{position:relative;padding:0 0 28px 24px}
+.timeline-item::before{content:'';position:absolute;left:-37px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:3px solid var(--cream)}
+.timeline-year{font-weight:700;color:var(--emerald);font-size:.85rem}
+.timeline-text{font-size:.9rem;color:#555;margin-top:4px}
+
+/* SERVICES */
+.services{background:var(--cream)}
+.services-header{text-align:center;margin-bottom:60px}
+.services-header .section-subtitle{margin:0 auto}
+.services-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+.service-card{background:var(--white);border-radius:8px;padding:36px 24px;text-align:center;position:relative;overflow:hidden;transition:all .4s ease;box-shadow:0 2px 15px rgba(0,0,0,.06);cursor:pointer}
+.service-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
+.service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--dark-green),var(--emerald));opacity:0;transition:opacity .4s}
+.service-card:hover::before{opacity:1}
+.service-card>*{position:relative;z-index:1}
+.service-card:hover .service-icon svg{fill:var(--gold)}
+.service-card:hover h4,.service-card:hover p{color:var(--white)}
+.service-icon{margin-bottom:20px}
+.service-icon svg{width:48px;height:48px;fill:var(--emerald);transition:fill .4s}
+.service-card h4{font-size:1.15rem;margin-bottom:10px;transition:color .4s}
+.service-card p{font-size:.82rem;color:#666;line-height:1.6;transition:color .4s;font-weight:300}
+
+/* PORTFOLIO */
+.portfolio-header{text-align:center;margin-bottom:50px}
+.portfolio-header .section-subtitle{margin:0 auto}
+.masonry{columns:3;column-gap:20px}
+.masonry-item{break-inside:avoid;margin-bottom:20px;border-radius:8px;overflow:hidden;position:relative;cursor:pointer}
+.masonry-item img{width:100%;display:block;transition:transform .5s}
+.masonry-item:hover img{transform:scale(1.05)}
+.masonry-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,59,30,.8),transparent);opacity:0;transition:opacity .4s;display:flex;align-items:flex-end;padding:24px}
+.masonry-item:hover .masonry-overlay{opacity:1}
+.masonry-overlay span{color:var(--white);font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:99999;align-items:center;justify-content:center}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:6px;box-shadow:0 0 60px rgba(0,0,0,.5)}
+.lightbox-close{position:absolute;top:20px;right:30px;color:var(--white);font-size:2.5rem;cursor:pointer;background:none;border:none;font-family:serif}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);color:var(--white);font-size:3rem;cursor:pointer;background:rgba(255,255,255,.1);border:none;padding:10px 18px;border-radius:4px;transition:background .3s}
+.lightbox-nav:hover{background:rgba(255,255,255,.25)}
+.lightbox-prev{left:20px}
+.lightbox-next{right:20px}
+
+/* PROCESS */
+.process{background:var(--cream)}
+.process-header{text-align:center;margin-bottom:60px}
+.process-header .section-subtitle{margin:0 auto}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.process-step{text-align:center;padding:40px 24px;position:relative}
+.step-number{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--dark-green),var(--emerald));color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative;z-index:2}
+.process-step:not(:last-child)::after{content:'';position:absolute;top:75px;left:calc(50% + 35px);width:calc(100% - 70px);height:2px;background:linear-gradient(90deg,var(--gold),var(--emerald));z-index:1}
+.process-step h4{font-size:1.3rem;margin-bottom:10px;color:var(--dark-green)}
+.process-step p{font-size:.88rem;color:#666;line-height:1.6;font-weight:300}
+
+/* TESTIMONIALS */
+.testimonials{background:var(--dark-green);color:var(--white)}
+.testimonials-header{text-align:center;margin-bottom:50px}
+.testimonials-header .section-title{color:var(--white)}
+.testimonials-header .section-subtitle{color:rgba(255,255,255,.7);margin:0 auto}
+.testimonial-slider{max-width:800px;margin:0 auto;position:relative;overflow:hidden}
+.testimonial-slide{display:none;text-align:center;padding:0 20px}
+.testimonial-slide.active{display:block;animation:fadeIn .6s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.testimonial-photo{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.15);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;border:3px solid var(--gold)}
+.testimonial-photo span{font-size:1.8rem;color:var(--gold);font-family:'Cormorant Garamond',serif}
+.testimonial-stars{color:var(--gold);font-size:1.1rem;margin-bottom:16px}
+.testimonial-text{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;line-height:1.7;margin-bottom:24px;color:rgba(255,255,255,.9)}
+.testimonial-author{font-weight:600;font-size:.95rem}
+.testimonial-location{font-size:.82rem;color:var(--gold);margin-top:4px}
+.slider-dots{display:flex;justify-content:center;gap:10px;margin-top:30px}
+.slider-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;border:none;transition:background .3s}
+.slider-dot.active{background:var(--gold)}
+
+/* BLOG */
+.blog-header{text-align:center;margin-bottom:50px}
+.blog-header .section-subtitle{margin:0 auto}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.blog-card{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.07);transition:transform .4s,box-shadow .4s}
+.blog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.blog-card-img{height:220px;background-size:cover;background-position:center;position:relative}
+.blog-card-img .blog-tag{position:absolute;top:16px;left:16px;background:var(--gold);color:var(--white);font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;text-transform:uppercase}
+.blog-card-body{padding:28px}
+.blog-card-body h4{font-size:1.2rem;margin-bottom:10px;color:var(--dark-green);line-height:1.4}
+.blog-card-body p{font-size:.88rem;color:#666;line-height:1.6;margin-bottom:16px;font-weight:300}
+.blog-card-meta{font-size:.78rem;color:#999}
+
+/* AWARDS */
+.awards{background:var(--cream)}
+.awards-header{text-align:center;margin-bottom:50px}
+.awards-header .section-subtitle{margin:0 auto}
+.awards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:24px}
+.award-item{text-align:center;padding:30px 16px;background:var(--white);border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:transform .3s}
+.award-item:hover{transform:translateY(-4px)}
+.award-icon{width:60px;height:60px;margin:0 auto 14px;background:linear-gradient(135deg,var(--dark-green),var(--emerald));border-radius:50%;display:flex;align-items:center;justify-content:center}
+.award-icon svg{width:28px;height:28px;fill:var(--gold)}
+.award-item h5{font-size:.9rem;color:var(--dark-green);margin-bottom:4px}
+.award-item p{font-size:.72rem;color:#888}
+
+/* CALENDAR */
+.calendar-header{text-align:center;margin-bottom:50px}
+.calendar-header .section-subtitle{margin:0 auto}
+.calendar-wrapper{max-width:1000px;margin:0 auto;background:var(--white);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.calendar-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 30px;background:var(--dark-green);color:var(--white)}
+.calendar-nav button{background:none;border:none;color:var(--gold);font-size:1.4rem;cursor:pointer}
+.calendar-nav h4{font-size:1.2rem}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}
+.calendar-grid .day-header{padding:12px;font-size:.75rem;font-weight:600;color:var(--emerald);background:var(--cream)}
+.calendar-grid .day-cell{padding:14px 8px;border:1px solid #f0f0f0;min-height:80px;position:relative;font-size:.85rem}
+.calendar-grid .day-cell.today{background:rgba(4,122,78,.05)}
+.calendar-grid .day-cell .service-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin:1px}
+.service-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-top:6px}
+.dot-green{background:var(--emerald)}
+.dot-gold{background:var(--gold)}
+.dot-blue{background:#2980b9}
+.calendar-legend{display:flex;justify-content:center;gap:24px;padding:20px;border-top:1px solid #eee}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:.78rem;color:#666}
+.legend-item span{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* CONSULTATION FORM */
+.consultation{background:var(--cream)}
+.consultation-header{text-align:center;margin-bottom:50px}
+.consultation-header .section-subtitle{margin:0 auto}
+.form-wrapper{max-width:720px;margin:0 auto;background:var(--white);border-radius:12px;box-shadow:var(--shadow-lg);padding:50px;position:relative;overflow:hidden}
+.progress-bar{display:flex;justify-content:space-between;margin-bottom:40px;position:relative}
+.progress-bar::before{content:'';position:absolute;top:18px;left:0;width:100%;height:2px;background:#e0e0e0}
+.progress-bar-fill{position:absolute;top:18px;left:0;height:2px;background:var(--gold);transition:width .4s;width:0%}
+.progress-step{text-align:center;position:relative;z-index:1;flex:1}
+.progress-step .step-circle{width:36px;height:36px;border-radius:50%;background:#e0e0e0;color:#999;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:.8rem;font-weight:600;transition:all .3s}
+.progress-step.active .step-circle,.progress-step.completed .step-circle{background:var(--gold);color:var(--white)}
+.progress-step .step-label{font-size:.7rem;color:#999;transition:color .3s}
+.progress-step.active .step-label{color:var(--dark-green);font-weight:600}
+.form-step{display:none}
+.form-step.active{display:block;animation:fadeIn .4s}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:.82rem;font-weight:600;color:var(--dark-green);margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 16px;border:2px solid #e8e8e8;border-radius:6px;font-family:'Montserrat',sans-serif;font-size:.9rem;transition:border-color .3s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--emerald)}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-nav{display:flex;justify-content:space-between;margin-top:30px}
+.form-error{color:#c0392b;font-size:.78rem;margin-top:4px;display:none}
+.checkbox-group{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.checkbox-group label{display:flex;align-items:center;gap:8px;font-weight:400;font-size:.85rem;cursor:pointer}
+.checkbox-group input[type="checkbox"]{width:auto;accent-color:var(--emerald)}
+
+/* FOOTER */
+.footer{background:var(--charcoal);color:rgba(255,255,255,.7);padding:80px 0 0}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:60px}
+.footer-brand p{font-size:.88rem;line-height:1.7;margin:16px 0 24px;font-weight:300}
+.footer-social{display:flex;gap:12px}
+.footer-social a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.footer-social a:hover{border-color:var(--gold);background:rgba(212,168,67,.1)}
+.footer-social svg{width:16px;height:16px;fill:rgba(255,255,255,.6)}
+.footer h5{color:var(--white);font-size:1rem;margin-bottom:20px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:10px}
+.footer-links a{font-size:.85rem;transition:color .3s}
+.footer-links a:hover{color:var(--gold)}
+.newsletter-input{display:flex;margin-top:12px}
+.newsletter-input input{flex:1;padding:10px 14px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:var(--white);border-radius:4px 0 0 4px;font-size:.85rem;outline:none}
+.newsletter-input button{padding:10px 20px;background:var(--gold);color:var(--white);border:none;border-radius:0 4px 4px 0;font-weight:600;cursor:pointer;font-size:.85rem}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:24px 0;display:flex;justify-content:space-between;align-items:center;font-size:.8rem}
+.footer-certs{display:flex;gap:16px;align-items:center}
+.footer-certs span{padding:4px 10px;border:1px solid rgba(255,255,255,.15);border-radius:4px;font-size:.7rem}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(40px);transition:all .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:all .7s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:all .7s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+.services-grid{grid-template-columns:repeat(3,1fr)}
+.masonry{columns:2}
+.awards-grid{grid-template-columns:repeat(3,1fr)}
+.footer-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:768px){
+.hamburger{display:flex}
+.nav-links{display:none}
+.nav-phone{display:none}
+.stats .container{grid-template-columns:repeat(2,1fr)}
+.about .container{grid-template-columns:1fr}
+.about-image{order:-1}
+.about-image img{height:300px}
+.services-grid{grid-template-columns:repeat(2,1fr)}
+.process-steps{grid-template-columns:repeat(2,1fr)}
+.process-step:not(:last-child)::after{display:none}
+.blog-grid{grid-template-columns:1fr}
+.masonry{columns:1}
+.awards-grid{grid-template-columns:repeat(2,1fr)}
+.form-row{grid-template-columns:1fr}
+.checkbox-group{grid-template-columns:1fr}
+.calendar-wrapper{overflow-x:auto}
+.footer-grid{grid-template-columns:1fr 1fr}
+.footer-bottom{flex-direction:column;gap:12px;text-align:center}
+.tier-badge{top:auto;bottom:16px;right:16px;font-size:.6rem;padding:8px 16px}
+}
+@media(max-width:480px){
+.services-grid{grid-template-columns:1fr}
+.stats .container{grid-template-columns:1fr}
+.process-steps{grid-template-columns:1fr}
+.awards-grid{grid-template-columns:1fr 1fr}
+.footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TIER BADGE -->
+<div class="tier-badge">&#9733; Premium Plan</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<div class="container">
+<a href="#" class="nav-logo">
+<svg viewBox="0 0 320 60" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="hillGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#047a4e"/><stop offset="100%" stop-color="#0d3b1e"/></linearGradient>
+<linearGradient id="sunGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d4a843"/><stop offset="100%" stop-color="#c4943a"/></linearGradient>
+<linearGradient id="trunkGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a3a1a"/><stop offset="100%" stop-color="#3d2510"/></linearGradient>
+</defs>
+<!-- Sun -->
+<circle cx="42" cy="16" r="10" fill="url(#sunGrad)"/>
+<line x1="42" y1="2" x2="42" y2="6" stroke="#d4a843" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="42" y1="26" x2="42" y2="30" stroke="#d4a843" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="28" y1="16" x2="32" y2="16" stroke="#d4a843" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="52" y1="16" x2="56" y2="16" stroke="#d4a843" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="32.1" y1="6.1" x2="34.9" y2="8.9" stroke="#d4a843" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="49.1" y1="23.1" x2="51.9" y2="25.9" stroke="#d4a843" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="51.9" y1="6.1" x2="49.1" y2="8.9" stroke="#d4a843" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="34.9" y1="23.1" x2="32.1" y2="25.9" stroke="#d4a843" stroke-width="1.5" stroke-linecap="round"/>
+<!-- Rolling Hills -->
+<path d="M0 50 Q20 30 42 38 Q60 44 75 35 Q85 30 90 50 Z" fill="url(#hillGrad)" opacity=".7"/>
+<path d="M0 55 Q25 38 50 45 Q70 50 90 42 L90 55 Z" fill="url(#hillGrad)" opacity=".5"/>
+<!-- Decorative Tree -->
+<rect x="60" y="32" width="4" height="16" rx="1" fill="url(#trunkGrad)"/>
+<ellipse cx="62" cy="24" rx="12" ry="14" fill="url(#hillGrad)"/>
+<ellipse cx="55" cy="28" rx="8" ry="10" fill="#047a4e" opacity=".8"/>
+<ellipse cx="69" cy="28" rx="8" ry="10" fill="#047a4e" opacity=".8"/>
+<ellipse cx="62" cy="20" rx="8" ry="9" fill="#0d3b1e" opacity=".6"/>
+<!-- Small decorative leaves -->
+<circle cx="56" cy="22" r="1.5" fill="#d4a843" opacity=".6"/>
+<circle cx="68" cy="25" r="1.5" fill="#d4a843" opacity=".6"/>
+<circle cx="62" cy="15" r="1.5" fill="#d4a843" opacity=".6"/>
+<!-- Ground line -->
+<path d="M0 52 Q45 46 90 52" stroke="#d4a843" stroke-width=".8" fill="none" opacity=".5"/>
+<!-- Text -->
+<text x="100" y="30" font-family="Cormorant Garamond, serif" font-size="24" font-weight="700" fill="#ffffff">PRESTIGE</text>
+<text x="100" y="48" font-family="Montserrat, sans-serif" font-size="10" font-weight="400" fill="#d4a843" letter-spacing="4">GROUNDS</text>
+</svg>
+</a>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#portfolio">Portfolio</a></li>
+<li><a href="#process">Process</a></li>
+<li><a href="#testimonials">Reviews</a></li>
+<li><a href="#blog">Insights</a></li>
+<li><a href="#calendar">Calendar</a></li>
+<li><a class="nav-phone" href="tel:+18005551234">(800) 555-1234</a></li>
+<li><a href="#consultation" class="btn btn-gold nav-cta">Schedule Consultation</a></li>
+</ul>
+<button class="hamburger" id="hamburger" aria-label="Menu">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+<a href="#about" onclick="closeMobile()">About</a>
+<a href="#services" onclick="closeMobile()">Services</a>
+<a href="#portfolio" onclick="closeMobile()">Portfolio</a>
+<a href="#process" onclick="closeMobile()">Process</a>
+<a href="#testimonials" onclick="closeMobile()">Reviews</a>
+<a href="#blog" onclick="closeMobile()">Insights</a>
+<a href="#calendar" onclick="closeMobile()">Calendar</a>
+<a href="tel:+18005551234" onclick="closeMobile()">(800) 555-1234</a>
+<a href="#consultation" class="btn btn-gold" onclick="closeMobile()">Schedule Consultation</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<span class="section-label">Award-Winning Landscape Architecture</span>
+<h1 class="hero-title">We <span class="typed-word" id="typedWord">Design</span><br>Extraordinary Landscapes</h1>
+<p class="hero-subtitle">For over 15 years, Prestige Grounds has been crafting bespoke outdoor environments for discerning homeowners and premier commercial properties across the region.</p>
+<div class="hero-buttons">
+<a href="#consultation" class="btn btn-gold">Book a Consultation</a>
+<a href="#portfolio" class="btn btn-outline">View Our Portfolio</a>
+</div>
+</div>
+<div class="hero-scroll"><span></span></div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+<div class="container">
+<div class="stat-item reveal"><div class="stat-number" data-target="1000">0</div><div class="stat-label">Projects Completed</div></div>
+<div class="stat-item reveal"><div class="stat-number" data-target="15">0</div><div class="stat-label">Years of Excellence</div></div>
+<div class="stat-item reveal"><div class="stat-number" data-target="50">0</div><div class="stat-label">Industry Awards</div></div>
+<div class="stat-item reveal"><div class="stat-number" data-target="98">0</div><div class="stat-label">Client Satisfaction %</div></div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about section-padding" id="about">
+<div class="container">
+<div class="about-image reveal-left">
+<img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800" alt="Prestige Grounds landscape project" loading="lazy">
+</div>
+<div class="about-story reveal-right">
+<span class="section-label">Our Story</span>
+<h2 class="section-title">Crafting Living Masterpieces Since 2009</h2>
+<p>Founded by master landscape architect Jonathan Mercer, Prestige Grounds was born from a singular vision: to elevate outdoor spaces into works of art that inspire, rejuvenate, and endure. What began as a boutique design studio has grown into the region's most sought-after landscape architecture firm.</p>
+<p>Every project we undertake is a collaboration between our award-winning design team, master craftsmen, and horticultural scientists. We don't simply install landscapes &mdash; we create living ecosystems that evolve with the seasons and mature with grace.</p>
+<div class="timeline">
+<div class="timeline-item"><span class="timeline-year">2009</span><div class="timeline-text">Founded with a team of 3 passionate designers</div></div>
+<div class="timeline-item"><span class="timeline-year">2013</span><div class="timeline-text">First National Landscape Excellence Award</div></div>
+<div class="timeline-item"><span class="timeline-year">2017</span><div class="timeline-text">Expanded to full-service estate grounds management</div></div>
+<div class="timeline-item"><span class="timeline-year">2020</span><div class="timeline-text">Opened sustainable design research laboratory</div></div>
+<div class="timeline-item"><span class="timeline-year">2024</span><div class="timeline-text">Named Top 10 Landscape Firm nationally</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section class="services section-padding" id="services">
+<div class="container">
+<div class="services-header reveal">
+<span class="section-label">What We Offer</span>
+<h2 class="section-title">Premium Services</h2>
+<p class="section-subtitle">Comprehensive landscape solutions tailored to estates, luxury residences, and premier commercial properties.</p>
+</div>
+<div class="services-grid">
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M24 4l-2 8h-8l6.5 5-2.5 8 6-4.5 6 4.5-2.5-8L34 12h-8L24 4zM8 28c0 8 7.2 16 16 16s16-8 16-16H8z"/></svg></div>
+<h4>Custom Landscape Design</h4>
+<p>Bespoke 3D-rendered landscape plans by our award-winning architects, from concept through detailed construction drawings.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M4 40h40v4H4v-4zM8 24h4v16H8V24zm8-8h4v24h-4V16zm8 4h4v20h-4V20zm8-12h4v32h-4V8zm8 8h4v24h-4V16z"/></svg></div>
+<h4>Luxury Hardscaping</h4>
+<p>Natural stone patios, hand-laid retaining walls, bespoke walkways, and architectural features using imported materials.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M24 6c-2 4-8 8-8 14a8 8 0 0016 0c0-6-6-10-8-14zM14 32c-1 2-4 4-4 7a4 4 0 008 0c0-3-3-5-4-7zm20 0c-1 2-4 4-4 7a4 4 0 008 0c0-3-3-5-4-7z"/></svg></div>
+<h4>Water Features &amp; Ponds</h4>
+<p>Custom waterfalls, koi ponds, reflecting pools, and fountain installations that bring tranquility to your grounds.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M4 28h12v16H4V28zM8 8h4v20H8V8zm16 4h20v4H24v-4zm0 8h16v4H24v-4zm0 8h20v24H24V28zm-8-16h4v8h-4v-8z"/></svg></div>
+<h4>Outdoor Kitchens</h4>
+<p>Fully equipped outdoor culinary spaces with stone countertops, built-in grills, pizza ovens, and bar seating areas.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M24 4C12.95 4 4 8.95 4 15v2l20 12 20-12v-2C44 8.95 35.05 4 24 4zM4 21v6l20 12 20-12v-6L24 33 4 21zm0 10v6l20 12 20-12v-6L24 43 4 31z"/></svg></div>
+<h4>Landscape Lighting</h4>
+<p>Architectural LED systems that illuminate pathways, accent specimen trees, and create dramatic ambiance for evening enjoyment.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="6"/><path d="M24 2v8m0 28v8M2 24h8m28 0h8M7.5 7.5l5.7 5.7m21.6 21.6l5.7 5.7M40.5 7.5l-5.7 5.7M13.2 34.8l-5.7 5.7"/></svg></div>
+<h4>Irrigation Management</h4>
+<p>Smart Wi-Fi-connected irrigation systems with weather sensors, drip zones, and seasonal programming for optimal water efficiency.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M4 44h40M8 44V20l16-14 16 14v24M18 44V30h12v14"/></svg></div>
+<h4>Estate Grounds Maintenance</h4>
+<p>White-glove weekly maintenance programs for estates, including mowing, pruning, fertilization, and seasonal bed rotations.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M24 4c-4 6-12 10-12 20 0 7 5.4 12 12 12s12-5 12-12C36 14 28 10 24 4zm-4 22c0-4 4-8 4-8s4 4 4 8-1.8 4-4 4-4 0-4-4z"/></svg></div>
+<h4>Seasonal Color Programs</h4>
+<p>Curated annual and perennial rotation programs ensuring year-round color, texture, and visual interest across your property.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M24 2C14 2 6 10 6 20c0 6 4 11 8 14l10 12 10-12c4-3 8-8 8-14C42 10 34 2 24 2zm0 26c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/></svg></div>
+<h4>Sustainable Landscapes</h4>
+<p>Native plantings, rain gardens, bioswales, and xeriscaping designed to reduce environmental impact while maximizing beauty.</p>
+</div>
+<div class="service-card reveal">
+<div class="service-icon"><svg viewBox="0 0 48 48"><path d="M20 6l-4 6h-6l4 8-4 8h6l4 6 4-6h6l-4-8 4-8h-6l-4-6zm4 28v12M12 42h24"/></svg></div>
+<h4>Snow &amp; Ice Management</h4>
+<p>Commercial-grade snow removal, de-icing, and winter property protection with 24/7 on-call service during storm events.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="section-padding" id="portfolio">
+<div class="container">
+<div class="portfolio-header reveal">
+<span class="section-label">Our Work</span>
+<h2 class="section-title">Featured Projects</h2>
+<p class="section-subtitle">A curated selection of transformations from our portfolio of over 1,000 completed projects.</p>
+</div>
+<div class="masonry">
+<div class="masonry-item" onclick="openLightbox(0)"><img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800" alt="English garden estate" loading="lazy"><div class="masonry-overlay"><span>English Garden Estate &mdash; Briarwood</span></div></div>
+<div class="masonry-item" onclick="openLightbox(1)"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800" alt="Botanical courtyard" loading="lazy"><div class="masonry-overlay"><span>Botanical Courtyard &mdash; Thornhill</span></div></div>
+<div class="masonry-item" onclick="openLightbox(2)"><img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=800" alt="Modern zen retreat" loading="lazy"><div class="masonry-overlay"><span>Modern Zen Retreat &mdash; Lakeview</span></div></div>
+<div class="masonry-item" onclick="openLightbox(3)"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="Luxury poolscape" loading="lazy"><div class="masonry-overlay"><span>Luxury Poolscape &mdash; Kingswood</span></div></div>
+<div class="masonry-item" onclick="openLightbox(4)"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Grand entryway" loading="lazy"><div class="masonry-overlay"><span>Grand Entryway &mdash; Ashford Hills</span></div></div>
+<div class="masonry-item" onclick="openLightbox(5)"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800" alt="Contemporary estate" loading="lazy"><div class="masonry-overlay"><span>Contemporary Estate &mdash; Willowbrook</span></div></div>
+<div class="masonry-item" onclick="openLightbox(6)"><img src="https://images.unsplash.com/photo-1572025442646-866d16c84a54?w=800" alt="Water feature garden" loading="lazy"><div class="masonry-overlay"><span>Water Feature Garden &mdash; Cedar Ridge</span></div></div>
+<div class="masonry-item" onclick="openLightbox(7)"><img src="https://images.unsplash.com/photo-1598902108854-d1446413a1f4?w=800" alt="Outdoor living suite" loading="lazy"><div class="masonry-overlay"><span>Outdoor Living Suite &mdash; Oakmont</span></div></div>
+<div class="masonry-item" onclick="openLightbox(8)"><img src="https://images.unsplash.com/photo-1560749003-f4b1e17e2dff?w=800" alt="Perennial paradise" loading="lazy"><div class="masonry-overlay"><span>Perennial Paradise &mdash; Meadowfield</span></div></div>
+<div class="masonry-item" onclick="openLightbox(9)"><img src="https://images.unsplash.com/photo-1584738766473-61c083514bf4?w=800" alt="Formal garden design" loading="lazy"><div class="masonry-overlay"><span>Formal Garden &mdash; Hampton Gate</span></div></div>
+</div>
+</div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+<button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+<button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8249;</button>
+<img id="lightboxImg" src="" alt="Portfolio image">
+<button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8250;</button>
+</div>
+
+<!-- PROCESS -->
+<section class="process section-padding" id="process">
+<div class="container">
+<div class="process-header reveal">
+<span class="section-label">How We Work</span>
+<h2 class="section-title">Our Refined Process</h2>
+<p class="section-subtitle">Every masterpiece begins with a conversation. Our four-phase approach ensures exceptional results every time.</p>
+</div>
+<div class="process-steps">
+<div class="process-step reveal">
+<div class="step-number">1</div>
+<h4>Consultation</h4>
+<p>We visit your property, listen to your vision, assess the site conditions, and discuss budget parameters during an in-depth discovery session.</p>
+</div>
+<div class="process-step reveal">
+<div class="step-number">2</div>
+<h4>Design</h4>
+<p>Our architects create detailed 3D renderings, plant palettes, material boards, and phased construction documents for your approval.</p>
+</div>
+<div class="process-step reveal">
+<div class="step-number">3</div>
+<h4>Build</h4>
+<p>Our master craftsmen bring the design to life with meticulous attention to detail, premium materials, and constant project oversight.</p>
+</div>
+<div class="process-step reveal">
+<div class="step-number">4</div>
+<h4>Maintain</h4>
+<p>Our dedicated grounds team provides ongoing care with seasonal adjustments, ensuring your landscape matures beautifully year after year.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials section-padding" id="testimonials">
+<div class="container">
+<div class="testimonials-header reveal">
+<span class="section-label">Client Voices</span>
+<h2 class="section-title">What Our Clients Say</h2>
+<p class="section-subtitle">The highest compliment we receive is the trust of our clients and their referrals to friends and family.</p>
+</div>
+<div class="testimonial-slider">
+<div class="testimonial-slide active">
+<div class="testimonial-photo"><span>EM</span></div>
+<div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="testimonial-text">"Prestige Grounds transformed our five-acre estate into a breathtaking paradise. The attention to detail in the water feature design and the seasonal color program has made our property the envy of the entire Briarwood community. Jonathan and his team are true artists."</p>
+<div class="testimonial-author">Eleanor &amp; Michael Harrington</div>
+<div class="testimonial-location">Briarwood Estates &mdash; Full Estate Redesign</div>
+</div>
+<div class="testimonial-slide">
+<div class="testimonial-photo"><span>RP</span></div>
+<div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="testimonial-text">"We interviewed six firms before selecting Prestige Grounds for our outdoor kitchen and entertainment area. The 3D design process was remarkable &mdash; we could visualize every detail before construction began. The final result exceeded even those stunning renderings."</p>
+<div class="testimonial-author">Robert &amp; Patricia Chen</div>
+<div class="testimonial-location">Kingswood Manor &mdash; Outdoor Kitchen &amp; Hardscape</div>
+</div>
+<div class="testimonial-slide">
+<div class="testimonial-photo"><span>SV</span></div>
+<div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="testimonial-text">"As a commercial property developer, I need partners who deliver on time and on budget without compromising quality. Prestige Grounds has handled landscaping for seven of our luxury condo developments. Their sustainable design approach has become a key selling feature."</p>
+<div class="testimonial-author">Samuel Vittorini</div>
+<div class="testimonial-location">Vittorini Development Group &mdash; Commercial Portfolio</div>
+</div>
+<div class="testimonial-slide">
+<div class="testimonial-photo"><span>AC</span></div>
+<div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="testimonial-text">"The landscape lighting installation completely transformed how we experience our garden. What was once a dark backyard is now a magical evening retreat. The team was incredibly professional, clean, and respectful of our property throughout the entire project."</p>
+<div class="testimonial-author">Angela &amp; Christopher Dubois</div>
+<div class="testimonial-location">Cedar Ridge &mdash; Landscape Lighting &amp; Water Feature</div>
+</div>
+</div>
+<div class="slider-dots">
+<button class="slider-dot active" onclick="goToSlide(0)"></button>
+<button class="slider-dot" onclick="goToSlide(1)"></button>
+<button class="slider-dot" onclick="goToSlide(2)"></button>
+<button class="slider-dot" onclick="goToSlide(3)"></button>
+</div>
+</div>
+</section>
+
+<!-- BLOG -->
+<section class="section-padding" id="blog">
+<div class="container">
+<div class="blog-header reveal">
+<span class="section-label">Insights &amp; Inspiration</span>
+<h2 class="section-title">From Our Design Journal</h2>
+<p class="section-subtitle">Expert perspectives on landscape design, seasonal care, and outdoor living trends.</p>
+</div>
+<div class="blog-grid">
+<div class="blog-card reveal">
+<div class="blog-card-img" style="background-image:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800')"><span class="blog-tag">Design Tips</span></div>
+<div class="blog-card-body">
+<h4>The Art of Layered Planting: Creating Depth in Small Spaces</h4>
+<p>Discover how our designers use the three-tier planting method to create lush, dimensional gardens even in compact urban yards. Learn the secrets of canopy, mid-story, and groundcover selection.</p>
+<span class="blog-card-meta">January 18, 2026 &bull; 6 min read</span>
+</div>
+</div>
+<div class="blog-card reveal">
+<div class="blog-card-img" style="background-image:url('https://images.unsplash.com/photo-1572025442646-866d16c84a54?w=800')"><span class="blog-tag">Seasonal Guide</span></div>
+<div class="blog-card-body">
+<h4>Spring Preparation Checklist: 12 Steps to a Stunning Season</h4>
+<p>Our head horticulturist shares the essential spring tasks that separate ordinary landscapes from extraordinary ones, from soil testing to early pruning schedules.</p>
+<span class="blog-card-meta">February 2, 2026 &bull; 8 min read</span>
+</div>
+</div>
+<div class="blog-card reveal">
+<div class="blog-card-img" style="background-image:url('https://images.unsplash.com/photo-1560749003-f4b1e17e2dff?w=800')"><span class="blog-tag">Sustainability</span></div>
+<div class="blog-card-body">
+<h4>Native Plant Revolution: Why Local Flora is the Future of Luxury Landscaping</h4>
+<p>How forward-thinking estate owners are embracing native species to create stunning, low-maintenance landscapes that support local ecosystems and reduce water consumption by up to 60%.</p>
+<span class="blog-card-meta">February 10, 2026 &bull; 5 min read</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- AWARDS -->
+<section class="awards section-padding" id="awards">
+<div class="container">
+<div class="awards-header reveal">
+<span class="section-label">Recognition</span>
+<h2 class="section-title">Awards &amp; Certifications</h2>
+<p class="section-subtitle">Industry recognition that reflects our unwavering commitment to design excellence and professional standards.</p>
+</div>
+<div class="awards-grid">
+<div class="award-item reveal">
+<div class="award-icon"><svg viewBox="0 0 28 28"><path d="M14 2l3.5 7 7.5 1-5.5 5.3 1.3 7.7L14 19.5 7.2 23l1.3-7.7L3 10l7.5-1L14 2z"/></svg></div>
+<h5>National Landscape Excellence</h5>
+<p>2023, 2024 Winner</p>
+</div>
+<div class="award-item reveal">
+<div class="award-icon"><svg viewBox="0 0 28 28"><circle cx="14" cy="10" r="7"/><path d="M7 17l-3 9 10-4 10 4-3-9"/></svg></div>
+<h5>NALP Certified Company</h5>
+<p>Since 2012</p>
+</div>
+<div class="award-item reveal">
+<div class="award-icon"><svg viewBox="0 0 28 28"><path d="M14 2l4 8h8l-6 6 2 8-8-4-8 4 2-8-6-6h8z"/></svg></div>
+<h5>Best of Houzz Design</h5>
+<p>5 Consecutive Years</p>
+</div>
+<div class="award-item reveal">
+<div class="award-icon"><svg viewBox="0 0 28 28"><path d="M4 14a10 10 0 0120 0 10 10 0 01-20 0zm6 0l3 3 5-6"/></svg></div>
+<h5>EPA WaterSense Partner</h5>
+<p>Certified Partner</p>
+</div>
+<div class="award-item reveal">
+<div class="award-icon"><svg viewBox="0 0 28 28"><path d="M14 3c-4 5-10 8-10 15 0 4 4.5 7 10 7s10-3 10-7c0-7-6-10-10-15z"/></svg></div>
+<h5>Green Industry Pro</h5>
+<p>Sustainability Leader</p>
+</div>
+<div class="award-item reveal">
+<div class="award-icon"><svg viewBox="0 0 28 28"><rect x="4" y="8" width="20" height="14" rx="2"/><path d="M4 12h20M10 8V6m8 2V6"/></svg></div>
+<h5>BBB A+ Rating</h5>
+<p>Accredited Since 2010</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SEASONAL CALENDAR -->
+<section class="section-padding" id="calendar">
+<div class="container">
+<div class="calendar-header reveal">
+<span class="section-label">Plan Ahead</span>
+<h2 class="section-title">Seasonal Service Calendar</h2>
+<p class="section-subtitle">See which services are available each month so you can plan your property's care throughout the year.</p>
+</div>
+<div class="calendar-wrapper reveal" id="calendarWrapper">
+<div class="calendar-nav">
+<button onclick="changeMonth(-1)">&#8249;</button>
+<h4 id="calendarMonth">February 2026</h4>
+<button onclick="changeMonth(1)">&#8250;</button>
+</div>
+<div class="calendar-grid" id="calendarGrid"></div>
+<div class="calendar-legend">
+<div class="legend-item"><span class="dot-green"></span> Maintenance</div>
+<div class="legend-item"><span class="dot-gold"></span> Design &amp; Build</div>
+<div class="legend-item"><span class="dot-blue"></span> Seasonal Special</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONSULTATION FORM -->
+<section class="consultation section-padding" id="consultation">
+<div class="container">
+<div class="consultation-header reveal">
+<span class="section-label">Get Started</span>
+<h2 class="section-title">Schedule Your Consultation</h2>
+<p class="section-subtitle">Begin your landscape transformation with a complimentary on-site consultation with one of our senior designers.</p>
+</div>
+<div class="form-wrapper reveal">
+<div class="progress-bar">
+<div class="progress-bar-fill" id="progressFill"></div>
+<div class="progress-step active" data-step="1"><div class="step-circle">1</div><div class="step-label">Contact</div></div>
+<div class="progress-step" data-step="2"><div class="step-circle">2</div><div class="step-label">Property</div></div>
+<div class="progress-step" data-step="3"><div class="step-circle">3</div><div class="step-label">Services</div></div>
+<div class="progress-step" data-step="4"><div class="step-circle">4</div><div class="step-label">Schedule</div></div>
+</div>
+<form id="consultForm" onsubmit="return false;">
+<!-- Step 1 -->
+<div class="form-step active" data-step="1">
+<h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:20px;color:var(--dark-green)">Contact Information</h3>
+<div class="form-row">
+<div class="form-group"><label>First Name *</label><input type="text" id="firstName" required placeholder="Jonathan"><div class="form-error">Please enter your first name</div></div>
+<div class="form-group"><label>Last Name *</label><input type="text" id="lastName" required placeholder="Mercer"><div class="form-error">Please enter your last name</div></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Email Address *</label><input type="email" id="email" required placeholder="you@example.com"><div class="form-error">Please enter a valid email</div></div>
+<div class="form-group"><label>Phone Number *</label><input type="tel" id="phone" required placeholder="(555) 123-4567"><div class="form-error">Please enter your phone number</div></div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="form-step" data-step="2">
+<h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:20px;color:var(--dark-green)">Property Details</h3>
+<div class="form-group"><label>Property Address *</label><input type="text" id="address" required placeholder="123 Briarwood Lane"><div class="form-error">Please enter your address</div></div>
+<div class="form-row">
+<div class="form-group"><label>Property Type</label><select id="propType"><option value="">Select type...</option><option>Single Family Residence</option><option>Estate / Large Property</option><option>Townhome / Condo</option><option>Commercial Property</option><option>Multi-Family / HOA</option></select></div>
+<div class="form-group"><label>Approximate Lot Size</label><select id="lotSize"><option value="">Select size...</option><option>Under 1/4 acre</option><option>1/4 to 1/2 acre</option><option>1/2 to 1 acre</option><option>1 to 5 acres</option><option>5+ acres</option></select></div>
+</div>
+<div class="form-group"><label>Budget Range</label><select id="budget"><option value="">Select range...</option><option>$10,000 - $25,000</option><option>$25,000 - $50,000</option><option>$50,000 - $100,000</option><option>$100,000 - $250,000</option><option>$250,000+</option></select></div>
+</div>
+<!-- Step 3 -->
+<div class="form-step" data-step="3">
+<h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:20px;color:var(--dark-green)">Services of Interest</h3>
+<p style="font-size:.9rem;color:#666;margin-bottom:16px">Select all that apply:</p>
+<div class="checkbox-group">
+<label><input type="checkbox" value="Custom Landscape Design"> Custom Landscape Design</label>
+<label><input type="checkbox" value="Luxury Hardscaping"> Luxury Hardscaping</label>
+<label><input type="checkbox" value="Water Features"> Water Features &amp; Ponds</label>
+<label><input type="checkbox" value="Outdoor Kitchens"> Outdoor Kitchens</label>
+<label><input type="checkbox" value="Landscape Lighting"> Landscape Lighting</label>
+<label><input type="checkbox" value="Irrigation"> Irrigation Management</label>
+<label><input type="checkbox" value="Estate Maintenance"> Estate Grounds Maintenance</label>
+<label><input type="checkbox" value="Seasonal Color"> Seasonal Color Programs</label>
+<label><input type="checkbox" value="Sustainable"> Sustainable Landscapes</label>
+<label><input type="checkbox" value="Snow Management"> Snow &amp; Ice Management</label>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="form-step" data-step="4">
+<h3 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:20px;color:var(--dark-green)">Schedule &amp; Additional Notes</h3>
+<div class="form-row">
+<div class="form-group"><label>Preferred Date *</label><input type="date" id="prefDate" required><div class="form-error">Please select a date</div></div>
+<div class="form-group"><label>Preferred Time</label><select id="prefTime"><option value="">Select time...</option><option>Morning (8am - 11am)</option><option>Midday (11am - 1pm)</option><option>Afternoon (1pm - 4pm)</option><option>Evening (4pm - 6pm)</option></select></div>
+</div>
+<div class="form-group"><label>How did you hear about us?</label><select id="referral"><option value="">Select...</option><option>Referral from friend/neighbor</option><option>Google Search</option><option>Houzz</option><option>Social Media</option><option>Drive-by / Yard Sign</option><option>Other</option></select></div>
+<div class="form-group"><label>Additional Notes</label><textarea id="notes" placeholder="Tell us about your vision, any specific features you're interested in, or questions you have..."></textarea></div>
+</div>
+<div class="form-nav">
+<button type="button" class="btn btn-outline" id="formPrev" onclick="formNav(-1)" style="display:none">Previous</button>
+<span></span>
+<button type="button" class="btn btn-gold" id="formNext" onclick="formNav(1)">Next Step</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<svg viewBox="0 0 320 60" width="200" xmlns="http://www.w3.org/2000/svg">
+<circle cx="42" cy="16" r="10" fill="#d4a843"/>
+<path d="M0 50 Q20 30 42 38 Q60 44 75 35 Q85 30 90 50 Z" fill="#047a4e" opacity=".7"/>
+<path d="M0 55 Q25 38 50 45 Q70 50 90 42 L90 55 Z" fill="#047a4e" opacity=".5"/>
+<rect x="60" y="32" width="4" height="16" rx="1" fill="#3d2510"/>
+<ellipse cx="62" cy="24" rx="12" ry="14" fill="#047a4e"/>
+<ellipse cx="55" cy="28" rx="8" ry="10" fill="#047a4e" opacity=".8"/>
+<ellipse cx="69" cy="28" rx="8" ry="10" fill="#047a4e" opacity=".8"/>
+<text x="100" y="30" font-family="Cormorant Garamond, serif" font-size="24" font-weight="700" fill="#ffffff">PRESTIGE</text>
+<text x="100" y="48" font-family="Montserrat, sans-serif" font-size="10" font-weight="400" fill="#d4a843" letter-spacing="4">GROUNDS</text>
+</svg>
+<p>Where Vision Meets Landscape. Creating extraordinary outdoor environments for discerning clients since 2009.</p>
+<div class="footer-social">
+<a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+<a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+<a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.1 2.5 7.6 6 9.2-.1-.7-.1-1.9 0-2.7.1-.7.9-4.5.9-4.5s-.2-.5-.2-1.2c0-1.1.6-1.9 1.4-1.9.7 0 1 .5 1 1.1 0 .7-.4 1.7-.7 2.6-.2.7.4 1.3 1.1 1.3 1.4 0 2.4-1.5 2.4-3.6 0-1.9-1.4-3.2-3.3-3.2-2.3 0-3.6 1.7-3.6 3.5 0 .7.3 1.4.6 1.8.1.1.1.2.1.3l-.2.9c0 .2-.1.2-.3.1-1-.5-1.7-1.9-1.7-3.1 0-2.5 1.8-4.8 5.2-4.8 2.7 0 4.8 1.9 4.8 4.5 0 2.7-1.7 4.9-4.1 4.9-.8 0-1.6-.4-1.8-.9l-.5 1.9c-.2.7-.7 1.6-1 2.1.8.2 1.6.4 2.4.4 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg></a>
+<a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z"/></svg></a>
+<a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.5 6.4a2.8 2.8 0 00-2-2C18.9 4 12 4 12 4s-6.9 0-8.5.4a2.8 2.8 0 00-2 2A29.3 29.3 0 001 12a29.3 29.3 0 00.5 5.6 2.8 2.8 0 002 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4a2.8 2.8 0 002-2 29.3 29.3 0 00.5-5.6 29.3 29.3 0 00-.5-5.6zM9.8 15.5V8.5l5.6 3.5-5.6 3.5z"/></svg></a>
+</div>
+</div>
+<div>
+<h5>Services</h5>
+<ul class="footer-links">
+<li><a href="#">Landscape Design</a></li>
+<li><a href="#">Hardscaping</a></li>
+<li><a href="#">Water Features</a></li>
+<li><a href="#">Outdoor Kitchens</a></li>
+<li><a href="#">Landscape Lighting</a></li>
+<li><a href="#">Irrigation</a></li>
+</ul>
+</div>
+<div>
+<h5>Company</h5>
+<ul class="footer-links">
+<li><a href="#">About Us</a></li>
+<li><a href="#">Our Process</a></li>
+<li><a href="#">Portfolio</a></li>
+<li><a href="#">Careers</a></li>
+<li><a href="#">Press</a></li>
+<li><a href="#">Blog</a></li>
+</ul>
+</div>
+<div>
+<h5>Support</h5>
+<ul class="footer-links">
+<li><a href="#">Contact Us</a></li>
+<li><a href="#">FAQs</a></li>
+<li><a href="#">Service Areas</a></li>
+<li><a href="#">Warranties</a></li>
+<li><a href="#">Privacy Policy</a></li>
+<li><a href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h5>Newsletter</h5>
+<p style="font-size:.85rem;margin-bottom:12px;font-weight:300">Subscribe for seasonal tips, design inspiration, and exclusive offers.</p>
+<div class="newsletter-input">
+<input type="email" placeholder="Your email address">
+<button>Join</button>
+</div>
+<p style="font-size:.7rem;margin-top:10px;opacity:.5">We respect your privacy. Unsubscribe anytime.</p>
+</div>
+</div>
+<div class="footer-bottom">
+<span>&copy; 2026 Prestige Grounds. All rights reserved. Where Vision Meets Landscape.</span>
+<div class="footer-certs">
+<span>NALP Certified</span>
+<span>EPA WaterSense</span>
+<span>BBB A+</span>
+<span>Licensed &amp; Insured</span>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+// NAVBAR SCROLL
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>80)});
+
+// HAMBURGER
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>{mobileMenu.classList.toggle('active');hamburger.classList.toggle('open')});
+function closeMobile(){mobileMenu.classList.remove('active')}
+
+// TYPEWRITER
+const words=['Design','Transform','Maintain'];
+const typedEl=document.getElementById('typedWord');
+let wordIdx=0,charIdx=0,deleting=false;
+function typeWriter(){
+const current=words[wordIdx];
+if(!deleting){
+typedEl.textContent=current.substring(0,charIdx+1);
+charIdx++;
+if(charIdx===current.length){setTimeout(()=>{deleting=true;typeWriter()},2000);return}
+}else{
+typedEl.textContent=current.substring(0,charIdx-1);
+charIdx--;
+if(charIdx===0){deleting=false;wordIdx=(wordIdx+1)%words.length}
+}
+setTimeout(typeWriter,deleting?50:120);
+}
+setTimeout(typeWriter,1500);
+
+// COUNTER ANIMATION
+function animateCounters(){
+document.querySelectorAll('.stat-number').forEach(el=>{
+const target=+el.dataset.target;
+const suffix=target>=100?'+':target===98?'%':'+';
+const duration=2000;
+const step=target/duration*16;
+let current=0;
+const timer=setInterval(()=>{
+current+=step;
+if(current>=target){current=target;clearInterval(timer)}
+el.textContent=Math.floor(current)+suffix;
+},16);
+});
+}
+let counterDone=false;
+
+// SCROLL REVEAL
+function revealOnScroll(){
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>{
+const top=el.getBoundingClientRect().top;
+if(top<window.innerHeight-80)el.classList.add('visible');
+});
+if(!counterDone){
+const statsSection=document.querySelector('.stats');
+if(statsSection&&statsSection.getBoundingClientRect().top<window.innerHeight-100){
+animateCounters();counterDone=true;
+}
+}
+}
+window.addEventListener('scroll',revealOnScroll);
+window.addEventListener('load',revealOnScroll);
+
+// LIGHTBOX
+const lbImages=[
+'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1200',
+'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200',
+'https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=1200',
+'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200',
+'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200',
+'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200',
+'https://images.unsplash.com/photo-1572025442646-866d16c84a54?w=1200',
+'https://images.unsplash.com/photo-1598902108854-d1446413a1f4?w=1200',
+'https://images.unsplash.com/photo-1560749003-f4b1e17e2dff?w=1200',
+'https://images.unsplash.com/photo-1584738766473-61c083514bf4?w=1200'
+];
+let lbIdx=0;
+const lightbox=document.getElementById('lightbox');
+const lightboxImg=document.getElementById('lightboxImg');
+function openLightbox(i){lbIdx=i;lightboxImg.src=lbImages[i];lightbox.classList.add('active');document.body.style.overflow='hidden'}
+function closeLightbox(){lightbox.classList.remove('active');document.body.style.overflow=''}
+function navLightbox(dir){lbIdx=(lbIdx+dir+lbImages.length)%lbImages.length;lightboxImg.src=lbImages[lbIdx]}
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+document.addEventListener('keydown',e=>{if(!lightbox.classList.contains('active'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')navLightbox(-1);if(e.key==='ArrowRight')navLightbox(1)});
+
+// TESTIMONIAL SLIDER
+const slides=document.querySelectorAll('.testimonial-slide');
+const dots=document.querySelectorAll('.slider-dot');
+let currentSlide=0;
+let slideInterval=setInterval(()=>goToSlide((currentSlide+1)%slides.length),6000);
+function goToSlide(n){
+slides[currentSlide].classList.remove('active');
+dots[currentSlide].classList.remove('active');
+currentSlide=n;
+slides[currentSlide].classList.add('active');
+dots[currentSlide].classList.add('active');
+clearInterval(slideInterval);
+slideInterval=setInterval(()=>goToSlide((currentSlide+1)%slides.length),6000);
+}
+
+// CALENDAR
+const monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const dayNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+let calMonth=1,calYear=2026;
+const servicesByMonth={
+0:{maint:false,build:true,seasonal:'Snow & Ice Management'},
+1:{maint:false,build:true,seasonal:'Early Spring Planning'},
+2:{maint:true,build:true,seasonal:'Spring Cleanup'},
+3:{maint:true,build:true,seasonal:'Spring Planting'},
+4:{maint:true,build:true,seasonal:'Irrigation Startup'},
+5:{maint:true,build:true,seasonal:'Summer Color Install'},
+6:{maint:true,build:true,seasonal:null},
+7:{maint:true,build:true,seasonal:null},
+8:{maint:true,build:true,seasonal:'Fall Planting'},
+9:{maint:true,build:true,seasonal:'Aeration & Overseeding'},
+10:{maint:true,build:false,seasonal:'Winterization'},
+11:{maint:false,build:false,seasonal:'Snow & Ice Management'}
+};
+function renderCalendar(){
+const grid=document.getElementById('calendarGrid');
+grid.innerHTML='';
+document.getElementById('calendarMonth').textContent=monthNames[calMonth]+' '+calYear;
+dayNames.forEach(d=>{const h=document.createElement('div');h.className='day-header';h.textContent=d;grid.appendChild(h)});
+const firstDay=new Date(calYear,calMonth,1).getDay();
+const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+const today=new Date();
+const svc=servicesByMonth[calMonth];
+for(let i=0;i<firstDay;i++){const c=document.createElement('div');c.className='day-cell';grid.appendChild(c)}
+for(let d=1;d<=daysInMonth;d++){
+const c=document.createElement('div');c.className='day-cell';
+if(d===today.getDate()&&calMonth===today.getMonth()&&calYear===today.getFullYear())c.classList.add('today');
+c.innerHTML=d+'<div class="service-dots">'
++(svc.maint?'<span class="service-dot dot-green"></span>':'')
++(svc.build?'<span class="service-dot dot-gold"></span>':'')
++(svc.seasonal?'<span class="service-dot dot-blue"></span>':'')
++'</div>';
+grid.appendChild(c);
+}
+}
+function changeMonth(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++}if(calMonth<0){calMonth=11;calYear--}renderCalendar()}
+renderCalendar();
+
+// MULTI-STEP FORM
+let formStep=1;
+const totalSteps=4;
+function formNav(dir){
+const currentStepEl=document.querySelector('.form-step.active');
+if(dir===1&&formStep<totalSteps){
+const inputs=currentStepEl.querySelectorAll('[required]');
+let valid=true;
+inputs.forEach(inp=>{
+const err=inp.parentElement.querySelector('.form-error');
+if(!inp.value.trim()){valid=false;inp.style.borderColor='#c0392b';if(err)err.style.display='block'}
+else{inp.style.borderColor='#e8e8e8';if(err)err.style.display='none'}
+});
+if(!valid)return;
+}
+if(dir===1&&formStep===totalSteps){
+const dateInput=document.getElementById('prefDate');
+const err=dateInput.parentElement.querySelector('.form-error');
+if(!dateInput.value){dateInput.style.borderColor='#c0392b';if(err)err.style.display='block';return}
+alert('Thank you! Your consultation request has been submitted. A member of our design team will contact you within 24 hours to confirm your appointment.');
+document.getElementById('consultForm').reset();
+formStep=1;updateForm();return;
+}
+formStep+=dir;
+if(formStep<1)formStep=1;
+if(formStep>totalSteps)formStep=totalSteps;
+updateForm();
+}
+function updateForm(){
+document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+document.querySelector('.form-step[data-step="'+formStep+'"]').classList.add('active');
+document.querySelectorAll('.progress-step').forEach(s=>{
+const n=+s.dataset.step;
+s.classList.remove('active','completed');
+if(n===formStep)s.classList.add('active');
+if(n<formStep)s.classList.add('completed');
+});
+document.getElementById('progressFill').style.width=((formStep-1)/(totalSteps-1)*100)+'%';
+document.getElementById('formPrev').style.display=formStep===1?'none':'inline-block';
+document.getElementById('formNext').textContent=formStep===totalSteps?'Submit Request':'Next Step';
+}
+
+// SMOOTH SCROLL FOR ANCHOR LINKS
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+a.addEventListener('click',e=>{
+const target=document.querySelector(a.getAttribute('href'));
+if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'})}
+});
+});
+</script>
+</body>
+</html>

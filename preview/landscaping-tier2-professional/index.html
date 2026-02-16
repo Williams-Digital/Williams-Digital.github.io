@@ -1,0 +1,2437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Evergreen Landscape Co. - Professional landscaping services transforming outdoor spaces since 2015. Lawn care, hardscaping, irrigation, and more.">
+<title>Evergreen Landscape Co. | Professional Landscaping Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --deep-green: #1a472a;
+  --medium-green: #2e7d32;
+  --accent-green: #4caf50;
+  --gold: #c8a951;
+  --gold-light: #d4ba6a;
+  --white: #ffffff;
+  --off-white: #f8f9f5;
+  --charcoal: #333333;
+  --light-gray: #e8e8e8;
+  --shadow: 0 4px 20px rgba(0,0,0,0.1);
+  --shadow-hover: 0 8px 32px rgba(0,0,0,0.18);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--charcoal);
+  line-height: 1.7;
+  overflow-x: hidden;
+  background: var(--white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  line-height: 1.3;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--deep-green);
+  margin-bottom: 12px;
+}
+
+.section-header .subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.section-header .divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  margin: 16px auto 0;
+  border-radius: 2px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--medium-green), var(--accent-green));
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(46,125,50,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46,125,50,0.45);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--deep-green);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(200,169,81,0.3);
+}
+
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200,169,81,0.45);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--white);
+  color: var(--white);
+}
+
+.btn-outline:hover {
+  background: var(--white);
+  color: var(--deep-green);
+}
+
+/* ========== TIER BADGE ========== */
+.tier-badge {
+  position: fixed;
+  top: 80px;
+  right: -42px;
+  z-index: 999;
+  background: linear-gradient(135deg, var(--deep-green), #245a36);
+  color: var(--gold);
+  padding: 8px 50px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transform: rotate(45deg);
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* ========== NAVIGATION ========== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(26, 71, 42, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0;
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  background: rgba(26, 71, 42, 0.98);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-logo svg {
+  flex-shrink: 0;
+}
+
+.nav-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-logo-text .company-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.nav-logo-text .tagline {
+  font-size: 0.65rem;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.9rem;
+  font-weight: 400;
+  position: relative;
+  padding: 4px 0;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--white);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-cta {
+  padding: 10px 24px !important;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light)) !important;
+  color: var(--deep-green) !important;
+  border-radius: 6px;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.5px;
+}
+
+.nav-cta::after {
+  display: none !important;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(200,169,81,0.4);
+}
+
+.mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+  background: none;
+  border: none;
+}
+
+.mobile-toggle span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--white);
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.mobile-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1558904541-efa843a96f01?w=1400') center/cover no-repeat;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 71, 42, 0.85) 0%,
+    rgba(26, 71, 42, 0.7) 40%,
+    rgba(46, 125, 50, 0.6) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 24px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(200,169,81,0.2);
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards 0.2s;
+}
+
+.hero h1 {
+  font-size: 3.8rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards 0.4s;
+}
+
+.hero h1 span {
+  color: var(--gold);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 40px;
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards 0.6s;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards 0.8s;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s infinite;
+}
+
+.hero-scroll svg {
+  width: 32px;
+  height: 32px;
+  stroke: rgba(255,255,255,0.6);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-12px); }
+  60% { transform: translateX(-50%) translateY(-6px); }
+}
+
+/* ========== STATS BAR ========== */
+.stats-bar {
+  background: var(--deep-green);
+  padding: 50px 0;
+  position: relative;
+}
+
+.stats-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--accent-green), var(--gold));
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 10px;
+}
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* ========== ABOUT ========== */
+.about {
+  padding: 100px 0;
+  background: var(--white);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.about-image-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.about-image-placeholder svg {
+  width: 80px;
+  height: 80px;
+  opacity: 0.4;
+}
+
+.about-image-placeholder span {
+  color: var(--medium-green);
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+.about-image .accent-box {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  width: 120px;
+  height: 120px;
+  border: 4px solid var(--gold);
+  border-radius: 12px;
+  z-index: -1;
+}
+
+.about-content h2 {
+  font-size: 2.2rem;
+  color: var(--deep-green);
+  margin-bottom: 20px;
+}
+
+.about-content .gold-line {
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+  margin-bottom: 24px;
+  border-radius: 2px;
+}
+
+.about-content p {
+  color: #555;
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.about-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+}
+
+.about-feature svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--accent-green);
+}
+
+/* ========== SERVICES ========== */
+.services {
+  padding: 100px 0;
+  background: var(--off-white);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 36px 24px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--medium-green), var(--accent-green));
+  transform: scaleX(0);
+  transition: var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, rgba(46,125,50,0.1), rgba(76,175,80,0.1));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.service-card:hover .service-icon {
+  background: linear-gradient(135deg, var(--medium-green), var(--accent-green));
+}
+
+.service-icon svg {
+  width: 32px;
+  height: 32px;
+  color: var(--medium-green);
+  transition: var(--transition);
+}
+
+.service-card:hover .service-icon svg {
+  color: var(--white);
+}
+
+.service-card h3 {
+  font-size: 1.15rem;
+  color: var(--deep-green);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.service-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.service-card .learn-more {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--medium-green);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.service-card .learn-more svg {
+  width: 16px;
+  height: 16px;
+  transition: var(--transition);
+}
+
+.service-card:hover .learn-more {
+  color: var(--gold);
+}
+
+.service-card:hover .learn-more svg {
+  transform: translateX(4px);
+}
+
+/* ========== GALLERY ========== */
+.gallery {
+  padding: 100px 0;
+  background: var(--white);
+}
+
+.gallery-filters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 10px 28px;
+  border: 2px solid var(--light-gray);
+  background: transparent;
+  border-radius: 50px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-btn:hover {
+  border-color: var(--medium-green);
+  color: var(--medium-green);
+}
+
+.filter-btn.active {
+  background: var(--medium-green);
+  border-color: var(--medium-green);
+  color: var(--white);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.gallery-item.hidden {
+  display: none;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26,71,42,0.8), transparent 60%);
+  opacity: 0;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+.gallery-overlay h4 {
+  color: var(--white);
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.gallery-overlay span {
+  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ========== TESTIMONIALS ========== */
+.testimonials {
+  padding: 100px 0;
+  background: linear-gradient(135deg, var(--deep-green), #245a36);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(200,169,81,0.05);
+}
+
+.testimonials .section-header h2 {
+  color: var(--white);
+}
+
+.testimonials .section-header .subtitle {
+  color: rgba(255,255,255,0.7);
+}
+
+.testimonials-carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.testimonials-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.testimonial-slide {
+  min-width: 100%;
+  padding: 0 20px;
+}
+
+.testimonial-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+}
+
+.testimonial-stars {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.testimonial-stars svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--gold);
+}
+
+.testimonial-card blockquote {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.8;
+  font-style: italic;
+  margin-bottom: 28px;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.testimonial-author strong {
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.testimonial-author span {
+  color: var(--gold);
+  font-size: 0.85rem;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.carousel-dot.active {
+  background: var(--gold);
+  transform: scale(1.2);
+}
+
+/* ========== SERVICE AREA ========== */
+.service-area {
+  padding: 100px 0;
+  background: var(--off-white);
+}
+
+.service-area-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.service-map {
+  background: linear-gradient(135deg, #e8f5e9, #dcedc8);
+  border-radius: 16px;
+  padding: 40px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.map-visual {
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.map-pin {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--medium-green);
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  animation: pulse-pin 2s ease infinite;
+}
+
+.map-pin::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--medium-green);
+  opacity: 0.3;
+}
+
+@keyframes pulse-pin {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.map-pin:nth-child(1) { top: 35%; left: 45%; }
+.map-pin:nth-child(2) { top: 25%; left: 60%; }
+.map-pin:nth-child(3) { top: 50%; left: 35%; }
+.map-pin:nth-child(4) { top: 55%; left: 55%; }
+.map-pin:nth-child(5) { top: 40%; left: 70%; }
+.map-pin:nth-child(6) { top: 65%; left: 50%; }
+
+.map-radius {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 3px dashed var(--medium-green);
+  opacity: 0.3;
+}
+
+.map-label {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.map-label h4 {
+  color: var(--deep-green);
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.map-label p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.service-area-info h2 {
+  font-size: 2.2rem;
+  color: var(--deep-green);
+  margin-bottom: 16px;
+}
+
+.service-area-info .gold-line {
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+  margin-bottom: 24px;
+  border-radius: 2px;
+}
+
+.service-area-info p {
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.area-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.area-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+}
+
+.area-list li svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent-green);
+  flex-shrink: 0;
+}
+
+/* ========== QUOTE FORM ========== */
+.quote-section {
+  padding: 100px 0;
+  background: var(--white);
+  position: relative;
+}
+
+.quote-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--accent-green), var(--gold));
+}
+
+.quote-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.quote-info h2 {
+  font-size: 2.2rem;
+  color: var(--deep-green);
+  margin-bottom: 16px;
+}
+
+.quote-info .gold-line {
+  width: 60px;
+  height: 3px;
+  background: var(--gold);
+  margin-bottom: 24px;
+  border-radius: 2px;
+}
+
+.quote-info p {
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.quote-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.quote-benefit {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.quote-benefit-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, rgba(46,125,50,0.1), rgba(76,175,80,0.1));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.quote-benefit-icon svg {
+  width: 22px;
+  height: 22px;
+  color: var(--medium-green);
+}
+
+.quote-benefit-text h4 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.quote-benefit-text p {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 0;
+}
+
+.quote-form {
+  background: var(--off-white);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: var(--shadow);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+  transition: var(--transition);
+  background: var(--white);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent-green);
+  box-shadow: 0 0 0 3px rgba(76,175,80,0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.file-upload {
+  border: 2px dashed var(--light-gray);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: var(--white);
+}
+
+.file-upload:hover {
+  border-color: var(--accent-green);
+  background: rgba(76,175,80,0.02);
+}
+
+.file-upload svg {
+  width: 32px;
+  height: 32px;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+.file-upload p {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 0;
+}
+
+.file-upload span {
+  color: var(--medium-green);
+  font-weight: 600;
+}
+
+.form-submit {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: var(--deep-green);
+  color: rgba(255,255,255,0.8);
+  padding: 80px 0 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 40px;
+  padding-bottom: 50px;
+}
+
+.footer-about .footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.footer-about .footer-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.footer-about p {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-social a {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.footer-social a:hover {
+  background: var(--gold);
+  transform: translateY(-3px);
+}
+
+.footer-social a svg {
+  width: 18px;
+  height: 18px;
+  color: var(--white);
+}
+
+.footer h4 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  transition: var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+  padding-left: 6px;
+}
+
+.footer-contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+}
+
+.footer-contact li svg {
+  width: 18px;
+  height: 18px;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-bottom p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-bottom-links a {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.footer-bottom-links a:hover {
+  color: var(--gold);
+}
+
+/* ========== SCROLL ANIMATIONS ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 2rem;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--deep-green);
+    flex-direction: column;
+    padding: 30px 24px;
+    gap: 20px;
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: var(--transition);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .service-area-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .quote-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .tier-badge {
+    top: 64px;
+    right: -46px;
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.9rem;
+  }
+
+  .stat-number {
+    font-size: 2.2rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-filters {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 8px 18px;
+    font-size: 0.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- TIER BADGE -->
+<div class="tier-badge">Professional Plan</div>
+
+<!-- NAVIGATION -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <!-- CUSTOM SVG LOGO -->
+      <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="23" fill="none" stroke="#c8a951" stroke-width="1.5"/>
+        <circle cx="24" cy="24" r="20" fill="#1a472a"/>
+        <!-- Tree trunk -->
+        <rect x="22" y="28" width="4" height="8" rx="1" fill="#c8a951"/>
+        <!-- Tree canopy layers -->
+        <path d="M24 8 L32 20 L28 20 L34 28 L14 28 L20 20 L16 20 Z" fill="#2e7d32"/>
+        <path d="M24 10 L30 19 L27 19 L32 26 L16 26 L21 19 L18 19 Z" fill="#4caf50" opacity="0.7"/>
+        <!-- Ground line -->
+        <line x1="15" y1="36" x2="33" y2="36" stroke="#c8a951" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <div class="nav-logo-text">
+        <span class="company-name">Evergreen Landscape Co.</span>
+        <span class="tagline">Since 2015</span>
+      </div>
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#service-area">Areas</a>
+      <a href="#quote" class="nav-cta">Get Free Quote</a>
+    </div>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Licensed &amp; Fully Insured</div>
+    <h1>Transforming <span>Outdoor Spaces</span> Since 2015</h1>
+    <p>From intimate garden retreats to expansive commercial grounds, Evergreen Landscape Co. delivers award-winning landscaping that elevates your property and enriches your life.</p>
+    <div class="hero-buttons">
+      <a href="#quote" class="btn btn-gold">Get Your Free Quote</a>
+      <a href="#services" class="btn btn-outline">Explore Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="500">0</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="10">0</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="200">0</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="15">0</div>
+        <div class="stat-label">Team Members</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal-left">
+        <div class="about-image-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: var(--medium-green);">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Our Team Photo</span>
+        </div>
+        <div class="accent-box"></div>
+      </div>
+      <div class="about-content reveal-right">
+        <h2>Rooted in Quality, Growing with Purpose</h2>
+        <div class="gold-line"></div>
+        <p>Founded in 2015, Evergreen Landscape Co. began with a simple mission: to bring the beauty of nature closer to the people and places that matter most. What started as a two-person crew with a shared pickup truck has grown into a trusted team of 15 skilled professionals serving communities across the region.</p>
+        <p>We hold NALP (National Association of Landscape Professionals) certification and are fully licensed and insured. Our commitment to eco-friendly practices means every project uses sustainable materials, water-efficient irrigation solutions, and organic fertilization programs wherever possible.</p>
+        <p>Every project we undertake comes with our Evergreen Guarantee: if you are not completely satisfied within 30 days, we will make it right at no additional cost.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            NALP Certified
+          </div>
+          <div class="about-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Fully Insured
+          </div>
+          <div class="about-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Eco-Friendly Practices
+          </div>
+          <div class="about-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            30-Day Guarantee
+          </div>
+          <div class="about-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Free Consultations
+          </div>
+          <div class="about-feature">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Locally Owned
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Our Professional Services</h2>
+      <p class="subtitle">Comprehensive landscaping solutions tailored to residential and commercial properties of every size</p>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid">
+      <!-- Service 1: Lawn Maintenance -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 28h24"/>
+            <path d="M8 28v-6l4-8"/>
+            <path d="M16 14c0-4-2-8-2-10"/>
+            <path d="M16 14c0-4 2-8 2-10"/>
+            <path d="M16 14c-4-2-8-2-10-2"/>
+            <path d="M16 14c4-2 8-2 10-2"/>
+            <path d="M16 14v14"/>
+            <path d="M24 28v-6l-4-8"/>
+          </svg>
+        </div>
+        <h3>Lawn Maintenance</h3>
+        <p>Weekly mowing, edging, fertilization, and weed control programs designed to keep your lawn lush, healthy, and the envy of the neighborhood year-round.</p>
+        <a href="#quote" class="learn-more">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Service 2: Landscape Design -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="24" height="24" rx="2"/>
+            <path d="M4 12h24"/>
+            <circle cx="9" cy="8" r="1.5" fill="currentColor"/>
+            <path d="M8 28l6-8 4 5 3-4 5 7"/>
+            <circle cx="22" cy="18" r="2"/>
+          </svg>
+        </div>
+        <h3>Landscape Design</h3>
+        <p>Custom 3D designs by our certified landscape architects, blending aesthetics with function to create outdoor spaces that reflect your vision and lifestyle.</p>
+        <a href="#quote" class="learn-more">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Service 3: Hardscaping -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 28h24"/>
+            <rect x="6" y="16" width="8" height="12"/>
+            <rect x="18" y="20" width="8" height="8"/>
+            <path d="M6 16l4-6h0l4 6"/>
+            <rect x="9" y="22" width="2" height="6"/>
+            <rect x="20" y="22" width="4" height="3"/>
+          </svg>
+        </div>
+        <h3>Hardscaping</h3>
+        <p>Patios, retaining walls, walkways, and outdoor living structures built with premium materials and craftsmanship that stands the test of time.</p>
+        <a href="#quote" class="learn-more">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Service 4: Irrigation Systems -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 4C16 4 8 14 8 20a8 8 0 0 0 16 0C24 14 16 4 16 4z"/>
+            <path d="M12 20c0-2.5 4-7 4-7s4 4.5 4 7" opacity="0.5"/>
+          </svg>
+        </div>
+        <h3>Irrigation Systems</h3>
+        <p>Smart, water-efficient sprinkler and drip irrigation systems with Wi-Fi controls, rain sensors, and zone management to conserve water and reduce costs.</p>
+        <a href="#quote" class="learn-more">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Service 5: Tree Services -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="20" width="4" height="8" rx="1"/>
+            <path d="M16 6l8 14H8z"/>
+            <path d="M16 10l6 10H10z" opacity="0.5"/>
+            <path d="M6 28h20"/>
+          </svg>
+        </div>
+        <h3>Tree Services</h3>
+        <p>ISA-certified arborists providing expert pruning, health assessments, removal, stump grinding, and planting for trees of all species and sizes.</p>
+        <a href="#quote" class="learn-more">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Service 6: Seasonal Cleanups -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 8c-2 0-4 2-4 4s2 4 4 4"/>
+            <path d="M12 8c2 0 4 2 4 4s-2 4-4 4"/>
+            <path d="M16 16v10"/>
+            <path d="M12 20l4-4 4 4"/>
+            <path d="M6 28h20"/>
+            <circle cx="8" cy="10" r="2"/>
+            <circle cx="24" cy="14" r="1.5"/>
+          </svg>
+        </div>
+        <h3>Seasonal Cleanups</h3>
+        <p>Thorough spring and fall cleanup services including leaf removal, bed preparation, mulching, plant cutbacks, and debris hauling to keep your property pristine.</p>
+        <a href="#quote" class="learn-more">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Service 7: Outdoor Lighting -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 4v2"/>
+            <path d="M8 8l1.5 1.5"/>
+            <path d="M4 16h2"/>
+            <path d="M26 16h2"/>
+            <path d="M22.5 9.5L24 8"/>
+            <circle cx="16" cy="16" r="5"/>
+            <path d="M13 22h6"/>
+            <path d="M14 25h4"/>
+            <path d="M13 22v-1a5 5 0 0 1 6 0v1"/>
+          </svg>
+        </div>
+        <h3>Outdoor Lighting</h3>
+        <p>Architectural, pathway, and accent LED lighting systems that enhance safety, highlight landscaping features, and extend your outdoor living hours beautifully.</p>
+        <a href="#quote" class="learn-more">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+
+      <!-- Service 8: Sod & Seeding -->
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 28c0-6 4-10 10-10"/>
+            <path d="M26 28c0-6-4-10-10-10"/>
+            <path d="M16 18V8"/>
+            <path d="M16 8c3-2 6-2 8 0"/>
+            <path d="M16 8c-3-2-6-2-8 0"/>
+            <path d="M16 12c2-1.5 4-1.5 6 0"/>
+            <path d="M16 12c-2-1.5-4-1.5-6 0"/>
+            <path d="M4 28h24"/>
+          </svg>
+        </div>
+        <h3>Sod &amp; Seeding</h3>
+        <p>Premium sod installation and hydroseeding services with soil analysis, grade preparation, and aftercare programs for a thick, vibrant lawn from day one.</p>
+        <a href="#quote" class="learn-more">Learn More <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY SECTION -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Our Recent Work</h2>
+      <p class="subtitle">Browse our portfolio of completed projects spanning residential estates, commercial properties, and stunning transformations</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="gallery-filters reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="residential">Residential</button>
+      <button class="filter-btn" data-filter="commercial">Commercial</button>
+      <button class="filter-btn" data-filter="before-after">Before &amp; After</button>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" data-category="residential">
+        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600" alt="Manicured garden beds with colorful plantings" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Botanical Garden Design</h4>
+          <span>Residential</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal" data-category="commercial">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600" alt="Lush commercial garden pathway" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Corporate Campus Grounds</h4>
+          <span>Commercial</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal" data-category="residential">
+        <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=600" alt="Modern residential landscape with stone features" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Modern Patio Retreat</h4>
+          <span>Residential</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal" data-category="before-after">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600" alt="Luxury home exterior with landscaping" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Complete Property Makeover</h4>
+          <span>Before &amp; After</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal" data-category="commercial">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600" alt="Upscale property with manicured lawn" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Executive Office Park</h4>
+          <span>Commercial</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal" data-category="residential">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600" alt="Modern home with pristine landscaping" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Contemporary Home Landscape</h4>
+          <span>Residential</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal" data-category="before-after">
+        <img src="https://images.unsplash.com/photo-1572025442646-866d16c84a54?w=600" alt="Beautiful backyard garden transformation" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Backyard Transformation</h4>
+          <span>Before &amp; After</span>
+        </div>
+      </div>
+      <div class="gallery-item reveal" data-category="commercial">
+        <img src="https://images.unsplash.com/photo-1598902108854-d1446413a1f4?w=600" alt="Professional landscape with outdoor seating" loading="lazy">
+        <div class="gallery-overlay">
+          <h4>Restaurant Terrace Garden</h4>
+          <span>Commercial</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS SECTION -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>What Our Clients Say</h2>
+      <p class="subtitle">Real feedback from homeowners and business owners who trust Evergreen Landscape Co.</p>
+      <div class="divider"></div>
+    </div>
+
+    <div class="testimonials-carousel reveal">
+      <div class="testimonials-track" id="testimonialsTrack">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote>"Evergreen completely transformed our backyard into the outdoor living space we had always dreamed of. From the initial design consultation to the final walkthrough, every detail was handled with exceptional professionalism. The patio, fire pit, and plantings are absolutely stunning. We could not be happier with the results."</blockquote>
+            <div class="testimonial-author">
+              <strong>Sarah &amp; James Mitchell</strong>
+              <span>Homeowners, Maple Ridge</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote>"We manage twelve commercial properties and switched entirely to Evergreen two years ago. Their consistency is remarkable -- every property looks immaculate week after week. Their smart irrigation install cut our water bills by 35 percent. They are responsive, reliable, and a true partner in property management."</blockquote>
+            <div class="testimonial-author">
+              <strong>Robert Chen</strong>
+              <span>Property Manager, Oakville Commercial Group</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <blockquote>"After getting three quotes, we chose Evergreen for our front yard renovation and it was the best decision we made. Their designer listened to exactly what we wanted and delivered a plan that exceeded our expectations. The crew was courteous, clean, and finished ahead of schedule. Our home's curb appeal increased dramatically."</blockquote>
+            <div class="testimonial-author">
+              <strong>Linda Patel</strong>
+              <span>Homeowner, Cedar Hills</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-dots">
+        <button class="carousel-dot active" data-slide="0" aria-label="Go to slide 1"></button>
+        <button class="carousel-dot" data-slide="1" aria-label="Go to slide 2"></button>
+        <button class="carousel-dot" data-slide="2" aria-label="Go to slide 3"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="service-area" id="service-area">
+  <div class="container">
+    <div class="service-area-content">
+      <div class="service-map reveal-left">
+        <div class="map-visual">
+          <div class="map-radius"></div>
+          <div class="map-pin"></div>
+          <div class="map-pin"></div>
+          <div class="map-pin"></div>
+          <div class="map-pin"></div>
+          <div class="map-pin"></div>
+          <div class="map-pin"></div>
+        </div>
+        <div class="map-label">
+          <h4>30-Mile Service Radius</h4>
+          <p>Covering all major communities in the region</p>
+        </div>
+      </div>
+      <div class="service-area-info reveal-right">
+        <h2>Serving Your Community</h2>
+        <div class="gold-line"></div>
+        <p>Evergreen Landscape Co. proudly serves residential and commercial clients within a 30-mile radius of our headquarters. Whether you are in the heart of the city or a surrounding suburb, our crews arrive on time, fully equipped, and ready to deliver exceptional results.</p>
+        <p>Not sure if you are in our coverage area? Give us a call -- we are always happy to discuss your project and find a solution.</p>
+        <ul class="area-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Maple Ridge
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Cedar Hills
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Oakville
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Riverside
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Greenfield
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Willowbrook
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Pine Valley
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Brookhaven
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE SECTION -->
+<section class="quote-section" id="quote">
+  <div class="container">
+    <div class="quote-wrapper">
+      <div class="quote-info reveal-left">
+        <h2>Request Your Free Quote</h2>
+        <div class="gold-line"></div>
+        <p>Ready to elevate your outdoor space? Fill out the form and one of our project consultants will contact you within 24 hours with a detailed, no-obligation estimate. Every project begins with a complimentary on-site assessment.</p>
+
+        <div class="quote-benefits">
+          <div class="quote-benefit">
+            <div class="quote-benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="quote-benefit-text">
+              <h4>No-Obligation Estimates</h4>
+              <p>Transparent pricing with no hidden fees or pressure</p>
+            </div>
+          </div>
+          <div class="quote-benefit">
+            <div class="quote-benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="quote-benefit-text">
+              <h4>24-Hour Response Time</h4>
+              <p>We value your time and respond promptly</p>
+            </div>
+          </div>
+          <div class="quote-benefit">
+            <div class="quote-benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>
+            </div>
+            <div class="quote-benefit-text">
+              <h4>Detailed Written Proposals</h4>
+              <p>Clear scope of work, materials, and timeline</p>
+            </div>
+          </div>
+          <div class="quote-benefit">
+            <div class="quote-benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="quote-benefit-text">
+              <h4>Satisfaction Guaranteed</h4>
+              <p>Our 30-day guarantee backs every project</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="quote-form reveal-right" id="quoteForm" onsubmit="handleFormSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="John Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+          </div>
+          <div class="form-group">
+            <label for="service">Service Needed *</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="lawn-maintenance">Lawn Maintenance</option>
+              <option value="landscape-design">Landscape Design</option>
+              <option value="hardscaping">Hardscaping</option>
+              <option value="irrigation">Irrigation Systems</option>
+              <option value="tree-services">Tree Services</option>
+              <option value="seasonal-cleanups">Seasonal Cleanups</option>
+              <option value="outdoor-lighting">Outdoor Lighting</option>
+              <option value="sod-seeding">Sod &amp; Seeding</option>
+              <option value="other">Other / Multiple Services</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="property-size">Property Size</label>
+            <select id="property-size" name="property-size">
+              <option value="" disabled selected>Approximate size</option>
+              <option value="small">Small (under 5,000 sq ft)</option>
+              <option value="medium">Medium (5,000 - 15,000 sq ft)</option>
+              <option value="large">Large (15,000 - 40,000 sq ft)</option>
+              <option value="estate">Estate (40,000+ sq ft)</option>
+              <option value="commercial">Commercial Property</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="preferred-date">Preferred Start Date</label>
+            <input type="date" id="preferred-date" name="preferred-date">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Project Details</label>
+          <textarea id="message" name="message" placeholder="Tell us about your project, goals, and any specific requirements..." rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Upload Photos (optional)</label>
+          <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <p><span>Click to upload</span> or drag photos here</p>
+            <p style="font-size: 0.75rem; color: #aaa; margin-top: 4px;">JPG, PNG up to 10MB each</p>
+          </div>
+          <input type="file" id="fileInput" name="photos" multiple accept="image/*" style="display:none">
+        </div>
+        <button type="submit" class="btn btn-gold form-submit">Submit Quote Request</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Footer About -->
+      <div class="footer-about">
+        <div class="footer-logo">
+          <svg width="40" height="40" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="23" fill="none" stroke="#c8a951" stroke-width="1.5"/>
+            <circle cx="24" cy="24" r="20" fill="#1a472a"/>
+            <rect x="22" y="28" width="4" height="8" rx="1" fill="#c8a951"/>
+            <path d="M24 8 L32 20 L28 20 L34 28 L14 28 L20 20 L16 20 Z" fill="#2e7d32"/>
+            <path d="M24 10 L30 19 L27 19 L32 26 L16 26 L21 19 L18 19 Z" fill="#4caf50" opacity="0.7"/>
+            <line x1="15" y1="36" x2="33" y2="36" stroke="#c8a951" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+          <span class="footer-logo-text">Evergreen Landscape Co.</span>
+        </div>
+        <p>Proudly serving our community since 2015 with professional, eco-friendly landscaping services. Licensed, insured, and committed to exceeding expectations on every project.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter/X">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.35 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#1a472a"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer Services -->
+      <div>
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Lawn Maintenance</a></li>
+          <li><a href="#services">Landscape Design</a></li>
+          <li><a href="#services">Hardscaping</a></li>
+          <li><a href="#services">Irrigation Systems</a></li>
+          <li><a href="#services">Tree Services</a></li>
+          <li><a href="#services">Seasonal Cleanups</a></li>
+          <li><a href="#services">Outdoor Lighting</a></li>
+          <li><a href="#services">Sod &amp; Seeding</a></li>
+        </ul>
+      </div>
+
+      <!-- Footer Contact -->
+      <div>
+        <h4>Contact Us</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>742 Greenway Drive<br>Maple Ridge, OR 97201</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>(555) 742-GREEN<br>(555) 742-4733</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>info@evergreenlandscape.co</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span>Mon - Fri: 7:00 AM - 6:00 PM<br>Sat: 8:00 AM - 4:00 PM<br>Sun: Closed</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer Newsletter / Social -->
+      <div>
+        <h4>Stay Connected</h4>
+        <ul class="footer-links">
+          <li><a href="#">Seasonal Tips Blog</a></li>
+          <li><a href="#">Project Inspiration Gallery</a></li>
+          <li><a href="#">Customer Referral Program</a></li>
+          <li><a href="#">Careers at Evergreen</a></li>
+          <li><a href="#">Community Involvement</a></li>
+          <li><a href="#">Leave Us a Review</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2015 &ndash; 2026 Evergreen Landscape Co. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ========== JAVASCRIPT ========== -->
+<script>
+(function() {
+  'use strict';
+
+  // ---- STICKY NAVBAR ----
+  const navbar = document.getElementById('navbar');
+  let lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 80) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+    lastScroll = currentScroll;
+  });
+
+  // ---- MOBILE MENU ----
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  mobileToggle.addEventListener('click', function() {
+    mobileToggle.classList.toggle('active');
+    navLinks.classList.toggle('open');
+  });
+
+  // Close mobile menu on link click
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      mobileToggle.classList.remove('active');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // ---- PARALLAX HERO ----
+  const heroBg = document.getElementById('heroBg');
+  window.addEventListener('scroll', function() {
+    if (heroBg) {
+      const scrolled = window.pageYOffset;
+      heroBg.style.transform = 'translateY(' + scrolled * 0.4 + 'px)';
+    }
+  });
+
+  // ---- SCROLL REVEAL (Intersection Observer) ----
+  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  revealElements.forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  // ---- COUNTER ANIMATION ----
+  const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+  let statsAnimated = false;
+  const statsBar = document.querySelector('.stats-bar');
+
+  const statsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !statsAnimated) {
+        statsAnimated = true;
+        animateCounters();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  if (statsBar) {
+    statsObserver.observe(statsBar);
+  }
+
+  function animateCounters() {
+    statNumbers.forEach(function(el) {
+      const target = parseInt(el.getAttribute('data-target'));
+      const duration = 2000;
+      const increment = target / (duration / 16);
+      let current = 0;
+
+      function updateCounter() {
+        current += increment;
+        if (current < target) {
+          el.textContent = Math.floor(current) + '+';
+          requestAnimationFrame(updateCounter);
+        } else {
+          el.textContent = target + '+';
+        }
+      }
+
+      requestAnimationFrame(updateCounter);
+    });
+  }
+
+  // ---- GALLERY FILTER ----
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterButtons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      // Update active button
+      filterButtons.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+
+      galleryItems.forEach(function(item) {
+        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+          item.classList.remove('hidden');
+          item.style.opacity = '0';
+          item.style.transform = 'scale(0.8)';
+          setTimeout(function() {
+            item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'scale(1)';
+          }, 50);
+        } else {
+          item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          item.style.opacity = '0';
+          item.style.transform = 'scale(0.8)';
+          setTimeout(function() {
+            item.classList.add('hidden');
+          }, 300);
+        }
+      });
+    });
+  });
+
+  // ---- TESTIMONIALS CAROUSEL ----
+  const track = document.getElementById('testimonialsTrack');
+  const dots = document.querySelectorAll('.carousel-dot');
+  let currentSlide = 0;
+  const totalSlides = 3;
+  let autoplayInterval;
+
+  function goToSlide(index) {
+    currentSlide = index;
+    track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === currentSlide);
+    });
+  }
+
+  function nextSlide() {
+    goToSlide((currentSlide + 1) % totalSlides);
+  }
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      goToSlide(parseInt(dot.getAttribute('data-slide')));
+      resetAutoplay();
+    });
+  });
+
+  function startAutoplay() {
+    autoplayInterval = setInterval(nextSlide, 5000);
+  }
+
+  function resetAutoplay() {
+    clearInterval(autoplayInterval);
+    startAutoplay();
+  }
+
+  startAutoplay();
+
+  // Pause on hover
+  var carouselEl = document.querySelector('.testimonials-carousel');
+  if (carouselEl) {
+    carouselEl.addEventListener('mouseenter', function() {
+      clearInterval(autoplayInterval);
+    });
+    carouselEl.addEventListener('mouseleave', function() {
+      startAutoplay();
+    });
+  }
+
+  // ---- FORM HANDLING ----
+  window.handleFormSubmit = function(e) {
+    e.preventDefault();
+    var form = document.getElementById('quoteForm');
+    var submitBtn = form.querySelector('.form-submit');
+    var originalText = submitBtn.textContent;
+
+    submitBtn.textContent = 'Sending...';
+    submitBtn.style.opacity = '0.7';
+    submitBtn.disabled = true;
+
+    setTimeout(function() {
+      submitBtn.textContent = 'Quote Request Sent!';
+      submitBtn.style.opacity = '1';
+      submitBtn.style.background = 'linear-gradient(135deg, var(--medium-green), var(--accent-green))';
+      submitBtn.style.color = 'var(--white)';
+
+      setTimeout(function() {
+        form.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.style.background = '';
+        submitBtn.style.color = '';
+        submitBtn.disabled = false;
+      }, 3000);
+    }, 1500);
+  };
+
+  // ---- SMOOTH SCROLL for anchor links ----
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      var targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        var offset = navbar.offsetHeight;
+        var top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
