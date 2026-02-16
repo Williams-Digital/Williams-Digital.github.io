@@ -690,6 +690,119 @@
         .check { color: #22c55e; font-weight: 700; font-size: 1.2rem; }
         .dash { color: #3f3f46; font-size: 1.2rem; }
 
+        /* Success animation */
+        .success-wrapper {
+            text-align: center;
+            padding: 60px 20px;
+            animation: successFadeIn 0.6s ease;
+        }
+
+        @keyframes successFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-checkmark {
+            width: 100px; height: 100px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .success-circle {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: circlePopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 40px rgba(99,102,241,0.4);
+        }
+
+        @keyframes circlePopIn {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            60% { transform: scale(1.15) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .success-circle svg {
+            width: 50px; height: 50px;
+        }
+
+        .success-circle svg path {
+            fill: none;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: checkDraw 0.5s ease 0.4s forwards;
+        }
+
+        @keyframes checkDraw {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .success-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textSlideUp 0.5s ease 0.3s both;
+        }
+
+        .success-text {
+            color: #a1a1aa;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            animation: textSlideUp 0.5s ease 0.45s both;
+        }
+
+        @keyframes textSlideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg) scale(0.3); }
+        }
+
+        .btn-submit.sending {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .btn-submit .spinner {
+            display: inline-block;
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Scroll reveal */
         .reveal {
             opacity: 0;
@@ -1241,12 +1354,76 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Show success message if redirected back after submission
-        if (window.location.search.includes('submitted=true')) {
-            const form = document.getElementById('contactForm');
-            form.innerHTML = '<div style="text-align:center;padding:60px 20px;"><div style="font-size:3rem;margin-bottom:15px;">&#10003;</div><h3 style="font-size:1.5rem;margin-bottom:10px;">Inquiry Sent!</h3><p style="color:#a1a1aa;font-size:1.05rem;">Thanks for your interest. Dylan will be in touch within 24 hours.</p></div>';
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        // Confetti burst
+        function launchConfetti() {
+            const colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#22c55e', '#f59e0b', '#f43f5e', '#a78bfa', '#10b981'];
+            const container = document.body;
+            for (let i = 0; i < 60; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = (Math.random() * 100) + 'vw';
+                piece.style.top = '-10px';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.width = (Math.random() * 8 + 6) + 'px';
+                piece.style.height = (Math.random() * 8 + 6) + 'px';
+                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                piece.style.animationDelay = (Math.random() * 0.8) + 's';
+                container.appendChild(piece);
+                setTimeout(() => piece.remove(), 4000);
+            }
         }
+
+        // AJAX form submission
+        const form = document.getElementById('contactForm');
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalBtnText = submitBtn.innerHTML;
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Show sending state
+            submitBtn.classList.add('sending');
+            submitBtn.innerHTML = '<span class="spinner"></span> Sending...';
+
+            const formData = new FormData(form);
+
+            fetch('https://formspree.io/f/mojndgjv', {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Replace form with success animation
+                    const wrapper = form.parentElement;
+                    const noteEl = wrapper.querySelector('.form-note');
+                    if (noteEl) noteEl.remove();
+
+                    form.outerHTML = '<div class="success-wrapper">' +
+                        '<div class="success-checkmark"><div class="success-circle">' +
+                        '<svg viewBox="0 0 40 40"><path d="M10 20 L17 27 L30 13"/></svg>' +
+                        '</div></div>' +
+                        '<h3 class="success-title">Inquiry Sent!</h3>' +
+                        '<p class="success-text">Thanks for your interest! Dylan will be in touch within 24 hours<br>to discuss your project.</p>' +
+                        '</div>';
+
+                    // Launch confetti
+                    launchConfetti();
+                    // Second burst
+                    setTimeout(launchConfetti, 600);
+                } else {
+                    submitBtn.classList.remove('sending');
+                    submitBtn.innerHTML = originalBtnText;
+                    alert('Something went wrong. Please try again or email Dylan@williamsdigital.io directly.');
+                }
+            })
+            .catch(() => {
+                submitBtn.classList.remove('sending');
+                submitBtn.innerHTML = originalBtnText;
+                alert('Connection error. Please try again or email Dylan@williamsdigital.io directly.');
+            });
+        });
     </script>
 </body>
 </html>
