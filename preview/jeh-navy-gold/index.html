@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JE Holdings, LLC — Own Nothing. Control Everything.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a1628;
+            --navy-light: #132240;
+            --navy-mid: #1a2d4a;
+            --gold: #c9a84c;
+            --gold-light: #dfc06e;
+            --gold-pale: #f5e6b8;
+            --cream: #faf8f2;
+            --white: #ffffff;
+            --text-light: #c8cdd6;
+            --text-muted: #8a92a1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--cream);
+            background: var(--navy);
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVIGATION ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+        }
+
+        .logo span {
+            color: var(--cream);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            border: 1px solid var(--gold) !important;
+            padding: 0.6rem 1.8rem !important;
+            color: var(--gold) !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold) !important;
+            color: var(--navy) !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            padding: 0.5rem 1.5rem;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy);
+            padding: 1rem 2.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(201, 168, 76, 0.4);
+            color: var(--gold);
+            padding: 1rem 2.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            background: rgba(201, 168, 76, 0.08);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ─── SECTION STYLES ─── */
+        section {
+            padding: 8rem 4rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 550px;
+            font-weight: 300;
+        }
+
+        /* ─── ABOUT ─── */
+        .about {
+            background: var(--navy-light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            border-left: 1px solid rgba(201, 168, 76, 0.3);
+            padding-left: 1.5rem;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-card {
+            background: var(--navy-mid);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 2rem;
+            right: 2rem;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .about-card blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-card cite {
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+        }
+
+        /* ─── SERVICES ─── */
+        .services {
+            background: var(--navy);
+        }
+
+        .services-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .services-header .section-desc {
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--navy-light);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            border-color: rgba(201, 168, 76, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+
+        .service-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 0.8rem;
+        }
+
+        /* ─── PRINCIPAL ─── */
+        .principal {
+            background: var(--navy-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: radial-gradient(ellipse at 80% 50%, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
+        }
+
+        .principal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .principal-image {
+            aspect-ratio: 3/4;
+            background: var(--navy-mid);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .principal-image::before {
+            content: '';
+            position: absolute;
+            inset: 1rem;
+            border: 1px solid rgba(201, 168, 76, 0.1);
+        }
+
+        .principal-initials {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: rgba(201, 168, 76, 0.15);
+            font-weight: 600;
+        }
+
+        .principal-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .principal-content .title {
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .principal-content p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .credential {
+            background: var(--navy-mid);
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            padding: 0.5rem 1.2rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            color: var(--gold-pale);
+        }
+
+        /* ─── TESTIMONIAL ─── */
+        .testimonial {
+            background: var(--navy);
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            color: rgba(201, 168, 76, 0.2);
+            line-height: 1;
+            margin-bottom: -1rem;
+        }
+
+        .testimonial blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--cream);
+            margin-bottom: 2rem;
+        }
+
+        .testimonial cite {
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .testimonial cite strong {
+            color: var(--gold);
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        /* ─── PHILOSOPHY ─── */
+        .philosophy {
+            background: var(--navy-light);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+
+        .philosophy-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .philosophy-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: rgba(201, 168, 76, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        .philosophy-item h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: var(--cream);
+        }
+
+        .philosophy-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ─── CTA ─── */
+        .cta {
+            background: var(--navy);
+            text-align: center;
+            position: relative;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.05) 0%, transparent 60%);
+        }
+
+        .cta-content {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .cta-content .section-desc {
+            margin: 0 auto 3rem;
+            max-width: 500px;
+        }
+
+        .divider-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto 3rem;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--navy-light);
+            border-top: 1px solid rgba(201, 168, 76, 0.1);
+            padding: 4rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .footer-col h4 {
+            font-size: 0.78rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201, 168, 76, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--gold);
+        }
+
+        /* ─── ANIMATIONS ─── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+        .fade-in-delay-4 { transition-delay: 0.4s; }
+        .fade-in-delay-5 { transition-delay: 0.5s; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            section { padding: 6rem 3rem; }
+            .about-grid,
+            .principal-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 2rem; }
+            nav.scrolled { padding: 1rem 2rem; }
+            section { padding: 5rem 2rem; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--navy);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+            }
+
+            .nav-links.open { right: 0; }
+
+            .menu-toggle { display: flex; }
+
+            .services-grid,
+            .philosophy-grid { grid-template-columns: 1fr; }
+
+            .footer-grid { grid-template-columns: 1fr; }
+
+            .hero h1 { font-size: 2.5rem; }
+
+            .about-stats { grid-template-columns: 1fr 1fr; }
+
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">JE HOLDINGS<span>, LLC</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#principal">Our Principal</a></li>
+            <li><a href="#philosophy">Approach</a></li>
+            <li><a href="#contact" class="nav-cta">Consultation</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge fade-in">Established 1995</div>
+            <h1 class="fade-in fade-in-delay-1">Own Nothing.<br><em>Control Everything.</em></h1>
+            <p class="hero-sub fade-in fade-in-delay-2">Discreet asset protection, estate planning, and strategic advisory for high-net-worth individuals, athletes, and entertainers.</p>
+            <div class="hero-actions fade-in fade-in-delay-3">
+                <a href="#contact" class="btn-primary">Schedule a Consultation</a>
+                <a href="#services" class="btn-outline">Explore Services</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="fade-in">
+                <div class="section-label">About the Firm</div>
+                <h2 class="section-title">Strategic Protection<br>for What Matters Most</h2>
+                <p class="section-desc">For nearly three decades, JE Holdings has provided comprehensive asset protection and estate planning strategies for discerning clients. Our approach combines legal precision with strategic foresight — ensuring your legacy is structured, shielded, and positioned for generational impact.</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Years of Experience</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Confidential Service</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual fade-in fade-in-delay-2">
+                <div class="about-card">
+                    <blockquote>"Our services were designed to allow you to sleep at night."</blockquote>
+                    <cite>— JE Holdings Philosophy</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="services-header">
+            <div class="section-label fade-in">What We Do</div>
+            <h2 class="section-title fade-in fade-in-delay-1">Comprehensive Strategies.<br>Tailored Solutions.</h2>
+            <p class="section-desc fade-in fade-in-delay-2">Every engagement begins with understanding your unique position and building a strategy that protects and grows your interests.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Asset Protection</h3>
+                <p>Shield your wealth from litigation, creditors, and unforeseen liabilities through sophisticated legal structures and strategic planning.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-1">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                </div>
+                <h3>Estate Planning</h3>
+                <p>Create enduring structures that preserve your wealth across generations while minimizing tax exposure and maximizing control.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-2">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M3 10h18M3 10l9-7 9 7M5 10v11M19 10v11M9 21v-4a2 2 0 012-2h2a2 2 0 012 2v4"/></svg>
+                </div>
+                <h3>Business Formation</h3>
+                <p>Structure your enterprises for maximum protection and operational efficiency with the right entity selection and governance frameworks.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+                </div>
+                <h3>Offshore Planning</h3>
+                <p>Leverage international structures and jurisdictions to optimize asset protection and create additional layers of security for your holdings.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-1">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <h3>Onshore Planning</h3>
+                <p>Utilize domestic trust and entity structures across favorable U.S. jurisdictions to build robust, compliant protection strategies.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-2">
+                <div class="service-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <h3>Business Advisory</h3>
+                <p>Strategic counsel for athletes, entertainers, and entrepreneurs navigating complex financial landscapes and high-stakes decisions.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principal -->
+    <section class="principal" id="principal">
+        <div class="principal-grid">
+            <div class="principal-image fade-in">
+                <span class="principal-initials">RF</span>
+            </div>
+            <div class="principal-content fade-in fade-in-delay-2">
+                <div class="section-label">Our Principal</div>
+                <h3>Rupert Francisco</h3>
+                <div class="title">Juris Doctor — Founder & Principal</div>
+                <p>With over three decades of experience in asset protection, estate planning, and business advisory, Rupert Francisco has built JE Holdings into a trusted name among high-net-worth individuals seeking discreet, comprehensive wealth protection strategies.</p>
+                <p>His expertise spans domestic and international planning structures, with a particular focus on serving the unique needs of professional athletes, entertainers, and entrepreneurs navigating complex financial landscapes.</p>
+                <div class="credentials">
+                    <span class="credential">Asset Protection</span>
+                    <span class="credential">Estate Planning</span>
+                    <span class="credential">Business Formation</span>
+                    <span class="credential">International Structures</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="testimonial">
+        <div class="testimonial-content fade-in">
+            <div class="section-label">Client Testimonial</div>
+            <div class="quote-mark">"</div>
+            <blockquote>JE Holdings provided exceptional guidance in structuring our real estate holdings and tax planning strategy. Their attention to detail and commitment to protecting our interests has been invaluable.</blockquote>
+            <cite>
+                <strong>Satisfied Client</strong>
+                Real Estate & Tax Planning Client
+            </cite>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="philosophy" id="philosophy">
+        <div class="services-header">
+            <div class="section-label fade-in">Our Approach</div>
+            <h2 class="section-title fade-in fade-in-delay-1">Built on Discretion,<br>Driven by Results</h2>
+        </div>
+        <div class="philosophy-grid">
+            <div class="philosophy-item fade-in">
+                <div class="philosophy-number">01</div>
+                <h4>Absolute Confidentiality</h4>
+                <p>Every engagement is conducted with the highest level of discretion. Your privacy is not a feature — it's the foundation of our practice.</p>
+            </div>
+            <div class="philosophy-item fade-in fade-in-delay-2">
+                <div class="philosophy-number">02</div>
+                <h4>Strategic Foresight</h4>
+                <p>We don't just protect what you have today. We architect structures that anticipate tomorrow's challenges and opportunities.</p>
+            </div>
+            <div class="philosophy-item fade-in fade-in-delay-4">
+                <div class="philosophy-number">03</div>
+                <h4>Tailored Solutions</h4>
+                <p>No templates. No one-size-fits-all. Every strategy is custom-built around your unique circumstances, goals, and risk profile.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <div class="cta-content">
+            <div class="section-label fade-in">Get Started</div>
+            <h2 class="section-title fade-in fade-in-delay-1">Ready to Protect<br>Your Legacy?</h2>
+            <div class="divider-line fade-in fade-in-delay-2"></div>
+            <p class="section-desc fade-in fade-in-delay-2">Schedule a confidential consultation with our team to discuss your needs and explore how we can help safeguard your wealth and interests.</p>
+            <div class="fade-in fade-in-delay-3">
+                <a href="mailto:contact@thejeh.com" class="btn-primary">Request Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">JE HOLDINGS<span>, LLC</span></div>
+                <p>Discreet asset protection, estate planning, and strategic advisory since 1995.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">Asset Protection</a></li>
+                    <li><a href="#services">Estate Planning</a></li>
+                    <li><a href="#services">Business Formation</a></li>
+                    <li><a href="#services">Offshore Planning</a></li>
+                    <li><a href="#services">Onshore Planning</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Firm</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#principal">Our Principal</a></li>
+                    <li><a href="#philosophy">Our Approach</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Legal Notice</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 1995–2026 JE Holdings, LLC. All rights reserved.</span>
+            <a href="mailto:contact@thejeh.com">contact@thejeh.com</a>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll-based nav
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

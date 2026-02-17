@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JE Holdings, LLC — Own Nothing. Control Everything.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-deep: #1a2f2a;
+            --green-dark: #243b35;
+            --green-mid: #2d4a42;
+            --green-accent: #3d6b5e;
+            --green-light: #5a8f7e;
+            --cream: #f5f0e8;
+            --cream-dark: #e8dfcf;
+            --cream-mid: #ede5d8;
+            --warm-white: #faf7f2;
+            --text-dark: #1a2f2a;
+            --text-body: #4a5e58;
+            --text-muted: #7a8e88;
+            --accent-copper: #b08d6a;
+            --accent-copper-light: #c9a882;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-dark);
+            background: var(--warm-white);
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVIGATION ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(245, 240, 232, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+            box-shadow: 0 1px 0 rgba(26, 47, 42, 0.08);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--green-deep);
+        }
+
+        .logo span {
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-body);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--green-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-deep);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--green-deep) !important;
+            color: var(--cream) !important;
+            padding: 0.6rem 1.8rem !important;
+            transition: all 0.3s ease !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--green-dark) !important;
+            color: var(--cream) !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--green-deep);
+            transition: all 0.3s ease;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 0 4rem;
+            background: var(--cream);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background: var(--green-deep);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            padding-right: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .hero-badge::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 1.2rem;
+            height: 1px;
+            background: var(--accent-copper);
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--green-deep);
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--green-accent);
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--text-body);
+            line-height: 1.8;
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .hero-visual-inner {
+            background: var(--green-dark);
+            border: 1px solid rgba(93, 143, 126, 0.15);
+            padding: 3.5rem;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .hero-visual-inner blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-visual-inner .divider {
+            width: 40px;
+            height: 1px;
+            background: var(--accent-copper);
+            margin-bottom: 1rem;
+        }
+
+        .hero-visual-inner cite {
+            font-style: normal;
+            font-size: 0.8rem;
+            color: var(--green-light);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--green-deep);
+            color: var(--cream);
+            padding: 1rem 2.5rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(26, 47, 42, 0.2);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--green-accent);
+            color: var(--green-deep);
+            padding: 1rem 2.5rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-outline:hover {
+            background: var(--green-deep);
+            color: var(--cream);
+            border-color: var(--green-deep);
+        }
+
+        /* ─── SECTION STYLES ─── */
+        section {
+            padding: 8rem 4rem;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent-copper);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--green-deep);
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-body);
+            line-height: 1.8;
+            max-width: 550px;
+            font-weight: 300;
+        }
+
+        /* ─── ABOUT ─── */
+        .about {
+            background: var(--warm-white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            border-left: 2px solid var(--accent-copper);
+            padding-left: 1.5rem;
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--green-deep);
+            font-weight: 500;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-image-block {
+            aspect-ratio: 4/5;
+            background: var(--green-deep);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image-block::before {
+            content: '';
+            position: absolute;
+            inset: 1.5rem;
+            border: 1px solid rgba(245, 240, 232, 0.1);
+        }
+
+        .about-image-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 30px,
+                var(--cream) 30px,
+                var(--cream) 31px
+            );
+        }
+
+        .about-image-text {
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            right: 3rem;
+        }
+
+        .about-image-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--cream);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-image-text p {
+            color: var(--green-light);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* ─── SERVICES ─── */
+        .services {
+            background: var(--cream);
+        }
+
+        .services-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .services-header .section-desc {
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--warm-white);
+            border: 1px solid var(--cream-dark);
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            border-color: var(--green-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(26, 47, 42, 0.08);
+        }
+
+        .service-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--cream-dark);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .service-card:hover .service-number {
+            color: var(--green-accent);
+        }
+
+        .service-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--green-deep);
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--text-body);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--green-accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 0.8rem;
+            color: var(--green-deep);
+        }
+
+        /* ─── PRINCIPAL ─── */
+        .principal {
+            background: var(--green-deep);
+            color: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.02;
+            background-image: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 60px,
+                var(--cream) 60px,
+                var(--cream) 61px
+            );
+        }
+
+        .principal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 6rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .principal-image {
+            aspect-ratio: 3/4;
+            background: var(--green-dark);
+            border: 1px solid rgba(245, 240, 232, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .principal-image::before {
+            content: '';
+            position: absolute;
+            top: -1rem;
+            left: -1rem;
+            right: 1rem;
+            bottom: 1rem;
+            border: 1px solid rgba(176, 141, 106, 0.2);
+        }
+
+        .principal-initials {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6rem;
+            color: rgba(245, 240, 232, 0.08);
+            font-weight: 600;
+        }
+
+        .principal-content .section-label {
+            color: var(--accent-copper-light);
+        }
+
+        .principal-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--cream);
+        }
+
+        .principal-content .title {
+            font-size: 0.82rem;
+            color: var(--accent-copper-light);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .principal-content p {
+            font-size: 1rem;
+            color: rgba(245, 240, 232, 0.65);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .credential {
+            background: rgba(245, 240, 232, 0.06);
+            border: 1px solid rgba(245, 240, 232, 0.1);
+            padding: 0.5rem 1.2rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--cream-dark);
+        }
+
+        /* ─── TESTIMONIAL ─── */
+        .testimonial {
+            background: var(--warm-white);
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cream-dark), transparent);
+        }
+
+        .testimonial-content {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .quote-mark {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6rem;
+            color: var(--cream-dark);
+            line-height: 1;
+            margin-bottom: -1.5rem;
+        }
+
+        .testimonial blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            line-height: 1.6;
+            color: var(--green-deep);
+            margin-bottom: 2rem;
+        }
+
+        .testimonial cite {
+            font-style: normal;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .testimonial cite strong {
+            color: var(--green-deep);
+            display: block;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        /* ─── PHILOSOPHY ─── */
+        .philosophy {
+            background: var(--cream);
+        }
+
+        .philosophy-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .philosophy-item {
+            background: var(--warm-white);
+            padding: 3rem 2.5rem;
+            border: 1px solid var(--cream-dark);
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .philosophy-item:hover {
+            border-color: var(--green-accent);
+        }
+
+        .philosophy-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--accent-copper);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .philosophy-item h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--green-deep);
+        }
+
+        .philosophy-item p {
+            font-size: 0.9rem;
+            color: var(--text-body);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ─── CTA ─── */
+        .cta {
+            background: var(--green-deep);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(176, 141, 106, 0.06) 0%, transparent 60%);
+        }
+
+        .cta-content {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta .section-label {
+            color: var(--accent-copper-light);
+        }
+
+        .cta .section-title {
+            color: var(--cream);
+        }
+
+        .cta .section-desc {
+            color: rgba(245, 240, 232, 0.6);
+            margin: 0 auto 3rem;
+            max-width: 500px;
+        }
+
+        .cta .btn-primary {
+            background: var(--accent-copper);
+            color: var(--warm-white);
+        }
+
+        .cta .btn-primary:hover {
+            background: var(--accent-copper-light);
+            box-shadow: 0 8px 30px rgba(176, 141, 106, 0.3);
+        }
+
+        .divider-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 0 auto 2rem;
+        }
+
+        .divider-ornament span {
+            width: 40px;
+            height: 1px;
+            background: var(--accent-copper);
+        }
+
+        .divider-ornament .diamond {
+            width: 6px;
+            height: 6px;
+            border: 1px solid var(--accent-copper);
+            transform: rotate(45deg);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--cream);
+            border-top: 1px solid var(--cream-dark);
+            padding: 4rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .footer-col h4 {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--green-deep);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+
+        .footer-col a:hover {
+            color: var(--green-deep);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid var(--cream-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--green-deep);
+        }
+
+        /* ─── ANIMATIONS ─── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+        .fade-in-delay-4 { transition-delay: 0.4s; }
+        .fade-in-delay-5 { transition-delay: 0.5s; }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            section { padding: 6rem 3rem; }
+            .hero { padding: 0 3rem; }
+            .about-grid,
+            .principal-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+            .hero::before { display: none; }
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero { background: var(--cream); min-height: auto; padding-top: 8rem; padding-bottom: 4rem; }
+            .hero-content { padding-right: 0; }
+            .hero-visual { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 2rem; }
+            nav.scrolled { padding: 1rem 2rem; }
+            section { padding: 5rem 2rem; }
+            .hero { padding: 8rem 2rem 4rem; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--cream);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+            }
+
+            .nav-links.open { right: 0; }
+
+            .menu-toggle { display: flex; }
+
+            .services-grid,
+            .philosophy-grid { grid-template-columns: 1fr; }
+
+            .footer-grid { grid-template-columns: 1fr; }
+
+            .hero h1 { font-size: 2.5rem; }
+
+            .about-stats { grid-template-columns: 1fr 1fr; }
+
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+
+            .principal-image::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">JE Holdings<span>, LLC</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#principal">Our Principal</a></li>
+            <li><a href="#philosophy">Approach</a></li>
+            <li><a href="#contact" class="nav-cta">Consultation</a></li>
+        </ul>
+        <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge fade-in">Established 1995</div>
+                <h1 class="fade-in fade-in-delay-1">Own Nothing.<br><em>Control Everything.</em></h1>
+                <p class="hero-sub fade-in fade-in-delay-2">Discreet asset protection, estate planning, and strategic advisory for high-net-worth individuals, athletes, and entertainers.</p>
+                <div class="hero-actions fade-in fade-in-delay-3">
+                    <a href="#contact" class="btn-primary">Schedule a Consultation</a>
+                    <a href="#services" class="btn-outline">Explore Services</a>
+                </div>
+            </div>
+            <div class="hero-visual slide-right">
+                <div class="hero-visual-inner">
+                    <blockquote>"Our services were designed to allow you to sleep at night."</blockquote>
+                    <div class="divider"></div>
+                    <cite>JE Holdings Philosophy</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="slide-left">
+                <div class="section-label">About the Firm</div>
+                <h2 class="section-title">Strategic Protection<br>for What Matters Most</h2>
+                <p class="section-desc">For nearly three decades, JE Holdings has provided comprehensive asset protection and estate planning strategies for discerning clients. Our approach combines legal precision with strategic foresight — ensuring your legacy is structured, shielded, and positioned for generational impact.</p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Years of Experience</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Confidential Service</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual slide-right">
+                <div class="about-image-block">
+                    <div class="about-image-pattern"></div>
+                    <div class="about-image-text">
+                        <h3>Protect. Structure. Preserve.</h3>
+                        <p>Since 1995</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="services-header">
+            <div class="section-label fade-in">What We Do</div>
+            <h2 class="section-title fade-in fade-in-delay-1">Comprehensive Strategies.<br>Tailored Solutions.</h2>
+            <p class="section-desc fade-in fade-in-delay-2">Every engagement begins with understanding your unique position and building a strategy that protects and grows your interests.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-number">01</div>
+                <h3>Asset Protection</h3>
+                <p>Shield your wealth from litigation, creditors, and unforeseen liabilities through sophisticated legal structures and strategic planning.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-1">
+                <div class="service-number">02</div>
+                <h3>Estate Planning</h3>
+                <p>Create enduring structures that preserve your wealth across generations while minimizing tax exposure and maximizing control.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-2">
+                <div class="service-number">03</div>
+                <h3>Business Formation</h3>
+                <p>Structure your enterprises for maximum protection and operational efficiency with the right entity selection and governance frameworks.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-3">
+                <div class="service-number">04</div>
+                <h3>Offshore Planning</h3>
+                <p>Leverage international structures and jurisdictions to optimize asset protection and create additional layers of security for your holdings.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-4">
+                <div class="service-number">05</div>
+                <h3>Onshore Planning</h3>
+                <p>Utilize domestic trust and entity structures across favorable U.S. jurisdictions to build robust, compliant protection strategies.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+            <div class="service-card fade-in fade-in-delay-5">
+                <div class="service-number">06</div>
+                <h3>Business Advisory</h3>
+                <p>Strategic counsel for athletes, entertainers, and entrepreneurs navigating complex financial landscapes and high-stakes decisions.</p>
+                <a href="#contact" class="service-link">Learn More →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principal -->
+    <section class="principal" id="principal">
+        <div class="principal-grid">
+            <div class="principal-image fade-in">
+                <span class="principal-initials">RF</span>
+            </div>
+            <div class="principal-content fade-in fade-in-delay-2">
+                <div class="section-label">Our Principal</div>
+                <h3>Rupert Francisco</h3>
+                <div class="title">Juris Doctor — Founder & Principal</div>
+                <p>With over three decades of experience in asset protection, estate planning, and business advisory, Rupert Francisco has built JE Holdings into a trusted name among high-net-worth individuals seeking discreet, comprehensive wealth protection strategies.</p>
+                <p>His expertise spans domestic and international planning structures, with a particular focus on serving the unique needs of professional athletes, entertainers, and entrepreneurs navigating complex financial landscapes.</p>
+                <div class="credentials">
+                    <span class="credential">Asset Protection</span>
+                    <span class="credential">Estate Planning</span>
+                    <span class="credential">Business Formation</span>
+                    <span class="credential">International Structures</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="testimonial">
+        <div class="testimonial-content fade-in">
+            <div class="section-label">Client Testimonial</div>
+            <div class="quote-mark">"</div>
+            <blockquote>JE Holdings provided exceptional guidance in structuring our real estate holdings and tax planning strategy. Their attention to detail and commitment to protecting our interests has been invaluable.</blockquote>
+            <cite>
+                <strong>Satisfied Client</strong>
+                Real Estate & Tax Planning Client
+            </cite>
+        </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="philosophy" id="philosophy">
+        <div class="philosophy-header">
+            <div class="section-label fade-in">Our Approach</div>
+            <h2 class="section-title fade-in fade-in-delay-1">Built on Discretion,<br>Driven by Results</h2>
+        </div>
+        <div class="philosophy-grid">
+            <div class="philosophy-item fade-in">
+                <div class="philosophy-number">I</div>
+                <h4>Absolute Confidentiality</h4>
+                <p>Every engagement is conducted with the highest level of discretion. Your privacy is not a feature — it's the foundation of our practice.</p>
+            </div>
+            <div class="philosophy-item fade-in fade-in-delay-2">
+                <div class="philosophy-number">II</div>
+                <h4>Strategic Foresight</h4>
+                <p>We don't just protect what you have today. We architect structures that anticipate tomorrow's challenges and opportunities.</p>
+            </div>
+            <div class="philosophy-item fade-in fade-in-delay-4">
+                <div class="philosophy-number">III</div>
+                <h4>Tailored Solutions</h4>
+                <p>No templates. No one-size-fits-all. Every strategy is custom-built around your unique circumstances, goals, and risk profile.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <div class="cta-content">
+            <div class="section-label fade-in">Get Started</div>
+            <h2 class="section-title fade-in fade-in-delay-1">Ready to Protect<br>Your Legacy?</h2>
+            <div class="divider-ornament fade-in fade-in-delay-2">
+                <span></span>
+                <div class="diamond"></div>
+                <span></span>
+            </div>
+            <p class="section-desc fade-in fade-in-delay-2">Schedule a confidential consultation with our team to discuss your needs and explore how we can help safeguard your wealth and interests.</p>
+            <div class="fade-in fade-in-delay-3">
+                <a href="mailto:contact@thejeh.com" class="btn-primary">Request Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">JE Holdings<span>, LLC</span></div>
+                <p>Discreet asset protection, estate planning, and strategic advisory since 1995.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">Asset Protection</a></li>
+                    <li><a href="#services">Estate Planning</a></li>
+                    <li><a href="#services">Business Formation</a></li>
+                    <li><a href="#services">Offshore Planning</a></li>
+                    <li><a href="#services">Onshore Planning</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Firm</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#principal">Our Principal</a></li>
+                    <li><a href="#philosophy">Our Approach</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Legal Notice</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 1995–2026 JE Holdings, LLC. All rights reserved.</span>
+            <a href="mailto:contact@thejeh.com">contact@thejeh.com</a>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll-based nav
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in, .slide-left, .slide-right').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
