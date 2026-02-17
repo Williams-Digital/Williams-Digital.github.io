@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Advisory | JE Holdings, LLC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-deep: #1a2f2a;
+            --green-dark: #243b35;
+            --green-mid: #2d4a42;
+            --green-accent: #3d6b5e;
+            --green-light: #5a8f7e;
+            --cream: #f5f0e8;
+            --cream-dark: #e8dfcf;
+            --cream-mid: #ede5d8;
+            --warm-white: #faf7f2;
+            --text-dark: #1a2f2a;
+            --text-body: #4a5e58;
+            --text-muted: #7a8e88;
+            --accent-copper: #b08d6a;
+            --accent-copper-light: #c9a882;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--warm-white);
+            color: var(--text-body);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text-dark);
+            font-weight: 400;
+        }
+
+        /* ===== NAVBAR ===== */
+        #navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            padding: 1.25rem 5%; display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease; background: var(--cream); border-bottom: 1px solid var(--cream-dark);
+        }
+        #navbar.scrolled { background: var(--cream); border-bottom: 1px solid var(--cream-dark); padding: 1rem 5%; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--green-deep); text-decoration: none; }
+        .logo span { font-weight: 300; color: var(--accent-copper); }
+        .nav-links { display: flex; list-style: none; align-items: center; gap: 2.5rem; }
+        .nav-links a { text-decoration: none; font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 500; color: #1a1a1a; letter-spacing: 0.02em; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent-copper); }
+        .nav-cta { background: var(--green-deep) !important; color: var(--cream) !important; padding: 0.65rem 1.5rem; border-radius: 4px; transition: background 0.3s ease, transform 0.3s ease !important; }
+        .nav-cta:hover { background: var(--green-dark) !important; transform: translateY(-1px); }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+        .menu-toggle span { width: 28px; height: 2px; background: var(--green-deep); transition: all 0.3s ease; }
+
+        /* ===== HERO ===== */
+        .hero { padding: 10rem 5% 5rem; background: var(--warm-white); position: relative; overflow: hidden; }
+        .hero::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 40%; height: 100%;
+            background: linear-gradient(135deg, transparent 0%, var(--cream) 100%); opacity: 0.5;
+        }
+        .hero-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+        .hero-label {
+            font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.2em;
+            text-transform: uppercase; color: var(--accent-copper); margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 1rem;
+        }
+        .hero-label::before { content: ''; width: 40px; height: 1px; background: var(--accent-copper); }
+        .hero h1 { font-size: clamp(2.8rem, 5.5vw, 4.5rem); font-weight: 300; color: var(--green-deep); line-height: 1.1; margin-bottom: 1.5rem; max-width: 700px; }
+        .hero h1 em { font-style: italic; color: var(--green-accent); }
+        .hero-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--text-body); margin-bottom: 1.5rem; max-width: 600px; font-weight: 300; font-style: italic; }
+        .hero-description { font-size: 1.05rem; color: var(--text-muted); max-width: 550px; margin-bottom: 2.5rem; line-height: 1.8; }
+        .btn-primary {
+            display: inline-block; background: var(--green-deep); color: var(--cream); padding: 1rem 2.5rem;
+            font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em;
+            text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; border: none; cursor: pointer;
+        }
+        .btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(26, 47, 42, 0.2); }
+        .btn-copper { background: var(--accent-copper); color: var(--warm-white); }
+        .btn-copper:hover { background: var(--accent-copper-light); box-shadow: 0 8px 25px rgba(176, 141, 106, 0.3); }
+        .hero-decoration {
+            position: absolute; top: 50%; right: 8%; transform: translateY(-50%);
+            width: 300px; height: 300px; border: 1px solid var(--cream-dark); border-radius: 50%; opacity: 0.4;
+        }
+        .hero-decoration::after {
+            content: ''; position: absolute; top: 30px; left: 30px; right: 30px; bottom: 30px;
+            border: 1px solid var(--accent-copper); border-radius: 50%; opacity: 0.3;
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section { padding: 6rem 5%; }
+        .section-label { font-family: 'Outfit', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-copper); margin-bottom: 1rem; }
+        .section-title { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; color: var(--green-deep); margin-bottom: 1.5rem; line-height: 1.2; }
+
+        /* ===== OVERVIEW ===== */
+        .overview { background: var(--cream); }
+        .overview-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+        .overview-text p { font-size: 1.05rem; color: var(--text-body); line-height: 1.9; margin-bottom: 1.5rem; }
+        .overview-text p:first-of-type::first-letter {
+            font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 600;
+            color: var(--green-deep); float: left; line-height: 1; margin-right: 0.5rem; margin-top: 0.1rem;
+        }
+        .overview-stats { display: flex; flex-direction: column; gap: 2rem; padding-top: 1rem; }
+        .stat-item { padding-left: 1.5rem; border-left: 3px solid var(--accent-copper); }
+        .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--green-deep); line-height: 1.2; }
+        .stat-label { font-size: 0.85rem; font-weight: 500; color: var(--text-body); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem; }
+        .stat-desc { font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; line-height: 1.6; }
+
+        /* ===== BENEFITS ===== */
+        .benefits { background: var(--warm-white); }
+        .benefits-header { max-width: 1200px; margin: 0 auto 3rem; text-align: center; }
+        .benefits-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .benefit-card { background: var(--warm-white); border: 1px solid var(--cream-dark); padding: 2.5rem; border-radius: 6px; transition: all 0.4s ease; }
+        .benefit-card:hover { border-color: var(--green-accent); box-shadow: 0 10px 40px rgba(26, 47, 42, 0.06); transform: translateY(-4px); }
+        .benefit-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--cream-dark); line-height: 1; margin-bottom: 1.5rem; transition: color 0.4s ease; }
+        .benefit-card:hover .benefit-number { color: var(--accent-copper); }
+        .benefit-card h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--green-deep); }
+        .benefit-subtitle { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-copper); margin-bottom: 1rem; }
+        .benefit-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+
+        /* ===== PROCESS ===== */
+        .process { background: var(--cream); }
+        .process-header { max-width: 1200px; margin: 0 auto 4rem; }
+        .process-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; }
+        .process-grid::before {
+            content: ''; position: absolute; top: 2rem; left: 12.5%; right: 12.5%; height: 1px;
+            background: linear-gradient(90deg, var(--accent-copper), var(--cream-dark), var(--accent-copper)); z-index: 0;
+        }
+        .process-step { text-align: center; position: relative; z-index: 1; }
+        .process-numeral {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; color: var(--accent-copper);
+            margin-bottom: 1.5rem; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;
+            margin-left: auto; margin-right: auto; background: var(--cream); border: 1px solid var(--accent-copper); border-radius: 50%;
+        }
+        .process-step h3 { font-size: 1.3rem; font-weight: 500; color: var(--green-deep); margin-bottom: 0.75rem; }
+        .process-step p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; max-width: 250px; margin: 0 auto; }
+
+        /* ===== CTA ===== */
+        .cta-section { background: var(--green-deep); text-align: center; position: relative; overflow: hidden; }
+        .cta-section::before { content: ''; position: absolute; top: -50%; right: -20%; width: 500px; height: 500px; border: 1px solid rgba(176, 141, 106, 0.1); border-radius: 50%; }
+        .cta-section::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 400px; height: 400px; border: 1px solid rgba(176, 141, 106, 0.08); border-radius: 50%; }
+        .cta-content { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+        .cta-section .section-label { color: var(--accent-copper-light); }
+        .cta-section .section-title { color: var(--cream); margin-bottom: 1.5rem; }
+        .cta-section p { color: var(--cream-dark); font-size: 1.05rem; margin-bottom: 2.5rem; line-height: 1.8; }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--cream); border-top: 1px solid var(--cream-dark); padding: 4rem 5% 2rem; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .footer-brand .logo { font-size: 1.4rem; display: inline-block; margin-bottom: 1rem; }
+        .footer-brand p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; max-width: 350px; }
+        .footer-links h4 { font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dark); margin-bottom: 1.25rem; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.75rem; }
+        .footer-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--accent-copper); }
+        .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid var(--cream-dark); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-bottom p { font-size: 0.8rem; color: var(--text-muted); }
+        .footer-bottom-links { display: flex; gap: 2rem; }
+        .footer-bottom-links a { font-size: 0.8rem; color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; }
+        .footer-bottom-links a:hover { color: var(--accent-copper); }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+        .fade-in-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .overview-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .process-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+            .process-grid::before { display: none; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--cream); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .hero { padding: 8rem 5% 4rem; }
+            .hero h1 { font-size: 2.4rem; }
+            .hero-decoration { display: none; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="scrolled">
+        <a href="../" class="logo" style="text-decoration:none;">JE Holdings<span>, LLC</span></a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../#about">About</a></li>
+            <li><a href="../#services">Services</a></li>
+            <li><a href="../#principal">Our Principal</a></li>
+            <li><a href="../#philosophy">Approach</a></li>
+            <li><a href="../#contact" class="nav-cta">Consultation</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label fade-in">Strategic Counsel</div>
+            <h1 class="fade-in fade-in-delay-1">Business <em>Advisory</em></h1>
+            <p class="hero-subtitle fade-in fade-in-delay-2">Trusted counsel for those whose careers and fortunes demand extraordinary guidance.</p>
+            <p class="hero-description fade-in fade-in-delay-3">We provide strategic advisory services for professional athletes, entertainers, and entrepreneurs navigating complex financial landscapes. From contract review and financial structuring to career transition planning, we serve as the confidential advisor you can trust with everything at stake.</p>
+            <a href="../#contact" class="btn-primary fade-in fade-in-delay-4">Schedule a Consultation</a>
+        </div>
+        <div class="hero-decoration"></div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="overview">
+        <div class="overview-grid">
+            <div class="overview-text fade-in">
+                <div class="section-label">Overview</div>
+                <h2 class="section-title">Your Confidential Strategic Advisor</h2>
+                <p>Professional athletes, entertainers, and high-profile entrepreneurs operate in a world where the stakes are extraordinarily high and the margin for error is razor-thin. A single poorly structured contract, an uninformed financial decision, or a lack of planning for career transitions can result in the loss of wealth that took years of dedication to accumulate.</p>
+                <p>JE Holdings serves as the trusted, confidential strategic advisor for individuals whose public profiles and substantial earnings require a level of guidance that goes far beyond conventional financial advice. We understand the unique dynamics of sports and entertainment careers: the compressed earning windows, the intense public scrutiny, the complex contractual arrangements, and the critical importance of planning for life after the spotlight.</p>
+                <p>Our advisory practice is built on deep relationships and absolute discretion. We become an integral part of your inner circle, providing the kind of candid, informed counsel that protects your interests across every dimension of your financial life, from structuring endorsement deals to preparing for the next chapter of your career.</p>
+            </div>
+            <div class="overview-stats fade-in fade-in-delay-2">
+                <div class="stat-item">
+                    <div class="stat-number">30+ Years</div>
+                    <div class="stat-label">Serving Elite Clients</div>
+                    <div class="stat-desc">Three decades of trusted advisory relationships with athletes, entertainers, and entrepreneurs.</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Confidential</div>
+                    <div class="stat-label">Advisor Relationship</div>
+                    <div class="stat-desc">Every engagement conducted with absolute discretion and unwavering loyalty to your interests.</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Holistic</div>
+                    <div class="stat-label">Strategic Scope</div>
+                    <div class="stat-desc">Advisory spanning contracts, finances, business ventures, and career transition planning.</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Proactive</div>
+                    <div class="stat-label">Risk Identification</div>
+                    <div class="stat-desc">Identifying threats and opportunities before they become crises or missed chances.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefits">
+        <div class="benefits-header fade-in">
+            <div class="section-label">Key Benefits</div>
+            <h2 class="section-title">Why Business Advisory Matters</h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card fade-in fade-in-delay-1">
+                <div class="benefit-number">01</div>
+                <h3>Industry Expertise</h3>
+                <div class="benefit-subtitle">Specialized Knowledge of Sports & Entertainment</div>
+                <p>We bring deep understanding of the sports and entertainment industries, including league-specific rules, union agreements, endorsement structures, and the unique financial patterns of careers with compressed high-earning windows.</p>
+            </div>
+            <div class="benefit-card fade-in fade-in-delay-2">
+                <div class="benefit-number">02</div>
+                <h3>Strategic Planning</h3>
+                <div class="benefit-subtitle">Long-Term Financial Roadmaps</div>
+                <p>We build comprehensive financial roadmaps that account for your current earnings, future projections, lifestyle requirements, and long-term wealth preservation goals, ensuring every dollar works toward your defined objectives.</p>
+            </div>
+            <div class="benefit-card fade-in fade-in-delay-3">
+                <div class="benefit-number">03</div>
+                <h3>Confidential Counsel</h3>
+                <div class="benefit-subtitle">Trusted Advisor Relationship</div>
+                <p>In a world of competing interests, we serve solely as your advocate. Our advisory relationship is built on trust, discretion, and independence, free from the conflicts of interest that plague many advisory arrangements in sports and entertainment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process">
+        <div class="process-header fade-in">
+            <div class="section-label">Our Process</div>
+            <h2 class="section-title">How We Serve as Your Advisor</h2>
+        </div>
+        <div class="process-grid">
+            <div class="process-step fade-in fade-in-delay-1">
+                <div class="process-numeral">I</div>
+                <h3>Confidential Intake</h3>
+                <p>We begin with a completely confidential assessment of your current situation, including career status, financial position, contractual obligations, and personal objectives for the short and long term.</p>
+            </div>
+            <div class="process-step fade-in fade-in-delay-2">
+                <div class="process-numeral">II</div>
+                <h3>Situation Analysis</h3>
+                <p>We conduct a thorough analysis of your financial landscape, identifying risks, opportunities, and areas where improved structuring or strategic decisions could materially improve your position.</p>
+            </div>
+            <div class="process-step fade-in fade-in-delay-3">
+                <div class="process-numeral">III</div>
+                <h3>Strategy Development</h3>
+                <p>We develop a comprehensive advisory strategy encompassing financial structuring, contract positioning, business venture evaluation, and career transition planning tailored to your unique circumstances.</p>
+            </div>
+            <div class="process-step fade-in fade-in-delay-4">
+                <div class="process-numeral">IV</div>
+                <h3>Ongoing Advisory</h3>
+                <p>We serve as your continuous strategic advisor, available for time-sensitive decisions, quarterly reviews, and proactive guidance as your career and financial landscape evolve over time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content fade-in">
+            <div class="section-label">Take the Next Step</div>
+            <h2 class="section-title">Gain the Strategic Advantage You Deserve</h2>
+            <p>Schedule a confidential consultation to discuss how our advisory services can provide the trusted, expert guidance that your career and wealth demand. Every conversation is held in complete confidence.</p>
+            <a href="../#contact" class="btn-primary btn-copper">Begin Your Consultation</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="../" class="logo" style="text-decoration:none;">JE Holdings<span>, LLC</span></a>
+                <p>Sophisticated wealth preservation strategies for high-net-worth individuals, athletes, and entertainers. Protecting what matters most since 1995.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="asset-protection.html">Asset Protection</a></li>
+                    <li><a href="estate-planning.html">Estate Planning</a></li>
+                    <li><a href="business-formation.html">Business Formation</a></li>
+                    <li><a href="offshore-planning.html">Offshore Planning</a></li>
+                    <li><a href="onshore-planning.html">Onshore Planning</a></li>
+                    <li><a href="business-advisory.html">Business Advisory</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="../#about">About</a></li>
+                    <li><a href="../#principal">Our Principal</a></li>
+                    <li><a href="../#philosophy">Approach</a></li>
+                    <li><a href="../#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 1995&ndash;2026 JE Holdings, LLC. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

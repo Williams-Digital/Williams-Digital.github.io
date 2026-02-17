@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Protection — JE Holdings, LLC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a1628;
+            --navy-light: #132240;
+            --navy-mid: #1a2d4a;
+            --gold: #c9a84c;
+            --gold-light: #dfc06e;
+            --gold-pale: #f5e6b8;
+            --cream: #faf8f2;
+            --white: #ffffff;
+            --text-light: #c8cdd6;
+            --text-muted: #8a92a1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--cream);
+            background: var(--navy);
+            overflow-x: hidden;
+        }
+
+        /* ─── NAVIGATION ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4rem;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--cream);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            border: 1px solid var(--gold) !important;
+            padding: 0.6rem 1.8rem !important;
+            color: var(--gold) !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold) !important;
+            color: var(--navy) !important;
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        /* ─── SERVICE HERO ─── */
+        .service-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .service-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 30%, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+        }
+
+        .service-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.2), transparent);
+        }
+
+        .service-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .service-hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            padding: 0.5rem 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .service-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+        }
+
+        .service-hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .service-hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .service-hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy);
+            padding: 1rem 2.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            border: 1px solid rgba(201, 168, 76, 0.4);
+            color: var(--gold);
+            padding: 1rem 2.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            background: rgba(201, 168, 76, 0.08);
+        }
+
+        /* ─── SECTION STYLES ─── */
+        section {
+            padding: 8rem 4rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 550px;
+            font-weight: 300;
+        }
+
+        /* ─── OVERVIEW ─── */
+        .overview {
+            background: var(--navy-light);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 6rem;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .overview-text .section-desc {
+            max-width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .overview-highlights {
+            background: var(--navy-mid);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .overview-highlights::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 2rem;
+            right: 2rem;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .highlight-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+        }
+
+        .highlight-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .highlight-item:first-child {
+            padding-top: 0;
+        }
+
+        .highlight-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .highlight-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+        }
+
+        .highlight-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* ─── BENEFITS ─── */
+        .benefits {
+            background: var(--navy);
+        }
+
+        .benefits-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .benefits-header .section-desc {
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            background: var(--navy-light);
+            border: 1px solid rgba(201, 168, 76, 0.08);
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: rgba(201, 168, 76, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .benefit-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .benefit-icon {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .benefit-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+
+        .benefit-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ─── PROCESS ─── */
+        .process {
+            background: var(--navy-light);
+        }
+
+        .process-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .process-header .section-desc {
+            margin: 0 auto;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .process-grid::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 12.5%;
+            right: 12.5%;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold), rgba(201, 168, 76, 0.3), rgba(201, 168, 76, 0.3), var(--gold));
+            z-index: 0;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            background: var(--navy-light);
+            position: relative;
+        }
+
+        .process-step h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            color: var(--cream);
+        }
+
+        .process-step p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 240px;
+            margin: 0 auto;
+        }
+
+        /* ─── CTA ─── */
+        .cta {
+            background: var(--navy);
+            text-align: center;
+            position: relative;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(201, 168, 76, 0.05) 0%, transparent 60%);
+        }
+
+        .cta-content {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .cta-content .section-desc {
+            margin: 0 auto 3rem;
+            max-width: 500px;
+        }
+
+        .divider-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto 3rem;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--navy-light);
+            border-top: 1px solid rgba(201, 168, 76, 0.1);
+            padding: 4rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .footer-col h4 {
+            font-size: 0.78rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(201, 168, 76, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--gold);
+        }
+
+        /* ─── ANIMATIONS ─── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-delay-1 { transition-delay: 0.1s; }
+        .fade-in-delay-2 { transition-delay: 0.2s; }
+        .fade-in-delay-3 { transition-delay: 0.3s; }
+        .fade-in-delay-4 { transition-delay: 0.4s; }
+        .fade-in-delay-5 { transition-delay: 0.5s; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            section { padding: 6rem 3rem; }
+            .overview-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-grid { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+            .process-grid::before { display: none; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 2rem; }
+            nav.scrolled { padding: 1rem 2rem; }
+            section { padding: 5rem 2rem; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--navy);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+            }
+
+            .nav-links.open { right: 0; }
+            .menu-toggle { display: flex; }
+
+            .service-hero { min-height: 60vh; padding: 7rem 2rem 3rem; }
+            .service-hero h1 { font-size: 2.2rem; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="scrolled">
+        <a href="../" class="logo">JE HOLDINGS<span>, LLC</span></a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../#about">About</a></li>
+            <li><a href="../#services">Services</a></li>
+            <li><a href="../#principal">Our Principal</a></li>
+            <li><a href="../#philosophy">Approach</a></li>
+            <li><a href="../#contact" class="nav-cta">Consultation</a></li>
+        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="service-hero">
+        <div class="service-hero-content">
+            <div class="service-hero-badge fade-in">Service Detail</div>
+            <h1 class="fade-in fade-in-delay-1">Asset <em>Protection</em></h1>
+            <p class="service-hero-subtitle fade-in fade-in-delay-2">Shield your wealth. Secure your future.</p>
+            <p class="service-hero-desc fade-in fade-in-delay-3">Comprehensive strategies to protect your assets from litigation, creditors, and unforeseen liabilities through sophisticated domestic and international structures designed for high-net-worth individuals, athletes, and entertainers.</p>
+            <div class="fade-in fade-in-delay-4">
+                <a href="../#contact" class="btn-primary">Schedule a Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="overview">
+        <div class="overview-grid">
+            <div class="overview-text fade-in">
+                <div class="section-label">Overview</div>
+                <h2 class="section-title">Multi-Layered Defense<br>for Your Wealth</h2>
+                <p class="section-desc">In today's litigious environment, wealth without protection is wealth at risk. JE Holdings designs comprehensive asset protection strategies that create multiple layers of legal insulation between your personal wealth and potential threats.</p>
+                <p class="section-desc">Our approach leverages a combination of domestic and international trust structures, limited liability companies, family limited partnerships, and specialized entity frameworks to ensure your assets remain shielded from creditors, lawsuits, and other liabilities. Whether you are a professional athlete, entertainer, entrepreneur, or high-net-worth individual, we architect structures that are both legally robust and operationally practical.</p>
+                <p class="section-desc">Every strategy is custom-tailored to your unique risk profile, asset base, and long-term objectives -- because when it comes to protection, one size never fits all.</p>
+            </div>
+            <div class="overview-highlights fade-in fade-in-delay-2">
+                <div class="highlight-item">
+                    <div class="highlight-number">30+</div>
+                    <div class="highlight-label">Years of Protective Strategies</div>
+                    <div class="highlight-desc">Three decades of designing and implementing asset protection frameworks for discerning clients.</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-number">100%</div>
+                    <div class="highlight-label">Confidential Engagements</div>
+                    <div class="highlight-desc">Every client relationship is built on absolute discretion and privileged communication.</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-number">Multi</div>
+                    <div class="highlight-label">Jurisdictional Coverage</div>
+                    <div class="highlight-desc">Domestic and international structures spanning favorable jurisdictions worldwide.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits">
+        <div class="benefits-header">
+            <div class="section-label fade-in">Key Benefits</div>
+            <h2 class="section-title fade-in fade-in-delay-1">Why Asset Protection<br>Matters</h2>
+            <p class="section-desc fade-in fade-in-delay-2">A proactive approach to safeguarding your wealth delivers measurable advantages that compound over time.</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card fade-in">
+                <div class="benefit-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Legal Shield</h3>
+                <p>Multi-layered entity structures create formidable barriers between your personal wealth and external threats. Through carefully designed LLCs, trusts, and partnerships, we build a comprehensive defense system that protects your assets from every angle.</p>
+            </div>
+            <div class="benefit-card fade-in fade-in-delay-1">
+                <div class="benefit-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/><line x1="1" y1="1" x2="23" y2="23" stroke-width="1.5"/></svg>
+                </div>
+                <h3>Privacy Protection</h3>
+                <p>Keep your ownership interests discreet and away from public records. Our structures are designed to maintain the confidentiality of your holdings, ensuring that your financial footprint remains invisible to those who would seek to target it.</p>
+            </div>
+            <div class="benefit-card fade-in fade-in-delay-2">
+                <div class="benefit-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                </div>
+                <h3>Litigation Deterrence</h3>
+                <p>Make your assets effectively judgment-proof through strategic structuring. When potential litigants see a well-fortified asset structure, the cost-benefit analysis of pursuing a claim tips decisively in your favor, deterring frivolous lawsuits before they begin.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process">
+        <div class="process-header">
+            <div class="section-label fade-in">Our Process</div>
+            <h2 class="section-title fade-in fade-in-delay-1">How We Build<br>Your Protection</h2>
+            <p class="section-desc fade-in fade-in-delay-2">A systematic, proven approach to creating robust asset protection strategies tailored to your unique situation.</p>
+        </div>
+        <div class="process-grid">
+            <div class="process-step fade-in">
+                <div class="process-number">01</div>
+                <h4>Assessment</h4>
+                <p>Comprehensive review of your current asset portfolio, risk exposure, existing structures, and potential vulnerabilities that need to be addressed.</p>
+            </div>
+            <div class="process-step fade-in fade-in-delay-1">
+                <div class="process-number">02</div>
+                <h4>Strategy Design</h4>
+                <p>Architect a custom protection framework leveraging the optimal combination of entities, trusts, and jurisdictions for your specific needs.</p>
+            </div>
+            <div class="process-step fade-in fade-in-delay-2">
+                <div class="process-number">03</div>
+                <h4>Entity Formation</h4>
+                <p>Execute the strategy through precise formation of legal entities, trust instruments, and supporting documentation with meticulous attention to detail.</p>
+            </div>
+            <div class="process-step fade-in fade-in-delay-3">
+                <div class="process-number">04</div>
+                <h4>Ongoing Management</h4>
+                <p>Continuous monitoring, compliance maintenance, and strategic adjustments to ensure your protection remains current and effective over time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-content">
+            <div class="section-label fade-in">Get Started</div>
+            <h2 class="section-title fade-in fade-in-delay-1">Ready to Protect<br>Your Assets?</h2>
+            <div class="divider-line fade-in fade-in-delay-2"></div>
+            <p class="section-desc fade-in fade-in-delay-2">Schedule a confidential consultation to discuss your asset protection needs and explore how JE Holdings can build a comprehensive shield around your wealth.</p>
+            <div class="fade-in fade-in-delay-3">
+                <a href="mailto:contact@thejeh.com" class="btn-primary">Request Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../" class="logo">JE HOLDINGS<span>, LLC</span></a>
+                <p>Discreet asset protection, estate planning, and strategic advisory since 1995.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="asset-protection.html">Asset Protection</a></li>
+                    <li><a href="estate-planning.html">Estate Planning</a></li>
+                    <li><a href="business-formation.html">Business Formation</a></li>
+                    <li><a href="offshore-planning.html">Offshore Planning</a></li>
+                    <li><a href="onshore-planning.html">Onshore Planning</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Firm</h4>
+                <ul>
+                    <li><a href="../#about">About Us</a></li>
+                    <li><a href="../#principal">Our Principal</a></li>
+                    <li><a href="../#philosophy">Our Approach</a></li>
+                    <li><a href="../#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Legal Notice</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 1995&ndash;2026 JE Holdings, LLC. All rights reserved.</span>
+            <a href="mailto:contact@thejeh.com">contact@thejeh.com</a>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
