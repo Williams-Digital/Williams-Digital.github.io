@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Website Redesign Proposal for JE Holdings - Williams Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: #0a0a0f;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .quote-card {
+            background: #12121a;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            box-shadow: 0 0 60px rgba(99,102,241,0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .header .tagline {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px 50px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .meta-section h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #a1a1aa;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .meta-section p {
+            color: #d4d4d8;
+            line-height: 1.8;
+        }
+
+        .company-name {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: #a1a1aa;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        .intro strong {
+            color: #d4d4d8;
+        }
+
+        /* ─── DESIGN OPTIONS PREVIEW ─── */
+        .demos {
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05));
+            border: 1px solid rgba(99,102,241,0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+
+        .demos h3 {
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .demos p {
+            color: #d4d4d8;
+            margin-bottom: 20px;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .demo-option {
+            display: block;
+            padding: 20px 24px;
+            background: rgba(99,102,241,0.08);
+            color: #c4b5fd;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(99,102,241,0.25);
+            text-align: center;
+        }
+
+        .demo-option:hover {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+            border-color: transparent;
+        }
+
+        .demo-option .demo-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.7;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .demo-option .demo-name {
+            font-size: 1rem;
+        }
+
+        .demo-option .demo-pages {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        /* ─── PRICING OPTIONS ─── */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: #a1a1aa;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .option {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: rgba(99,102,241,0.4);
+            box-shadow: 0 0 40px rgba(99,102,241,0.15);
+        }
+
+        .option.featured {
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.05));
+            border: 1px solid rgba(99,102,241,0.4);
+            color: white;
+            position: relative;
+            box-shadow: 0 0 60px rgba(99,102,241,0.2);
+        }
+
+        .badge {
+            position: absolute;
+            top: -15px;
+            right: 40px;
+            background: #00D084;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .option-header {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .option.featured .option-header {
+            border-bottom-color: rgba(99,102,241,0.3);
+        }
+
+        .option-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .option-description {
+            font-size: 1rem;
+            color: #a1a1aa;
+            line-height: 1.7;
+        }
+
+        .option.featured .option-description {
+            color: #d4d4d8;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .setup-cost {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .setup-label {
+            font-size: 0.9rem;
+            color: #a1a1aa;
+            margin-top: 5px;
+        }
+
+        .monthly-cost {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .monthly-label {
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            margin-top: 5px;
+        }
+
+        .features-group-label {
+            margin-top: 35px;
+            margin-bottom: 10px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .option.featured .features-group-label {
+            border-bottom-color: rgba(99,102,241,0.2);
+        }
+
+        .features-group-label h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0;
+            font-weight: 700;
+        }
+
+        .features-group-label h4.purple { color: #8b5cf6; }
+        .features-group-label h4.green { color: #22c55e; }
+
+        .features {
+            list-style: none;
+            margin-top: 0;
+        }
+
+        .features li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #e4e4e7;
+            line-height: 1.6;
+        }
+
+        .features li:before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            color: #00D084;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* ─── COMPARISON TABLE ─── */
+        .comparison {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 50px;
+        }
+
+        .comparison h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .comparison table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison th,
+        .comparison td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .comparison th {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .comparison th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .comparison th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .comparison td {
+            color: #a1a1aa;
+            font-size: 0.95rem;
+        }
+
+        .comparison td:first-child {
+            color: #d4d4d8;
+            font-weight: 600;
+        }
+
+        .check {
+            color: #00D084;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .dash {
+            color: #52525b;
+        }
+
+        /* ─── TIMELINE ─── */
+        .timeline {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 30px;
+        }
+
+        .timeline h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .timeline-step {
+            text-align: center;
+            padding: 20px 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .timeline-week {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #8b5cf6;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-label {
+            font-size: 0.9rem;
+            color: #d4d4d8;
+            font-weight: 600;
+        }
+
+        .timeline-desc {
+            font-size: 0.8rem;
+            color: #71717a;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .footer p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+
+        .footer .cta {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* ─── PRINT ─── */
+        @media print {
+            body { background: white; color: #1a1a1a; }
+            .quote-card { box-shadow: none; border: 1px solid #e8e8e8; background: white; }
+            .option { background: #fafafa; border-color: #e8e8e8; }
+            .option:hover { border-color: #e8e8e8; box-shadow: none; }
+            .option, .option.featured, .meta-section p, .intro, .demos p, .features li, .option-description {
+                color: #1a1a1a !important;
+            }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            .header { padding: 35px 25px; }
+            .header h1 { font-size: 1.8rem; }
+            .meta { grid-template-columns: 1fr; gap: 25px; padding: 30px 25px; }
+            .content { padding: 30px 25px; }
+            .option { padding: 30px 25px; }
+            .pricing-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .demo-grid { grid-template-columns: 1fr; }
+            .timeline-grid { grid-template-columns: 1fr 1fr; }
+            .footer { padding: 35px 25px; }
+            .comparison { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quote-card">
+
+            <!-- Header -->
+            <div class="header">
+                <h1>Williams Digital</h1>
+                <div class="tagline">Website Redesign &amp; Rebrand Proposal</div>
+            </div>
+
+            <!-- Meta -->
+            <div class="meta">
+                <div class="meta-section">
+                    <h3>Prepared For</h3>
+                    <p class="company-name">JE Holdings, LLC</p>
+                    <p>Rupert Francisco, JD<br>Founder &amp; Principal<br>thejeh.com</p>
+                </div>
+                <div class="meta-section">
+                    <h3>Prepared By</h3>
+                    <p class="company-name">Williams Digital</p>
+                    <p>Dylan Williams<br>Founder &amp; Developer<br><script>document.write(new Date().toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}))</script></p>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+
+                <div class="intro">
+                    Thank you for the opportunity to work with JE Holdings. After reviewing your current website and brand, we've prepared <strong>two complete design concepts</strong> that elevate your digital presence to match the caliber of your clientele. Both designs feature a luxury aesthetic tailored to high-net-worth individuals, athletes, and entertainers &mdash; with dedicated service pages, responsive layouts, and premium details throughout.
+                </div>
+
+                <!-- Live Demos -->
+                <div class="demos">
+                    <h3>Live Design Concepts &mdash; Built for You</h3>
+                    <p>We've already built two full website concepts with 7 pages each (homepage + 6 service pages). Preview both below:</p>
+                    <div class="demo-grid">
+                        <a href="https://williamsdigital.io/preview/jeh-navy-gold/" target="_blank" class="demo-option">
+                            <span class="demo-label">Option A</span>
+                            <span class="demo-name">Navy &amp; Gold</span>
+                            <span class="demo-pages">7 pages &middot; Dark luxury aesthetic</span>
+                        </a>
+                        <a href="https://williamsdigital.io/preview/jeh-green-cream/" target="_blank" class="demo-option">
+                            <span class="demo-label">Option B</span>
+                            <span class="demo-name">Green &amp; Cream</span>
+                            <span class="demo-pages">7 pages &middot; Earthy elegance</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <h2 class="section-title">Your Investment</h2>
+                <p class="section-subtitle">Choose the package that best fits your goals. Both options include a complete website redesign with dedicated service pages.</p>
+
+                <!-- Option 1: Website Refresh -->
+                <div class="option">
+                    <div class="option-header">
+                        <div class="option-title">Website Refresh</div>
+                        <div class="option-description">A complete website redesign using your existing JE Holdings logo and branding. New modern layout, dedicated service pages, mobile-responsive design, and premium user experience.</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div>
+                            <div class="setup-cost">$1,500</div>
+                            <div class="setup-label">One-Time Setup Fee</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="monthly-cost">+ $150/mo</div>
+                            <div class="monthly-label">Ongoing Services</div>
+                        </div>
+                    </div>
+
+                    <div class="features-group-label">
+                        <h4 class="purple">Included in Setup ($1,500)</h4>
+                    </div>
+                    <ul class="features">
+                        <li><strong>Complete 7-page website</strong> &mdash; Homepage + 6 dedicated service pages</li>
+                        <li>Luxury responsive design optimized for all devices</li>
+                        <li>Scroll-triggered animations &amp; premium interactions</li>
+                        <li>Domain &amp; hosting setup with SSL certificate</li>
+                        <li>SEO foundation &amp; Google Business optimization</li>
+                        <li>Contact form integration</li>
+                    </ul>
+
+                    <div class="features-group-label">
+                        <h4 class="green">Monthly Services ($150/mo)</h4>
+                    </div>
+                    <ul class="features">
+                        <li>Website hosting, maintenance &amp; security</li>
+                        <li>Content updates (text changes, new testimonials, etc.)</li>
+                        <li>Ongoing performance monitoring &amp; uptime</li>
+                        <li>Priority email &amp; phone support</li>
+                    </ul>
+                </div>
+
+                <!-- Option 2: Website + Rebrand -->
+                <div class="option featured">
+                    <div class="badge">RECOMMENDED</div>
+                    <div class="option-header">
+                        <div class="option-title">Website Refresh + Full Rebrand</div>
+                        <div class="option-description">Everything in the Website Refresh, plus a complete brand overhaul &mdash; new logo, color system, typography, and brand guidelines designed to position JE Holdings as the premier firm for high-net-worth asset protection.</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div>
+                            <div class="setup-cost">$3,000</div>
+                            <div class="setup-label">One-Time Setup Fee</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="monthly-cost">+ $200/mo</div>
+                            <div class="monthly-label">Ongoing Services</div>
+                        </div>
+                    </div>
+
+                    <div class="features-group-label">
+                        <h4 class="purple">Included in Setup ($3,000)</h4>
+                    </div>
+                    <ul class="features">
+                        <li><strong>Complete 7-page website</strong> &mdash; Homepage + 6 dedicated service pages</li>
+                        <li>Luxury responsive design optimized for all devices</li>
+                        <li>Scroll-triggered animations &amp; premium interactions</li>
+                        <li><strong>Custom logo design</strong> &mdash; 3 concepts with 2 rounds of revisions</li>
+                        <li><strong>Full brand identity</strong> &mdash; Color palette, typography system, brand guidelines PDF</li>
+                        <li><strong>Brand collateral</strong> &mdash; Business card design, email signature, letterhead</li>
+                        <li>Domain &amp; hosting setup with SSL certificate</li>
+                        <li>SEO foundation &amp; Google Business optimization</li>
+                        <li>Contact form integration</li>
+                    </ul>
+
+                    <div class="features-group-label">
+                        <h4 class="green">Monthly Services ($200/mo)</h4>
+                    </div>
+                    <ul class="features">
+                        <li>Website hosting, maintenance &amp; security</li>
+                        <li>Content updates (text changes, new testimonials, etc.)</li>
+                        <li>Ongoing performance monitoring &amp; uptime</li>
+                        <li>Graphic design support (social assets, document templates)</li>
+                        <li>Priority email &amp; phone support</li>
+                        <li>Quarterly strategy &amp; brand review</li>
+                    </ul>
+                </div>
+
+                <!-- Comparison Table -->
+                <div class="comparison">
+                    <h3>Side-by-Side Comparison</h3>
+                    <table>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Website Refresh</th>
+                            <th>Refresh + Rebrand</th>
+                        </tr>
+                        <tr>
+                            <td>7-Page Custom Website</td>
+                            <td><span class="check">&check;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Dedicated Service Pages</td>
+                            <td><span class="check">&check;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Mobile-Responsive Design</td>
+                            <td><span class="check">&check;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Premium Animations</td>
+                            <td><span class="check">&check;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>SEO &amp; Google Business Setup</td>
+                            <td><span class="check">&check;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Domain, Hosting &amp; SSL</td>
+                            <td><span class="check">&check;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Custom Logo Design</td>
+                            <td><span class="dash">&mdash;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Brand Identity &amp; Guidelines</td>
+                            <td><span class="dash">&mdash;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Business Card &amp; Collateral</td>
+                            <td><span class="dash">&mdash;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Graphic Design Support</td>
+                            <td><span class="dash">&mdash;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Quarterly Brand Review</td>
+                            <td><span class="dash">&mdash;</span></td>
+                            <td><span class="check">&check;</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700; color:#fff;">Setup Cost</td>
+                            <td style="font-weight:700; color:#8b5cf6;">$1,500</td>
+                            <td style="font-weight:700; color:#8b5cf6;">$3,000</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:700; color:#fff;">Monthly</td>
+                            <td style="font-weight:700; color:#22c55e;">$150/mo</td>
+                            <td style="font-weight:700; color:#22c55e;">$200/mo</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Timeline -->
+                <div class="timeline">
+                    <h3>Estimated Timeline</h3>
+                    <div class="timeline-grid">
+                        <div class="timeline-step">
+                            <div class="timeline-week">Week 1</div>
+                            <div class="timeline-label">Discovery</div>
+                            <div class="timeline-desc">Finalize design direction, gather content &amp; brand assets</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-week">Week 2</div>
+                            <div class="timeline-label">Design &amp; Build</div>
+                            <div class="timeline-desc">Full site development with chosen design concept</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-week">Week 3</div>
+                            <div class="timeline-label">Revisions</div>
+                            <div class="timeline-desc">Review, feedback, refinements &amp; final polish</div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="timeline-week">Week 4</div>
+                            <div class="timeline-label">Launch</div>
+                            <div class="timeline-desc">Go live, DNS migration &amp; post-launch support</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <h3>Ready to Elevate Your Digital Presence?</h3>
+                <p>Dylan Williams, Founder &amp; Developer</p>
+                <p>Email: Dylan@williamsdigital.io</p>
+                <p>Phone: (205) 789-1211</p>
+                <p class="cta">Let's schedule a call to discuss which direction is right for JE Holdings.</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
