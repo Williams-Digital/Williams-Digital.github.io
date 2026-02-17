@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Onboarding — Timely Entertainment, LLC</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #1a1a1f;
+            --bg-card: #222228;
+            --text: #f0f0f0;
+            --text-secondary: #9a9a9a;
+            --accent: #c9a656;
+            --accent-dark: #a8883e;
+            --accent-glow: rgba(201,166,86,0.15);
+            --border: rgba(255,255,255,0.08);
+            --gold: #e8a838;
+            --gold-warm: #d4922a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ========== HEADER ========== */
+        .proposal-header {
+            background: #050505;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proposal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(201,166,86,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(232,168,56,0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header-from {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 2.5rem;
+        }
+
+        .header-logo span {
+            color: var(--accent);
+        }
+
+        .header-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            margin: 0 auto 2.5rem;
+        }
+
+        .header-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-client {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-date {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== CONTAINER ========== */
+        .proposal-body {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        /* ========== SECTIONS ========== */
+        .proposal-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-heading {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .proposal-section > p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* ========== INTRO BANNER ========== */
+        .intro-banner {
+            background: rgba(201,166,86,0.04);
+            border: 1px solid rgba(201,166,86,0.12);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 10px 10px 0;
+            padding: 1.5rem 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .intro-banner p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .intro-banner strong {
+            color: var(--text);
+        }
+
+        /* ========== CATEGORY CARDS ========== */
+        .category-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            border-color: rgba(201,166,86,0.2);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .category-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(201,166,86,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .category-icon svg {
+            width: 22px;
+            height: 22px;
+            color: var(--accent);
+        }
+
+        .category-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text);
+        }
+
+        .category-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+        }
+
+        /* ========== CHECKLIST ========== */
+        .checklist {
+            list-style: none;
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .checklist li:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .check-box {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(201,166,86,0.4);
+            border-radius: 5px;
+            flex-shrink: 0;
+            margin-top: 1px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .check-box:hover {
+            border-color: var(--accent);
+            background: rgba(201,166,86,0.08);
+        }
+
+        .check-box.checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .check-box.checked::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 5px;
+            width: 6px; height: 10px;
+            border: solid #1a1a1f;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .check-text {
+            flex: 1;
+        }
+
+        .check-text strong {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        .check-text span {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .check-tag {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .tag-required {
+            background: rgba(201,166,86,0.12);
+            color: var(--accent);
+        }
+
+        .tag-optional {
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.4);
+        }
+
+        .tag-if-applicable {
+            background: rgba(100,180,255,0.08);
+            color: rgba(100,180,255,0.6);
+        }
+
+        /* ========== TIMELINE ========== */
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .timeline-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step:hover {
+            border-color: rgba(201,166,86,0.25);
+        }
+
+        .step-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+        }
+
+        .step-desc {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ========== FORMAT TIPS ========== */
+        .format-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .format-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .format-card h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .format-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* ========== NOTE CALLOUT ========== */
+        .note-callout {
+            background: rgba(201,166,86,0.04);
+            border: 1px solid rgba(201,166,86,0.12);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 10px 10px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .note-callout p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+            line-height: 1.7;
+        }
+
+        .note-callout strong {
+            color: var(--text);
+        }
+
+        /* ========== DIVIDER ========== */
+        .section-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 2.5rem 0;
+        }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            text-align: center;
+            padding: 3.5rem 2rem;
+            background: rgba(5,5,5,0.5);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(201,166,86,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -100px; left: -100px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(232,168,56,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            position: relative;
+            font-style: italic;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: #1a1a1f;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cta-btn:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201,166,86,0.3);
+        }
+
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .cta-email-note {
+            margin-top: 1.5rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.4);
+            position: relative;
+        }
+
+        .cta-email-note a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .cta-email-note a:hover {
+            color: var(--gold);
+        }
+
+        /* ========== FOOTER ========== */
+        .proposal-footer {
+            text-align: center;
+            padding: 2.5rem 2rem;
+        }
+
+        .proposal-footer p {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 0.3rem;
+        }
+
+        .proposal-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .proposal-footer a:hover {
+            color: var(--gold);
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-bar-wrap {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: right;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .format-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body { background: white; color: #222; }
+            .proposal-header { background: #222; }
+            .category-card, .format-card, .timeline-step {
+                background: #f8f8f8;
+                border-color: #ddd;
+            }
+            .check-box { border-color: #999; }
+            .cta-section { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================== HEADER ============================== -->
+    <div class="proposal-header">
+        <div class="header-content">
+            <div class="header-from">Prepared by</div>
+            <div class="header-logo">Williams <span>Digital</span></div>
+            <div class="header-divider"></div>
+            <div class="header-title">Project Onboarding</div>
+            <div class="header-client">Timely Entertainment</div>
+            <div class="header-date">What We Need to Get Started</div>
+        </div>
+    </div>
+
+    <!-- ============================== BODY ============================== -->
+    <div class="proposal-body">
+
+        <!-- INTRO -->
+        <div class="intro-banner">
+            <p><strong>Thank you for choosing Williams Digital.</strong> To ensure a smooth build and timely launch, we've outlined everything we'll need from your team. Items marked <strong>Required</strong> are essential to begin development. Items marked <strong>Optional</strong> are nice-to-haves that can be added later. Please send all materials to <a href="mailto:Dylan@williamsdigital.io" style="color: var(--accent); text-decoration: none; font-weight: 500;">Dylan@williamsdigital.io</a>.</p>
+        </div>
+
+        <!-- PROGRESS -->
+        <div style="margin-bottom: 2.5rem;">
+            <div class="progress-bar-wrap">
+                <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+            <div class="progress-label"><span id="progressText">0</span> of <span id="progressTotal">0</span> items completed</div>
+        </div>
+
+        <!-- ============ SECTION 1: BRANDING ============ -->
+        <div class="proposal-section">
+            <div class="section-label">01 &mdash; Branding</div>
+            <div class="section-heading">Brand Identity & Assets</div>
+            <p>Your brand's visual identity sets the tone for the entire site. We'll need your existing assets to ensure the design stays on-brand.</p>
+
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <div>
+                        <div class="category-title">Logo & Visual Assets</div>
+                        <div class="category-subtitle">Logos, colors, and brand guidelines</div>
+                    </div>
+                </div>
+                <ul class="checklist">
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Company Logo</strong>
+                            <span>High-resolution file — PNG with transparent background preferred. SVG or vector (AI/EPS) is ideal.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Logo Variations</strong>
+                            <span>Light version, dark version, icon-only version if available.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Brand Colors</strong>
+                            <span>Primary and secondary color codes (hex, RGB, or Pantone). If none exist, we'll establish a palette based on your logo.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Brand Guidelines</strong>
+                            <span>Any existing style guide or brand document that outlines fonts, usage rules, and tone of voice.</span>
+                        </div>
+                        <div class="check-tag tag-if-applicable">If Available</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 2: CONTENT ============ -->
+        <div class="proposal-section">
+            <div class="section-label">02 &mdash; Content</div>
+            <div class="section-heading">Written Content & Copy</div>
+            <p>Strong copy is the backbone of a great website. Provide what you have — we can refine and polish it during the build.</p>
+
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <div>
+                        <div class="category-title">Page Copy & Text</div>
+                        <div class="category-subtitle">Text content for each page of the site</div>
+                    </div>
+                </div>
+                <ul class="checklist">
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>About / Company Bio</strong>
+                            <span>Who is Timely Entertainment? Mission statement, company story, what sets you apart.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Services Descriptions</strong>
+                            <span>List of services offered (artist management, event booking, etc.) with brief descriptions for each.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Artist / Talent Roster</strong>
+                            <span>Names, bios, genres, and any relevant credentials for each artist or talent you manage.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Testimonials or Press Quotes</strong>
+                            <span>Client quotes, press mentions, or media features that build credibility.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>FAQ Content</strong>
+                            <span>Common questions from prospective clients or artists, along with answers.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 3: MEDIA ============ -->
+        <div class="proposal-section">
+            <div class="section-label">03 &mdash; Media</div>
+            <div class="section-heading">Photos, Videos & Media</div>
+            <p>High-quality visuals are critical for a premium site. We'll use what you provide and supplement with professional stock where needed.</p>
+
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
+                    <div>
+                        <div class="category-title">Photography & Video</div>
+                        <div class="category-subtitle">Visual media for the site</div>
+                    </div>
+                </div>
+                <ul class="checklist">
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Artist / Talent Photos</strong>
+                            <span>Professional headshots or promotional photos for each artist. Minimum 1 per artist, ideally 2–3. High resolution (1200px+ wide).</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Event / Action Photos</strong>
+                            <span>Images from live events, performances, or behind-the-scenes moments. These bring the site to life.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Team / Leadership Photos</strong>
+                            <span>Professional headshots of founders, managers, or key team members for the About section.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Video Content</strong>
+                            <span>Artist performance clips, sizzle reels, promo videos, or behind-the-scenes footage. MP4 format preferred.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="format-grid">
+                <div class="format-card">
+                    <h4>Preferred Formats</h4>
+                    <p>Images: JPG, PNG, or WebP at 1200px+ wide<br>
+                    Logos: SVG, PNG (transparent), or AI/EPS<br>
+                    Videos: MP4 (H.264), MOV</p>
+                </div>
+                <div class="format-card">
+                    <h4>How to Send</h4>
+                    <p>Google Drive, Dropbox, or WeTransfer link is ideal. Avoid sending large files directly via email — share a folder link instead.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 4: DOMAIN & HOSTING ============ -->
+        <div class="proposal-section">
+            <div class="section-label">04 &mdash; Technical</div>
+            <div class="section-heading">Domain & Hosting Access</div>
+            <p>To deploy your new site, we'll need access to your domain registrar and/or hosting provider. This allows us to point your domain to the new build.</p>
+
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <div>
+                        <div class="category-title">Domain & DNS</div>
+                        <div class="category-subtitle">Domain registrar and DNS configuration</div>
+                    </div>
+                </div>
+                <ul class="checklist">
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Domain Registrar Login</strong>
+                            <span>Access to wherever timelyent.com is registered (e.g., GoDaddy, Namecheap, Google Domains). We'll need to update DNS records.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Current Hosting Provider</strong>
+                            <span>Where the existing site is hosted. Login credentials or the ability to add us as a collaborator.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Email Service Info</strong>
+                            <span>If you use email @timelyent.com, let us know the provider so we preserve email records during the DNS switch.</span>
+                        </div>
+                        <div class="check-tag tag-if-applicable">If Applicable</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>SSL Certificate</strong>
+                            <span>We'll set up HTTPS for you. If you already have an SSL certificate, let us know the provider.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="note-callout">
+                <p><strong>Security note:</strong> Never send passwords in plain text over email. We recommend using a secure sharing tool like <strong>1Password</strong>, <strong>LastPass</strong>, or a temporary link via <strong>onetimesecret.com</strong>. Alternatively, we can schedule a brief screen-share to log in together.</p>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 5: SOCIAL & INTEGRATIONS ============ -->
+        <div class="proposal-section">
+            <div class="section-label">05 &mdash; Integrations</div>
+            <div class="section-heading">Social Media & Third-Party Links</div>
+            <p>We'll link your social profiles and integrate any third-party services you currently use.</p>
+
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </div>
+                    <div>
+                        <div class="category-title">Social & Links</div>
+                        <div class="category-subtitle">Social profiles and external platforms</div>
+                    </div>
+                </div>
+                <ul class="checklist">
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Social Media URLs</strong>
+                            <span>Links to Instagram, Twitter/X, Facebook, YouTube, TikTok, LinkedIn, etc.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Spotify / Apple Music Links</strong>
+                            <span>Artist profile links for any streaming platforms you'd like embedded or linked.</span>
+                        </div>
+                        <div class="check-tag tag-if-applicable">If Applicable</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>YouTube / Vimeo Embed Links</strong>
+                            <span>Video URLs you'd like featured on the site (music videos, interviews, event recaps).</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Google Analytics / Tracking</strong>
+                            <span>If you have an existing Google Analytics or Tag Manager account, provide the tracking ID so we can integrate it.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 6: PREFERENCES ============ -->
+        <div class="proposal-section">
+            <div class="section-label">06 &mdash; Preferences</div>
+            <div class="section-heading">Design Preferences & Direction</div>
+            <p>Help us understand your vision. This ensures the final product aligns with your expectations from day one.</p>
+
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <div>
+                        <div class="category-title">Vision & Inspiration</div>
+                        <div class="category-subtitle">Design direction and site references</div>
+                    </div>
+                </div>
+                <ul class="checklist">
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Websites You Like</strong>
+                            <span>2–3 URLs of sites whose design, layout, or vibe you admire. They don't need to be in the same industry.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Preferred Tier Selection</strong>
+                            <span>Which tier from the proposal you'd like to move forward with (Tier 1, 2, or 3). This determines scope and deliverables.</span>
+                        </div>
+                        <div class="check-tag tag-required">Required</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Specific Requests or Must-Haves</strong>
+                            <span>Anything specific you want on the site — a booking calendar, newsletter signup, specific page, etc.</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                    <li>
+                        <div class="check-box" onclick="toggleCheck(this)"></div>
+                        <div class="check-text">
+                            <strong>Content You Want Removed</strong>
+                            <span>Anything from the current site that should not carry over (old artists, outdated info, etc.).</span>
+                        </div>
+                        <div class="check-tag tag-optional">Optional</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 7: TIMELINE ============ -->
+        <div class="proposal-section">
+            <div class="section-label">07 &mdash; Process</div>
+            <div class="section-heading">What Happens Next</div>
+            <p>Once we receive your materials, here's how the project moves forward.</p>
+
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="step-number">01</div>
+                    <div class="step-title">Submit Materials</div>
+                    <div class="step-desc">Send everything on this list to Dylan@williamsdigital.io</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">02</div>
+                    <div class="step-title">Kickoff Call</div>
+                    <div class="step-desc">Brief call to review your materials, confirm direction, and answer questions</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">03</div>
+                    <div class="step-title">Design & Build</div>
+                    <div class="step-desc">We build the site and share a staging preview for your review and feedback</div>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">04</div>
+                    <div class="step-title">Launch</div>
+                    <div class="step-desc">Final revisions, DNS switch, and your new site goes live on timelyent.com</div>
+                </div>
+            </div>
+
+            <div class="note-callout">
+                <p><strong>Turnaround:</strong> Most projects launch within 1–2 weeks of receiving all materials. The faster we get your content, the faster we launch. You'll have the opportunity to review and request revisions before anything goes live.</p>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ CTA ============ -->
+        <div class="cta-section">
+            <h3>Ready to Get Started?</h3>
+            <p>Send your materials and we'll take it from there.</p>
+            <a href="mailto:Dylan@williamsdigital.io?subject=Timely%20Entertainment%20%E2%80%94%20Onboarding%20Materials&body=Hi%20Dylan%2C%0A%0AHere%20are%20the%20materials%20for%20the%20website%20project%3A%0A%0ABranding%3A%20%0AContent%3A%20%0APhotos%2FMedia%3A%20%0ADomain%20Info%3A%20%0ASocial%20Links%3A%20%0ATier%20Preference%3A%20%0A%0AThanks!" class="cta-btn">
+                Send Materials
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <div class="cta-email-note">Clicking Send Materials will open an email to <a href="mailto:Dylan@williamsdigital.io">Dylan@williamsdigital.io</a></div>
+        </div>
+
+    </div>
+
+    <!-- ============================== FOOTER ============================== -->
+    <div class="proposal-footer">
+        <p>Confidential — Prepared exclusively for Timely Entertainment, LLC</p>
+        <p><a href="https://williamsdigital.io" target="_blank" rel="noopener">Williams Digital</a> &mdash; williamsdigital.io</p>
+    </div>
+
+    <!-- ============================== JS ============================== -->
+    <script>
+        function toggleCheck(el) {
+            el.classList.toggle('checked');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const all = document.querySelectorAll('.check-box');
+            const checked = document.querySelectorAll('.check-box.checked');
+            const pct = Math.round((checked.length / all.length) * 100);
+            document.getElementById('progressBar').style.width = pct + '%';
+            document.getElementById('progressText').textContent = checked.length;
+            document.getElementById('progressTotal').textContent = all.length;
+        }
+
+        // Init
+        updateProgress();
+    </script>
+
+</body>
+</html>
