@@ -1,0 +1,2551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timely Entertainment, LLC — Artist + Athlete Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #0a0a0a;
+  color: #f5f0eb;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ===== CUSTOM CURSOR GLOW ===== */
+a, button, .interactive {
+  cursor: pointer;
+}
+
+a:hover, button:hover, .interactive:hover {
+  filter: drop-shadow(0 0 8px rgba(201, 166, 86, 0.4));
+}
+
+/* ===== NOISE TEXTURE OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #c9a656; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #d4b76a; }
+
+/* ===== UTILITY CLASSES ===== */
+.section-pad { padding: 120px 0; }
+.container { max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+
+.gold { color: #c9a656; }
+.warm-white { color: #f5f0eb; }
+
+.heading-display {
+  font-family: 'Bebas Neue', 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.05;
+}
+
+.subheading {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+  color: #c9a656;
+  margin-bottom: 16px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 0%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(201, 166, 86, 0.15); }
+  50% { box-shadow: 0 0 40px rgba(201, 166, 86, 0.3); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes lineExpand {
+  from { width: 0; }
+  to { width: 80px; }
+}
+
+@keyframes scrollIndicator {
+  0% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.3; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealLine {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ===== PRELOADER ===== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  animation: fadeOut 0.8s ease 2.5s forwards;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; pointer-events: none; }
+}
+
+.preloader-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.3em;
+  color: #c9a656;
+  animation: fadeIn 1s ease 0.3s both;
+}
+
+.preloader-bar {
+  width: 200px;
+  height: 2px;
+  background: #1a1a1a;
+  border-radius: 2px;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease 0.5s both;
+}
+
+.preloader-bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  background: #c9a656;
+  animation: preloaderFill 2s ease 0.6s forwards;
+}
+
+@keyframes preloaderFill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 20px 0;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(201, 166, 86, 0.1);
+}
+
+.nav-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.2em;
+  color: #c9a656;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+  text-shadow: 0 0 20px rgba(201, 166, 86, 0.5);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #999;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #c9a656;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #c9a656;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-cta {
+  padding: 10px 28px !important;
+  border: 1px solid #c9a656 !important;
+  color: #c9a656 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.15em !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-cta:hover {
+  background: #c9a656 !important;
+  color: #0a0a0a !important;
+}
+
+/* Mobile menu toggle */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 10001;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 28px;
+  height: 1.5px;
+  background: #c9a656;
+  transition: all 0.3s ease;
+}
+
+/* ===== HERO SECTION ===== */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 20%, #0d0d0d 40%, #141010 60%, #0a0a0a 80%, #1a1412 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+}
+
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(201, 166, 86, 0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 30%, rgba(201, 166, 86, 0.04) 0%, transparent 50%);
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to top, #0a0a0a, transparent);
+}
+
+/* Geometric lines */
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.06;
+}
+
+.hero-lines::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: -10%;
+  width: 120%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a656, transparent);
+  transform: rotate(-5deg);
+}
+
+.hero-lines::after {
+  content: '';
+  position: absolute;
+  top: 60%;
+  left: -10%;
+  width: 120%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a656, transparent);
+  transform: rotate(3deg);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 40px;
+  max-width: 1100px;
+}
+
+.hero-pretext {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #c9a656;
+  margin-bottom: 30px;
+  animation: fadeInUp 1s ease 2.8s both;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 12vw, 10rem);
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+  color: #f5f0eb;
+  margin-bottom: 30px;
+  animation: fadeInUp 1.2s ease 3s both;
+}
+
+.hero-title .gold-line {
+  display: block;
+  background: linear-gradient(90deg, #c9a656, #e8d5a3, #c9a656);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+.hero-tagline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  letter-spacing: 0.08em;
+  color: rgba(245, 240, 235, 0.7);
+  margin-bottom: 50px;
+  animation: fadeInUp 1s ease 3.3s both;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 48px;
+  background: transparent;
+  border: 1px solid #c9a656;
+  color: #c9a656;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 1s ease 3.6s both;
+}
+
+.hero-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #c9a656;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+
+.hero-cta:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.hero-cta:hover {
+  color: #0a0a0a;
+  border-color: #c9a656;
+}
+
+.hero-cta .arrow {
+  transition: transform 0.3s ease;
+}
+
+.hero-cta:hover .arrow {
+  transform: translateX(6px);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: fadeIn 1s ease 4s both;
+}
+
+.hero-scroll span {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 235, 0.3);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, #c9a656, transparent);
+  animation: scrollIndicator 2s ease infinite;
+}
+
+/* ===== TICKER BAR ===== */
+.ticker-bar {
+  background: #000;
+  border-top: 1px solid rgba(201, 166, 86, 0.1);
+  border-bottom: 1px solid rgba(201, 166, 86, 0.1);
+  padding: 16px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.ticker-track {
+  display: flex;
+  animation: tickerScroll 30s linear infinite;
+  width: max-content;
+}
+
+.ticker-item {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(201, 166, 86, 0.5);
+  white-space: nowrap;
+  padding: 0 50px;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.ticker-item::after {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: #c9a656;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+/* ===== ARTIST SHOWCASE (HORIZONTAL SCROLL) ===== */
+#artists {
+  padding: 120px 0 80px;
+  position: relative;
+}
+
+.artists-header {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.artists-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 235, 0.4);
+  flex-shrink: 0;
+}
+
+.scroll-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.scroll-arrows button {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(201, 166, 86, 0.3);
+  background: transparent;
+  color: #c9a656;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-arrows button:hover {
+  background: #c9a656;
+  color: #0a0a0a;
+}
+
+.artists-track-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.artists-track-wrapper::before,
+.artists-track-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.artists-track-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #0a0a0a, transparent);
+}
+
+.artists-track-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #0a0a0a, transparent);
+}
+
+.artists-track {
+  display: flex;
+  gap: 30px;
+  padding: 0 40px 40px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.artists-track::-webkit-scrollbar { display: none; }
+
+.artist-card {
+  flex: 0 0 360px;
+  height: 520px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+}
+
+.artist-card:hover {
+  transform: translateY(-8px);
+}
+
+.artist-card-bg {
+  position: absolute;
+  inset: 0;
+  transition: all 0.6s ease;
+}
+
+.artist-card:nth-child(1) .artist-card-bg {
+  background: linear-gradient(160deg, #1a1a2e, #16213e, #0f3460, #1a1a2e);
+}
+.artist-card:nth-child(2) .artist-card-bg {
+  background: linear-gradient(160deg, #2d1b1e, #4a1942, #1a1a2e, #2d1b1e);
+}
+.artist-card:nth-child(3) .artist-card-bg {
+  background: linear-gradient(160deg, #1a2e1a, #0d3320, #162e16, #1a2e1a);
+}
+.artist-card:nth-child(4) .artist-card-bg {
+  background: linear-gradient(160deg, #2e2a1a, #3d2e0f, #2e1a0d, #2e2a1a);
+}
+.artist-card:nth-child(5) .artist-card-bg {
+  background: linear-gradient(160deg, #1a1a2e, #2e1a2e, #3e1a3e, #1a1a2e);
+}
+
+.artist-card:hover .artist-card-bg {
+  transform: scale(1.05);
+}
+
+/* Portrait silhouette placeholder */
+.artist-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 75%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 40%, transparent 100%);
+  border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+  z-index: 1;
+}
+
+.artist-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 30px;
+  z-index: 3;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
+}
+
+.artist-card-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c9a656;
+  background: rgba(201, 166, 86, 0.1);
+  border: 1px solid rgba(201, 166, 86, 0.2);
+  padding: 4px 14px;
+  border-radius: 2px;
+  margin-bottom: 14px;
+}
+
+.artist-card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.artist-card-link {
+  color: #c9a656;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.artist-card:hover .artist-card-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.artist-card-link:hover {
+  gap: 14px;
+}
+
+/* Scroll progress */
+.scroll-progress {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 20px 40px 0;
+  display: flex;
+  gap: 8px;
+}
+
+.scroll-dot {
+  width: 40px;
+  height: 2px;
+  background: rgba(201, 166, 86, 0.2);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.scroll-dot.active {
+  background: #c9a656;
+  width: 60px;
+}
+
+/* ===== STATS SECTION ===== */
+#stats {
+  padding: 100px 0;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+#stats::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(201, 166, 86, 0.04), transparent 70%);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 50px 30px;
+  position: relative;
+  border-right: 1px solid rgba(201, 166, 86, 0.08);
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  color: #c9a656;
+  line-height: 1;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.stat-suffix {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  color: #c9a656;
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+.stat-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 235, 0.5);
+}
+
+.stat-sublabel {
+  font-size: 0.75rem;
+  color: rgba(245, 240, 235, 0.25);
+  margin-top: 6px;
+  font-weight: 300;
+}
+
+/* ===== SERVICES SECTION ===== */
+#services {
+  padding: 120px 0;
+  position: relative;
+}
+
+.services-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 100px;
+  padding: 0 40px;
+}
+
+.services-intro h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  letter-spacing: 0.04em;
+  margin-bottom: 20px;
+}
+
+.services-intro p {
+  color: rgba(245, 240, 235, 0.6);
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+.service-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 550px;
+  margin-bottom: 2px;
+}
+
+.service-row.reverse {
+  direction: rtl;
+}
+
+.service-row.reverse > * {
+  direction: ltr;
+}
+
+.service-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-image-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.8s ease;
+}
+
+.service-row:hover .service-image-inner {
+  transform: scale(1.03);
+}
+
+.service-row:nth-child(1) .service-image-inner {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 50%, #1a1a2e 100%);
+}
+
+.service-row:nth-child(2) .service-image-inner {
+  background: linear-gradient(135deg, #2e1a1a 0%, #4a1942 50%, #2e1a1a 100%);
+}
+
+.service-row:nth-child(3) .service-image-inner {
+  background: linear-gradient(135deg, #1a2e1a 0%, #0d3320 50%, #1a2e1a 100%);
+}
+
+.service-row:nth-child(4) .service-image-inner {
+  background: linear-gradient(135deg, #2e2a1a 0%, #3d2e0f 50%, #2e2a1a 100%);
+}
+
+.service-image-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(201, 166, 86, 0.08), transparent 70%);
+}
+
+.service-image .service-num {
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 8rem;
+  color: rgba(201, 166, 86, 0.06);
+  line-height: 1;
+  z-index: 1;
+}
+
+.service-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+  background: #0f0f0f;
+  position: relative;
+}
+
+.service-text::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, #c9a656, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s ease;
+}
+
+.service-row:hover .service-text::before {
+  transform: scaleX(1);
+}
+
+.service-text .subheading {
+  margin-bottom: 20px;
+}
+
+.service-text h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+}
+
+.service-text p {
+  color: rgba(245, 240, 235, 0.6);
+  font-weight: 300;
+  line-height: 1.9;
+  margin-bottom: 30px;
+  max-width: 500px;
+}
+
+.service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #c9a656;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.service-link:hover {
+  gap: 16px;
+}
+
+/* ===== FOUNDER SECTION ===== */
+#founder {
+  padding: 120px 0;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+#founder::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 166, 86, 0.2), transparent);
+}
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 700px;
+}
+
+.founder-image {
+  position: relative;
+  background: linear-gradient(160deg, #1a1a1a, #2a2018, #1a1510, #0a0a0a);
+  overflow: hidden;
+}
+
+.founder-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(201, 166, 86, 0.08), transparent 70%);
+}
+
+.founder-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 80%;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(201, 166, 86, 0.03) 40%, transparent 100%);
+  border-radius: 50% 50% 0 0 / 15% 15% 0 0;
+}
+
+.founder-image .founder-name-vertical {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.3em;
+  color: rgba(201, 166, 86, 0.4);
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+}
+
+.founder-text {
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #0a0a0a;
+}
+
+.founder-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+
+.founder-text .founder-title {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c9a656;
+  margin-bottom: 30px;
+}
+
+.founder-text .founder-bio {
+  color: rgba(245, 240, 235, 0.6);
+  font-weight: 300;
+  line-height: 1.9;
+  margin-bottom: 40px;
+  font-size: 0.95rem;
+}
+
+.founder-text .founder-bio strong {
+  color: #f5f0eb;
+  font-weight: 600;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 30px;
+  border-left: 1px solid rgba(201, 166, 86, 0.15);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 28px;
+  padding-left: 20px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -35px;
+  top: 6px;
+  width: 9px;
+  height: 9px;
+  background: #c9a656;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(201, 166, 86, 0.1);
+}
+
+.timeline-year {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  color: #c9a656;
+  letter-spacing: 0.05em;
+}
+
+.timeline-desc {
+  font-size: 0.85rem;
+  color: rgba(245, 240, 235, 0.5);
+  font-weight: 300;
+  margin-top: 2px;
+}
+
+/* ===== PRESS & RECOGNITION ===== */
+#press {
+  padding: 100px 0;
+  position: relative;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+
+.press-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.press-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 0.04em;
+}
+
+.press-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  padding: 40px;
+  margin-bottom: 60px;
+}
+
+.press-logo {
+  padding: 20px 40px;
+  border: 1px solid rgba(201, 166, 86, 0.08);
+  border-radius: 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 235, 0.25);
+  transition: all 0.4s ease;
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.press-logo:hover {
+  color: #c9a656;
+  border-color: rgba(201, 166, 86, 0.3);
+  background: rgba(201, 166, 86, 0.03);
+  transform: translateY(-3px);
+}
+
+.press-quote {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  text-align: center;
+  position: relative;
+}
+
+.press-quote::before {
+  content: '\201C';
+  font-family: Georgia, serif;
+  font-size: 8rem;
+  color: rgba(201, 166, 86, 0.12);
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 1;
+}
+
+.press-quote blockquote {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(245, 240, 235, 0.7);
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.press-quote cite {
+  display: block;
+  margin-top: 24px;
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c9a656;
+}
+
+/* ===== ARTIST PORTAL CTA ===== */
+#portal {
+  padding: 100px 0;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.portal-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 80px 40px;
+  position: relative;
+  border: 1px solid rgba(201, 166, 86, 0.1);
+  border-radius: 4px;
+  background: rgba(201, 166, 86, 0.02);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.portal-inner::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(201, 166, 86, 0.15), transparent 40%, transparent 60%, rgba(201, 166, 86, 0.1));
+  z-index: -1;
+}
+
+.portal-icon {
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(201, 166, 86, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 30px;
+  animation: pulseGlow 3s ease infinite;
+}
+
+.portal-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #c9a656;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.portal-inner h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.portal-inner p {
+  color: rgba(245, 240, 235, 0.5);
+  font-weight: 300;
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+.portal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 48px;
+  background: #c9a656;
+  border: none;
+  color: #0a0a0a;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.portal-btn:hover {
+  background: #d4b76a;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(201, 166, 86, 0.2);
+}
+
+/* ===== BOOKING INQUIRY ===== */
+#booking {
+  padding: 120px 0;
+  position: relative;
+  background: #0a0a0a;
+}
+
+.booking-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.booking-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.booking-header h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+
+.booking-header p {
+  color: rgba(245, 240, 235, 0.5);
+  font-weight: 300;
+}
+
+/* Step indicators */
+.steps-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 60px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.step-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(201, 166, 86, 0.2);
+  color: rgba(245, 240, 235, 0.3);
+  transition: all 0.3s ease;
+}
+
+.step.active .step-num {
+  background: #c9a656;
+  color: #0a0a0a;
+  border-color: #c9a656;
+  box-shadow: 0 0 20px rgba(201, 166, 86, 0.2);
+}
+
+.step-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 235, 0.3);
+}
+
+.step.active .step-label {
+  color: #c9a656;
+}
+
+.step-connector {
+  width: 60px;
+  height: 1px;
+  background: rgba(201, 166, 86, 0.15);
+  margin: 0 20px;
+}
+
+/* Form */
+.booking-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 235, 0.4);
+  margin-bottom: 10px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 166, 86, 0.1);
+  border-radius: 4px;
+  color: #f5f0eb;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #c9a656;
+  background: rgba(201, 166, 86, 0.03);
+  box-shadow: 0 0 0 3px rgba(201, 166, 86, 0.06);
+}
+
+.form-group input::placeholder {
+  color: rgba(245, 240, 235, 0.2);
+}
+
+.form-submit {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.form-submit button {
+  padding: 18px 60px;
+  background: transparent;
+  border: 1px solid #c9a656;
+  color: #c9a656;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-submit button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #c9a656;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: -1;
+}
+
+.form-submit button:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.form-submit button:hover {
+  color: #0a0a0a;
+}
+
+/* ===== CONTACT SECTION ===== */
+#contact {
+  padding: 120px 0;
+  background: #000;
+  position: relative;
+}
+
+#contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 166, 86, 0.15), transparent);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px;
+  text-align: center;
+}
+
+.contact-item {
+  padding: 40px 20px;
+}
+
+.contact-item-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #c9a656;
+  margin-bottom: 20px;
+}
+
+.contact-item-value {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: rgba(245, 240, 235, 0.7);
+  line-height: 1.8;
+}
+
+.contact-item-value a {
+  color: rgba(245, 240, 235, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-item-value a:hover {
+  color: #c9a656;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: #000;
+  border-top: 1px solid rgba(201, 166, 86, 0.08);
+  padding: 80px 0 0;
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px 60px;
+}
+
+.footer-brand .footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.15em;
+  color: #c9a656;
+  margin-bottom: 6px;
+}
+
+.footer-brand .footer-tagline {
+  font-size: 0.8rem;
+  color: rgba(245, 240, 235, 0.35);
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.footer-newsletter p {
+  font-size: 0.8rem;
+  color: rgba(245, 240, 235, 0.4);
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 0;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 166, 86, 0.15);
+  border-right: none;
+  border-radius: 2px 0 0 2px;
+  color: #f5f0eb;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form input:focus {
+  border-color: #c9a656;
+}
+
+.newsletter-form input::placeholder {
+  color: rgba(245, 240, 235, 0.2);
+}
+
+.newsletter-form button {
+  padding: 12px 20px;
+  background: #c9a656;
+  border: 1px solid #c9a656;
+  border-radius: 0 2px 2px 0;
+  color: #0a0a0a;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  background: #d4b76a;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(201, 166, 86, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background: #c9a656;
+  border-color: #c9a656;
+}
+
+.social-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #c9a656;
+  transition: fill 0.3s ease;
+}
+
+.social-icon:hover svg {
+  fill: #0a0a0a;
+}
+
+.footer-col h4 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c9a656;
+  margin-bottom: 24px;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul a {
+  color: rgba(245, 240, 235, 0.35);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 300;
+  transition: all 0.3s ease;
+}
+
+.footer-col ul a:hover {
+  color: #c9a656;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(201, 166, 86, 0.06);
+  padding: 24px 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-legal {
+  font-size: 0.72rem;
+  color: rgba(245, 240, 235, 0.2);
+  font-weight: 300;
+}
+
+.footer-legal-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-legal-links a {
+  font-size: 0.72rem;
+  color: rgba(245, 240, 235, 0.2);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-legal-links a:hover {
+  color: #c9a656;
+}
+
+/* ===== SCROLL REVEAL ANIMATION ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .container { padding: 0 30px; }
+  .service-row { grid-template-columns: 1fr; min-height: auto; }
+  .service-row.reverse { direction: ltr; }
+  .service-image { min-height: 350px; }
+  .service-text { padding: 60px 40px; }
+  .founder-grid { grid-template-columns: 1fr; }
+  .founder-image { min-height: 400px; }
+  .founder-text { padding: 60px 40px; }
+  .footer-main { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(1), .stat-item:nth-child(2) {
+    border-bottom: 1px solid rgba(201, 166, 86, 0.08);
+  }
+}
+
+@media (max-width: 768px) {
+  .section-pad { padding: 80px 0; }
+
+  .nav-links { display: none; }
+  .menu-toggle { display: flex; }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    z-index: 10000;
+  }
+
+  .nav-links.open a {
+    font-size: 1.2rem;
+    color: #f5f0eb;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .artists-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .artist-card {
+    flex: 0 0 300px;
+    height: 440px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .services-intro {
+    margin-bottom: 60px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .contact-item {
+    padding: 24px 20px;
+  }
+
+  .booking-form {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-indicator {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .step-connector {
+    width: 30px;
+    margin: 0 8px;
+  }
+
+  .step-label {
+    display: none;
+  }
+
+  .press-logos {
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .press-logo {
+    padding: 14px 24px;
+    font-size: 0.85rem;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(2.5rem, 16vw, 4rem);
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
+  }
+
+  .hero-cta {
+    padding: 14px 32px;
+    font-size: 0.8rem;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+  }
+
+  .artist-card {
+    flex: 0 0 260px;
+    height: 380px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-item {
+    border-right: none;
+    border-bottom: 1px solid rgba(201, 166, 86, 0.08);
+  }
+
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+
+  .press-quote blockquote {
+    font-size: 1.05rem;
+  }
+}
+
+/* ===== GLASSMORPHISM UTILITY ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ===== GOLD DIVIDER ===== */
+.gold-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, #c9a656, transparent);
+  margin: 20px 0;
+}
+
+.gold-divider.center {
+  margin: 20px auto;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PRELOADER ===== -->
+<div id="preloader">
+  <div class="preloader-logo">TIMELY ENTERTAINMENT</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<!-- ===== NAVIGATION ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">TIMELY</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#artists">Artists</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#founder">About</a></li>
+      <li><a href="#press">Press</a></li>
+      <li><a href="#booking">Booking</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#portal" class="nav-cta">Client Portal</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== HERO SECTION ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <p class="hero-pretext">An Artist + Athlete Management Company</p>
+    <h1 class="hero-title">
+      <span>TIMELY</span>
+      <span class="gold-line">ENTERTAINMENT</span>
+    </h1>
+    <p class="hero-tagline">Elevating Artists. Protecting Legacies. Building Empires.</p>
+    <a href="#booking" class="hero-cta">
+      Book a Consultation <span class="arrow">&rarr;</span>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== TICKER BAR ===== -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span class="ticker-item">Management &amp; Strategy</span>
+    <span class="ticker-item">Legal &amp; Contract Negotiation</span>
+    <span class="ticker-item">Asset Protection</span>
+    <span class="ticker-item">Brand Development</span>
+    <span class="ticker-item">Entertainment Law</span>
+    <span class="ticker-item">Career Strategy</span>
+    <span class="ticker-item">Los Angeles, CA</span>
+    <span class="ticker-item">Management &amp; Strategy</span>
+    <span class="ticker-item">Legal &amp; Contract Negotiation</span>
+    <span class="ticker-item">Asset Protection</span>
+    <span class="ticker-item">Brand Development</span>
+    <span class="ticker-item">Entertainment Law</span>
+    <span class="ticker-item">Career Strategy</span>
+    <span class="ticker-item">Los Angeles, CA</span>
+  </div>
+</div>
+
+<!-- ===== ARTIST SHOWCASE ===== -->
+<section id="artists">
+  <div class="artists-header">
+    <div>
+      <p class="subheading">The Roster</p>
+      <h2 class="heading-display reveal">Our Artists</h2>
+    </div>
+    <div class="scroll-hint">
+      <span>Drag to explore</span>
+      <div class="scroll-arrows">
+        <button id="scrollLeft" aria-label="Scroll left">&larr;</button>
+        <button id="scrollRight" aria-label="Scroll right">&rarr;</button>
+      </div>
+    </div>
+  </div>
+  <div class="artists-track-wrapper">
+    <div class="artists-track" id="artistsTrack">
+      <!-- Artist 1 -->
+      <div class="artist-card">
+        <div class="artist-card-bg"></div>
+        <div class="artist-card-content">
+          <span class="artist-card-tag">Filmmaker</span>
+          <h3 class="artist-card-name">Noam Kroll</h3>
+          <a href="#" class="artist-card-link">View Profile <span>&rarr;</span></a>
+        </div>
+      </div>
+      <!-- Artist 2 -->
+      <div class="artist-card">
+        <div class="artist-card-bg"></div>
+        <div class="artist-card-content">
+          <span class="artist-card-tag">Artist</span>
+          <h3 class="artist-card-name">Dee Williams</h3>
+          <a href="#" class="artist-card-link">View Profile <span>&rarr;</span></a>
+        </div>
+      </div>
+      <!-- Artist 3 -->
+      <div class="artist-card">
+        <div class="artist-card-bg"></div>
+        <div class="artist-card-content">
+          <span class="artist-card-tag">Performer</span>
+          <h3 class="artist-card-name">Jesse Lewis IV</h3>
+          <a href="#" class="artist-card-link">View Profile <span>&rarr;</span></a>
+        </div>
+      </div>
+      <!-- Artist 4 -->
+      <div class="artist-card">
+        <div class="artist-card-bg"></div>
+        <div class="artist-card-content">
+          <span class="artist-card-tag">Musician</span>
+          <h3 class="artist-card-name">London Reeves</h3>
+          <a href="#" class="artist-card-link">View Profile <span>&rarr;</span></a>
+        </div>
+      </div>
+      <!-- Artist 5 -->
+      <div class="artist-card">
+        <div class="artist-card-bg"></div>
+        <div class="artist-card-content">
+          <span class="artist-card-tag">Creative</span>
+          <h3 class="artist-card-name">Farelle Walker</h3>
+          <a href="#" class="artist-card-link">View Profile <span>&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-progress">
+    <div class="scroll-dot active"></div>
+    <div class="scroll-dot"></div>
+    <div class="scroll-dot"></div>
+    <div class="scroll-dot"></div>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<!-- ===== STATS SECTION ===== -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div>
+          <span class="stat-number" data-target="27">0</span><span class="stat-suffix">+</span>
+        </div>
+        <div class="stat-label">Years of Excellence</div>
+        <div class="stat-sublabel">In Entertainment Management</div>
+      </div>
+      <div class="stat-item reveal">
+        <div>
+          <span class="stat-number" data-target="1000">0</span><span class="stat-suffix">+</span>
+        </div>
+        <div class="stat-label">Contracts Negotiated</div>
+        <div class="stat-sublabel">Across All Sectors</div>
+      </div>
+      <div class="stat-item reveal">
+        <div>
+          <span class="stat-number" data-target="50">0</span><span class="stat-suffix">M+</span>
+        </div>
+        <div class="stat-label">In Deals Negotiated</div>
+        <div class="stat-sublabel">Cumulative Deal Value</div>
+      </div>
+      <div class="stat-item reveal">
+        <div>
+          <span class="stat-number" data-target="5">0</span>
+        </div>
+        <div class="stat-label">Active Roster</div>
+        <div class="stat-sublabel">Elite Artists &amp; Athletes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES SECTION ===== -->
+<section id="services">
+  <div class="services-intro">
+    <p class="subheading">What We Do</p>
+    <h2 class="heading-display reveal">Full-Spectrum <span class="gold">Management</span></h2>
+    <div class="gold-divider center"></div>
+    <p class="reveal">We provide end-to-end management, legal strategy, and brand development for artists and athletes who demand the best. Every client receives a bespoke strategy built from the ground up.</p>
+  </div>
+
+  <!-- Service 1 -->
+  <div class="service-row">
+    <div class="service-image">
+      <div class="service-image-inner"></div>
+      <span class="service-num">01</span>
+    </div>
+    <div class="service-text">
+      <p class="subheading">Service 01</p>
+      <h3>Management &amp; Strategy</h3>
+      <p>Comprehensive career management with a forward-thinking strategy tailored to each client's unique vision. From deal structuring to brand positioning, we architect long-term success in an evolving entertainment landscape.</p>
+      <a href="#booking" class="service-link">Inquire Now <span>&rarr;</span></a>
+    </div>
+  </div>
+
+  <!-- Service 2 -->
+  <div class="service-row reverse">
+    <div class="service-image">
+      <div class="service-image-inner"></div>
+      <span class="service-num">02</span>
+    </div>
+    <div class="service-text">
+      <p class="subheading">Service 02</p>
+      <h3>Legal &amp; Contract Negotiation</h3>
+      <p>With a UCLA Law pedigree and decades of entertainment law expertise, we bring unmatched legal firepower to every negotiation. We protect our clients' interests with meticulous contract review, deal structuring, and dispute resolution.</p>
+      <a href="#booking" class="service-link">Inquire Now <span>&rarr;</span></a>
+    </div>
+  </div>
+
+  <!-- Service 3 -->
+  <div class="service-row">
+    <div class="service-image">
+      <div class="service-image-inner"></div>
+      <span class="service-num">03</span>
+    </div>
+    <div class="service-text">
+      <p class="subheading">Service 03</p>
+      <h3>Asset Protection</h3>
+      <p>Safeguarding wealth, intellectual property, and long-term financial security. Our asset protection strategies ensure that what our clients build today continues to generate value for generations to come.</p>
+      <a href="#booking" class="service-link">Inquire Now <span>&rarr;</span></a>
+    </div>
+  </div>
+
+  <!-- Service 4 -->
+  <div class="service-row reverse">
+    <div class="service-image">
+      <div class="service-image-inner"></div>
+      <span class="service-num">04</span>
+    </div>
+    <div class="service-text">
+      <p class="subheading">Service 04</p>
+      <h3>Brand Development</h3>
+      <p>Building iconic personal brands that transcend industries. We craft narrative-driven brand identities, secure strategic partnerships, and develop multimedia presence that amplifies our clients' cultural impact and commercial reach.</p>
+      <a href="#booking" class="service-link">Inquire Now <span>&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOUNDER SECTION ===== -->
+<section id="founder">
+  <div class="founder-grid">
+    <div class="founder-image">
+      <span class="founder-name-vertical">Rupert Francisco</span>
+    </div>
+    <div class="founder-text">
+      <p class="subheading reveal">The Founder</p>
+      <h2 class="reveal">Rupert Francisco</h2>
+      <p class="founder-title reveal">Founder &amp; Managing Director</p>
+      <p class="founder-bio reveal">
+        With <strong>27+ years in entertainment management</strong> and a law degree from <strong>UCLA School of Law</strong>, Rupert Francisco brings a rare fusion of legal acumen, business savvy, and deep industry relationships to every client engagement.
+      </p>
+      <p class="founder-bio reveal">
+        As the <strong>first African American attorney to establish a practice in Century City</strong>, Rupert shattered barriers while building a reputation as one of Los Angeles' most trusted entertainment advisors. His specialty in <strong>asset protection</strong> ensures that the empires his clients build are fortified for the long term.
+      </p>
+      <div class="gold-divider reveal"></div>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <span class="timeline-year">UCLA Law</span>
+          <p class="timeline-desc">Graduated from UCLA School of Law</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Century City</span>
+          <p class="timeline-desc">First African American attorney with a Century City practice</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Timely Founded</span>
+          <p class="timeline-desc">Established Timely Entertainment, LLC</p>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">27+ Years</span>
+          <p class="timeline-desc">Continuous leadership in entertainment management</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRESS & RECOGNITION ===== -->
+<section id="press">
+  <div class="container">
+    <div class="press-header">
+      <p class="subheading">Recognition</p>
+      <h2 class="heading-display reveal">As Seen In</h2>
+      <div class="gold-divider center"></div>
+    </div>
+    <div class="press-logos reveal">
+      <div class="press-logo">Billboard</div>
+      <div class="press-logo">Variety</div>
+      <div class="press-logo">Hollywood Reporter</div>
+      <div class="press-logo">Forbes</div>
+    </div>
+    <div class="press-quote reveal">
+      <blockquote>
+        "Rupert Francisco has built a management company that operates at the intersection of entertainment, law, and legacy building. Timely Entertainment represents the future of artist management."
+      </blockquote>
+      <cite>Industry Recognition</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ARTIST PORTAL CTA ===== -->
+<section id="portal">
+  <div class="container">
+    <div class="portal-inner reveal">
+      <div class="portal-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h2>Client Portal</h2>
+      <p>Already a Timely Entertainment client? Access your personalized dashboard, contracts, financial reports, and direct communication with your management team.</p>
+      <a href="#" class="portal-btn">
+        Access Your Dashboard <span>&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOOKING INQUIRY ===== -->
+<section id="booking">
+  <div class="booking-inner">
+    <div class="booking-header">
+      <p class="subheading">Get Started</p>
+      <h2 class="heading-display reveal">Booking <span class="gold">Inquiry</span></h2>
+      <p class="reveal">Tell us about your project. Our team will respond within 24 hours.</p>
+    </div>
+
+    <div class="steps-indicator reveal">
+      <div class="step active">
+        <span class="step-num">1</span>
+        <span class="step-label">Your Info</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <span class="step-label">Event Details</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <span class="step-label">Budget &amp; Timeline</span>
+      </div>
+    </div>
+
+    <form class="booking-form reveal" onsubmit="return false;">
+      <div class="form-group">
+        <label for="bookingName">Full Name</label>
+        <input type="text" id="bookingName" placeholder="John Smith">
+      </div>
+      <div class="form-group">
+        <label for="bookingEmail">Email Address</label>
+        <input type="email" id="bookingEmail" placeholder="john@example.com">
+      </div>
+      <div class="form-group">
+        <label for="bookingCompany">Company / Organization</label>
+        <input type="text" id="bookingCompany" placeholder="Acme Entertainment">
+      </div>
+      <div class="form-group">
+        <label for="bookingPhone">Phone Number</label>
+        <input type="tel" id="bookingPhone" placeholder="(310) 555-0100">
+      </div>
+      <div class="form-submit">
+        <button type="submit">Continue to Step 2 &nbsp;&rarr;</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ===== CONTACT SECTION ===== -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-item reveal">
+        <div class="contact-item-label">Location</div>
+        <div class="contact-item-value">
+          The Howard Hughes Center<br>
+          6060 Center Drive, 10th Floor<br>
+          Los Angeles, CA 90045
+        </div>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-item-label">Phone</div>
+        <div class="contact-item-value">
+          <a href="tel:+13108151111">310-815-1111</a>
+        </div>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-item-label">Email</div>
+        <div class="contact-item-value">
+          <a href="mailto:Talent@TimelyEnt.com">Talent@TimelyEnt.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="footer-logo">TIMELY ENTERTAINMENT</div>
+      <p class="footer-tagline">An Artist + Athlete Management Company</p>
+      <div class="footer-newsletter">
+        <p>Stay informed. Subscribe to our newsletter.</p>
+        <form class="newsletter-form" onsubmit="return false;">
+          <input type="email" placeholder="Enter your email">
+          <button type="submit">Join</button>
+        </form>
+      </div>
+      <div class="footer-social">
+        <a href="#" class="social-icon" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-icon" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#artists">Artists</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#founder">About</a></li>
+        <li><a href="#press">Press</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Management</a></li>
+        <li><a href="#services">Legal Strategy</a></li>
+        <li><a href="#services">Asset Protection</a></li>
+        <li><a href="#services">Brand Development</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#booking">Book a Consultation</a></li>
+        <li><a href="#portal">Client Portal</a></li>
+        <li><a href="mailto:Talent@TimelyEnt.com">Email Us</a></li>
+        <li><a href="tel:+13108151111">Call Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-legal">&copy; 2026 Timely Entertainment, LLC. All rights reserved.</span>
+    <div class="footer-legal-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Accessibility</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+(function() {
+  'use strict';
+
+  // ---- NAV SCROLL EFFECT ----
+  const navbar = document.getElementById('navbar');
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', function() {
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+    lastScroll = currentScroll;
+  });
+
+  // ---- MOBILE MENU ----
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  menuToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('open');
+  });
+
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // ---- SCROLL REVEAL ----
+  const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+  function checkReveal() {
+    const windowHeight = window.innerHeight;
+    revealElements.forEach(function(el) {
+      const elementTop = el.getBoundingClientRect().top;
+      const revealPoint = windowHeight - 80;
+      if (elementTop < revealPoint) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkReveal);
+  window.addEventListener('load', checkReveal);
+
+  // ---- COUNTER ANIMATION ----
+  const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+  let countersStarted = false;
+
+  function animateCounters() {
+    if (countersStarted) return;
+    const statsSection = document.getElementById('stats');
+    if (!statsSection) return;
+
+    const rect = statsSection.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      countersStarted = true;
+      statNumbers.forEach(function(el) {
+        const target = parseInt(el.getAttribute('data-target'));
+        const duration = 2000;
+        const start = Date.now();
+        const startValue = 0;
+
+        function updateCounter() {
+          const elapsed = Date.now() - start;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(startValue + (target - startValue) * eased);
+
+          if (target >= 1000) {
+            el.textContent = current.toLocaleString();
+          } else {
+            el.textContent = current;
+          }
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            if (target >= 1000) {
+              el.textContent = target.toLocaleString();
+            } else {
+              el.textContent = target;
+            }
+          }
+        }
+
+        requestAnimationFrame(updateCounter);
+      });
+    }
+  }
+
+  window.addEventListener('scroll', animateCounters);
+  window.addEventListener('load', animateCounters);
+
+  // ---- ARTIST HORIZONTAL SCROLL BUTTONS ----
+  const artistsTrack = document.getElementById('artistsTrack');
+  const scrollLeftBtn = document.getElementById('scrollLeft');
+  const scrollRightBtn = document.getElementById('scrollRight');
+
+  if (scrollLeftBtn && scrollRightBtn && artistsTrack) {
+    scrollLeftBtn.addEventListener('click', function() {
+      artistsTrack.scrollBy({ left: -390, behavior: 'smooth' });
+    });
+
+    scrollRightBtn.addEventListener('click', function() {
+      artistsTrack.scrollBy({ left: 390, behavior: 'smooth' });
+    });
+
+    // Update scroll dots
+    const scrollDots = document.querySelectorAll('.scroll-dot');
+    artistsTrack.addEventListener('scroll', function() {
+      const scrollLeft = artistsTrack.scrollLeft;
+      const maxScroll = artistsTrack.scrollWidth - artistsTrack.clientWidth;
+      const progress = scrollLeft / maxScroll;
+      const activeIndex = Math.round(progress * (scrollDots.length - 1));
+
+      scrollDots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === activeIndex);
+      });
+    });
+  }
+
+  // ---- SMOOTH SCROLL FOR ANCHOR LINKS ----
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>

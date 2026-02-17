@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timely Entertainment, LLC &mdash; An Artist + Athlete Management Company</title>
+  <meta name="description" content="Timely Entertainment, LLC is a Los Angeles-based artist and athlete management company founded by Rupert Francisco. Elevating artists. Protecting legacies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #2c2c2c;
+      background: #ffffff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --navy: #1a1a2e;
+      --navy-light: #22223a;
+      --navy-dark: #111122;
+      --gold: #c9a84c;
+      --gold-light: #d4b85e;
+      --gold-dark: #b8973e;
+      --white: #ffffff;
+      --off-white: #f8f8fa;
+      --light-gray: #f0f0f4;
+      --mid-gray: #e0e0e6;
+      --text-primary: #1a1a2e;
+      --text-secondary: #555566;
+      --text-light: #888899;
+      --font-heading: 'Poppins', 'Inter', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --shadow-sm: 0 1px 3px rgba(26, 26, 46, 0.08);
+      --shadow-md: 0 4px 16px rgba(26, 26, 46, 0.10);
+      --shadow-lg: 0 8px 32px rgba(26, 26, 46, 0.14);
+      --shadow-xl: 0 16px 48px rgba(26, 26, 46, 0.18);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --container-max: 1200px;
+    }
+
+    /* ===== UTILITY ===== */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* ===== TIER 1 BADGE (top banner) ===== */
+    .preview-banner {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+      color: var(--navy);
+      text-align: center;
+      padding: 10px 24px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .preview-banner span {
+      opacity: 0.7;
+      font-weight: 400;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(26, 26, 46, 0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .nav-brand-name {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .nav-brand-tagline {
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .nav-cta {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
+      font-weight: 600 !important;
+      padding: 9px 20px !important;
+      border-radius: var(--radius-sm) !important;
+      margin-left: 8px;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold-light) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(201, 168, 76, 0.35);
+    }
+
+    /* Mobile menu toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      background: var(--navy);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201, 168, 76, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(201, 168, 76, 0.05) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(26, 26, 46, 0) 0%, rgba(17, 17, 34, 0.6) 100%);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      border: 1px solid rgba(201, 168, 76, 0.06);
+      pointer-events: none;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    .hero-content {
+      max-width: 580px;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      padding: 6px 14px;
+      background: rgba(201, 168, 76, 0.1);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 100px;
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 5.5vw, 3.75rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .hero-title .accent {
+      color: var(--gold);
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual-inner {
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(135deg, rgba(201, 168, 76, 0.15) 0%, rgba(26, 26, 46, 0.6) 50%, rgba(201, 168, 76, 0.08) 100%);
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 40%, rgba(26, 26, 46, 0.9) 100%),
+        radial-gradient(circle at 50% 30%, rgba(201, 168, 76, 0.2) 0%, transparent 60%);
+    }
+
+    .hero-visual-text {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      right: 32px;
+      z-index: 2;
+    }
+
+    .hero-visual-text p {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .hero-visual-text h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-stat-number {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .hero-stat-label {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== WHO WE ARE ===== */
+    .about {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .about .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-content {
+      max-width: 520px;
+    }
+
+    .about-content .section-subtitle {
+      margin-bottom: 24px;
+    }
+
+    .about-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .about-feature-icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.12), rgba(201, 168, 76, 0.04));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-top: 2px;
+    }
+
+    .about-feature h4 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .about-feature p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image-main {
+      width: 100%;
+      aspect-ratio: 5 / 6;
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(160deg, var(--navy) 0%, var(--navy-light) 40%, rgba(201, 168, 76, 0.15) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-image-main::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 60%, rgba(201, 168, 76, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(201, 168, 76, 0.08) 0%, transparent 40%);
+    }
+
+    .about-image-overlay {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      padding: 20px 24px;
+      background: rgba(26, 26, 46, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .about-image-overlay p:first-child {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .about-image-overlay p:last-child {
+      font-size: 0.8rem;
+      color: var(--gold);
+      margin-top: 2px;
+    }
+
+    .about-image-badge {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-image-badge strong {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .about-image-badge span {
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+
+    /* ===== ARTIST ROSTER ===== */
+    .roster {
+      padding: 100px 0;
+      background: var(--off-white);
+    }
+
+    .roster-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .roster-header .section-subtitle {
+      margin: 0 auto;
+    }
+
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+    }
+
+    .artist-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .artist-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(201, 168, 76, 0.2);
+    }
+
+    .artist-card-image {
+      aspect-ratio: 3 / 4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .artist-card:nth-child(1) .artist-card-image {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d2d4a 40%, #c9a84c22 100%);
+    }
+    .artist-card:nth-child(2) .artist-card-image {
+      background: linear-gradient(135deg, #22223a 0%, #3a3a5a 40%, #c9a84c18 100%);
+    }
+    .artist-card:nth-child(3) .artist-card-image {
+      background: linear-gradient(135deg, #1e1e34 0%, #2a2a48 40%, #c9a84c20 100%);
+    }
+    .artist-card:nth-child(4) .artist-card-image {
+      background: linear-gradient(135deg, #252540 0%, #36365a 40%, #c9a84c1a 100%);
+    }
+    .artist-card:nth-child(5) .artist-card-image {
+      background: linear-gradient(135deg, #1c1c32 0%, #2e2e50 40%, #c9a84c1e 100%);
+    }
+
+    .artist-card-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+    }
+
+    .artist-card-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(26, 26, 46, 0.4), transparent);
+    }
+
+    .artist-card-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .artist-card-placeholder svg {
+      width: 56px;
+      height: 56px;
+      opacity: 0.12;
+    }
+
+    .artist-card-info {
+      padding: 18px 20px 20px;
+      text-align: center;
+    }
+
+    .artist-card-name {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .artist-card-role {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* ===== EVENTS / CTA SECTION ===== */
+    .cta-section {
+      padding: 100px 0;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 80% at 20% 50%, rgba(201, 168, 76, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 80% 50%, rgba(201, 168, 76, 0.04) 0%, transparent 60%);
+    }
+
+    .cta-section .container {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+    }
+
+    .cta-section .section-title {
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .cta-section .section-subtitle {
+      color: rgba(255, 255, 255, 0.55);
+      margin: 0 auto 36px;
+      max-width: 520px;
+    }
+
+    .cta-section .btn-primary {
+      padding: 16px 40px;
+      font-size: 0.95rem;
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .contact-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .contact-header .section-subtitle {
+      margin: 0 auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-form {
+      background: var(--off-white);
+      padding: 36px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--mid-gray);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      background: var(--white);
+      border: 1.5px solid var(--mid-gray);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      outline: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-light);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px 32px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+      background: var(--gold);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      margin-top: 4px;
+    }
+
+    .form-submit:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201, 168, 76, 0.3);
+    }
+
+    .contact-details {
+      padding: 8px 0;
+    }
+
+    .contact-details h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .contact-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .contact-detail-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+
+    .contact-detail-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .contact-detail-text h4 {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .contact-detail-text p,
+    .contact-detail-text a {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .contact-detail-text a:hover {
+      color: var(--gold);
+    }
+
+    .contact-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid var(--mid-gray);
+    }
+
+    .contact-social a {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background: var(--off-white);
+      border: 1px solid var(--mid-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+
+    .contact-social a:hover {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .contact-social a svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--navy-dark);
+      padding: 60px 0 0;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .footer-brand-tagline {
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+      line-height: 1.7;
+      max-width: 300px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      transition: all var(--transition);
+    }
+
+    .footer-social a:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+      transform: translateY(-2px);
+    }
+
+    .footer-social a svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      display: block;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+      padding: 5px 0;
+      transition: all var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+      padding-left: 4px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+      margin-top: 0;
+    }
+
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.3);
+      transition: color var(--transition);
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--gold);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .hero-description {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .about .container {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .about-content {
+        max-width: 100%;
+        order: 2;
+      }
+
+      .about-image {
+        order: 1;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .roster-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        background: var(--navy);
+        flex-direction: column;
+        padding: 16px 24px 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: var(--shadow-xl);
+        gap: 4px;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+      }
+
+      .nav-links a.active::after {
+        display: none;
+      }
+
+      .nav-cta {
+        margin-left: 0 !important;
+        margin-top: 8px;
+        text-align: center;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .hero {
+        min-height: 70vh;
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 7vw, 3rem);
+      }
+
+      .hero-stats {
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .roster-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 60vh;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .roster-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .contact-form {
+        padding: 24px;
+      }
+
+      .about-image-badge {
+        width: 80px;
+        height: 80px;
+        top: -10px;
+        right: -10px;
+      }
+
+      .about-image-badge strong {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @media (prefers-reduced-motion: no-preference) {
+      .artist-card,
+      .contact-detail-item,
+      .about-feature {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      .artist-card:nth-child(1) { animation-delay: 0.05s; }
+      .artist-card:nth-child(2) { animation-delay: 0.1s; }
+      .artist-card:nth-child(3) { animation-delay: 0.15s; }
+      .artist-card:nth-child(4) { animation-delay: 0.2s; }
+      .artist-card:nth-child(5) { animation-delay: 0.25s; }
+
+      .contact-detail-item:nth-child(1) { animation-delay: 0.05s; }
+      .contact-detail-item:nth-child(2) { animation-delay: 0.1s; }
+      .contact-detail-item:nth-child(3) { animation-delay: 0.15s; }
+
+      .about-feature:nth-child(1) { animation-delay: 0.1s; }
+      .about-feature:nth-child(2) { animation-delay: 0.2s; }
+      .about-feature:nth-child(3) { animation-delay: 0.3s; }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preview Banner -->
+  <div class="preview-banner">
+    TIER 1: QUICK WINS PREVIEW &mdash; Timely Entertainment Redesign <span>&nbsp;|&nbsp; Low-effort, high-impact improvements</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="#home" class="nav-brand">
+        <span class="nav-brand-name">Timely Entertainment</span>
+        <span class="nav-brand-tagline">Artist + Athlete Management</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#roster">Artist Roster</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav-cta">Book a Consultation</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-label">Los Angeles, California</div>
+        <h1 class="hero-title">
+          Elevating Artists.<br>
+          <span class="accent">Protecting Legacies.</span>
+        </h1>
+        <p class="hero-description">
+          Timely Entertainment, LLC is a premier artist and athlete management company
+          delivering strategic career guidance, brand development, and legacy planning
+          for today's most dynamic talent.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Book a Consultation</a>
+          <a href="#roster" class="btn btn-outline">Meet Our Artists</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-number">21+</div>
+            <div class="hero-stat-label">Years of Excellence</div>
+          </div>
+          <div>
+            <div class="hero-stat-number">5</div>
+            <div class="hero-stat-label">Managed Artists</div>
+          </div>
+          <div>
+            <div class="hero-stat-number">LA</div>
+            <div class="hero-stat-label">Based &amp; Operating</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-visual-inner">
+          <div class="hero-visual-text">
+            <p>Founded by</p>
+            <h3>Rupert Francisco</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who We Are -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-content">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title">Management Built on<br>Trust &amp; Vision</h2>
+        <p class="section-subtitle">
+          A full-service artist and athlete management company headquartered in Los Angeles.
+        </p>
+        <p class="about-text">
+          Founded by Rupert Francisco, Timely Entertainment, LLC provides comprehensive management
+          services for artists and athletes at every stage of their careers. From emerging talent
+          to established names, we focus on long-term career strategy, brand development, and
+          building legacies that endure.
+        </p>
+        <p class="about-text">
+          Operating from The Howard Hughes Center in the heart of Los Angeles, our team brings
+          deep industry relationships and a results-driven approach to every client partnership.
+        </p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <h4>Career Strategy</h4>
+              <p>Long-term planning and positioning for sustainable success in entertainment and sports.</p>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <div>
+              <h4>Brand Development</h4>
+              <p>Building authentic personal brands that resonate with audiences and open new opportunities.</p>
+            </div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <h4>Legacy Planning</h4>
+              <p>Protecting and growing your legacy through strategic financial and brand decisions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-image">
+        <div class="about-image-main">
+          <div class="about-image-overlay">
+            <p>The Howard Hughes Center</p>
+            <p>6060 Center Drive, Los Angeles</p>
+          </div>
+        </div>
+        <div class="about-image-badge">
+          <strong>2005</strong>
+          <span>Est.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artist Roster -->
+  <section class="roster" id="roster">
+    <div class="container">
+      <div class="roster-header">
+        <span class="section-label">Our Talent</span>
+        <h2 class="section-title">Artist Roster</h2>
+        <p class="section-subtitle">
+          Meet the dynamic artists and performers represented by Timely Entertainment.
+        </p>
+      </div>
+      <div class="roster-grid">
+
+        <div class="artist-card">
+          <div class="artist-card-image">
+            <div class="artist-card-placeholder">
+              <svg viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+          </div>
+          <div class="artist-card-info">
+            <div class="artist-card-name">Noam Kroll</div>
+            <div class="artist-card-role">Artist</div>
+          </div>
+        </div>
+
+        <div class="artist-card">
+          <div class="artist-card-image">
+            <div class="artist-card-placeholder">
+              <svg viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+          </div>
+          <div class="artist-card-info">
+            <div class="artist-card-name">Dee Williams</div>
+            <div class="artist-card-role">Artist</div>
+          </div>
+        </div>
+
+        <div class="artist-card">
+          <div class="artist-card-image">
+            <div class="artist-card-placeholder">
+              <svg viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+          </div>
+          <div class="artist-card-info">
+            <div class="artist-card-name">Jesse Lewis IV</div>
+            <div class="artist-card-role">Artist</div>
+          </div>
+        </div>
+
+        <div class="artist-card">
+          <div class="artist-card-image">
+            <div class="artist-card-placeholder">
+              <svg viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+          </div>
+          <div class="artist-card-info">
+            <div class="artist-card-name">London Reeves</div>
+            <div class="artist-card-role">Artist</div>
+          </div>
+        </div>
+
+        <div class="artist-card">
+          <div class="artist-card-image">
+            <div class="artist-card-placeholder">
+              <svg viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+          </div>
+          <div class="artist-card-info">
+            <div class="artist-card-name">Farelle Walker</div>
+            <div class="artist-card-role">Artist</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Events CTA Section -->
+  <section class="cta-section" id="events">
+    <div class="container">
+      <span class="section-label">Events &amp; Appearances</span>
+      <h2 class="section-title">Stay Connected with Our Artists</h2>
+      <p class="section-subtitle">
+        From live performances to speaking engagements, our talent roster is available for bookings.
+        Get in touch to discuss your next event.
+      </p>
+      <a href="#contact" class="btn btn-primary">Inquire About Bookings</a>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-header">
+        <span class="section-label">Get in Touch</span>
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">
+          Ready to take the next step? Reach out to discuss management, bookings, or partnerships.
+        </p>
+      </div>
+      <div class="contact-grid">
+
+        <!-- Contact Form -->
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(310) 000-0000">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your inquiry..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+
+        <!-- Contact Details -->
+        <div class="contact-details">
+          <h3>Contact Information</h3>
+
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-detail-text">
+              <h4>Office Location</h4>
+              <p>
+                The Howard Hughes Center<br>
+                6060 Center Drive, 10th Floor<br>
+                Los Angeles, CA 90045
+              </p>
+            </div>
+          </div>
+
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div class="contact-detail-text">
+              <h4>Phone</h4>
+              <p><a href="tel:3108151111">310-815-1111</a></p>
+            </div>
+          </div>
+
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-detail-text">
+              <h4>Email</h4>
+              <p><a href="mailto:Talent@TimelyEnt.com">Talent@TimelyEnt.com</a></p>
+            </div>
+          </div>
+
+          <div class="contact-social">
+            <!-- Facebook -->
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-main">
+        <div>
+          <div class="footer-brand-name">Timely Entertainment, LLC</div>
+          <div class="footer-brand-tagline">An Artist + Athlete Management Company</div>
+          <p class="footer-brand-desc">
+            Founded by Rupert Francisco, Timely Entertainment provides premier management
+            services for artists and athletes from our offices in Los Angeles.
+          </p>
+          <div class="footer-social">
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#roster">Artist Roster</a>
+            <a href="#events">Events</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Artists</div>
+          <div class="footer-links">
+            <a href="#roster">Noam Kroll</a>
+            <a href="#roster">Dee Williams</a>
+            <a href="#roster">Jesse Lewis IV</a>
+            <a href="#roster">London Reeves</a>
+            <a href="#roster">Farelle Walker</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <div class="footer-links">
+            <a href="tel:3108151111">310-815-1111</a>
+            <a href="mailto:Talent@TimelyEnt.com">Talent@TimelyEnt.com</a>
+            <a href="#contact">6060 Center Drive, 10th Fl</a>
+            <a href="#contact">Los Angeles, CA 90045</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2005&ndash;2026 Timely Entertainment, LLC. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      const spans = navToggle.querySelectorAll('span');
+      if (navLinks.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+
+    // Close mobile nav when clicking a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        const spans = navToggle.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      });
+    });
+
+    // Active link tracking on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navAnchors = navLinks.querySelectorAll('a:not(.nav-cta)');
+
+    function updateActiveNav() {
+      const scrollPos = window.scrollY + 120;
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        if (scrollPos >= top && scrollPos < top + height) {
+          navAnchors.forEach(a => {
+            a.classList.remove('active');
+            if (a.getAttribute('href') === '#' + id) {
+              a.classList.add('active');
+            }
+          });
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+    // Form submit handler (demo)
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      const originalText = btn.textContent;
+      btn.textContent = 'Message Sent!';
+      btn.style.background = '#2d8a4e';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        btn.style.color = '';
+        e.target.reset();
+      }, 2500);
+    }
+  </script>
+
+</body>
+</html>
