@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Redesign Proposal — Timely Entertainment, LLC</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #1a1a1f;
+            --bg-card: #222228;
+            --text: #f0f0f0;
+            --text-secondary: #9a9a9a;
+            --accent: #c9a656;
+            --accent-dark: #a8883e;
+            --accent-glow: rgba(201,166,86,0.15);
+            --border: rgba(255,255,255,0.08);
+            --gold: #e8a838;
+            --gold-warm: #d4922a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ========== HEADER ========== */
+        .proposal-header {
+            background: #050505;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proposal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(201,166,86,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(232,168,56,0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header-from {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 2.5rem;
+        }
+
+        .header-logo span {
+            color: var(--accent);
+        }
+
+        .header-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            margin: 0 auto 2.5rem;
+        }
+
+        .header-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-client {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-date {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ========== CONTAINER ========== */
+        .proposal-body {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        /* ========== SECTIONS ========== */
+        .proposal-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-heading {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .proposal-section p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* ========== ISSUE CARDS (The Problem) ========== */
+        .issues-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .issue-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.1rem 1.4rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .issue-card:hover {
+            border-color: rgba(201,166,86,0.2);
+            background: rgba(34,34,40,0.9);
+        }
+
+        .issue-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(201,166,86,0.1);
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .issue-content h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+            color: var(--text);
+        }
+
+        .issue-content p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* ========== TIER CARDS ========== */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .tier-card {
+            background: var(--bg-card);
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tier-card:hover {
+            border-color: rgba(201,166,86,0.3);
+            box-shadow: 0 8px 30px rgba(201,166,86,0.08);
+        }
+
+        .tier-card.featured {
+            border-color: var(--accent);
+            box-shadow: 0 4px 25px rgba(201,166,86,0.12);
+        }
+
+        .tier-card.ultimate {
+            border-color: var(--gold);
+            box-shadow: 0 4px 30px rgba(232,168,56,0.15);
+        }
+
+        .tier-card.ultimate:hover {
+            box-shadow: 0 8px 40px rgba(232,168,56,0.22);
+        }
+
+        .tier-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: #1a1a1f;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .tier-card.ultimate .tier-badge {
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+        }
+
+        .tier-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .tier-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+
+        .tier-price {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .tier-price sup {
+            font-size: 1.4rem;
+            font-weight: 600;
+            position: relative;
+            top: -0.7rem;
+        }
+
+        .tier-period {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+
+        .tier-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--border);
+            margin: 0 auto 1.25rem;
+        }
+
+        .tier-card.featured .tier-divider,
+        .tier-card.ultimate .tier-divider {
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+        }
+
+        .tier-features {
+            list-style: none;
+            text-align: left;
+            flex: 1;
+        }
+
+        .tier-features li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            padding: 0.35rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .tier-features li svg {
+            width: 15px;
+            height: 15px;
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .tier-features .inherited {
+            color: rgba(255,255,255,0.35);
+        }
+
+        .tier-features .inherited svg {
+            color: rgba(201,166,86,0.4);
+        }
+
+        .tier-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .tier-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.75rem 1.25rem;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tier-btn:hover {
+            background: var(--accent);
+            color: #1a1a1f;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(201,166,86,0.25);
+        }
+
+        .tier-btn.primary {
+            background: var(--accent);
+            color: #1a1a1f;
+        }
+
+        .tier-btn.primary:hover {
+            background: var(--gold);
+            box-shadow: 0 6px 20px rgba(201,166,86,0.3);
+        }
+
+        .tier-btn svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ========== PREVIEW IFRAME CARDS ========== */
+        .preview-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin: 2rem 0;
+        }
+
+        .preview-card {
+            background: #050505;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .preview-card:hover {
+            border-color: rgba(201,166,86,0.25);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        .preview-card.preview-featured {
+            border-color: rgba(201,166,86,0.3);
+        }
+
+        .preview-iframe-wrap {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .preview-iframe-wrap iframe {
+            width: 1440px;
+            height: 900px;
+            border: none;
+            transform: scale(0.22);
+            transform-origin: top left;
+            pointer-events: none;
+        }
+
+        .preview-iframe-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(5,5,5,0.8) 100%);
+            z-index: 1;
+        }
+
+        .preview-card-footer {
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .preview-card-footer span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .preview-card-footer a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            color: var(--accent);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: opacity 0.3s;
+        }
+
+        .preview-card-footer a:hover {
+            opacity: 0.8;
+        }
+
+        .preview-card-footer a svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        /* ========== COMPARISON TABLE ========== */
+        .comparison-table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .comparison-table thead th {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 2px solid rgba(255,255,255,0.08);
+        }
+
+        .comparison-table thead th:first-child {
+            color: var(--text-secondary);
+        }
+
+        .comparison-table thead th:nth-child(2) {
+            color: rgba(255,255,255,0.35);
+        }
+
+        .comparison-table thead th:nth-child(3) {
+            color: var(--accent);
+        }
+
+        .comparison-table tbody tr {
+            transition: background 0.2s;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: rgba(201,166,86,0.03);
+        }
+
+        .comparison-table tbody td {
+            padding: 0.85rem 1.25rem;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: top;
+        }
+
+        .comparison-table tbody td:first-child {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .comparison-table .col-before {
+            color: rgba(255,255,255,0.35);
+            position: relative;
+        }
+
+        .comparison-table .col-after {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .comparison-table .col-before .strike {
+            text-decoration: line-through;
+            text-decoration-color: rgba(255,255,255,0.15);
+        }
+
+        /* ========== MAINTENANCE CARD ========== */
+        .maintenance-card {
+            background: var(--bg-card);
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 2.5rem;
+            align-items: flex-start;
+            margin: 1.5rem 0;
+        }
+
+        .maintenance-pricing {
+            text-align: center;
+            flex-shrink: 0;
+            min-width: 140px;
+        }
+
+        .maintenance-pricing .tier-price {
+            margin-bottom: 0.2rem;
+        }
+
+        .maintenance-pricing .tier-period {
+            margin-bottom: 0;
+        }
+
+        .maintenance-features {
+            flex: 1;
+        }
+
+        .maintenance-features ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem 1.5rem;
+        }
+
+        .maintenance-features ul li {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.3rem 0;
+        }
+
+        .maintenance-features ul li svg {
+            width: 15px;
+            height: 15px;
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ========== EXTRAS GRID ========== */
+        .extras-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .extra-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .extra-card:hover {
+            border-color: rgba(201,166,86,0.25);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .extra-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(201,166,86,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .extra-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        .extra-card h4 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
+        }
+
+        .extra-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* ========== NOTE CALLOUT ========== */
+        .note-callout {
+            background: rgba(201,166,86,0.04);
+            border: 1px solid rgba(201,166,86,0.12);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 10px 10px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .note-callout p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+            line-height: 1.7;
+        }
+
+        .note-callout strong {
+            color: var(--text);
+        }
+
+        /* ========== DIVIDER ========== */
+        .section-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 2.5rem 0;
+        }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            text-align: center;
+            padding: 3.5rem 2rem;
+            background: rgba(5,5,5,0.5);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(201,166,86,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -100px; left: -100px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(232,168,56,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            position: relative;
+            font-style: italic;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: #1a1a1f;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cta-btn:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201,166,86,0.3);
+        }
+
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .cta-phone {
+            margin-top: 1.25rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.35);
+            position: relative;
+        }
+
+        .cta-phone a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .cta-phone a:hover {
+            color: var(--accent);
+        }
+
+        /* ========== FOOTER ========== */
+        .proposal-footer {
+            text-align: center;
+            padding: 2.5rem 2rem;
+        }
+
+        .proposal-footer p {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.25);
+            line-height: 1.8;
+        }
+
+        .proposal-footer a {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .proposal-footer a:hover {
+            color: var(--accent);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .tier-grid,
+            .preview-cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .comparison-table {
+                font-size: 0.82rem;
+            }
+
+            .comparison-table thead th,
+            .comparison-table tbody td {
+                padding: 0.7rem 0.75rem;
+            }
+
+            .maintenance-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            .maintenance-features ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .extras-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .proposal-body {
+                padding: 2rem 1.25rem 3rem;
+            }
+
+            .comparison-table thead th:first-child,
+            .comparison-table tbody td:first-child {
+                min-width: 90px;
+            }
+
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================== HEADER ============================== -->
+    <div class="proposal-header">
+        <div class="header-content">
+            <div class="header-from">Prepared by</div>
+            <div class="header-logo">Williams<span> Digital</span></div>
+            <div class="header-divider"></div>
+            <div class="header-title">Website Redesign Proposal</div>
+            <div class="header-client">Timely Entertainment, LLC</div>
+            <div class="header-date">February 16, 2026</div>
+        </div>
+    </div>
+
+    <!-- ============================== BODY ============================== -->
+    <div class="proposal-body">
+
+        <!-- ============ SECTION 1: THE PROBLEM ============ -->
+        <div class="proposal-section">
+            <p class="section-label">Current State</p>
+            <h2 class="section-heading">What We Found</h2>
+            <p>We conducted a thorough review of timelyent.com to understand where the current site stands and where the biggest opportunities are. Below are the key issues we identified — each of which is addressed in the redesigned tiers we've built for you.</p>
+
+            <div class="issues-grid">
+                <div class="issue-card">
+                    <div class="issue-number">1</div>
+                    <div class="issue-content">
+                        <h4>Broken Pages</h4>
+                        <p>The "Helpful Links" page returns a 404 error, creating a dead end for visitors exploring the site.</p>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-number">2</div>
+                    <div class="issue-content">
+                        <h4>Empty Events Calendar</h4>
+                        <p>The Events page displays "No upcoming events" with a completely empty calendar — an entertainment company without events raises questions.</p>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-number">3</div>
+                    <div class="issue-content">
+                        <h4>Outdated Content</h4>
+                        <p>The most recent recognitions and highlights date back to 2009-2013 — over a decade old. The site doesn't reflect where Timely is today.</p>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-number">4</div>
+                    <div class="issue-content">
+                        <h4>No Contact Form</h4>
+                        <p>The contact page only lists a phone number and email address with no way for visitors to submit an inquiry directly from the site.</p>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-number">5</div>
+                    <div class="issue-content">
+                        <h4>Low-Resolution Hero Images</h4>
+                        <p>Homepage slider images are 960x400px — appearing blurry and pixelated on modern retina displays and larger screens.</p>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-number">6</div>
+                    <div class="issue-content">
+                        <h4>No Calls-to-Action</h4>
+                        <p>There are no buttons or prompts guiding visitors toward the next step — no "Book Now," "Learn More," or "Get in Touch."</p>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-number">7</div>
+                    <div class="issue-content">
+                        <h4>Outdated WordPress Theme</h4>
+                        <p>The Striking theme is visually dated and lacks the polish expected by prospective clients and partners in 2026.</p>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-number">8</div>
+                    <div class="issue-content">
+                        <h4>Poor Mobile Experience</h4>
+                        <p>Navigation and layout break down on smaller screens. With over half of web traffic on mobile, this is costing visibility.</p>
+                    </div>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-number">9</div>
+                    <div class="issue-content">
+                        <h4>Heavy Page Weight</h4>
+                        <p>The Slider Revolution plugin and excessive inline JavaScript slow down load times, hurting both user experience and search rankings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-callout">
+                <p><strong>None of these issues are uncommon.</strong> Many businesses outgrow their original website without realizing it. The good news is every one of these problems has been solved in the previews we've built for you below.</p>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 2: WHAT WE BUILT ============ -->
+        <div class="proposal-section">
+            <p class="section-label">Our Solution</p>
+            <h2 class="section-heading">Three Tiers, One Vision</h2>
+            <p>We've built three complete website previews — each representing a different level of investment. From a quick modernization of your existing presence to a full cinematic rebuild with a dedicated client portal, every tier is designed to reflect the prestige and professionalism of Timely Entertainment.</p>
+            <p>Each preview is live and fully interactive. Click through them, browse on your phone, and see exactly what your visitors will experience.</p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 3: TIER COMPARISON ============ -->
+        <div class="proposal-section">
+            <p class="section-label">Investment</p>
+            <h2 class="section-heading">Choose Your Tier</h2>
+
+            <div class="tier-grid">
+                <!-- TIER 1 -->
+                <div class="tier-card">
+                    <div class="tier-name">Tier 1 — Quick Wins</div>
+                    <div class="tier-subtitle">Clean up &amp; modernize</div>
+                    <div class="tier-price"><sup>$</sup>500</div>
+                    <div class="tier-period">one-time payment</div>
+                    <div class="tier-divider"></div>
+                    <ul class="tier-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Fixed navigation &amp; broken pages
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            High-resolution hero section
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Clear calls-to-action
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Working contact form
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Artist roster card grid
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Mobile-responsive layout
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Basic SEO cleanup
+                        </li>
+                    </ul>
+                    <div class="tier-actions">
+                        <a href="tier1-quick-wins.html" target="_blank" class="tier-btn">
+                            View Preview
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TIER 2 -->
+                <div class="tier-card featured">
+                    <div class="tier-badge">Recommended</div>
+                    <div class="tier-name">Tier 2 — Modern Redesign</div>
+                    <div class="tier-subtitle">Complete content &amp; design overhaul</div>
+                    <div class="tier-price"><sup>$</sup>1,500</div>
+                    <div class="tier-period">one-time payment</div>
+                    <div class="tier-divider"></div>
+                    <ul class="tier-features">
+                        <li class="inherited">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Everything in Tier 1
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Modern editorial design system
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Rich artist profile cards with media
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Animated scroll effects throughout
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Stats &amp; social proof sections
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            "Why Timely?" feature section
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Blog/news preview section
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Newsletter signup integration
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Full SEO optimization
+                        </li>
+                    </ul>
+                    <div class="tier-actions">
+                        <a href="tier2-redesign.html" target="_blank" class="tier-btn primary">
+                            View Preview
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TIER 3 -->
+                <div class="tier-card ultimate">
+                    <div class="tier-badge">Ultimate</div>
+                    <div class="tier-name">Tier 3 — Premium Rebuild</div>
+                    <div class="tier-subtitle">Ground-up cinematic experience</div>
+                    <div class="tier-price"><sup>$</sup>3,500</div>
+                    <div class="tier-period">one-time payment</div>
+                    <div class="tier-divider"></div>
+                    <ul class="tier-features">
+                        <li class="inherited">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Everything in Tier 2
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Cinematic video hero with LA footage
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Animated gradient spotlights &amp; effects
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Horizontal-scroll artist showcase
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Multi-step booking form with validation
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Animated stats counters
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Dedicated client portal with login
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Dashboard: contracts, finances, calendar, messages, documents
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Glassmorphism &amp; premium animations
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            prefers-reduced-motion accessibility
+                        </li>
+                    </ul>
+                    <div class="tier-actions">
+                        <a href="tier3-premium-rebuild.html" target="_blank" class="tier-btn primary">
+                            View Website Preview
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                        <a href="tier3-client-portal.html" target="_blank" class="tier-btn">
+                            View Client Portal
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note-callout">
+                <p><strong>Every tier is already built.</strong> These aren't mockups or wireframes — they're fully functional, interactive previews you can browse right now. Pick the one that fits your vision and budget, and we'll take it live.</p>
+            </div>
+        </div>
+
+        <!-- ============ LIVE PREVIEWS ============ -->
+        <div class="proposal-section">
+            <p class="section-label">Live Previews</p>
+            <h2 class="section-heading">See Them in Action</h2>
+            <p>Each tier has been built out as a fully interactive website. Below are live previews — click any card to open the full experience in a new tab.</p>
+
+            <div class="preview-cards-grid">
+                <!-- Tier 1 Preview -->
+                <div class="preview-card">
+                    <div class="preview-iframe-wrap">
+                        <iframe src="tier1-quick-wins.html" loading="lazy" title="Tier 1 Preview"></iframe>
+                        <div class="preview-iframe-overlay"></div>
+                    </div>
+                    <div class="preview-card-footer">
+                        <span>Tier 1 — Quick Wins</span>
+                        <a href="tier1-quick-wins.html" target="_blank" rel="noopener">
+                            Open
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 2 Preview -->
+                <div class="preview-card preview-featured">
+                    <div class="preview-iframe-wrap">
+                        <iframe src="tier2-redesign.html" loading="lazy" title="Tier 2 Preview"></iframe>
+                        <div class="preview-iframe-overlay"></div>
+                    </div>
+                    <div class="preview-card-footer">
+                        <span>Tier 2 — Redesign</span>
+                        <a href="tier2-redesign.html" target="_blank" rel="noopener">
+                            Open
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tier 3 Preview -->
+                <div class="preview-card preview-featured">
+                    <div class="preview-iframe-wrap">
+                        <iframe src="tier3-premium-rebuild.html" loading="lazy" title="Tier 3 Preview"></iframe>
+                        <div class="preview-iframe-overlay"></div>
+                    </div>
+                    <div class="preview-card-footer">
+                        <span>Tier 3 — Premium</span>
+                        <a href="tier3-premium-rebuild.html" target="_blank" rel="noopener">
+                            Open
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 4: BEFORE VS AFTER ============ -->
+        <div class="proposal-section">
+            <p class="section-label">The Difference</p>
+            <h2 class="section-heading">Current Site vs. What We Built</h2>
+            <p>Here's a side-by-side breakdown of exactly what changes across every key area of the site.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Area</th>
+                        <th>Before (Current)</th>
+                        <th>After (Our Build)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>First Impression</td>
+                        <td class="col-before"><span class="strike">Low-res 960px slider, dated theme</span></td>
+                        <td class="col-after">Full-screen video hero / modern design</td>
+                    </tr>
+                    <tr>
+                        <td>Navigation</td>
+                        <td class="col-before"><span class="strike">Broken "Helpful Links" 404</span></td>
+                        <td class="col-after">Clean, working, sticky navigation</td>
+                    </tr>
+                    <tr>
+                        <td>Artist Roster</td>
+                        <td class="col-before"><span class="strike">Names in a dropdown menu</span></td>
+                        <td class="col-after">Rich profile cards with bios &amp; media</td>
+                    </tr>
+                    <tr>
+                        <td>Contact</td>
+                        <td class="col-before"><span class="strike">Phone/email text only</span></td>
+                        <td class="col-after">Multi-field contact form / booking system</td>
+                    </tr>
+                    <tr>
+                        <td>Events</td>
+                        <td class="col-before"><span class="strike">Empty calendar, no content</span></td>
+                        <td class="col-after">Integrated calendar with real events</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile</td>
+                        <td class="col-before"><span class="strike">Broken layout on phones</span></td>
+                        <td class="col-after">Fully responsive, touch-optimized</td>
+                    </tr>
+                    <tr>
+                        <td>Speed</td>
+                        <td class="col-before"><span class="strike">Heavy Slider Revolution + inline JS</span></td>
+                        <td class="col-after">Lightweight, optimized, fast loading</td>
+                    </tr>
+                    <tr>
+                        <td>Credibility</td>
+                        <td class="col-before"><span class="strike">Recognition from 2009-2013</span></td>
+                        <td class="col-after">Updated social proof &amp; metrics</td>
+                    </tr>
+                    <tr>
+                        <td>Client Portal</td>
+                        <td class="col-before"><span class="strike">None</span></td>
+                        <td class="col-after">Full dashboard with 6 tabs (Tier 3)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 5: MONTHLY MAINTENANCE ============ -->
+        <div class="proposal-section">
+            <p class="section-label">Ongoing Support</p>
+            <h2 class="section-heading">Keep It Running</h2>
+            <p>A website is a living asset. After launch, we handle everything — hosting, security, updates, and performance — so you can focus on your business.</p>
+
+            <div class="maintenance-card">
+                <div class="maintenance-pricing">
+                    <div class="tier-price"><sup>$</sup>125</div>
+                    <div class="tier-period">per month</div>
+                </div>
+                <div class="maintenance-features">
+                    <ul>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Website hosting
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            SSL certificate
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Security updates
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Content updates (up to 4/month)
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Performance monitoring
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Priority support
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Monthly analytics report
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="note-callout">
+                <p><strong>No long-term contracts.</strong> Monthly maintenance is billed month-to-month. You can cancel anytime — though once you see the analytics rolling in, you won't want to.</p>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 6: ADDITIONAL SERVICES ============ -->
+        <div class="proposal-section">
+            <p class="section-label">What Else We Can Build</p>
+            <h2 class="section-heading">Beyond the Website</h2>
+            <p>Your website is the foundation, but the digital ecosystem can go much further. Here are additional services we offer that could amplify Timely Entertainment's reach and operations.</p>
+
+            <div class="extras-grid">
+                <div class="extra-card">
+                    <div class="extra-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h4>CRM Integration</h4>
+                    <p>Connect to HubSpot or Mailchimp for lead capture, automated follow-ups, and email marketing campaigns to keep your audience engaged.</p>
+                </div>
+                <div class="extra-card">
+                    <div class="extra-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <h4>Press Kit System</h4>
+                    <p>Auto-generated downloadable press kits for each artist — bios, high-res photos, rider info, and booking details in one polished package.</p>
+                </div>
+                <div class="extra-card">
+                    <div class="extra-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                    </div>
+                    <h4>E-Commerce</h4>
+                    <p>Merchandise storefronts for your managed artists — sell branded apparel, music, and collectibles directly to fans with integrated payments.</p>
+                </div>
+                <div class="extra-card">
+                    <div class="extra-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <h4>Custom Web Apps</h4>
+                    <p>Internal tools, dashboards, booking systems, royalty trackers — if you can envision it, we can build it. Tailored to your workflow.</p>
+                </div>
+            </div>
+
+            <div class="note-callout">
+                <p><strong>These additions are quoted separately</strong> based on scope and requirements. We'll work with you to define exactly what you need and provide a clear quote before any work begins.</p>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ============ SECTION 7: CTA ============ -->
+        <div class="cta-section">
+            <h3>Ready to Elevate Your Online Presence?</h3>
+            <p>Let's build something timely.</p>
+            <a href="mailto:dylan@williamsdigital.io?subject=Timely%20Entertainment%20Website%20Proposal" class="cta-btn">
+                Get Started
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <div class="cta-phone">Or call <a href="tel:+1XXXXXXXXXX">(XXX) XXX-XXXX</a></div>
+        </div>
+
+    </div>
+
+    <!-- ============================== FOOTER ============================== -->
+    <div class="proposal-footer">
+        <p>Confidential — Prepared exclusively for Timely Entertainment, LLC</p>
+        <p><a href="https://williamsdigital.io" target="_blank" rel="noopener">Williams Digital</a> &mdash; williamsdigital.io</p>
+    </div>
+
+</body>
+</html>
