@@ -1,0 +1,2745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Bean Coffee - Tier 5 | Enterprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           TIER 5 - ENTERPRISE
+           + CINEMATIC VIDEO HERO with animated text
+           + FULL STAFF PORTAL with multiple views
+           + ADVANCED COFFEE CUP LOADING with particles
+           + LOYALTY PROGRAM section
+           + Cursor-following effects
+           + Magnetic buttons
+           + Scroll-linked progress bar
+           + Advanced ordering with full customization
+           + Partner recommendations
+           + Smooth page transitions
+           + Animated SVG coffee elements
+           + Parallax depth layers
+           ========================================== */
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --void: #050403;
+            --obsidian: #0a0806;
+            --espresso: #161110;
+            --dark-roast: #241a14;
+            --medium-roast: #3d2b1f;
+            --cream: #faf7f2;
+            --gold: #c9a96e;
+            --gold-bright: #e0c48a;
+            --gold-dim: #8b7a55;
+            --warm-gray: #9a8b7a;
+            --text: #3a2e28;
+            --text-light: #7a6b5e;
+            --accent: #d4a574;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ================================
+           SCROLL PROGRESS BAR
+           ================================ */
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--gold));
+            z-index: 10001;
+            transition: width 0.1s linear;
+        }
+
+        /* ================================
+           ADVANCED LOADING SCREEN
+           with coffee cup, particles, and progress
+           ================================ */
+        .loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--void);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            overflow: hidden;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Loader particles */
+        .loader-particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        .l-particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 4s ease-in-out infinite;
+        }
+
+        .l-particle:nth-child(1) { left: 15%; top: 20%; animation-delay: 0s; }
+        .l-particle:nth-child(2) { left: 30%; top: 60%; animation-delay: 0.5s; }
+        .l-particle:nth-child(3) { left: 50%; top: 30%; animation-delay: 1s; }
+        .l-particle:nth-child(4) { left: 70%; top: 70%; animation-delay: 1.5s; }
+        .l-particle:nth-child(5) { left: 85%; top: 40%; animation-delay: 2s; }
+        .l-particle:nth-child(6) { left: 20%; top: 80%; animation-delay: 0.7s; }
+        .l-particle:nth-child(7) { left: 60%; top: 15%; animation-delay: 1.2s; }
+        .l-particle:nth-child(8) { left: 40%; top: 85%; animation-delay: 0.3s; }
+        .l-particle:nth-child(9) { left: 75%; top: 25%; animation-delay: 1.8s; }
+        .l-particle:nth-child(10) { left: 90%; top: 55%; animation-delay: 0.9s; }
+
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(20px) scale(0); }
+            30% { opacity: 0.6; transform: translateY(0) scale(1); }
+            70% { opacity: 0.6; transform: translateY(-10px) scale(1); }
+            100% { opacity: 0; transform: translateY(-30px) scale(0); }
+        }
+
+        /* Advanced coffee cup */
+        .loader-cup-container {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .adv-cup {
+            width: 120px;
+            height: 90px;
+            border: 3px solid var(--gold);
+            border-radius: 0 0 35px 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .adv-cup::after {
+            content: '';
+            position: absolute;
+            right: -30px;
+            top: 10px;
+            width: 25px;
+            height: 40px;
+            border: 3px solid var(--gold);
+            border-left: none;
+            border-radius: 0 18px 18px 0;
+        }
+
+        /* Saucer */
+        .adv-saucer {
+            width: 160px;
+            height: 10px;
+            background: transparent;
+            border: 2px solid rgba(201, 169, 110, 0.3);
+            border-radius: 50%;
+            margin: -2px auto 0;
+            margin-left: -20px;
+        }
+
+        .adv-coffee-fill {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, #3a1f0f, #5a3520, #7a4a30);
+            border-radius: 0 0 32px 32px;
+            animation: advFill 2.5s ease-in-out forwards;
+        }
+
+        @keyframes advFill {
+            0% { height: 0; }
+            60% { height: 70%; }
+            80% { height: 65%; }
+            100% { height: 75%; }
+        }
+
+        /* Coffee ripple */
+        .coffee-ripple {
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 40px; height: 4px;
+            background: rgba(201, 169, 110, 0.2);
+            border-radius: 50%;
+            animation: ripple 2s ease-in-out 2s infinite;
+        }
+
+        @keyframes ripple {
+            0%, 100% { width: 40px; opacity: 0.2; }
+            50% { width: 80px; opacity: 0.4; }
+        }
+
+        /* Advanced steam */
+        .adv-steam {
+            display: flex;
+            gap: 10px;
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .adv-steam span {
+            width: 3px;
+            background: rgba(201, 169, 110, 0.3);
+            border-radius: 10px;
+            animation: advSteam 2s ease-in-out infinite;
+        }
+
+        .adv-steam span:nth-child(1) { height: 25px; animation-delay: 0s; }
+        .adv-steam span:nth-child(2) { height: 35px; animation-delay: 0.2s; }
+        .adv-steam span:nth-child(3) { height: 20px; animation-delay: 0.4s; }
+        .adv-steam span:nth-child(4) { height: 30px; animation-delay: 0.6s; }
+        .adv-steam span:nth-child(5) { height: 22px; animation-delay: 0.8s; }
+
+        @keyframes advSteam {
+            0% { opacity: 0; transform: translateY(15px) scaleX(1) rotate(0deg); }
+            40% { opacity: 0.8; }
+            100% { opacity: 0; transform: translateY(-35px) scaleX(0.5) rotate(10deg); }
+        }
+
+        .loader-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--gold);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: loaderFadeIn 1s ease 0.5s forwards;
+        }
+
+        .loader-sub {
+            font-size: 10px;
+            color: rgba(201, 169, 110, 0.4);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: loaderFadeIn 1s ease 0.8s forwards;
+        }
+
+        @keyframes loaderFadeIn {
+            to { opacity: 1; }
+        }
+
+        .loader-bar {
+            width: 250px;
+            height: 1px;
+            background: rgba(201, 169, 110, 0.1);
+            border-radius: 1px;
+            overflow: hidden;
+        }
+
+        .loader-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+            animation: loadBar 2.8s ease-in-out forwards;
+        }
+
+        @keyframes loadBar {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        .loader-percent {
+            margin-top: 12px;
+            font-size: 11px;
+            color: rgba(201, 169, 110, 0.5);
+            letter-spacing: 3px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ================================
+           SCROLL ANIMATIONS
+           ================================ */
+        .anim-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .anim-up.visible { opacity: 1; transform: translateY(0); }
+
+        .anim-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .anim-left.visible { opacity: 1; transform: translateX(0); }
+
+        .anim-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .anim-right.visible { opacity: 1; transform: translateX(0); }
+
+        .anim-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .anim-scale.visible { opacity: 1; transform: scale(1); }
+
+        .anim-blur {
+            opacity: 0;
+            filter: blur(10px);
+            transition: opacity 1s ease, filter 1s ease;
+        }
+        .anim-blur.visible { opacity: 1; filter: blur(0); }
+
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; }
+        .d4 { transition-delay: 0.4s; }
+        .d5 { transition-delay: 0.5s; }
+        .d6 { transition-delay: 0.6s; }
+
+        /* ================================
+           CURSOR GLOW (desktop only)
+           ================================ */
+        .cursor-glow {
+            position: fixed;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+
+        /* ================================
+           NAVIGATION
+           ================================ */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 0 60px;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.scrolled {
+            background: rgba(5, 4, 3, 0.92);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 1px 30px rgba(0,0,0,0.3);
+            height: 65px;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .logo a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        header nav a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        header nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 0;
+            width: 0; height: 1px;
+            background: var(--gold);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header nav a:hover { color: var(--gold); }
+        header nav a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: transparent !important;
+            color: var(--gold) !important;
+            padding: 10px 28px !important;
+            border: 1px solid rgba(201, 169, 110, 0.4) !important;
+            font-weight: 600 !important;
+            transition: all 0.4s !important;
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        .nav-cta:hover {
+            background: var(--gold) !important;
+            color: var(--void) !important;
+            box-shadow: 0 0 30px rgba(201, 169, 110, 0.2);
+        }
+
+        /* ================================
+           CINEMATIC VIDEO HERO
+           ================================ */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Simulated cinematic video */
+        .hero-cinema {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(135deg,
+                    #050403 0%,
+                    #0d0a07 15%,
+                    #1a1210 30%,
+                    #241a14 45%,
+                    #1a1210 60%,
+                    #0d0a07 75%,
+                    #050403 100%
+                );
+            background-size: 400% 400%;
+            animation: cinemaGradient 20s ease infinite;
+        }
+
+        @keyframes cinemaGradient {
+            0% { background-position: 0% 0%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 0% 50%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* Film grain overlay */
+        .hero-grain {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 100px;
+            z-index: 1;
+        }
+
+        /* Cinematic bars */
+        .hero-bar-top, .hero-bar-bottom {
+            position: absolute;
+            left: 0; right: 0;
+            height: 60px;
+            background: var(--void);
+            z-index: 2;
+        }
+        .hero-bar-top { top: 0; }
+        .hero-bar-bottom { bottom: 0; }
+
+        /* Vignette */
+        .hero-vignette {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                radial-gradient(ellipse at center, transparent 40%, rgba(5,4,3,0.7) 100%),
+                linear-gradient(to bottom, rgba(5,4,3,0.3) 0%, transparent 30%, transparent 70%, rgba(5,4,3,0.5) 100%);
+            z-index: 2;
+        }
+
+        /* Floating particles in hero */
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .h-particle {
+            position: absolute;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: hParticle linear infinite;
+        }
+
+        .h-particle:nth-child(1) { width: 2px; height: 2px; left: 10%; animation-duration: 25s; animation-delay: 0s; }
+        .h-particle:nth-child(2) { width: 3px; height: 3px; left: 20%; animation-duration: 20s; animation-delay: 3s; }
+        .h-particle:nth-child(3) { width: 2px; height: 2px; left: 35%; animation-duration: 28s; animation-delay: 6s; }
+        .h-particle:nth-child(4) { width: 4px; height: 4px; left: 50%; animation-duration: 22s; animation-delay: 2s; }
+        .h-particle:nth-child(5) { width: 2px; height: 2px; left: 65%; animation-duration: 26s; animation-delay: 8s; }
+        .h-particle:nth-child(6) { width: 3px; height: 3px; left: 75%; animation-duration: 23s; animation-delay: 4s; }
+        .h-particle:nth-child(7) { width: 2px; height: 2px; left: 88%; animation-duration: 27s; animation-delay: 1s; }
+        .h-particle:nth-child(8) { width: 3px; height: 3px; left: 95%; animation-duration: 21s; animation-delay: 7s; }
+
+        @keyframes hParticle {
+            0% { transform: translateY(100vh); opacity: 0; }
+            5% { opacity: 0.06; }
+            95% { opacity: 0.06; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-eyebrow {
+            font-size: 10px;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: rgba(201, 169, 110, 0.6);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: heroReveal 1.2s cubic-bezier(0.4, 0, 0.2, 1) 3s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 90px;
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 12px;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 .line-1,
+        .hero h1 .line-2 {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero h1 .line-1 span,
+        .hero h1 .line-2 span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            animation: textReveal 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .hero h1 .line-1 span { animation-delay: 3.2s; }
+        .hero h1 .line-2 span {
+            animation-delay: 3.5s;
+            font-style: italic;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        @keyframes textReveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heroReveal {
+            to { opacity: 1; }
+        }
+
+        .hero-divider {
+            width: 80px; height: 1px;
+            background: var(--gold);
+            margin: 30px auto;
+            opacity: 0;
+            transform: scaleX(0);
+            animation: dividerReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) 3.8s forwards;
+        }
+
+        @keyframes dividerReveal {
+            to { opacity: 1; transform: scaleX(1); }
+        }
+
+        .hero-tagline {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: heroReveal 1s ease 4s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            opacity: 0;
+            animation: heroReveal 1s ease 4.3s forwards;
+        }
+
+        .btn-solid {
+            background: var(--gold);
+            color: var(--void);
+            padding: 16px 55px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-solid::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-solid:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(201, 169, 110, 0.25);
+        }
+
+        .btn-solid:hover::before { left: 100%; }
+
+        .btn-outline-hero {
+            border: 1px solid rgba(201, 169, 110, 0.25);
+            color: rgba(201, 169, 110, 0.8);
+            padding: 16px 55px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            transition: all 0.4s;
+            background: transparent;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-outline-hero:hover {
+            background: rgba(201, 169, 110, 0.08);
+            border-color: rgba(201, 169, 110, 0.5);
+            color: var(--gold);
+        }
+
+        /* Hero bottom */
+        .hero-bottom {
+            position: absolute;
+            bottom: 80px;
+            left: 0; right: 0;
+            z-index: 3;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 60px;
+            align-items: flex-end;
+        }
+
+        .hero-scroll-text {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            writing-mode: vertical-lr;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hero-scroll-text::after {
+            content: '';
+            width: 1px; height: 60px;
+            background: linear-gradient(to bottom, rgba(201, 169, 110, 0.4), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0%, 100% { opacity: 0.3; height: 40px; }
+            50% { opacity: 1; height: 60px; }
+        }
+
+        .hero-video-label {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+        }
+
+        /* ================================
+           SECTIONS
+           ================================ */
+        section { padding: 130px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header .eyebrow {
+            font-size: 9px;
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 52px;
+            font-weight: 300;
+            line-height: 1.15;
+            letter-spacing: 2px;
+        }
+
+        .section-header .s-line {
+            width: 40px; height: 1px;
+            background: var(--gold);
+            margin: 25px auto 0;
+        }
+
+        /* ================================
+           STATS MARQUEE
+           ================================ */
+        .stats-marquee {
+            background: var(--void);
+            padding: 50px 0;
+            overflow: hidden;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 80px;
+            animation: marquee 30s linear infinite;
+            width: max-content;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            white-space: nowrap;
+        }
+
+        .marquee-item .m-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            color: var(--gold);
+            font-weight: 300;
+        }
+
+        .marquee-item .m-label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .marquee-divider {
+            width: 1px;
+            height: 30px;
+            background: rgba(201, 169, 110, 0.15);
+            flex-shrink: 0;
+        }
+
+        /* ================================
+           ABOUT
+           ================================ */
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-img-main {
+            width: 100%;
+            height: 550px;
+            background: linear-gradient(145deg, var(--dark-roast), var(--medium-roast));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .about-accent-box {
+            position: absolute;
+            bottom: -40px; right: -40px;
+            width: 220px; height: 220px;
+            border: 1px solid rgba(201, 169, 110, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--void);
+        }
+
+        .about-accent-box .accent-inner {
+            text-align: center;
+        }
+
+        .about-accent-box .accent-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            color: var(--gold);
+            font-weight: 300;
+        }
+
+        .about-accent-box .accent-label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(201, 169, 110, 0.5);
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .about-signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--gold);
+            font-style: italic;
+            margin-top: 30px;
+        }
+
+        /* ================================
+           ONLINE ORDERING
+           ================================ */
+        .ordering { background: #f0e9df; }
+
+        .order-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .order-tabs button {
+            padding: 12px 30px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .order-tabs button::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 0; height: 2px;
+            background: var(--gold);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        .order-tabs button.active { color: var(--gold); }
+        .order-tabs button.active::after { width: 100%; }
+        .order-tabs button:hover { color: var(--gold); }
+
+        .order-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .o-card {
+            background: #fff;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(201, 169, 110, 0.06);
+            position: relative;
+        }
+
+        .o-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: 1;
+        }
+
+        .o-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(44, 24, 16, 0.1);
+        }
+
+        .o-card:hover::before { transform: scaleX(1); }
+
+        .o-card-img {
+            height: 200px;
+            background: linear-gradient(135deg, var(--dark-roast), var(--medium-roast));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 12px;
+            font-style: italic;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .o-card-img::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .o-card:hover .o-card-img::after { left: 100%; }
+
+        .o-card-body { padding: 25px; }
+
+        .o-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .o-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .o-card .price {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .o-card p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 18px;
+        }
+
+        .o-customize {
+            margin-bottom: 12px;
+        }
+
+        .o-customize label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--warm-gray);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .o-customize select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e8ddd3;
+            background: var(--cream);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text);
+            appearance: none;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .o-customize select:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .o-add-btn {
+            width: 100%;
+            padding: 13px;
+            background: var(--void);
+            color: var(--gold);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .o-add-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .o-add-btn:hover { background: var(--dark-roast); }
+        .o-add-btn:hover::before { left: 100%; }
+
+        /* ================================
+           LOYALTY PROGRAM
+           ================================ */
+        .loyalty {
+            background: var(--void);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loyalty::before {
+            content: '';
+            position: absolute;
+            top: -200px; right: -200px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.03) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .loyalty .section-header h2 { color: #fff; }
+
+        .loyalty-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .loyalty-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .loyalty-info p {
+            color: rgba(255,255,255,0.5);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .loyalty-perks {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .loyalty-perks li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .loyalty-perks li .perk-icon {
+            width: 35px; height: 35px;
+            background: rgba(201, 169, 110, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        /* Loyalty card mockup */
+        .loyalty-card-mock {
+            background: linear-gradient(135deg, #1a1512, #2a1f18);
+            border: 1px solid rgba(201, 169, 110, 0.15);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loyalty-card-mock::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -50%;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.05) 0%, transparent 70%);
+        }
+
+        .lc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .lc-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+
+        .lc-tier {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-bright);
+            padding: 5px 15px;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+        }
+
+        .lc-points {
+            margin-bottom: 25px;
+        }
+
+        .lc-points .pts-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px;
+            color: var(--gold);
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .lc-points .pts-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .lc-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .lc-progress {
+            width: 100%;
+            height: 3px;
+            background: rgba(201, 169, 110, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .lc-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .lc-progress-fill.animated {
+            width: 72%;
+        }
+
+        .lc-member {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lc-member-name {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .lc-member-id {
+            font-size: 11px;
+            color: rgba(201, 169, 110, 0.4);
+            letter-spacing: 2px;
+        }
+
+        /* ================================
+           TESTIMONIALS
+           ================================ */
+        .testimonials {
+            background: var(--espresso);
+            color: #fff;
+        }
+
+        .testimonials .section-header h2 { color: #fff; }
+
+        .t-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .t-card {
+            background: rgba(201, 169, 110, 0.03);
+            border: 1px solid rgba(201, 169, 110, 0.06);
+            padding: 35px 30px;
+            transition: all 0.4s;
+        }
+
+        .t-card:hover {
+            border-color: rgba(201, 169, 110, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .t-stars {
+            color: var(--gold);
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .t-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            font-style: italic;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 25px;
+        }
+
+        .t-author-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .t-author-loc {
+            font-size: 11px;
+            color: var(--gold-dim);
+        }
+
+        /* ================================
+           PARTNERS
+           ================================ */
+        .partners { background: #f0e9df; }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .p-card {
+            background: #fff;
+            padding: 35px 30px;
+            border: 1px solid rgba(201, 169, 110, 0.06);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .p-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--gold);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .p-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(44, 24, 16, 0.08);
+        }
+
+        .p-card:hover::after { width: 100%; }
+
+        .p-head {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .p-icon {
+            width: 45px; height: 45px;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .p-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+        }
+
+        .p-card .p-cat {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .p-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .p-link {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .p-link:hover { color: var(--medium-roast); gap: 10px; }
+
+        /* ================================
+           STAFF PORTAL (FULL)
+           ================================ */
+        .portal {
+            background: var(--espresso);
+            color: #fff;
+        }
+
+        .portal .section-header h2 { color: #fff; }
+
+        .portal-container {
+            background: var(--void);
+            border: 1px solid rgba(201, 169, 110, 0.08);
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        .portal-side {
+            background: rgba(201, 169, 110, 0.02);
+            border-right: 1px solid rgba(201, 169, 110, 0.08);
+        }
+
+        .portal-user-block {
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+        }
+
+        .portal-avatar {
+            width: 70px; height: 70px;
+            background: rgba(201, 169, 110, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 26px;
+            color: var(--gold);
+            border: 2px solid rgba(201, 169, 110, 0.15);
+        }
+
+        .portal-user-block h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+        }
+
+        .portal-user-block .portal-role {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .portal-menu {
+            list-style: none;
+            padding: 15px 0;
+        }
+
+        .portal-menu li {
+            padding: 12px 25px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 1px;
+        }
+
+        .portal-menu li:hover,
+        .portal-menu li.active {
+            color: var(--gold);
+            background: rgba(201, 169, 110, 0.04);
+            border-left: 2px solid var(--gold);
+        }
+
+        .portal-menu li .menu-icon { font-size: 14px; width: 20px; text-align: center; }
+
+        .portal-body { padding: 30px 40px; }
+
+        .portal-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.06);
+        }
+
+        .portal-top-bar h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+        }
+
+        .portal-top-bar .ptb-date {
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 2px;
+        }
+
+        /* Portal dashboard stats */
+        .portal-kpis {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: rgba(201, 169, 110, 0.03);
+            border: 1px solid rgba(201, 169, 110, 0.06);
+            padding: 20px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .kpi-card:hover {
+            border-color: rgba(201, 169, 110, 0.15);
+        }
+
+        .kpi-val {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .kpi-label {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-top: 5px;
+        }
+
+        .kpi-change {
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .kpi-up { color: #66bb6a; }
+        .kpi-down { color: #ef5350; }
+
+        /* Portal sections */
+        .portal-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .portal-panel {
+            background: rgba(201, 169, 110, 0.02);
+            border: 1px solid rgba(201, 169, 110, 0.06);
+            padding: 25px;
+        }
+
+        .portal-panel h4 {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 18px;
+        }
+
+        .sched-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.04);
+            font-size: 13px;
+        }
+
+        .sched-name { color: #fff; font-weight: 500; }
+        .sched-role { color: rgba(255,255,255,0.3); font-size: 11px; }
+        .sched-time { color: var(--gold-dim); font-size: 12px; }
+
+        .sched-status {
+            padding: 3px 10px;
+            font-size: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .st-active { background: rgba(76, 175, 80, 0.1); color: #66bb6a; }
+        .st-upcoming { background: rgba(201, 169, 110, 0.08); color: var(--gold); }
+        .st-off { background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.2); }
+
+        /* Orders panel */
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.04);
+            font-size: 13px;
+        }
+
+        .order-row .or-id { color: var(--gold); font-weight: 500; font-size: 12px; }
+        .order-row .or-items { color: rgba(255,255,255,0.6); }
+        .order-row .or-total { color: #fff; font-weight: 600; }
+
+        .or-status {
+            padding: 3px 10px;
+            font-size: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .or-ready { background: rgba(76, 175, 80, 0.1); color: #66bb6a; }
+        .or-prep { background: rgba(255, 152, 0, 0.1); color: #ffa726; }
+        .or-new { background: rgba(33, 150, 243, 0.1); color: #42a5f5; }
+
+        /* ================================
+           NEWSLETTER
+           ================================ */
+        .newsletter {
+            background: var(--dark-roast);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .newsletter::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(201, 169, 110, 0.02) 0%, transparent 70%);
+        }
+
+        .newsletter h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            color: #fff;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .newsletter p {
+            color: rgba(255,255,255,0.35);
+            font-size: 14px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .nl-form {
+            display: flex;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .nl-form input {
+            flex: 1;
+            padding: 16px 22px;
+            border: 1px solid rgba(201, 169, 110, 0.15);
+            background: rgba(255,255,255,0.02);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .nl-form input:focus { border-color: var(--gold); }
+        .nl-form input::placeholder { color: rgba(255,255,255,0.2); }
+
+        .nl-form button {
+            padding: 16px 40px;
+            background: var(--gold);
+            color: var(--void);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nl-form button:hover { background: var(--gold-bright); }
+
+        /* ================================
+           INFO
+           ================================ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .info-block h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .info-block ul { list-style: none; }
+
+        .info-block ul li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.08);
+            font-size: 14px;
+        }
+
+        .info-block p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        /* ================================
+           CART
+           ================================ */
+        .cart-overlay {
+            position: fixed;
+            top: 0; right: -440px;
+            width: 420px;
+            height: 100%;
+            background: var(--cream);
+            box-shadow: -10px 0 50px rgba(0,0,0,0.3);
+            z-index: 200;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-overlay.open { right: 0; }
+
+        .cart-hd {
+            background: var(--void);
+            color: var(--gold);
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+        }
+
+        .cart-close-btn {
+            background: none; border: none;
+            color: var(--gold);
+            font-size: 28px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cart-close-btn:hover { transform: rotate(90deg); }
+
+        .cart-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px 30px;
+        }
+
+        .cart-empty-msg {
+            text-align: center;
+            color: var(--warm-gray);
+            margin-top: 50px;
+            font-size: 14px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+            animation: cartItemIn 0.3s ease forwards;
+        }
+
+        @keyframes cartItemIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .ci-info { flex: 1; }
+        .ci-name { font-weight: 500; font-size: 15px; }
+        .ci-detail { font-size: 11px; color: var(--warm-gray); }
+        .ci-price { color: var(--gold); font-weight: 600; margin: 0 15px; }
+
+        .ci-rm {
+            background: none; border: none;
+            color: #ccc; cursor: pointer; font-size: 18px;
+            transition: color 0.3s;
+        }
+        .ci-rm:hover { color: #e74c3c; }
+
+        .cart-ft {
+            padding: 25px 30px;
+            border-top: 2px solid rgba(201, 169, 110, 0.1);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .cart-checkout {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            color: var(--void);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cart-checkout::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s;
+        }
+
+        .cart-checkout:hover { box-shadow: 0 5px 20px rgba(201, 169, 110, 0.3); }
+        .cart-checkout:hover::before { left: 100%; }
+
+        .cart-backdrop {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 199;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .cart-backdrop.open { display: block; opacity: 1; }
+
+        .floating-cart {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            background: var(--void);
+            color: var(--gold);
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 150;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(201, 169, 110, 0.2);
+            border-color: var(--gold);
+        }
+
+        .fc-count {
+            position: absolute;
+            top: -4px; right: -4px;
+            background: var(--gold);
+            color: var(--void);
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* ================================
+           FOOTER
+           ================================ */
+        footer {
+            background: var(--void);
+            padding: 60px 20px 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.06);
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: 24px;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+
+        .footer-desc {
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-col h4 {
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover { color: var(--gold); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copy {
+            color: rgba(255,255,255,0.2);
+            font-size: 11px;
+        }
+
+        .footer-credit {
+            color: rgba(201, 169, 110, 0.3);
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        /* --- TIER BADGE --- */
+        .tier-badge {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: var(--void);
+            color: var(--gold);
+            padding: 8px 16px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 1000;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+        }
+
+        /* ================================
+           RESPONSIVE
+           ================================ */
+        @media (max-width: 1024px) {
+            .portal-container { grid-template-columns: 1fr; }
+            .portal-kpis { grid-template-columns: repeat(2, 1fr); }
+            .partners-grid, .t-grid { grid-template-columns: 1fr 1fr; }
+            .loyalty-layout { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .about-layout { grid-template-columns: 1fr; gap: 50px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 50px; letter-spacing: 6px; }
+            header { padding: 0 20px; }
+            header nav { gap: 15px; }
+            header nav a { font-size: 9px; letter-spacing: 2px; }
+            .partners-grid, .t-grid { grid-template-columns: 1fr; }
+            .portal-kpis { grid-template-columns: 1fr 1fr; }
+            .portal-sections { grid-template-columns: 1fr; }
+            .hero-bottom { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 36px; letter-spacing: 4px; }
+            .hero-actions { flex-direction: column; align-items: center; }
+            .nl-form { flex-direction: column; }
+            .cart-overlay { width: 100%; right: -100%; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== SCROLL PROGRESS ====== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ====== CURSOR GLOW ====== -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- ====== ADVANCED LOADING SCREEN ====== -->
+    <div class="loader" id="loader">
+        <div class="loader-particles">
+            <div class="l-particle"></div><div class="l-particle"></div><div class="l-particle"></div>
+            <div class="l-particle"></div><div class="l-particle"></div><div class="l-particle"></div>
+            <div class="l-particle"></div><div class="l-particle"></div><div class="l-particle"></div>
+            <div class="l-particle"></div>
+        </div>
+
+        <div class="loader-cup-container">
+            <div class="adv-cup">
+                <div class="adv-steam">
+                    <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <div class="adv-coffee-fill">
+                    <div class="coffee-ripple"></div>
+                </div>
+            </div>
+            <div class="adv-saucer"></div>
+        </div>
+
+        <div class="loader-brand">Brew &amp; Bean</div>
+        <div class="loader-sub">Specialty Coffee</div>
+        <div class="loader-bar">
+            <div class="loader-bar-fill"></div>
+        </div>
+        <div class="loader-percent" id="loaderPercent">0%</div>
+    </div>
+
+    <div class="tier-badge">Tier 5 - Enterprise</div>
+
+    <!-- ====== HEADER ====== -->
+    <header id="mainHeader">
+        <div class="logo"><a href="#">Brew &amp; Bean</a></div>
+        <nav>
+            <a href="#about">Story</a>
+            <a href="#order">Menu</a>
+            <a href="#loyalty">Loyalty</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#partners">Partners</a>
+            <a href="#portal">Portal</a>
+            <a href="#visit">Visit</a>
+            <a href="#order" class="nav-cta">Order Now</a>
+        </nav>
+    </header>
+
+    <!-- ====== CINEMATIC VIDEO HERO ====== -->
+    <section class="hero">
+        <div class="hero-cinema"></div>
+        <div class="hero-grain"></div>
+        <div class="hero-bar-top"></div>
+        <div class="hero-bar-bottom"></div>
+        <div class="hero-vignette"></div>
+
+        <div class="hero-particles">
+            <div class="h-particle"></div><div class="h-particle"></div><div class="h-particle"></div>
+            <div class="h-particle"></div><div class="h-particle"></div><div class="h-particle"></div>
+            <div class="h-particle"></div><div class="h-particle"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-eyebrow">Specialty Coffee &bull; Auburn, Alabama</div>
+            <h1>
+                <span class="line-1"><span>Brew &amp;</span></span>
+                <span class="line-2"><span>Bean</span></span>
+            </h1>
+            <div class="hero-divider"></div>
+            <div class="hero-tagline">Handcrafted &bull; Locally Roasted &bull; Sustainably Sourced</div>
+            <div class="hero-actions">
+                <a href="#order" class="btn-solid">Order for Pickup</a>
+                <a href="#about" class="btn-outline-hero">Our Story</a>
+            </div>
+        </div>
+
+        <div class="hero-bottom">
+            <div class="hero-scroll-text">Scroll to explore</div>
+            <div class="hero-video-label">Cinematic Video Hero</div>
+        </div>
+    </section>
+
+    <!-- ====== STATS MARQUEE ====== -->
+    <div class="stats-marquee">
+        <div class="marquee-track">
+            <div class="marquee-item"><span class="m-num">12+</span><span class="m-label">Origins Sourced</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">5,000+</span><span class="m-label">Cups Weekly</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">4.9</span><span class="m-label">Google Rating</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">7</span><span class="m-label">Years Serving</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">100%</span><span class="m-label">Compostable Packaging</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">2%</span><span class="m-label">Profits to Community</span></div>
+            <div class="marquee-divider"></div>
+            <!-- Duplicate for infinite scroll -->
+            <div class="marquee-item"><span class="m-num">12+</span><span class="m-label">Origins Sourced</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">5,000+</span><span class="m-label">Cups Weekly</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">4.9</span><span class="m-label">Google Rating</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">7</span><span class="m-label">Years Serving</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">100%</span><span class="m-label">Compostable Packaging</span></div>
+            <div class="marquee-divider"></div>
+            <div class="marquee-item"><span class="m-num">2%</span><span class="m-label">Profits to Community</span></div>
+        </div>
+    </div>
+
+    <!-- ====== ABOUT ====== -->
+    <section id="about">
+        <div class="container">
+            <div class="about-layout">
+                <div class="about-visual anim-left">
+                    <div class="about-img-main">[ Coffee Shop Interior Photo ]</div>
+                    <div class="about-accent-box">
+                        <div class="accent-inner">
+                            <div class="accent-num">2018</div>
+                            <div class="accent-label">Established</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text anim-right">
+                    <div class="section-header" style="text-align:left; margin-bottom:30px;">
+                        <div class="eyebrow">Our Story</div>
+                        <h2>Where Every Cup<br>Tells a Story</h2>
+                        <div class="s-line" style="margin:25px 0 0;"></div>
+                    </div>
+                    <p>Brew & Bean was born from a simple belief: great coffee brings people together. Since opening our doors in 2018, we've been dedicated to sourcing the finest single-origin beans and roasting them right here in Auburn.</p>
+                    <p>Every cup we serve is crafted with intention, from our signature house blend to our rotating seasonal offerings. We partner with ethical farms across Latin America, Africa, and Southeast Asia.</p>
+                    <p>Our commitment goes beyond the cup. We're proudly zero-waste, use 100% compostable packaging, and donate 2% of profits to local community programs.</p>
+                    <div class="about-signature">- The Brew & Bean Team</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== ONLINE ORDERING ====== -->
+    <section id="order" class="ordering">
+        <div class="container">
+            <div class="section-header anim-up">
+                <div class="eyebrow">Online Ordering</div>
+                <h2>Craft Your Perfect Cup</h2>
+                <div class="s-line"></div>
+            </div>
+
+            <div class="order-tabs">
+                <button class="active" onclick="filterMenu('all', this)">All</button>
+                <button onclick="filterMenu('espresso', this)">Espresso</button>
+                <button onclick="filterMenu('brewed', this)">Brewed</button>
+                <button onclick="filterMenu('specialty', this)">Specialty</button>
+                <button onclick="filterMenu('food', this)">Food</button>
+            </div>
+
+            <div class="order-grid" id="orderGrid">
+                <div class="o-card anim-up" data-cat="espresso">
+                    <div class="o-card-img">[ Latte Art Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Classic Latte</h3><span class="price">$5.00</span></div>
+                        <p>Espresso with silky steamed milk. Simple, smooth, satisfying.</p>
+                        <div class="o-customize"><label>Size</label><select><option>Regular (12oz)</option><option>Large (16oz) +$1</option></select></div>
+                        <div class="o-customize"><label>Milk</label><select><option>Whole</option><option>Oat +$0.75</option><option>Almond +$0.75</option></select></div>
+                        <button class="o-add-btn" onclick="addToCart('Classic Latte', 5.00, '12oz, Whole')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="o-card anim-up d1" data-cat="espresso">
+                    <div class="o-card-img">[ Cappuccino Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Cappuccino</h3><span class="price">$5.00</span></div>
+                        <p>Bold espresso with velvety microfoam. Rich and balanced.</p>
+                        <div class="o-customize"><label>Size</label><select><option>Regular (8oz)</option><option>Large (12oz) +$1</option></select></div>
+                        <button class="o-add-btn" onclick="addToCart('Cappuccino', 5.00, '8oz')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="o-card anim-up d2" data-cat="espresso">
+                    <div class="o-card-img">[ Espresso Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Espresso</h3><span class="price">$3.50</span></div>
+                        <p>Double shot pulled fresh. The purist's choice.</p>
+                        <button class="o-add-btn" onclick="addToCart('Espresso', 3.50, 'Double')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="o-card anim-up" data-cat="brewed">
+                    <div class="o-card-img">[ Pour Over Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Pour Over</h3><span class="price">$5.50</span></div>
+                        <p>Hand-poured single origin. Ask about today's featured origin.</p>
+                        <button class="o-add-btn" onclick="addToCart('Pour Over', 5.50, 'Single Origin')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="o-card anim-up d1" data-cat="brewed">
+                    <div class="o-card-img">[ Cold Brew Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Cold Brew</h3><span class="price">$5.50</span></div>
+                        <p>Slow-steeped 20 hours. Smooth, low-acid, refreshing.</p>
+                        <button class="o-add-btn" onclick="addToCart('Cold Brew', 5.50, '16oz')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="o-card anim-up" data-cat="specialty">
+                    <div class="o-card-img">[ Honey Lavender Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Honey Lavender Latte</h3><span class="price">$6.50</span></div>
+                        <p>Local honey and house-made lavender syrup with oat milk.</p>
+                        <button class="o-add-btn" onclick="addToCart('Honey Lavender Latte', 6.50, 'Oat')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="o-card anim-up d1" data-cat="specialty">
+                    <div class="o-card-img">[ Matcha Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Matcha Latte</h3><span class="price">$6.00</span></div>
+                        <p>Ceremonial-grade matcha whisked with your choice of milk.</p>
+                        <button class="o-add-btn" onclick="addToCart('Matcha Latte', 6.00, '')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="o-card anim-up" data-cat="food">
+                    <div class="o-card-img">[ Avocado Toast Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Avocado Toast</h3><span class="price">$8.50</span></div>
+                        <p>Smashed avo on sourdough with everything seasoning.</p>
+                        <button class="o-add-btn" onclick="addToCart('Avocado Toast', 8.50, '')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="o-card anim-up d1" data-cat="food">
+                    <div class="o-card-img">[ Croissant Photo ]</div>
+                    <div class="o-card-body">
+                        <div class="o-card-top"><h3>Butter Croissant</h3><span class="price">$4.00</span></div>
+                        <p>Flaky, golden, baked fresh daily by our bakery partner.</p>
+                        <button class="o-add-btn" onclick="addToCart('Butter Croissant', 4.00, '')">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== LOYALTY PROGRAM ====== -->
+    <section id="loyalty" class="loyalty">
+        <div class="container">
+            <div class="section-header anim-up">
+                <div class="eyebrow">Rewards</div>
+                <h2>Bean Rewards Loyalty Program</h2>
+                <div class="s-line"></div>
+            </div>
+
+            <div class="loyalty-layout">
+                <div class="loyalty-info anim-left">
+                    <h3>Every Sip Earns You More</h3>
+                    <p>Join Bean Rewards and earn points with every purchase. Redeem for free drinks, exclusive merch, and early access to new roasts.</p>
+                    <p>It's simple: 1 point for every dollar spent. Reach Gold status at 500 points and unlock premium perks.</p>
+
+                    <ul class="loyalty-perks">
+                        <li>
+                            <span class="perk-icon">&#9733;</span>
+                            <span>Earn 1 point per $1 spent on all purchases</span>
+                        </li>
+                        <li>
+                            <span class="perk-icon">&#127873;</span>
+                            <span>Free birthday drink every year</span>
+                        </li>
+                        <li>
+                            <span class="perk-icon">&#9749;</span>
+                            <span>Free drink after every 10 purchases</span>
+                        </li>
+                        <li>
+                            <span class="perk-icon">&#128274;</span>
+                            <span>Early access to seasonal menu items</span>
+                        </li>
+                        <li>
+                            <span class="perk-icon">&#127942;</span>
+                            <span>Gold members: double points on weekends</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="loyalty-card-mock anim-right" id="loyaltyCard">
+                    <div class="lc-header">
+                        <span class="lc-brand">Brew &amp; Bean</span>
+                        <span class="lc-tier">Gold Member</span>
+                    </div>
+                    <div class="lc-points">
+                        <div class="pts-num">724</div>
+                        <div class="pts-label">Points Balance</div>
+                    </div>
+                    <div class="lc-progress-label">
+                        <span>Current: Gold</span>
+                        <span>Next: Platinum (1,000 pts)</span>
+                    </div>
+                    <div class="lc-progress">
+                        <div class="lc-progress-fill" id="loyaltyProgress"></div>
+                    </div>
+                    <div class="lc-member">
+                        <span class="lc-member-name">Sarah Mitchell</span>
+                        <span class="lc-member-id">BB-2024-0847</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== TESTIMONIALS ====== -->
+    <section id="reviews" class="testimonials">
+        <div class="container">
+            <div class="section-header anim-up">
+                <div class="eyebrow">Testimonials</div>
+                <h2>What Our Customers Say</h2>
+                <div class="s-line"></div>
+            </div>
+
+            <div class="t-grid">
+                <div class="t-card anim-up">
+                    <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="t-text">The best coffee in Auburn, hands down. Their honey lavender latte is absolutely incredible. The atmosphere is perfect.</div>
+                    <div class="t-author-name">Sarah M.</div>
+                    <div class="t-author-loc">Auburn, AL</div>
+                </div>
+                <div class="t-card anim-up d2">
+                    <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="t-text">Real specialty coffee. The baristas actually know what they're doing. The quality and consistency is unmatched anywhere in the area.</div>
+                    <div class="t-author-name">James T.</div>
+                    <div class="t-author-loc">Opelika, AL</div>
+                </div>
+                <div class="t-card anim-up d4">
+                    <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="t-text">The pour-over is a game changer. Love their commitment to sustainability and community. This is what a coffee shop should be.</div>
+                    <div class="t-author-name">Maria L.</div>
+                    <div class="t-author-loc">Auburn, AL</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== PARTNER RECOMMENDATIONS ====== -->
+    <section id="partners" class="partners">
+        <div class="container">
+            <div class="section-header anim-up">
+                <div class="eyebrow">Recommended Partners</div>
+                <h2>Trusted Services We Recommend</h2>
+                <div class="s-line"></div>
+            </div>
+
+            <div class="partners-grid">
+                <div class="p-card anim-up">
+                    <div class="p-head"><div class="p-icon">&#9749;</div><div><h3>Square POS</h3><span class="p-cat">Payment System</span></div></div>
+                    <p>All-in-one POS with inventory, analytics, and staff management built for coffee shops.</p>
+                    <a href="#" class="p-link">Learn More &rarr;</a>
+                </div>
+                <div class="p-card anim-up d1">
+                    <div class="p-head"><div class="p-icon">&#128230;</div><div><h3>DoorDash</h3><span class="p-cat">Delivery</span></div></div>
+                    <p>Expand reach with on-demand delivery. Integrated ordering that works with your workflow.</p>
+                    <a href="#" class="p-link">Learn More &rarr;</a>
+                </div>
+                <div class="p-card anim-up d2">
+                    <div class="p-head"><div class="p-icon">&#127793;</div><div><h3>Eco-Serve Supply</h3><span class="p-cat">Packaging</span></div></div>
+                    <p>100% compostable cups, lids, and packaging. Sustainable materials for conscious businesses.</p>
+                    <a href="#" class="p-link">Learn More &rarr;</a>
+                </div>
+                <div class="p-card anim-up d3">
+                    <div class="p-head"><div class="p-icon">&#128202;</div><div><h3>7shifts</h3><span class="p-cat">Scheduling</span></div></div>
+                    <p>Smart scheduling, time tracking, and team communication. Reduce labor costs up to 3%.</p>
+                    <a href="#" class="p-link">Learn More &rarr;</a>
+                </div>
+                <div class="p-card anim-up d4">
+                    <div class="p-head"><div class="p-icon">&#128241;</div><div><h3>Mailchimp</h3><span class="p-cat">Marketing</span></div></div>
+                    <p>Build your customer list and send promotions with automated email campaigns.</p>
+                    <a href="#" class="p-link">Learn More &rarr;</a>
+                </div>
+                <div class="p-card anim-up d5">
+                    <div class="p-head"><div class="p-icon">&#127911;</div><div><h3>Soundtrack Your Brand</h3><span class="p-cat">Music</span></div></div>
+                    <p>Curated playlists licensed for commercial use. Set the perfect vibe for your shop.</p>
+                    <a href="#" class="p-link">Learn More &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FULL STAFF PORTAL ====== -->
+    <section id="portal" class="portal">
+        <div class="container">
+            <div class="section-header anim-up">
+                <div class="eyebrow">Staff Portal</div>
+                <h2>Complete Team Management</h2>
+                <div class="s-line"></div>
+            </div>
+
+            <div class="portal-container anim-scale">
+                <div class="portal-side">
+                    <div class="portal-user-block">
+                        <div class="portal-avatar">&#9749;</div>
+                        <h4>Alex Rivera</h4>
+                        <span class="portal-role">Manager</span>
+                    </div>
+                    <ul class="portal-menu">
+                        <li class="active"><span class="menu-icon">&#9632;</span> Dashboard</li>
+                        <li><span class="menu-icon">&#128197;</span> Schedule</li>
+                        <li><span class="menu-icon">&#128101;</span> Team</li>
+                        <li><span class="menu-icon">&#128200;</span> Analytics</li>
+                        <li><span class="menu-icon">&#128230;</span> Inventory</li>
+                        <li><span class="menu-icon">&#128176;</span> Payroll</li>
+                        <li><span class="menu-icon">&#128172;</span> Messages</li>
+                        <li><span class="menu-icon">&#9881;</span> Settings</li>
+                    </ul>
+                </div>
+
+                <div class="portal-body">
+                    <div class="portal-top-bar">
+                        <h3>Dashboard</h3>
+                        <span class="ptb-date">Tuesday, February 17, 2026</span>
+                    </div>
+
+                    <div class="portal-kpis">
+                        <div class="kpi-card">
+                            <div class="kpi-val">$2,847</div>
+                            <div class="kpi-label">Today's Revenue</div>
+                            <div class="kpi-change kpi-up">+12.3% vs last Tue</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-val">342</div>
+                            <div class="kpi-label">Orders Today</div>
+                            <div class="kpi-change kpi-up">+8.7% vs last Tue</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-val">$8.32</div>
+                            <div class="kpi-label">Avg Order Value</div>
+                            <div class="kpi-change kpi-up">+3.1%</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-val">6/8</div>
+                            <div class="kpi-label">Staff on Shift</div>
+                            <div class="kpi-change" style="color:rgba(255,255,255,0.3);">2 upcoming</div>
+                        </div>
+                    </div>
+
+                    <div class="portal-sections">
+                        <div class="portal-panel">
+                            <h4>Today's Schedule</h4>
+                            <div class="sched-row">
+                                <div><div class="sched-name">Alex Rivera</div><div class="sched-role">Manager</div></div>
+                                <div class="sched-time">6A-2P</div>
+                                <span class="sched-status st-active">Active</span>
+                            </div>
+                            <div class="sched-row">
+                                <div><div class="sched-name">Jordan Chen</div><div class="sched-role">Lead Barista</div></div>
+                                <div class="sched-time">6A-12P</div>
+                                <span class="sched-status st-active">Active</span>
+                            </div>
+                            <div class="sched-row">
+                                <div><div class="sched-name">Maya Williams</div><div class="sched-role">Barista</div></div>
+                                <div class="sched-time">10A-6P</div>
+                                <span class="sched-status st-active">Active</span>
+                            </div>
+                            <div class="sched-row">
+                                <div><div class="sched-name">Sam Tucker</div><div class="sched-role">Barista</div></div>
+                                <div class="sched-time">2P-7P</div>
+                                <span class="sched-status st-upcoming">Upcoming</span>
+                            </div>
+                            <div class="sched-row">
+                                <div><div class="sched-name">Lee Nguyen</div><div class="sched-role">Barista</div></div>
+                                <div class="sched-time">-</div>
+                                <span class="sched-status st-off">Day Off</span>
+                            </div>
+                        </div>
+
+                        <div class="portal-panel">
+                            <h4>Recent Orders</h4>
+                            <div class="order-row">
+                                <span class="or-id">#0342</span>
+                                <span class="or-items">Latte, Croissant</span>
+                                <span class="or-total">$9.00</span>
+                                <span class="or-status or-ready">Ready</span>
+                            </div>
+                            <div class="order-row">
+                                <span class="or-id">#0341</span>
+                                <span class="or-items">2x Cold Brew</span>
+                                <span class="or-total">$11.00</span>
+                                <span class="or-status or-prep">Prep</span>
+                            </div>
+                            <div class="order-row">
+                                <span class="or-id">#0340</span>
+                                <span class="or-items">Matcha, Avo Toast</span>
+                                <span class="or-total">$14.50</span>
+                                <span class="or-status or-prep">Prep</span>
+                            </div>
+                            <div class="order-row">
+                                <span class="or-id">#0339</span>
+                                <span class="or-items">Americano</span>
+                                <span class="or-total">$4.00</span>
+                                <span class="or-status or-new">New</span>
+                            </div>
+                            <div class="order-row">
+                                <span class="or-id">#0338</span>
+                                <span class="or-items">Honey Lav Latte</span>
+                                <span class="or-total">$6.50</span>
+                                <span class="or-status or-ready">Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== NEWSLETTER ====== -->
+    <div class="newsletter anim-up">
+        <h2>Stay in the Loop</h2>
+        <p>Weekly updates on new roasts, seasonal specials, and exclusive offers.</p>
+        <form class="nl-form" onsubmit="event.preventDefault(); alert('Subscribed! (Demo)');">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+
+    <!-- ====== VISIT ====== -->
+    <section id="visit">
+        <div class="container">
+            <div class="section-header anim-up">
+                <div class="eyebrow">Visit Us</div>
+                <h2>Hours &amp; Location</h2>
+                <div class="s-line"></div>
+            </div>
+
+            <div class="info-grid anim-up">
+                <div class="info-block">
+                    <h3>Hours</h3>
+                    <ul>
+                        <li><span>Monday - Friday</span><span>6:00 AM - 7:00 PM</span></li>
+                        <li><span>Saturday</span><span>7:00 AM - 8:00 PM</span></li>
+                        <li><span>Sunday</span><span>8:00 AM - 5:00 PM</span></li>
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <h3>Location</h3>
+                    <p><strong>123 Main Street</strong></p>
+                    <p>Auburn, AL 36830</p>
+                    <p>(334) 555-0142</p>
+                    <p>hello@brewandbean.com</p>
+                </div>
+                <div class="info-block">
+                    <h3>Connect</h3>
+                    <p>Follow us for daily specials and behind-the-scenes content.</p>
+                    <p style="margin-top:10px;">
+                        <a href="#" style="color:var(--gold);text-decoration:none;margin-right:15px;font-size:13px;letter-spacing:2px;">IG</a>
+                        <a href="#" style="color:var(--gold);text-decoration:none;margin-right:15px;font-size:13px;letter-spacing:2px;">FB</a>
+                        <a href="#" style="color:var(--gold);text-decoration:none;margin-right:15px;font-size:13px;letter-spacing:2px;">TW</a>
+                        <a href="#" style="color:var(--gold);text-decoration:none;font-size:13px;letter-spacing:2px;">TK</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Brew &amp; Bean</div>
+                <p class="footer-desc">Specialty coffee roasted in Auburn, AL. Sustainably sourced, handcrafted with care, and served with intention since 2018.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="#about">Our Story</a></li>
+                    <li><a href="#order">Menu</a></li>
+                    <li><a href="#loyalty">Rewards</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Catering</a></li>
+                    <li><a href="#">Wholesale</a></li>
+                    <li><a href="#">Gift Cards</a></li>
+                    <li><a href="#">Merchandise</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#portal">Staff Portal</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">&copy; 2026 Brew &amp; Bean Coffee. All rights reserved.</span>
+            <span class="footer-credit">Designed by Williams Digital</span>
+        </div>
+    </footer>
+
+    <!-- ====== CART ====== -->
+    <div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-hd">
+            <span>Your Order</span>
+            <button class="cart-close-btn" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-body" id="cartItems">
+            <div class="cart-empty-msg">Your cart is empty</div>
+        </div>
+        <div class="cart-ft">
+            <div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+            <button class="cart-checkout" onclick="checkout()">Place Order &rarr;</button>
+        </div>
+    </div>
+
+    <div class="floating-cart" onclick="openCart()">
+        &#128722;
+        <div class="fc-count" id="cartCount" style="display:none;">0</div>
+    </div>
+
+    <script>
+        // ====== LOADING SCREEN WITH COUNTER ======
+        let loadPercent = 0;
+        const percentEl = document.getElementById('loaderPercent');
+        const loadInterval = setInterval(() => {
+            loadPercent += Math.random() * 5 + 1;
+            if (loadPercent >= 100) {
+                loadPercent = 100;
+                clearInterval(loadInterval);
+                setTimeout(() => {
+                    document.getElementById('loader').classList.add('hidden');
+                }, 400);
+            }
+            percentEl.textContent = Math.floor(loadPercent) + '%';
+        }, 60);
+
+        // ====== SCROLL PROGRESS BAR ======
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
+        });
+
+        // ====== CURSOR GLOW (desktop) ======
+        const glow = document.getElementById('cursorGlow');
+        if (window.matchMedia('(pointer: fine)').matches) {
+            document.addEventListener('mousemove', e => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        } else {
+            glow.style.display = 'none';
+        }
+
+        // ====== HEADER SCROLL ======
+        window.addEventListener('scroll', () => {
+            document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ====== SCROLL ANIMATIONS ======
+        const animObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-scale, .anim-blur').forEach(el => {
+            animObs.observe(el);
+        });
+
+        // ====== LOYALTY PROGRESS ANIMATION ======
+        const loyaltyObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.getElementById('loyaltyProgress').classList.add('animated');
+                    loyaltyObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        loyaltyObs.observe(document.getElementById('loyaltyCard'));
+
+        // ====== CART ======
+        let cart = [];
+
+        function addToCart(name, price, detail) {
+            cart.push({ name, price, detail });
+            updateCart();
+            openCart();
+        }
+
+        function removeFromCart(i) {
+            cart.splice(i, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const itemsEl = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            const countEl = document.getElementById('cartCount');
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = '<div class="cart-empty-msg">Your cart is empty</div>';
+                countEl.style.display = 'none';
+            } else {
+                countEl.style.display = 'flex';
+                countEl.textContent = cart.length;
+                itemsEl.innerHTML = cart.map((item, i) => `
+                    <div class="cart-item">
+                        <div class="ci-info">
+                            <div class="ci-name">${item.name}</div>
+                            ${item.detail ? `<div class="ci-detail">${item.detail}</div>` : ''}
+                        </div>
+                        <span class="ci-price">$${item.price.toFixed(2)}</span>
+                        <button class="ci-rm" onclick="removeFromCart(${i})">&times;</button>
+                    </div>
+                `).join('');
+            }
+            totalEl.textContent = '$' + cart.reduce((s, i) => s + i.price, 0).toFixed(2);
+        }
+
+        function openCart() {
+            document.getElementById('cartOverlay').classList.add('open');
+            document.getElementById('cartBackdrop').classList.add('open');
+        }
+
+        function closeCart() {
+            document.getElementById('cartOverlay').classList.remove('open');
+            document.getElementById('cartBackdrop').classList.remove('open');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert('Your cart is empty!');
+            alert('Order placed! Total: $' + cart.reduce((s, i) => s + i.price, 0).toFixed(2) + '\n\nThis is a demo.');
+            cart = [];
+            updateCart();
+            closeCart();
+        }
+
+        // ====== MENU FILTER ======
+        function filterMenu(cat, btn) {
+            document.querySelectorAll('.order-tabs button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.o-card').forEach(card => {
+                card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+            });
+        }
+
+        // ====== SMOOTH SCROLL ======
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+
+</body>
+</html>

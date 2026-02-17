@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Bean Coffee - Tier 4 | Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           TIER 4 - PREMIUM
+           + VIDEO HERO background
+           + STAFF PORTAL section
+           + COFFEE CUP LOADING ANIMATION
+           + Scroll-triggered animations
+           + Parallax effects
+           + Enhanced online ordering
+           + Partner recommendations
+           + Animated counters
+           + Smooth transitions everywhere
+           ========================================== */
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --obsidian: #0a0806;
+            --espresso: #1a1210;
+            --dark-roast: #2a1c16;
+            --medium-roast: #4a3628;
+            --cream: #faf7f2;
+            --gold: #c9a96e;
+            --gold-bright: #e0c48a;
+            --gold-dim: #8b7a55;
+            --warm-gray: #9a8b7a;
+            --text: #3a2e28;
+            --text-light: #7a6b5e;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ================================
+           COFFEE CUP LOADING SCREEN
+           ================================ */
+        .loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--obsidian);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .coffee-cup {
+            width: 100px;
+            height: 80px;
+            border: 4px solid var(--gold);
+            border-radius: 0 0 30px 30px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        /* Cup handle */
+        .coffee-cup::after {
+            content: '';
+            position: absolute;
+            right: -25px;
+            top: 10px;
+            width: 20px;
+            height: 35px;
+            border: 4px solid var(--gold);
+            border-left: none;
+            border-radius: 0 15px 15px 0;
+        }
+
+        /* Coffee fill animation */
+        .coffee-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, #4a2c17, #6b3f20, #8b5a30);
+            border-radius: 0 0 26px 26px;
+            animation: fillCup 2s ease-in-out forwards;
+        }
+
+        @keyframes fillCup {
+            0% { height: 0; }
+            100% { height: 100%; }
+        }
+
+        /* Steam animation */
+        .steam {
+            display: flex;
+            gap: 12px;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .steam span {
+            width: 4px;
+            height: 20px;
+            background: rgba(201, 169, 110, 0.4);
+            border-radius: 10px;
+            animation: steamRise 1.5s ease-in-out infinite;
+        }
+
+        .steam span:nth-child(2) { animation-delay: 0.3s; height: 25px; }
+        .steam span:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes steamRise {
+            0% { opacity: 0; transform: translateY(10px) scaleX(1); }
+            50% { opacity: 1; transform: translateY(-10px) scaleX(1.2); }
+            100% { opacity: 0; transform: translateY(-30px) scaleX(0.8); }
+        }
+
+        .loader-text {
+            color: var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .loader-progress {
+            width: 200px;
+            height: 2px;
+            background: rgba(201, 169, 110, 0.15);
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loader-progress-bar {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: loadProgress 2.2s ease-in-out forwards;
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* ================================
+           SCROLL ANIMATIONS
+           ================================ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger delays */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* ================================
+           NAVIGATION
+           ================================ */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 0 60px;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 8, 6, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 2px 40px rgba(0,0,0,0.3);
+            height: 70px;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        header nav a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        header nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        header nav a:hover { color: var(--gold); }
+        header nav a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: var(--gold) !important;
+            color: var(--obsidian) !important;
+            padding: 10px 28px !important;
+            font-weight: 600 !important;
+            letter-spacing: 2px !important;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta::after { display: none !important; }
+
+        .nav-cta:hover {
+            background: var(--gold-bright) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(201, 169, 110, 0.3);
+        }
+
+        /* ================================
+           VIDEO HERO
+           ================================ */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-video-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Simulated video with animated gradient for demo */
+        .hero-video-sim {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #0a0806, #1a1210, #2a1c16, #1a1210, #0a0806);
+            background-size: 400% 400%;
+            animation: heroGradient 15s ease infinite;
+        }
+
+        @keyframes heroGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Cinematic overlay */
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(to bottom, rgba(10,8,6,0.4) 0%, rgba(10,8,6,0.1) 40%, rgba(10,8,6,0.6) 100%),
+                radial-gradient(ellipse at center, transparent 30%, rgba(10,8,6,0.5) 100%);
+            z-index: 1;
+        }
+
+        /* Floating coffee beans animation */
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bean {
+            position: absolute;
+            width: 8px;
+            height: 12px;
+            background: var(--gold);
+            opacity: 0.08;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: floatBean 20s linear infinite;
+        }
+
+        .bean:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 18s; }
+        .bean:nth-child(2) { left: 25%; animation-delay: 3s; animation-duration: 22s; width: 6px; height: 9px; }
+        .bean:nth-child(3) { left: 45%; animation-delay: 7s; animation-duration: 20s; }
+        .bean:nth-child(4) { left: 60%; animation-delay: 2s; animation-duration: 25s; width: 10px; height: 15px; }
+        .bean:nth-child(5) { left: 80%; animation-delay: 5s; animation-duration: 19s; }
+        .bean:nth-child(6) { left: 90%; animation-delay: 8s; animation-duration: 23s; width: 5px; height: 8px; }
+
+        @keyframes floatBean {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.08; }
+            90% { opacity: 0.08; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-tag {
+            font-size: 11px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2.5s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 80px;
+            color: #fff;
+            font-weight: 400;
+            letter-spacing: 8px;
+            line-height: 1.05;
+            margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2.7s forwards;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2.9s forwards;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease 3.1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--obsidian);
+            padding: 16px 50px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            transition: all 0.4s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-bright);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 169, 110, 0.3);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            color: var(--gold);
+            padding: 16px 50px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            transition: all 0.4s;
+            background: transparent;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(201, 169, 110, 0.1);
+            border-color: var(--gold);
+        }
+
+        /* Video control */
+        .hero-video-note {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .video-label {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, rgba(201, 169, 110, 0.5), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+
+        /* ================================
+           SECTIONS
+           ================================ */
+        section { padding: 120px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header .tag {
+            font-size: 10px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .section-header .line {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            margin: 25px auto 0;
+        }
+
+        /* ================================
+           ANIMATED STATS
+           ================================ */
+        .stats-bar {
+            background: var(--obsidian);
+            padding: 60px 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-item p {
+            color: rgba(255,255,255,0.4);
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ================================
+           ABOUT
+           ================================ */
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-img-main {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, var(--dark-roast), var(--medium-roast));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .about-img-float {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 200px;
+            height: 200px;
+            background: var(--obsidian);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        /* ================================
+           ONLINE ORDERING
+           ================================ */
+        .ordering {
+            background: #f0e9df;
+        }
+
+        .order-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .order-tabs button {
+            padding: 12px 30px;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .order-tabs button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .order-tabs button.active { color: var(--gold); }
+        .order-tabs button.active::after { width: 100%; }
+        .order-tabs button:hover { color: var(--gold); }
+
+        .order-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .order-card {
+            background: #fff;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(201, 169, 110, 0.08);
+        }
+
+        .order-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(44, 24, 16, 0.1);
+        }
+
+        .order-card-visual {
+            height: 200px;
+            background: linear-gradient(135deg, var(--dark-roast), var(--medium-roast));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 12px;
+            font-style: italic;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-card-visual::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .order-card:hover .order-card-visual::after {
+            left: 100%;
+        }
+
+        .order-card-body {
+            padding: 25px;
+        }
+
+        .order-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .order-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .order-card .price {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .order-card p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 18px;
+        }
+
+        .order-customize {
+            margin-bottom: 12px;
+        }
+
+        .order-customize label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--warm-gray);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .order-customize select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e8ddd3;
+            background: var(--cream);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text);
+            appearance: none;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .order-customize select:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .order-add-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--obsidian);
+            color: var(--gold);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .order-add-btn:hover {
+            background: var(--dark-roast);
+            box-shadow: 0 5px 15px rgba(10, 8, 6, 0.2);
+        }
+
+        /* ================================
+           TESTIMONIALS
+           ================================ */
+        .testimonials {
+            background: var(--obsidian);
+            color: #fff;
+            position: relative;
+        }
+
+        .testimonials .section-header h2 { color: #fff; }
+
+        .testimonial-carousel {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            min-height: 250px;
+        }
+
+        .t-slide {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+            pointer-events: none;
+        }
+
+        .t-slide.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .t-stars {
+            color: var(--gold);
+            font-size: 16px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .t-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 30px;
+            font-style: italic;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+        }
+
+        .t-author {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .t-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 60px;
+        }
+
+        .t-dots button {
+            width: 30px; height: 3px;
+            border: none;
+            background: rgba(201, 169, 110, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .t-dots button.active {
+            background: var(--gold);
+            width: 50px;
+        }
+
+        /* ================================
+           PARTNER RECOMMENDATIONS
+           ================================ */
+        .partners {
+            background: #f0e9df;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .partner-card {
+            background: #fff;
+            padding: 40px 30px;
+            border: 1px solid rgba(201, 169, 110, 0.08);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--gold);
+            transition: height 0.4s ease;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(44, 24, 16, 0.08);
+        }
+
+        .partner-card:hover::before {
+            height: 100%;
+        }
+
+        .partner-head {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .partner-icon-box {
+            width: 50px; height: 50px;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .partner-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+        }
+
+        .partner-card .cat {
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .partner-card p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .partner-link {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .partner-link:hover { color: var(--medium-roast); }
+
+        /* ================================
+           STAFF PORTAL
+           ================================ */
+        .portal {
+            background: var(--espresso);
+            color: #fff;
+        }
+
+        .portal .section-header h2 { color: #fff; }
+
+        .portal-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 0;
+            background: var(--obsidian);
+            border: 1px solid rgba(201, 169, 110, 0.1);
+            min-height: 500px;
+            overflow: hidden;
+        }
+
+        .portal-sidebar {
+            background: rgba(201, 169, 110, 0.03);
+            border-right: 1px solid rgba(201, 169, 110, 0.1);
+            padding: 30px 0;
+        }
+
+        .portal-user {
+            text-align: center;
+            padding: 0 20px 25px;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .portal-avatar {
+            width: 70px; height: 70px;
+            background: rgba(201, 169, 110, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 28px;
+            color: var(--gold);
+        }
+
+        .portal-user h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .portal-user span {
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .portal-nav {
+            list-style: none;
+        }
+
+        .portal-nav li {
+            padding: 12px 25px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .portal-nav li:hover,
+        .portal-nav li.active {
+            background: rgba(201, 169, 110, 0.05);
+            color: var(--gold);
+            border-left: 2px solid var(--gold);
+        }
+
+        .portal-nav li span {
+            font-size: 16px;
+        }
+
+        .portal-main {
+            padding: 30px 35px;
+        }
+
+        .portal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+        }
+
+        .portal-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+        }
+
+        .portal-date {
+            font-size: 12px;
+            color: var(--warm-gray);
+        }
+
+        /* Dashboard cards */
+        .portal-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .portal-stat {
+            background: rgba(201, 169, 110, 0.05);
+            border: 1px solid rgba(201, 169, 110, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .portal-stat .stat-val {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            color: var(--gold);
+        }
+
+        .portal-stat .stat-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-top: 5px;
+        }
+
+        /* Schedule */
+        .portal-schedule {
+            margin-top: 20px;
+        }
+
+        .portal-schedule h4 {
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.06);
+            font-size: 13px;
+        }
+
+        .schedule-row .name {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .schedule-row .role {
+            color: var(--warm-gray);
+            font-size: 11px;
+        }
+
+        .schedule-row .time {
+            color: var(--gold-dim);
+        }
+
+        .schedule-status {
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        .status-active {
+            background: rgba(76, 175, 80, 0.15);
+            color: #66bb6a;
+        }
+
+        .status-upcoming {
+            background: rgba(201, 169, 110, 0.1);
+            color: var(--gold);
+        }
+
+        /* ================================
+           NEWSLETTER
+           ================================ */
+        .newsletter {
+            background: var(--dark-roast);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 40px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .newsletter p {
+            color: rgba(255,255,255,0.4);
+            font-size: 14px;
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 22px;
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            background: rgba(255,255,255,0.03);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-form input:focus { border-color: var(--gold); }
+        .newsletter-form input::placeholder { color: rgba(255,255,255,0.25); }
+
+        .newsletter-form button {
+            padding: 16px 35px;
+            background: var(--gold);
+            color: var(--obsidian);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover { background: var(--gold-bright); }
+
+        /* ================================
+           INFO
+           ================================ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .info-block h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .info-block ul { list-style: none; }
+
+        .info-block ul li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+            font-size: 14px;
+        }
+
+        .info-block p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        /* ================================
+           CART
+           ================================ */
+        .cart-overlay {
+            position: fixed;
+            top: 0; right: -440px;
+            width: 420px;
+            height: 100%;
+            background: var(--cream);
+            box-shadow: -5px 0 40px rgba(0,0,0,0.2);
+            z-index: 200;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-overlay.open { right: 0; }
+
+        .cart-header {
+            background: var(--obsidian);
+            color: var(--gold);
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+        }
+
+        .cart-close {
+            background: none; border: none;
+            color: var(--gold);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px 30px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: var(--warm-gray);
+            margin-top: 50px;
+            font-size: 14px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+        }
+
+        .ci-info { flex: 1; }
+        .ci-name { font-weight: 500; font-size: 15px; }
+        .ci-detail { font-size: 11px; color: var(--warm-gray); }
+        .ci-price { color: var(--gold); font-weight: 600; margin: 0 15px; }
+
+        .ci-remove {
+            background: none; border: none;
+            color: #ccc; cursor: pointer; font-size: 18px;
+        }
+        .ci-remove:hover { color: #e74c3c; }
+
+        .cart-footer {
+            padding: 25px 30px;
+            border-top: 2px solid rgba(201, 169, 110, 0.15);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            color: var(--obsidian);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: var(--gold-bright);
+        }
+
+        .cart-backdrop {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 199;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .cart-backdrop.open {
+            display: block;
+            opacity: 1;
+        }
+
+        .floating-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--obsidian);
+            color: var(--gold);
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 150;
+            transition: all 0.3s;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 25px rgba(201, 169, 110, 0.3);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px; right: -5px;
+            background: #e74c3c;
+            color: #fff;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* ================================
+           FOOTER
+           ================================ */
+        footer {
+            background: var(--obsidian);
+            color: rgba(255,255,255,0.3);
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        footer .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: 24px;
+            margin-bottom: 10px;
+            letter-spacing: 4px;
+        }
+
+        /* --- TIER BADGE --- */
+        .tier-badge {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            background: var(--obsidian);
+            color: var(--gold);
+            padding: 8px 16px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 1000;
+            border: 1px solid var(--gold);
+        }
+
+        /* ================================
+           RESPONSIVE
+           ================================ */
+        @media (max-width: 1024px) {
+            .portal-layout { grid-template-columns: 1fr; }
+            .portal-sidebar { border-right: none; border-bottom: 1px solid rgba(201, 169, 110, 0.1); }
+            .partners-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .about-layout { grid-template-columns: 1fr; gap: 40px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 48px; }
+            header { padding: 0 20px; }
+            header nav { gap: 15px; }
+            header nav a { font-size: 10px; letter-spacing: 1.5px; }
+            .partners-grid { grid-template-columns: 1fr; }
+            .portal-stats { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 36px; letter-spacing: 4px; }
+            .hero-btns { flex-direction: column; align-items: center; }
+            .newsletter-form { flex-direction: column; }
+            .cart-overlay { width: 100%; right: -100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== COFFEE CUP LOADING SCREEN ====== -->
+    <div class="loader" id="loader">
+        <div class="coffee-cup">
+            <div class="steam">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="coffee-fill"></div>
+        </div>
+        <div class="loader-text">Brewing</div>
+        <div class="loader-progress">
+            <div class="loader-progress-bar"></div>
+        </div>
+    </div>
+
+    <div class="tier-badge">Tier 4 - Premium</div>
+
+    <!-- ====== HEADER ====== -->
+    <header id="mainHeader">
+        <div class="logo">Brew &amp; Bean</div>
+        <nav>
+            <a href="#about">Story</a>
+            <a href="#order">Menu</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#partners">Partners</a>
+            <a href="#portal">Portal</a>
+            <a href="#visit">Visit</a>
+            <a href="#order" class="nav-cta">Order Now</a>
+        </nav>
+    </header>
+
+    <!-- ====== VIDEO HERO ====== -->
+    <section class="hero">
+        <div class="hero-video-container">
+            <!-- In production, replace with: <video class="hero-video" autoplay muted loop playsinline src="hero-video.mp4"></video> -->
+            <div class="hero-video-sim"></div>
+        </div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-particles">
+            <div class="bean"></div>
+            <div class="bean"></div>
+            <div class="bean"></div>
+            <div class="bean"></div>
+            <div class="bean"></div>
+            <div class="bean"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-tag">Specialty Coffee &bull; Auburn, Alabama</div>
+            <h1>Brew &amp;<br><em>Bean</em></h1>
+            <div class="hero-sub">Handcrafted &bull; Locally Roasted &bull; Sustainably Sourced</div>
+            <div class="hero-btns">
+                <a href="#order" class="btn-primary">Order for Pickup</a>
+                <a href="#about" class="btn-ghost">Our Story</a>
+            </div>
+        </div>
+
+        <div class="hero-video-note">
+            <span class="video-label">Video Hero Background</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ====== STATS ====== -->
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item fade-up">
+                <div class="stat-number" data-target="12">0</div>
+                <p>Origins Sourced</p>
+            </div>
+            <div class="stat-item fade-up delay-1">
+                <div class="stat-number" data-target="5000">0</div>
+                <p>Cups Weekly</p>
+            </div>
+            <div class="stat-item fade-up delay-2">
+                <div class="stat-number" data-target="4.9" data-decimal="true">0</div>
+                <p>Google Rating</p>
+            </div>
+            <div class="stat-item fade-up delay-3">
+                <div class="stat-number" data-target="7">0</div>
+                <p>Years Serving</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== ABOUT ====== -->
+    <section id="about">
+        <div class="container">
+            <div class="about-layout">
+                <div class="about-visual fade-left">
+                    <div class="about-img-main">[ Coffee Shop Interior Photo ]</div>
+                    <div class="about-img-float">[ Est. 2018 ]</div>
+                </div>
+                <div class="about-text fade-right">
+                    <div class="section-header" style="text-align:left; margin-bottom:30px;">
+                        <div class="tag">Our Story</div>
+                        <h2>Where Every Cup<br>Tells a Story</h2>
+                        <div class="line" style="margin:25px 0 0;"></div>
+                    </div>
+                    <p>Brew & Bean was born from a simple belief: great coffee brings people together. Since opening our doors in 2018, we've been dedicated to sourcing the finest single-origin beans and roasting them right here in Auburn.</p>
+                    <p>Every cup we serve is crafted with intention, from our signature house blend to our rotating seasonal offerings. We partner with ethical farms across Latin America, Africa, and Southeast Asia.</p>
+                    <p>Our commitment goes beyond the cup. We're proudly zero-waste, use 100% compostable packaging, and donate 2% of profits to local community programs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== ONLINE ORDERING ====== -->
+    <section id="order" class="ordering">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="tag">Online Ordering</div>
+                <h2>Craft Your Perfect Cup</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="order-tabs">
+                <button class="active" onclick="filterOrder('all', this)">All</button>
+                <button onclick="filterOrder('espresso', this)">Espresso</button>
+                <button onclick="filterOrder('brewed', this)">Brewed</button>
+                <button onclick="filterOrder('specialty', this)">Specialty</button>
+                <button onclick="filterOrder('food', this)">Food</button>
+            </div>
+
+            <div class="order-grid" id="orderGrid">
+                <div class="order-card fade-up" data-cat="espresso">
+                    <div class="order-card-visual">[ Latte Art Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Classic Latte</h3><span class="price">$5.00</span></div>
+                        <p>Espresso with silky steamed milk. Simple, smooth, satisfying.</p>
+                        <div class="order-customize">
+                            <label>Size</label>
+                            <select><option>Regular (12oz)</option><option>Large (16oz) +$1</option></select>
+                        </div>
+                        <div class="order-customize">
+                            <label>Milk</label>
+                            <select><option>Whole</option><option>Oat +$0.75</option><option>Almond +$0.75</option></select>
+                        </div>
+                        <button class="order-add-btn" onclick="addToCart('Classic Latte', 5.00, '12oz, Whole')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="order-card fade-up delay-1" data-cat="espresso">
+                    <div class="order-card-visual">[ Cappuccino Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Cappuccino</h3><span class="price">$5.00</span></div>
+                        <p>Bold espresso with velvety microfoam. Rich and balanced.</p>
+                        <div class="order-customize">
+                            <label>Size</label>
+                            <select><option>Regular (8oz)</option><option>Large (12oz) +$1</option></select>
+                        </div>
+                        <button class="order-add-btn" onclick="addToCart('Cappuccino', 5.00, '8oz')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="order-card fade-up delay-2" data-cat="espresso">
+                    <div class="order-card-visual">[ Americano Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Americano</h3><span class="price">$4.00</span></div>
+                        <p>Double espresso with hot water. Clean, bold, no-nonsense.</p>
+                        <button class="order-add-btn" onclick="addToCart('Americano', 4.00, 'Hot')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="order-card fade-up" data-cat="brewed">
+                    <div class="order-card-visual">[ Pour Over Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Pour Over</h3><span class="price">$5.50</span></div>
+                        <p>Hand-poured single origin. Ask about today's featured origin.</p>
+                        <button class="order-add-btn" onclick="addToCart('Pour Over', 5.50, 'Single Origin')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="order-card fade-up delay-1" data-cat="brewed">
+                    <div class="order-card-visual">[ Cold Brew Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Cold Brew</h3><span class="price">$5.50</span></div>
+                        <p>Slow-steeped 20 hours. Smooth, low-acid, refreshing.</p>
+                        <button class="order-add-btn" onclick="addToCart('Cold Brew', 5.50, '16oz')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="order-card fade-up" data-cat="specialty">
+                    <div class="order-card-visual">[ Honey Lavender Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Honey Lavender Latte</h3><span class="price">$6.50</span></div>
+                        <p>Local honey and house-made lavender syrup with oat milk.</p>
+                        <button class="order-add-btn" onclick="addToCart('Honey Lavender Latte', 6.50, 'Oat')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="order-card fade-up delay-1" data-cat="specialty">
+                    <div class="order-card-visual">[ Matcha Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Matcha Latte</h3><span class="price">$6.00</span></div>
+                        <p>Ceremonial-grade matcha whisked with your choice of milk.</p>
+                        <button class="order-add-btn" onclick="addToCart('Matcha Latte', 6.00, '')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="order-card fade-up" data-cat="food">
+                    <div class="order-card-visual">[ Avocado Toast Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Avocado Toast</h3><span class="price">$8.50</span></div>
+                        <p>Smashed avo on sourdough with everything seasoning.</p>
+                        <button class="order-add-btn" onclick="addToCart('Avocado Toast', 8.50, '')">Add to Order</button>
+                    </div>
+                </div>
+
+                <div class="order-card fade-up delay-1" data-cat="food">
+                    <div class="order-card-visual">[ Croissant Photo ]</div>
+                    <div class="order-card-body">
+                        <div class="order-card-top"><h3>Butter Croissant</h3><span class="price">$4.00</span></div>
+                        <p>Flaky, golden, baked fresh daily by our bakery partner.</p>
+                        <button class="order-add-btn" onclick="addToCart('Butter Croissant', 4.00, '')">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== TESTIMONIALS ====== -->
+    <section id="reviews" class="testimonials">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="tag">Testimonials</div>
+                <h2>What Our Customers Say</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="testimonial-carousel fade-up">
+                <div class="t-slide active">
+                    <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="t-quote">The best coffee in Auburn, hands down. Their honey lavender latte is absolutely incredible.</div>
+                    <div class="t-author">Sarah M. &mdash; Auburn, AL</div>
+                </div>
+                <div class="t-slide">
+                    <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="t-quote">Real specialty coffee. The baristas actually know what they're doing. Quality is unmatched.</div>
+                    <div class="t-author">James T. &mdash; Opelika, AL</div>
+                </div>
+                <div class="t-slide">
+                    <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="t-quote">The pour-over is a game changer. Love their commitment to sustainability.</div>
+                    <div class="t-author">Maria L. &mdash; Auburn, AL</div>
+                </div>
+
+                <div class="t-dots">
+                    <button class="active" onclick="goToSlide(0)"></button>
+                    <button onclick="goToSlide(1)"></button>
+                    <button onclick="goToSlide(2)"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== PARTNER RECOMMENDATIONS ====== -->
+    <section id="partners" class="partners">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="tag">Recommended Partners</div>
+                <h2>Trusted Services We Recommend</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="partners-grid">
+                <div class="partner-card fade-up">
+                    <div class="partner-head">
+                        <div class="partner-icon-box">&#9749;</div>
+                        <div><h3>Square POS</h3><span class="cat">Payment System</span></div>
+                    </div>
+                    <p>All-in-one point of sale with inventory, analytics, and staff management built for coffee shops.</p>
+                    <a href="#" class="partner-link">Learn More &rarr;</a>
+                </div>
+                <div class="partner-card fade-up delay-1">
+                    <div class="partner-head">
+                        <div class="partner-icon-box">&#128230;</div>
+                        <div><h3>DoorDash</h3><span class="cat">Delivery Platform</span></div>
+                    </div>
+                    <p>Expand your reach with on-demand delivery. Integrated ordering that works with your workflow.</p>
+                    <a href="#" class="partner-link">Learn More &rarr;</a>
+                </div>
+                <div class="partner-card fade-up delay-2">
+                    <div class="partner-head">
+                        <div class="partner-icon-box">&#127793;</div>
+                        <div><h3>Eco-Serve Supply</h3><span class="cat">Sustainable Packaging</span></div>
+                    </div>
+                    <p>100% compostable cups, lids, and packaging. Sustainable materials for conscious businesses.</p>
+                    <a href="#" class="partner-link">Learn More &rarr;</a>
+                </div>
+                <div class="partner-card fade-up">
+                    <div class="partner-head">
+                        <div class="partner-icon-box">&#128202;</div>
+                        <div><h3>7shifts</h3><span class="cat">Staff Scheduling</span></div>
+                    </div>
+                    <p>Smart scheduling, time tracking, and team communication. Reduce labor costs by up to 3%.</p>
+                    <a href="#" class="partner-link">Learn More &rarr;</a>
+                </div>
+                <div class="partner-card fade-up delay-1">
+                    <div class="partner-head">
+                        <div class="partner-icon-box">&#128241;</div>
+                        <div><h3>Mailchimp</h3><span class="cat">Email Marketing</span></div>
+                    </div>
+                    <p>Build your customer list and send promotions with automated email campaigns.</p>
+                    <a href="#" class="partner-link">Learn More &rarr;</a>
+                </div>
+                <div class="partner-card fade-up delay-2">
+                    <div class="partner-head">
+                        <div class="partner-icon-box">&#127911;</div>
+                        <div><h3>Soundtrack Your Brand</h3><span class="cat">Licensed Music</span></div>
+                    </div>
+                    <p>Curated playlists licensed for commercial use. Set the perfect vibe legally.</p>
+                    <a href="#" class="partner-link">Learn More &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== STAFF PORTAL ====== -->
+    <section id="portal" class="portal">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="tag">Staff Portal</div>
+                <h2>Team Management Dashboard</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="portal-layout scale-in">
+                <div class="portal-sidebar">
+                    <div class="portal-user">
+                        <div class="portal-avatar">&#9749;</div>
+                        <h4>Alex Rivera</h4>
+                        <span>Manager</span>
+                    </div>
+                    <ul class="portal-nav">
+                        <li class="active"><span>&#9632;</span> Dashboard</li>
+                        <li><span>&#128197;</span> Schedule</li>
+                        <li><span>&#128101;</span> Team</li>
+                        <li><span>&#128200;</span> Reports</li>
+                        <li><span>&#128230;</span> Inventory</li>
+                        <li><span>&#9881;</span> Settings</li>
+                    </ul>
+                </div>
+
+                <div class="portal-main">
+                    <div class="portal-header">
+                        <h3>Dashboard</h3>
+                        <span class="portal-date">Tuesday, Feb 17, 2026</span>
+                    </div>
+
+                    <div class="portal-stats">
+                        <div class="portal-stat">
+                            <div class="stat-val">$2,847</div>
+                            <div class="stat-label">Today's Sales</div>
+                        </div>
+                        <div class="portal-stat">
+                            <div class="stat-val">342</div>
+                            <div class="stat-label">Orders Today</div>
+                        </div>
+                        <div class="portal-stat">
+                            <div class="stat-val">6</div>
+                            <div class="stat-label">Staff on Shift</div>
+                        </div>
+                    </div>
+
+                    <div class="portal-schedule">
+                        <h4>Today's Schedule</h4>
+                        <div class="schedule-row">
+                            <div>
+                                <div class="name">Alex Rivera</div>
+                                <div class="role">Manager</div>
+                            </div>
+                            <div class="time">6:00 AM - 2:00 PM</div>
+                            <span class="schedule-status status-active">On Shift</span>
+                        </div>
+                        <div class="schedule-row">
+                            <div>
+                                <div class="name">Jordan Chen</div>
+                                <div class="role">Lead Barista</div>
+                            </div>
+                            <div class="time">6:00 AM - 12:00 PM</div>
+                            <span class="schedule-status status-active">On Shift</span>
+                        </div>
+                        <div class="schedule-row">
+                            <div>
+                                <div class="name">Maya Williams</div>
+                                <div class="role">Barista</div>
+                            </div>
+                            <div class="time">10:00 AM - 6:00 PM</div>
+                            <span class="schedule-status status-active">On Shift</span>
+                        </div>
+                        <div class="schedule-row">
+                            <div>
+                                <div class="name">Sam Tucker</div>
+                                <div class="role">Barista</div>
+                            </div>
+                            <div class="time">2:00 PM - 7:00 PM</div>
+                            <span class="schedule-status status-upcoming">Upcoming</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== NEWSLETTER ====== -->
+    <div class="newsletter fade-up">
+        <h2>Stay in the Loop</h2>
+        <p>Weekly updates on new roasts, seasonal specials, and exclusive offers.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed! (Demo)');">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+
+    <!-- ====== VISIT ====== -->
+    <section id="visit">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="tag">Visit Us</div>
+                <h2>Hours &amp; Location</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="info-grid fade-up">
+                <div class="info-block">
+                    <h3>Hours</h3>
+                    <ul>
+                        <li><span>Monday - Friday</span><span>6:00 AM - 7:00 PM</span></li>
+                        <li><span>Saturday</span><span>7:00 AM - 8:00 PM</span></li>
+                        <li><span>Sunday</span><span>8:00 AM - 5:00 PM</span></li>
+                    </ul>
+                </div>
+                <div class="info-block">
+                    <h3>Location</h3>
+                    <p><strong>123 Main Street</strong></p>
+                    <p>Auburn, AL 36830</p>
+                    <p>(334) 555-0142</p>
+                    <p>hello@brewandbean.com</p>
+                </div>
+                <div class="info-block">
+                    <h3>Connect</h3>
+                    <p>Follow us for daily specials and behind-the-scenes content.</p>
+                    <p style="margin-top:10px;">
+                        <a href="#" style="color:var(--gold); text-decoration:none; margin-right:15px; font-size:13px; letter-spacing:2px;">IG</a>
+                        <a href="#" style="color:var(--gold); text-decoration:none; margin-right:15px; font-size:13px; letter-spacing:2px;">FB</a>
+                        <a href="#" style="color:var(--gold); text-decoration:none; margin-right:15px; font-size:13px; letter-spacing:2px;">TW</a>
+                        <a href="#" style="color:var(--gold); text-decoration:none; font-size:13px; letter-spacing:2px;">TK</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+        <div class="footer-brand">Brew &amp; Bean</div>
+        <p>&copy; 2026 Brew &amp; Bean Coffee. All rights reserved.</p>
+        <p style="margin-top:5px;">Designed by Williams Digital</p>
+    </footer>
+
+    <!-- ====== CART ====== -->
+    <div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-header">
+            <span>Your Order</span>
+            <button class="cart-close" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+            <button class="checkout-btn" onclick="checkout()">Place Order &rarr;</button>
+        </div>
+    </div>
+
+    <div class="floating-cart" onclick="openCart()">
+        &#128722;
+        <div class="cart-count" id="cartCount" style="display:none;">0</div>
+    </div>
+
+    <script>
+        // ====== LOADING SCREEN ======
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2500);
+        });
+
+        // ====== HEADER SCROLL ======
+        window.addEventListener('scroll', () => {
+            document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ====== SCROLL ANIMATIONS ======
+        const animObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in').forEach(el => {
+            animObserver.observe(el);
+        });
+
+        // ====== ANIMATED COUNTERS ======
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseFloat(el.dataset.target);
+                    const isDecimal = el.dataset.decimal === 'true';
+                    const duration = 2000;
+                    const start = performance.now();
+
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = target * eased;
+
+                        if (isDecimal) {
+                            el.textContent = current.toFixed(1);
+                        } else if (target >= 1000) {
+                            el.textContent = Math.floor(current).toLocaleString() + '+';
+                        } else {
+                            el.textContent = Math.floor(current) + (target < 100 ? '+' : '');
+                        }
+
+                        if (progress < 1) requestAnimationFrame(update);
+                    }
+
+                    requestAnimationFrame(update);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObserver.observe(el));
+
+        // ====== CART ======
+        let cart = [];
+
+        function addToCart(name, price, detail) {
+            cart.push({ name, price, detail });
+            updateCart();
+            openCart();
+        }
+
+        function removeFromCart(i) {
+            cart.splice(i, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const itemsEl = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            const countEl = document.getElementById('cartCount');
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+                countEl.style.display = 'none';
+            } else {
+                countEl.style.display = 'flex';
+                countEl.textContent = cart.length;
+                itemsEl.innerHTML = cart.map((item, i) => `
+                    <div class="cart-item">
+                        <div class="ci-info">
+                            <div class="ci-name">${item.name}</div>
+                            ${item.detail ? `<div class="ci-detail">${item.detail}</div>` : ''}
+                        </div>
+                        <span class="ci-price">$${item.price.toFixed(2)}</span>
+                        <button class="ci-remove" onclick="removeFromCart(${i})">&times;</button>
+                    </div>
+                `).join('');
+            }
+            totalEl.textContent = '$' + cart.reduce((s, i) => s + i.price, 0).toFixed(2);
+        }
+
+        function openCart() {
+            document.getElementById('cartOverlay').classList.add('open');
+            document.getElementById('cartBackdrop').classList.add('open');
+        }
+
+        function closeCart() {
+            document.getElementById('cartOverlay').classList.remove('open');
+            document.getElementById('cartBackdrop').classList.remove('open');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert('Your cart is empty!');
+            alert('Order placed! Total: $' + cart.reduce((s, i) => s + i.price, 0).toFixed(2) + '\n\nThis is a demo.');
+            cart = [];
+            updateCart();
+            closeCart();
+        }
+
+        // ====== MENU FILTER ======
+        function filterOrder(cat, btn) {
+            document.querySelectorAll('.order-tabs button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.order-card').forEach(card => {
+                card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+            });
+        }
+
+        // ====== TESTIMONIALS ======
+        let currentSlide = 0;
+        function goToSlide(n) {
+            document.querySelectorAll('.t-slide').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.t-dots button').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.t-slide')[n].classList.add('active');
+            document.querySelectorAll('.t-dots button')[n].classList.add('active');
+            currentSlide = n;
+        }
+        setInterval(() => goToSlide((currentSlide + 1) % 3), 5000);
+
+        // ====== SMOOTH SCROLL ======
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+
+</body>
+</html>

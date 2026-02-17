@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Bean Coffee - Tier 2 | Starter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           TIER 2 - STARTER
+           + Online Ordering system
+           + Partner recommendations
+           + Better typography & layout
+           + Contact form
+           + Responsive design
+           ========================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: #2c1810;
+            background: #fefcf9;
+            line-height: 1.7;
+        }
+
+        /* --- NAV --- */
+        header {
+            background: #1a0f0a;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            color: #c8956c;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        header nav a {
+            color: #e8ddd3;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #c8956c;
+        }
+
+        header nav a.order-btn {
+            background: #c8956c;
+            color: #1a0f0a;
+            padding: 8px 20px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        header nav a.order-btn:hover {
+            background: #b07d54;
+        }
+
+        /* --- HERO --- */
+        .hero {
+            background: linear-gradient(135deg, #1a0f0a 0%, #3b2517 50%, #1a0f0a 100%);
+            color: #fefcf9;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><circle cx="40" cy="40" r="1" fill="%23c8956c" opacity="0.1"/></svg>') repeat;
+            background-size: 40px 40px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            margin-bottom: 15px;
+            letter-spacing: 4px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #c8956c;
+            font-weight: 300;
+            margin-bottom: 35px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: #c8956c;
+            color: #1a0f0a;
+            padding: 14px 40px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            font-size: 14px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .hero-cta:hover {
+            background: #daa880;
+            transform: translateY(-2px);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #8b7355;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-title .divider {
+            width: 60px;
+            height: 2px;
+            background: #c8956c;
+            margin: 15px auto 0;
+        }
+
+        /* --- ABOUT --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #3b2517, #5a3a28);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c8956c;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: #5a4a3a;
+        }
+
+        /* --- MENU / ONLINE ORDERING --- */
+        .ordering-section {
+            background: #f5efe8;
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .menu-categories button {
+            padding: 10px 25px;
+            border: 1px solid #c8956c;
+            background: transparent;
+            color: #2c1810;
+            font-family: 'Raleway', sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .menu-categories button.active,
+        .menu-categories button:hover {
+            background: #c8956c;
+            color: #fff;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: #fff;
+            padding: 25px;
+            border: 1px solid #e8ddd3;
+            transition: box-shadow 0.3s;
+        }
+
+        .menu-card:hover {
+            box-shadow: 0 5px 20px rgba(44, 24, 16, 0.08);
+        }
+
+        .menu-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+
+        .menu-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+        }
+
+        .menu-card .price {
+            font-weight: 600;
+            color: #c8956c;
+            font-size: 18px;
+        }
+
+        .menu-card p {
+            color: #8b7355;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid #c8956c;
+            background: transparent;
+            color: #c8956c;
+            font-family: 'Raleway', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #c8956c;
+            color: #fff;
+        }
+
+        /* --- CART SIDEBAR --- */
+        .cart-overlay {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 380px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+            z-index: 200;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-overlay.open {
+            right: 0;
+        }
+
+        .cart-header {
+            background: #1a0f0a;
+            color: #c8956c;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: #c8956c;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 25px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e8ddd3;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+        }
+
+        .cart-item-price {
+            color: #c8956c;
+            font-weight: 600;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cart-item-remove:hover {
+            color: #e74c3c;
+        }
+
+        .cart-footer {
+            padding: 20px 25px;
+            border-top: 2px solid #e8ddd3;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: #c8956c;
+            color: #fff;
+            border: none;
+            font-family: 'Raleway', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #b07d54;
+        }
+
+        .cart-backdrop {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 199;
+            display: none;
+        }
+
+        .cart-backdrop.open {
+            display: block;
+        }
+
+        /* Floating cart button */
+        .floating-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1a0f0a;
+            color: #c8956c;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #c8956c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            z-index: 150;
+            transition: transform 0.3s;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: #fff;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* --- PARTNERS / RECOMMENDATIONS --- */
+        .partners-section {
+            background: #1a0f0a;
+            color: #fefcf9;
+        }
+
+        .partners-section .section-title h2 {
+            color: #fefcf9;
+        }
+
+        .partners-section .section-title p {
+            color: #8b7355;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 30px;
+        }
+
+        .partner-card {
+            background: rgba(200, 149, 108, 0.08);
+            border: 1px solid rgba(200, 149, 108, 0.2);
+            padding: 30px 25px;
+            text-align: center;
+            transition: border-color 0.3s;
+        }
+
+        .partner-card:hover {
+            border-color: #c8956c;
+        }
+
+        .partner-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(200, 149, 108, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+        }
+
+        .partner-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #c8956c;
+        }
+
+        .partner-card p {
+            font-size: 13px;
+            color: #a89580;
+            line-height: 1.6;
+        }
+
+        .partner-card .partner-type {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #c8956c;
+            border: 1px solid rgba(200, 149, 108, 0.3);
+            padding: 4px 12px;
+        }
+
+        /* --- HOURS & LOCATION --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .info-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e8ddd3;
+            font-size: 15px;
+        }
+
+        .hours-list li span:first-child {
+            font-weight: 500;
+        }
+
+        .hours-list li span:last-child {
+            color: #8b7355;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            color: #5a4a3a;
+        }
+
+        .contact-info strong {
+            color: #2c1810;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #1a0f0a;
+            color: #8b7355;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 13px;
+        }
+
+        footer .footer-brand {
+            font-family: 'Playfair Display', serif;
+            color: #c8956c;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* --- TIER BADGE --- */
+        .tier-badge {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #1a0f0a;
+            color: #c8956c;
+            padding: 8px 16px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 1000;
+            border: 1px solid #c8956c;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .about-grid, .info-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .hero h1 { font-size: 36px; }
+            header { padding: 0 20px; }
+            header nav a { margin-left: 15px; font-size: 11px; }
+            .cart-overlay { width: 100%; right: -100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tier-badge">Tier 2 - Starter</div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">Brew &amp; Bean</div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#order">Menu</a>
+            <a href="#partners">Partners</a>
+            <a href="#info">Visit</a>
+            <a href="#order" class="order-btn">Order Online</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Brew &amp; Bean</h1>
+            <p>Specialty coffee &bull; roasted locally</p>
+            <a href="#order" class="hero-cta">Order for Pickup</a>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img">[ Coffee Shop Image ]</div>
+                <div class="about-text">
+                    <div class="section-title" style="text-align:left;">
+                        <p>Our Story</p>
+                        <h2>Crafted with Passion</h2>
+                        <div class="divider" style="margin:15px 0 0;"></div>
+                    </div>
+                    <p>Brew & Bean was born from a simple belief: great coffee brings people together. Since opening our doors in 2018, we've been dedicated to sourcing the finest single-origin beans and roasting them right here in Auburn.</p>
+                    <p>Every cup we serve is crafted with intention, from our signature house blend to our rotating seasonal offerings. We partner with ethical farms across Latin America, Africa, and Southeast Asia.</p>
+                    <p>Whether you're grabbing your morning espresso or settling in for an afternoon of work, Brew & Bean is your space.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ONLINE ORDERING -->
+    <section id="order" class="ordering-section">
+        <div class="container">
+            <div class="section-title">
+                <p>Order Online</p>
+                <h2>Our Menu</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="menu-categories">
+                <button class="active" onclick="filterMenu('all')">All</button>
+                <button onclick="filterMenu('coffee')">Coffee</button>
+                <button onclick="filterMenu('specialty')">Specialty</button>
+                <button onclick="filterMenu('food')">Food</button>
+            </div>
+
+            <div class="menu-grid" id="menuGrid">
+                <!-- Coffee -->
+                <div class="menu-card" data-category="coffee">
+                    <div class="menu-card-header">
+                        <h3>House Drip</h3>
+                        <span class="price">$3.50</span>
+                    </div>
+                    <p>Our signature house blend, medium roast with notes of chocolate and caramel.</p>
+                    <button class="add-to-cart" onclick="addToCart('House Drip', 3.50)">Add to Order</button>
+                </div>
+                <div class="menu-card" data-category="coffee">
+                    <div class="menu-card-header">
+                        <h3>Americano</h3>
+                        <span class="price">$4.00</span>
+                    </div>
+                    <p>Double shot of espresso with hot water. Bold and smooth.</p>
+                    <button class="add-to-cart" onclick="addToCart('Americano', 4.00)">Add to Order</button>
+                </div>
+                <div class="menu-card" data-category="coffee">
+                    <div class="menu-card-header">
+                        <h3>Latte</h3>
+                        <span class="price">$5.00</span>
+                    </div>
+                    <p>Espresso with steamed milk and a light layer of foam. Classic and creamy.</p>
+                    <button class="add-to-cart" onclick="addToCart('Latte', 5.00)">Add to Order</button>
+                </div>
+                <div class="menu-card" data-category="coffee">
+                    <div class="menu-card-header">
+                        <h3>Cappuccino</h3>
+                        <span class="price">$5.00</span>
+                    </div>
+                    <p>Equal parts espresso, steamed milk, and rich foam.</p>
+                    <button class="add-to-cart" onclick="addToCart('Cappuccino', 5.00)">Add to Order</button>
+                </div>
+                <div class="menu-card" data-category="coffee">
+                    <div class="menu-card-header">
+                        <h3>Cold Brew</h3>
+                        <span class="price">$5.50</span>
+                    </div>
+                    <p>Slow-steeped for 20 hours. Smooth, bold, and refreshing.</p>
+                    <button class="add-to-cart" onclick="addToCart('Cold Brew', 5.50)">Add to Order</button>
+                </div>
+
+                <!-- Specialty -->
+                <div class="menu-card" data-category="specialty">
+                    <div class="menu-card-header">
+                        <h3>Honey Lavender Latte</h3>
+                        <span class="price">$6.50</span>
+                    </div>
+                    <p>Local honey and house-made lavender syrup with oat milk.</p>
+                    <button class="add-to-cart" onclick="addToCart('Honey Lavender Latte', 6.50)">Add to Order</button>
+                </div>
+                <div class="menu-card" data-category="specialty">
+                    <div class="menu-card-header">
+                        <h3>Salted Caramel Mocha</h3>
+                        <span class="price">$6.50</span>
+                    </div>
+                    <p>Rich mocha with house-made caramel and a pinch of sea salt.</p>
+                    <button class="add-to-cart" onclick="addToCart('Salted Caramel Mocha', 6.50)">Add to Order</button>
+                </div>
+                <div class="menu-card" data-category="specialty">
+                    <div class="menu-card-header">
+                        <h3>Matcha Latte</h3>
+                        <span class="price">$6.00</span>
+                    </div>
+                    <p>Ceremonial grade matcha whisked with your choice of milk.</p>
+                    <button class="add-to-cart" onclick="addToCart('Matcha Latte', 6.00)">Add to Order</button>
+                </div>
+
+                <!-- Food -->
+                <div class="menu-card" data-category="food">
+                    <div class="menu-card-header">
+                        <h3>Butter Croissant</h3>
+                        <span class="price">$4.00</span>
+                    </div>
+                    <p>Flaky, golden, baked fresh daily by our local bakery partner.</p>
+                    <button class="add-to-cart" onclick="addToCart('Butter Croissant', 4.00)">Add to Order</button>
+                </div>
+                <div class="menu-card" data-category="food">
+                    <div class="menu-card-header">
+                        <h3>Avocado Toast</h3>
+                        <span class="price">$8.50</span>
+                    </div>
+                    <p>Smashed avocado on sourdough with everything seasoning and microgreens.</p>
+                    <button class="add-to-cart" onclick="addToCart('Avocado Toast', 8.50)">Add to Order</button>
+                </div>
+                <div class="menu-card" data-category="food">
+                    <div class="menu-card-header">
+                        <h3>Blueberry Muffin</h3>
+                        <span class="price">$3.50</span>
+                    </div>
+                    <p>House-made with fresh blueberries and a crumble topping.</p>
+                    <button class="add-to-cart" onclick="addToCart('Blueberry Muffin', 3.50)">Add to Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNER RECOMMENDATIONS -->
+    <section id="partners" class="partners-section">
+        <div class="container">
+            <div class="section-title">
+                <p>Recommended Partners</p>
+                <h2>Grow Your Business</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <div class="partner-icon">&#9749;</div>
+                    <h3>Square POS</h3>
+                    <p>All-in-one point of sale system designed for coffee shops. Accept payments, track inventory, and manage your team.</p>
+                    <span class="partner-type">Payment Processing</span>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">&#128230;</div>
+                    <h3>DoorDash</h3>
+                    <p>Expand your reach with local delivery. Get your coffee to customers who can't make it in.</p>
+                    <span class="partner-type">Delivery</span>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">&#127793;</div>
+                    <h3>Eco-Serve Supply</h3>
+                    <p>Sustainable cups, lids, and packaging. Compostable materials that align with your values.</p>
+                    <span class="partner-type">Supplies</span>
+                </div>
+                <div class="partner-card">
+                    <div class="partner-icon">&#128202;</div>
+                    <h3>7shifts</h3>
+                    <p>Staff scheduling made simple. Reduce labor costs and keep your team happy with easy shift management.</p>
+                    <span class="partner-type">Scheduling</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOURS & LOCATION -->
+    <section id="info">
+        <div class="container">
+            <div class="section-title">
+                <p>Visit Us</p>
+                <h2>Hours &amp; Location</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-block">
+                    <h3>Hours</h3>
+                    <ul class="hours-list">
+                        <li><span>Monday - Friday</span><span>6:00 AM - 7:00 PM</span></li>
+                        <li><span>Saturday</span><span>7:00 AM - 8:00 PM</span></li>
+                        <li><span>Sunday</span><span>8:00 AM - 5:00 PM</span></li>
+                    </ul>
+                </div>
+                <div class="info-block contact-info">
+                    <h3>Location</h3>
+                    <p><strong>Address:</strong> 123 Main Street, Auburn, AL 36830</p>
+                    <p><strong>Phone:</strong> (334) 555-0142</p>
+                    <p><strong>Email:</strong> hello@brewandbean.com</p>
+                    <p style="margin-top:20px; font-size:14px; color:#8b7355;">Free Wi-Fi &bull; Dog Friendly Patio &bull; Ample Parking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-brand">Brew &amp; Bean</div>
+        <p>&copy; 2026 Brew &amp; Bean Coffee. All rights reserved.</p>
+        <p style="margin-top:5px;">Designed by Williams Digital</p>
+    </footer>
+
+    <!-- CART SIDEBAR -->
+    <div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-header">
+            <span>Your Order</span>
+            <button class="cart-close" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p style="color:#8b7355; text-align:center; margin-top:40px;">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Checkout &rarr;</button>
+        </div>
+    </div>
+
+    <!-- FLOATING CART BUTTON -->
+    <div class="floating-cart" onclick="openCart()">
+        &#128722;
+        <div class="cart-count" id="cartCount" style="display:none;">0</div>
+    </div>
+
+    <script>
+        // ---- CART FUNCTIONALITY ----
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+            openCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const itemsEl = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            const countEl = document.getElementById('cartCount');
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = '<p style="color:#8b7355; text-align:center; margin-top:40px;">Your cart is empty</p>';
+                countEl.style.display = 'none';
+            } else {
+                countEl.style.display = 'flex';
+                countEl.textContent = cart.length;
+                itemsEl.innerHTML = cart.map((item, i) => `
+                    <div class="cart-item">
+                        <span class="cart-item-name">${item.name}</span>
+                        <span class="cart-item-price">$${item.price.toFixed(2)}</span>
+                        <button class="cart-item-remove" onclick="removeFromCart(${i})">&times;</button>
+                    </div>
+                `).join('');
+            }
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            totalEl.textContent = '$' + total.toFixed(2);
+        }
+
+        function openCart() {
+            document.getElementById('cartOverlay').classList.add('open');
+            document.getElementById('cartBackdrop').classList.add('open');
+        }
+
+        function closeCart() {
+            document.getElementById('cartOverlay').classList.remove('open');
+            document.getElementById('cartBackdrop').classList.remove('open');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            alert('Order placed! Total: $' + cart.reduce((s, i) => s + i.price, 0).toFixed(2) + '\n\nThis is a demo. In production, this would connect to a payment processor.');
+            cart = [];
+            updateCart();
+            closeCart();
+        }
+
+        // ---- MENU FILTERING ----
+        function filterMenu(category) {
+            const cards = document.querySelectorAll('.menu-card');
+            const buttons = document.querySelectorAll('.menu-categories button');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // ---- SMOOTH SCROLL ----
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+
+</body>
+</html>
