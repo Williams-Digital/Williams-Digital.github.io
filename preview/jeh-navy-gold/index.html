@@ -64,35 +64,29 @@
             font-size: 1.4rem;
             font-weight: 600;
             letter-spacing: 0.15em;
-            color: var(--gold);
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 60%;
-            height: 100%;
             background: linear-gradient(
                 90deg,
-                transparent 0%,
-                rgba(255, 255, 255, 0) 20%,
-                rgba(255, 255, 255, 0.4) 50%,
-                rgba(255, 255, 255, 0) 80%,
-                transparent 100%
+                var(--gold) 0%,
+                var(--gold) 35%,
+                #fff8e0 42%,
+                #fffdf5 48%,
+                #fff8e0 54%,
+                var(--gold) 61%,
+                var(--gold) 100%
             );
-            animation: logoShine 4s ease-in-out infinite;
+            background-size: 300% 100%;
+            background-position: 100% 0;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlitter 4s ease-in-out infinite;
             animation-delay: 2s;
         }
 
-        @keyframes logoShine {
-            0% { left: -100%; }
-            20% { left: 120%; }
-            100% { left: 120%; }
+        @keyframes textGlitter {
+            0% { background-position: 100% 0; }
+            25% { background-position: -100% 0; }
+            100% { background-position: -100% 0; }
         }
 
         .logo span {
