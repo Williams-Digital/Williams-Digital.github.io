@@ -1071,12 +1071,11 @@
     <!-- ============================== JS ============================== -->
     <script>
         // ——— CONFIG ———
-        // Replace these with your actual Stripe Payment Links (50% deposit amounts)
-        // Tier 1: $250 deposit | Tier 2: $750 deposit | Tier 3: $1,250 deposit
+        const FORMSPREE_URL = 'https://formspree.io/f/mpqjlara';
         const STRIPE_LINKS = {
-            1: 'https://buy.stripe.com/REPLACE_WITH_TIER_1_DEPOSIT_LINK',
-            2: 'https://buy.stripe.com/REPLACE_WITH_TIER_2_DEPOSIT_LINK',
-            3: 'https://buy.stripe.com/REPLACE_WITH_TIER_3_DEPOSIT_LINK'
+            1: 'https://buy.stripe.com/6oU14ncU22rggOR3jqcfK00',
+            2: 'https://buy.stripe.com/bJe28r2foaXMeGJ9HOcfK01',
+            3: 'https://buy.stripe.com/cNieVdaLUgi62Y1f28cfK02'
         };
 
         // ——— STATE ———
@@ -1205,38 +1204,49 @@
 
             if (!valid) return;
 
-            // Show success overlay
-            document.getElementById('successOverlay').classList.add('show');
+            // Disable button to prevent double submit
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').textContent = 'Submitting...';
 
-            // Send notification email to Dylan (via mailto fallback — in production use a backend)
+            // Prepare contract data
             const tierNames = { 1: 'Tier 1 — Quick Wins ($500)', 2: 'Tier 2 — Redesign ($1,500)', 3: 'Tier 3 — Premium ($2,500)' };
-            const subject = encodeURIComponent('Contract Signed — Timely Entertainment — ' + tierNames[selectedTier]);
-            const body = encodeURIComponent(
-                'Contract signed by: ' + name +
-                '\nTitle: ' + title +
-                '\nEmail: ' + email +
-                '\nTier: ' + tierNames[selectedTier] +
-                '\nDate: ' + dateStr +
-                '\n\nRedirecting to Stripe for payment.'
-            );
+            const depositAmounts = { 1: '$250', 2: '$750', 3: '$1,250' };
 
-            // Open notification in background
-            const notifyLink = document.createElement('a');
-            notifyLink.href = 'mailto:Dylan@williamsdigital.io?subject=' + subject + '&body=' + body;
-            notifyLink.style.display = 'none';
-            document.body.appendChild(notifyLink);
+            const formData = {
+                _subject: 'Contract Signed — Timely Entertainment — ' + tierNames[selectedTier],
+                'Full Name': name,
+                'Title': title,
+                'Email': email,
+                'Selected Tier': tierNames[selectedTier],
+                'Deposit Amount': depositAmounts[selectedTier],
+                'Date Signed': dateStr,
+                'Agreement': 'Client agreed to all terms and conditions'
+            };
 
-            // Redirect to Stripe after delay
-            setTimeout(() => {
-                const stripeUrl = STRIPE_LINKS[selectedTier];
-                if (stripeUrl && !stripeUrl.includes('REPLACE_WITH')) {
+            // Send to Formspree
+            fetch(FORMSPREE_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                // Show success overlay regardless
+                document.getElementById('successOverlay').classList.add('show');
+
+                // Redirect to Stripe after delay
+                setTimeout(() => {
+                    const stripeUrl = STRIPE_LINKS[selectedTier];
                     window.location.href = stripeUrl + '?prefilled_email=' + encodeURIComponent(email);
-                } else {
-                    // Fallback: open email notification
-                    notifyLink.click();
-                    document.querySelector('.success-redirect').textContent = 'Opening email confirmation...';
-                }
-            }, 2500);
+                }, 2500);
+            })
+            .catch(error => {
+                // Still show success and redirect to Stripe even if Formspree fails
+                document.getElementById('successOverlay').classList.add('show');
+                setTimeout(() => {
+                    const stripeUrl = STRIPE_LINKS[selectedTier];
+                    window.location.href = stripeUrl + '?prefilled_email=' + encodeURIComponent(email);
+                }, 2500);
+            });
         }
 
         // Input listeners for live validation
