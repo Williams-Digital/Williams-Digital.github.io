@@ -1226,6 +1226,7 @@
             2: 'https://buy.stripe.com/bJe28r2foaXMeGJ9HOcfK01',
             3: 'https://buy.stripe.com/cNieVdaLUgi62Y1f28cfK02'
         };
+        const STRIPE_MAINTENANCE = 'https://buy.stripe.com/3cI6oH07gaXMcyBaLScfK03';
 
         // ——— STATE ———
         let selectedTier = null;
@@ -1376,6 +1377,7 @@
                 'Selected Tier': tierNames[selectedTier],
                 'Deposit Amount': depositAmounts[selectedTier],
                 'Monthly Maintenance': maintenanceSelected ? 'Yes — $125/month' : 'No',
+                'Maintenance Payment Link': maintenanceSelected ? STRIPE_MAINTENANCE + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
                 'Date Signed': dateStr,
                 'Agreement': 'Client agreed to all terms and conditions'
             };
@@ -1387,23 +1389,35 @@
                 body: JSON.stringify(formData)
             })
             .then(response => {
-                // Show success overlay regardless
-                document.getElementById('successOverlay').classList.add('show');
-
-                // Redirect to Stripe after delay
-                setTimeout(() => {
-                    const stripeUrl = STRIPE_LINKS[selectedTier];
-                    window.location.href = stripeUrl + '?prefilled_email=' + encodeURIComponent(email);
-                }, 2500);
+                showSuccessAndRedirect(email);
             })
             .catch(error => {
-                // Still show success and redirect to Stripe even if Formspree fails
-                document.getElementById('successOverlay').classList.add('show');
-                setTimeout(() => {
-                    const stripeUrl = STRIPE_LINKS[selectedTier];
-                    window.location.href = stripeUrl + '?prefilled_email=' + encodeURIComponent(email);
-                }, 2500);
+                showSuccessAndRedirect(email);
             });
+        }
+
+        function showSuccessAndRedirect(email) {
+            const overlay = document.getElementById('successOverlay');
+            overlay.classList.add('show');
+
+            // Update success text if maintenance is selected
+            if (maintenanceSelected) {
+                document.querySelector('.success-text').textContent =
+                    'Your agreement has been submitted. You\'ll first complete your 50% deposit, then set up your monthly maintenance plan.';
+            }
+
+            // Redirect to deposit payment
+            setTimeout(() => {
+                const stripeUrl = STRIPE_LINKS[selectedTier] + '?prefilled_email=' + encodeURIComponent(email);
+
+                if (maintenanceSelected) {
+                    // Store maintenance link for after deposit — open deposit in current window
+                    // After deposit, Stripe will show a confirmation; they'll get maintenance link via email from Formspree
+                    window.location.href = stripeUrl;
+                } else {
+                    window.location.href = stripeUrl;
+                }
+            }, 2500);
         }
 
         // Input listeners for live validation
