@@ -1,17 +1,17 @@
 ## Generic Email Pitch — Coffee Companies
 
 **Subject Line Options (pick one):**
-- I built [Your Company] a website — here's what it looks like
-- [Your Company] deserves a website as good as your coffee
-- I made something for [Your Company] — no strings attached
+- I built Your Company a website — here's what it looks like
+- Your Company deserves a website as good as your coffee
+- I made something for Your Company — no strings attached
 
 ---
 
 **Email Body:**
 
-Hey [First Name],
+Hey Team,
 
-I'm Dylan with Williams Digital. I came across [Your Company] and loved what you're doing — so I went ahead and built out what a custom website could look like for a shop like yours.
+I'm Dylan with Williams Digital. I came across Your Company and loved what you're doing — so I went ahead and built out what a custom website could look like for a shop like yours.
 
 No templates. No WordPress. Just a clean, custom-built site designed specifically for coffee businesses.
 
