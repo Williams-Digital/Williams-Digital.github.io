@@ -1,9 +1,9 @@
 ## Generic Email Pitch — Coffee Companies
 
 **Subject Line Options (pick one):**
-- I built your coffee shop a website — take a look
-- Your coffee deserves a better website
-- I made 5 websites for coffee shops. Here's what they look like.
+- I built [Your Company] a website — here's what it looks like
+- [Your Company] deserves a website as good as your coffee
+- I made something for [Your Company] — no strings attached
 
 ---
 
@@ -11,36 +11,27 @@
 
 Hey [First Name],
 
-I'm Dylan with Williams Digital. I build websites specifically for coffee shops — not templates, not drag-and-drop builders — custom-built sites designed for the coffee industry.
+I'm Dylan with Williams Digital. I came across [Your Company] and loved what you're doing — so I went ahead and built out what a custom website could look like for a shop like yours.
 
-I already built 5 working demos at different price points so you can see exactly what you'd get before spending a dime:
+No templates. No WordPress. Just a clean, custom-built site designed specifically for coffee businesses.
 
-**Tier 1 — Basic** ($250 setup / $99/mo)
-Simple, clean site with your menu, hours, and location.
-→ https://williamsdigital.io/proposal/coffee-tiers/tier-1/
+I put together 5 different tiers so you can see exactly what fits your budget and goals. You can preview all of them, compare features, and see pricing right here:
 
-**Tier 2 — Starter** ($500 setup / $149/mo)
-Online ordering, cart system, and partner recommendations.
-→ https://williamsdigital.io/proposal/coffee-tiers/tier-2/
+**→ https://williamsdigital.io/proposal/coffee-tiers/proposal.html**
 
-**Tier 3 — Professional** ($1,000 setup / $249/mo)
-Drink customization, testimonials, newsletter, and parallax design.
-→ https://williamsdigital.io/proposal/coffee-tiers/tier-3/
+Here's a quick breakdown:
 
-**Tier 4 — Premium** ($2,000 setup / $399/mo)
-Video hero, coffee cup loading animation, and a staff management portal.
-→ https://williamsdigital.io/proposal/coffee-tiers/tier-4/
+| Tier | Setup | Monthly | What You Get |
+|------|-------|---------|--------------|
+| **Basic** | $250 | $99/mo | Your menu, hours, and location — a professional online presence up fast |
+| **Starter** | $500 | $149/mo | Online ordering with a cart system + partner recommendations to grow your business |
+| **Professional** | $1,000 | $249/mo | Drink customization, testimonial slider, newsletter signup, and scroll animations |
+| **Premium** | $2,000 | $399/mo | Video hero background, coffee cup loading animation, and a staff management portal |
+| **Enterprise** | $5,000 | $699/mo | Cinematic experience with a full staff portal, loyalty rewards program, and advanced animations |
 
-**Tier 5 — Enterprise** ($5,000 setup / $699/mo)
-Cinematic experience with loyalty program, full staff portal, and advanced animations.
-→ https://williamsdigital.io/proposal/coffee-tiers/tier-5/
+Every tier is mobile-responsive, loads fast, and is ready to customize with your branding, photos, and menu. No contracts — month-to-month after setup.
 
-**Full proposal with all features and pricing:**
-→ https://williamsdigital.io/proposal/coffee-tiers/proposal.html
-
-Every site is mobile-responsive, fast, and ready to customize with your branding, photos, and menu. No contracts — just month-to-month hosting after setup.
-
-If any of these catch your eye, I'd love to chat. Takes 5 minutes.
+If any of this catches your eye, I'd love a quick 5-minute call. Happy to walk you through it.
 
 Dylan Williams
 Williams Digital
