@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Titan Landscaping & Construction | Staff Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{--primary:#D4A849;--primary-dark:#1a1a18;--primary-hover:#c49a3a;--sidebar-bg:#111110;--white:#fff;--g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;--g700:#334155;--g800:#1e293b;--g900:#0f172a;--green:#16a34a;--green-l:#dcfce7;--orange:#f97316;--orange-l:#fff3e0;--blue:#3b82f6;--blue-l:#dbeafe;--red:#ef4444;--r:12px}
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,sans-serif;background:var(--g100);color:var(--g900);line-height:1.5;min-height:100vh}
+        .layout{display:flex;min-height:100vh}
+        .sidebar{width:260px;background:var(--sidebar-bg);color:var(--white);position:fixed;top:0;left:0;bottom:0;display:flex;flex-direction:column;z-index:50;transition:transform .3s}
+        .sidebar-header{padding:24px 24px 20px;border-bottom:1px solid rgba(212,168,73,0.15)}
+        .sidebar-brand{display:flex;align-items:center;gap:12px}
+        .sidebar-logo{font-size:1.2rem;font-weight:800;color:var(--primary);letter-spacing:2px}
+        .sidebar-sub{font-size:.65rem;color:var(--g400);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+        .sidebar-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:4px}
+        .nav-item{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:10px;color:var(--g400);text-decoration:none;font-size:.9rem;font-weight:500;transition:all .2s;cursor:pointer;border:none;background:none;width:100%;text-align:left}
+        .nav-item:hover{background:rgba(212,168,73,0.08);color:var(--white)}
+        .nav-item.active{background:rgba(212,168,73,0.15);color:var(--primary)}
+        .nav-item svg{width:20px;height:20px;flex-shrink:0}
+        .sidebar-footer{padding:16px 24px;border-top:1px solid rgba(212,168,73,0.1);font-size:.7rem;color:var(--g500)}
+        .sidebar-footer span{color:var(--primary);font-weight:600}
+        .main{margin-left:260px;flex:1}
+        .topbar{background:var(--white);border-bottom:1px solid var(--g200);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:40}
+        .topbar h1{font-size:1.25rem;font-weight:700;color:var(--primary-dark)}
+        .avatar{width:36px;height:36px;border-radius:50%;background:var(--primary);color:var(--primary-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem}
+        .content{padding:32px}
+        .card{background:var(--white);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.04);overflow:hidden}
+        .card-header{padding:20px 24px;border-bottom:1px solid var(--g100);display:flex;align-items:center;justify-content:space-between}
+        .card-header h2{font-size:1.05rem;font-weight:700;color:var(--primary-dark)}
+        .card-body{padding:24px}
+        .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:28px}
+        .stat-card{background:var(--white);border-radius:var(--r);padding:20px 24px;box-shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.04);border-left:4px solid var(--primary)}
+        .stat-label{font-size:.8rem;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.5px}
+        .stat-value{font-size:1.8rem;font-weight:800;color:var(--primary-dark);margin-top:4px}
+        .stat-sub{font-size:.8rem;color:var(--g400);margin-top:2px}
+        .form-group{margin-bottom:20px}
+        .form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--g700);margin-bottom:6px}
+        .form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:1.5px solid var(--g200);border-radius:10px;font-size:.9rem;font-family:inherit;color:var(--g900);background:var(--white);transition:border-color .2s,box-shadow .2s}
+        .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(212,168,73,0.15)}
+        .form-group textarea{resize:vertical;min-height:80px}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;font-weight:600;font-size:.9rem;font-family:inherit;text-decoration:none;transition:all .2s;cursor:pointer;border:none}
+        .btn-primary{background:var(--primary);color:var(--primary-dark)}
+        .btn-primary:hover{background:var(--primary-hover)}
+        .btn-success{background:var(--green);color:var(--white)}
+        .btn-success:hover{filter:brightness(0.9)}
+        .btn-outline{background:transparent;color:var(--g700);border:1.5px solid var(--g200)}
+        .btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+        .btn-sm{padding:7px 14px;font-size:.8rem;border-radius:8px}
+        .btn-group{display:flex;gap:10px;margin-top:8px}
+        .btn-link{background:none;border:none;color:var(--primary);font-size:.8rem;font-weight:600;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit}
+        .btn-link:hover{color:var(--primary-hover)}
+        .btn-link-danger{background:none;border:none;color:var(--red);font-size:.8rem;font-weight:600;cursor:pointer;padding:0;text-decoration:underline;font-family:inherit}
+        table{width:100%;border-collapse:collapse}
+        th{text-align:left;padding:10px 16px;font-size:.75rem;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--g100);background:var(--g50)}
+        td{padding:14px 16px;font-size:.9rem;border-bottom:1px solid var(--g100);vertical-align:middle}
+        tr:hover td{background:var(--g50)}
+        .table-scroll{overflow-x:auto}
+        .badge{display:inline-block;padding:3px 10px;border-radius:50px;font-size:.75rem;font-weight:600}
+        .badge-progress{background:var(--orange-l);color:var(--orange)}
+        .badge-active{background:var(--green-l);color:var(--green)}
+        .badge-completed{background:var(--green-l);color:var(--green)}
+        .badge-scheduled{background:var(--blue-l);color:var(--blue)}
+        .badge-pending{background:var(--orange-l);color:var(--orange)}
+        .badge-sent{background:var(--blue-l);color:var(--blue)}
+        .badge-draft{background:var(--g100);color:var(--g500)}
+        .badge-accepted{background:var(--green-l);color:var(--green)}
+        .badge-estimate{background:rgba(212,168,73,0.15);color:#9A7530}
+        .page{display:none}.page.active{display:block}
+        .modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:24px}
+        .modal-overlay.open{display:flex}
+        .modal{background:var(--white);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15);width:100%;max-width:640px;max-height:90vh;overflow-y:auto}
+        .modal-lg{max-width:800px}
+        .modal-header{padding:20px 24px;border-bottom:1px solid var(--g100);display:flex;align-items:center;justify-content:space-between}
+        .modal-header h2{font-size:1.1rem;font-weight:700;color:var(--primary-dark)}
+        .modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--g400);line-height:1}
+        .modal-body{padding:24px}
+        .modal-footer{padding:16px 24px;border-top:1px solid var(--g100);display:flex;justify-content:flex-end;gap:10px}
+
+        /* Dashboard schedule */
+        .schedule-list{display:flex;flex-direction:column;gap:12px}
+        .schedule-card{display:flex;align-items:flex-start;gap:16px;padding:16px 20px;background:var(--g50);border-radius:var(--r);border-left:4px solid var(--primary)}
+        .schedule-time{font-size:.85rem;font-weight:700;color:var(--primary-dark);white-space:nowrap;min-width:70px}
+        .schedule-info{flex:1}
+        .schedule-info h4{font-size:.95rem;font-weight:600;color:var(--g800)}
+        .schedule-info p{font-size:.85rem;color:var(--g500);margin-top:2px}
+        .schedule-crew{display:inline-flex;align-items:center;gap:6px;background:rgba(212,168,73,0.12);color:#9A7530;padding:3px 10px;border-radius:50px;font-size:.75rem;font-weight:600;margin-top:6px}
+
+        /* Activity feed */
+        .activity-feed{display:flex;flex-direction:column;gap:0}
+        .activity-item{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--g100)}
+        .activity-item:last-child{border-bottom:none}
+        .activity-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);margin-top:6px;flex-shrink:0}
+        .activity-dot.green{background:var(--green)}
+        .activity-dot.blue{background:var(--blue)}
+        .activity-dot.orange{background:var(--orange)}
+        .activity-text{font-size:.9rem;color:var(--g700);line-height:1.5}
+        .activity-time{font-size:.75rem;color:var(--g400);margin-top:2px}
+
+        /* Weekly schedule */
+        .week-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;min-width:900px}
+        .week-day{background:var(--white);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+        .week-day-header{padding:12px 16px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--primary-dark);background:var(--g50);border-bottom:1px solid var(--g100);text-align:center}
+        .week-day-header.today{background:var(--primary);color:var(--primary-dark)}
+        .week-day-body{padding:8px;display:flex;flex-direction:column;gap:8px;min-height:300px}
+        .week-job{padding:10px 12px;border-radius:8px;font-size:.8rem;border-left:3px solid}
+        .week-job h5{font-weight:600;font-size:.8rem;margin-bottom:2px}
+        .week-job p{font-size:.72rem;color:var(--g500)}
+        .week-job.crew-a{background:rgba(212,168,73,0.1);border-color:var(--primary);color:var(--primary-dark)}
+        .week-job.crew-b{background:rgba(22,163,74,0.08);border-color:var(--green);color:#15803d}
+        .week-job.crew-c{background:rgba(59,130,246,0.08);border-color:var(--blue);color:#1d4ed8}
+        .week-job.crew-d{background:rgba(249,115,22,0.08);border-color:var(--orange);color:#c2410c}
+        .week-job.owner{background:rgba(26,26,24,0.06);border-color:var(--primary-dark);color:var(--primary-dark)}
+
+        /* Messages */
+        .msg-layout{display:grid;grid-template-columns:320px 1fr;height:calc(100vh - 180px);min-height:500px;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08),0 4px 16px rgba(0,0,0,0.04)}
+        .msg-list{background:var(--white);border-right:1px solid var(--g200);overflow-y:auto}
+        .msg-list-header{padding:20px;border-bottom:1px solid var(--g100);font-weight:700;color:var(--primary-dark);font-size:1.05rem}
+        .msg-contact{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;border-bottom:1px solid var(--g100);transition:background .15s}
+        .msg-contact:hover{background:var(--g50)}
+        .msg-contact.active{background:rgba(212,168,73,0.08);border-left:3px solid var(--primary)}
+        .msg-avatar{width:40px;height:40px;border-radius:50%;background:var(--primary-dark);color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;flex-shrink:0}
+        .msg-preview{flex:1;min-width:0}
+        .msg-preview h4{font-size:.9rem;font-weight:600;color:var(--g800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .msg-preview p{font-size:.8rem;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+        .msg-meta{font-size:.7rem;color:var(--g400);white-space:nowrap;flex-shrink:0}
+        .msg-thread{background:var(--g50);display:flex;flex-direction:column}
+        .msg-thread-header{padding:20px;background:var(--white);border-bottom:1px solid var(--g200);display:flex;align-items:center;gap:12px}
+        .msg-thread-header h3{font-size:1rem;font-weight:700;color:var(--primary-dark)}
+        .msg-thread-header p{font-size:.8rem;color:var(--g400)}
+        .msg-thread-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+        .msg-bubble{max-width:75%;padding:12px 16px;border-radius:16px;font-size:.9rem;line-height:1.5}
+        .msg-bubble.sent{background:var(--primary);color:var(--primary-dark);align-self:flex-end;border-bottom-right-radius:4px}
+        .msg-bubble.received{background:var(--white);color:var(--g800);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+        .msg-bubble-time{font-size:.7rem;color:var(--g400);margin-top:4px}
+        .msg-bubble.sent .msg-bubble-time{color:rgba(26,26,24,0.5);text-align:right}
+        .msg-input-area{padding:16px 20px;background:var(--white);border-top:1px solid var(--g200);display:flex;gap:12px;align-items:center}
+        .msg-input-area input{flex:1;padding:10px 16px;border:1.5px solid var(--g200);border-radius:24px;font-size:.9rem;font-family:inherit;outline:none;transition:border-color .2s}
+        .msg-input-area input:focus{border-color:var(--primary)}
+        .msg-send-btn{width:40px;height:40px;border-radius:50%;background:var(--primary);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+        .msg-send-btn:hover{background:var(--primary-hover)}
+        .msg-send-btn svg{width:18px;height:18px;color:var(--primary-dark)}
+
+        /* Estimate preview */
+        .ep-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;padding-bottom:16px;border-bottom:3px solid var(--primary)}
+        .ep-company h3{font-size:1.2rem;font-weight:800;color:var(--primary-dark)}
+        .ep-company p{font-size:.8rem;color:var(--g500)}
+        .ep-est-num{text-align:right}
+        .ep-est-num h4{font-size:.85rem;font-weight:700;color:var(--primary-dark);text-transform:uppercase;letter-spacing:1px}
+        .ep-est-num p{font-size:.85rem;color:var(--g500)}
+        .ep-parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+        .ep-parties h5{font-size:.7rem;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .ep-parties p{font-size:.9rem;color:var(--g700)}
+        .ep-table{width:100%;border-collapse:collapse;margin-bottom:16px}
+        .ep-table th{background:var(--primary-dark);color:var(--white);padding:10px 14px;font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;text-align:left}
+        .ep-table td{padding:10px 14px;font-size:.9rem;border-bottom:1px solid var(--g100)}
+        .ep-table .right{text-align:right}
+        .ep-totals{text-align:right;margin-top:8px}
+        .ep-totals .line{display:flex;justify-content:flex-end;gap:32px;padding:4px 0;font-size:.9rem;color:var(--g700)}
+        .ep-totals .line.total{font-weight:800;font-size:1.1rem;color:var(--primary-dark);border-top:2px solid var(--g200);padding-top:8px;margin-top:4px}
+        .estimate-preview{border:1.5px solid var(--g200);border-radius:var(--r);padding:28px;background:var(--white);margin-top:16px}
+
+        .toast{position:fixed;bottom:32px;right:32px;z-index:200;background:var(--g900);color:var(--white);padding:14px 24px;border-radius:var(--r);font-size:.9rem;font-weight:500;box-shadow:0 8px 32px rgba(0,0,0,0.15);transform:translateY(100px);opacity:0;transition:all .3s}
+        .toast.show{transform:translateY(0);opacity:1}
+        .toast.success{background:var(--green)}
+        .sidebar-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px}
+        .sidebar-toggle svg{width:24px;height:24px;color:var(--primary-dark)}
+        .sidebar-close{display:none;position:absolute;top:16px;right:16px;background:none;border:none;color:var(--g400);font-size:1.5rem;cursor:pointer}
+
+        .two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+        @media(max-width:1024px){
+            .stats-row{grid-template-columns:repeat(2,1fr)}
+            .form-row-3{grid-template-columns:1fr}
+            .two-col{grid-template-columns:1fr}
+            .msg-layout{grid-template-columns:1fr;height:auto}
+            .msg-thread{min-height:400px}
+        }
+        @media(max-width:768px){
+            .sidebar{transform:translateX(-100%)}
+            .sidebar.open{transform:translateX(0)}
+            .sidebar-close,.sidebar-toggle{display:block}
+            .main{margin-left:0}
+            .content{padding:20px}
+            .topbar{padding:14px 20px}
+            .stats-row{grid-template-columns:1fr}
+            .form-row{grid-template-columns:1fr}
+            .week-grid{min-width:1200px}
+            .msg-layout{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" onclick="document.getElementById('sidebar').classList.remove('open')">&times;</button>
+    <div class="sidebar-header">
+        <div class="sidebar-brand">
+            <svg viewBox="0 0 100 100" width="32" height="32">
+                <defs><linearGradient id="pg" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#D4A849"/><stop offset="100%" stop-color="#9A7530"/></linearGradient></defs>
+                <circle cx="50" cy="50" r="44" fill="none" stroke="url(#pg)" stroke-width="2"/>
+                <circle cx="50" cy="50" r="38" fill="#111110" stroke="#9A7530" stroke-width="0.5" opacity="0.6"/>
+                <g transform="translate(50, 38) scale(0.55)"><rect x="-4" y="32" width="8" height="40" fill="url(#pg)" rx="1"/><rect x="-18" y="28" width="36" height="5" fill="#D4A849" rx="1.5"/><path d="M-5 30 L-5 8 L-8 10 L0 -15 L8 10 L5 8 L5 30 Z" fill="url(#pg)"/><path d="M-14 30 L-14 15 L-17 17 L-10 -4 L-4 17 L-8 15 L-8 30 Z" fill="url(#pg)" transform="rotate(-10, -10, 15)"/><path d="M8 30 L8 15 L4 17 L10 -4 L17 17 L14 15 L14 30 Z" fill="url(#pg)" transform="rotate(10, 10, 15)"/></g>
+            </svg>
+            <div>
+                <div class="sidebar-logo">TITAN</div>
+                <div class="sidebar-sub">Landscaping & Construction</div>
+            </div>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <button class="nav-item active" onclick="switchPage('dashboard',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Dashboard
+        </button>
+        <button class="nav-item" onclick="switchPage('projects',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            Projects
+        </button>
+        <button class="nav-item" onclick="switchPage('schedule',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Schedule
+        </button>
+        <button class="nav-item" onclick="switchPage('clients',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Clients
+        </button>
+        <button class="nav-item" onclick="switchPage('estimates',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Estimates
+        </button>
+        <button class="nav-item" onclick="switchPage('messages',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Messages
+        </button>
+    </nav>
+    <div class="sidebar-footer">Powered by <span>Williams Digital</span></div>
+</aside>
+
+<div class="main">
+    <div class="topbar">
+        <div style="display:flex;align-items:center;gap:12px">
+            <button class="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <h1 id="pageTitle">Dashboard</h1>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px">
+            <span style="font-size:.85rem;color:var(--g500)">Owner</span>
+            <div class="avatar">TL</div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- ===================== DASHBOARD ===================== -->
+        <div class="page active" id="page-dashboard">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">Active Projects</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-sub">Across 4 crews</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">This Week's Jobs</div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-sub">Mon - Fri scheduled</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pending Estimates</div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-sub">Awaiting response</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Revenue (MTD)</div>
+                    <div class="stat-value">$47,250</div>
+                    <div class="stat-sub">February 2026</div>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div class="card">
+                    <div class="card-header"><h2>Today's Schedule</h2></div>
+                    <div class="card-body">
+                        <div class="schedule-list">
+                            <div class="schedule-card">
+                                <div class="schedule-time">7:30 AM</div>
+                                <div class="schedule-info">
+                                    <h4>Morrison Estate - Phase 2 Hardscape</h4>
+                                    <p>Retaining wall continuation, paver base prep</p>
+                                    <span class="schedule-crew">Crew A (Marcus + 2)</span>
+                                </div>
+                            </div>
+                            <div class="schedule-card">
+                                <div class="schedule-time">8:00 AM</div>
+                                <div class="schedule-info">
+                                    <h4>142 Oak Ridge Dr - Weekly Maintenance</h4>
+                                    <p>Mow, edge, blow, bed maintenance</p>
+                                    <span class="schedule-crew">Crew B (Jason + 1)</span>
+                                </div>
+                            </div>
+                            <div class="schedule-card">
+                                <div class="schedule-time">10:30 AM</div>
+                                <div class="schedule-info">
+                                    <h4>Harborview Terrace - Lighting Install</h4>
+                                    <p>Path lighting, 12 fixtures front entry</p>
+                                    <span class="schedule-crew">Crew C (Devon + 1)</span>
+                                </div>
+                            </div>
+                            <div class="schedule-card" style="border-left-color:var(--primary-dark)">
+                                <div class="schedule-time">1:00 PM</div>
+                                <div class="schedule-info">
+                                    <h4>Site Visit - New Client Consultation</h4>
+                                    <p>Sarah Chen - backyard redesign walkthrough</p>
+                                    <span class="schedule-crew" style="background:rgba(26,26,24,0.08);color:var(--primary-dark)">Owner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header"><h2>Recent Activity</h2></div>
+                    <div class="card-body">
+                        <div class="activity-feed">
+                            <div class="activity-item">
+                                <div class="activity-dot orange"></div>
+                                <div>
+                                    <div class="activity-text">Estimate #1047 sent to <strong>David Kim</strong></div>
+                                    <div class="activity-time">2 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot green"></div>
+                                <div>
+                                    <div class="activity-text">Payment received &mdash; <strong>Morrison Estate Phase 1</strong> &mdash; $12,400</div>
+                                    <div class="activity-time">4 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot green"></div>
+                                <div>
+                                    <div class="activity-text">Project completed: <strong>Willowbrook Gardens</strong></div>
+                                    <div class="activity-time">Yesterday</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot blue"></div>
+                                <div>
+                                    <div class="activity-text">New inquiry from <strong>Sarah Chen</strong> via website</div>
+                                    <div class="activity-time">Yesterday</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-dot"></div>
+                                <div>
+                                    <div class="activity-text">Crew A photo upload: <strong>Morrison retaining wall</strong></div>
+                                    <div class="activity-time">2 days ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== PROJECTS ===================== -->
+        <div class="page" id="page-projects">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">Active</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-sub">In progress & scheduled</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Completed This Month</div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-sub">February 2026</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Value</div>
+                    <div class="stat-value">$284,500</div>
+                    <div class="stat-sub">All active projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Duration</div>
+                    <div class="stat-value">18 days</div>
+                    <div class="stat-sub">Across all projects</div>
+                </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+                <div></div>
+                <button class="btn btn-primary" onclick="openModal('projectModal')">+ New Project</button>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h2>All Projects</h2></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr><th>Project</th><th>Client</th><th>Type</th><th>Status</th><th>Crew</th><th>Start Date</th><th>Value</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight:600">Morrison Estate Phase 2</td>
+                                <td>James Morrison</td>
+                                <td>Hardscape & Patio</td>
+                                <td><span class="badge badge-progress">In Progress</span></td>
+                                <td>Crew A</td>
+                                <td>Feb 3, 2026</td>
+                                <td style="font-weight:600">$34,200</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Harborview Terrace</td>
+                                <td>Harbor Properties LLC</td>
+                                <td>Outdoor Lighting</td>
+                                <td><span class="badge badge-progress">In Progress</span></td>
+                                <td>Crew C</td>
+                                <td>Feb 10, 2026</td>
+                                <td style="font-weight:600">$8,750</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">142 Oak Ridge Dr</td>
+                                <td>Patricia Walsh</td>
+                                <td>Weekly Maintenance</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>Crew B</td>
+                                <td>Jan 6, 2026</td>
+                                <td style="font-weight:600">$450/mo</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Cedar Ridge Pavilion</td>
+                                <td>Mark & Lynn Davis</td>
+                                <td>Pergola Build</td>
+                                <td><span class="badge badge-scheduled">Scheduled</span></td>
+                                <td>Crew A</td>
+                                <td>Feb 24, 2026</td>
+                                <td style="font-weight:600">$22,100</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Lakefront Retaining Wall</td>
+                                <td>Summit HOA</td>
+                                <td>Structural</td>
+                                <td><span class="badge badge-progress">In Progress</span></td>
+                                <td>Crew D</td>
+                                <td>Jan 28, 2026</td>
+                                <td style="font-weight:600">$41,000</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Willowbrook Gardens</td>
+                                <td>David Kim</td>
+                                <td>Full Landscape</td>
+                                <td><span class="badge badge-completed">Completed</span></td>
+                                <td>Crew A</td>
+                                <td>Dec 15, 2025</td>
+                                <td style="font-weight:600">$28,900</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Thompson Residence</td>
+                                <td>Carol Thompson</td>
+                                <td>Patio Extension</td>
+                                <td><span class="badge badge-estimate">Estimate Sent</span></td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td style="font-weight:600">$15,600</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Crestview Commercial</td>
+                                <td>Crestview Partners</td>
+                                <td>Grounds Maintenance</td>
+                                <td><span class="badge badge-active">Active</span></td>
+                                <td>Crew B</td>
+                                <td>Jan 1, 2026</td>
+                                <td style="font-weight:600">$2,200/mo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== SCHEDULE ===================== -->
+        <div class="page" id="page-schedule">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+                <div>
+                    <span style="font-weight:700;color:var(--primary-dark);font-size:1.1rem">Week of February 17 - 21, 2026</span>
+                    <div style="display:flex;gap:16px;margin-top:8px">
+                        <span style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--g500)"><span style="width:10px;height:10px;border-radius:3px;background:var(--primary);display:inline-block"></span>Crew A</span>
+                        <span style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--g500)"><span style="width:10px;height:10px;border-radius:3px;background:var(--green);display:inline-block"></span>Crew B</span>
+                        <span style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--g500)"><span style="width:10px;height:10px;border-radius:3px;background:var(--blue);display:inline-block"></span>Crew C</span>
+                        <span style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--g500)"><span style="width:10px;height:10px;border-radius:3px;background:var(--orange);display:inline-block"></span>Crew D</span>
+                        <span style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--g500)"><span style="width:10px;height:10px;border-radius:3px;background:var(--primary-dark);display:inline-block"></span>Owner</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="overflow-x:auto;padding-bottom:16px">
+                <div class="week-grid">
+                    <!-- Monday -->
+                    <div class="week-day">
+                        <div class="week-day-header today">Mon, Feb 17</div>
+                        <div class="week-day-body">
+                            <div class="week-job crew-a">
+                                <h5>Morrison Estate</h5>
+                                <p>Crew A &bull; 7:30 - 3:30</p>
+                                <p>Phase 2 Hardscape</p>
+                            </div>
+                            <div class="week-job crew-b">
+                                <h5>142 Oak Ridge Dr</h5>
+                                <p>Crew B &bull; 8:00 - 10:00</p>
+                                <p>Weekly Maintenance</p>
+                            </div>
+                            <div class="week-job crew-c">
+                                <h5>Harborview Terrace</h5>
+                                <p>Crew C &bull; 10:30 - 4:00</p>
+                                <p>Lighting Install</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tuesday -->
+                    <div class="week-day">
+                        <div class="week-day-header">Tue, Feb 18</div>
+                        <div class="week-day-body">
+                            <div class="week-job crew-a">
+                                <h5>Morrison Estate</h5>
+                                <p>Crew A &bull; 7:30 - 3:30</p>
+                                <p>Phase 2 Hardscape</p>
+                            </div>
+                            <div class="week-job crew-b">
+                                <h5>Crestview Commercial</h5>
+                                <p>Crew B &bull; 8:00 - 12:00</p>
+                                <p>Grounds Maintenance</p>
+                            </div>
+                            <div class="week-job crew-d">
+                                <h5>Lakefront Wall</h5>
+                                <p>Crew D &bull; 7:00 - 4:00</p>
+                                <p>Retaining Wall</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Wednesday -->
+                    <div class="week-day">
+                        <div class="week-day-header">Wed, Feb 19</div>
+                        <div class="week-day-body">
+                            <div class="week-job crew-a">
+                                <h5>Morrison Estate</h5>
+                                <p>Crew A &bull; 7:30 - 3:30</p>
+                                <p>Phase 2 Hardscape</p>
+                            </div>
+                            <div class="week-job crew-b">
+                                <h5>142 Oak Ridge Dr</h5>
+                                <p>Crew B &bull; 8:00 - 10:00</p>
+                                <p>Weekly Maintenance</p>
+                            </div>
+                            <div class="week-job crew-d">
+                                <h5>Lakefront Wall</h5>
+                                <p>Crew D &bull; 7:00 - 4:00</p>
+                                <p>Retaining Wall</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Thursday -->
+                    <div class="week-day">
+                        <div class="week-day-header">Thu, Feb 20</div>
+                        <div class="week-day-body">
+                            <div class="week-job owner">
+                                <h5>Site Visit - Cedar Ridge</h5>
+                                <p>Owner &bull; 9:00 AM</p>
+                                <p>Davis pavilion walkthrough</p>
+                            </div>
+                            <div class="week-job crew-a">
+                                <h5>Morrison Estate</h5>
+                                <p>Crew A &bull; 7:30 - 3:30</p>
+                                <p>Phase 2 Hardscape</p>
+                            </div>
+                            <div class="week-job crew-d">
+                                <h5>Lakefront Wall</h5>
+                                <p>Crew D &bull; 7:00 - 4:00</p>
+                                <p>Retaining Wall</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Friday -->
+                    <div class="week-day">
+                        <div class="week-day-header">Fri, Feb 21</div>
+                        <div class="week-day-body">
+                            <div class="week-job crew-a">
+                                <h5>Morrison Estate</h5>
+                                <p>Crew A &bull; 7:30 - 12:00</p>
+                                <p>Phase 2 Hardscape</p>
+                            </div>
+                            <div class="week-job crew-b">
+                                <h5>142 Oak Ridge Dr</h5>
+                                <p>Crew B &bull; 8:00 - 10:00</p>
+                                <p>Weekly Maintenance</p>
+                            </div>
+                            <div class="week-job crew-c">
+                                <h5>Harborview Terrace</h5>
+                                <p>Crew C &bull; 10:00 - 3:00</p>
+                                <p>Lighting Install</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== CLIENTS ===================== -->
+        <div class="page" id="page-clients">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+                <div></div>
+                <button class="btn btn-primary" onclick="openModal('clientModal')">+ Add Client</button>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h2>Client Directory</h2></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr><th>Name</th><th>Type</th><th>Active Projects</th><th>Total Revenue</th><th>Phone</th><th>Email</th><th>Since</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight:600">James Morrison</td>
+                                <td>Residential</td>
+                                <td>1</td>
+                                <td style="font-weight:600">$67,100</td>
+                                <td>(555) 111-2233</td>
+                                <td><a href="mailto:james@email.com" style="color:var(--primary);text-decoration:none">james@email.com</a></td>
+                                <td>2024</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Harbor Properties LLC</td>
+                                <td><span class="badge badge-sent">Commercial</span></td>
+                                <td>1</td>
+                                <td style="font-weight:600">$8,750</td>
+                                <td>(555) 222-3344</td>
+                                <td><a href="mailto:info@harborprop.com" style="color:var(--primary);text-decoration:none">info@harborprop.com</a></td>
+                                <td>2026</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Patricia Walsh</td>
+                                <td>Residential</td>
+                                <td>1</td>
+                                <td style="font-weight:600">$5,400</td>
+                                <td>(555) 333-4455</td>
+                                <td><a href="mailto:pwalsh@email.com" style="color:var(--primary);text-decoration:none">pwalsh@email.com</a></td>
+                                <td>2025</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Mark & Lynn Davis</td>
+                                <td>Residential</td>
+                                <td>1</td>
+                                <td style="font-weight:600">$22,100</td>
+                                <td>(555) 444-5566</td>
+                                <td><a href="mailto:davis.mark@email.com" style="color:var(--primary);text-decoration:none">davis.mark@email.com</a></td>
+                                <td>2026</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Summit HOA</td>
+                                <td><span class="badge badge-sent">Commercial</span></td>
+                                <td>1</td>
+                                <td style="font-weight:600">$41,000</td>
+                                <td>(555) 555-6677</td>
+                                <td><a href="mailto:board@summithoa.org" style="color:var(--primary);text-decoration:none">board@summithoa.org</a></td>
+                                <td>2025</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">David Kim</td>
+                                <td>Residential</td>
+                                <td>0</td>
+                                <td style="font-weight:600">$28,900</td>
+                                <td>(555) 666-7788</td>
+                                <td><a href="mailto:dkim@email.com" style="color:var(--primary);text-decoration:none">dkim@email.com</a></td>
+                                <td>2023</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">Crestview Partners</td>
+                                <td><span class="badge badge-sent">Commercial</span></td>
+                                <td>1</td>
+                                <td style="font-weight:600">$26,400</td>
+                                <td>(555) 777-8899</td>
+                                <td><a href="mailto:admin@crestview.com" style="color:var(--primary);text-decoration:none">admin@crestview.com</a></td>
+                                <td>2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== ESTIMATES ===================== -->
+        <div class="page" id="page-estimates">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+                <div></div>
+                <button class="btn btn-primary" onclick="openModal('estimateModal')">+ New Estimate</button>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><h2>All Estimates</h2></div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr><th>Est #</th><th>Client</th><th>Project Description</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight:600">#1051</td>
+                                <td>Carol Thompson</td>
+                                <td>Patio extension &mdash; pavers, drainage, border wall</td>
+                                <td style="font-weight:600">$15,600</td>
+                                <td><span class="badge badge-pending">Pending</span></td>
+                                <td>Feb 15, 2026</td>
+                                <td>
+                                    <button class="btn-link" onclick="previewEst('1051')">View</button>
+                                    &nbsp;/&nbsp;
+                                    <button class="btn-link" onclick="showToast('Estimate #1051 sent to Carol Thompson','success')">Send</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">#1050</td>
+                                <td>Sarah Chen</td>
+                                <td>Full backyard redesign &mdash; consultation needed</td>
+                                <td style="font-weight:600;color:var(--g400)">$TBD</td>
+                                <td><span class="badge badge-draft">Draft</span></td>
+                                <td>Feb 14, 2026</td>
+                                <td>
+                                    <button class="btn-link" onclick="showToast('Opening editor for Estimate #1050...')">Edit</button>
+                                    &nbsp;/&nbsp;
+                                    <button class="btn-link-danger" onclick="showToast('Estimate #1050 deleted')">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">#1049</td>
+                                <td>Mark & Lynn Davis</td>
+                                <td>Cedar Ridge pavilion &mdash; cedar pergola, lighting, stone patio</td>
+                                <td style="font-weight:600">$22,100</td>
+                                <td><span class="badge badge-accepted">Accepted</span></td>
+                                <td>Feb 10, 2026</td>
+                                <td>
+                                    <button class="btn-link" onclick="previewEst('1049')">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">#1048</td>
+                                <td>Harbor Properties</td>
+                                <td>Landscape lighting &mdash; 24 fixtures, timer system, wiring</td>
+                                <td style="font-weight:600">$8,750</td>
+                                <td><span class="badge badge-accepted">Accepted</span></td>
+                                <td>Feb 8, 2026</td>
+                                <td>
+                                    <button class="btn-link" onclick="previewEst('1048')">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">#1047</td>
+                                <td>David Kim</td>
+                                <td>Annual maintenance contract renewal</td>
+                                <td style="font-weight:600">$5,400</td>
+                                <td><span class="badge badge-sent">Sent</span></td>
+                                <td>Feb 6, 2026</td>
+                                <td>
+                                    <button class="btn-link" onclick="previewEst('1047')">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight:600">#1046</td>
+                                <td>Summit HOA</td>
+                                <td>Lakefront retaining wall &mdash; engineering, excavation, block wall</td>
+                                <td style="font-weight:600">$41,000</td>
+                                <td><span class="badge badge-accepted">Accepted</span></td>
+                                <td>Jan 25, 2026</td>
+                                <td>
+                                    <button class="btn-link" onclick="previewEst('1046')">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="estPreviewArea" style="margin-top:24px;display:none">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Estimate Preview</h2>
+                        <div class="btn-group">
+                            <button class="btn btn-primary btn-sm" onclick="showToast('Estimate emailed to client','success')">Email to Client</button>
+                            <button class="btn btn-outline btn-sm" onclick="showToast('PDF downloaded','success')">Download PDF</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="estimate-preview" id="estPreviewContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== MESSAGES ===================== -->
+        <div class="page" id="page-messages">
+            <div class="msg-layout">
+                <div class="msg-list">
+                    <div class="msg-list-header">Conversations</div>
+                    <div class="msg-contact active" onclick="switchConvo(0,this)">
+                        <div class="msg-avatar">JM</div>
+                        <div class="msg-preview">
+                            <h4>James Morrison</h4>
+                            <p>Sounds good, we'll plan for the stone...</p>
+                        </div>
+                        <div class="msg-meta">1h ago</div>
+                    </div>
+                    <div class="msg-contact" onclick="switchConvo(1,this)">
+                        <div class="msg-avatar">SC</div>
+                        <div class="msg-preview">
+                            <h4>Sarah Chen</h4>
+                            <p>Hi, I found you on Google and...</p>
+                        </div>
+                        <div class="msg-meta">3h ago</div>
+                    </div>
+                    <div class="msg-contact" onclick="switchConvo(2,this)">
+                        <div class="msg-avatar">DK</div>
+                        <div class="msg-preview">
+                            <h4>David Kim</h4>
+                            <p>Thanks for the maintenance renewal...</p>
+                        </div>
+                        <div class="msg-meta">Yesterday</div>
+                    </div>
+                    <div class="msg-contact" onclick="switchConvo(3,this)">
+                        <div class="msg-avatar">SH</div>
+                        <div class="msg-preview">
+                            <h4>Summit HOA Board</h4>
+                            <p>The wall is looking great. Quick...</p>
+                        </div>
+                        <div class="msg-meta">2 days ago</div>
+                    </div>
+                </div>
+                <div class="msg-thread">
+                    <div class="msg-thread-header">
+                        <div class="msg-avatar">JM</div>
+                        <div>
+                            <h3 id="convoName">James Morrison</h3>
+                            <p id="convoSub">Morrison Estate Phase 2</p>
+                        </div>
+                    </div>
+                    <div class="msg-thread-body" id="convoBody">
+                        <!-- Filled by JS -->
+                    </div>
+                    <div class="msg-input-area">
+                        <input type="text" id="msgInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMsg()">
+                        <button class="msg-send-btn" onclick="sendMsg()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ===================== NEW PROJECT MODAL ===================== -->
+<div class="modal-overlay" id="projectModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>New Project</h2>
+            <button class="modal-close" onclick="closeModal('projectModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Project Name</label>
+                <input type="text" placeholder="e.g., Morrison Estate Phase 3">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Client</label>
+                    <select>
+                        <option value="">Select client...</option>
+                        <option>James Morrison</option>
+                        <option>Harbor Properties LLC</option>
+                        <option>Patricia Walsh</option>
+                        <option>Mark & Lynn Davis</option>
+                        <option>Summit HOA</option>
+                        <option>David Kim</option>
+                        <option>Carol Thompson</option>
+                        <option>Crestview Partners</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <select>
+                        <option>Landscape Design</option>
+                        <option>Hardscaping</option>
+                        <option>Construction</option>
+                        <option>Lighting</option>
+                        <option>Maintenance</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Estimated Value</label>
+                    <input type="text" placeholder="$0.00">
+                </div>
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="date">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Assign Crew</label>
+                <select>
+                    <option>Unassigned</option>
+                    <option>Crew A (Marcus)</option>
+                    <option>Crew B (Jason)</option>
+                    <option>Crew C (Devon)</option>
+                    <option>Crew D</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Notes</label>
+                <textarea placeholder="Project details, special requirements..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('projectModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="closeModal('projectModal');showToast('Project created successfully!','success')">Create Project</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== ADD CLIENT MODAL ===================== -->
+<div class="modal-overlay" id="clientModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Add Client</h2>
+            <button class="modal-close" onclick="closeModal('clientModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" placeholder="Client or business name">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Type</label>
+                    <select>
+                        <option>Residential</option>
+                        <option>Commercial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" placeholder="(555) 000-0000">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="client@email.com">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" placeholder="Full address">
+            </div>
+            <div class="form-group">
+                <label>Notes</label>
+                <textarea placeholder="Additional notes..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('clientModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="closeModal('clientModal');showToast('Client added successfully!','success')">Add Client</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== NEW ESTIMATE MODAL ===================== -->
+<div class="modal-overlay" id="estimateModal">
+    <div class="modal modal-lg">
+        <div class="modal-header">
+            <h2>Create New Estimate</h2>
+            <button class="modal-close" onclick="closeModal('estimateModal')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Client</label>
+                    <select>
+                        <option value="">Select client...</option>
+                        <option>James Morrison</option>
+                        <option>Harbor Properties LLC</option>
+                        <option>Patricia Walsh</option>
+                        <option>Mark & Lynn Davis</option>
+                        <option>Summit HOA</option>
+                        <option>David Kim</option>
+                        <option>Carol Thompson</option>
+                        <option>Sarah Chen</option>
+                        <option>Crestview Partners</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Project Description</label>
+                    <input type="text" placeholder="Brief description">
+                </div>
+            </div>
+            <div id="estLineItems">
+                <div class="form-row-3 est-line">
+                    <div class="form-group"><label>Item Description</label><input type="text" placeholder="Service or material"></div>
+                    <div class="form-group"><label>Qty</label><input type="number" value="1" min="1"></div>
+                    <div class="form-group"><label>Unit Price ($)</label><input type="number" placeholder="0.00" step="0.01"></div>
+                </div>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="addEstLine()" style="margin-bottom:16px">+ Add Line Item</button>
+            <div class="form-group">
+                <label>Notes / Terms</label>
+                <textarea placeholder="Payment terms, project timeline, special conditions..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" onclick="closeModal('estimateModal')">Cancel</button>
+            <button class="btn btn-outline" onclick="closeModal('estimateModal');showToast('Estimate saved as draft')">Save Draft</button>
+            <button class="btn btn-primary" onclick="closeModal('estimateModal');showToast('Estimate created and sent!','success')">Create & Send</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Page switching
+const pageTitles = {
+    dashboard: 'Dashboard',
+    projects: 'Projects',
+    schedule: 'Schedule',
+    clients: 'Clients',
+    estimates: 'Estimates',
+    messages: 'Messages'
+};
+
+function switchPage(p, el) {
+    document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+    document.getElementById('page-' + p).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if (el) el.classList.add('active');
+    document.getElementById('pageTitle').textContent = pageTitles[p] || p;
+    document.getElementById('sidebar').classList.remove('open');
+    // Hide estimate preview when switching pages
+    const epa = document.getElementById('estPreviewArea');
+    if (epa) epa.style.display = 'none';
+}
+
+// Modals
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// Toast
+function showToast(m, t) {
+    const e = document.getElementById('toast');
+    e.textContent = m;
+    e.className = 'toast show' + (t ? ' ' + t : '');
+    setTimeout(() => e.className = 'toast', 3500);
+}
+
+// Close modals on backdrop click
+document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+// Add estimate line item
+function addEstLine() {
+    const c = document.getElementById('estLineItems');
+    const r = document.createElement('div');
+    r.className = 'form-row-3 est-line';
+    r.innerHTML = '<div class="form-group"><label>Item Description</label><input type="text" placeholder="Service or material"></div><div class="form-group"><label>Qty</label><input type="number" value="1" min="1"></div><div class="form-group"><label>Unit Price ($)</label><input type="number" placeholder="0.00" step="0.01"></div>';
+    c.appendChild(r);
+}
+
+// Estimate preview data
+const estimateData = {
+    '1049': {
+        num: '#1049',
+        date: 'February 10, 2026',
+        client: 'Mark & Lynn Davis',
+        clientAddr: '822 Cedar Ridge Lane\nBirmingham, AL 35242',
+        clientEmail: 'davis.mark@email.com',
+        items: [
+            { desc: 'Cedar pergola structure (16x14 ft) - materials & labor', qty: 1, price: 9800 },
+            { desc: 'Natural stone patio (320 sq ft) - Tennessee fieldstone', qty: 320, price: 18.75 },
+            { desc: 'Low-voltage landscape lighting (8 fixtures)', qty: 8, price: 285 },
+            { desc: 'Electrical wiring & timer system', qty: 1, price: 1450 },
+            { desc: 'Grading & site preparation', qty: 1, price: 2100 },
+            { desc: 'Permits & engineering review', qty: 1, price: 470 }
+        ],
+        notes: 'Payment schedule: 40% deposit upon acceptance, 30% at midpoint, 30% upon completion. Estimated timeline: 18-22 working days. All materials guaranteed for 5 years. Labor warranty: 2 years.',
+        status: 'Accepted'
+    },
+    '1048': {
+        num: '#1048',
+        date: 'February 8, 2026',
+        client: 'Harbor Properties LLC',
+        clientAddr: '1200 Harborview Terrace\nBirmingham, AL 35226',
+        clientEmail: 'info@harborprop.com',
+        items: [
+            { desc: 'LED path lighting fixtures (Kichler Pro series)', qty: 14, price: 185 },
+            { desc: 'LED accent/uplighting fixtures', qty: 10, price: 225 },
+            { desc: 'Transformer (600W low-voltage)', qty: 2, price: 420 },
+            { desc: 'Digital timer/smart controller', qty: 1, price: 380 },
+            { desc: 'Wiring, conduit & connectors', qty: 1, price: 1200 },
+            { desc: 'Installation labor (2 crew, 3 days)', qty: 1, price: 2400 }
+        ],
+        notes: 'Payment due within 30 days of project completion. All fixtures carry manufacturer warranty. Installation warranty: 1 year.',
+        status: 'Accepted'
+    },
+    '1047': {
+        num: '#1047',
+        date: 'February 6, 2026',
+        client: 'David Kim',
+        clientAddr: '445 Willowbrook Dr\nBirmingham, AL 35244',
+        clientEmail: 'dkim@email.com',
+        items: [
+            { desc: 'Weekly lawn maintenance (mow, edge, blow)', qty: 48, price: 65 },
+            { desc: 'Monthly bed maintenance & weeding', qty: 12, price: 95 },
+            { desc: 'Seasonal fertilizer application (4x/year)', qty: 4, price: 145 },
+            { desc: 'Spring & fall cleanup', qty: 2, price: 280 },
+            { desc: 'Irrigation system winterization & startup', qty: 2, price: 175 }
+        ],
+        notes: 'Annual contract - billed monthly at $450/mo. Contract auto-renews unless cancelled 30 days prior to renewal date. Service begins March 1, 2026.',
+        status: 'Sent'
+    },
+    '1046': {
+        num: '#1046',
+        date: 'January 25, 2026',
+        client: 'Summit HOA',
+        clientAddr: 'Summit at Oxmoor HOA\n300 Summit Pkwy\nBirmingham, AL 35209',
+        clientEmail: 'board@summithoa.org',
+        items: [
+            { desc: 'Engineering & structural analysis', qty: 1, price: 3200 },
+            { desc: 'Excavation & grading (120 linear ft)', qty: 120, price: 45 },
+            { desc: 'Versa-Lok retaining wall block (120 ft x 6 ft avg)', qty: 720, price: 32 },
+            { desc: 'Geogrid reinforcement', qty: 1, price: 2800 },
+            { desc: 'Drainage system (French drain + outlets)', qty: 1, price: 3400 },
+            { desc: 'Backfill & compaction', qty: 1, price: 2100 },
+            { desc: 'Cap stones & finishing', qty: 120, price: 18 },
+            { desc: 'Permits & inspections', qty: 1, price: 860 }
+        ],
+        notes: 'Payment schedule: 30% deposit, progress payments at 25%, 50%, 75% milestones. Final 10% due upon passing final inspection. Structural warranty: 10 years. Estimated duration: 4-5 weeks.',
+        status: 'Accepted'
+    },
+    '1051': {
+        num: '#1051',
+        date: 'February 15, 2026',
+        client: 'Carol Thompson',
+        clientAddr: '1877 Rosewood Circle\nBirmingham, AL 35243',
+        clientEmail: 'carol.t@email.com',
+        items: [
+            { desc: 'Paver patio extension (180 sq ft) - Belgard Catalina', qty: 180, price: 22 },
+            { desc: 'Drainage channel installation', qty: 1, price: 1800 },
+            { desc: 'Decorative border wall (40 linear ft, 2 ft height)', qty: 40, price: 85 },
+            { desc: 'Base preparation & compaction', qty: 1, price: 1400 },
+            { desc: 'Polymeric sand & sealer', qty: 1, price: 560 },
+            { desc: 'Grading & cleanup', qty: 1, price: 880 }
+        ],
+        notes: 'Pending client approval. Payment terms: 50% deposit upon acceptance, 50% upon completion. Estimated timeline: 8-10 working days.',
+        status: 'Pending'
+    }
+};
+
+function previewEst(id) {
+    const e = estimateData[id];
+    if (!e) { showToast('Estimate preview not available'); return; }
+    const sub = e.items.reduce((s, i) => s + i.qty * i.price, 0);
+    const tax = sub * 0.09;
+    const tot = sub + tax;
+    document.getElementById('estPreviewContent').innerHTML = `
+        <div class="ep-header">
+            <div class="ep-company">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                    <svg viewBox="0 0 100 100" width="28" height="28">
+                        <defs><linearGradient id="pg2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#D4A849"/><stop offset="100%" stop-color="#9A7530"/></linearGradient></defs>
+                        <circle cx="50" cy="50" r="44" fill="none" stroke="url(#pg2)" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="38" fill="#111110" stroke="#9A7530" stroke-width="0.5" opacity="0.6"/>
+                        <g transform="translate(50, 38) scale(0.55)"><rect x="-4" y="32" width="8" height="40" fill="url(#pg2)" rx="1"/><rect x="-18" y="28" width="36" height="5" fill="#D4A849" rx="1.5"/><path d="M-5 30 L-5 8 L-8 10 L0 -15 L8 10 L5 8 L5 30 Z" fill="url(#pg2)"/><path d="M-14 30 L-14 15 L-17 17 L-10 -4 L-4 17 L-8 15 L-8 30 Z" fill="url(#pg2)" transform="rotate(-10, -10, 15)"/><path d="M8 30 L8 15 L4 17 L10 -4 L17 17 L14 15 L14 30 Z" fill="url(#pg2)" transform="rotate(10, 10, 15)"/></g>
+                    </svg>
+                    <h3 style="color:#1a1a18">TITAN LANDSCAPING & CONSTRUCTION</h3>
+                </div>
+                <p>Birmingham, AL &bull; (555) 888-TITAN</p>
+                <p>info@titanlandscaping.com</p>
+            </div>
+            <div class="ep-est-num">
+                <h4>Estimate ${e.num}</h4>
+                <p>${e.date}</p>
+                <p style="margin-top:4px"><span class="badge badge-${e.status === 'Accepted' ? 'accepted' : e.status === 'Sent' ? 'sent' : 'pending'}">${e.status}</span></p>
+            </div>
+        </div>
+        <div class="ep-parties">
+            <div>
+                <h5>From</h5>
+                <p><strong>Titan Landscaping & Construction</strong><br>Birmingham, AL 35242<br>License #LC-2024-4471</p>
+            </div>
+            <div>
+                <h5>To</h5>
+                <p><strong>${e.client}</strong><br>${e.clientAddr.replace(/\n/g, '<br>')}<br>${e.clientEmail}</p>
+            </div>
+        </div>
+        <table class="ep-table">
+            <thead><tr><th>Description</th><th>Qty</th><th class="right">Unit Price</th><th class="right">Total</th></tr></thead>
+            <tbody>${e.items.map(i => `<tr><td>${i.desc}</td><td>${i.qty}</td><td class="right">$${i.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="right">$${(i.qty * i.price).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>`).join('')}</tbody>
+        </table>
+        <div class="ep-totals">
+            <div class="line"><span>Subtotal</span><span>$${sub.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span></div>
+            <div class="line"><span>Tax (9%)</span><span>$${tax.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span></div>
+            <div class="line total"><span>Total</span><span>$${tot.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span></div>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--g200)">
+            <p style="font-size:.85rem;font-weight:600;color:var(--g700);margin-bottom:4px">Terms & Conditions</p>
+            <p style="font-size:.8rem;color:var(--g500);line-height:1.6">${e.notes}</p>
+        </div>
+        <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px">
+            <div>
+                <div style="border-top:1.5px solid var(--g300);margin-top:48px;padding-top:8px">
+                    <p style="font-size:.8rem;color:var(--g500)">Client Signature</p>
+                </div>
+            </div>
+            <div>
+                <div style="border-top:1.5px solid var(--g300);margin-top:48px;padding-top:8px">
+                    <p style="font-size:.8rem;color:var(--g500)">Date</p>
+                </div>
+            </div>
+        </div>
+    `;
+    document.getElementById('estPreviewArea').style.display = 'block';
+    document.getElementById('estPreviewArea').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Messages
+const conversations = [
+    {
+        name: 'James Morrison',
+        initials: 'JM',
+        sub: 'Morrison Estate Phase 2',
+        messages: [
+            { text: 'Hi James, wanted to update you on Phase 2. The retaining wall base is poured and we started the block work this morning. Looking great so far.', sent: true, time: '9:15 AM' },
+            { text: 'That\'s great to hear! My wife drove by earlier and said it\'s already looking so much better. How long until the paver section starts?', sent: false, time: '10:02 AM' },
+            { text: 'We should be wrapping the wall by Wednesday. Paver base prep starts Thursday, and we\'ll be laying stone by early next week. Weather permitting of course.', sent: true, time: '10:30 AM' },
+            { text: 'Sounds good, we\'ll plan for the stone delivery Thursday then. Also, we were thinking about adding some low-voltage lighting along the new walkway. Is that something you could quote?', sent: false, time: '11:45 AM' },
+            { text: 'Absolutely, I\'ll put together a lighting add-on estimate this afternoon. The walkway would look great with some path lights. I\'ll send it over by end of day.', sent: true, time: '12:10 PM' }
+        ]
+    },
+    {
+        name: 'Sarah Chen',
+        initials: 'SC',
+        sub: 'New Inquiry - Backyard Redesign',
+        messages: [
+            { text: 'Hi, I found you on Google and your work looks amazing! We just bought a home in Crestline and the backyard is basically a blank slate. Would love to talk about a full redesign.', sent: false, time: '8:30 AM' },
+            { text: 'Thank you Sarah! We\'d love to help. A blank slate is actually the best starting point - gives us full creative freedom. I\'d love to schedule a site visit to see the space and discuss your vision.', sent: true, time: '9:15 AM' },
+            { text: 'That would be great! We\'re thinking a patio area, some privacy screening, maybe a fire pit. We have two small kids so something family-friendly.', sent: false, time: '9:45 AM' },
+            { text: 'Perfect, that gives me a great starting point. How does Monday at 1 PM work for a walkthrough? I\'ll bring some portfolio examples of similar projects.', sent: true, time: '10:00 AM' }
+        ]
+    },
+    {
+        name: 'David Kim',
+        initials: 'DK',
+        sub: 'Maintenance Contract Renewal',
+        messages: [
+            { text: 'Hi David, your annual maintenance contract is coming up for renewal on March 1st. I\'ve sent over the renewal estimate - same terms as last year with a small adjustment for materials cost.', sent: true, time: 'Yesterday, 2:00 PM' },
+            { text: 'Thanks for the maintenance renewal estimate. Everything at Willowbrook looks fantastic by the way. You guys did an incredible job on the landscape installation.', sent: false, time: 'Yesterday, 3:30 PM' },
+            { text: 'Really appreciate that David! The plantings have established beautifully. I\'ll keep the same crew on your property - they know every inch of it at this point.', sent: true, time: 'Yesterday, 4:00 PM' }
+        ]
+    },
+    {
+        name: 'Summit HOA Board',
+        initials: 'SH',
+        sub: 'Lakefront Retaining Wall',
+        messages: [
+            { text: 'Good morning, the wall is looking great. Quick question from the board - will the drainage outlets be visible from the walking path?', sent: false, time: '2 days ago, 9:00 AM' },
+            { text: 'Good question. The outlets will be at grade level and we\'re using decorative grates that blend with the stone. I can send photos of the exact grates we\'re using if that helps.', sent: true, time: '2 days ago, 9:30 AM' },
+            { text: 'That would be great, please share. The board meeting is Thursday and they\'ll want to see that detail.', sent: false, time: '2 days ago, 10:00 AM' },
+            { text: 'I\'ll photograph the samples today and send them over. Also, we passed the mid-point inspection yesterday - everything is on track for completion by end of February.', sent: true, time: '2 days ago, 10:15 AM' }
+        ]
+    }
+];
+
+let activeConvo = 0;
+
+function renderConvo(idx) {
+    const c = conversations[idx];
+    document.getElementById('convoName').textContent = c.name;
+    document.getElementById('convoSub').textContent = c.sub;
+    const body = document.getElementById('convoBody');
+    body.innerHTML = c.messages.map(m => `
+        <div class="msg-bubble ${m.sent ? 'sent' : 'received'}">
+            ${m.text}
+            <div class="msg-bubble-time">${m.time}</div>
+        </div>
+    `).join('');
+    body.scrollTop = body.scrollHeight;
+}
+
+function switchConvo(idx, el) {
+    activeConvo = idx;
+    document.querySelectorAll('.msg-contact').forEach(c => c.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderConvo(idx);
+}
+
+function sendMsg() {
+    const input = document.getElementById('msgInput');
+    const text = input.value.trim();
+    if (!text) return;
+    const now = new Date();
+    let h = now.getHours(), m = now.getMinutes(), ap = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    const timeStr = h + ':' + String(m).padStart(2, '0') + ' ' + ap;
+    conversations[activeConvo].messages.push({ text, sent: true, time: timeStr });
+    renderConvo(activeConvo);
+    input.value = '';
+    showToast('Message sent', 'success');
+}
+
+// Init
+renderConvo(0);
+</script>
+</body>
+</html>
