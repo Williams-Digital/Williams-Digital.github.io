@@ -1384,10 +1384,13 @@
         // ——— CONFIG ———
         const FORMSPREE_URL = 'https://formspree.io/f/meelzqop';
         const STRIPE_LINKS = {
-            1: 'https://buy.stripe.com/placeholder_jeh_refresh',
-            2: 'https://buy.stripe.com/placeholder_jeh_rebrand'
+            1: 'https://buy.stripe.com/dRm5kDbPY3vkdCFbPWcfK04',
+            2: 'https://buy.stripe.com/aFafZh7zIaXM1TX8DKcfK05'
         };
-        const STRIPE_MAINTENANCE = 'https://buy.stripe.com/placeholder_jeh_maintenance';
+        const STRIPE_MAINTENANCE = {
+            1: 'https://buy.stripe.com/eVqeVd4nwe9Y0PT07ecfK06',
+            2: 'https://buy.stripe.com/00waEX8DM9TI2Y19HOcfK07'
+        };
 
         // ——— STATE ———
         let selectedTier = null;
@@ -1605,7 +1608,7 @@
                 'Selected Package': tierNames[selectedTier],
                 'Deposit Amount': depositAmounts[selectedTier],
                 'Monthly Maintenance': maintenanceSelected ? 'Yes — ' + maintenancePrices[selectedTier] : 'No',
-                'Maintenance Payment Link': maintenanceSelected ? STRIPE_MAINTENANCE + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
+                'Maintenance Payment Link': maintenanceSelected ? STRIPE_MAINTENANCE[selectedTier] + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
                 'Date Signed': dateStr,
                 'Terms of Service': 'Accepted — ' + dateStr,
                 'Agreement': 'Client agreed to all terms and the Williams Digital Terms of Service'
