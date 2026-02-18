@@ -1160,10 +1160,10 @@
                 </div>
 
                 <!-- TIER 2 -->
-                <div class="tier-option" data-tier="2" data-price="1500" onclick="selectTier(this)">
+                <div class="tier-option" data-tier="2" data-price="1000" onclick="selectTier(this)">
                     <div class="tier-option-name">Tier 2 &mdash; Professional</div>
                     <div class="tier-option-subtitle">Enhanced &amp; interactive</div>
-                    <div class="tier-option-price"><sup>$</sup>1,500</div>
+                    <div class="tier-option-price"><sup>$</sup>1,000</div>
                     <div class="tier-option-period">one-time payment</div>
                     <ul class="tier-option-features">
                         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Everything in Tier 1</li>
@@ -1179,10 +1179,10 @@
                 </div>
 
                 <!-- TIER 3 -->
-                <div class="tier-option" data-tier="3" data-price="2500" onclick="selectTier(this)">
+                <div class="tier-option" data-tier="3" data-price="1750" onclick="selectTier(this)">
                     <div class="tier-option-name">Tier 3 &mdash; Premium</div>
                     <div class="tier-option-subtitle">Full cinematic experience</div>
-                    <div class="tier-option-price"><sup>$</sup>2,500</div>
+                    <div class="tier-option-price"><sup>$</sup>1,750</div>
                     <div class="tier-option-period">one-time payment</div>
                     <ul class="tier-option-features">
                         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Everything in Tier 2</li>
@@ -1518,6 +1518,17 @@
 
     <!-- ============================== JS ============================== -->
     <script>
+        // ——— CONFIG ———
+        const FORMSPREE_URL = 'https://formspree.io/f/mpqjlara';
+        const STRIPE_DEPOSITS = {
+            1: 'https://buy.stripe.com/aFa14n6vEc1QfKNaLScfK08',
+            2: 'https://buy.stripe.com/00w00jcU2fe29mp2fmcfK09',
+            3: 'https://buy.stripe.com/dRmeVd2fo8PE7eh9HOcfK0a'
+        };
+        const STRIPE_PORTAL_DEPOSIT = 'https://buy.stripe.com/cNi3cv3jse9Y425cU0cfK0b';
+        const STRIPE_PORTAL_HOSTING = 'https://buy.stripe.com/bJebJ19HQ2rgbux1bicfK0c';
+        const STRIPE_MAINTENANCE = 'https://buy.stripe.com/dRm00jf2ae9Yaqt9HOcfK0d';
+
         // ——— STATE ———
         let agreed = false;
         let tosAgreed = false;
@@ -1667,10 +1678,58 @@
             document.getElementById('submitBtn').disabled = true;
             document.getElementById('submitBtn').innerHTML = 'Submitting...';
 
-            // Show success after brief delay
+            // Prepare contract data
+            const tierNames = { 1: 'Tier 1 — Starter ($500)', 2: 'Tier 2 — Professional ($1,000)', 3: 'Tier 3 — Premium ($1,750)' };
+            const depositAmounts = { 1: '$250', 2: '$500', 3: '$875' };
+
+            const formData = {
+                _subject: 'Contract Signed — Titan Landscaping — ' + tierNames[selectedTier],
+                'Full Name': name,
+                'Title': title,
+                'Email': email,
+                'Selected Tier': tierNames[selectedTier],
+                'Deposit Amount': depositAmounts[selectedTier],
+                'Client Portal': portalSelected ? 'Yes — $1,500 setup + $150/mo' : 'No',
+                'Portal Deposit Link': portalSelected ? STRIPE_PORTAL_DEPOSIT + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
+                'Portal Hosting Link': portalSelected ? STRIPE_PORTAL_HOSTING + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
+                'Monthly Maintenance': maintenanceSelected ? 'Yes — $125/month' : 'No',
+                'Maintenance Link': maintenanceSelected ? STRIPE_MAINTENANCE + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
+                'Date Signed': dateStr,
+                'Terms of Service': 'Accepted — ' + dateStr,
+                'Agreement': 'Client agreed to all terms and the Williams Digital Terms of Service'
+            };
+
+            // Send to Formspree
+            fetch(FORMSPREE_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                showSuccessAndRedirect(email);
+            })
+            .catch(error => {
+                showSuccessAndRedirect(email);
+            });
+        }
+
+        function showSuccessAndRedirect(email) {
+            const overlay = document.getElementById('successOverlay');
+            overlay.classList.add('show');
+
+            // Update success text based on add-ons
+            const addons = [];
+            if (portalSelected) addons.push('portal setup deposit');
+            if (maintenanceSelected) addons.push('monthly maintenance');
+            if (addons.length > 0) {
+                document.querySelector('.success-text').textContent =
+                    'Your agreement has been submitted. You\'ll now be redirected to complete your 50% website deposit. Links for your ' + addons.join(' and ') + ' will be included in your confirmation email.';
+            }
+
+            // Redirect to tier deposit payment
             setTimeout(() => {
-                document.getElementById('successOverlay').classList.add('show');
-            }, 800);
+                window.location.href = STRIPE_DEPOSITS[selectedTier] + '?prefilled_email=' + encodeURIComponent(email);
+            }, 2500);
         }
 
         // Input listeners for clearing errors
