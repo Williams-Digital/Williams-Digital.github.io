@@ -708,6 +708,92 @@
             color: var(--text);
         }
 
+        /* ========== TOS ACCEPTANCE ========== */
+        .tos-acceptance {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(201,166,86,0.04);
+            border: 1px solid rgba(201,166,86,0.12);
+            border-radius: 12px;
+        }
+
+        .tos-header {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .tos-header svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .tos-header-text {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .tos-description {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .tos-read-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            background: rgba(201,166,86,0.08);
+            border: 1px solid rgba(201,166,86,0.25);
+            border-radius: 8px;
+            color: var(--accent);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .tos-read-btn:hover {
+            background: rgba(201,166,86,0.15);
+            border-color: var(--accent);
+        }
+
+        .tos-read-btn svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--accent);
+        }
+
+        .tos-agree-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.85rem;
+            background: rgba(201,166,86,0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(201,166,86,0.06);
+        }
+
+        .tos-agree-text {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
         /* ========== SUBMIT BUTTON ========== */
         .submit-wrap {
             text-align: center;
@@ -1222,6 +1308,32 @@
 
         <div class="section-divider"></div>
 
+        <!-- ============ TOS ACCEPTANCE ============ -->
+        <div class="contract-section">
+            <div class="tos-acceptance">
+                <div class="tos-header">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    <span class="tos-header-text">Terms of Service</span>
+                </div>
+                <div class="tos-description">
+                    This agreement is governed by the full Williams Digital Terms of Service. Please review the complete terms before proceeding — they cover payment terms, revisions, timelines, intellectual property, liability, and more.
+                </div>
+                <a href="https://williamsdigital.io/terms-of-service.html" target="_blank" rel="noopener" class="tos-read-btn">
+                    Read Full Terms of Service
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+                <div class="tos-agree-row">
+                    <div class="agree-checkbox" id="tosBox" onclick="toggleTos()"></div>
+                    <div class="tos-agree-text">
+                        I have read and accept the <a href="https://williamsdigital.io/terms-of-service.html" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;">Williams Digital Terms of Service</a> in full.
+                    </div>
+                </div>
+                <div class="field-error" id="tosError" style="margin-left: 2.5rem;">You must accept the Terms of Service to continue.</div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
         <!-- ============ SECTION 5: SIGNATURE ============ -->
         <div class="contract-section">
             <div class="section-label">05 &mdash; Signature</div>
@@ -1310,6 +1422,7 @@
         // ——— STATE ———
         let selectedTier = null;
         let agreed = false;
+        let tosAccepted = false;
         let maintenanceSelected = false;
 
         // ——— DATE ———
@@ -1381,6 +1494,14 @@
             document.getElementById('maintenanceAddon').classList.toggle('selected', maintenanceSelected);
         }
 
+        // ——— TOS ACCEPTANCE ———
+        function toggleTos() {
+            tosAccepted = !tosAccepted;
+            document.getElementById('tosBox').classList.toggle('checked', tosAccepted);
+            document.getElementById('tosError').style.display = 'none';
+            validateForm();
+        }
+
         // ——— AGREE ———
         function toggleAgree() {
             agreed = !agreed;
@@ -1394,7 +1515,7 @@
             const name = document.getElementById('sigName').value.trim();
             const title = document.getElementById('sigTitle').value.trim();
             const email = document.getElementById('sigEmail').value.trim();
-            const valid = selectedTier && name && title && email && agreed;
+            const valid = selectedTier && name && title && email && tosAccepted && agreed;
             document.getElementById('submitBtn').disabled = !valid;
             document.getElementById('signatureSection').classList.toggle('valid', name && title && email);
             return valid;
@@ -1433,6 +1554,11 @@
                 valid = false;
             }
 
+            if (!tosAccepted) {
+                document.getElementById('tosError').style.display = 'block';
+                valid = false;
+            }
+
             if (!agreed) {
                 document.getElementById('agreeError').style.display = 'block';
                 valid = false;
@@ -1458,7 +1584,8 @@
                 'Monthly Maintenance': maintenanceSelected ? 'Yes — $125/month' : 'No',
                 'Maintenance Payment Link': maintenanceSelected ? STRIPE_MAINTENANCE + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
                 'Date Signed': dateStr,
-                'Agreement': 'Client agreed to all terms and conditions'
+                'Terms of Service': 'Accepted — ' + dateStr,
+                'Agreement': 'Client agreed to all terms and the Williams Digital Terms of Service'
             };
 
             // Send to Formspree
