@@ -579,6 +579,92 @@
             color: var(--gold);
         }
 
+        .cta-form {
+            max-width: 420px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            position: relative;
+            text-align: left;
+        }
+
+        .cta-input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+
+        .cta-input:focus {
+            border-color: rgba(201,166,86,0.4);
+        }
+
+        .cta-input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .cta-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .cta-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .cta-success {
+            display: none;
+            text-align: center;
+        }
+
+        .cta-success.show {
+            display: block;
+        }
+
+        .cta-success-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: rgba(201,166,86,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-success-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--accent);
+        }
+
+        .cta-success-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-success-text {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+        }
+
         /* ========== FOOTER ========== */
         .proposal-footer {
             text-align: center;
@@ -1084,8 +1170,8 @@
             <div class="timeline">
                 <div class="timeline-step">
                     <div class="step-number">01</div>
-                    <div class="step-title">Submit Materials</div>
-                    <div class="step-desc">Send everything on this list to Dylan@williamsdigital.io</div>
+                    <div class="step-title">Upload Materials</div>
+                    <div class="step-desc">Upload your files using the buttons above, then confirm at the bottom of this page</div>
                 </div>
                 <div class="timeline-step">
                     <div class="step-number">02</div>
@@ -1112,14 +1198,28 @@
         <div class="section-divider"></div>
 
         <!-- ============ CTA ============ -->
-        <div class="cta-section">
-            <h3>Ready to Get Started?</h3>
-            <p>Send your materials and we'll take it from there.</p>
-            <a href="mailto:Dylan@williamsdigital.io?subject=Timely%20Entertainment%20%E2%80%94%20Onboarding%20Materials&body=Hi%20Dylan%2C%0A%0AHere%20are%20the%20materials%20for%20the%20website%20project%3A%0A%0ABranding%3A%20%0AContent%3A%20%0APhotos%2FMedia%3A%20%0ADomain%20Info%3A%20%0ASocial%20Links%3A%20%0ATier%20Preference%3A%20%0A%0AThanks!" class="cta-btn">
-                Send Materials
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </a>
-            <div class="cta-email-note">Clicking Send Materials will open an email to <a href="mailto:Dylan@williamsdigital.io">Dylan@williamsdigital.io</a></div>
+        <div class="cta-section" id="ctaSection">
+            <div id="ctaForm">
+                <h3>Ready to Get Started?</h3>
+                <p>Once you've uploaded your materials using the buttons above, let us know you're all set.</p>
+                <div class="cta-form">
+                    <input type="text" class="cta-input" id="ctaName" placeholder="Your full name" required>
+                    <input type="email" class="cta-input" id="ctaEmail" placeholder="Your email address" required>
+                    <textarea class="cta-input cta-textarea" id="ctaNotes" placeholder="Any additional notes (optional)"></textarea>
+                </div>
+                <button class="cta-btn" id="ctaSubmitBtn" onclick="submitMaterials()">
+                    I Have Uploaded My Materials
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+                <div class="cta-email-note">We'll review your uploads and follow up within 24–48 hours.</div>
+            </div>
+            <div class="cta-success" id="ctaSuccess">
+                <div class="cta-success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="cta-success-title">Materials Received</div>
+                <div class="cta-success-text">Thank you! Dylan has been notified and will review your uploads. Expect a follow-up within 24–48 hours to schedule a kickoff call.</div>
+            </div>
         </div>
 
     </div>
@@ -1148,6 +1248,54 @@
 
         // Init
         updateProgress();
+
+        // ——— MATERIALS SUBMISSION ———
+        function submitMaterials() {
+            const name = document.getElementById('ctaName').value.trim();
+            const email = document.getElementById('ctaEmail').value.trim();
+            const notes = document.getElementById('ctaNotes').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!name || !email || !emailRegex.test(email)) {
+                if (!name) document.getElementById('ctaName').style.borderColor = 'rgba(255,80,80,0.5)';
+                if (!email || !emailRegex.test(email)) document.getElementById('ctaEmail').style.borderColor = 'rgba(255,80,80,0.5)';
+                return;
+            }
+
+            const btn = document.getElementById('ctaSubmitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            const checked = document.querySelectorAll('.check-box.checked').length;
+            const total = document.querySelectorAll('.check-box').length;
+            const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            const formData = {
+                _subject: 'Materials Uploaded — Timely Entertainment',
+                'Client Name': name,
+                'Client Email': email,
+                'Checklist Progress': checked + ' of ' + total + ' items checked',
+                'Additional Notes': notes || 'None',
+                'Date Submitted': dateStr
+            };
+
+            fetch('https://formspree.io/f/mpqjlara', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(() => showCtaSuccess())
+            .catch(() => showCtaSuccess());
+        }
+
+        function showCtaSuccess() {
+            document.getElementById('ctaForm').style.display = 'none';
+            document.getElementById('ctaSuccess').classList.add('show');
+        }
+
+        // Reset input border on focus
+        document.getElementById('ctaName').addEventListener('focus', function() { this.style.borderColor = ''; });
+        document.getElementById('ctaEmail').addEventListener('focus', function() { this.style.borderColor = ''; });
     </script>
 
 </body>
