@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Cala Coffee Co.</title>
+  <meta name="description" content="Learn about Cala Coffee Co.'s story — from a humble coffee cart to two Birmingham locations. Meet the team and our mission.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .about-hero {
+      background: linear-gradient(135deg, #2c1810, #47763b);
+      padding: 120px 0 80px;
+      text-align: center;
+    }
+    .about-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .about-hero p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .story-section {
+      background: var(--white);
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .story-image {
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .story-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.3);
+      font-weight: 700;
+    }
+    .story-content h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .story-content p {
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .values-section {
+      background: var(--cream);
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .value-card {
+      text-align: center;
+      padding: 40px 24px;
+    }
+    .value-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(71,118,59,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--green);
+    }
+    .value-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+    }
+    .value-card p {
+      color: var(--gray-500);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .team-section {
+      background: var(--white);
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+    .team-card {
+      text-align: center;
+    }
+    .team-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      overflow: hidden;
+    }
+    .team-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      font-family: var(--font-display);
+    }
+    .team-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .team-card .role {
+      font-size: 0.85rem;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    .cta-banner {
+      background: var(--green);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .cta-banner h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .cta-banner p {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 28px;
+      font-size: 1.05rem;
+    }
+    .cta-banner .btn-primary {
+      background: var(--cream);
+      color: var(--green);
+      border-color: var(--cream);
+    }
+    .cta-banner .btn-primary:hover {
+      background: var(--white);
+      border-color: var(--white);
+    }
+
+    @media (max-width: 1024px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <p>FREE Shipping on Orders Over $45 &mdash; Roasted Fresh &amp; Shipped Weekly</p>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-text">CALA</span>
+        <span class="logo-sub">COFFEE CO.</span>
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="index.html#locations" class="nav-link">Locations</a></li>
+          <li><a href="shop.html" class="nav-link">Shop</a></li>
+          <li><a href="index.html#catering" class="nav-link">Catering</a></li>
+          <li><a href="about.html" class="nav-link active">About Us</a></li>
+          <li><a href="shop.html#gift-cards" class="nav-link">Gift Cards</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="cart-btn" id="cartBtn" aria-label="Shopping cart">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#locations">Locations</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="index.html#catering">Catering</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="shop.html#gift-cards">Gift Cards</a></li>
+    </ul>
+  </div>
+
+  <!-- About Hero -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>Our Story</h1>
+      <p>From a humble coffee cart to Birmingham's beloved community roaster. Every cup we pour carries a story of passion, community, and the relentless pursuit of great coffee.</p>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="section story-section">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-image">
+          <div class="story-image-placeholder" style="background: linear-gradient(135deg, #47763b, #2c1810);">
+            <span>The Beginning</span>
+          </div>
+        </div>
+        <div class="story-content">
+          <h2>How It All Started</h2>
+          <p>Cala Coffee Co. began the way all good things do &mdash; with a dream, a used espresso machine, and a stubborn belief that Birmingham deserved better coffee.</p>
+          <p>What started as a weekend coffee cart at the local farmers market quickly grew into something bigger. The lines got longer, the conversations deeper, and the coffee better with every batch we roasted.</p>
+          <p>Today, with two thriving locations and a growing community of coffee lovers, we're still guided by the same simple mission: roast great coffee, serve it with heart, and build a space where everyone belongs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Second Story Block -->
+  <section class="section story-section" style="background: var(--gray-50);">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-content">
+          <h2>Roasted With Intention</h2>
+          <p>We source our beans directly from farmers and cooperatives who share our values. Every relationship is built on transparency, fair pricing, and mutual respect.</p>
+          <p>Our roasting approach is simple: honor the origin. We roast in small batches to bring out the unique character of each coffee &mdash; the blueberry sweetness of an Ethiopian natural, the chocolate richness of a Guatemalan washed lot.</p>
+          <p>We believe specialty coffee should be approachable, never pretentious. Whether you're a seasoned pour-over enthusiast or just discovering that coffee can taste like something beyond "coffee," we're here for you.</p>
+        </div>
+        <div class="story-image">
+          <div class="story-image-placeholder" style="background: linear-gradient(135deg, #5a3e2b, #8B6914);">
+            <span>The Roastery</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section values-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What We Stand For</h2>
+        <p class="section-subtitle">Three principles guide everything we do.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Community First</h3>
+          <p>We exist because of the people who walk through our doors. Every decision we make starts with our community. From hiring locally to supporting neighborhood causes, Birmingham is our home and we show up for it.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Quality Without Compromise</h3>
+          <p>From sourcing to roasting to serving, we never cut corners. We pay above market price for exceptional beans, roast in small batches for freshness, and train our baristas to craft every cup with care.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <h3>Ethical Sourcing</h3>
+          <p>Great coffee starts at the farm. We build direct relationships with producers, pay fair prices, and invest in sustainable practices. When the farmers thrive, the coffee gets better for everyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section team-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Meet the Team</h2>
+        <p class="section-subtitle">The faces behind your favorite cups.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-photo">
+            <div class="team-photo-placeholder" style="background: linear-gradient(135deg, #47763b, #6fa85f);">M</div>
+          </div>
+          <h3>Founder</h3>
+          <p class="role">Owner &amp; Head Roaster</p>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">
+            <div class="team-photo-placeholder" style="background: linear-gradient(135deg, #5a3e2b, #8B6914);">A</div>
+          </div>
+          <h3>Lead Barista</h3>
+          <p class="role">Cahaba Heights</p>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">
+            <div class="team-photo-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">J</div>
+          </div>
+          <h3>Lead Barista</h3>
+          <p class="role">Downtown BHM</p>
+        </div>
+        <div class="team-card">
+          <div class="team-photo">
+            <div class="team-photo-placeholder" style="background: linear-gradient(135deg, #c97b3d, #e8a95c);">S</div>
+          </div>
+          <h3>Operations</h3>
+          <p class="role">Manager</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Want to Join Our Team?</h2>
+      <p>We're always looking for passionate people who love coffee and community.</p>
+      <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <span class="logo-text">CALA</span>
+            <span class="logo-sub">COFFEE CO.</span>
+          </div>
+          <p class="footer-tagline">Roasted in Birmingham.<br>Served with love.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="shop.html">Shop Coffee</a></li>
+            <li><a href="shop.html#subscriptions">Subscriptions</a></li>
+            <li><a href="shop.html#gift-cards">Gift Cards</a></li>
+            <li><a href="index.html#locations">Locations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="#">Wholesale</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping &amp; Returns</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Cala Coffee Co. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <p>Your cart is empty</p>
+        <a href="shop.html" class="btn btn-primary btn-sm">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total">
+        <span>Subtotal</span>
+        <span id="cartTotal">$0</span>
+      </div>
+      <p class="cart-shipping-note">Free shipping on orders over $45</p>
+      <button class="btn btn-primary btn-full">Checkout</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

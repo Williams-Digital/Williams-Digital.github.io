@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Coffee | Cala Coffee Co.</title>
+  <meta name="description" content="Shop fresh-roasted specialty coffee from Cala Coffee Co. Bags, subscriptions, gift cards, and more.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    .shop-hero {
+      background: linear-gradient(135deg, #2c1810, #47763b);
+      padding: 120px 0 60px;
+      text-align: center;
+    }
+    .shop-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .shop-hero p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.05rem;
+    }
+
+    .shop-filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .filter-btn {
+      padding: 8px 24px;
+      border: 2px solid var(--gray-200);
+      border-radius: 30px;
+      background: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(71,118,59,0.06);
+    }
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .product-detail {
+      padding: 24px;
+    }
+    .product-detail .product-origin {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-500);
+      margin-bottom: 4px;
+    }
+    .size-options {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0 16px;
+    }
+    .size-btn {
+      padding: 6px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: 4px;
+      background: var(--white);
+      font-size: 0.82rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .size-btn:hover,
+    .size-btn.active {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    /* Subscriptions */
+    .subscription-section {
+      background: var(--cream);
+    }
+    .subscription-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .subscription-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative;
+    }
+    .subscription-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .subscription-card.featured {
+      border: 2px solid var(--green);
+    }
+    .subscription-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: var(--white);
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .subscription-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+    .subscription-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 4px;
+    }
+    .subscription-price span {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--gray-500);
+    }
+    .subscription-features {
+      text-align: left;
+      margin: 20px 0 28px;
+    }
+    .subscription-features li {
+      padding: 8px 0;
+      padding-left: 24px;
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .subscription-features li:last-child {
+      border-bottom: none;
+    }
+    .subscription-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* Gift Cards */
+    .gift-section {
+      background: linear-gradient(135deg, #47763b, #365a2d);
+      color: var(--white);
+    }
+    .gift-section .section-title {
+      color: var(--white);
+    }
+    .gift-section .section-subtitle {
+      color: rgba(255,255,255,0.7);
+    }
+    .gift-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .gift-card-option {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .gift-card-option:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.5);
+      transform: translateY(-2px);
+    }
+    .gift-amount {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .gift-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    @media (max-width: 1024px) {
+      .shop-grid,
+      .subscription-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gift-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .shop-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .subscription-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .gift-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <p>FREE Shipping on Orders Over $45 &mdash; Roasted Fresh &amp; Shipped Weekly</p>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-text">CALA</span>
+        <span class="logo-sub">COFFEE CO.</span>
+      </a>
+      <nav class="nav" id="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="index.html#locations" class="nav-link">Locations</a></li>
+          <li><a href="shop.html" class="nav-link active">Shop</a></li>
+          <li><a href="index.html#catering" class="nav-link">Catering</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="#gift-cards" class="nav-link">Gift Cards</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="cart-btn" id="cartBtn" aria-label="Shopping cart">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-nav-list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#locations">Locations</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="index.html#catering">Catering</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="#gift-cards">Gift Cards</a></li>
+    </ul>
+  </div>
+
+  <!-- Shop Hero -->
+  <section class="shop-hero">
+    <div class="container">
+      <h1>Shop Coffee</h1>
+      <p>Fresh-roasted specialty coffee, delivered to your door.</p>
+    </div>
+  </section>
+
+  <!-- Product Catalog -->
+  <section class="section" id="coffee-bags">
+    <div class="container">
+      <div class="shop-filters">
+        <button class="filter-btn active" data-filter="all">All Coffee</button>
+        <button class="filter-btn" data-filter="single">Single Origin</button>
+        <button class="filter-btn" data-filter="blend">Blends</button>
+        <button class="filter-btn" data-filter="decaf">Decaf</button>
+      </div>
+      <div class="shop-grid">
+        <!-- Ethiopia -->
+        <div class="product-card" data-category="single">
+          <div class="product-badge">Popular</div>
+          <div class="product-image">
+            <div class="product-image-placeholder" style="background: linear-gradient(135deg, #5a3e2b, #8B6914);">
+              <span>Ethiopia</span>
+            </div>
+          </div>
+          <div class="product-detail">
+            <p class="product-origin">Single Origin &middot; Africa</p>
+            <h3 class="product-name">Ethiopia</h3>
+            <p class="product-notes">Blueberry, jasmine, honey sweetness. A vibrant, fruit-forward cup with floral aromatics and a silky finish.</p>
+            <div class="size-options">
+              <button class="size-btn active" data-price="23">12oz</button>
+              <button class="size-btn" data-price="42">2lb</button>
+              <button class="size-btn" data-price="117">5lb</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">$23.00</span>
+              <button class="btn btn-sm add-to-cart" data-name="Ethiopia 12oz" data-price="23">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Guatemala -->
+        <div class="product-card" data-category="single">
+          <div class="product-image">
+            <div class="product-image-placeholder" style="background: linear-gradient(135deg, #2d4a22, #5a8a3c);">
+              <span>Guatemala</span>
+            </div>
+          </div>
+          <div class="product-detail">
+            <p class="product-origin">Single Origin &middot; Central America</p>
+            <h3 class="product-name">Guatemala Santa Rosa</h3>
+            <p class="product-notes">Chocolate, brown sugar, citrus zest. Rich and sweet with a clean, balanced body perfect for any brew method.</p>
+            <div class="size-options">
+              <button class="size-btn active" data-price="21">12oz</button>
+              <button class="size-btn" data-price="39">2lb</button>
+              <button class="size-btn" data-price="103">5lb</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">$21.00</span>
+              <button class="btn btn-sm add-to-cart" data-name="Guatemala Santa Rosa 12oz" data-price="21">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Work In Progress -->
+        <div class="product-card" data-category="blend">
+          <div class="product-badge new">New</div>
+          <div class="product-image">
+            <div class="product-image-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+              <span>WIP</span>
+            </div>
+          </div>
+          <div class="product-detail">
+            <p class="product-origin">Blend &middot; House Favorite</p>
+            <h3 class="product-name">Work In Progress</h3>
+            <p class="product-notes">Smooth, balanced, everyday essential. Our signature blend — approachable enough for daily drinking, interesting enough to keep you coming back.</p>
+            <div class="size-options">
+              <button class="size-btn active" data-price="19">12oz</button>
+              <button class="size-btn" data-price="36">2lb</button>
+              <button class="size-btn" data-price="104">5lb</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">$19.00</span>
+              <button class="btn btn-sm add-to-cart" data-name="Work In Progress 12oz" data-price="19">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colombia -->
+        <div class="product-card" data-category="single">
+          <div class="product-image">
+            <div class="product-image-placeholder" style="background: linear-gradient(135deg, #8B4513, #D2691E);">
+              <span>Colombia</span>
+            </div>
+          </div>
+          <div class="product-detail">
+            <p class="product-origin">Single Origin &middot; South America</p>
+            <h3 class="product-name">Colombia Huila</h3>
+            <p class="product-notes">Caramel, red apple, toasted almond. A crowd-pleaser with rich sweetness and a velvety mouthfeel.</p>
+            <div class="size-options">
+              <button class="size-btn active" data-price="22">12oz</button>
+              <button class="size-btn" data-price="40">2lb</button>
+              <button class="size-btn" data-price="110">5lb</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">$22.00</span>
+              <button class="btn btn-sm add-to-cart" data-name="Colombia Huila 12oz" data-price="22">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decaf -->
+        <div class="product-card" data-category="decaf">
+          <div class="product-image">
+            <div class="product-image-placeholder" style="background: linear-gradient(135deg, #4a3728, #7a6552);">
+              <span>Decaf</span>
+            </div>
+          </div>
+          <div class="product-detail">
+            <p class="product-origin">Decaf &middot; Swiss Water Process</p>
+            <h3 class="product-name">Nightly Ritual Decaf</h3>
+            <p class="product-notes">Milk chocolate, walnut, brown sugar. All the comfort, none of the caffeine. Swiss Water Process for a clean, chemical-free decaf.</p>
+            <div class="size-options">
+              <button class="size-btn active" data-price="24">12oz</button>
+              <button class="size-btn" data-price="44">2lb</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">$24.00</span>
+              <button class="btn btn-sm add-to-cart" data-name="Nightly Ritual Decaf 12oz" data-price="24">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Morning Blend -->
+        <div class="product-card" data-category="blend">
+          <div class="product-image">
+            <div class="product-image-placeholder" style="background: linear-gradient(135deg, #c97b3d, #e8a95c);">
+              <span>Rise</span>
+            </div>
+          </div>
+          <div class="product-detail">
+            <p class="product-origin">Blend &middot; Light Roast</p>
+            <h3 class="product-name">Rise &amp; Grind</h3>
+            <p class="product-notes">Bright citrus, honey, stone fruit. A lively morning cup that wakes you up with flavor, not just caffeine.</p>
+            <div class="size-options">
+              <button class="size-btn active" data-price="20">12oz</button>
+              <button class="size-btn" data-price="38">2lb</button>
+              <button class="size-btn" data-price="100">5lb</button>
+            </div>
+            <div class="product-footer">
+              <span class="product-price">$20.00</span>
+              <button class="btn btn-sm add-to-cart" data-name="Rise & Grind 12oz" data-price="20">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscriptions -->
+  <section class="section subscription-section" id="subscriptions">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Coffee Subscriptions</h2>
+        <p class="section-subtitle">Never run out of great coffee. Choose your plan and we handle the rest.</p>
+      </div>
+      <div class="subscription-grid">
+        <div class="subscription-card">
+          <h3>The Starter</h3>
+          <div class="subscription-price">$19 <span>/month</span></div>
+          <ul class="subscription-features">
+            <li>1 bag per month (12oz)</li>
+            <li>Choose your roast</li>
+            <li>Free shipping</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <button class="btn btn-primary add-to-cart" data-name="Starter Subscription" data-price="19">Subscribe</button>
+        </div>
+        <div class="subscription-card featured">
+          <h3>The Regular</h3>
+          <div class="subscription-price">$34 <span>/month</span></div>
+          <ul class="subscription-features">
+            <li>2 bags per month (12oz each)</li>
+            <li>Mix &amp; match roasts</li>
+            <li>Free shipping</li>
+            <li>10% off all shop items</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <button class="btn btn-primary add-to-cart" data-name="Regular Subscription" data-price="34">Subscribe</button>
+        </div>
+        <div class="subscription-card">
+          <h3>The Connoisseur</h3>
+          <div class="subscription-price">$54 <span>/month</span></div>
+          <ul class="subscription-features">
+            <li>3 bags per month (12oz each)</li>
+            <li>Roaster's choice + your picks</li>
+            <li>Free shipping</li>
+            <li>15% off all shop items</li>
+            <li>Early access to new roasts</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <button class="btn btn-primary add-to-cart" data-name="Connoisseur Subscription" data-price="54">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gift Cards -->
+  <section class="section gift-section" id="gift-cards">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Gift Cards</h2>
+        <p class="section-subtitle">Give the gift of great coffee. Digital gift cards delivered instantly via email.</p>
+      </div>
+      <div class="gift-grid">
+        <div class="gift-card-option" data-name="Gift Card $15" data-price="15">
+          <div class="gift-amount">$15</div>
+          <div class="gift-label">Gift Card</div>
+        </div>
+        <div class="gift-card-option" data-name="Gift Card $25" data-price="25">
+          <div class="gift-amount">$25</div>
+          <div class="gift-label">Gift Card</div>
+        </div>
+        <div class="gift-card-option" data-name="Gift Card $50" data-price="50">
+          <div class="gift-amount">$50</div>
+          <div class="gift-label">Gift Card</div>
+        </div>
+        <div class="gift-card-option" data-name="Gift Card $100" data-price="100">
+          <div class="gift-amount">$100</div>
+          <div class="gift-label">Gift Card</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <span class="logo-text">CALA</span>
+            <span class="logo-sub">COFFEE CO.</span>
+          </div>
+          <p class="footer-tagline">Roasted in Birmingham.<br>Served with love.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="shop.html">Shop Coffee</a></li>
+            <li><a href="#subscriptions">Subscriptions</a></li>
+            <li><a href="#gift-cards">Gift Cards</a></li>
+            <li><a href="index.html#locations">Locations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="#">Wholesale</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping &amp; Returns</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Cala Coffee Co. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <p>Your cart is empty</p>
+        <a href="shop.html" class="btn btn-primary btn-sm">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total">
+        <span>Subtotal</span>
+        <span id="cartTotal">$0</span>
+      </div>
+      <p class="cart-shipping-note">Free shipping on orders over $45</p>
+      <button class="btn btn-primary btn-full">Checkout</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Shop-specific: filters, size selectors, gift cards
+    document.addEventListener('DOMContentLoaded', () => {
+      // Product filters
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const productCards = document.querySelectorAll('.shop-grid .product-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.filter;
+
+          productCards.forEach(card => {
+            if (filter === 'all' || card.dataset.category === filter) {
+              card.style.display = '';
+              card.style.opacity = '0';
+              requestAnimationFrame(() => {
+                card.style.transition = 'opacity 0.3s ease';
+                card.style.opacity = '1';
+              });
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Size selectors
+      document.querySelectorAll('.size-options').forEach(group => {
+        const card = group.closest('.product-card') || group.closest('.product-detail');
+        group.querySelectorAll('.size-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const price = btn.dataset.price;
+            const size = btn.textContent;
+            const priceEl = card.querySelector('.product-price');
+            const cartBtn = card.querySelector('.add-to-cart');
+            const nameEl = card.querySelector('.product-name');
+
+            if (priceEl) priceEl.textContent = `$${parseFloat(price).toFixed(2)}`;
+            if (cartBtn && nameEl) {
+              cartBtn.dataset.price = price;
+              cartBtn.dataset.name = `${nameEl.textContent} ${size}`;
+            }
+          });
+        });
+      });
+
+      // Gift card click to add
+      document.querySelectorAll('.gift-card-option').forEach(option => {
+        option.addEventListener('click', () => {
+          cart.add(option.dataset.name, option.dataset.price);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
