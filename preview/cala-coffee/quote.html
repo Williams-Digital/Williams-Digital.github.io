@@ -533,6 +533,190 @@
     }
     .footer-url a:hover { color: var(--white); }
 
+    /* Overview Section */
+    .overview-intro {
+      font-size: 1.08rem;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 720px;
+    }
+    .overview-intro strong {
+      color: var(--gray-900);
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0;
+      margin-bottom: 48px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+    }
+    .comparison-side {
+      padding: 32px 28px;
+    }
+    .comparison-current {
+      background: var(--gray-100);
+    }
+    .comparison-proposed {
+      background: var(--white);
+    }
+    .comparison-divider {
+      width: 48px;
+      background: linear-gradient(180deg, var(--gray-200) 0%, var(--green) 50%, var(--gray-200) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .comparison-divider span {
+      background: var(--green);
+      color: var(--white);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .comparison-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid;
+    }
+    .comparison-current .comparison-label {
+      color: var(--gray-500);
+      border-color: var(--gray-300);
+    }
+    .comparison-proposed .comparison-label {
+      color: var(--green);
+      border-color: var(--green);
+    }
+    .comparison-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .comparison-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .comparison-current .comparison-list li {
+      color: var(--gray-500);
+    }
+    .comparison-proposed .comparison-list li {
+      color: var(--gray-800);
+    }
+    .comparison-list li svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .comparison-current .comparison-list li svg {
+      color: var(--gray-400);
+    }
+    .comparison-proposed .comparison-list li svg {
+      color: var(--green);
+    }
+
+    .highlights-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .highlight-card {
+      text-align: center;
+      padding: 28px 20px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+    .highlight-card:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .highlight-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(71,118,59,0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      color: var(--green);
+    }
+    .highlight-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+    .highlight-card p {
+      font-size: 0.82rem;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    .preview-pages {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .preview-page-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      transition: all 0.2s ease;
+    }
+    .preview-page-link:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(71,118,59,0.04);
+    }
+    .preview-page-link svg {
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+      .comparison-divider {
+        width: auto;
+        height: 48px;
+        background: linear-gradient(90deg, var(--gray-200) 0%, var(--green) 50%, var(--gray-200) 100%);
+      }
+      .highlights-row {
+        grid-template-columns: 1fr;
+      }
+      .preview-pages {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* Print Styles */
     @media print {
       body { background: white; }
@@ -615,17 +799,121 @@
     <div class="section">
       <div class="section-number">1</div>
       <h2 class="section-title">Project Overview</h2>
-      <p class="section-subtitle">A complete website redesign &mdash; replacing the current Shopify theme with a custom-built, high-performance site that better reflects the quality and character of the Cala brand.</p>
 
+      <p class="overview-intro">
+        Cala Coffee Co. has built something special &mdash; incredible coffee, two thriving locations, and a community that keeps growing. <strong>Your website should reflect that.</strong> Right now, the current Shopify theme doesn't do justice to the brand you've built. Here's what a purpose-built site can change:
+      </p>
+
+      <!-- Before / After Comparison -->
+      <div class="comparison">
+        <div class="comparison-side comparison-current">
+          <div class="comparison-label">Current Site</div>
+          <ul class="comparison-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span>Generic Shopify template that looks like every other coffee site</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span>Location info and hours are buried and hard to find</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span>Catering services aren't presented in a way that drives inquiries</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span>Slow load times from Shopify theme bloat</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span>Mobile experience feels cramped and clunky</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="comparison-divider">
+          <span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </span>
+        </div>
+
+        <div class="comparison-side comparison-proposed">
+          <div class="comparison-label">Proposed Redesign</div>
+          <ul class="comparison-list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Custom design built around Cala's unique identity and brand voice</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Location cards with hours and directions front and center</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Dedicated catering section designed to convert inquiries</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Lightweight, fast-loading code &mdash; no unnecessary bloat</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Mobile-first design that looks sharp on every screen size</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Key Highlights -->
+      <div class="highlights-row">
+        <div class="highlight-card">
+          <div class="highlight-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h4>3x Faster</h4>
+          <p>Lightweight custom code vs. heavy Shopify theme bloat</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <h4>Mobile-First</h4>
+          <p>Designed for how most customers actually find you</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 8l-8 8"/><path d="M8 8l8 8" stroke="none"/><path d="M8.5 12.5l2 2 5-5"/></svg>
+          </div>
+          <h4>Built to Convert</h4>
+          <p>Every section designed to drive orders, visits &amp; inquiries</p>
+        </div>
+      </div>
+
+      <!-- Preview Card -->
       <a href="https://williamsdigital.io/preview/cala-coffee/" target="_blank" class="preview-card" style="text-decoration:none;">
         <div class="preview-icon">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </div>
         <div class="preview-info">
-          <h4>Live Preview Available</h4>
-          <p>See the full concept with shop, about page, and interactive features &mdash; <a href="https://williamsdigital.io/preview/cala-coffee/" target="_blank">View Preview</a></p>
+          <h4>Live Preview &mdash; See It In Action</h4>
+          <p>I've already built a full working concept. Click to explore the homepage, shop, and about page.</p>
         </div>
       </a>
+      <div class="preview-pages">
+        <a href="https://williamsdigital.io/preview/cala-coffee/" target="_blank" class="preview-page-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Homepage
+        </a>
+        <a href="https://williamsdigital.io/preview/cala-coffee/shop.html" target="_blank" class="preview-page-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Shop
+        </a>
+        <a href="https://williamsdigital.io/preview/cala-coffee/about.html" target="_blank" class="preview-page-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          About
+        </a>
+      </div>
     </div>
 
     <!-- Website Build -->
