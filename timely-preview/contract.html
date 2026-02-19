@@ -708,6 +708,81 @@
             color: var(--text);
         }
 
+        /* ========== HOSTING OPTIONS ========== */
+        .hosting-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .hosting-option {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .hosting-option:hover {
+            border-color: rgba(201,166,86,0.3);
+        }
+
+        .hosting-option.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 25px rgba(201,166,86,0.1);
+        }
+
+        .hosting-option-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .hosting-option-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hosting-option-desc {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .hosting-option-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(201,166,86,0.4);
+            border-radius: 50%;
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            transition: all 0.2s;
+        }
+
+        .hosting-option.selected .hosting-option-radio {
+            border-color: var(--accent);
+            background: var(--accent);
+            box-shadow: inset 0 0 0 3px #1a1a1f;
+        }
+
+        @media (max-width: 768px) {
+            .hosting-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* ========== TOS ACCEPTANCE ========== */
         .tos-acceptance {
             margin-top: 2rem;
@@ -1226,17 +1301,17 @@
             <div class="terms-card">
                 <div class="term-block">
                     <div class="term-number">1. Payment</div>
-                    <div class="term-text">A <strong>50% deposit</strong> is due upon signing this agreement. The remaining <strong>50% balance</strong> is due upon project completion, prior to the final site launch. All payments are processed securely via Stripe. Work begins within <strong>48 hours</strong> of receiving the deposit and all required materials. Late payments beyond <strong>14 days</strong> of the due date may result in project suspension until the balance is resolved.</div>
+                    <div class="term-text">A <strong>50% deposit</strong> is due upon signing this agreement. The remaining <strong>50% balance</strong> is due upon project completion, prior to the final site launch. All payments are processed securely via <strong>Stripe</strong> (credit card, debit card, or ACH). Work begins within <strong>48 hours</strong> of receiving the deposit and all required materials. Late payments beyond <strong>14 days</strong> of the due date may result in project suspension until the balance is resolved. Chargebacks initiated without prior written communication to Williams Digital constitute a breach of this agreement and may be subject to collection action and additional fees.</div>
                 </div>
 
                 <div class="term-block">
                     <div class="term-number">2. Timeline</div>
-                    <div class="term-text">Williams Digital will deliver a staging preview within <strong>7–14 business days</strong> of receiving all content and materials. Final launch occurs after client approval of the staging site. Timelines may be extended if the Client delays in providing required materials, feedback, or approvals. Williams Digital is not liable for delays caused by the Client's unresponsiveness.</div>
+                    <div class="term-text">Williams Digital will deliver a staging preview within an estimated <strong>10–21 business days</strong> of receiving all content and materials. Final launch occurs after client approval of the staging site. Timelines may be extended if the Client delays in providing required materials, feedback, or approvals. Williams Digital is not liable for delays caused by the Client's unresponsiveness.</div>
                 </div>
 
                 <div class="term-block">
                     <div class="term-number">3. Revisions</div>
-                    <div class="term-text">This agreement includes up to <strong>two (2) rounds of revisions</strong> after the initial staging preview. Additional revision rounds may be subject to a supplemental fee agreed upon by both parties. A "revision round" is defined as a single consolidated set of changes submitted within <strong>5 business days</strong> of receiving the staging preview.</div>
+                    <div class="term-text">This agreement includes up to <strong>two (2) rounds of revisions</strong> after the initial staging preview. Additional revision rounds may be subject to a supplemental fee agreed upon by both parties. A "revision round" is defined as a single consolidated set of changes submitted within <strong>5 business days</strong> of receiving the staging preview. Requests that alter the original project scope — such as adding new pages, features, or functionality not included in the selected package — are considered <strong>change orders</strong> and will be quoted separately.</div>
                 </div>
 
                 <div class="term-block">
@@ -1246,7 +1321,7 @@
 
                 <div class="term-block">
                     <div class="term-number">5. Ownership &amp; Intellectual Property</div>
-                    <div class="term-text">Upon receipt of <strong>full and final payment</strong>, the Client receives ownership of all custom code, design assets, and content created specifically for this project. Until final payment is received, all work product remains the property of Williams Digital. Williams Digital retains the right to showcase the completed work in its portfolio, case studies, and marketing materials.</div>
+                    <div class="term-text">Upon receipt of <strong>full and final payment</strong>, the Client receives ownership of all custom code, design assets, and content created specifically for this project. Until final payment is received, all work product remains the property of Williams Digital. Williams Digital retains the right to showcase the completed work in its portfolio, case studies, and marketing materials. Third-party assets such as stock images, fonts, and plugins remain subject to their respective licenses and are <strong>not transferred</strong> as Client property. Williams Digital retains ownership of any proprietary frameworks, code libraries, or tools used across multiple client projects.</div>
                 </div>
 
                 <div class="term-block">
@@ -1256,7 +1331,21 @@
 
                 <div class="term-block">
                     <div class="term-number">7. Hosting &amp; Maintenance</div>
-                    <div class="term-text">This agreement covers design and development only. Ongoing hosting, domain renewal, and maintenance are the Client's responsibility unless a separate maintenance agreement is arranged at <strong>$125/month</strong>. Williams Digital is not responsible for site issues arising after project handoff unless under an active maintenance plan.</div>
+                    <div class="term-text">Select a hosting arrangement below. This determines how the completed website will be hosted and maintained after launch.</div>
+                    <div class="hosting-options">
+                        <div class="hosting-option selected" id="hostingA" onclick="selectHosting('A')">
+                            <div class="hosting-option-radio"></div>
+                            <div class="hosting-option-label">Option A</div>
+                            <div class="hosting-option-title">Williams Digital Managed Hosting</div>
+                            <div class="hosting-option-desc">Included with the <strong>$125/month maintenance plan</strong>. Williams Digital will host the website on its managed infrastructure. Hosting, SSL, security monitoring, updates, and performance optimization are included. If the maintenance plan is cancelled, the Client has <strong>30 days</strong> to migrate the site. A full site export will be provided upon request.</div>
+                        </div>
+                        <div class="hosting-option" id="hostingB" onclick="selectHosting('B')">
+                            <div class="hosting-option-radio"></div>
+                            <div class="hosting-option-label">Option B</div>
+                            <div class="hosting-option-title">Client Self-Hosted</div>
+                            <div class="hosting-option-desc">The Client is responsible for their own hosting, domain renewal, SSL, security, and server maintenance. Williams Digital will deliver all final project files for deployment. Williams Digital is <strong>not responsible</strong> for performance, uptime, or issues arising from the Client's hosting environment.</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="term-block">
@@ -1276,7 +1365,7 @@
 
                 <div class="term-block">
                     <div class="term-number">11. Cancellation</div>
-                    <div class="term-text">If the Client cancels after work has begun, the <strong>50% deposit is non-refundable</strong>. Any completed work up to the point of cancellation will be delivered to the Client. If Williams Digital must cancel the project due to unforeseen circumstances, any unused portion of the deposit will be refunded and all completed work will be delivered.</div>
+                    <div class="term-text">If the Client cancels after work has begun, the <strong>50% deposit is non-refundable</strong>. Any completed work up to the point of cancellation will be delivered to the Client. If cancellation occurs after the staging preview has been delivered, the Client is responsible for <strong>75% of the total project cost</strong>. Williams Digital reserves the right to terminate this agreement if the Client is unresponsive for <strong>30+ consecutive days</strong>. In such cases, completed work will be delivered and the deposit is non-refundable. If Williams Digital must cancel the project due to unforeseen circumstances, any unused portion of the deposit will be refunded and all completed work will be delivered.</div>
                 </div>
 
                 <div class="term-block">
@@ -1291,16 +1380,31 @@
 
                 <div class="term-block">
                     <div class="term-number">14. Force Majeure</div>
-                    <div class="term-text">Neither party shall be liable for delays or failure to perform obligations under this agreement due to circumstances beyond their reasonable control, including but not limited to natural disasters, internet outages, government actions, pandemics, or other events of force majeure.</div>
+                    <div class="term-text">Neither party shall be liable for delays or failure to perform due to circumstances beyond their reasonable control (natural disasters, outages, pandemics, etc.). Full details are outlined in the Williams Digital Terms of Service.</div>
                 </div>
 
                 <div class="term-block">
-                    <div class="term-number">15. Governing Law &amp; Disputes</div>
+                    <div class="term-number">15. Communication &amp; Response Times</div>
+                    <div class="term-text">The Client agrees to respond to project-related communications within <strong>5 business days</strong>. Delays in response may extend the project timeline accordingly. Williams Digital will make reasonable efforts to respond to Client communications within <strong>1–2 business days</strong>.</div>
+                </div>
+
+                <div class="term-block">
+                    <div class="term-number">16. Project Archival</div>
+                    <div class="term-text">Williams Digital will retain project files for <strong>90 days</strong> following project completion. After this period, files may be archived or deleted. Clients under an active maintenance plan will have project files retained <strong>indefinitely</strong> for the duration of the plan.</div>
+                </div>
+
+                <div class="term-block">
+                    <div class="term-number">17. Maintenance Plan Terms</div>
+                    <div class="term-text">If the Client opts into the monthly maintenance plan, the plan renews <strong>automatically each month</strong> and may be cancelled with <strong>30 days written notice</strong>. No partial-month refunds will be issued. The maintenance plan includes hosting (Option A), content updates, security monitoring, and priority support as described in the Add-On section above.</div>
+                </div>
+
+                <div class="term-block">
+                    <div class="term-number">18. Governing Law &amp; Disputes</div>
                     <div class="term-text">This agreement shall be governed by the laws of the <strong>State of Alabama</strong>. Any disputes arising from this agreement shall first be resolved through good-faith negotiation. If unresolved within <strong>30 days</strong>, disputes shall be submitted to binding arbitration in the State of Alabama. Each party shall bear their own costs unless otherwise determined by the arbitrator.</div>
                 </div>
 
                 <div class="term-block">
-                    <div class="term-number">16. Entire Agreement</div>
+                    <div class="term-number">19. Entire Agreement</div>
                     <div class="term-text">This document constitutes the <strong>entire agreement</strong> between Williams Digital and the Client regarding the services described herein. It supersedes all prior discussions, proposals, and agreements, whether written or verbal. Any modifications to this agreement must be made in writing and agreed upon by both parties.</div>
                 </div>
             </div>
@@ -1360,6 +1464,10 @@
                     <div class="sig-field">
                         <div class="sig-label">Date</div>
                         <input type="text" class="sig-input" id="sigDate" readonly>
+                    </div>
+                    <div class="sig-field">
+                        <div class="sig-label">Expected Start Date</div>
+                        <input type="text" class="sig-input" id="sigStartDate" readonly>
                     </div>
                 </div>
 
@@ -1424,12 +1532,23 @@
         let agreed = false;
         let tosAccepted = false;
         let maintenanceSelected = false;
+        let hostingOption = 'A';
 
         // ——— DATE ———
         const now = new Date();
         const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         document.getElementById('contractDate').textContent = dateStr;
         document.getElementById('sigDate').value = dateStr;
+
+        // Calculate expected start date (48 hours / 2 business days from now)
+        const startDate = new Date(now);
+        let daysAdded = 0;
+        while (daysAdded < 2) {
+            startDate.setDate(startDate.getDate() + 1);
+            if (startDate.getDay() !== 0 && startDate.getDay() !== 6) daysAdded++;
+        }
+        const startDateStr = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('sigStartDate').value = 'Within 48 hours of deposit & materials';
 
         // ——— TIER SELECTION ———
         function selectTier(el) {
@@ -1492,6 +1611,13 @@
         function toggleMaintenance() {
             maintenanceSelected = !maintenanceSelected;
             document.getElementById('maintenanceAddon').classList.toggle('selected', maintenanceSelected);
+        }
+
+        // ——— HOSTING OPTION ———
+        function selectHosting(option) {
+            hostingOption = option;
+            document.getElementById('hostingA').classList.toggle('selected', option === 'A');
+            document.getElementById('hostingB').classList.toggle('selected', option === 'B');
         }
 
         // ——— TOS ACCEPTANCE ———
@@ -1581,6 +1707,7 @@
                 'Email': email,
                 'Selected Tier': tierNames[selectedTier],
                 'Deposit Amount': depositAmounts[selectedTier],
+                'Hosting': hostingOption === 'A' ? 'Option A — Williams Digital Managed Hosting' : 'Option B — Client Self-Hosted',
                 'Monthly Maintenance': maintenanceSelected ? 'Yes — $125/month' : 'No',
                 'Maintenance Payment Link': maintenanceSelected ? STRIPE_MAINTENANCE + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
                 'Date Signed': dateStr,
