@@ -310,33 +310,61 @@
 </div>
 
 <script>
-    // After each bread's pop-in finishes, switch it to a continuous float
     const floatConfig = [
-        { duration: 2.7,  delay: 0    },   // sourdough
-        { duration: 3.05, delay: 0.42 },   // croissant
-        { duration: 2.85, delay: 0.85 }    // baguette
+        { duration: 2.7,  delay: 0    },
+        { duration: 3.05, delay: 0.42 },
+        { duration: 2.85, delay: 0.85 }
     ];
 
-    [1, 2, 3].forEach((n, i) => {
-        // pop-in starts at 0.85 / 1.15 / 1.45 s, lasts 0.65 s
-        const switchAt = (0.85 + i * 0.3 + 0.65) * 1000;
-        setTimeout(() => {
-            const el = document.getElementById(`b${n}`);
-            el.style.opacity = '1';
-            el.style.animation = `float ${floatConfig[i].duration}s ease-in-out ${floatConfig[i].delay}s infinite`;
-        }, switchAt);
-    });
-
-    // Dismiss loader and reveal site once progress completes (~4.8 s)
-    setTimeout(() => {
+    function startLoader() {
         const loader = document.getElementById('loader');
-        loader.classList.add('out');
+
+        // Reset loader visibility
+        loader.style.display = 'flex';
+        loader.style.opacity  = '1';
+        loader.classList.remove('out');
+
+        // Reset animated elements so CSS animations replay
+        const logo      = loader.querySelector('.logo');
+        const items     = [1,2,3].map(n => document.getElementById(`b${n}`));
+        const track     = loader.querySelector('.progress-track');
+        const fill      = loader.querySelector('.progress-fill');
+        const sub       = loader.querySelector('.progress-sub');
+
+        [logo, ...items, track, sub].forEach(el => {
+            el.style.animation = 'none';
+            el.style.opacity   = '0';
+            void el.offsetWidth; // force reflow
+        });
+        fill.style.animation = 'none';
+        fill.style.width     = '0';
+        void fill.offsetWidth;
+
+        // Re-apply CSS animations
+        logo.style.animation  = 'riseIn 0.9s ease 0.2s forwards';
+        items[0].style.animation = 'popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.85s forwards';
+        items[1].style.animation = 'popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 1.15s forwards';
+        items[2].style.animation = 'popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 1.45s forwards';
+        track.style.animation = 'fadeIn 0.5s ease 2.1s forwards';
+        fill.style.animation  = 'fillUp 2.4s ease 2.4s forwards';
+        sub.style.animation   = 'fadeIn 0.8s ease 2.4s forwards';
+
+        // Switch each bread to floating after its pop-in completes
+        items.forEach((el, i) => {
+            setTimeout(() => {
+                el.style.opacity   = '1';
+                el.style.animation = `float ${floatConfig[i].duration}s ease-in-out ${floatConfig[i].delay}s infinite`;
+            }, (0.85 + i * 0.3 + 0.65) * 1000);
+        });
+
+        // Fade out, then loop
         setTimeout(() => {
-            loader.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            document.getElementById('site').style.display = 'block';
-        }, 1100);
-    }, 4800);
+            loader.classList.add('out');
+            setTimeout(startLoader, 1100);
+        }, 4800);
+    }
+
+    startLoader();
 </script>
 
 </body>
