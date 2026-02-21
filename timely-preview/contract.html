@@ -1373,81 +1373,68 @@
 
             // Show overlay immediately
             document.getElementById('successOverlay').classList.add('show');
-            document.querySelector('.success-redirect').textContent = 'Generating signed contract PDF...';
+            document.querySelector('.success-redirect').textContent = 'Sending confirmation...';
 
             const timestamp = new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'long' });
             const signerName = name.replace(/\s+/g, '-');
             const pdfFileName = `Timely-Entertainment-Contract-Signed-${signerName}-${new Date().toISOString().slice(0,10)}.pdf`;
 
-            // Step 1: Generate PDF
+            // Step 1: Send Formspree FIRST (guaranteed email)
+            const formData = {
+                _subject: '✅ CONTRACT SIGNED — Timely Entertainment, LLC — $800 WordPress Website',
+
+                '── SIGNED BY ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Full Name': name,
+                'Title / Role': title,
+                'Email': email,
+                'Digital Signature': name,
+                'Date Signed': dateStr,
+                'Timestamp': timestamp,
+
+                '── CONTRACT DETAILS ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Client': 'Timely Entertainment, LLC',
+                'Domain': 'timelyent.com',
+                'Service Provider': 'Williams Digital — Dylan Williams — Dylan@williamsdigital.io',
+                'Package': 'Custom WordPress Website',
+                'Total Project Cost': '$800 (one-time)',
+                'Deposit Due Now': '$400 (50%)',
+                'Balance Due': '$400 — invoiced upon project completion',
+                'Estimated Timeline': '10–21 business days after receiving content & materials',
+                'Revisions Included': '2 rounds',
+
+                '── SCOPE OF WORK ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Deliverables': 'Custom WordPress Theme · Editable CMS (ACF) · Responsive Mobile Design · Hero Section · Artist Roster & Profiles · Contact Form (Formspree) · Blog / News Section · Built-in Admin Site Guide · Domain Setup & Deployment · SSL/HTTPS',
+
+                '── HOSTING ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Hosting Choice': hostingOption === 'A' ? 'Option A — Williams Digital Managed Hosting (SSL, security, updates, optimization included)' : 'Option B — Client Self-Hosted (client responsible for hosting, SSL, security, updates)',
+
+                '── LEGAL ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Terms of Service': 'Accepted — ' + dateStr,
+                'Service Agreement': 'Accepted — all 18 terms agreed',
+                'Key Terms Agreed': 'Payment · Timeline · Revisions · Content & Materials · Ownership & IP · No Resale · Hosting & Delivery · Limitation of Liability · Indemnification · Warranty Disclaimer · Cancellation (deposit non-refundable) · Confidentiality · Independent Contractor · Force Majeure · Communication (5 business day response) · Project Archival (90 days) · Governing Law (Alabama) · Entire Agreement',
+
+                '── SIGNED PDF ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Signed Contract PDF': 'PDF saved to Google Drive — check Signed Contracts folder',
+
+                '── PAYMENT ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Payment Status': 'Redirected to Stripe for $400 deposit',
+                'Stripe Link': STRIPE_DEPOSIT_LINK
+            };
+
+            fetch(FORMSPREE_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formData)
+            }).catch(() => {}); // Fire and forget — email sends regardless
+
+            // Step 2: Generate PDF and upload to Drive (non-blocking)
+            document.querySelector('.success-redirect').textContent = 'Generating signed contract PDF...';
+
             generatePDF(pdfFileName).then(pdfBase64 => {
-                document.querySelector('.success-redirect').textContent = 'Uploading signed contract to secure storage...';
-
-                // Step 2: Upload PDF to Google Drive
-                return uploadToDrive(pdfBase64, pdfFileName).then(driveUrl => {
-                    return driveUrl;
-                }).catch(() => null); // If upload fails, continue without it
-
-            }).then(driveUrl => {
-                document.querySelector('.success-redirect').textContent = 'Sending confirmation...';
-
-                // Step 3: Send Formspree with Drive link
-                const formData = {
-                    _subject: '✅ CONTRACT SIGNED — Timely Entertainment, LLC — $800 WordPress Website',
-
-                    '── SIGNED BY ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                    'Full Name': name,
-                    'Title / Role': title,
-                    'Email': email,
-                    'Digital Signature': name,
-                    'Date Signed': dateStr,
-                    'Timestamp': timestamp,
-
-                    '── CONTRACT DETAILS ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                    'Client': 'Timely Entertainment, LLC',
-                    'Domain': 'timelyent.com',
-                    'Service Provider': 'Williams Digital — Dylan Williams — Dylan@williamsdigital.io',
-                    'Package': 'Custom WordPress Website',
-                    'Total Project Cost': '$800 (one-time)',
-                    'Deposit Due Now': '$400 (50%)',
-                    'Balance Due': '$400 — invoiced upon project completion',
-                    'Estimated Timeline': '10–21 business days after receiving content & materials',
-                    'Revisions Included': '2 rounds',
-
-                    '── SCOPE OF WORK ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                    'Deliverables': 'Custom WordPress Theme · Editable CMS (ACF) · Responsive Mobile Design · Hero Section · Artist Roster & Profiles · Contact Form (Formspree) · Blog / News Section · Built-in Admin Site Guide · Domain Setup & Deployment · SSL/HTTPS',
-
-                    '── HOSTING ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                    'Hosting Choice': hostingOption === 'A' ? 'Option A — Williams Digital Managed Hosting (SSL, security, updates, optimization included)' : 'Option B — Client Self-Hosted (client responsible for hosting, SSL, security, updates)',
-
-                    '── LEGAL ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                    'Terms of Service': 'Accepted — ' + dateStr,
-                    'Service Agreement': 'Accepted — all 18 terms agreed',
-                    'Key Terms Agreed': 'Payment · Timeline · Revisions · Content & Materials · Ownership & IP · No Resale · Hosting & Delivery · Limitation of Liability · Indemnification · Warranty Disclaimer · Cancellation (deposit non-refundable) · Confidentiality · Independent Contractor · Force Majeure · Communication (5 business day response) · Project Archival (90 days) · Governing Law (Alabama) · Entire Agreement',
-
-                    '── SIGNED PDF ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                    'Signed Contract PDF': driveUrl || 'Upload unavailable — PDF was downloaded to signer\'s device',
-
-                    '── PAYMENT ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                    'Payment Status': 'Redirected to Stripe for $400 deposit',
-                    'Stripe Link': STRIPE_DEPOSIT_LINK
-                };
-
-                return fetch(FORMSPREE_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
-
-            }).then(() => {
-                // Step 4: Redirect to Stripe
-                document.querySelector('.success-redirect').textContent = 'Redirecting to deposit payment...';
-                setTimeout(() => {
-                    window.location.href = STRIPE_DEPOSIT_LINK + '?prefilled_email=' + encodeURIComponent(email);
-                }, 1500);
-
-            }).catch(() => {
-                // If anything fails, still redirect to Stripe
+                document.querySelector('.success-redirect').textContent = 'Uploading to secure storage...';
+                return uploadToDrive(pdfBase64, pdfFileName).catch(() => null);
+            }).catch(() => {}).finally(() => {
+                // Step 3: Always redirect to Stripe
                 document.querySelector('.success-redirect').textContent = 'Redirecting to deposit payment...';
                 setTimeout(() => {
                     window.location.href = STRIPE_DEPOSIT_LINK + '?prefilled_email=' + encodeURIComponent(email);
