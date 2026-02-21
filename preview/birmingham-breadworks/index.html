@@ -3,288 +3,1107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birmingham Breadworks</title>
+    <title>Birmingham Breadworks | Finely Crafted Bread | Birmingham, AL</title>
+    <meta name="description" content="Birmingham's choice for finely crafted bread. Handcrafted sourdough, baguettes, croissants and pastries daily. 2408 7th Ave S, Birmingham AL.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* ============================================================
+       TOKENS
+    ============================================================ */
+    :root {
+        --bg:        #0c0b08;
+        --bg2:       #111009;
+        --bg3:       #161410;
+        --card:      rgba(255,255,255,0.03);
+        --border:    rgba(212,168,48,0.18);
+        --border-s:  rgba(255,255,255,0.07);
+        --gold:      #d4a830;
+        --gold-l:    #f0c84a;
+        --gold-d:    #a87818;
+        --cream:     #f0ebe0;
+        --text:      #ddd5c0;
+        --muted:     #7a6a4a;
+        --dim:       #3a3020;
+        --grad-gold: linear-gradient(160deg,#f0c84a 0%,#d4961e 40%,#f5d060 70%,#c8820a 100%);
+    }
 
-        body {
-            background: #0c0b08;
-            font-family: Georgia, 'Times New Roman', serif;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
 
-        /* ===================== LOADER ===================== */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0c0b08;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 1.1s ease;
-        }
+    body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
 
-        #loader.out {
-            opacity: 0;
-            pointer-events: none;
-        }
+    img { display:block; width:100%; height:100%; object-fit:cover; }
+    a { text-decoration:none; color:inherit; }
 
-        /* --- Logo / Wordmark --- */
-        .logo {
-            text-align: center;
-            margin-bottom: 58px;
-            opacity: 0;
-            animation: riseIn 0.9s ease 0.2s forwards;
-        }
+    .container {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 32px;
+    }
 
-        .logo-name {
-            font-size: 2.6rem;
-            font-weight: 400;
-            letter-spacing: 0.24em;
-            background: linear-gradient(160deg, #f0c84a 0%, #d4961e 40%, #f5d060 70%, #c8820a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-transform: uppercase;
-            line-height: 1.2;
-        }
+    /* ============================================================
+       LOADER
+    ============================================================ */
+    #loader {
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 1.1s ease;
+    }
 
-        .logo-rule {
-            width: 52px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #d4a830, transparent);
-            margin: 13px auto;
-        }
+    #loader.out { opacity:0; pointer-events:none; }
 
-        .logo-sub {
-            font-size: 0.63rem;
-            letter-spacing: 0.48em;
-            color: #c8a040;
-            text-transform: uppercase;
-        }
+    .loader-logo {
+        text-align: center;
+        margin-bottom: 52px;
+        opacity: 0;
+        animation: riseIn 0.9s ease 0.2s forwards;
+    }
 
-        /* --- Bread Row --- */
-        .bread-row {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 52px;
-            margin-bottom: 56px;
-        }
+    .loader-name {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: 2.7rem;
+        font-weight: 400;
+        letter-spacing: 0.22em;
+        background: var(--grad-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-transform: uppercase;
+        line-height: 1.2;
+    }
 
-        .bread-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            opacity: 0;
-        }
+    .loader-rule {
+        width: 52px; height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        margin: 12px auto;
+    }
 
-        .bread-item:nth-child(1) {
-            animation: popIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.85s forwards;
-        }
-        .bread-item:nth-child(2) {
-            animation: popIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 1.15s forwards;
-        }
-        .bread-item:nth-child(3) {
-            animation: popIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 1.45s forwards;
-        }
+    .loader-sub {
+        font-size: 0.62rem;
+        letter-spacing: 0.48em;
+        color: var(--gold);
+        text-transform: uppercase;
+        opacity: 0.8;
+    }
 
-        .bread-label {
-            font-size: 0.58rem;
-            letter-spacing: 0.36em;
-            color: #b8902a;
-            text-transform: uppercase;
-        }
+    .bread-row {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 52px;
+        margin-bottom: 52px;
+    }
 
-        /* --- Steam --- */
-        .steam {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            height: 26px;
-            margin-bottom: -6px;
-        }
+    .bread-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+    }
 
-        .steam span {
-            display: block;
-            width: 2px;
-            border-radius: 2px;
-            background: linear-gradient(to top, rgba(200, 168, 106, 0.55), transparent);
-            animation: steamRise 2s ease-in-out infinite;
-        }
+    .bread-item:nth-child(1) { animation: popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.85s forwards; }
+    .bread-item:nth-child(2) { animation: popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 1.15s forwards; }
+    .bread-item:nth-child(3) { animation: popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 1.45s forwards; }
 
-        .steam span:nth-child(1) { height: 14px; animation-delay: 0s; }
-        .steam span:nth-child(2) { height: 20px; animation-delay: 0.38s; }
-        .steam span:nth-child(3) { height: 13px; animation-delay: 0.74s; }
+    .bread-label {
+        font-size: 0.57rem;
+        letter-spacing: 0.36em;
+        color: var(--gold-d);
+        text-transform: uppercase;
+    }
 
-        /* --- Progress --- */
-        .progress-track {
-            width: 190px;
-            height: 1px;
-            background: #1e1c14;
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeIn 0.5s ease 2.1s forwards;
-        }
+    .steam {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        height: 26px;
+        margin-bottom: -6px;
+    }
 
-        .progress-fill {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, #a07020, #e0c068);
-            animation: fillUp 2.4s ease 2.4s forwards;
-        }
+    .steam span {
+        display: block;
+        width: 2px;
+        border-radius: 2px;
+        background: linear-gradient(to top, rgba(200,168,106,0.55), transparent);
+        animation: steamRise 2s ease-in-out infinite;
+    }
 
-        .progress-sub {
-            font-size: 0.58rem;
-            letter-spacing: 0.42em;
-            color: #a07e28;
-            text-transform: uppercase;
-            margin-top: 14px;
-            opacity: 0;
-            animation: fadeIn 0.8s ease 2.4s forwards;
-        }
+    .steam span:nth-child(1) { height:14px; animation-delay:0s; }
+    .steam span:nth-child(2) { height:20px; animation-delay:0.38s; }
+    .steam span:nth-child(3) { height:13px; animation-delay:0.74s; }
 
-        /* ===================== KEYFRAMES ===================== */
-        @keyframes riseIn {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+    .loader-bar-wrap {
+        width: 190px; height: 1px;
+        background: #1e1c14;
+        overflow: hidden;
+        opacity: 0;
+        animation: fadeIn 0.5s ease 2.1s forwards;
+    }
 
-        @keyframes popIn {
-            from { opacity: 0; transform: translateY(22px) scale(0.82); }
-            to   { opacity: 1; transform: translateY(0) scale(1); }
-        }
+    .loader-bar-fill {
+        height: 100%; width: 0;
+        background: linear-gradient(90deg,#a07020,#e0c068);
+        animation: fillUp 2.4s ease 2.4s forwards;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-9px); }
-        }
+    .loader-tagline {
+        font-size: 0.57rem;
+        letter-spacing: 0.42em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-top: 14px;
+        opacity: 0;
+        animation: fadeIn 0.8s ease 2.4s forwards;
+    }
 
-        @keyframes steamRise {
-            0%   { transform: translateY(0) scaleX(1);   opacity: 0.55; }
-            100% { transform: translateY(-22px) scaleX(0.3); opacity: 0; }
-        }
+    /* ============================================================
+       NAV
+    ============================================================ */
+    #nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 100;
+        padding: 0 32px;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: background 0.4s ease, border-color 0.4s ease;
+        border-bottom: 1px solid transparent;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
+    #nav.scrolled {
+        background: rgba(12,11,8,0.95);
+        backdrop-filter: blur(12px);
+        border-color: var(--border-s);
+    }
 
-        @keyframes fillUp {
-            0%   { width: 0%; }
-            35%  { width: 42%; }
-            72%  { width: 78%; }
-            100% { width: 100%; }
-        }
+    .nav-brand {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.25rem;
+        font-weight: 400;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: var(--grad-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 
-        /* ===================== SITE ===================== */
-        #site {
-            display: none;
-            min-height: 100vh;
-            background: #0c0b08;
-            color: #f2ece0;
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+    }
+
+    .nav-links a {
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text);
+        transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold-l); }
+
+    .nav-cta {
+        font-size: 0.68rem !important;
+        letter-spacing: 0.18em !important;
+        text-transform: uppercase !important;
+        color: var(--bg) !important;
+        background: linear-gradient(135deg, var(--gold-l), var(--gold));
+        padding: 9px 22px !important;
+        border-radius: 3px;
+        font-weight: 600 !important;
+        transition: opacity 0.2s !important;
+    }
+
+    .nav-cta:hover { opacity:0.88 !important; }
+
+    .nav-hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 1.3rem;
+        cursor: pointer;
+        padding: 4px;
+    }
+
+    .nav-mobile {
+        display: none;
+        position: fixed;
+        top: 68px; left:0; right:0;
+        background: rgba(12,11,8,0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-s);
+        flex-direction: column;
+        padding: 28px 32px;
+        gap: 22px;
+        z-index: 99;
+    }
+
+    .nav-mobile.open { display:flex; }
+
+    .nav-mobile a {
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text);
+    }
+
+    .nav-mobile .nav-cta {
+        display: inline-block;
+        width: fit-content;
+        margin-top: 4px;
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+        position: relative;
+        height: 100vh;
+        min-height: 640px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.28);
+        transform: scale(1.04);
+        transition: transform 8s ease;
+    }
+
+    #hero.loaded .hero-bg { transform: scale(1); }
+
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(12,11,8,0.3) 0%, transparent 40%, transparent 60%, rgba(12,11,8,0.8) 100%);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+        padding: 0 24px;
+    }
+
+    .hero-eyebrow {
+        font-size: 0.65rem;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 22px;
+        opacity: 0;
+        animation: riseIn 0.8s ease 0.3s forwards;
+    }
+
+    .hero-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(3.2rem, 8vw, 6rem);
+        font-weight: 300;
+        line-height: 1.0;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: var(--grad-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 18px;
+        opacity: 0;
+        animation: riseIn 0.9s ease 0.55s forwards;
+    }
+
+    .hero-rule {
+        width: 48px; height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        margin: 0 auto 18px;
+        opacity: 0;
+        animation: fadeIn 0.7s ease 0.9s forwards;
+    }
+
+    .hero-sub {
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+        color: var(--text);
+        margin-bottom: 40px;
+        opacity: 0;
+        animation: riseIn 0.8s ease 1.0s forwards;
+    }
+
+    .hero-btns {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+        opacity: 0;
+        animation: riseIn 0.8s ease 1.2s forwards;
+    }
+
+    .btn-gold {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--gold-l), var(--gold));
+        color: #0c0b08;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 14px 32px;
+        border-radius: 3px;
+        transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-gold:hover { opacity:0.88; transform:translateY(-1px); }
+
+    .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(212,168,48,0.5);
+        color: var(--gold-l);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 14px 32px;
+        border-radius: 3px;
+        transition: background 0.25s, border-color 0.25s, transform 0.2s;
+    }
+
+    .btn-outline:hover {
+        background: rgba(212,168,48,0.1);
+        border-color: var(--gold);
+        transform: translateY(-1px);
+    }
+
+    .hero-scroll {
+        position: absolute;
+        bottom: 36px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fadeIn 1s ease 1.8s forwards;
+    }
+
+    .hero-scroll-line {
+        width: 1px;
+        height: 36px;
+        background: linear-gradient(to bottom, var(--gold), transparent);
+        animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ============================================================
+       ABOUT / PHILOSOPHY
+    ============================================================ */
+    #about {
+        background: var(--bg2);
+        border-top: 1px solid var(--border-s);
+        border-bottom: 1px solid var(--border-s);
+        padding: 100px 32px;
+    }
+
+    .about-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+    }
+
+    .about-left .section-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 20px;
+    }
+
+    .about-statement {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2.4rem, 5vw, 3.6rem);
+        font-weight: 300;
+        line-height: 1.1;
+        color: var(--cream);
+        margin-bottom: 28px;
+    }
+
+    .about-statement em {
+        font-style: italic;
+        background: var(--grad-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .about-rule {
+        width: 40px; height: 1px;
+        background: var(--gold);
+        margin-bottom: 28px;
+    }
+
+    .about-body {
+        font-size: 0.93rem;
+        color: var(--muted);
+        line-height: 1.85;
+        max-width: 440px;
+    }
+
+    .about-body p + p { margin-top: 16px; }
+
+    .about-right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--border-s);
+        border: 1px solid var(--border-s);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .about-stat {
+        background: var(--bg);
+        padding: 28px 24px;
+        text-align: center;
+    }
+
+    .about-stat-num {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.4rem;
+        font-weight: 300;
+        background: var(--grad-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 8px;
+    }
+
+    .about-stat-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+
+    /* ============================================================
+       SECTION SHARED
+    ============================================================ */
+    .section-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.45em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 14px;
+    }
+
+    .section-heading {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 300;
+        color: var(--cream);
+        margin-bottom: 12px;
+        line-height: 1.1;
+    }
+
+    .section-rule {
+        width: 40px; height: 1px;
+        background: var(--gold);
+        margin-bottom: 48px;
+    }
+
+    /* ============================================================
+       MENU
+    ============================================================ */
+    #menu {
+        padding: 100px 0;
+    }
+
+    .menu-header {
+        padding: 0 32px;
+        margin-bottom: 0;
+    }
+
+    /* Tab bar */
+    .menu-tabs {
+        display: flex;
+        gap: 0;
+        padding: 0 32px;
+        border-bottom: 1px solid var(--border-s);
+        margin-bottom: 52px;
+        overflow-x: auto;
+    }
+
+    .tab-btn {
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: var(--muted);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.68rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        padding: 16px 28px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: color 0.2s, border-color 0.2s;
+        margin-bottom: -1px;
+    }
+
+    .tab-btn:hover { color: var(--text); }
+
+    .tab-btn.active {
+        color: var(--gold-l);
+        border-bottom-color: var(--gold);
+    }
+
+    /* Panels */
+    .menu-panel { display:none; padding: 0 32px; }
+    .menu-panel.active { display:block; }
+
+    .menu-panel-intro {
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-bottom: 36px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .menu-panel-intro i { color: var(--gold); }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1px;
+        background: var(--border-s);
+        border: 1px solid var(--border-s);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .menu-item {
+        background: var(--bg);
+        padding: 28px 30px;
+        transition: background 0.25s;
+    }
+
+    .menu-item:hover { background: var(--bg3); }
+
+    .menu-item-name {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.15rem;
+        font-weight: 400;
+        color: var(--cream);
+        margin-bottom: 6px;
+    }
+
+    .menu-item-detail {
+        font-size: 0.75rem;
+        color: var(--muted);
+        line-height: 1.6;
+    }
+
+    .menu-item-tag {
+        display: inline-block;
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold-d);
+        border: 1px solid rgba(168,120,24,0.35);
+        border-radius: 2px;
+        padding: 2px 8px;
+        margin-top: 10px;
+    }
+
+    /* ============================================================
+       GALLERY
+    ============================================================ */
+    #gallery {
+        padding: 100px 0 0;
+    }
+
+    .gallery-header {
+        padding: 0 32px;
+        margin-bottom: 52px;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 280px 340px;
+        gap: 3px;
+    }
+
+    .gallery-cell {
+        position: relative;
+        overflow: hidden;
+        background: var(--bg3);
+    }
+
+    .gallery-cell:nth-child(1) { grid-column: 1; grid-row: 1; }
+    .gallery-cell:nth-child(2) { grid-column: 2; grid-row: 1 / 3; }
+    .gallery-cell:nth-child(3) { grid-column: 3; grid-row: 1; }
+    .gallery-cell:nth-child(4) { grid-column: 1; grid-row: 2; }
+    .gallery-cell:nth-child(5) { grid-column: 3; grid-row: 2; }
+
+    .gallery-cell img {
+        transition: transform 0.6s ease, filter 0.4s ease;
+        filter: brightness(0.85);
+    }
+
+    .gallery-cell:hover img {
+        transform: scale(1.06);
+        filter: brightness(0.7);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        padding: 22px 24px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .gallery-cell:hover .gallery-overlay { opacity:1; }
+
+    .gallery-caption {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: var(--cream);
+        letter-spacing: 0.06em;
+    }
+
+    /* ============================================================
+       VISIT
+    ============================================================ */
+    #visit {
+        padding: 100px 0;
+    }
+
+    .visit-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border-s);
+        border: 1px solid var(--border-s);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .visit-card {
+        background: var(--bg);
+        padding: 40px 36px;
+    }
+
+    .visit-card-icon {
+        width: 40px; height: 40px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 22px;
+        color: var(--gold);
+        font-size: 0.95rem;
+    }
+
+    .visit-card-label {
+        font-size: 0.58rem;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 18px;
+    }
+
+    .visit-card h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: var(--cream);
+        margin-bottom: 16px;
+    }
+
+    .visit-detail {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.9;
+    }
+
+    .visit-detail strong { color: var(--text); font-weight: 500; }
+
+    .visit-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 22px;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        border-bottom: 1px solid rgba(212,168,48,0.3);
+        padding-bottom: 2px;
+        transition: color 0.2s, border-color 0.2s;
+    }
+
+    .visit-link:hover { color: var(--gold-l); border-color: var(--gold-l); }
+
+    /* ============================================================
+       SERVICES BANNER
+    ============================================================ */
+    #services {
+        padding: 0 32px 100px;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    .service-card {
+        border: 1px solid var(--border-s);
+        border-radius: 6px;
+        padding: 36px 32px;
+        background: var(--card);
+        transition: border-color 0.3s, background 0.3s;
+    }
+
+    .service-card:hover {
+        border-color: var(--border);
+        background: rgba(212,168,48,0.04);
+    }
+
+    .service-icon {
+        font-size: 1.3rem;
+        color: var(--gold-d);
+        margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: var(--cream);
+        margin-bottom: 10px;
+    }
+
+    .service-card p {
+        font-size: 0.83rem;
+        color: var(--muted);
+        line-height: 1.75;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+        border-top: 1px solid var(--border-s);
+        background: var(--bg2);
+        padding: 60px 32px 36px;
+    }
+
+    .footer-inner {
+        max-width: 1160px;
+        margin: 0 auto;
+    }
+
+    .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 48px;
+        margin-bottom: 52px;
+        flex-wrap: wrap;
+    }
+
+    .footer-brand {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.6rem;
+        font-weight: 300;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: var(--grad-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+        font-size: 0.68rem;
+        letter-spacing: 0.22em;
+        color: var(--muted);
+        text-transform: uppercase;
+    }
+
+    .footer-col h4 {
+        font-size: 0.6rem;
+        letter-spacing: 0.36em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 18px;
+    }
+
+    .footer-col a, .footer-col p {
+        display: block;
+        font-size: 0.83rem;
+        color: var(--muted);
+        line-height: 2;
+        transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--text); }
+
+    .footer-social {
+        display: flex;
+        gap: 14px;
+        margin-top: 4px;
+    }
+
+    .footer-social a {
+        width: 36px; height: 36px;
+        border: 1px solid var(--border-s);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+        transition: border-color 0.2s, color 0.2s;
+        line-height: 1;
+    }
+
+    .footer-social a:hover {
+        border-color: var(--border);
+        color: var(--gold);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid var(--border-s);
+        padding-top: 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .footer-bottom p {
+        font-size: 0.72rem;
+        color: var(--dim);
+    }
+
+    .footer-bottom a { color: var(--gold-d); }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ============================================================
+       KEYFRAMES
+    ============================================================ */
+    @keyframes riseIn {
+        from { opacity:0; transform:translateY(16px); }
+        to   { opacity:1; transform:translateY(0); }
+    }
+
+    @keyframes popIn {
+        from { opacity:0; transform:translateY(22px) scale(0.82); }
+        to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+
+    @keyframes float {
+        0%, 100% { transform:translateY(0); }
+        50%       { transform:translateY(-9px); }
+    }
+
+    @keyframes steamRise {
+        0%   { transform:translateY(0) scaleX(1);       opacity:0.55; }
+        100% { transform:translateY(-22px) scaleX(0.3); opacity:0; }
+    }
+
+    @keyframes fadeIn {
+        from { opacity:0; }
+        to   { opacity:1; }
+    }
+
+    @keyframes fillUp {
+        0%   { width:0%; }
+        35%  { width:42%; }
+        72%  { width:78%; }
+        100% { width:100%; }
+    }
+
+    @keyframes scrollPulse {
+        0%, 100% { opacity:1; transform:scaleY(1); }
+        50%       { opacity:0.4; transform:scaleY(0.7); }
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+        .nav-links { display:none; }
+        .nav-hamburger { display:block; }
+
+        .about-inner { grid-template-columns:1fr; gap:48px; }
+        .about-right { max-width:400px; }
+
+        .visit-grid { grid-template-columns:1fr; }
+
+        .services-grid { grid-template-columns:1fr 1fr; }
+
+        .gallery-grid {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 200px 200px 200px;
         }
+        .gallery-cell:nth-child(1) { grid-column:1; grid-row:1; }
+        .gallery-cell:nth-child(2) { grid-column:2; grid-row:1/3; }
+        .gallery-cell:nth-child(3) { grid-column:1; grid-row:2; }
+        .gallery-cell:nth-child(4) { grid-column:1; grid-row:3; }
+        .gallery-cell:nth-child(5) { grid-column:2; grid-row:3; }
+    }
+
+    @media (max-width: 620px) {
+        .container { padding:0 20px; }
+        #nav { padding:0 20px; }
+        .menu-tabs { padding:0 20px; }
+        .menu-panel { padding:0 20px; }
+        .gallery-header, #services, footer { padding-left:20px; padding-right:20px; }
+
+        .hero-title { font-size:2.8rem; }
+
+        .services-grid { grid-template-columns:1fr; }
+
+        .gallery-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(5, 200px);
+        }
+        .gallery-cell { grid-column:1 !important; grid-row:auto !important; }
+
+        .footer-top { flex-direction:column; gap:36px; }
+    }
     </style>
 </head>
 <body>
 
+<!-- ================================================================
+     LOADER
+================================================================ -->
 <div id="loader">
-
-    <!-- ── Wordmark ── -->
-    <div class="logo">
-        <div class="logo-name">Birmingham<br>Breadworks</div>
-        <div class="logo-rule"></div>
-        <div class="logo-sub">Finely crafted bread</div>
+    <div class="loader-logo">
+        <div class="loader-name">Birmingham<br>Breadworks</div>
+        <div class="loader-rule"></div>
+        <div class="loader-sub">Finely crafted bread</div>
     </div>
 
-    <!-- ── Three Breads ── -->
     <div class="bread-row">
-
-        <!-- ① Sourdough Boule -->
+        <!-- Sourdough -->
         <div class="bread-item" id="b1">
             <div class="steam"><span></span><span></span><span></span></div>
             <svg width="92" height="82" viewBox="0 0 92 82" xmlns="http://www.w3.org/2000/svg">
-                <!-- drop shadow -->
                 <ellipse cx="46" cy="76" rx="36" ry="5.5" fill="#000" opacity="0.28"/>
-                <!-- outer crust ring -->
                 <ellipse cx="46" cy="44" rx="39" ry="29" fill="#6a3e10"/>
-                <!-- main crust -->
                 <ellipse cx="46" cy="42" rx="37" ry="27" fill="#b87428"/>
-                <!-- upper dome -->
                 <ellipse cx="46" cy="40" rx="35" ry="25" fill="#ce9038"/>
-                <!-- warm highlight -->
                 <ellipse cx="38" cy="30" rx="14" ry="8" fill="#e8b858" opacity="0.40" transform="rotate(-18 38 30)"/>
-                <!-- Score: center vertical slit -->
                 <path d="M46 19 C47.2 27 47.2 33 46 41 C44.8 33 44.8 27 46 19Z" fill="#4a2808" opacity="0.8"/>
-                <!-- Score: left horizontal arm -->
                 <path d="M27 34 C33 34 39 37 45 40" stroke="#4a2808" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.65"/>
-                <!-- Score: right horizontal arm -->
                 <path d="M65 34 C59 34 53 37 47 40" stroke="#4a2808" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.65"/>
-                <!-- Score: upper-left diagonal -->
                 <path d="M31 24 C36 29 40 33 44 38" stroke="#4a2808" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.50"/>
-                <!-- Score: upper-right diagonal -->
                 <path d="M61 24 C56 29 52 33 48 38" stroke="#4a2808" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.50"/>
             </svg>
             <div class="bread-label">Sourdough</div>
         </div>
 
-        <!-- ② Croissant -->
+        <!-- Croissant -->
         <div class="bread-item" id="b2">
             <svg width="118" height="72" viewBox="0 0 118 72" xmlns="http://www.w3.org/2000/svg">
-                <!-- shadow -->
                 <ellipse cx="59" cy="65" rx="48" ry="6" fill="#000" opacity="0.22"/>
-                <!-- outer dark body -->
                 <path d="M13 54 Q8 37 17 23 Q25 11 38 17 Q45 21 47 31 Q51 20 62 15 Q74 10 85 18 Q99 27 101 42 Q103 53 94 59 Q84 65 72 58 Q62 52 59 39 Q56 52 45 58 Q30 65 13 54Z" fill="#7a4c14"/>
-                <!-- main body -->
                 <path d="M15 52 Q11 36 19 23 Q27 12 39 18 Q46 22 47 32 Q51 21 62 16 Q73 12 84 19 Q97 28 99 42 Q100 52 92 57 Q83 62 71 56 Q62 50 59 38 Q56 50 45 56 Q31 63 15 52Z" fill="#c07e28"/>
-                <!-- lighter face -->
                 <path d="M18 50 Q14 35 22 23 Q29 14 40 19 Q46 23 47 33 Q51 22 62 17 Q72 14 83 20 Q94 29 96 42 Q97 50 90 55 Q81 60 70 54 Q62 48 59 37 Q56 48 45 54 Q32 61 18 50Z" fill="#d89038"/>
-                <!-- highlight left horn -->
                 <ellipse cx="34" cy="27" rx="11" ry="5.5" fill="#e8ba58" opacity="0.38" transform="rotate(-42 34 27)"/>
-                <!-- highlight right horn -->
                 <ellipse cx="80" cy="27" rx="11" ry="5.5" fill="#e8ba58" opacity="0.32" transform="rotate(42 80 27)"/>
-                <!-- Left horn layer lines -->
                 <path d="M21 36 Q32 29 42 33" stroke="#dfa040" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.62"/>
                 <path d="M22 41 Q33 34 43 38" stroke="#dfa040" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.52"/>
-                <path d="M23 46 Q34 39 43 43" stroke="#dfa040" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.40"/>
-                <!-- Right horn layer lines -->
                 <path d="M76 33 Q86 28 96 35" stroke="#dfa040" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.62"/>
                 <path d="M75 38 Q85 33 95 40" stroke="#dfa040" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.52"/>
-                <path d="M74 43 Q84 38 93 45" stroke="#dfa040" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.40"/>
-                <!-- center fold crease -->
                 <path d="M52 32 Q56 36 59 38 Q62 36 66 32" stroke="#b07018" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.48"/>
             </svg>
             <div class="bread-label">Croissant</div>
         </div>
 
-        <!-- ③ Baguette -->
+        <!-- Baguette -->
         <div class="bread-item" id="b3">
             <svg width="58" height="132" viewBox="0 0 58 132" xmlns="http://www.w3.org/2000/svg">
-                <!-- shadow -->
                 <ellipse cx="29" cy="126" rx="18" ry="5" fill="#000" opacity="0.24"/>
-                <!-- outer crust -->
                 <path d="M20 11 Q9 16 7 30 L5 94 Q4 110 14 121 Q21 128 29 126 Q37 124 43 116 Q50 105 48 90 L46 30 Q43 15 36 11 Q30 7 20 11Z" fill="#6a3e10"/>
-                <!-- main body -->
                 <path d="M22 9 Q11 14 9 28 L7 92 Q6 108 16 119 Q22 126 29 124 Q36 122 42 114 Q49 103 47 89 L45 29 Q42 13 35 9 Q29 6 22 9Z" fill="#b87428"/>
-                <!-- upper face -->
                 <path d="M24 8 Q14 12 11 27 L9 91 Q9 106 18 117 Q24 124 29 122 Q35 120 41 112 Q47 102 45 88 L43 28 Q40 12 33 8 Q28 5 24 8Z" fill="#ce9038"/>
-                <!-- highlight strip -->
                 <path d="M22 16 Q20 46 21 84" stroke="#e8b858" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.19"/>
-                <!-- Score marks – left column -->
                 <path d="M11 38 Q21 33 29 38" stroke="#4a2808" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.80"/>
                 <path d="M11 52 Q21 47 29 52" stroke="#4a2808" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.80"/>
                 <path d="M11 66 Q21 61 29 66" stroke="#4a2808" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.80"/>
                 <path d="M11 80 Q21 75 29 80" stroke="#4a2808" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.80"/>
                 <path d="M11 94 Q21 89 29 94" stroke="#4a2808" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.72"/>
-                <!-- Score marks – right column -->
                 <path d="M29 38 Q38 33 47 38" stroke="#4a2808" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.80"/>
                 <path d="M29 52 Q38 47 47 52" stroke="#4a2808" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.80"/>
                 <path d="M29 66 Q38 61 47 66" stroke="#4a2808" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.80"/>
@@ -293,78 +1112,492 @@
             </svg>
             <div class="bread-label">Baguette</div>
         </div>
-
     </div>
 
-    <!-- ── Progress ── -->
-    <div class="progress-track">
-        <div class="progress-fill"></div>
+    <div class="loader-bar-wrap">
+        <div class="loader-bar-fill"></div>
     </div>
-    <div class="progress-sub">Birmingham's choice for finely crafted bread</div>
-
+    <div class="loader-tagline">Birmingham's choice for finely crafted bread</div>
 </div>
 
-<!-- ── Main site content (revealed after loader) ── -->
-<div id="site">
-    <!-- Your full site goes here -->
-</div>
+
+<!-- ================================================================
+     SITE
+================================================================ -->
+<div id="site" style="display:none">
+
+    <!-- NAV -->
+    <nav id="nav">
+        <a href="#" class="nav-brand">Birmingham Breadworks</a>
+        <div class="nav-links">
+            <a href="#menu">Menu</a>
+            <a href="#about">About</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#visit">Visit</a>
+            <a href="https://bhambreadworks.square.site" target="_blank" class="nav-cta">Order Online</a>
+        </div>
+        <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <div class="nav-mobile" id="mobileMenu">
+        <a href="#menu"    onclick="closeMobile()">Menu</a>
+        <a href="#about"   onclick="closeMobile()">About</a>
+        <a href="#gallery" onclick="closeMobile()">Gallery</a>
+        <a href="#visit"   onclick="closeMobile()">Visit</a>
+        <a href="https://bhambreadworks.square.site" target="_blank" class="nav-cta">Order Online</a>
+    </div>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Birmingham, Alabama · Est. 2408 7th Ave S</div>
+            <h1 class="hero-title">Birmingham<br>Breadworks</h1>
+            <div class="hero-rule"></div>
+            <p class="hero-sub">Birmingham's choice for finely crafted bread</p>
+            <div class="hero-btns">
+                <a href="https://bhambreadworks.square.site" target="_blank" class="btn-gold">
+                    <i class="fas fa-basket-shopping"></i> Order Online
+                </a>
+                <a href="#menu" class="btn-outline">
+                    <i class="fas fa-utensils"></i> View Menu
+                </a>
+            </div>
+        </div>
+        <a href="#about" class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            Scroll
+        </a>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="about-inner container">
+            <div class="about-left reveal">
+                <div class="section-label">Our Philosophy</div>
+                <div class="about-statement">
+                    Flour.<br><em>Water.</em><br>Salt.
+                </div>
+                <div class="about-rule"></div>
+                <div class="about-body">
+                    <p>We believe the best bread needs no shortcuts — just time, technique, and ingredients you can pronounce. Every loaf is crafted using traditional methods passed down through generations of bakers.</p>
+                    <p>No additives. No preservatives. No shortcuts. Simple, natural ingredients and a deep respect for the process — that's the Birmingham Breadworks way.</p>
+                </div>
+            </div>
+            <div class="about-right reveal">
+                <div class="about-stat">
+                    <div class="about-stat-num">3</div>
+                    <div class="about-stat-label">Ingredients<br>in our sourdough</div>
+                </div>
+                <div class="about-stat">
+                    <div class="about-stat-num">Daily</div>
+                    <div class="about-stat-label">Fresh baked<br>every morning</div>
+                </div>
+                <div class="about-stat">
+                    <div class="about-stat-num">6:30</div>
+                    <div class="about-stat-label">Open Mon–Sat<br>from 6:30am</div>
+                </div>
+                <div class="about-stat">
+                    <div class="about-stat-num">0</div>
+                    <div class="about-stat-label">Artificial<br>additives</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu">
+        <div class="menu-header container reveal">
+            <div class="section-label">What We Make</div>
+            <h2 class="section-heading">The Menu</h2>
+            <div class="section-rule"></div>
+        </div>
+
+        <div class="menu-tabs container">
+            <button class="tab-btn active" data-panel="breads">Daily Breads</button>
+            <button class="tab-btn" data-panel="pastries">Pastries</button>
+            <button class="tab-btn" data-panel="breakfast">Breakfast</button>
+            <button class="tab-btn" data-panel="lunch">Lunch</button>
+        </div>
+
+        <!-- Daily Breads -->
+        <div class="menu-panel active" id="panel-breads">
+            <div class="menu-panel-intro">
+                <i class="fas fa-store"></i>
+                Available daily — baked fresh each morning · Mon–Sat
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-name">Signature Sourdough Batard</div>
+                    <div class="menu-item-detail">Classic wheat & water long-fermented sourdough. Open crumb, crackling crust.</div>
+                    <span class="menu-item-tag">1.5 lb</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Signature Sourdough Sandwich Loaf</div>
+                    <div class="menu-item-detail">Same flour, water & salt recipe — shaped for slicing. Perfect for sandwiches.</div>
+                    <span class="menu-item-tag">2 lb &amp; 3 lb</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Farm Sourdough Boule</div>
+                    <div class="menu-item-detail">Stone-milled whole wheat lends a nutty, complex flavor to this round country loaf.</div>
+                    <span class="menu-item-tag">1.5 lb</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Farm Sourdough Sandwich Loaf</div>
+                    <div class="menu-item-detail">Whole wheat sourdough shaped for everyday use. Hearty and naturally sweet.</div>
+                    <span class="menu-item-tag">2 lb</span>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">French Baguette</div>
+                    <div class="menu-item-detail">Long-fermented, classically scored. Thin shattering crust, pillowy open crumb.</div>
+                    <span class="menu-item-tag">Traditional</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pastries -->
+        <div class="menu-panel" id="panel-pastries">
+            <div class="menu-panel-intro">
+                <i class="fas fa-mug-hot"></i>
+                Baked fresh daily · Available while supplies last
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-name">Plain Croissant</div>
+                    <div class="menu-item-detail">Buttery, flaky, laminated dough — the classic French pastry done right.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Ham &amp; Cheese Croissant</div>
+                    <div class="menu-item-detail">House croissant filled with savory ham and melted cheese.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Chocolate Croissant</div>
+                    <div class="menu-item-detail">Dark chocolate wrapped in layers of buttery croissant dough.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Almond Pastry</div>
+                    <div class="menu-item-detail">Flaky pastry filled with almond cream, topped with toasted sliced almonds.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Cinnamon Roll</div>
+                    <div class="menu-item-detail">Soft, pillowy dough wound tight with brown sugar and warm cinnamon.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Cream Cheese Danish</div>
+                    <div class="menu-item-detail">Laminated pastry with smooth sweetened cream cheese filling.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Nutella Danish</div>
+                    <div class="menu-item-detail">House pastry dough filled generously with Nutella.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Turnover</div>
+                    <div class="menu-item-detail">Flaky pastry folded over a seasonal fruit or sweet filling.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Monkey Bread</div>
+                    <div class="menu-item-detail">Pull-apart sweet rolls baked in caramelized cinnamon sugar. A staff favorite.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Bacon, Egg &amp; Cheese Bun</div>
+                    <div class="menu-item-detail">Savory breakfast bun stuffed with crispy bacon, egg, and melted cheese.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breakfast -->
+        <div class="menu-panel" id="panel-breakfast">
+            <div class="menu-panel-intro">
+                <i class="fas fa-coffee"></i>
+                Breakfast service · 7:00am – 2:00pm, Mon–Sat
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-name">Espresso Drinks</div>
+                    <div class="menu-item-detail">Espresso, cappuccino, latte, cortado, macchiato — made to order.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Drip Coffee &amp; Tea</div>
+                    <div class="menu-item-detail">Fresh-brewed drip coffee and a selection of loose-leaf teas.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Fresh Juice</div>
+                    <div class="menu-item-detail">Freshly pressed seasonal juices made in-house each morning.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Breakfast Plates</div>
+                    <div class="menu-item-detail">Daily rotating breakfast items featuring house-baked bread.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Pastry Basket</div>
+                    <div class="menu-item-detail">Selection of daily pastries — whatever's fresh from the morning bake.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lunch -->
+        <div class="menu-panel" id="panel-lunch">
+            <div class="menu-panel-intro">
+                <i class="fas fa-utensils"></i>
+                Lunch service · 11:00am – 2:00pm, Mon–Sat
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-name">Soup of the Day</div>
+                    <div class="menu-item-detail">House-made soup crafted fresh daily. Served with a slice of house sourdough.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">House Salad</div>
+                    <div class="menu-item-detail">Seasonal greens with house-made dressing. Ask about today's additions.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Seasonal Pizza</div>
+                    <div class="menu-item-detail">Daily rotating pizza baked on house-made dough. Ingredients change with the season.</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-name">Sandwiches</div>
+                    <div class="menu-item-detail">Built on fresh-baked sourdough or baguette. Fillings rotate — ask your server.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery">
+        <div class="gallery-header container reveal">
+            <div class="section-label">Fresh From the Oven</div>
+            <h2 class="section-heading">The Craft</h2>
+            <div class="section-rule"></div>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-cell">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" alt="Artisan sourdough boule" loading="lazy">
+                <div class="gallery-overlay"><span class="gallery-caption">Signature Sourdough</span></div>
+            </div>
+            <div class="gallery-cell">
+                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80" alt="Fresh croissants" loading="lazy">
+                <div class="gallery-overlay"><span class="gallery-caption">Croissants</span></div>
+            </div>
+            <div class="gallery-cell">
+                <img src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=800&q=80" alt="French baguettes" loading="lazy">
+                <div class="gallery-overlay"><span class="gallery-caption">French Baguette</span></div>
+            </div>
+            <div class="gallery-cell">
+                <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc7c?auto=format&fit=crop&w=800&q=80" alt="Sliced sourdough" loading="lazy">
+                <div class="gallery-overlay"><span class="gallery-caption">Farm Sourdough</span></div>
+            </div>
+            <div class="gallery-cell">
+                <img src="https://images.unsplash.com/photo-1586444248879-bc604b65e3e4?auto=format&fit=crop&w=800&q=80" alt="Bread scoring" loading="lazy">
+                <div class="gallery-overlay"><span class="gallery-caption">The Score</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VISIT -->
+    <section id="visit">
+        <div class="container">
+            <div class="reveal" style="margin-bottom:48px">
+                <div class="section-label">Come Find Us</div>
+                <h2 class="section-heading">Visit</h2>
+                <div class="section-rule"></div>
+            </div>
+            <div class="visit-grid reveal">
+                <div class="visit-card">
+                    <div class="visit-card-icon"><i class="far fa-clock"></i></div>
+                    <div class="visit-card-label">Hours</div>
+                    <h3>When We're Open</h3>
+                    <div class="visit-detail">
+                        <strong>Monday – Saturday</strong><br>
+                        6:30am – 3:00pm<br><br>
+                        <strong>Breakfast Service</strong><br>
+                        7:00am – 2:00pm<br><br>
+                        <strong>Lunch Service</strong><br>
+                        11:00am – 2:00pm<br><br>
+                        <strong>Sunday</strong><br>
+                        Closed
+                    </div>
+                </div>
+                <div class="visit-card">
+                    <div class="visit-card-icon"><i class="fas fa-location-dot"></i></div>
+                    <div class="visit-card-label">Location</div>
+                    <h3>Find Us</h3>
+                    <div class="visit-detail">
+                        <strong>2408 7th Avenue South</strong><br>
+                        Birmingham, AL 35233<br><br>
+                        Located in the heart of Birmingham's southside neighborhood — walkable, parking available nearby.
+                    </div>
+                    <a href="https://maps.google.com/?q=2408+7th+Avenue+South+Birmingham+AL+35233" target="_blank" class="visit-link">
+                        <i class="fas fa-diamond-turn-right"></i> Get Directions
+                    </a>
+                </div>
+                <div class="visit-card">
+                    <div class="visit-card-icon"><i class="fas fa-phone"></i></div>
+                    <div class="visit-card-label">Contact</div>
+                    <h3>Get in Touch</h3>
+                    <div class="visit-detail">
+                        <strong>Phone</strong><br>
+                        <a href="tel:2052023207" style="color:inherit">205.202.3207</a><br><br>
+                        <strong>Instagram</strong><br>
+                        <a href="https://instagram.com/birminghambreadworks" target="_blank" style="color:inherit">@birminghambreadworks</a><br><br>
+                        <strong>Facebook</strong><br>
+                        <a href="https://facebook.com/birminghambreadworks" target="_blank" style="color:inherit">/birminghambreadworks</a>
+                    </div>
+                    <a href="https://bhambreadworks.square.site" target="_blank" class="visit-link">
+                        <i class="fas fa-basket-shopping"></i> Order Online
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="container reveal" style="margin-bottom:36px">
+            <div class="section-label">Beyond the Loaf</div>
+            <h2 class="section-heading">More From Us</h2>
+            <div class="section-rule"></div>
+        </div>
+        <div class="services-grid reveal">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-boxes-stacked"></i></div>
+                <h3>Daily Bread Orders</h3>
+                <p>Pre-order your favorite loaves for guaranteed availability. We bake fresh every morning and sell out — get yours secured.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-calendar-days"></i></div>
+                <h3>Catering</h3>
+                <p>Fresh bread and pastry for your event, meeting, or celebration. We'll work with you to put together the perfect spread.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-door-open"></i></div>
+                <h3>Rent Our Space</h3>
+                <p>Our warm, bakery-scented space is available for private events. A unique Birmingham venue steeped in the aroma of fresh bread.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-brand">Birmingham Breadworks</div>
+                    <div class="footer-tagline">Finely crafted bread · Birmingham, AL</div>
+                    <div class="footer-social" style="margin-top:20px">
+                        <a href="https://instagram.com/birminghambreadworks" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com/birminghambreadworks" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://bhambreadworks.square.site" target="_blank" aria-label="Order Online">
+                            <i class="fas fa-basket-shopping"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Visit</h4>
+                    <p>2408 7th Avenue South</p>
+                    <p>Birmingham, AL 35233</p>
+                    <p style="margin-top:8px">Mon–Sat · 6:30am–3:00pm</p>
+                    <p>Sunday · Closed</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Menu</h4>
+                    <a href="#menu">Daily Breads</a>
+                    <a href="#menu">Pastries</a>
+                    <a href="#menu">Breakfast</a>
+                    <a href="#menu">Lunch</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="tel:2052023207">205.202.3207</a>
+                    <a href="https://bhambreadworks.square.site" target="_blank">Order Online</a>
+                    <a href="#services">Catering</a>
+                    <a href="#services">Rent Our Space</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Birmingham Breadworks · All rights reserved</p>
+                <p>Preview by <a href="https://williamsdigital.io">Williams Digital</a></p>
+            </div>
+        </div>
+    </footer>
+
+</div><!-- #site -->
+
 
 <script>
+/* ── Loader (run once, reveal site) ── */
+(function() {
     const floatConfig = [
         { duration: 2.7,  delay: 0    },
         { duration: 3.05, delay: 0.42 },
         { duration: 2.85, delay: 0.85 }
     ];
 
-    function startLoader() {
-        const loader = document.getElementById('loader');
-
-        // Reset loader visibility
-        loader.style.display = 'flex';
-        loader.style.opacity  = '1';
-        loader.classList.remove('out');
-
-        // Reset animated elements so CSS animations replay
-        const logo      = loader.querySelector('.logo');
-        const items     = [1,2,3].map(n => document.getElementById(`b${n}`));
-        const track     = loader.querySelector('.progress-track');
-        const fill      = loader.querySelector('.progress-fill');
-        const sub       = loader.querySelector('.progress-sub');
-
-        [logo, ...items, track, sub].forEach(el => {
-            el.style.animation = 'none';
-            el.style.opacity   = '0';
-            void el.offsetWidth; // force reflow
-        });
-        fill.style.animation = 'none';
-        fill.style.width     = '0';
-        void fill.offsetWidth;
-
-        // Re-apply CSS animations
-        logo.style.animation  = 'riseIn 0.9s ease 0.2s forwards';
-        items[0].style.animation = 'popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.85s forwards';
-        items[1].style.animation = 'popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 1.15s forwards';
-        items[2].style.animation = 'popIn 0.65s cubic-bezier(0.34,1.56,0.64,1) 1.45s forwards';
-        track.style.animation = 'fadeIn 0.5s ease 2.1s forwards';
-        fill.style.animation  = 'fillUp 2.4s ease 2.4s forwards';
-        sub.style.animation   = 'fadeIn 0.8s ease 2.4s forwards';
-
-        // Switch each bread to floating after its pop-in completes
-        items.forEach((el, i) => {
-            setTimeout(() => {
-                el.style.opacity   = '1';
-                el.style.animation = `float ${floatConfig[i].duration}s ease-in-out ${floatConfig[i].delay}s infinite`;
-            }, (0.85 + i * 0.3 + 0.65) * 1000);
-        });
-
-        // Fade out, then loop
+    [1,2,3].forEach((n, i) => {
         setTimeout(() => {
-            loader.classList.add('out');
-            setTimeout(startLoader, 1100);
-        }, 4800);
-    }
+            const el = document.getElementById(`b${n}`);
+            el.style.opacity   = '1';
+            el.style.animation = `float ${floatConfig[i].duration}s ease-in-out ${floatConfig[i].delay}s infinite`;
+        }, (0.85 + i * 0.3 + 0.65) * 1000);
+    });
 
-    startLoader();
+    setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.classList.add('out');
+        setTimeout(() => {
+            loader.style.display = 'none';
+            const site = document.getElementById('site');
+            site.style.display  = 'block';
+            document.body.style.overflow = 'auto';
+            document.getElementById('hero').classList.add('loaded');
+            initReveal();
+        }, 1100);
+    }, 4800);
+})();
+
+/* ── Nav scroll ── */
+window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* ── Mobile menu ── */
+document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+function closeMobile() {
+    document.getElementById('mobileMenu').classList.remove('open');
+}
+
+/* ── Menu tabs ── */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+    });
+});
+
+/* ── Scroll reveal ── */
+function initReveal() {
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
 </script>
 
 </body>
