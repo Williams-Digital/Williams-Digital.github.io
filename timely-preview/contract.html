@@ -1421,9 +1421,10 @@
                 'Stripe Link': STRIPE_DEPOSIT_LINK
             };
 
-            // sendBeacon guarantees delivery even when the page navigates away
-            const formBlob = new Blob([JSON.stringify(formData)], { type: 'application/json' });
-            navigator.sendBeacon(FORMSPREE_URL, formBlob);
+            // sendBeacon with FormData guarantees delivery even when the page navigates away
+            const beaconData = new FormData();
+            Object.entries(formData).forEach(([key, value]) => beaconData.append(key, value));
+            navigator.sendBeacon(FORMSPREE_URL, beaconData);
 
             // Step 2: Generate PDF and upload to Drive (non-blocking)
             document.querySelector('.success-redirect').textContent = 'Generating signed contract PDF...';
