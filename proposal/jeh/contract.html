@@ -1593,11 +1593,9 @@
                 'Stripe Link': STRIPE_DEPOSIT_LINK
             };
 
-            fetch(FORMSPREE_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                body: JSON.stringify(formData)
-            }).catch(() => {}); // Fire and forget — email sends regardless
+            // sendBeacon guarantees delivery even when the page navigates away
+            const formBlob = new Blob([JSON.stringify(formData)], { type: 'application/json' });
+            navigator.sendBeacon(FORMSPREE_URL, formBlob);
 
             // Step 2: Generate PDF and upload to Drive (non-blocking)
             document.querySelector('.success-redirect').textContent = 'Generating signed contract PDF...';
