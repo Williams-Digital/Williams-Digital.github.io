@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Cat Coffee House — Winter Specials 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e8e0d5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .print-hint {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── PAGE ── */
+    .page {
+      width: 612px;   /* 8.5in at 72dpi */
+      min-height: 792px; /* 11in at 72dpi */
+      background: #1a0f0a;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.4);
+    }
+
+    /* ── TOP BAND ── */
+    .top-band {
+      background: #c0392b;
+      height: 6px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      padding: 40px 52px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(201,169,110,0.2);
+    }
+    .header-logo img {
+      height: 52px;
+      opacity: 0.9;
+    }
+    .header-title {
+      text-align: right;
+    }
+    .header-title .eyebrow {
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #c9a96e;
+      margin-bottom: 4px;
+    }
+    .header-title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .header-title h1 span { color: #c0392b; }
+
+    /* ── HERO STRIP ── */
+    .hero-strip {
+      background: #c0392b;
+      padding: 14px 52px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-strip .line { flex: 1; height: 1px; background: rgba(255,255,255,0.3); }
+    .hero-strip p {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* ── BODY ── */
+    .body {
+      padding: 36px 52px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 8px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #c9a96e;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201,169,110,0.25);
+    }
+
+    /* ── DRINK ITEM ── */
+    .item {
+      display: grid;
+      grid-template-columns: 3px 1fr;
+      gap: 0 20px;
+      margin-bottom: 28px;
+      align-items: start;
+    }
+    .item-bar {
+      background: #c0392b;
+      width: 3px;
+      height: 100%;
+      min-height: 50px;
+      border-radius: 2px;
+    }
+    .item-content {}
+    .item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 5px;
+      line-height: 1.2;
+    }
+    .item-desc {
+      font-size: 11px;
+      line-height: 1.7;
+      color: #b89880;
+      font-weight: 300;
+      max-width: 440px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(201,169,110,0.1);
+      margin: 4px 0 28px;
+    }
+
+    /* ── FOOD SECTION ── */
+    .food-card {
+      background: rgba(201,169,110,0.07);
+      border: 1px solid rgba(201,169,110,0.2);
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .food-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+    .food-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #c9a96e;
+      margin-bottom: 4px;
+    }
+    .food-desc {
+      font-size: 10.5px;
+      line-height: 1.6;
+      color: #9a7a6a;
+      font-weight: 300;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      padding: 24px 52px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(201,169,110,0.15);
+      margin-top: auto;
+    }
+    .footer-left p {
+      font-size: 9px;
+      color: #6a4a3a;
+      line-height: 1.7;
+      letter-spacing: 0.5px;
+    }
+    .footer-left p strong {
+      color: #9a6a5a;
+      display: block;
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .footer-ig {
+      font-size: 10px;
+      color: #c9a96e;
+      letter-spacing: 1px;
+    }
+    .footer-ig span {
+      display: block;
+      font-size: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #6a4a3a;
+      margin-bottom: 3px;
+    }
+
+    .bottom-band {
+      background: #c0392b;
+      height: 4px;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body {
+        background: none;
+        padding: 0;
+      }
+      .print-hint { display: none; }
+      .page {
+        width: 100%;
+        min-height: 100vh;
+        box-shadow: none;
+      }
+      @page {
+        size: letter portrait;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<p class="print-hint">To save as PDF: File → Print → Save as PDF</p>
+
+<div class="page">
+  <div class="top-band"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-logo">
+      <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2020/04/redcat-logo-white-brown-mug-stroke-300x240.png"
+           alt="Red Cat Coffee House"/>
+    </div>
+    <div class="header-title">
+      <p class="eyebrow">Birmingham, Alabama</p>
+      <h1>Winter <span>Specials</span><br/>2025</h1>
+    </div>
+  </div>
+
+  <!-- HERO STRIP -->
+  <div class="hero-strip">
+    <div class="line"></div>
+    <p>Limited Time · While Supplies Last</p>
+    <div class="line"></div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="section-label">Seasonal Drinks</p>
+
+    <div class="item">
+      <div class="item-bar"></div>
+      <div class="item-content">
+        <p class="item-name">Biscoff Latte</p>
+        <p class="item-desc">A perfect combination of rich cookie flavor and comforting spices, served with a Biscoff cookie.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-bar"></div>
+      <div class="item-content">
+        <p class="item-name">Fireside Cold Brew</p>
+        <p class="item-desc">Hints of caramelized marshmallow, bourbon, and hazelnut will bring to mind the warmth of a cozy campfire, finished off with a splash of half &amp; half.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-bar"></div>
+      <div class="item-content">
+        <p class="item-name">Candy Cane Latte</p>
+        <p class="item-desc">A cozy blend of white chocolate and peppermint, topped with a festive sprinkle of crushed candy cane.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-bar"></div>
+      <div class="item-content">
+        <p class="item-name">S'mores Decadent Hot Chocolate</p>
+        <p class="item-desc">A decadently rich hot chocolate with two special chocolates, plus toasted marshmallow flavor — topped with toasted marshmallow whipped cream and graham cracker crumbles.</p>
+      </div>
+    </div>
+
+    <hr class="divider"/>
+
+    <p class="section-label">Seasonal Food</p>
+
+    <div class="food-card">
+      <div class="food-icon">🧀</div>
+      <div>
+        <p class="food-name">Grilled Cheese &amp; Tomato Soup Combo</p>
+        <p class="food-desc">Triple cheese layered on Birmingham Breadworks sourdough, served with a cup of Birmingham Breadworks housemade tomato soup.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <p><strong>Find Us</strong>
+        Pepper Place · 2901 2nd Ave S · (205) 616-8450<br/>
+        Railroad Park · 1701 1st Ave S · (205) 518-0779<br/>
+        UAB Highlands · 1201 11th Ave S · (205) 593-4974
+      </p>
+    </div>
+    <div class="footer-ig">
+      <span>Follow Us</span>
+      @catsofredcat
+    </div>
+  </div>
+
+  <div class="bottom-band"></div>
+</div>
+
+</body>
+</html>
