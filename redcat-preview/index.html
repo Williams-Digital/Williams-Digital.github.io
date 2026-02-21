@@ -159,16 +159,18 @@
       position: absolute; inset: 0;
       overflow: hidden;
     }
-    /* YouTube iframe hero - replace src with your video */
-    .hero-video-wrap iframe {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 177.78vh; /* 16/9 */
-      height: 56.25vw; /* 9/16 */
-      min-width: 100%; min-height: 100%;
-      pointer-events: none;
-      border: none;
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://theredcatcoffeehouse.com/wp-content/uploads/2025/10/Mike-McElwain-Bham-Now-768x512.jpg');
+      background-size: cover;
+      background-position: center;
+      animation: kenburns 18s ease-in-out infinite alternate;
+      transform-origin: center center;
+    }
+    @keyframes kenburns {
+      0%   { transform: scale(1.0) translate(0, 0); }
+      50%  { transform: scale(1.08) translate(-1%, 1%); }
+      100% { transform: scale(1.12) translate(1%, -1%); }
     }
     .hero-overlay {
       position: absolute; inset: 0;
@@ -649,15 +651,7 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-video-wrap">
-    <!--
-      REPLACE the src below with your YouTube video embed URL.
-      Example: https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID&controls=0&showinfo=0&rel=0
-    -->
-    <iframe
-      src="https://www.youtube.com/embed/TRUuBXBxBhA?autoplay=1&mute=1&loop=1&playlist=TRUuBXBxBhA&controls=0&showinfo=0&rel=0&playsinline=1"
-      allow="autoplay; encrypted-media"
-      allowfullscreen>
-    </iframe>
+    <div class="hero-bg"></div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
