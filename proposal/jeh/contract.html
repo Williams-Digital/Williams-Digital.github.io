@@ -1636,92 +1636,102 @@
         }
 
         async function generatePDF(fileName) {
-            // Temporarily hide the success overlay so we capture the signed contract
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgWidth = 210;
+            const pageHeight = 297;
+
+            // Hide overlay and submit button
             const overlay = document.getElementById('successOverlay');
             overlay.style.display = 'none';
-
-            // Hide submit button and note for the PDF
             const submitWrap = document.querySelector('.submit-wrap');
             submitWrap.style.display = 'none';
 
-            // html2canvas can't read input values — overlay each input with a visible div
-            const tempOverlays = [];
-            document.querySelectorAll('.sig-input:not(.sig-name-display)').forEach(input => {
-                if (!input.value) return;
-                const rect = input.getBoundingClientRect();
-                const div = document.createElement('div');
-                div.textContent = input.value;
-                div.style.cssText = `
-                    position: fixed;
-                    top: ${rect.top}px;
-                    left: ${rect.left}px;
-                    width: ${rect.width}px;
-                    height: ${rect.height}px;
-                    display: flex;
-                    align-items: center;
-                    padding: 0 1rem;
+            // Write input values directly into the DOM so html2canvas can see them
+            const inputs = document.querySelectorAll('.sig-input:not(.sig-name-display)');
+            const originals = [];
+            inputs.forEach(input => {
+                const span = document.createElement('span');
+                span.textContent = input.value;
+                span.style.cssText = `
                     font-family: 'Inter', sans-serif;
                     font-size: 0.9rem;
                     color: #f0f0f0;
-                    background: rgba(255,255,255,0.03);
-                    border: 1px solid rgba(255,255,255,0.08);
-                    border-radius: 8px;
-                    z-index: 9999;
-                    pointer-events: none;
-                    box-sizing: border-box;
+                    display: block;
+                    padding: 0.7rem 1rem;
                 `;
-                document.body.appendChild(div);
-                tempOverlays.push(div);
+                originals.push({ input, parent: input.parentNode, next: input.nextSibling });
+                input.parentNode.replaceChild(span, input);
             });
 
-            // Add a "DIGITALLY SIGNED" stamp near the signature
+            // Add digitally signed stamp
             const sigSection = document.querySelector('.signature-section');
             const stamp = document.createElement('div');
             stamp.innerHTML = `
                 <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; border: 2px solid rgba(74,222,128,0.5); border-radius: 8px; background: rgba(74,222,128,0.06); margin-top: 1rem;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                    <span style="font-family: 'Oswald', sans-serif; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #4ade80;">Digitally Signed — ${new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })}</span>
+                    <span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #4ade80;">Digitally Signed — ${new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })}</span>
                 </div>
             `;
             sigSection.appendChild(stamp);
 
-            // Capture the full page
-            const page = document.body;
-            const canvas = await html2canvas(page, {
-                scale: 1.5,
-                useCORS: true,
-                backgroundColor: '#1a1a1f',
-                width: page.scrollWidth,
-                height: page.scrollHeight,
-                windowWidth: 1200
-            });
+            // Capture sections individually to avoid canvas size limits
+            const sections = [
+                document.querySelector('.contract-header'),
+                document.querySelector('.contract-body'),
+                document.querySelector('.contract-footer')
+            ].filter(Boolean);
 
-            // Restore — remove overlays and stamp
-            tempOverlays.forEach(div => div.remove());
+            let firstPage = true;
+            let yOffset = 0;
+
+            for (const section of sections) {
+                const canvas = await html2canvas(section, {
+                    scale: 1,
+                    useCORS: true,
+                    backgroundColor: '#1a1a1f',
+                    windowWidth: 1200
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', 0.85);
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                // If this section won't fit on current page, add a new page
+                if (!firstPage && yOffset + imgHeight > pageHeight) {
+                    pdf.addPage();
+                    yOffset = 0;
+                }
+                if (firstPage) {
+                    firstPage = false;
+                }
+
+                // Add the section image, potentially spanning multiple pages
+                let sectionLeft = imgHeight;
+                let sectionPos = yOffset;
+
+                pdf.addImage(imgData, 'JPEG', 0, sectionPos, imgWidth, imgHeight);
+                sectionLeft -= (pageHeight - yOffset);
+
+                while (sectionLeft > 0) {
+                    pdf.addPage();
+                    sectionPos = -(imgHeight - sectionLeft);
+                    pdf.addImage(imgData, 'JPEG', 0, sectionPos, imgWidth, imgHeight);
+                    sectionLeft -= pageHeight;
+                }
+
+                yOffset = (yOffset + imgHeight) % pageHeight;
+            }
+
+            // Restore inputs
+            originals.forEach(({ input, parent, next }) => {
+                const span = next ? next.previousSibling : parent.lastChild;
+                if (span && span.tagName === 'SPAN') {
+                    parent.replaceChild(input, span);
+                }
+            });
             stamp.remove();
             submitWrap.style.display = '';
             overlay.style.display = 'flex';
-
-            // Generate PDF
-            const { jsPDF } = window.jspdf;
-            const imgWidth = 210;
-            const pageHeight = 297;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
-            const imgData = canvas.toDataURL('image/jpeg', 0.92);
-
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            let heightLeft = imgHeight;
-            let position = 0;
-
-            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft > 0) {
-                position = -(imgHeight - heightLeft);
-                pdf.addPage();
-                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
 
             // Download to signer's device
             pdf.save(fileName);
