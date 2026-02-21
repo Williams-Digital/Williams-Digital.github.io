@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Cat Coffee House — Menu 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ccc5bc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .print-hint {
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── PAGE ── */
+    .page {
+      width: 612px;
+      background: #fdf8f2;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .top-bar {
+      background: #1a0f0a;
+      height: 8px;
+    }
+    .red-bar {
+      background: #c0392b;
+      height: 3px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: #1a0f0a;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header img { height: 56px; }
+    .header-right { text-align: right; }
+    .header-right h1 {
+      font-family: 'Playfair Display', serif;
+      color: white;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .header-right h1 span { color: #c0392b; }
+    .header-right p {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c9a96e;
+      margin-top: 4px;
+    }
+
+    /* ── HOURS STRIP ── */
+    .hours-strip {
+      background: #c0392b;
+      padding: 10px 48px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+    .hours-item {
+      text-align: center;
+      color: white;
+    }
+    .hours-item strong {
+      display: block;
+      font-size: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 2px;
+    }
+    .hours-item span { font-size: 11px; font-weight: 500; }
+    .hours-sep { width: 1px; background: rgba(255,255,255,0.2); }
+
+    /* ── BODY ── */
+    .body { padding: 36px 48px; }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .section-icon {
+      width: 36px; height: 36px;
+      background: #1a0f0a;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .section-header-text {}
+    .section-header-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a0f0a;
+      line-height: 1;
+    }
+    .section-header-text p {
+      font-size: 8px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c0392b;
+      margin-top: 3px;
+    }
+    .section-line { flex: 1; height: 1px; background: rgba(26,15,10,0.1); }
+
+    /* ── MENU GRID ── */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 32px;
+      margin-bottom: 8px;
+    }
+    .menu-grid.single { grid-template-columns: 1fr; }
+
+    .menu-item {
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(26,15,10,0.07);
+    }
+    .menu-item:last-child { border-bottom: none; }
+
+    .menu-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .menu-item-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a0f0a;
+    }
+    .menu-item-price {
+      font-size: 11px;
+      font-weight: 600;
+      color: #c0392b;
+      white-space: nowrap;
+    }
+    .menu-item-desc {
+      font-size: 9.5px;
+      line-height: 1.6;
+      color: #7a5a4a;
+      font-weight: 300;
+    }
+    .menu-item-variants {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .variant {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: #9a6a5a;
+    }
+    .variant span:last-child { font-weight: 500; color: #c0392b; }
+
+    /* ── ADD-ONS ── */
+    .addons-row {
+      background: rgba(201,169,110,0.1);
+      border: 1px solid rgba(201,169,110,0.25);
+      border-radius: 3px;
+      padding: 8px 14px;
+      margin: 12px 0 20px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .addon-tag {
+      font-size: 9px;
+      color: #7a5a4a;
+      letter-spacing: 0.3px;
+    }
+    .addon-tag strong { color: #3b1f14; }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      border: none;
+      border-top: 2px solid rgba(26,15,10,0.06);
+      margin: 24px 0;
+    }
+
+    /* ── SNACKS GRID ── */
+    .snacks-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .snack-card {
+      background: #1a0f0a;
+      border-radius: 3px;
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .snack-card p {
+      font-family: 'Playfair Display', serif;
+      font-size: 10px;
+      color: #e8d5c4;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .snack-card span {
+      font-size: 11px;
+      font-weight: 600;
+      color: #c0392b;
+    }
+    .snack-card small {
+      display: block;
+      font-size: 8px;
+      color: #7a5a4a;
+      margin-top: 2px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #1a0f0a;
+      padding: 18px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-left p {
+      font-size: 8.5px;
+      color: #6a4a3a;
+      line-height: 1.8;
+    }
+    .footer-left p strong {
+      color: #c9a96e;
+      display: block;
+      font-size: 7px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .footer-right { text-align: right; }
+    .footer-right p {
+      font-size: 8px;
+      color: #6a4a3a;
+      letter-spacing: 0.5px;
+    }
+    .footer-right a {
+      font-size: 10px;
+      color: #c9a96e;
+      text-decoration: none;
+      display: block;
+      margin-top: 3px;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: none; padding: 0; }
+      .print-hint { display: none; }
+      .page { width: 100%; box-shadow: none; }
+      @page { size: letter portrait; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<p class="print-hint">To save as PDF: File → Print → Save as PDF</p>
+
+<div class="page">
+  <div class="top-bar"></div>
+  <div class="red-bar"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2020/04/redcat-logo-white-brown-mug-stroke-300x240.png"
+         alt="Red Cat Coffee House"/>
+    <div class="header-right">
+      <h1>Food <span>Menu</span></h1>
+      <p>Birmingham, Alabama · 2025</p>
+    </div>
+  </div>
+
+  <!-- HOURS -->
+  <div class="hours-strip">
+    <div class="hours-item">
+      <strong>Breakfast</strong>
+      <span>7:00 am – 12:00 pm</span>
+    </div>
+    <div class="hours-sep"></div>
+    <div class="hours-item">
+      <strong>Lunch</strong>
+      <span>11:00 am – 5:00 pm</span>
+    </div>
+    <div class="hours-sep"></div>
+    <div class="hours-item">
+      <strong>In-House Roasted Coffee</strong>
+      <span>All Day</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- BREAKFAST -->
+    <div class="section-header">
+      <div class="section-icon">🌅</div>
+      <div class="section-header-text">
+        <h2>Breakfast</h2>
+        <p>Served 7 am – 12 pm</p>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="menu-grid">
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Avocado Toast</span>
+          <span class="menu-item-price">$9.75</span>
+        </div>
+        <p class="menu-item-desc">Avocado spread, grape tomatoes, pickled red onions, everything bagel seasoning, and house-made balsamic vinaigrette on Birmingham Breadworks sourdough.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Granola Bowl</span>
+          <span class="menu-item-price">$9.75</span>
+        </div>
+        <p class="menu-item-desc">Birmingham Breadworks granola, Greek yogurt, and honey.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Breakfast Bowl</span>
+        </div>
+        <p class="menu-item-desc">Stone-ground grits, scrambled eggs, cheddar, and your choice of meat.</p>
+        <div class="menu-item-variants">
+          <div class="variant"><span>Pork or Turkey Sausage</span><span>$11.25</span></div>
+          <div class="variant"><span>Bacon or Sliced Ham</span><span>$12.25</span></div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Breakfast Sandwich</span>
+        </div>
+        <p class="menu-item-desc">Croissant or sourdough, scrambled eggs, cheddar, and your choice of meat.</p>
+        <div class="menu-item-variants">
+          <div class="variant"><span>Pork or Turkey Sausage</span><span>$10.25</span></div>
+          <div class="variant"><span>Bacon or Sliced Ham</span><span>$11.25</span></div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Breakfast Burrito</span>
+        </div>
+        <p class="menu-item-desc">Flour tortilla, scrambled eggs, cheddar, tomatoes, chipotle mayonnaise, and your choice of meat. Served with a side of salsa.</p>
+        <div class="menu-item-variants">
+          <div class="variant"><span>Pork or Turkey Sausage</span><span>$11.50</span></div>
+          <div class="variant"><span>Bacon or Sliced Ham</span><span>$12.50</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- LUNCH - SANDWICHES -->
+    <div class="section-header">
+      <div class="section-icon">🥪</div>
+      <div class="section-header-text">
+        <h2>Sandwiches &amp; Wraps</h2>
+        <p>Served 11 am – 5 pm</p>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="addons-row">
+      <span class="addon-tag"><strong>+ Chips, Apple, or Banana</strong> $1.00</span>
+      <span class="addon-tag"><strong>+ Half Salad</strong> $4.50 / $5.50</span>
+      <span class="addon-tag"><strong>+ Chicken, Turkey, or Ham</strong> $4.50</span>
+    </div>
+
+    <div class="menu-grid">
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Ham &amp; Swiss Panini</span>
+          <span class="menu-item-price">$12.00</span>
+        </div>
+        <p class="menu-item-desc">Sliced ham, Swiss cheese, pickled red onions, pickles, mayonnaise, and deli mustard on Birmingham Breadworks sourdough.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Chipotle Chicken Panini</span>
+          <span class="menu-item-price">$13.75</span>
+        </div>
+        <p class="menu-item-desc">Rotisserie chicken breast, avocado spread, cheddar, and chipotle mayonnaise on Birmingham Breadworks sourdough.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Turkey Club Wrap</span>
+          <span class="menu-item-price">$12.75</span>
+        </div>
+        <p class="menu-item-desc">Sliced turkey, bacon, tomato, spinach, mayonnaise, and deli mustard in a spinach tortilla.</p>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Veggie Wrap</span>
+          <span class="menu-item-price">$12.00</span>
+        </div>
+        <p class="menu-item-desc">Avocado spread, cucumber, tomato, spinach, pickled red onions, house-made balsamic vinaigrette, and roasted red pepper hummus in a spinach tortilla.</p>
+      </div>
+
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- SALADS -->
+    <div class="section-header">
+      <div class="section-icon">🥗</div>
+      <div class="section-header-text">
+        <h2>Salads</h2>
+        <p>Served 11 am – 5 pm</p>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="addons-row">
+      <span class="addon-tag"><strong>+ Chicken, Turkey, or Ham</strong> $4.50</span>
+      <span class="addon-tag"><strong>Extra Dressing</strong> $0.75</span>
+    </div>
+
+    <div class="menu-grid">
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Red Cat Salad</span>
+        </div>
+        <p class="menu-item-desc">Spring greens, cherry tomatoes, sliced cucumbers, pickled red onions, shredded cheddar, croutons, and ranch dressing.</p>
+        <div class="menu-item-variants">
+          <div class="variant"><span>Full</span><span>$10.50</span></div>
+          <div class="variant"><span>Half</span><span>$5.25</span></div>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <div class="menu-item-header">
+          <span class="menu-item-name">Seasonal Salad</span>
+        </div>
+        <p class="menu-item-desc">Fresh seasonal ingredients served with a house-made balsamic vinaigrette.</p>
+        <div class="menu-item-variants">
+          <div class="variant"><span>Full</span><span>$12.50</span></div>
+          <div class="variant"><span>Half</span><span>$6.25</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <hr class="section-divider"/>
+
+    <!-- SNACKS -->
+    <div class="section-header">
+      <div class="section-icon">🍎</div>
+      <div class="section-header-text">
+        <h2>Snacks &amp; Sides</h2>
+        <p>Available All Day</p>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="snacks-grid">
+      <div class="snack-card">
+        <p>Avocado Toast</p>
+        <span>$9.75</span>
+      </div>
+      <div class="snack-card">
+        <p>Granola Bowl</p>
+        <span>$9.75</span>
+      </div>
+      <div class="snack-card">
+        <p>Apple or Banana</p>
+        <span>$2.50</span>
+      </div>
+      <div class="snack-card">
+        <p>Zapp's Chips</p>
+        <span>$2.50</span>
+        <small>Regular or Barbecue</small>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <p>
+        <strong>Our Locations</strong>
+        Pepper Place · 2901 2nd Ave S · (205) 616-8450 · Mon–Sat 7am–6pm<br/>
+        Railroad Park · 1701 1st Ave S · (205) 518-0779 · Mon–Sun 6:30am–6pm<br/>
+        UAB Highlands · 1201 11th Ave S · (205) 593-4974 · Mon–Fri 6am–3pm
+      </p>
+    </div>
+    <div class="footer-right">
+      <p>In-house roasted daily</p>
+      <a href="https://theredcatcoffeehouse.com">redcatcoffeehouse.com</a>
+    </div>
+  </div>
+
+  <div class="red-bar"></div>
+</div>
+
+</body>
+</html>
