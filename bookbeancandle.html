@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books, Beans & Candles MS | Birmingham's Metaphysical Shoppe</title>
+  <meta name="description" content="Alabama's Largest and Oldest Metaphysical – Occult Shoppe. Tarot readings, aura photography, crystals, books, candles, and more in Birmingham, AL.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --bg-primary:   #0F0E17;
+      --bg-secondary: #17142A;
+      --bg-surface:   #1E1A30;
+      --bg-card:      #231F38;
+      --text-primary: #F2E8D9;
+      --text-muted:   #A89F9A;
+      --text-subtle:  #6B6479;
+      --gold:         #C9A84C;
+      --gold-light:   #E4C66A;
+      --gold-dim:     #7A6330;
+      --amethyst:     #9171C4;
+      --amethyst-lt:  #B89DE3;
+      --sage:         #6B8F6A;
+      --border:       #2A2240;
+      --border-gold:  rgba(201,168,76,0.25);
+      --radius:       10px;
+      --radius-lg:    18px;
+    }
+
+    /* ── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ── UTILITIES ──────────────────────────────────────────────── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .gold-line {
+      display: block;
+      width: 56px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 20px auto 0;
+    }
+
+    /* ── BUTTONS ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, #A8862F 100%);
+      color: #0F0E17;
+    }
+    .btn-primary:hover { background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 100%); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,168,76,0.3); }
+    .btn-outline {
+      border: 1px solid var(--border-gold);
+      color: var(--gold);
+      background: transparent;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
+    .btn-sm { padding: 9px 18px; font-size: 13px; }
+    .btn-ghost { color: var(--text-muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── ANNOUNCEMENT BAR ───────────────────────────────────────── */
+    .announce {
+      background: linear-gradient(90deg, var(--bg-secondary), #1A1233, var(--bg-secondary));
+      border-bottom: 1px solid var(--border-gold);
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    .announce a { text-decoration: underline; color: var(--gold-light); }
+
+    /* ── HEADER ─────────────────────────────────────────────────── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15,14,23,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    .header.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      gap: 32px;
+    }
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .logo-text {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .logo-sub {
+      font-size: 8px;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-link {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-link:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+    .nav-link.active { color: var(--gold); }
+    .nav-book {
+      background: linear-gradient(135deg, var(--gold), #A8862F);
+      color: #0F0E17 !important;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+    .nav-book:hover { background: linear-gradient(135deg, var(--gold-light), var(--gold)); }
+    .mobile-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 6px;
+    }
+    .mobile-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    /* Starfield canvas background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(145,113,196,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 85% 60%, rgba(201,168,76,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(107,143,106,0.08) 0%, transparent 60%),
+        var(--bg-primary);
+    }
+    /* Stars via CSS box-shadow trick */
+    .stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .star-layer {
+      position: absolute;
+      inset: -100%;
+      width: 300%;
+      height: 300%;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 50%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(2px 2px at 15% 85%, rgba(201,168,76,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 90%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 30% 45%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(2px 2px at 70% 75%, rgba(145,113,196,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 45% 55%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 95% 35%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(2px 2px at 25% 15%, rgba(255,255,255,0.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 75% 40%, rgba(201,168,76,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 65%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 65% 80%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 90%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 5%  40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 92% 65%, rgba(145,113,196,0.5) 0%, transparent 100%);
+      animation: drift 120s linear infinite;
+    }
+    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(33.3%); } }
+    /* Decorative circle */
+    .hero-orb {
+      position: absolute;
+      right: -80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 640px;
+      height: 640px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(145,113,196,0.12) 0%, transparent 70%);
+      border: 1px solid rgba(145,113,196,0.12);
+      animation: pulse 6s ease-in-out infinite;
+    }
+    .hero-orb::before {
+      content: '';
+      position: absolute;
+      inset: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.10);
+    }
+    .hero-orb::after {
+      content: '';
+      position: absolute;
+      inset: 100px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.08);
+    }
+    @keyframes pulse { 0%,100% { transform: translateY(-50%) scale(1); opacity:1; } 50% { transform: translateY(-50%) scale(1.04); opacity:0.85; } }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .hero-tag::before, .hero-tag::after {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero-title span { color: var(--gold); }
+    .hero-title em { font-style: italic; color: var(--amethyst-lt); }
+    .hero-desc {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-trust {
+      position: relative;
+      z-index: 2;
+      margin-top: 64px;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .trust-item { text-align: center; }
+    .trust-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .trust-label { font-size: 12px; color: var(--text-subtle); letter-spacing: 0.05em; }
+    .trust-divider { width: 1px; height: 40px; background: var(--border); }
+
+    /* ── SERVICES ───────────────────────────────────────────────── */
+    .services-section { background: var(--bg-secondary); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .service-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .service-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .service-desc { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+    .service-link {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .service-link:hover { gap: 10px; }
+
+    /* ── READERS ────────────────────────────────────────────────── */
+    .readers-section { background: var(--bg-primary); }
+    .readers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 20px;
+    }
+    .reader-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .reader-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+    .reader-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      filter: grayscale(20%) sepia(10%);
+      transition: filter 0.4s;
+    }
+    .reader-card:hover .reader-img { filter: grayscale(0%) sepia(0%); }
+    .reader-info { padding: 16px 14px; }
+    .reader-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .reader-specialty { font-size: 12px; color: var(--amethyst-lt); letter-spacing: 0.04em; }
+    .reader-book {
+      display: block;
+      margin: 10px auto 0;
+      font-size: 11px;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      padding: 5px 12px;
+      transition: background 0.2s;
+    }
+    .reader-book:hover { background: rgba(201,168,76,0.1); }
+
+    /* ── EVENTS ─────────────────────────────────────────────────── */
+    .events-section { background: var(--bg-secondary); }
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .event-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .event-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+    .event-badge-wrap {
+      padding: 20px 24px 0;
+    }
+    .event-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .badge-monthly { background: rgba(145,113,196,0.15); color: var(--amethyst-lt); border: 1px solid rgba(145,113,196,0.3); }
+    .badge-special { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid var(--border-gold); }
+    .badge-weekly  { background: rgba(107,143,106,0.15); color: #8FC48E; border: 1px solid rgba(107,143,106,0.3); }
+    .event-body { padding: 16px 24px 24px; }
+    .event-when {
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+    .event-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .event-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
+    .event-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gold); font-weight: 500; transition: gap 0.2s; }
+    .event-cta:hover { gap: 10px; }
+
+    /* ── SHOP CTA ───────────────────────────────────────────────── */
+    .shop-section { background: var(--bg-primary); }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .shop-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      min-height: 320px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .shop-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.45) saturate(0.8) sepia(0.2);
+      transition: transform 0.5s, filter 0.5s;
+    }
+    .shop-card:hover img { transform: scale(1.04); filter: brightness(0.35) saturate(0.8) sepia(0.2); }
+    .shop-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15,14,23,0.9) 0%, transparent 60%);
+    }
+    .shop-card-content {
+      position: relative;
+      z-index: 2;
+      padding: 32px;
+    }
+    .shop-card-label { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+    .shop-card-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; margin-bottom: 12px; }
+    .shop-card-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+
+    /* ── TESTIMONIALS ───────────────────────────────────────────── */
+    .testimonials-section {
+      background: var(--bg-secondary);
+      padding: 80px 0;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .testimonial-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 14px; }
+    .testimonial-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
+    .testimonial-author { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+
+    /* ── VISIT / CONTACT ────────────────────────────────────────── */
+    .visit-section { background: var(--bg-primary); }
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .visit-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .visit-detail {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+    .visit-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+    .visit-detail-text h4 { font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 4px; }
+    .visit-detail-text p { color: var(--text-muted); font-size: 15px; line-height: 1.6; }
+    .visit-detail-text a { color: var(--text-muted); transition: color 0.2s; }
+    .visit-detail-text a:hover { color: var(--gold); }
+    .visit-hours { margin-top: 28px; }
+    .hours-title { font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px; }
+    .hours-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-muted); }
+    .hours-row:last-child { border-bottom: none; }
+    .contact-form-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+    }
+    .contact-form-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+    .form-group select option { background: var(--bg-secondary); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ── NEWSLETTER ─────────────────────────────────────────────── */
+    .newsletter-section {
+      background: linear-gradient(135deg, #17142A 0%, #1A1A0D 100%);
+      border-top: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 72px 0;
+    }
+    .newsletter-inner { max-width: 520px; margin: 0 auto; text-align: center; }
+    .newsletter-inner h2 { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 600; margin-bottom: 12px; }
+    .newsletter-inner p { color: var(--text-muted); margin-bottom: 28px; }
+    .newsletter-form { display: flex; gap: 12px; }
+    .newsletter-form input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+    .newsletter-form input:focus { border-color: var(--gold); }
+    .newsletter-note { font-size: 12px; color: var(--text-subtle); margin-top: 14px; }
+
+    /* ── FOOTER ─────────────────────────────────────────────────── */
+    .footer { background: #09080F; border-top: 1px solid var(--border); padding: 64px 0 32px; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-tagline { color: var(--text-subtle); font-size: 14px; line-height: 1.7; margin-top: 14px; }
+    .social-links { display: flex; gap: 10px; margin-top: 20px; }
+    .social-link {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: var(--text-subtle);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+    .footer-col h4 { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 14px; color: var(--text-subtle); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: 13px; color: var(--text-subtle); }
+    .footer-bottom a { color: var(--gold); }
+
+    /* ── DIVIDER ORNAMENT ───────────────────────────────────────── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 auto 48px;
+      max-width: 280px;
+    }
+    .ornament-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--border-gold)); }
+    .ornament-line:last-child { background: linear-gradient(90deg, var(--border-gold), transparent); }
+    .ornament-sym { color: var(--gold); font-size: 16px; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav { display: none; }
+      .mobile-toggle { display: flex; }
+      .shop-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .visit-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-trust { gap: 24px; flex-wrap: wrap; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 64px 0; }
+      .readers-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-orb { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announce">
+    Open Daily 10am–8pm &nbsp;·&nbsp; 1620 Richard Arrington Jr Blvd S, Birmingham, AL 35205 &nbsp;·&nbsp; <a href="tel:2054534636">(205) 453-4636</a>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <span class="logo-text">BOOKS, BEANS &amp; CANDLES</span>
+        <span class="logo-sub">Birmingham's Metaphysical Shoppe &nbsp;·&nbsp; Est. Alabama</span>
+      </a>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#readers"  class="nav-link">Readers</a></li>
+          <li><a href="#events"   class="nav-link">Events</a></li>
+          <li><a href="#shop"     class="nav-link">Shop</a></li>
+          <li><a href="#visit"    class="nav-link">Visit</a></li>
+          <li><a href="#contact"  class="nav-link nav-book">Book a Reading ✦</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="stars"><div class="star-layer"></div></div>
+    <div class="hero-orb"></div>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-tag">Alabama's Oldest &amp; Largest Metaphysical Shoppe</p>
+        <h1 class="hero-title">
+          Where the <em>Mystical</em><br>Meets the <span>Everyday</span>
+        </h1>
+        <p class="hero-desc">
+          Tarot readings, crystals, candles, rare books, and sacred tools — gathered in one welcoming space in the heart of Birmingham, Alabama. Open daily to seekers of all paths.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Book a Reading</a>
+          <a href="#events"  class="btn btn-outline">See Upcoming Events</a>
+        </div>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <div class="trust-num">6</div>
+          <div class="trust-label">Staff Readers</div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="trust-num">10–8</div>
+          <div class="trust-label">Open Daily</div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="trust-num">4+</div>
+          <div class="trust-label">Monthly Events</div>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-item">
+          <div class="trust-num">#1</div>
+          <div class="trust-label">In Alabama</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section services-section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">What We Offer</p>
+        <h2 class="section-title">Readings &amp; Services</h2>
+        <p class="section-subtitle">Our experienced practitioners offer a range of divination and spiritual services to illuminate your path.</p>
+        <span class="gold-line"></span>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🃏</div>
+          <h3 class="service-name">Tarot Readings</h3>
+          <p class="service-desc">Gain clarity and insight through the ancient art of tarot. Our readers offer compassionate, nuanced guidance for all of life's questions.</p>
+          <a href="#contact" class="service-link">Book a session &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✨</div>
+          <h3 class="service-name">Aura Photography</h3>
+          <p class="service-desc">See your energy field captured in vivid color. Aura photography offers a unique window into your current spiritual and emotional state.</p>
+          <a href="#contact" class="service-link">Schedule now &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🕯️</div>
+          <h3 class="service-name">Ancestor Readings</h3>
+          <p class="service-desc">Connect with the wisdom of those who came before. Ancestor readings offer healing, perspective, and ancestral guidance for your journey.</p>
+          <a href="#contact" class="service-link">Learn more &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">ᚠ</div>
+          <h3 class="service-name">Rune Readings</h3>
+          <p class="service-desc">The ancient Norse oracle speaks to what's unfolding in your life. Rune readings offer direct, grounded counsel from a time-honored tradition.</p>
+          <a href="#contact" class="service-link">Book a session &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Readers -->
+  <section class="section readers-section" id="readers">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Our Practitioners</p>
+        <h2 class="section-title">Meet Your Readers</h2>
+        <p class="section-subtitle">Each of our readers brings a unique spiritual background and set of gifts to their practice.</p>
+        <span class="gold-line"></span>
+      </div>
+      <div class="readers-grid">
+
+        <div class="reader-card">
+          <img class="reader-img" src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=400&q=80" alt="Reader Skagi">
+          <div class="reader-info">
+            <div class="reader-name">Skagi</div>
+            <div class="reader-specialty">Runes · Norse Tradition</div>
+            <a href="#contact" class="reader-book">Book</a>
+          </div>
+        </div>
+
+        <div class="reader-card">
+          <img class="reader-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80" alt="Reader Kelli">
+          <div class="reader-info">
+            <div class="reader-name">Kelli</div>
+            <div class="reader-specialty">Tarot · Intuitive</div>
+            <a href="#contact" class="reader-book">Book</a>
+          </div>
+        </div>
+
+        <div class="reader-card">
+          <img class="reader-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Reader Rune">
+          <div class="reader-info">
+            <div class="reader-name">Rune</div>
+            <div class="reader-specialty">Elder Futhark · Divination</div>
+            <a href="#contact" class="reader-book">Book</a>
+          </div>
+        </div>
+
+        <div class="reader-card">
+          <img class="reader-img" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=400&q=80" alt="Reader Stevie">
+          <div class="reader-info">
+            <div class="reader-name">Stevie</div>
+            <div class="reader-specialty">Tarot · Energy Work</div>
+            <a href="#contact" class="reader-book">Book</a>
+          </div>
+        </div>
+
+        <div class="reader-card">
+          <img class="reader-img" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=400&q=80" alt="Reader Mitchell">
+          <div class="reader-info">
+            <div class="reader-name">Mitchell</div>
+            <div class="reader-specialty">Ancestor Work · Mediumship</div>
+            <a href="#contact" class="reader-book">Book</a>
+          </div>
+        </div>
+
+        <div class="reader-card">
+          <img class="reader-img" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&q=80" alt="Reader Magna">
+          <div class="reader-info">
+            <div class="reader-name">Magna</div>
+            <div class="reader-specialty">Aura Photography · Crystals</div>
+            <a href="#contact" class="reader-book">Book</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="section events-section" id="events">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Community &amp; Gatherings</p>
+        <h2 class="section-title">Upcoming Events</h2>
+        <p class="section-subtitle">Join us for monthly gatherings, classes, and magickal experiences open to all who seek.</p>
+        <span class="gold-line"></span>
+      </div>
+      <div class="events-grid">
+
+        <div class="event-card">
+          <div class="event-badge-wrap"><span class="event-badge badge-monthly">Monthly</span></div>
+          <div class="event-body">
+            <div class="event-when">1st Friday of Every Month</div>
+            <h3 class="event-name">Tea &amp; Tarot</h3>
+            <p class="event-desc">A cozy evening of tea, community, and tarot. Come with questions, leave with clarity. Open to all experience levels.</p>
+            <a href="#contact" class="event-cta">Reserve your spot &rarr;</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-badge-wrap"><span class="event-badge badge-monthly">Monthly</span></div>
+          <div class="event-body">
+            <div class="event-when">3rd Friday of Every Month</div>
+            <h3 class="event-name">Sips &amp; Stars</h3>
+            <p class="event-desc">Astrology, good drinks, and great conversation. A social night for astro-curious minds to explore the cosmos together.</p>
+            <a href="#contact" class="event-cta">Reserve your spot &rarr;</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-badge-wrap"><span class="event-badge badge-weekly">Monthly</span></div>
+          <div class="event-body">
+            <div class="event-when">4th Thursday of Every Month</div>
+            <h3 class="event-name">Magickal Lecture: Magic City Pagans</h3>
+            <p class="event-desc">An ongoing lecture series exploring pagan traditions, magickal practice, and spiritual philosophy with the Magic City Pagans group.</p>
+            <a href="#contact" class="event-cta">Learn more &rarr;</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-badge-wrap"><span class="event-badge badge-special">Special Event</span></div>
+          <div class="event-body">
+            <div class="event-when">March 27–29, 2026</div>
+            <h3 class="event-name">Christopher Penczak Classes</h3>
+            <p class="event-desc">Three-day intensive with renowned teacher Christopher Penczak covering <em>Art of Potions</em>, <em>Breaking Curses</em>, and <em>Evocation &amp; Invocation of Spirits</em>.</p>
+            <a href="#contact" class="event-cta">Register now &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop -->
+  <section class="section shop-section" id="shop">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">The Shoppe</p>
+        <h2 class="section-title">Browse Our Collection</h2>
+        <p class="section-subtitle">From rare occult books to hand-poured candles, crystals, herbs, and more — every item chosen with intention.</p>
+        <span class="gold-line"></span>
+      </div>
+      <div class="shop-grid">
+        <div class="shop-card">
+          <img src="https://images.unsplash.com/photo-1607291156053-b0f6b20f6ef4?w=800&q=80" alt="Gift cards">
+          <div class="shop-card-overlay"></div>
+          <div class="shop-card-content">
+            <div class="shop-card-label">Always Perfect</div>
+            <h3 class="shop-card-title">Gift Cards</h3>
+            <p class="shop-card-desc">Give the gift of magic. Our gift cards are valid for readings, products, and events.</p>
+            <a href="#contact" class="btn btn-primary btn-sm">Get a Gift Card</a>
+          </div>
+        </div>
+        <div class="shop-card">
+          <img src="https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&q=80" alt="Apparel and merchandise">
+          <div class="shop-card-overlay"></div>
+          <div class="shop-card-content">
+            <div class="shop-card-label">Wear Your Path</div>
+            <h3 class="shop-card-title">Apparel &amp; Merch</h3>
+            <p class="shop-card-desc">T-shirts and apparel that let you carry a piece of the shoppe with you everywhere you go.</p>
+            <a href="#contact" class="btn btn-outline btn-sm">Shop Apparel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">The Community Speaks</p>
+        <h2 class="section-title">What Visitors Are Saying</h2>
+        <span class="gold-line"></span>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"The most welcoming metaphysical shop I've ever been in. The readers are incredibly gifted and the staff genuinely cares about your experience."</p>
+          <div class="testimonial-author">— Amanda T.</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Skagi's rune reading was life-changing. Absolutely accurate and deeply meaningful. I've been back three times since."</p>
+          <div class="testimonial-author">— Marcus R.</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Tea &amp; Tarot is my favorite night of the month. Beautiful atmosphere, lovely people, and always something new to learn."</p>
+          <div class="testimonial-author">— Jess L.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-inner">
+        <p class="section-eyebrow" style="margin-bottom:16px;">Stay Connected</p>
+        <h2>Never Miss a Ritual</h2>
+        <p>Get early access to events, new arrivals, and seasonal offerings from the shoppe. Join our community.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="your@email.com" required aria-label="Email address">
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+        <p class="newsletter-note">No spam, ever. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit / Contact -->
+  <section class="section visit-section" id="visit">
+    <div class="container">
+      <div class="visit-grid">
+        <!-- Info -->
+        <div class="visit-info">
+          <p class="section-eyebrow">Find Us</p>
+          <h2>Come Visit the Shoppe</h2>
+          <div class="visit-detail">
+            <div class="visit-icon">📍</div>
+            <div class="visit-detail-text">
+              <h4>Address</h4>
+              <p>1620 Richard Arrington Jr Blvd S<br>Birmingham, Alabama 35205</p>
+            </div>
+          </div>
+          <div class="visit-detail">
+            <div class="visit-icon">📞</div>
+            <div class="visit-detail-text">
+              <h4>Phone</h4>
+              <p><a href="tel:2054534636">(205) 453-4636</a></p>
+            </div>
+          </div>
+          <div class="visit-detail">
+            <div class="visit-icon">✉️</div>
+            <div class="visit-detail-text">
+              <h4>Email</h4>
+              <p><a href="mailto:bbcms@bookbeancandle.com">bbcms@bookbeancandle.com</a></p>
+            </div>
+          </div>
+          <div class="visit-hours">
+            <div class="hours-title">Store Hours</div>
+            <div class="hours-row"><span>Monday – Sunday</span><span>10:00 AM – 8:00 PM</span></div>
+          </div>
+          <div style="margin-top:28px;">
+            <a href="https://maps.google.com/?q=1620+Richard+Arrington+Jr+Blvd+S+Birmingham+AL+35205" target="_blank" rel="noopener" class="btn btn-outline">Get Directions →</a>
+          </div>
+        </div>
+        <!-- Contact Form -->
+        <div class="contact-form-wrap" id="contact">
+          <h3>Book a Reading or Send a Message</h3>
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cName">Name</label>
+                <input type="text" id="cName" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="cEmail">Email</label>
+                <input type="email" id="cEmail" name="email" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cSubject">I'm interested in…</label>
+              <select id="cSubject" name="subject">
+                <option value="tarot">Tarot Reading</option>
+                <option value="aura">Aura Photography</option>
+                <option value="ancestor">Ancestor Reading</option>
+                <option value="rune">Rune Reading</option>
+                <option value="event">Upcoming Event</option>
+                <option value="general">General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cMessage">Message</label>
+              <textarea id="cMessage" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Send Message ✦</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo">
+            <span class="logo-text">BOOKS, BEANS &amp; CANDLES</span>
+            <span class="logo-sub" style="margin-top:6px;">Birmingham's Metaphysical Shoppe</span>
+          </div>
+          <p class="footer-tagline">Alabama's Largest and Oldest<br>Metaphysical – Occult Shoppe.<br>Open daily in Birmingham, AL.</p>
+          <div class="social-links">
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.65a8.18 8.18 0 0 0 4.78 1.52V6.73a4.85 4.85 0 0 1-1.01-.04z"/></svg>
+            </a>
+            <a href="https://bsky.app" target="_blank" rel="noopener" class="social-link" aria-label="Bluesky">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.299-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">Tarot Readings</a></li>
+            <li><a href="#services">Aura Photography</a></li>
+            <li><a href="#services">Ancestor Readings</a></li>
+            <li><a href="#services">Rune Readings</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Shoppe</h4>
+          <ul>
+            <li><a href="#shop">Books &amp; Tomes</a></li>
+            <li><a href="#shop">Crystals &amp; Stones</a></li>
+            <li><a href="#shop">Candles &amp; Herbs</a></li>
+            <li><a href="#shop">Gift Cards</a></li>
+            <li><a href="#shop">Apparel</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#events">Events Calendar</a></li>
+            <li><a href="#readers">Our Readers</a></li>
+            <li><a href="#contact">Book a Reading</a></li>
+            <li><a href="mailto:bbcms@bookbeancandle.com">Email Us</a></li>
+            <li><a href="tel:2054534636">(205) 453-4636</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Books, Beans &amp; Candles MS. All rights reserved.</p>
+        <p>Designed by <a href="#">Williams Digital</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky header
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Newsletter
+    document.getElementById('newsletterForm').addEventListener('submit', e => {
+      e.preventDefault();
+      e.target.innerHTML = '<p style="color:var(--gold);font-weight:600;">✦ You\'re on the list! Welcome to the community.</p>';
+    });
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type=submit]');
+      btn.textContent = '✦ Message sent! We\'ll be in touch soon.';
+      btn.style.background = 'var(--sage)';
+      btn.style.color = '#fff';
+      btn.disabled = true;
+    });
+  </script>
+</body>
+</html>
