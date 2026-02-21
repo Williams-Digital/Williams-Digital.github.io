@@ -1254,7 +1254,21 @@
 
                 <div class="term-block">
                     <div class="term-number">7. Hosting &amp; Delivery</div>
-                    <div class="term-text">Williams Digital will deliver the completed WordPress site via <strong>All-in-One WP Migration</strong> export or direct deployment to the Client's hosting environment. After delivery, the Client is responsible for their own hosting, domain renewal, SSL, security, and WordPress updates. Williams Digital is <strong>not responsible</strong> for performance, uptime, or issues arising from the Client's hosting environment after handoff. Future technical support or modifications are available on an <strong>as-needed contract basis</strong>.</div>
+                    <div class="term-text">Select a hosting arrangement below. This determines how the completed WordPress website will be hosted and maintained after launch.</div>
+                    <div class="hosting-options">
+                        <div class="hosting-option selected" id="hostingA" onclick="selectHosting('A')">
+                            <div class="hosting-option-radio"></div>
+                            <div class="hosting-option-label">Option A</div>
+                            <div class="hosting-option-title">Williams Digital Managed Hosting</div>
+                            <div class="hosting-option-desc">Williams Digital will host the WordPress website on its managed infrastructure. Hosting, SSL, security monitoring, WordPress updates, and performance optimization are included. If the Client chooses to migrate to their own hosting at any time, a full site export will be provided upon request.</div>
+                        </div>
+                        <div class="hosting-option" id="hostingB" onclick="selectHosting('B')">
+                            <div class="hosting-option-radio"></div>
+                            <div class="hosting-option-label">Option B</div>
+                            <div class="hosting-option-title">Client Self-Hosted</div>
+                            <div class="hosting-option-desc">The Client is responsible for their own hosting, domain renewal, SSL, security, and WordPress updates. Williams Digital will deliver the completed site via <strong>All-in-One WP Migration</strong> export or direct deployment. Williams Digital is <strong>not responsible</strong> for performance, uptime, or issues arising from the Client's hosting environment after handoff.</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="term-block">
@@ -1429,6 +1443,7 @@
         // ——— STATE ———
         let agreed = false;
         let tosAccepted = false;
+        let hostingOption = 'A';
 
         // ——— DATE ———
         const now = new Date();
@@ -1448,6 +1463,13 @@
             document.getElementById('sigName').classList.remove('error');
             document.getElementById('nameError').style.display = 'none';
             validateForm();
+        }
+
+        // ——— HOSTING OPTION ———
+        function selectHosting(option) {
+            hostingOption = option;
+            document.getElementById('hostingA').classList.toggle('selected', option === 'A');
+            document.getElementById('hostingB').classList.toggle('selected', option === 'B');
         }
 
         // ——— TOS ACCEPTANCE ———
@@ -1525,6 +1547,7 @@
                 'Email': email,
                 'Package': 'Custom WordPress Website — $800',
                 'Deposit Amount': '$400',
+                'Hosting': hostingOption === 'A' ? 'Option A — Williams Digital Managed Hosting' : 'Option B — Client Self-Hosted',
                 'Date Signed': dateStr,
                 'Terms of Service': 'Accepted — ' + dateStr,
                 'Agreement': 'Client agreed to all terms and the Williams Digital Terms of Service'
