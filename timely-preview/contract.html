@@ -1433,14 +1433,19 @@
             document.querySelector('.success-redirect').textContent = 'Generating signed contract PDF...';
 
             generatePDF(pdfFileName).then(pdfBase64 => {
+                console.log('PDF generated, size:', pdfBase64.length);
                 document.querySelector('.success-redirect').textContent = 'Uploading to secure storage...';
-                return uploadToDrive(pdfBase64, pdfFileName).catch(() => null);
-            }).catch(() => {}).finally(() => {
+                return uploadToDrive(pdfBase64, pdfFileName);
+            }).then(result => {
+                console.log('Drive upload result:', result);
+            }).catch(err => {
+                console.error('PDF/Upload error:', err);
+            }).finally(() => {
                 // Step 3: Always redirect to Stripe
                 document.querySelector('.success-redirect').textContent = 'Redirecting to deposit payment...';
                 setTimeout(() => {
                     window.location.href = STRIPE_DEPOSIT_LINK + '?prefilled_email=' + encodeURIComponent(email);
-                }, 1500);
+                }, 5000);
             });
         }
 
