@@ -1175,49 +1175,107 @@
     }
 
     /* ============================================================
-       SERVICES BANNER
+       SERVICES — editorial strips
     ============================================================ */
-    #services {
-        padding: 0 32px 100px;
-    }
+    #services { padding: 0; }
 
-    .services-grid {
+    .service-strip {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+        grid-template-columns: 1fr 1fr;
+        min-height: 460px;
+        border-top: 1px solid var(--border-s);
+        overflow: hidden;
     }
 
-    .service-card {
-        border: 1px solid var(--border-s);
-        border-radius: 6px;
-        padding: 36px 32px;
-        background: var(--card);
-        transition: border-color 0.3s, background 0.3s;
+    .service-strip-img {
+        position: relative;
+        overflow: hidden;
     }
 
-    .service-card:hover {
-        border-color: var(--border);
-        background: rgba(212,168,48,0.04);
+    .service-strip-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.65);
+        transition: transform 7s ease, filter 0.4s;
+        display: block;
     }
 
-    .service-icon {
-        font-size: 1.3rem;
+    .service-strip:hover .service-strip-img img {
+        transform: scale(1.05);
+        filter: brightness(0.75);
+    }
+
+    /* Flip: image goes right */
+    .service-strip.flip .service-strip-img { order: 2; }
+    .service-strip.flip .service-strip-body  { order: 1; }
+
+    .service-strip-body {
+        background: var(--bg);
+        padding: 64px 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-left: 1px solid var(--border-s);
+    }
+
+    .service-strip.flip .service-strip-body {
+        border-left: none;
+        border-right: 1px solid var(--border-s);
+    }
+
+    .service-strip-num {
+        font-size: 0.58rem;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
         color: var(--gold-d);
-        margin-bottom: 18px;
+        margin-bottom: 20px;
     }
 
-    .service-card h3 {
+    .service-strip-title {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 1.25rem;
-        font-weight: 400;
+        font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+        font-weight: 300;
         color: var(--cream);
-        margin-bottom: 10px;
+        line-height: 1.05;
+        margin-bottom: 22px;
+        letter-spacing: -0.01em;
     }
 
-    .service-card p {
-        font-size: 0.83rem;
+    .service-strip-desc {
+        font-size: 0.87rem;
         color: var(--muted);
-        line-height: 1.75;
+        line-height: 1.9;
+        max-width: 360px;
+        margin-bottom: 32px;
+    }
+
+    .service-strip-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.62rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        text-decoration: none;
+        transition: gap 0.25s;
+    }
+
+    .service-strip-link:hover { gap: 18px; }
+    .service-strip-link i { font-size: 0.65rem; }
+
+    /* Gradient bleed from image into text panel */
+    .service-strip-img::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, transparent 55%, var(--bg) 100%);
+        pointer-events: none;
+    }
+
+    .service-strip.flip .service-strip-img::after {
+        background: linear-gradient(to left, transparent 55%, var(--bg) 100%);
     }
 
     /* ============================================================
@@ -1388,7 +1446,10 @@
 
         .visit-grid { grid-template-columns:1fr; }
 
-        .services-grid { grid-template-columns:1fr 1fr; }
+        .service-strip { grid-template-columns:1fr; min-height:auto; }
+        .service-strip-img { height: 300px; order: 0 !important; }
+        .service-strip-body { order: 1 !important; padding: 48px 36px; border-left:none !important; border-right:none !important; border-top: 1px solid var(--border-s); }
+        .service-strip-img::after { background: linear-gradient(to bottom, transparent 55%, var(--bg) 100%) !important; }
 
         .gallery-cell { flex: 0 0 80vw; height: 360px; }
     }
@@ -1398,11 +1459,11 @@
         #nav { padding:0 20px; }
         .menu-tabs { padding:0 20px; }
         .menu-panel { padding:0 20px; }
-        .gallery-header, #services, footer { padding-left:20px; padding-right:20px; }
+        .gallery-header, footer { padding-left:20px; padding-right:20px; }
 
         .hero-title { font-size:2.8rem; }
 
-        .services-grid { grid-template-columns:1fr; }
+        .service-strip-body { padding: 36px 20px; }
 
         .gallery-cell { flex: 0 0 88vw; height: 300px; }
 
@@ -1947,28 +2008,57 @@
 
     <!-- SERVICES -->
     <section id="services">
-        <div class="container reveal" style="margin-bottom:36px">
+        <div class="container reveal" style="margin-bottom:52px">
             <div class="section-label">Beyond the Loaf</div>
             <h2 class="section-heading">More From Us</h2>
             <div class="section-rule"></div>
         </div>
-        <div class="services-grid reveal">
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-boxes-stacked"></i></div>
-                <h3>Daily Bread Orders</h3>
-                <p>Pre-order your favorite loaves for guaranteed availability. We bake fresh every morning and sell out — get yours secured.</p>
+
+        <!-- Strip 1: Pre-Order -->
+        <div class="service-strip reveal">
+            <div class="service-strip-img">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1400&q=80" alt="Fresh sourdough loaves">
             </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-calendar-days"></i></div>
-                <h3>Catering</h3>
-                <p>Fresh bread and pastry for your event, meeting, or celebration. We'll work with you to put together the perfect spread.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-door-open"></i></div>
-                <h3>Rent Our Space</h3>
-                <p>Our warm, bakery-scented space is available for private events. A unique Birmingham venue steeped in the aroma of fresh bread.</p>
+            <div class="service-strip-body">
+                <div class="service-strip-num">01 · Pre-Order</div>
+                <div class="service-strip-title">Daily Bread<br>Orders</div>
+                <p class="service-strip-desc">We bake fresh every morning and sell out by noon. Pre-order your favorite loaves and guarantee yours is waiting when you arrive — no early wake-ups required.</p>
+                <a href="https://bhambreadworks.square.site" target="_blank" class="service-strip-link">
+                    Order Online <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
+
+        <!-- Strip 2: Catering (flipped) -->
+        <div class="service-strip flip reveal">
+            <div class="service-strip-img">
+                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1400&q=80" alt="Pastry spread for catering">
+            </div>
+            <div class="service-strip-body">
+                <div class="service-strip-num">02 · Catering</div>
+                <div class="service-strip-title">Events &amp;<br>Catering</div>
+                <p class="service-strip-desc">Fresh bread and pastry for your event, meeting, or celebration. From a simple dozen croissants to a full artisan spread — we work with you on every detail.</p>
+                <a href="tel:2052023207" class="service-strip-link">
+                    Get in Touch <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Strip 3: Venue -->
+        <div class="service-strip reveal">
+            <div class="service-strip-img">
+                <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1400&q=80" alt="Warm bakery interior">
+            </div>
+            <div class="service-strip-body">
+                <div class="service-strip-num">03 · Venue</div>
+                <div class="service-strip-title">Rent Our<br>Space</div>
+                <p class="service-strip-desc">Our warm, bakery-scented space is available for private events. A unique Birmingham venue filled with character, the smell of fresh bread, and the soul of a working bakery.</p>
+                <a href="tel:2052023207" class="service-strip-link">
+                    Inquire <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
     </section>
 
     <!-- FOOTER -->
