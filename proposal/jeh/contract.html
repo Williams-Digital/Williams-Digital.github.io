@@ -1540,17 +1540,50 @@
             document.getElementById('submitBtn').disabled = true;
             document.getElementById('submitBtn').textContent = 'Submitting...';
 
+            const timestamp = new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'long' });
+
             const formData = {
-                _subject: 'Contract Signed — JE Holdings — Custom WordPress Website ($800)',
+                _subject: '✅ CONTRACT SIGNED — JE Holdings, LLC — $800 WordPress Website',
+
+                // ——— SIGNED BY ———
+                '── SIGNED BY ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
                 'Full Name': name,
-                'Title': title,
+                'Title / Role': title,
                 'Email': email,
-                'Package': 'Custom WordPress Website — $800',
-                'Deposit Amount': '$400',
-                'Hosting': hostingOption === 'A' ? 'Option A — Williams Digital Managed Hosting' : 'Option B — Client Self-Hosted',
+                'Digital Signature': name,
                 'Date Signed': dateStr,
+                'Timestamp': timestamp,
+
+                // ——— CONTRACT DETAILS ———
+                '── CONTRACT DETAILS ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Client': 'JE Holdings, LLC',
+                'Domain': 'thejeh.com',
+                'Service Provider': 'Williams Digital — Dylan Williams — Dylan@williamsdigital.io',
+                'Package': 'Custom WordPress Website',
+                'Total Project Cost': '$800 (one-time)',
+                'Deposit Due Now': '$400 (50%)',
+                'Balance Due': '$400 — invoiced upon project completion',
+                'Estimated Timeline': '10–21 business days after receiving content & materials',
+                'Revisions Included': '2 rounds',
+
+                // ——— SCOPE OF WORK ———
+                '── SCOPE OF WORK ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Deliverables': 'Custom WordPress Theme (Navy & Gold) · Editable CMS (ACF) · Responsive Mobile Design · Scroll Animations · SEO Foundation & Google Business · Contact Form (Formspree) · Built-in Admin Site Guide · Domain Setup & Deployment · SSL/HTTPS',
+
+                // ——— HOSTING SELECTION ———
+                '── HOSTING ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Hosting Choice': hostingOption === 'A' ? 'Option A — Williams Digital Managed Hosting (SSL, security, updates, optimization included)' : 'Option B — Client Self-Hosted (client responsible for hosting, SSL, security, updates)',
+
+                // ——— LEGAL ACCEPTANCE ———
+                '── LEGAL ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
                 'Terms of Service': 'Accepted — ' + dateStr,
-                'Agreement': 'Client agreed to all terms and the Williams Digital Terms of Service'
+                'Service Agreement': 'Accepted — all 18 terms agreed',
+                'Key Terms Agreed': 'Payment · Timeline · Revisions · Content & Materials · Ownership & IP · No Resale · Hosting & Delivery · Limitation of Liability · Indemnification · Warranty Disclaimer · Cancellation (deposit non-refundable) · Confidentiality · Independent Contractor · Force Majeure · Communication (5 business day response) · Project Archival (90 days) · Governing Law (Alabama) · Entire Agreement',
+
+                // ——— PAYMENT NEXT STEP ———
+                '── PAYMENT ──': '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                'Payment Status': 'Redirected to Stripe for $400 deposit',
+                'Stripe Link': STRIPE_DEPOSIT_LINK
             };
 
             fetch(FORMSPREE_URL, {
