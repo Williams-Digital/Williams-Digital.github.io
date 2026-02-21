@@ -383,12 +383,30 @@
     #specials .section-sub { color: var(--text-light); opacity: 0.7; }
     #specials .section-label { color: var(--gold); }
     #specials .btn-primary { margin-top: 32px; }
-    .specials-img img {
-      width: 100%;
+    .specials-img {
+      position: relative;
       border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    }
+    .specials-img iframe {
+      width: 612px;
+      height: 620px;
+      border: none;
       display: block;
-      max-height: 600px;
-      object-fit: contain;
+      transform: scale(0.72);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+    .specials-img-wrap {
+      width: calc(612px * 0.72);
+      height: calc(620px * 0.72);
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .specials-img a-overlay {
+      position: absolute; inset: 0;
+      cursor: pointer;
     }
 
     /* ── MENU HIGHLIGHTS ── */
@@ -733,8 +751,9 @@
     <a href="winter-specials.html" target="_blank" class="btn btn-primary">View Winter Specials</a>
   </div>
   <div class="specials-img">
-    <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2025/12/2025-Red-Cat-Winter-Specials-791x1024.png"
-         alt="2025 Winter Specials"/>
+    <div class="specials-img-wrap">
+      <iframe src="winter-specials.html" scrolling="no" title="Winter Specials Preview"></iframe>
+    </div>
   </div>
 </section>
 
