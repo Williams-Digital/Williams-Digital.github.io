@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Birmingham Breadworks — Instagram Pitch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* ── Usage Note ── */
+        .usage-note {
+            max-width: 520px;
+            margin: 0 auto 32px;
+            background: #1a1a1a;
+            border: 1px dashed #333;
+            border-radius: 12px;
+            padding: 14px 20px;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .usage-note strong { color: #aaa; }
+
+        /* ── Phone Frame ── */
+        .phone-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 36px;
+        }
+
+        .phone {
+            width: 375px;
+            background: #000;
+            border-radius: 48px;
+            border: 2px solid #2a2a2a;
+            box-shadow:
+                0 0 0 1px #111,
+                0 32px 80px rgba(0,0,0,0.8);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* notch */
+        .phone-notch {
+            width: 126px;
+            height: 34px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Instagram DM Header */
+        .ig-header {
+            background: #000;
+            padding: 10px 16px 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 0.5px solid #1a1a1a;
+        }
+
+        .ig-back {
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            opacity: 0.9;
+        }
+
+        .ig-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5E1A 0%, #D09038 50%, #E8B858 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .ig-avatar::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+            z-index: -1;
+        }
+
+        .ig-user-info {
+            flex: 1;
+        }
+
+        .ig-username {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: -0.1px;
+        }
+
+        .ig-name-sub {
+            font-size: 11px;
+            color: #888;
+            margin-top: 1px;
+        }
+
+        .ig-header-icons {
+            display: flex;
+            gap: 18px;
+            color: #fff;
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        /* DM thread */
+        .ig-thread {
+            background: #000;
+            padding: 16px 12px 20px;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        /* Date separator */
+        .ig-date {
+            text-align: center;
+            font-size: 11px;
+            color: #555;
+            margin: 8px 0 12px;
+        }
+
+        /* Received (their side — left) */
+        .bubble-received {
+            align-self: flex-start;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            max-width: 85%;
+        }
+
+        .bubble-received .mini-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B5E1A, #E8B858);
+            flex-shrink: 0;
+        }
+
+        .bubble-received .bubble {
+            background: #262626;
+            border-radius: 18px 18px 18px 4px;
+            padding: 10px 14px;
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: #f5f5f5;
+        }
+
+        /* Sent (Dylan — right, Instagram blue) */
+        .bubble-sent {
+            align-self: flex-end;
+            max-width: 82%;
+        }
+
+        .bubble-sent .bubble {
+            background: linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+            background: #3797f0;
+            border-radius: 18px 18px 4px 18px;
+            padding: 11px 15px;
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: #fff;
+        }
+
+        .bubble-sent .bubble a {
+            color: #fff;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* Seen */
+        .ig-seen {
+            text-align: right;
+            font-size: 10px;
+            color: #555;
+            margin-top: 2px;
+        }
+
+        /* Message input bar */
+        .ig-input-bar {
+            background: #000;
+            padding: 10px 14px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 0.5px solid #1a1a1a;
+        }
+
+        .ig-input-pill {
+            flex: 1;
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 9px 16px;
+            font-size: 13px;
+            color: #555;
+            border: 0.5px solid #2a2a2a;
+        }
+
+        .ig-input-icons {
+            display: flex;
+            gap: 14px;
+            color: #555;
+            font-size: 22px;
+        }
+
+        .phone-home-bar {
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .phone-home-pill {
+            width: 120px;
+            height: 4px;
+            background: #333;
+            border-radius: 4px;
+        }
+
+        /* ── Plain Text Panel ── */
+        .plain-panel {
+            max-width: 520px;
+            margin: 0 auto;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .plain-panel-header {
+            background: #1a1a1a;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #222;
+        }
+
+        .plain-panel-header span {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: #3797f0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover { background: #2d88e0; }
+        .copy-btn.copied { background: #22c55e; }
+
+        .plain-text {
+            padding: 22px 24px;
+            font-size: 13.5px;
+            line-height: 1.75;
+            color: #ccc;
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+
+        .plain-text strong {
+            color: #fff;
+        }
+
+        /* ── Pricing Reference ── */
+        .pricing-ref {
+            max-width: 520px;
+            margin: 28px auto 0;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .pricing-ref-header {
+            background: #1a1a1a;
+            padding: 14px 20px;
+            border-bottom: 1px solid #222;
+        }
+
+        .pricing-ref-header span {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #888;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+
+        th {
+            padding: 10px 16px;
+            text-align: left;
+            color: #555;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 10px;
+            border-bottom: 1px solid #1e1e1e;
+        }
+
+        td {
+            padding: 11px 16px;
+            color: #aaa;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        td:first-child { color: #fff; font-weight: 500; }
+
+        tr:last-child td { border-bottom: none; }
+
+        tr.highlight td { background: rgba(55, 151, 240, 0.07); }
+        tr.highlight td:first-child { color: #3797f0; }
+
+        .wd-footer {
+            max-width: 520px;
+            margin: 24px auto 0;
+            text-align: center;
+            font-size: 11px;
+            color: #444;
+            padding-bottom: 40px;
+        }
+
+        .wd-footer a { color: #3797f0; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="usage-note">
+        <strong>Instagram DM Pitch — Birmingham Breadworks</strong><br>
+        Open Instagram → search <strong>@birminghambreadworks</strong> → Message → copy text below and paste
+    </div>
+
+    <!-- ── Phone Mockup ── -->
+    <div class="phone-wrap">
+        <div class="phone">
+            <div class="phone-notch"></div>
+
+            <!-- DM Header -->
+            <div class="ig-header">
+                <div class="ig-back">‹</div>
+                <div class="ig-avatar">BB</div>
+                <div class="ig-user-info">
+                    <div class="ig-username">birminghambreadworks</div>
+                    <div class="ig-name-sub">Active 2h ago</div>
+                </div>
+                <div class="ig-header-icons">
+                    <span>📞</span>
+                    <span>📹</span>
+                </div>
+            </div>
+
+            <!-- Thread -->
+            <div class="ig-thread">
+                <div class="ig-date">Today</div>
+
+                <!-- Their reaction post (optional opener context) -->
+                <div class="bubble-received">
+                    <div class="mini-avatar"></div>
+                    <div class="bubble">👋 New message request</div>
+                </div>
+
+                <!-- Dylan's DM -->
+                <div class="bubble-sent">
+                    <div class="bubble">Hey! Love what you're doing with Birmingham Breadworks — the bread looks incredible.<br><br>I'm Dylan, I run a small web design studio here in Birmingham. I went ahead and built an animated loading screen with your branding as a free preview — sourdough, croissant, baguette, all illustrated — just to show you what we could do.<br><br>👉 williamsdigital.io/preview/birmingham-breadworks<br><br>If you're ever thinking about upgrading your site, we do full custom builds starting at $250. Happy to walk you through some options — no pressure at all!<br><br>— Dylan @ Williams Digital</div>
+                </div>
+                <div class="ig-seen">Delivered</div>
+            </div>
+
+            <!-- Input bar -->
+            <div class="ig-input-bar">
+                <div class="ig-input-pill">Message...</div>
+                <div class="ig-input-icons">
+                    <span>🎤</span>
+                    <span>📷</span>
+                    <span>❤️</span>
+                </div>
+            </div>
+
+            <div class="phone-home-bar">
+                <div class="phone-home-pill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Plain Text Copy ── -->
+    <div class="plain-panel">
+        <div class="plain-panel-header">
+            <span>Plain Text — Copy &amp; Paste into Instagram DM</span>
+            <button class="copy-btn" id="copyBtn" onclick="copyText()">Copy</button>
+        </div>
+        <pre class="plain-text" id="dmText">Hey! Love what you're doing with Birmingham Breadworks — the bread looks incredible.
+
+I'm Dylan, I run a small web design studio here in Birmingham. I went ahead and built an animated loading screen with your branding as a free preview — sourdough, croissant, baguette, all illustrated — just to show you what we could do.
+
+👉 williamsdigital.io/preview/birmingham-breadworks
+
+If you're ever thinking about upgrading your site, we do full custom builds starting at $250. Happy to walk you through some options — no pressure at all!
+
+— Dylan @ Williams Digital</pre>
+    </div>
+
+    <!-- ── Pricing Reference ── -->
+    <div class="pricing-ref">
+        <div class="pricing-ref-header">
+            <span>Pricing Reference — If They Ask</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tier</th>
+                    <th>Setup</th>
+                    <th>Monthly</th>
+                    <th>Best For</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Basic</td>
+                    <td>$250</td>
+                    <td>$99/mo</td>
+                    <td>Menu, hours, location</td>
+                </tr>
+                <tr class="highlight">
+                    <td>Starter ★</td>
+                    <td>$500</td>
+                    <td>$149/mo</td>
+                    <td>Online ordering + cart</td>
+                </tr>
+                <tr>
+                    <td>Professional</td>
+                    <td>$1,000</td>
+                    <td>$249/mo</td>
+                    <td>Animations, testimonials, newsletter</td>
+                </tr>
+                <tr>
+                    <td>Premium</td>
+                    <td>$2,000</td>
+                    <td>$399/mo</td>
+                    <td>Video hero, custom loading screen</td>
+                </tr>
+                <tr>
+                    <td>Enterprise</td>
+                    <td>$5,000</td>
+                    <td>$699/mo</td>
+                    <td>Full cinematic experience + portal</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="wd-footer">
+        <a href="https://williamsdigital.io">Williams Digital</a> · Birmingham, AL ·
+        <a href="https://williamsdigital.io/proposal/coffee-tiers/proposal.html">Full Proposal →</a>
+    </div>
+
+    <script>
+        function copyText() {
+            const text = document.getElementById('dmText').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+
+</body>
+</html>
