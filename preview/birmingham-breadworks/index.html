@@ -869,76 +869,310 @@
     /* ============================================================
        VISIT
     ============================================================ */
-    #visit {
-        padding: 100px 0;
-    }
+    #visit { padding: 100px 0 0; }
 
-    .visit-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1px;
-        background: var(--border-s);
-        border: 1px solid var(--border-s);
-        border-radius: 6px;
+    /* ── Photo hero ── */
+    .visit-hero {
+        position: relative;
+        min-height: 70vh;
+        display: flex;
+        align-items: flex-end;
         overflow: hidden;
     }
 
-    .visit-card {
-        background: var(--bg);
-        padding: 40px 36px;
+    .visit-hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=1800&q=80');
+        background-size: cover;
+        background-position: center 40%;
+        filter: brightness(0.22);
+        transform: scale(1.04);
+        transition: transform 8s ease;
     }
 
-    .visit-card-icon {
-        width: 40px; height: 40px;
-        border: 1px solid var(--border);
+    #visit.in-view .visit-hero-bg { transform: scale(1); }
+
+    .visit-hero-grad {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to top,
+            rgba(12,11,8,1) 0%,
+            rgba(12,11,8,0.5) 40%,
+            transparent 75%
+        );
+    }
+
+    .visit-hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 80px 64px;
+        width: 100%;
+    }
+
+    .visit-hero-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .visit-hero-label::before {
+        content: '';
+        display: block;
+        width: 32px;
+        height: 1px;
+        background: var(--gold);
+    }
+
+    .visit-address {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(3rem, 7vw, 6rem);
+        font-weight: 300;
+        line-height: 1.0;
+        color: var(--cream);
+        margin-bottom: 16px;
+        letter-spacing: -0.01em;
+    }
+
+    .visit-address em {
+        font-style: italic;
+        background: var(--grad-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .visit-city {
+        font-size: 0.85rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 40px;
+    }
+
+    .visit-hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    /* Open/Closed pill */
+    .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 50px;
+        padding: 9px 18px;
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--text);
+    }
+
+    .status-dot {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: #6b6b6b;
+        flex-shrink: 0;
+    }
+
+    .status-dot.open  { background: #4ade80; box-shadow: 0 0 8px rgba(74,222,128,0.6); animation: pulse 2s ease-in-out infinite; }
+    .status-dot.closed { background: #f87171; }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0.5; }
+    }
+
+    /* ── Info band ── */
+    .visit-band {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        border-top: 1px solid var(--border-s);
+        background: var(--bg2);
+    }
+
+    .visit-band-col {
+        padding: 52px 48px;
+        border-right: 1px solid var(--border-s);
+    }
+
+    .visit-band-col:last-child { border-right: none; }
+
+    .vb-label {
+        font-size: 0.58rem;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .vb-label i { font-size: 0.7rem; }
+
+    /* Hours rows */
+    .hours-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--border-s);
+        gap: 16px;
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+
+    .hours-day {
+        font-size: 0.8rem;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+    }
+
+    .hours-time {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1rem;
+        color: var(--cream);
+        text-align: right;
+    }
+
+    .hours-row.today .hours-day  { color: var(--gold-l); font-weight: 500; }
+    .hours-row.today .hours-time { color: var(--gold-l); }
+
+    .hours-closed { color: var(--dim) !important; }
+
+    .service-times {
+        margin-top: 28px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border-s);
+    }
+
+    .service-time-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 7px 0;
+        font-size: 0.78rem;
+        color: var(--muted);
+    }
+
+    .service-time-row i { color: var(--gold-d); width: 14px; text-align: center; font-size: 0.7rem; }
+
+    /* Location column */
+    .visit-map-placeholder {
+        background: var(--bg3);
+        border: 1px solid var(--border-s);
+        border-radius: 4px;
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--dim);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        transition: border-color 0.2s;
+    }
+
+    .visit-map-placeholder:hover { border-color: var(--border); }
+
+    .visit-map-placeholder::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(212,168,48,0.04) 28px, rgba(212,168,48,0.04) 29px),
+            repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(212,168,48,0.04) 28px, rgba(212,168,48,0.04) 29px);
+    }
+
+    .map-pin {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        color: var(--gold);
+    }
+
+    .map-pin i { font-size: 1.5rem; }
+    .map-pin span { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+    .visit-address-detail {
+        font-size: 0.9rem;
+        color: var(--text);
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .visit-address-detail em {
+        font-style: normal;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+    }
+
+    /* Connect column */
+    .connect-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border-s);
+        transition: background 0.2s;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .connect-row:last-child { border-bottom: none; }
+    .connect-row:hover .connect-name { color: var(--gold-l); }
+
+    .connect-icon {
+        width: 36px; height: 36px;
+        border: 1px solid var(--border-s);
         border-radius: 4px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 22px;
-        color: var(--gold);
-        font-size: 0.95rem;
-    }
-
-    .visit-card-label {
-        font-size: 0.58rem;
-        letter-spacing: 0.38em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 18px;
-    }
-
-    .visit-card h3 {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.4rem;
-        font-weight: 400;
-        color: var(--cream);
-        margin-bottom: 16px;
-    }
-
-    .visit-detail {
+        color: var(--gold-d);
         font-size: 0.85rem;
-        color: var(--muted);
-        line-height: 1.9;
+        flex-shrink: 0;
+        transition: border-color 0.2s;
     }
 
-    .visit-detail strong { color: var(--text); font-weight: 500; }
+    .connect-row:hover .connect-icon { border-color: var(--border); }
 
-    .visit-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 22px;
-        font-size: 0.7rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--gold);
-        border-bottom: 1px solid rgba(212,168,48,0.3);
-        padding-bottom: 2px;
-        transition: color 0.2s, border-color 0.2s;
+    .connect-text { flex: 1; }
+    .connect-label { font-size: 0.55rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--dim); margin-bottom: 2px; }
+    .connect-name  { font-size: 0.85rem; color: var(--text); transition: color 0.2s; }
+
+    .connect-arrow { color: var(--dim); font-size: 0.7rem; }
+
+    @media (max-width: 900px) {
+        .visit-hero-content { padding: 48px 32px; }
+        .visit-band { grid-template-columns: 1fr; }
+        .visit-band-col { border-right: none; border-bottom: 1px solid var(--border-s); }
+        .visit-band-col:last-child { border-bottom: none; }
     }
 
-    .visit-link:hover { color: var(--gold-l); border-color: var(--gold-l); }
+    @media (max-width: 620px) {
+        .visit-hero-content { padding: 36px 20px; }
+        .visit-address { font-size: 2.6rem; }
+    }
 
     /* ============================================================
        SERVICES BANNER
@@ -1613,58 +1847,101 @@
 
     <!-- VISIT -->
     <section id="visit">
-        <div class="container">
-            <div class="reveal" style="margin-bottom:48px">
-                <div class="section-label">Come Find Us</div>
-                <h2 class="section-heading">Visit</h2>
-                <div class="section-rule"></div>
-            </div>
-            <div class="visit-grid reveal">
-                <div class="visit-card">
-                    <div class="visit-card-icon"><i class="far fa-clock"></i></div>
-                    <div class="visit-card-label">Hours</div>
-                    <h3>When We're Open</h3>
-                    <div class="visit-detail">
-                        <strong>Monday – Saturday</strong><br>
-                        6:30am – 3:00pm<br><br>
-                        <strong>Breakfast Service</strong><br>
-                        7:00am – 2:00pm<br><br>
-                        <strong>Lunch Service</strong><br>
-                        11:00am – 2:00pm<br><br>
-                        <strong>Sunday</strong><br>
-                        Closed
+
+        <!-- ── Hero ── -->
+        <div class="visit-hero">
+            <div class="visit-hero-bg"></div>
+            <div class="visit-hero-grad"></div>
+            <div class="visit-hero-content reveal">
+                <div class="visit-hero-label">Come Find Us</div>
+                <div class="visit-address">2408 <em>7th</em><br>Avenue South</div>
+                <div class="visit-city">Birmingham, Alabama · 35233</div>
+                <div class="visit-hero-actions">
+                    <div class="status-pill">
+                        <div class="status-dot" id="statusDot"></div>
+                        <span id="statusText">—</span>
                     </div>
-                </div>
-                <div class="visit-card">
-                    <div class="visit-card-icon"><i class="fas fa-location-dot"></i></div>
-                    <div class="visit-card-label">Location</div>
-                    <h3>Find Us</h3>
-                    <div class="visit-detail">
-                        <strong>2408 7th Avenue South</strong><br>
-                        Birmingham, AL 35233<br><br>
-                        Located in the heart of Birmingham's southside neighborhood — walkable, parking available nearby.
-                    </div>
-                    <a href="https://maps.google.com/?q=2408+7th+Avenue+South+Birmingham+AL+35233" target="_blank" class="visit-link">
+                    <a href="https://maps.google.com/?q=2408+7th+Avenue+South+Birmingham+AL+35233" target="_blank" class="btn-gold">
                         <i class="fas fa-diamond-turn-right"></i> Get Directions
                     </a>
                 </div>
-                <div class="visit-card">
-                    <div class="visit-card-icon"><i class="fas fa-phone"></i></div>
-                    <div class="visit-card-label">Contact</div>
-                    <h3>Get in Touch</h3>
-                    <div class="visit-detail">
-                        <strong>Phone</strong><br>
-                        <a href="tel:2052023207" style="color:inherit">205.202.3207</a><br><br>
-                        <strong>Instagram</strong><br>
-                        <a href="https://instagram.com/birminghambreadworks" target="_blank" style="color:inherit">@birminghambreadworks</a><br><br>
-                        <strong>Facebook</strong><br>
-                        <a href="https://facebook.com/birminghambreadworks" target="_blank" style="color:inherit">/birminghambreadworks</a>
-                    </div>
-                    <a href="https://bhambreadworks.square.site" target="_blank" class="visit-link">
-                        <i class="fas fa-basket-shopping"></i> Order Online
-                    </a>
+            </div>
+        </div>
+
+        <!-- ── Info band ── -->
+        <div class="visit-band">
+
+            <!-- Hours -->
+            <div class="visit-band-col">
+                <div class="vb-label"><i class="far fa-clock"></i> Hours</div>
+                <div class="hours-row" id="row-weekday">
+                    <span class="hours-day">Monday – Saturday</span>
+                    <span class="hours-time">6:30am – 3:00pm</span>
+                </div>
+                <div class="hours-row" id="row-sunday">
+                    <span class="hours-day">Sunday</span>
+                    <span class="hours-time hours-closed">Closed</span>
+                </div>
+                <div class="service-times">
+                    <div class="service-time-row"><i class="fas fa-mug-hot"></i> Breakfast  7:00am – 2:00pm</div>
+                    <div class="service-time-row"><i class="fas fa-utensils"></i> Lunch  11:00am – 2:00pm</div>
+                    <div class="service-time-row"><i class="fas fa-wheat-awn"></i> Bread baked fresh every morning</div>
                 </div>
             </div>
+
+            <!-- Location -->
+            <div class="visit-band-col">
+                <div class="vb-label"><i class="fas fa-location-dot"></i> Location</div>
+                <a href="https://maps.google.com/?q=2408+7th+Avenue+South+Birmingham+AL+35233" target="_blank" class="visit-map-placeholder">
+                    <div class="map-pin">
+                        <i class="fas fa-location-dot"></i>
+                        <span>Open in Maps</span>
+                    </div>
+                </a>
+                <div class="visit-address-detail">
+                    2408 7th Avenue South<br>
+                    Birmingham, AL 35233<br>
+                    <em>Southside · Walkable · Parking nearby</em>
+                </div>
+            </div>
+
+            <!-- Connect -->
+            <div class="visit-band-col">
+                <div class="vb-label"><i class="fas fa-arrow-up-right-from-square"></i> Connect</div>
+                <a href="https://bhambreadworks.square.site" target="_blank" class="connect-row">
+                    <div class="connect-icon"><i class="fas fa-basket-shopping"></i></div>
+                    <div class="connect-text">
+                        <div class="connect-label">Online Ordering</div>
+                        <div class="connect-name">bhambreadworks.square.site</div>
+                    </div>
+                    <i class="fas fa-chevron-right connect-arrow"></i>
+                </a>
+                <a href="https://instagram.com/birminghambreadworks" target="_blank" class="connect-row">
+                    <div class="connect-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="connect-text">
+                        <div class="connect-label">Instagram</div>
+                        <div class="connect-name">@birminghambreadworks</div>
+                    </div>
+                    <i class="fas fa-chevron-right connect-arrow"></i>
+                </a>
+                <a href="https://facebook.com/birminghambreadworks" target="_blank" class="connect-row">
+                    <div class="connect-icon"><i class="fab fa-facebook-f"></i></div>
+                    <div class="connect-text">
+                        <div class="connect-label">Facebook</div>
+                        <div class="connect-name">/birminghambreadworks</div>
+                    </div>
+                    <i class="fas fa-chevron-right connect-arrow"></i>
+                </a>
+                <a href="tel:2052023207" class="connect-row">
+                    <div class="connect-icon"><i class="fas fa-phone"></i></div>
+                    <div class="connect-text">
+                        <div class="connect-label">Phone</div>
+                        <div class="connect-name">205.202.3207</div>
+                    </div>
+                    <i class="fas fa-chevron-right connect-arrow"></i>
+                </a>
+            </div>
+
         </div>
     </section>
 
@@ -1830,7 +2107,54 @@ function initReveal() {
     }, { threshold: 0.12 });
 
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    /* Visit section pan effect */
+    const visitSection = document.getElementById('visit');
+    if (visitSection) {
+        const visitObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) visitSection.classList.add('in-view');
+            });
+        }, { threshold: 0.05 });
+        visitObs.observe(visitSection);
+    }
 }
+
+/* ── Live open/closed status ── */
+(function setHoursStatus() {
+    const dot  = document.getElementById('statusDot');
+    const text = document.getElementById('statusText');
+    if (!dot || !text) return;
+
+    const now  = new Date();
+    const day  = now.getDay();   // 0=Sun … 6=Sat
+    const mins = now.getHours() * 60 + now.getMinutes();
+
+    /* Business hours: Mon–Sat 6:30am–3:00pm (390–900 min) */
+    const isWeekday = day >= 1 && day <= 6;
+    const isOpen    = isWeekday && mins >= 390 && mins < 900;
+
+    if (isOpen) {
+        dot.classList.add('open');
+        text.textContent = 'Open Now · Closes 3:00pm';
+    } else if (day === 0) {
+        dot.classList.add('closed');
+        text.textContent = 'Closed Today (Sunday)';
+    } else if (isWeekday && mins < 390) {
+        dot.classList.add('closed');
+        text.textContent = 'Opens at 6:30am';
+    } else {
+        dot.classList.add('closed');
+        text.textContent = 'Closed · Opens 6:30am Mon';
+    }
+
+    /* Highlight today's hours row */
+    if (day === 0) {
+        document.getElementById('row-sunday')?.classList.add('today');
+    } else {
+        document.getElementById('row-weekday')?.classList.add('today');
+    }
+})();
 </script>
 
 </body>
