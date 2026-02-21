@@ -1455,6 +1455,47 @@
             const submitWrap = document.querySelector('.submit-wrap');
             submitWrap.style.display = 'none';
 
+            // html2canvas can't read input values — overlay each input with a visible div
+            const overlays = [];
+            document.querySelectorAll('.sig-input:not(.sig-name-display)').forEach(input => {
+                if (!input.value) return;
+                const rect = input.getBoundingClientRect();
+                const div = document.createElement('div');
+                div.textContent = input.value;
+                div.style.cssText = `
+                    position: fixed;
+                    top: ${rect.top}px;
+                    left: ${rect.left}px;
+                    width: ${rect.width}px;
+                    height: ${rect.height}px;
+                    display: flex;
+                    align-items: center;
+                    padding: 0 1rem;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 0.9rem;
+                    color: #f0f0f0;
+                    background: rgba(255,255,255,0.03);
+                    border: 1px solid rgba(255,255,255,0.08);
+                    border-radius: 8px;
+                    z-index: 9999;
+                    pointer-events: none;
+                    box-sizing: border-box;
+                `;
+                document.body.appendChild(div);
+                overlays.push(div);
+            });
+
+            // Add a "DIGITALLY SIGNED" stamp near the signature
+            const sigSection = document.querySelector('.signature-section');
+            const stamp = document.createElement('div');
+            stamp.innerHTML = `
+                <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; border: 2px solid rgba(74,222,128,0.5); border-radius: 8px; background: rgba(74,222,128,0.06); margin-top: 1rem;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <span style="font-family: 'Oswald', sans-serif; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #4ade80;">Digitally Signed — ${new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })}</span>
+                </div>
+            `;
+            sigSection.appendChild(stamp);
+
             // Capture the full page
             const page = document.body;
             const canvas = await html2canvas(page, {
@@ -1466,7 +1507,9 @@
                 windowWidth: 1200
             });
 
-            // Restore hidden elements
+            // Restore — remove overlays and stamp
+            overlays.forEach(div => div.remove());
+            stamp.remove();
             submitWrap.style.display = '';
             overlay.style.display = 'flex';
 
