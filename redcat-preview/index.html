@@ -515,61 +515,67 @@
       margin-bottom: 6px;
     }
 
-    /* ── GALLERY STRIP ── */
-    .gallery-strip {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
-      grid-template-rows: 300px 300px;
-      gap: 4px;
-      overflow: hidden;
+    /* ── GALLERY ── */
+    .gallery-section {
+      background: var(--brown-dark);
+      padding: 80px 5%;
     }
-    .gallery-strip .g-item {
+    .gallery-section .section-label { color: var(--gold); margin-bottom: 48px; }
+    .gallery-top {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .gallery-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+    .g-item {
       overflow: hidden;
+      border-radius: 6px;
       background: var(--brown-mid);
       position: relative;
     }
-    .gallery-strip .g-item:first-child { grid-row: 1 / 3; }
-    .gallery-strip .g-item img {
+    .g-item img {
       width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s ease;
+      object-fit: cover; display: block;
+      transition: transform 0.7s ease;
     }
-    .gallery-strip .g-item:hover img { transform: scale(1.06); }
+    .g-item:hover img { transform: scale(1.04); }
+    .g-tall  { height: 500px; }
+    .g-short { height: 500px; }
+    .g-bottom { height: 260px; }
 
-    /* stat card */
     .g-stat {
       background: var(--red);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      text-align: center; padding: 32px;
+      text-align: center; padding: 40px;
     }
     .g-stat .num {
       font-family: 'Playfair Display', serif;
-      font-size: 4rem; font-weight: 700;
-      color: white; line-height: 1;
-      margin-bottom: 8px;
+      font-size: 5rem; font-weight: 700;
+      color: white; line-height: 1; margin-bottom: 12px;
     }
     .g-stat .lbl {
-      font-size: 0.7rem; letter-spacing: 3px;
-      text-transform: uppercase; color: rgba(255,255,255,0.75);
+      font-size: 0.75rem; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(255,255,255,0.8); line-height: 1.8;
     }
-
-    /* quote card */
     .g-quote {
-      background: var(--brown-dark);
+      background: var(--brown-mid);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      text-align: center; padding: 32px;
+      text-align: center; padding: 40px;
     }
     .g-quote p {
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; font-style: italic;
-      color: var(--cream); line-height: 1.6;
-      margin-bottom: 16px;
+      font-size: 1.1rem; font-style: italic;
+      color: var(--cream); line-height: 1.7; margin-bottom: 20px;
     }
     .g-quote span {
-      font-size: 0.7rem; letter-spacing: 2px;
+      font-size: 0.72rem; letter-spacing: 2px;
       text-transform: uppercase; color: var(--gold);
     }
 
@@ -649,11 +655,8 @@
       .about-text { padding-right: 0; }
       .nav-links { display: none; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
-      .gallery-strip {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(3, 220px);
-      }
-      .gallery-strip .g-item:first-child { grid-row: auto; }
+      .gallery-top, .gallery-bottom { grid-template-columns: 1fr; }
+      .g-tall, .g-short, .g-bottom { height: 260px; }
     }
   </style>
 </head>
@@ -830,32 +833,34 @@
   <a href="menu.html" target="_blank" class="btn btn-primary">Download Menu PDF</a>
 </section>
 
-<!-- GALLERY STRIP -->
-<div class="gallery-strip">
-  <!-- tall left photo -->
-  <div class="g-item">
-    <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2025/10/Mike-McElwain-Bham-Now-768x512.jpg"
-         alt="Red Cat Coffee House"/>
+<!-- GALLERY -->
+<div class="gallery-section">
+  <p class="section-label">The Experience</p>
+
+  <div class="gallery-top">
+    <div class="g-item g-tall">
+      <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2025/10/Mike-McElwain-Bham-Now-768x512.jpg"
+           alt="Red Cat Coffee House"/>
+    </div>
+    <div class="g-item g-short g-stat">
+      <span class="num">3</span>
+      <span class="lbl">Birmingham<br/>Locations</span>
+    </div>
   </div>
-  <!-- stat card -->
-  <div class="g-item g-stat">
-    <span class="num">3</span>
-    <span class="lbl">Birmingham<br/>Locations</span>
-  </div>
-  <!-- owners photo -->
-  <div class="g-item">
-    <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2020/04/Mike-and-Aileen-McElwain-owners.jpg"
-         alt="Mike and Aileen McElwain"/>
-  </div>
-  <!-- quote card -->
-  <div class="g-item g-quote">
-    <p>"Specialty-grade coffee made accessible — roasted in-house, every day."</p>
-    <span>Mike &amp; Aileen McElwain</span>
-  </div>
-  <!-- logo card -->
-  <div class="g-item" style="background:#2a1510; display:flex; align-items:center; justify-content:center;">
-    <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2020/04/redcat-logo-white-brown-mug-stroke-300x240.png"
-         alt="Red Cat Logo" style="width:55%; height:auto; object-fit:contain; opacity:0.75;"/>
+
+  <div class="gallery-bottom">
+    <div class="g-item g-bottom">
+      <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2020/04/Mike-and-Aileen-McElwain-owners.jpg"
+           alt="Mike and Aileen McElwain"/>
+    </div>
+    <div class="g-item g-bottom g-quote">
+      <p>"Specialty-grade coffee made accessible — roasted in-house, every day."</p>
+      <span>Mike &amp; Aileen McElwain</span>
+    </div>
+    <div class="g-item g-bottom" style="background:#2a1510; display:flex; align-items:center; justify-content:center;">
+      <img src="https://theredcatcoffeehouse.com/wp-content/uploads/2020/04/redcat-logo-white-brown-mug-stroke-300x240.png"
+           alt="Red Cat Logo" style="width:50%; height:auto; object-fit:contain; opacity:0.8;"/>
+    </div>
   </div>
 </div>
 
