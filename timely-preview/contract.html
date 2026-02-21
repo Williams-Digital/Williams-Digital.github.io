@@ -207,55 +207,22 @@
             letter-spacing: 3px;
         }
 
-        /* ========== TIER SELECTION ========== */
+        /* ========== PACKAGE CARD ========== */
         .tier-selector {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr;
             gap: 1rem;
             margin: 1.5rem 0;
         }
 
         .tier-option {
             background: var(--bg-card);
-            border: 2px solid var(--border);
+            border: 2px solid var(--accent);
             border-radius: 14px;
             padding: 1.75rem 1.25rem;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
             position: relative;
-        }
-
-        .tier-option:hover {
-            border-color: rgba(201,166,86,0.3);
-        }
-
-        .tier-option.selected {
-            border-color: var(--accent);
             box-shadow: 0 0 30px rgba(201,166,86,0.12);
-        }
-
-        .tier-option.selected::before {
-            content: '';
-            position: absolute;
-            top: 12px; right: 12px;
-            width: 22px; height: 22px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tier-option.selected::after {
-            content: '';
-            position: absolute;
-            top: 17px; right: 17px;
-            width: 6px; height: 10px;
-            border: solid #1a1a1f;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-            z-index: 1;
         }
 
         .tier-option-name {
@@ -265,6 +232,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 0.25rem;
+            color: var(--accent);
         }
 
         .tier-option-subtitle {
@@ -277,7 +245,7 @@
             font-family: 'Oswald', sans-serif;
             font-size: 2.2rem;
             font-weight: 700;
-            color: var(--text);
+            color: var(--accent);
             line-height: 1;
             margin-bottom: 0.2rem;
         }
@@ -340,11 +308,6 @@
         .tier-preview-link svg {
             width: 12px;
             height: 12px;
-        }
-
-        .tier-option.selected .tier-option-name,
-        .tier-option.selected .tier-option-price {
-            color: var(--accent);
         }
 
         /* ========== SCOPE TABLE ========== */
@@ -418,131 +381,6 @@
         .scope-table .scope-check {
             color: var(--accent);
             font-weight: 600;
-        }
-
-        .scope-table .scope-dash {
-            color: rgba(255,255,255,0.2);
-        }
-
-        /* ========== MAINTENANCE ADD-ON ========== */
-        .addon-card {
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            padding: 2rem;
-            margin: 1.5rem 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: flex-start;
-            gap: 1.25rem;
-        }
-
-        .addon-card:hover {
-            border-color: rgba(201,166,86,0.3);
-        }
-
-        .addon-card.selected {
-            border-color: var(--accent);
-            box-shadow: 0 0 25px rgba(201,166,86,0.1);
-        }
-
-        .addon-toggle {
-            width: 24px;
-            height: 24px;
-            border: 2px solid rgba(201,166,86,0.4);
-            border-radius: 6px;
-            flex-shrink: 0;
-            margin-top: 2px;
-            position: relative;
-            transition: all 0.2s;
-        }
-
-        .addon-card.selected .addon-toggle {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .addon-card.selected .addon-toggle::after {
-            content: '';
-            position: absolute;
-            top: 3px; left: 6px;
-            width: 7px; height: 11px;
-            border: solid #1a1a1f;
-            border-width: 0 2.5px 2.5px 0;
-            transform: rotate(45deg);
-        }
-
-        .addon-info {
-            flex: 1;
-        }
-
-        .addon-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .addon-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .addon-price {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .addon-price span {
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-
-        .addon-desc {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 0.75rem;
-        }
-
-        .addon-features {
-            list-style: none;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.3rem 1rem;
-        }
-
-        .addon-features li {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .addon-features li svg {
-            width: 13px;
-            height: 13px;
-            color: var(--accent);
-            flex-shrink: 0;
-        }
-
-        @media (max-width: 768px) {
-            .addon-features {
-                grid-template-columns: 1fr;
-            }
-            .addon-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.25rem;
-            }
         }
 
         /* ========== CONTRACT TERMS ========== */
@@ -708,81 +546,6 @@
             color: var(--text);
         }
 
-        /* ========== HOSTING OPTIONS ========== */
-        .hosting-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .hosting-option {
-            background: var(--bg-card);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .hosting-option:hover {
-            border-color: rgba(201,166,86,0.3);
-        }
-
-        .hosting-option.selected {
-            border-color: var(--accent);
-            box-shadow: 0 0 25px rgba(201,166,86,0.1);
-        }
-
-        .hosting-option-label {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .hosting-option-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-
-        .hosting-option-desc {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .hosting-option-radio {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(201,166,86,0.4);
-            border-radius: 50%;
-            position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
-            transition: all 0.2s;
-        }
-
-        .hosting-option.selected .hosting-option-radio {
-            border-color: var(--accent);
-            background: var(--accent);
-            box-shadow: inset 0 0 0 3px #1a1a1f;
-        }
-
-        @media (max-width: 768px) {
-            .hosting-options {
-                grid-template-columns: 1fr;
-            }
-        }
-
         /* ========== TOS ACCEPTANCE ========== */
         .tos-acceptance {
             margin-top: 2rem;
@@ -938,10 +701,6 @@
             border-color: var(--error);
         }
 
-        .tier-selector.error .tier-option {
-            border-color: rgba(248,113,113,0.3);
-        }
-
         /* ========== SUCCESS STATE ========== */
         .success-overlay {
             display: none;
@@ -1054,9 +813,6 @@
                 text-align: center;
             }
             .parties-and { display: none; }
-            .tier-selector {
-                grid-template-columns: 1fr;
-            }
             .sig-grid {
                 grid-template-columns: 1fr;
             }
@@ -1110,7 +866,7 @@
                     <div class="party-label">Client</div>
                     <div class="party-name">Timely Entertainment, LLC</div>
                     <div class="party-detail">
-                        Custom WordPress website &amp; CMS<br>
+                        Custom WordPress theme &amp; CMS<br>
                         Domain: timelyent.com
                     </div>
                 </div>
@@ -1119,71 +875,34 @@
 
         <div class="section-divider"></div>
 
-        <!-- ============ SECTION 2: SELECT TIER ============ -->
+        <!-- ============ SECTION 2: PROJECT INVESTMENT ============ -->
         <div class="contract-section">
-            <div class="section-label">02 &mdash; Select Your Package</div>
-            <div class="section-heading">Choose a Tier</div>
-            <p>Select the service tier that best fits your goals. Every tier includes a custom WordPress theme with an editable CMS — you can update your own content anytime without a developer.</p>
+            <div class="section-label">02 &mdash; Investment</div>
+            <div class="section-heading">Project Cost</div>
+            <p>A one-time flat fee for the complete custom WordPress website. You own the site outright — edit content yourself anytime via the WordPress dashboard, no ongoing fees required.</p>
 
-            <div class="tier-selector" id="tierSelector">
-                <!-- TIER 1 -->
-                <div class="tier-option" data-tier="1" data-price="500" onclick="selectTier(this)">
-                    <div class="tier-option-name">Tier 1 — Quick Wins</div>
-                    <div class="tier-option-subtitle">Clean up &amp; modernize</div>
-                    <div class="tier-option-price"><sup>$</sup>500</div>
+            <div class="tier-selector">
+                <div class="tier-option" style="cursor: default;">
+                    <div class="tier-option-name">Custom WordPress Website</div>
+                    <div class="tier-option-subtitle">Design, development &amp; deployment</div>
+                    <div class="tier-option-price"><sup>$</sup>800</div>
                     <div class="tier-option-period">one-time payment</div>
                     <ul class="tier-option-features">
                         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Custom WordPress theme</li>
                         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Editable CMS — edit your own content</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Mobile responsive design</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Working contact form</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Responsive mobile design</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Artist roster &amp; profiles</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Contact form integration</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Blog / news section</li>
                         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Built-in admin site guide</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Domain setup, SSL &amp; deployment</li>
                     </ul>
-                    <a href="https://williamsdigital.io/timely-preview/tier1-quick-wins.html" target="_blank" rel="noopener" class="tier-preview-link" onclick="event.stopPropagation()">
-                        Preview Tier 1
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    </a>
-                </div>
-
-                <!-- TIER 2 -->
-                <div class="tier-option" data-tier="2" data-price="1500" onclick="selectTier(this)">
-                    <div class="tier-option-name">Tier 2 — Redesign</div>
-                    <div class="tier-option-subtitle">Content &amp; design overhaul</div>
-                    <div class="tier-option-price"><sup>$</sup>1,500</div>
-                    <div class="tier-option-period">one-time payment</div>
-                    <ul class="tier-option-features">
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Everything in Tier 1</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Rich artist profiles &amp; bios</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Blog / news via WordPress posts</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Social proof &amp; testimonials</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Scroll animations</li>
-                    </ul>
-                    <a href="https://williamsdigital.io/timely-preview/tier2-redesign.html" target="_blank" rel="noopener" class="tier-preview-link" onclick="event.stopPropagation()">
-                        Preview Tier 2
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    </a>
-                </div>
-
-                <!-- TIER 3 -->
-                <div class="tier-option" data-tier="3" data-price="2500" onclick="selectTier(this)">
-                    <div class="tier-option-name">Tier 3 — Premium</div>
-                    <div class="tier-option-subtitle">Ground-up cinematic build</div>
-                    <div class="tier-option-price"><sup>$</sup>2,500</div>
-                    <div class="tier-option-period">one-time payment</div>
-                    <ul class="tier-option-features">
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Everything in Tier 2</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Cinematic video hero</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Multi-step booking form</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Services &amp; press sections</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Premium animations</li>
-                    </ul>
-                    <a href="https://williamsdigital.io/timely-preview/tier3-premium-rebuild.html" target="_blank" rel="noopener" class="tier-preview-link" onclick="event.stopPropagation()">
-                        Preview Tier 3
+                    <a href="https://williamsdigital.io/timely-preview/tier2-redesign.html" target="_blank" rel="noopener" class="tier-preview-link">
+                        Preview Design
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                     </a>
                 </div>
             </div>
-            <div class="field-error" id="tierError">Please select a tier to continue.</div>
         </div>
 
         <div class="section-divider"></div>
@@ -1192,109 +911,61 @@
         <div class="contract-section">
             <div class="section-label">03 &mdash; Scope of Work</div>
             <div class="section-heading">What's Included</div>
-            <p>Below is a detailed breakdown of deliverables for your selected tier. Each tier is built as a <strong style="color: var(--text);">custom WordPress theme</strong> with a full content management system — you can edit all text, images, and sections directly from the WordPress dashboard without needing a developer.</p>
+            <p>Below is a detailed breakdown of deliverables. The website is built as a <strong style="color: var(--text);">custom WordPress theme</strong> with a full content management system — you can edit all text, images, and sections directly from the WordPress dashboard without needing a developer.</p>
 
-            <div class="scope-card" id="scopeCard">
+            <div class="scope-card">
                 <div class="scope-header">
                     <div class="scope-header-title">Deliverables</div>
-                    <div class="scope-header-tier" id="scopeTierLabel">Select a tier above</div>
+                    <div class="scope-header-tier">Custom WordPress Website — $800</div>
                 </div>
                 <table class="scope-table">
-                    <tbody id="scopeBody">
+                    <tbody>
                         <tr>
                             <td>Custom WordPress Theme</td>
-                            <td id="s1" class="scope-dash">&mdash;</td>
+                            <td class="scope-check">&#10003; Built to match your brand</td>
                         </tr>
                         <tr>
                             <td>Editable CMS (Advanced Custom Fields)</td>
-                            <td id="s2" class="scope-dash">&mdash;</td>
+                            <td class="scope-check">&#10003; Edit all content from WordPress dashboard</td>
                         </tr>
                         <tr>
-                            <td>Built-in Admin Site Guide</td>
-                            <td id="s3" class="scope-dash">&mdash;</td>
-                        </tr>
-                        <tr>
-                            <td>Responsive Mobile Layout</td>
-                            <td id="s4" class="scope-dash">&mdash;</td>
+                            <td>Responsive Mobile Design</td>
+                            <td class="scope-check">&#10003; Optimized for all devices</td>
                         </tr>
                         <tr>
                             <td>Modern Hero Section</td>
-                            <td id="s5" class="scope-dash">&mdash;</td>
+                            <td class="scope-check">&#10003; Eye-catching brand entrance</td>
                         </tr>
                         <tr>
-                            <td>Working Contact Form</td>
-                            <td id="s6" class="scope-dash">&mdash;</td>
+                            <td>Artist Roster &amp; Profiles</td>
+                            <td class="scope-check">&#10003; Showcase your talent</td>
                         </tr>
                         <tr>
-                            <td>Artist Roster Page</td>
-                            <td id="s7" class="scope-dash">&mdash;</td>
-                        </tr>
-                        <tr>
-                            <td>Rich Artist Profiles</td>
-                            <td id="s8" class="scope-dash">&mdash;</td>
+                            <td>Contact Form Integration</td>
+                            <td class="scope-check">&#10003; Submissions sent to your email</td>
                         </tr>
                         <tr>
                             <td>Blog / News Section</td>
-                            <td id="s9" class="scope-dash">&mdash;</td>
+                            <td class="scope-check">&#10003; WordPress-powered posts</td>
                         </tr>
                         <tr>
-                            <td>Social Proof &amp; Testimonials</td>
-                            <td id="s10" class="scope-dash">&mdash;</td>
+                            <td>Built-in Admin Site Guide</td>
+                            <td class="scope-check">&#10003; Step-by-step editing instructions in WP admin</td>
                         </tr>
                         <tr>
-                            <td>Scroll Animations</td>
-                            <td id="s11" class="scope-dash">&mdash;</td>
-                        </tr>
-                        <tr>
-                            <td>Cinematic Video Hero</td>
-                            <td id="s12" class="scope-dash">&mdash;</td>
-                        </tr>
-                        <tr>
-                            <td>Multi-Step Booking Form</td>
-                            <td id="s13" class="scope-dash">&mdash;</td>
-                        </tr>
-                        <tr>
-                            <td>Services &amp; Press Sections</td>
-                            <td id="s14" class="scope-dash">&mdash;</td>
-                        </tr>
-                        <tr>
-                            <td>DNS Setup &amp; Deployment</td>
-                            <td id="s15" class="scope-dash">&mdash;</td>
+                            <td>Domain Setup &amp; Deployment</td>
+                            <td class="scope-check">&#10003; Connected to your domain</td>
                         </tr>
                         <tr>
                             <td>SSL / HTTPS</td>
-                            <td id="s16" class="scope-dash">&mdash;</td>
+                            <td class="scope-check">&#10003; Secure encrypted connection</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
 
-        <div class="section-divider"></div>
-
-        <!-- ============ SECTION 3.5: MAINTENANCE ADD-ON ============ -->
-        <div class="contract-section">
-            <div class="section-label">Add-On</div>
-            <div class="section-heading">Monthly Maintenance</div>
-            <p>Optional — add ongoing maintenance to keep your site updated, secure, and performing at its best.</p>
-
-            <div class="addon-card" id="maintenanceAddon" onclick="toggleMaintenance()">
-                <div class="addon-toggle"></div>
-                <div class="addon-info">
-                    <div class="addon-header">
-                        <div class="addon-title">Website Maintenance Plan</div>
-                        <div class="addon-price">$125 <span>/ month</span></div>
-                    </div>
-                    <div class="addon-desc">Hands-off support so you can focus on your business. Billed monthly, cancel anytime.</div>
-                    <ul class="addon-features">
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Content updates &amp; edits</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Security monitoring</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Performance optimization</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Uptime monitoring</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Monthly analytics report</li>
-                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Priority support</li>
-                    </ul>
-                </div>
+            <div class="note-callout">
+                <p><strong>Future work:</strong> Any additional features, pages, or modifications beyond this scope can be handled on an as-needed contract basis. Williams Digital will provide a separate quote for any requested changes.</p>
             </div>
         </div>
 
@@ -1309,7 +980,7 @@
             <div class="terms-card">
                 <div class="term-block">
                     <div class="term-number">1. Payment</div>
-                    <div class="term-text">A <strong>50% deposit</strong> is due upon signing this agreement. The remaining <strong>50% balance</strong> is due upon project completion, prior to the final site launch. All payments are processed securely via <strong>Stripe</strong> (credit card, debit card, or ACH). Work begins within <strong>48 hours</strong> of receiving the deposit and all required materials. Late payments beyond <strong>14 days</strong> of the due date may result in project suspension until the balance is resolved. Chargebacks initiated without prior written communication to Williams Digital constitute a breach of this agreement and may be subject to collection action and additional fees.</div>
+                    <div class="term-text">The total project cost is <strong>$800 (one-time)</strong>. A <strong>50% deposit ($400)</strong> is due upon signing this agreement. The remaining <strong>$400 balance</strong> is due upon project completion, prior to the final site launch. All payments are processed securely via <strong>Stripe</strong> (credit card, debit card, or ACH). Work begins within <strong>48 hours</strong> of receiving the deposit and all required materials. Late payments beyond <strong>14 days</strong> of the due date may result in project suspension until the balance is resolved. Chargebacks initiated without prior written communication to Williams Digital constitute a breach of this agreement and may be subject to collection action and additional fees.</div>
                 </div>
 
                 <div class="term-block">
@@ -1338,27 +1009,13 @@
                 </div>
 
                 <div class="term-block">
-                    <div class="term-number">7. Hosting &amp; Maintenance</div>
-                    <div class="term-text">Select a hosting arrangement below. This determines how the completed website will be hosted and maintained after launch.</div>
-                    <div class="hosting-options">
-                        <div class="hosting-option selected" id="hostingA" onclick="selectHosting('A')">
-                            <div class="hosting-option-radio"></div>
-                            <div class="hosting-option-label">Option A</div>
-                            <div class="hosting-option-title">Williams Digital Managed Hosting</div>
-                            <div class="hosting-option-desc">Included with the <strong>$125/month maintenance plan</strong>. Williams Digital will host the website on its managed infrastructure. Hosting, SSL, security monitoring, updates, and performance optimization are included. If the maintenance plan is cancelled, the Client has <strong>30 days</strong> to migrate the site. A full site export will be provided upon request.</div>
-                        </div>
-                        <div class="hosting-option" id="hostingB" onclick="selectHosting('B')">
-                            <div class="hosting-option-radio"></div>
-                            <div class="hosting-option-label">Option B</div>
-                            <div class="hosting-option-title">Client Self-Hosted</div>
-                            <div class="hosting-option-desc">The Client is responsible for their own hosting, domain renewal, SSL, security, and server maintenance. Williams Digital will deliver all final project files for deployment. Williams Digital is <strong>not responsible</strong> for performance, uptime, or issues arising from the Client's hosting environment.</div>
-                        </div>
-                    </div>
+                    <div class="term-number">7. Hosting &amp; Delivery</div>
+                    <div class="term-text">Williams Digital will deliver the completed WordPress site via <strong>All-in-One WP Migration</strong> export or direct deployment to the Client's hosting environment. After delivery, the Client is responsible for their own hosting, domain renewal, SSL, security, and WordPress updates. Williams Digital is <strong>not responsible</strong> for performance, uptime, or issues arising from the Client's hosting environment after handoff. Future technical support or modifications are available on an <strong>as-needed contract basis</strong>.</div>
                 </div>
 
                 <div class="term-block">
                     <div class="term-number">8. Limitation of Liability</div>
-                    <div class="term-text">Williams Digital's total liability under this agreement shall not exceed the <strong>total amount paid by the Client</strong> for the selected tier. Williams Digital shall not be liable for any indirect, incidental, consequential, or special damages, including but not limited to loss of revenue, profit, data, or business opportunities, arising from or related to this agreement.</div>
+                    <div class="term-text">Williams Digital's total liability under this agreement shall not exceed the <strong>total amount paid by the Client</strong>. Williams Digital shall not be liable for any indirect, incidental, consequential, or special damages, including but not limited to loss of revenue, profit, data, or business opportunities, arising from or related to this agreement.</div>
                 </div>
 
                 <div class="term-block">
@@ -1368,7 +1025,7 @@
 
                 <div class="term-block">
                     <div class="term-number">10. Warranty Disclaimer</div>
-                    <div class="term-text">Williams Digital warrants that the deliverables will be built to professional standards and function as described in the selected tier. However, Williams Digital makes <strong>no guarantees</strong> regarding website traffic, search engine rankings, conversion rates, revenue, or any specific business outcomes resulting from the website.</div>
+                    <div class="term-text">Williams Digital warrants that the deliverables will be built to professional standards and function as described. However, Williams Digital makes <strong>no guarantees</strong> regarding website traffic, search engine rankings, conversion rates, revenue, or any specific business outcomes resulting from the website.</div>
                 </div>
 
                 <div class="term-block">
@@ -1398,21 +1055,16 @@
 
                 <div class="term-block">
                     <div class="term-number">16. Project Archival</div>
-                    <div class="term-text">Williams Digital will retain project files for <strong>90 days</strong> following project completion. After this period, files may be archived or deleted. Clients under an active maintenance plan will have project files retained <strong>indefinitely</strong> for the duration of the plan.</div>
+                    <div class="term-text">Williams Digital will retain project files for <strong>90 days</strong> following project completion. After this period, files may be archived or deleted.</div>
                 </div>
 
                 <div class="term-block">
-                    <div class="term-number">17. Maintenance Plan Terms</div>
-                    <div class="term-text">If the Client opts into the monthly maintenance plan, the plan renews <strong>automatically each month</strong> and may be cancelled with <strong>30 days written notice</strong>. No partial-month refunds will be issued. The maintenance plan includes hosting (Option A), content updates, security monitoring, and priority support as described in the Add-On section above.</div>
-                </div>
-
-                <div class="term-block">
-                    <div class="term-number">18. Governing Law &amp; Disputes</div>
+                    <div class="term-number">17. Governing Law &amp; Disputes</div>
                     <div class="term-text">This agreement shall be governed by the laws of the <strong>State of Alabama</strong>. Any disputes arising from this agreement shall first be resolved through good-faith negotiation. If unresolved within <strong>30 days</strong>, disputes shall be submitted to binding arbitration in the State of Alabama. Each party shall bear their own costs unless otherwise determined by the arbitrator.</div>
                 </div>
 
                 <div class="term-block">
-                    <div class="term-number">19. Entire Agreement</div>
+                    <div class="term-number">18. Entire Agreement</div>
                     <div class="term-text">This document constitutes the <strong>entire agreement</strong> between Williams Digital and the Client regarding the services described herein. It supersedes all prior discussions, proposals, and agreements, whether written or verbal. Any modifications to this agreement must be made in writing and agreed upon by both parties.</div>
                 </div>
             </div>
@@ -1487,7 +1139,7 @@
                 <div class="agree-row">
                     <div class="agree-checkbox" id="agreeBox" onclick="toggleAgree()"></div>
                     <div class="agree-text">
-                        I, <strong id="agreeNameDisplay">_______________</strong>, have read and agree to the terms of this Service Agreement and the <a href="https://williamsdigital.io/terms-of-service.html" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;">Williams Digital Terms of Service</a>. I authorize Williams Digital to begin work on my custom WordPress website and understand that a 50% deposit is due upon signing, with the remaining balance due upon project completion.
+                        I, <strong id="agreeNameDisplay">_______________</strong>, have read and agree to the terms of this Service Agreement and the <a href="https://williamsdigital.io/terms-of-service.html" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;">Williams Digital Terms of Service</a>. I authorize Williams Digital to begin work on the custom WordPress website for <strong>$800</strong> and understand that a 50% deposit ($400) is due upon signing, with the remaining $400 due upon project completion.
                     </div>
                 </div>
                 <div class="field-error" id="agreeError" style="margin-left: 2.5rem;">You must agree to the terms to continue.</div>
@@ -1520,89 +1172,26 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
         <div class="success-title">Agreement Signed</div>
-        <div class="success-text">Thank you! Your agreement has been submitted. You'll be redirected to Stripe to pay your 50% deposit securely. The remaining balance is due upon project completion.</div>
-        <div class="success-redirect">Redirecting to deposit payment...</div>
+        <div class="success-text">Thank you! Your agreement has been submitted. You'll be redirected to Stripe to pay your <strong>50% deposit ($400)</strong> securely. <strong>This is only a deposit — not the full project cost.</strong> The remaining $400 is due upon project completion.</div>
+        <div class="success-redirect">Redirecting to 50% deposit payment...</div>
     </div>
 
     <!-- ============================== JS ============================== -->
     <script>
         // ——— CONFIG ———
         const FORMSPREE_URL = 'https://formspree.io/f/mpqjlara';
-        const STRIPE_LINKS = {
-            1: 'https://buy.stripe.com/6oU14ncU22rggOR3jqcfK00',
-            2: 'https://buy.stripe.com/bJe28r2foaXMeGJ9HOcfK01',
-            3: 'https://buy.stripe.com/cNieVdaLUgi62Y1f28cfK02'
-        };
-        const STRIPE_MAINTENANCE = 'https://buy.stripe.com/3cI6oH07gaXMcyBaLScfK03';
+        const STRIPE_DEPOSIT_LINK = 'STRIPE_LINK_HERE';
 
         // ——— STATE ———
-        let selectedTier = null;
         let agreed = false;
         let tosAccepted = false;
-        let maintenanceSelected = false;
-        let hostingOption = 'A';
 
         // ——— DATE ———
         const now = new Date();
         const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         document.getElementById('contractDate').textContent = dateStr;
         document.getElementById('sigDate').value = dateStr;
-
-        // Calculate expected start date (48 hours / 2 business days from now)
-        const startDate = new Date(now);
-        let daysAdded = 0;
-        while (daysAdded < 2) {
-            startDate.setDate(startDate.getDate() + 1);
-            if (startDate.getDay() !== 0 && startDate.getDay() !== 6) daysAdded++;
-        }
-        const startDateStr = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         document.getElementById('sigStartDate').value = 'Within 48 hours of deposit & materials';
-
-        // ——— TIER SELECTION ———
-        function selectTier(el) {
-            document.querySelectorAll('.tier-option').forEach(t => t.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedTier = parseInt(el.dataset.tier);
-            document.getElementById('tierSelector').classList.remove('error');
-            document.getElementById('tierError').style.display = 'none';
-            updateScope();
-            validateForm();
-        }
-
-        // ——— SCOPE UPDATE ———
-        const scopeData = {
-            // [tier1, tier2, tier3]
-            s1:  [1,1,1], s2:  [1,1,1], s3:  [1,1,1], s4:  [1,1,1], s5:  [1,1,1],
-            s6:  [1,1,1], s7:  [1,1,1],
-            s8:  [0,1,1], s9:  [0,1,1], s10: [0,1,1], s11: [0,1,1],
-            s12: [0,0,1], s13: [0,0,1], s14: [0,0,1],
-            s15: [1,1,1], s16: [1,1,1]
-        };
-
-        const scopeLabels = {
-            s1: 'Built to match your brand', s2: 'Edit all content from WordPress dashboard', s3: 'Step-by-step editing instructions',
-            s4: 'Included', s5: 'Included', s6: 'Included', s7: 'Included',
-            s8: 'Detailed bios, stats &amp; media', s9: 'News feed with categories', s10: 'Reviews &amp; press mentions',
-            s11: 'Scroll-triggered reveals', s12: 'Cinematic aerial footage', s13: 'Step-by-step with validation',
-            s14: 'Dedicated services &amp; recognition', s15: 'Included', s16: 'Included'
-        };
-
-        function updateScope() {
-            const tierNames = { 1: 'Tier 1 — Quick Wins (WordPress)', 2: 'Tier 2 — Redesign (WordPress)', 3: 'Tier 3 — Premium (WordPress)' };
-            document.getElementById('scopeTierLabel').textContent = tierNames[selectedTier] || 'Select a tier above';
-
-            for (const [id, tiers] of Object.entries(scopeData)) {
-                const el = document.getElementById(id);
-                const included = tiers[selectedTier - 1];
-                if (included) {
-                    el.className = 'scope-check';
-                    el.innerHTML = '&#10003; ' + scopeLabels[id];
-                } else {
-                    el.className = 'scope-dash';
-                    el.innerHTML = '&mdash;';
-                }
-            }
-        }
 
         // ——— SIGNATURE ———
         function updateSignature() {
@@ -1615,19 +1204,6 @@
             document.getElementById('sigName').classList.remove('error');
             document.getElementById('nameError').style.display = 'none';
             validateForm();
-        }
-
-        // ——— MAINTENANCE ADD-ON ———
-        function toggleMaintenance() {
-            maintenanceSelected = !maintenanceSelected;
-            document.getElementById('maintenanceAddon').classList.toggle('selected', maintenanceSelected);
-        }
-
-        // ——— HOSTING OPTION ———
-        function selectHosting(option) {
-            hostingOption = option;
-            document.getElementById('hostingA').classList.toggle('selected', option === 'A');
-            document.getElementById('hostingB').classList.toggle('selected', option === 'B');
         }
 
         // ——— TOS ACCEPTANCE ———
@@ -1651,7 +1227,7 @@
             const name = document.getElementById('sigName').value.trim();
             const title = document.getElementById('sigTitle').value.trim();
             const email = document.getElementById('sigEmail').value.trim();
-            const valid = selectedTier && name && title && email && tosAccepted && agreed;
+            const valid = name && title && email && tosAccepted && agreed;
             document.getElementById('submitBtn').disabled = !valid;
             document.getElementById('signatureSection').classList.toggle('valid', name && title && email);
             return valid;
@@ -1659,14 +1235,7 @@
 
         // ——— SUBMIT ———
         function submitContract() {
-            // Validate all fields
             let valid = true;
-
-            if (!selectedTier) {
-                document.getElementById('tierSelector').classList.add('error');
-                document.getElementById('tierError').style.display = 'block';
-                valid = false;
-            }
 
             const name = document.getElementById('sigName').value.trim();
             if (!name) {
@@ -1702,30 +1271,21 @@
 
             if (!valid) return;
 
-            // Disable button to prevent double submit
             document.getElementById('submitBtn').disabled = true;
             document.getElementById('submitBtn').textContent = 'Submitting...';
 
-            // Prepare contract data
-            const tierNames = { 1: 'Tier 1 — Quick Wins WordPress ($500)', 2: 'Tier 2 — Redesign WordPress ($1,500)', 3: 'Tier 3 — Premium WordPress ($2,500)' };
-            const depositAmounts = { 1: '$250', 2: '$750', 3: '$1,250' };
-
             const formData = {
-                _subject: 'Contract Signed — Timely Entertainment WordPress — ' + tierNames[selectedTier],
+                _subject: 'Contract Signed — Timely Entertainment — Custom WordPress Website ($800)',
                 'Full Name': name,
                 'Title': title,
                 'Email': email,
-                'Selected Tier': tierNames[selectedTier],
-                'Deposit Amount': depositAmounts[selectedTier],
-                'Hosting': hostingOption === 'A' ? 'Option A — Williams Digital Managed Hosting' : 'Option B — Client Self-Hosted',
-                'Monthly Maintenance': maintenanceSelected ? 'Yes — $125/month' : 'No',
-                'Maintenance Payment Link': maintenanceSelected ? STRIPE_MAINTENANCE + '?prefilled_email=' + encodeURIComponent(email) : 'N/A',
+                'Package': 'Custom WordPress Website — $800',
+                'Deposit Amount': '$400',
                 'Date Signed': dateStr,
                 'Terms of Service': 'Accepted — ' + dateStr,
                 'Agreement': 'Client agreed to all terms and the Williams Digital Terms of Service'
             };
 
-            // Send to Formspree
             fetch(FORMSPREE_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1740,26 +1300,10 @@
         }
 
         function showSuccessAndRedirect(email) {
-            const overlay = document.getElementById('successOverlay');
-            overlay.classList.add('show');
+            document.getElementById('successOverlay').classList.add('show');
 
-            // Update success text if maintenance is selected
-            if (maintenanceSelected) {
-                document.querySelector('.success-text').textContent =
-                    'Your agreement has been submitted. You\'ll first complete your 50% deposit, then set up your monthly maintenance plan.';
-            }
-
-            // Redirect to deposit payment
             setTimeout(() => {
-                const stripeUrl = STRIPE_LINKS[selectedTier] + '?prefilled_email=' + encodeURIComponent(email);
-
-                if (maintenanceSelected) {
-                    // Store maintenance link for after deposit — open deposit in current window
-                    // After deposit, Stripe will show a confirmation; they'll get maintenance link via email from Formspree
-                    window.location.href = stripeUrl;
-                } else {
-                    window.location.href = stripeUrl;
-                }
+                window.location.href = STRIPE_DEPOSIT_LINK + '?prefilled_email=' + encodeURIComponent(email);
             }, 2500);
         }
 
