@@ -900,6 +900,8 @@
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -1429,10 +1431,70 @@
 
         function showSuccessAndRedirect(email) {
             document.getElementById('successOverlay').classList.add('show');
+            document.querySelector('.success-redirect').textContent = 'Generating signed contract PDF...';
 
-            setTimeout(() => {
-                window.location.href = STRIPE_DEPOSIT_LINK + '?prefilled_email=' + encodeURIComponent(email);
-            }, 2500);
+            generatePDF().then(() => {
+                document.querySelector('.success-redirect').textContent = 'PDF downloaded! Redirecting to deposit payment...';
+                setTimeout(() => {
+                    window.location.href = STRIPE_DEPOSIT_LINK + '?prefilled_email=' + encodeURIComponent(email);
+                }, 2000);
+            }).catch(() => {
+                document.querySelector('.success-redirect').textContent = 'Redirecting to deposit payment...';
+                setTimeout(() => {
+                    window.location.href = STRIPE_DEPOSIT_LINK + '?prefilled_email=' + encodeURIComponent(email);
+                }, 1500);
+            });
+        }
+
+        async function generatePDF() {
+            // Temporarily hide the success overlay so we capture the signed contract
+            const overlay = document.getElementById('successOverlay');
+            overlay.style.display = 'none';
+
+            // Hide submit button and note for the PDF
+            const submitWrap = document.querySelector('.submit-wrap');
+            submitWrap.style.display = 'none';
+
+            // Capture the full page
+            const page = document.body;
+            const canvas = await html2canvas(page, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#1a1a1f',
+                width: page.scrollWidth,
+                height: page.scrollHeight,
+                windowWidth: 1200
+            });
+
+            // Restore hidden elements
+            submitWrap.style.display = '';
+            overlay.style.display = 'flex';
+
+            // Generate PDF
+            const { jsPDF } = window.jspdf;
+            const imgWidth = 210; // A4 width in mm
+            const pageHeight = 297; // A4 height in mm
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            const imgData = canvas.toDataURL('image/jpeg', 0.92);
+
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+
+            while (heightLeft > 0) {
+                position = -(imgHeight - heightLeft);
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+            }
+
+            // Download
+            const signerName = document.getElementById('sigName').value.trim().replace(/\s+/g, '-');
+            const fileName = `Timely-Entertainment-Contract-Signed-${signerName}-${new Date().toISOString().slice(0,10)}.pdf`;
+            pdf.save(fileName);
         }
 
         // Input listeners for live validation
