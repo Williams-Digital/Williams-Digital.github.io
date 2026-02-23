@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLIDE Cafe — Birmingham, AL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #fff; background: #0a0a0a; overflow-x: hidden; }
+
+    /* ── Loading Screen ── */
+    .loader {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: #0a0a0a; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .loader.hide { opacity: 0; visibility: hidden; }
+
+    .coffee-cup-wrap { position: relative; width: 100px; height: 120px; margin-bottom: 2rem; }
+    .coffee-cup-wrap svg { width: 100%; height: 100%; }
+
+    .steam-path { fill: none; stroke: #FCDE58; stroke-width: 2; stroke-linecap: round;
+      opacity: 0; animation: steamRise 2s ease-in-out infinite; }
+    .steam-path:nth-child(1) { animation-delay: 0s; }
+    .steam-path:nth-child(2) { animation-delay: 0.5s; }
+    .steam-path:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes steamRise {
+      0% { opacity: 0; transform: translateY(0); }
+      25% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(-25px); }
+    }
+
+    .loader-logo {
+      font-family: 'Bebas Neue', sans-serif; font-size: 4rem;
+      color: #FCDE58; opacity: 0; animation: fadeUp 1s ease 0.5s forwards;
+      letter-spacing: 0.15em;
+    }
+    .loader-sub {
+      font-size: 0.7rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: #666; margin-top: 0.5rem; opacity: 0; animation: fadeUp 1s ease 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Hero ── */
+    .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+    .hero video {
+      position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+      transform: translate(-50%, -50%); object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 0 2rem;
+    }
+    .hero-content h1 {
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 10vw, 9rem);
+      letter-spacing: 0.1em; line-height: 0.95; margin-bottom: 1rem;
+    }
+    .hero-content h1 .gold { color: #FCDE58; }
+    .hero-content p {
+      font-size: 1.1rem; font-weight: 300; max-width: 480px;
+      line-height: 1.7; opacity: 0.75; margin-bottom: 2.5rem;
+    }
+    .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-block; padding: 1rem 2.5rem; border: 2px solid #FCDE58;
+      color: #FCDE58; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 600; transition: all 0.3s ease;
+    }
+    .btn:hover { background: #FCDE58; color: #0a0a0a; }
+    .btn-fill { background: #FCDE58; color: #0a0a0a; }
+    .btn-fill:hover { background: transparent; color: #FCDE58; }
+
+    /* ── About ── */
+    .about {
+      padding: 8rem 2rem; max-width: 850px; margin: 0 auto; text-align: center;
+    }
+    .section-tag {
+      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: #FCDE58; margin-bottom: 1.5rem; font-weight: 600;
+    }
+    .about h2 {
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.05em; line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .about p { font-size: 1rem; line-height: 1.8; color: #999; max-width: 580px; margin: 0 auto; }
+    .divider { width: 60px; height: 3px; background: #FCDE58; margin: 3rem auto; }
+
+    /* ── Menu ── */
+    .menu-section { padding: 6rem 2rem; background: #111; }
+    .menu-section .inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+    .menu-section h2 {
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.05em; margin-bottom: 3rem;
+    }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; text-align: left; }
+    .menu-card {
+      padding: 2rem; border: 1px solid #222; transition: all 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    .menu-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+      background: #FCDE58; transform: scaleY(0); transition: transform 0.3s ease;
+      transform-origin: bottom;
+    }
+    .menu-card:hover { border-color: #333; }
+    .menu-card:hover::before { transform: scaleY(1); }
+    .menu-card h3 {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      letter-spacing: 0.05em; margin-bottom: 0.5rem; color: #FCDE58;
+    }
+    .menu-card p { font-size: 0.9rem; color: #777; line-height: 1.6; }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      padding: 5rem 2rem; text-align: center;
+      background: linear-gradient(135deg, #FCDE58 0%, #f0c420 100%);
+      color: #0a0a0a;
+    }
+    .cta-banner h2 {
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.05em; margin-bottom: 1rem;
+    }
+    .cta-banner p { font-size: 1rem; margin-bottom: 2rem; opacity: 0.8; }
+    .btn-dark {
+      display: inline-block; padding: 1rem 2.5rem; border: 2px solid #0a0a0a;
+      color: #0a0a0a; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 600; transition: all 0.3s ease;
+    }
+    .btn-dark:hover { background: #0a0a0a; color: #FCDE58; }
+
+    /* ── Location ── */
+    .location { padding: 6rem 2rem; text-align: center; }
+    .location h2 {
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.05em; margin-bottom: 1rem;
+    }
+    .location p { color: #999; font-size: 1rem; line-height: 1.8; }
+    .location .hours { margin-top: 1.5rem; color: #FCDE58; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    footer {
+      padding: 3rem 2rem; text-align: center; border-top: 1px solid #1a1a1a;
+      font-size: 0.8rem; color: #555; letter-spacing: 0.1em;
+    }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div class="loader" id="loader">
+    <div class="coffee-cup-wrap">
+      <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+        <path class="steam-path" d="M35 45 Q37 35, 35 25 Q33 15, 35 5" />
+        <path class="steam-path" d="M50 45 Q52 35, 50 25 Q48 15, 50 5" />
+        <path class="steam-path" d="M65 45 Q67 35, 65 25 Q63 15, 65 5" />
+        <rect x="20" y="50" width="60" height="45" rx="4" fill="none" stroke="#FCDE58" stroke-width="2.5"/>
+        <path d="M80 60 Q95 60, 95 72.5 Q95 85, 80 85" fill="none" stroke="#FCDE58" stroke-width="2.5"/>
+        <ellipse cx="50" cy="102" rx="45" ry="6" fill="none" stroke="#FCDE58" stroke-width="2"/>
+        <line x1="28" y1="62" x2="72" y2="62" stroke="#FCDE58" stroke-width="1.5" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="loader-logo">SLIDE</div>
+    <div class="loader-sub">Birmingham, Alabama</div>
+  </div>
+
+  <section class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/43935/43935-1080.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1><span class="gold">SLIDE</span><br>CAFE</h1>
+      <p>Slide into something delicious. Coffee, eats, and good energy in the heart of Birmingham.</p>
+      <div class="btn-row">
+        <a href="#menu" class="btn">The Menu</a>
+        <a href="#" class="btn btn-fill">Order Now</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about fade-in">
+    <div class="section-tag">Welcome</div>
+    <h2>Birmingham's Go-To Cafe</h2>
+    <p>Whether you're grabbing a quick espresso, sitting down for brunch, or ordering delivery for the whole crew — Slide has you covered. Bold flavors, warm vibes, no pretension.</p>
+    <div class="divider"></div>
+  </section>
+
+  <section class="menu-section" id="menu">
+    <div class="inner fade-in">
+      <div class="section-tag">What's Cooking</div>
+      <h2>The Menu</h2>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <h3>Espresso Bar</h3>
+          <p>House shots, lattes, cappuccinos, and seasonal specials.</p>
+        </div>
+        <div class="menu-card">
+          <h3>Breakfast</h3>
+          <p>All-day breakfast plates, biscuits, and egg sandwiches.</p>
+        </div>
+        <div class="menu-card">
+          <h3>Sandwiches</h3>
+          <p>Stacked high with premium ingredients. Made fresh to order.</p>
+        </div>
+        <div class="menu-card">
+          <h3>Salads & Bowls</h3>
+          <p>Fresh greens and grain bowls for the health-conscious.</p>
+        </div>
+        <div class="menu-card">
+          <h3>Smoothies</h3>
+          <p>Fruit-forward blends with protein and superfood add-ons.</p>
+        </div>
+        <div class="menu-card">
+          <h3>Pastries</h3>
+          <p>Fresh-baked daily. Grab one on your way out.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner fade-in">
+    <h2>Now Delivering</h2>
+    <p>Get Slide delivered straight to your door.</p>
+    <a href="#" class="btn-dark">Order Delivery</a>
+  </section>
+
+  <section class="location fade-in">
+    <div class="section-tag">Find Us</div>
+    <h2>Birmingham, AL</h2>
+    <p>In the heart of the city, right where you need us.</p>
+    <div class="hours">Open Daily — 7AM to 9PM</div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 SLIDE Cafe. All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loader').classList.add('hide'), 2800);
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

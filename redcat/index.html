@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Red Cat Coffeehouse — Birmingham, AL</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #f5e6d3; background: #120808; overflow-x: hidden; }
+
+    /* ── Loading Screen ── */
+    .loader {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: #120808; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .loader.hide { opacity: 0; visibility: hidden; }
+
+    .coffee-cup-wrap { position: relative; width: 100px; height: 120px; margin-bottom: 2rem; }
+    .coffee-cup-wrap svg { width: 100%; height: 100%; }
+
+    .steam-path { fill: none; stroke: #c0392b; stroke-width: 2; stroke-linecap: round;
+      opacity: 0; animation: steamRise 2s ease-in-out infinite; }
+    .steam-path:nth-child(1) { animation-delay: 0s; }
+    .steam-path:nth-child(2) { animation-delay: 0.5s; }
+    .steam-path:nth-child(3) { animation-delay: 1s; }
+
+    @keyframes steamRise {
+      0% { opacity: 0; transform: translateY(0); }
+      25% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(-25px); }
+    }
+
+    .loader-logo {
+      font-family: 'DM Serif Display', serif; font-size: 2.4rem;
+      color: #c0392b; opacity: 0; animation: fadeUp 1s ease 0.5s forwards;
+    }
+    .loader-sub {
+      font-size: 0.7rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: #664; margin-top: 0.75rem; opacity: 0; animation: fadeUp 1s ease 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Hero ── */
+    .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+    .hero video {
+      position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+      transform: translate(-50%, -50%); object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(180deg, rgba(18,8,8,0.35) 0%, rgba(18,8,8,0.8) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 0 2rem;
+    }
+    .hero-tag {
+      font-size: 0.7rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: #c0392b; margin-bottom: 1.5rem;
+    }
+    .hero-content h1 {
+      font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 400; line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .hero-content p {
+      font-size: 1.1rem; font-weight: 300; max-width: 520px;
+      line-height: 1.7; opacity: 0.8; margin-bottom: 2.5rem;
+    }
+    .btn {
+      display: inline-block; padding: 1rem 2.5rem; border: 2px solid #c0392b;
+      color: #c0392b; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-weight: 600; transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+    .btn:hover { background: #c0392b; color: #f5e6d3; }
+    .btn-fill { background: #c0392b; color: #f5e6d3; margin-left: 1rem; }
+    .btn-fill:hover { background: transparent; color: #c0392b; }
+
+    /* ── About ── */
+    .about {
+      padding: 8rem 2rem; max-width: 850px; margin: 0 auto; text-align: center;
+    }
+    .section-tag {
+      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: #c0392b; margin-bottom: 1.5rem;
+    }
+    .about h2 {
+      font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; line-height: 1.3; margin-bottom: 1.5rem;
+    }
+    .about p { font-size: 1rem; line-height: 1.8; color: #997; max-width: 600px; margin: 0 auto; }
+    .divider { width: 60px; height: 2px; background: #c0392b; margin: 3rem auto; }
+
+    /* ── Menu ── */
+    .menu-section { padding: 6rem 2rem; background: #1a0c0c; }
+    .menu-section .inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .menu-section h2 {
+      font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; margin-bottom: 3rem;
+    }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; text-align: left; }
+    .menu-item {
+      padding: 1.75rem; border: 1px solid #2a1515; border-radius: 4px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .menu-item:hover { border-color: #c0392b; transform: translateY(-3px); }
+    .menu-item h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; margin-bottom: 0.5rem; color: #f5e6d3; }
+    .menu-item .price { color: #c0392b; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .menu-item p { font-size: 0.85rem; color: #886; line-height: 1.5; }
+
+    /* ── Locations ── */
+    .locations { padding: 6rem 2rem; text-align: center; }
+    .locations h2 {
+      font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; margin-bottom: 2rem;
+    }
+    .loc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 800px; margin: 0 auto; }
+    .loc-card { padding: 2rem; border: 1px solid #2a1515; border-radius: 4px; }
+    .loc-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.15rem; margin-bottom: 0.75rem; color: #c0392b; }
+    .loc-card p { font-size: 0.9rem; color: #886; line-height: 1.7; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 3rem 2rem; text-align: center; border-top: 1px solid #1a0c0c;
+      font-size: 0.8rem; color: #553; letter-spacing: 0.1em;
+    }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="coffee-cup-wrap">
+      <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+        <path class="steam-path" d="M35 45 Q37 35, 35 25 Q33 15, 35 5" />
+        <path class="steam-path" d="M50 45 Q52 35, 50 25 Q48 15, 50 5" />
+        <path class="steam-path" d="M65 45 Q67 35, 65 25 Q63 15, 65 5" />
+        <rect x="20" y="50" width="60" height="45" rx="4" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+        <path d="M80 60 Q95 60, 95 72.5 Q95 85, 80 85" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+        <ellipse cx="50" cy="102" rx="45" ry="6" fill="none" stroke="#c0392b" stroke-width="2"/>
+        <line x1="28" y1="62" x2="72" y2="62" stroke="#c0392b" stroke-width="1.5" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="loader-logo">The Red Cat Coffeehouse</div>
+    <div class="loader-sub">Birmingham, Alabama</div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/41859/41859-1080.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Est. Birmingham, AL</div>
+      <h1>The Red Cat<br>Coffeehouse</h1>
+      <p>Your neighborhood spot for handcrafted coffee, fresh crepes, and good conversation.</p>
+      <div>
+        <a href="#menu" class="btn">Our Menu</a>
+        <a href="#" class="btn btn-fill">Order Ahead</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about fade-in">
+    <div class="section-tag">Welcome</div>
+    <h2>A Coffeehouse With Character</h2>
+    <p>The Red Cat isn't just a coffee shop — it's a gathering place. From our handcrafted lattes to our made-to-order crepes, everything is prepared with care and served with warmth.</p>
+    <div class="divider"></div>
+  </section>
+
+  <!-- Menu -->
+  <section class="menu-section" id="menu">
+    <div class="inner fade-in">
+      <div class="section-tag">The Menu</div>
+      <h2>Favorites</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h3>House Latte</h3>
+          <div class="price">$5.50</div>
+          <p>Silky steamed milk over our signature espresso blend.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Nutella Crepe</h3>
+          <div class="price">$9.00</div>
+          <p>Warm crepe filled with Nutella, fresh strawberries, and whipped cream.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Cold Brew</h3>
+          <div class="price">$5.00</div>
+          <p>Smooth, slow-steeped overnight. Served over ice.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Avocado Toast</h3>
+          <div class="price">$8.50</div>
+          <p>Sourdough, smashed avocado, everything seasoning, microgreens.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Chai Latte</h3>
+          <div class="price">$5.50</div>
+          <p>House-made chai concentrate with your choice of milk.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Pastry Case</h3>
+          <div class="price">From $3.50</div>
+          <p>Rotating selection of locally baked muffins, scones, and cookies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section class="locations fade-in">
+    <div class="section-tag">Visit Us</div>
+    <h2>Our Locations</h2>
+    <div class="loc-grid">
+      <div class="loc-card">
+        <h3>Pepper Place</h3>
+        <p>2901 2nd Ave S<br>Birmingham, AL 35233<br><br>Mon–Sat: 7am–6pm<br>Sun: 8am–4pm</p>
+      </div>
+      <div class="loc-card">
+        <h3>Lakeview</h3>
+        <p>2800 7th Ave S<br>Birmingham, AL 35233<br><br>Mon–Sat: 7am–6pm<br>Sun: 8am–4pm</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 The Red Cat Coffeehouse. All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loader').classList.add('hide'), 2800);
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
