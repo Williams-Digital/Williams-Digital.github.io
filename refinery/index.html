@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Refinery — Birmingham, AL</title>
+  <title>The Refinery — Cocktails &amp; Kitchen | Birmingham, AL</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,130 +11,91 @@
     body { font-family: 'Inter', sans-serif; color: #e8e0d8; background: #0d1510; overflow-x: hidden; }
 
     /* ── Loading Screen ── */
-    .loader {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-      background: #0d1510; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; z-index: 9999;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
+    .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #0d1510; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.6s ease, visibility 0.6s ease; }
     .loader.hide { opacity: 0; visibility: hidden; }
-
     .coffee-cup-wrap { position: relative; width: 100px; height: 120px; margin-bottom: 2rem; }
     .coffee-cup-wrap svg { width: 100%; height: 100%; }
-
-    .steam-path { fill: none; stroke: #b8860b; stroke-width: 2; stroke-linecap: round;
-      opacity: 0; animation: steamRise 2s ease-in-out infinite; }
+    .steam-path { fill: none; stroke: #b8860b; stroke-width: 2; stroke-linecap: round; opacity: 0; animation: steamRise 2s ease-in-out infinite; }
     .steam-path:nth-child(1) { animation-delay: 0s; }
     .steam-path:nth-child(2) { animation-delay: 0.5s; }
     .steam-path:nth-child(3) { animation-delay: 1s; }
+    @keyframes steamRise { 0% { opacity: 0; transform: translateY(0); } 25% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-25px); } }
+    .loader-logo { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 600; color: #b8860b; opacity: 0; animation: fadeUp 1s ease 0.5s forwards; letter-spacing: 0.1em; }
+    .loader-sub { font-size: 0.65rem; letter-spacing: 0.6em; text-transform: uppercase; color: #556; margin-top: 0.75rem; opacity: 0; animation: fadeUp 1s ease 0.8s forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes steamRise {
-      0% { opacity: 0; transform: translateY(0); }
-      25% { opacity: 0.8; }
-      100% { opacity: 0; transform: translateY(-25px); }
-    }
-
-    .loader-logo {
-      font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 600;
-      color: #b8860b; opacity: 0; animation: fadeUp 1s ease 0.5s forwards;
-      letter-spacing: 0.1em;
-    }
-    .loader-sub {
-      font-size: 0.65rem; letter-spacing: 0.6em; text-transform: uppercase;
-      color: #556; margin-top: 0.75rem; opacity: 0; animation: fadeUp 1s ease 0.8s forwards;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ── Nav Bar ── */
+    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 1.25rem 3rem; display: flex; align-items: center; justify-content: space-between; background: rgba(13,21,16,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(184,134,11,0.1); transition: all 0.3s ease; }
+    nav.scrolled { padding: 0.75rem 3rem; background: rgba(13,21,16,0.95); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: #b8860b; text-decoration: none; letter-spacing: 0.05em; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: #8a8878; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; transition: color 0.3s ease; }
+    .nav-links a:hover { color: #e8e0d8; }
+    .nav-cta { padding: 0.6rem 1.5rem; border: 1.5px solid #b8860b; color: #b8860b !important; transition: all 0.3s ease; }
+    .nav-cta:hover { background: #b8860b; color: #0d1510 !important; }
+    .mobile-toggle { display: none; background: none; border: none; color: #b8860b; font-size: 1.5rem; cursor: pointer; }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(13,21,16,0.98); flex-direction: column; justify-content: center; gap: 2.5rem; }
+      .nav-links.open { display: flex; }
+      .mobile-toggle { display: block; z-index: 101; }
     }
 
     /* ── Hero ── */
     .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
-    .hero video {
-      position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
-      transform: translate(-50%, -50%); object-fit: cover;
-    }
-    .hero-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(180deg, rgba(13,21,16,0.3) 0%, rgba(13,21,16,0.8) 100%);
-    }
-    .hero-content {
-      position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; text-align: center; padding: 0 2rem;
-    }
-    .hero-content h1 {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 600; letter-spacing: 0.08em; margin-bottom: 1rem;
-    }
+    .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; }
+    .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(13,21,16,0.3) 0%, rgba(13,21,16,0.8) 100%); }
+    .hero-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 2rem; }
+    .hero-content h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 600; letter-spacing: 0.08em; margin-bottom: 1rem; }
     .hero-content h1 span { display: block; font-size: 0.4em; letter-spacing: 0.4em; text-transform: uppercase; font-family: 'Inter', sans-serif; font-weight: 300; color: #b8860b; margin-bottom: 0.5rem; }
-    .hero-content p {
-      font-size: 1.1rem; font-weight: 300; max-width: 500px;
-      line-height: 1.7; opacity: 0.8; margin-bottom: 2.5rem;
-    }
-    .btn {
-      display: inline-block; padding: 1rem 2.5rem; border: 1.5px solid #b8860b;
-      color: #b8860b; text-decoration: none; font-size: 0.75rem; letter-spacing: 0.25em;
-      text-transform: uppercase; font-weight: 500; transition: all 0.3s ease;
-    }
+    .hero-content p { font-size: 1.1rem; font-weight: 300; max-width: 500px; line-height: 1.7; opacity: 0.8; margin-bottom: 2.5rem; }
+    .btn { display: inline-block; padding: 1rem 2.5rem; border: 1.5px solid #b8860b; color: #b8860b; text-decoration: none; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 500; transition: all 0.3s ease; }
     .btn:hover { background: #b8860b; color: #0d1510; }
     .btn-fill { background: #b8860b; color: #0d1510; margin-left: 1rem; }
     .btn-fill:hover { background: transparent; color: #b8860b; }
 
     /* ── About ── */
-    .about {
-      padding: 8rem 2rem; max-width: 800px; margin: 0 auto; text-align: center;
-    }
-    .section-tag {
-      font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase;
-      color: #b8860b; margin-bottom: 1.5rem;
-    }
-    .about h2 {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 600; line-height: 1.3; margin-bottom: 1.5rem;
-    }
-    .about p { font-size: 1rem; line-height: 1.9; color: #8a8878; max-width: 580px; margin: 0 auto; }
+    .about { padding: 8rem 2rem; max-width: 800px; margin: 0 auto; text-align: center; }
+    .section-tag { font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase; color: #b8860b; margin-bottom: 1.5rem; }
+    .about h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; line-height: 1.3; margin-bottom: 1.5rem; }
+    .about p { font-size: 1rem; line-height: 1.9; color: #8a8878; max-width: 580px; margin: 0 auto 1rem; }
+    .about .highlight { color: #b8860b; }
     .divider { width: 50px; height: 1px; background: #b8860b; margin: 3rem auto; }
 
     /* ── Menu ── */
     .menu-section { padding: 6rem 2rem; background: #0a120d; }
     .menu-section .inner { max-width: 950px; margin: 0 auto; text-align: center; }
-    .menu-section h2 {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 600; margin-bottom: 3rem;
-    }
+    .menu-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; margin-bottom: 3rem; }
     .menu-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; text-align: left; }
     @media (max-width: 600px) { .menu-cols { grid-template-columns: 1fr; } }
-    .menu-col h3 {
-      font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
-      color: #b8860b; margin-bottom: 1.5rem; padding-bottom: 0.75rem;
-      border-bottom: 1px solid #1a2a1f;
-    }
+    .menu-col h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #b8860b; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid #1a2a1f; }
     .menu-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
     .menu-row .name { font-size: 0.95rem; color: #e8e0d8; }
     .menu-row .dots { flex: 1; border-bottom: 1px dotted #2a3a2f; margin: 0 0.75rem; min-width: 20px; position: relative; top: -4px; }
-    .menu-row .price { color: #b8860b; font-weight: 500; font-size: 0.9rem; }
+    .menu-row .desc { font-size: 0.8rem; color: #6a7a6f; margin-bottom: 1rem; }
 
     /* ── Location ── */
     .location { padding: 6rem 2rem; text-align: center; }
-    .location h2 {
-      font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 600; margin-bottom: 1.5rem;
-    }
-    .location p { color: #8a8878; font-size: 1rem; line-height: 1.8; }
-    .location .hours { margin-top: 1.5rem; color: #b8860b; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .location h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; margin-bottom: 1.5rem; }
+    .location .address { font-size: 1.1rem; color: #e8e0d8; margin-bottom: 0.5rem; }
+    .location .phone { color: #b8860b; text-decoration: none; font-size: 1rem; }
+    .location .phone:hover { text-decoration: underline; }
+    .location p { color: #8a8878; font-size: 0.95rem; line-height: 1.8; }
+    .hours-grid { display: inline-grid; grid-template-columns: auto auto; gap: 0.25rem 2rem; text-align: left; margin-top: 1.5rem; font-size: 0.9rem; }
+    .hours-grid .day { color: #8a8878; }
+    .hours-grid .time { color: #b8860b; }
 
-    footer {
-      padding: 3rem 2rem; text-align: center; border-top: 1px solid #1a2a1f;
-      font-size: 0.75rem; color: #4a5a4f; letter-spacing: 0.15em;
-    }
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid #1a2a1f; }
+    .social-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
+    .social-links a { color: #4a5a4f; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s ease; }
+    .social-links a:hover { color: #b8860b; }
+    footer .copy { font-size: 0.75rem; color: #3a4a3f; letter-spacing: 0.15em; }
 
     .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
-
   <div class="loader" id="loader">
     <div class="coffee-cup-wrap">
       <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
@@ -151,73 +112,98 @@
     <div class="loader-sub">Birmingham, Alabama</div>
   </div>
 
+  <nav id="navbar">
+    <a href="#" class="nav-logo">The Refinery</a>
+    <button class="mobile-toggle" id="menuToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#location">Visit</a></li>
+      <li><a href="tel:2054075683">Contact</a></li>
+      <li><a href="#" class="nav-cta">Reservations</a></li>
+    </ul>
+  </nav>
+
   <section class="hero">
     <video autoplay muted loop playsinline>
       <source src="https://assets.mixkit.co/videos/4992/4992-1080.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1><span>Birmingham, AL</span>The Refinery</h1>
-      <p>Refined coffee. Refined taste. A curated experience in every cup.</p>
+      <h1><span>Cocktails &amp; Kitchen &bull; Birmingham</span>The Refinery</h1>
+      <p>Medieval-modern design. New York speakeasy soul. Signature cocktails and bold Southern plates in the heart of Birmingham.</p>
       <div>
         <a href="#menu" class="btn">The Menu</a>
-        <a href="#" class="btn btn-fill">Reserve a Table</a>
+        <a href="#" class="btn btn-fill">Make a Reservation</a>
       </div>
     </div>
   </section>
 
-  <section class="about fade-in">
-    <div class="section-tag">Our Philosophy</div>
-    <h2>Where Craft Meets Calm</h2>
-    <p>The Refinery is a space for intention. Every detail — from our single-origin coffees to our carefully designed interior — exists to elevate your morning ritual into something worth savoring.</p>
+  <section class="about fade-in" id="about">
+    <div class="section-tag">The Experience</div>
+    <h2>A Speakeasy for the Modern South</h2>
+    <p>Designed with deep colors and sharp <span class="highlight">Sylacauga white marble</span>, The Refinery brings a medieval-modern atmosphere to Birmingham — inspired by New York's speakeasy era, rooted in Southern flavor.</p>
+    <p>Full lunch and dinner service, signature cocktails, and a curated selection of local craft beers and wines. This is where date night meets Birmingham soul.</p>
     <div class="divider"></div>
   </section>
 
   <section class="menu-section" id="menu">
     <div class="inner fade-in">
       <div class="section-tag">The Menu</div>
-      <h2>Our Offerings</h2>
+      <h2>Kitchen &amp; Bar</h2>
       <div class="menu-cols">
         <div class="menu-col">
-          <h3>Coffee</h3>
-          <div class="menu-row"><span class="name">Espresso</span><span class="dots"></span><span class="price">$4.00</span></div>
-          <div class="menu-row"><span class="name">Cortado</span><span class="dots"></span><span class="price">$5.00</span></div>
-          <div class="menu-row"><span class="name">Pour Over</span><span class="dots"></span><span class="price">$6.00</span></div>
-          <div class="menu-row"><span class="name">House Latte</span><span class="dots"></span><span class="price">$5.50</span></div>
-          <div class="menu-row"><span class="name">Lavender Latte</span><span class="dots"></span><span class="price">$6.50</span></div>
-          <div class="menu-row"><span class="name">Cold Brew</span><span class="dots"></span><span class="price">$5.00</span></div>
+          <h3>Kitchen</h3>
+          <div class="menu-row"><span class="name">Lobster Corn Dogs</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Smash Burger</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Chicken Piccata</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Lamb Kabob</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Miso Chicken Sandwich</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Pork Chop &amp; Roast Potatoes</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Baked Mac &amp; Cheese</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Truffle Fries</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Conecuh Sausage</span><span class="dots"></span></div>
         </div>
         <div class="menu-col">
-          <h3>Kitchen</h3>
-          <div class="menu-row"><span class="name">Avocado Toast</span><span class="dots"></span><span class="price">$10.00</span></div>
-          <div class="menu-row"><span class="name">Grain Bowl</span><span class="dots"></span><span class="price">$12.00</span></div>
-          <div class="menu-row"><span class="name">Croissant</span><span class="dots"></span><span class="price">$4.50</span></div>
-          <div class="menu-row"><span class="name">Seasonal Salad</span><span class="dots"></span><span class="price">$11.00</span></div>
-          <div class="menu-row"><span class="name">Quiche du Jour</span><span class="dots"></span><span class="price">$8.00</span></div>
-          <div class="menu-row"><span class="name">Pastry Flight</span><span class="dots"></span><span class="price">$9.00</span></div>
+          <h3>Cocktails</h3>
+          <div class="menu-row"><span class="name">Island Nectar Shot</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Ohana</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Honeycomb</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Signature Old Fashioned</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Local Craft Beers</span><span class="dots"></span></div>
+          <div class="menu-row"><span class="name">Curated Wine Selection</span><span class="dots"></span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="location fade-in">
+  <section class="location fade-in" id="location">
     <div class="section-tag">Visit</div>
     <h2>Find The Refinery</h2>
-    <p>Birmingham, Alabama</p>
-    <div class="hours">Open Daily — 7AM to 5PM</div>
+    <p class="address">728 29th St S<br>Birmingham, AL 35233</p>
+    <a href="tel:2054075683" class="phone">(205) 407-5683</a>
+    <div class="hours-grid">
+      <span class="day">Monday</span><span class="time">4:00 PM – 10:00 PM</span>
+      <span class="day">Tue – Thu</span><span class="time">11:00 AM – 12:00 AM</span>
+      <span class="day">Fri – Sat</span><span class="time">11:00 AM – 1:00 AM</span>
+      <span class="day">Sunday</span><span class="time">11:00 AM – 12:00 AM</span>
+    </div>
   </section>
 
   <footer>
-    <p>&copy; 2026 The Refinery BHM. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/refinerybhm/" target="_blank">Instagram</a>
+      <a href="#" target="_blank">Facebook</a>
+    </div>
+    <p class="copy">&copy; 2026 The Refinery BHM. All rights reserved.</p>
   </footer>
 
   <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => document.getElementById('loader').classList.add('hide'), 2800);
-    });
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.15 });
+    window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hide'), 2800); });
+    window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+    document.getElementById('menuToggle').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('open'); });
+    document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')); });
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.15 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 </body>

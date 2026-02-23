@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEINCAL Cafe — Birmingham, AL</title>
+  <title>Empower Caf&eacute; by WEINCAL — More Than Food, It's a Mission | Birmingham, AL</title>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -11,135 +11,98 @@
     body { font-family: 'Inter', sans-serif; color: #f4e9d9; background: #0d1a0d; overflow-x: hidden; }
 
     /* ── Loading Screen ── */
-    .loader {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-      background: #0d1a0d; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; z-index: 9999;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
+    .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #0d1a0d; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.6s ease, visibility 0.6s ease; }
     .loader.hide { opacity: 0; visibility: hidden; }
-
     .coffee-cup-wrap { position: relative; width: 100px; height: 120px; margin-bottom: 2rem; }
     .coffee-cup-wrap svg { width: 100%; height: 100%; }
-
-    .steam-path { fill: none; stroke: #5a9e5a; stroke-width: 2; stroke-linecap: round;
-      opacity: 0; animation: steamRise 2s ease-in-out infinite; }
+    .steam-path { fill: none; stroke: #5a9e5a; stroke-width: 2; stroke-linecap: round; opacity: 0; animation: steamRise 2s ease-in-out infinite; }
     .steam-path:nth-child(1) { animation-delay: 0s; }
     .steam-path:nth-child(2) { animation-delay: 0.5s; }
     .steam-path:nth-child(3) { animation-delay: 1s; }
+    @keyframes steamRise { 0% { opacity: 0; transform: translateY(0); } 25% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-25px); } }
+    .loader-logo { font-family: 'Libre Baskerville', serif; font-size: 2.2rem; font-weight: 700; color: #5a9e5a; opacity: 0; animation: fadeUp 1s ease 0.5s forwards; }
+    .loader-sub { font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase; color: #557755; margin-top: 0.75rem; opacity: 0; animation: fadeUp 1s ease 0.8s forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes steamRise {
-      0% { opacity: 0; transform: translateY(0); }
-      25% { opacity: 0.8; }
-      100% { opacity: 0; transform: translateY(-25px); }
-    }
-
-    .loader-logo {
-      font-family: 'Libre Baskerville', serif; font-size: 2.5rem; font-weight: 700;
-      color: #5a9e5a; opacity: 0; animation: fadeUp 1s ease 0.5s forwards;
-    }
-    .loader-sub {
-      font-size: 0.7rem; letter-spacing: 0.5em; text-transform: uppercase;
-      color: #557755; margin-top: 0.75rem; opacity: 0; animation: fadeUp 1s ease 0.8s forwards;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ── Nav Bar ── */
+    nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 1.25rem 3rem; display: flex; align-items: center; justify-content: space-between; background: rgba(13,26,13,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(90,158,90,0.1); transition: all 0.3s ease; }
+    nav.scrolled { padding: 0.75rem 3rem; background: rgba(13,26,13,0.95); }
+    .nav-logo { font-family: 'Libre Baskerville', serif; font-size: 1.2rem; font-weight: 700; color: #5a9e5a; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: #7a8a6a; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; transition: color 0.3s ease; }
+    .nav-links a:hover { color: #f4e9d9; }
+    .nav-cta { padding: 0.6rem 1.5rem; border: 1.5px solid #5a9e5a; color: #5a9e5a !important; transition: all 0.3s ease; }
+    .nav-cta:hover { background: #5a9e5a; color: #0d1a0d !important; }
+    .mobile-toggle { display: none; background: none; border: none; color: #5a9e5a; font-size: 1.5rem; cursor: pointer; }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(13,26,13,0.98); flex-direction: column; justify-content: center; gap: 2.5rem; }
+      .nav-links.open { display: flex; }
+      .mobile-toggle { display: block; z-index: 101; }
     }
 
     /* ── Hero ── */
     .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
-    .hero video {
-      position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
-      transform: translate(-50%, -50%); object-fit: cover;
-    }
-    .hero-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(180deg, rgba(13,26,13,0.35) 0%, rgba(13,26,13,0.85) 100%);
-    }
-    .hero-content {
-      position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; text-align: center; padding: 0 2rem;
-    }
-    .hero-content h1 {
-      font-family: 'Libre Baskerville', serif; font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-      font-weight: 700; line-height: 1.2; margin-bottom: 1.25rem;
-    }
+    .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; }
+    .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(13,26,13,0.35) 0%, rgba(13,26,13,0.85) 100%); }
+    .hero-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 2rem; }
+    .hero-content h1 { font-family: 'Libre Baskerville', serif; font-size: clamp(2.5rem, 5.5vw, 4.5rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.25rem; }
     .hero-content h1 em { font-style: italic; color: #5a9e5a; }
-    .hero-content p {
-      font-size: 1.1rem; font-weight: 300; max-width: 520px;
-      line-height: 1.7; opacity: 0.8; margin-bottom: 2.5rem;
-    }
-    .btn {
-      display: inline-block; padding: 1rem 2.5rem; border: 2px solid #5a9e5a;
-      color: #5a9e5a; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.2em;
-      text-transform: uppercase; font-weight: 600; transition: all 0.3s ease;
-    }
+    .hero-content p { font-size: 1.1rem; font-weight: 300; max-width: 560px; line-height: 1.7; opacity: 0.8; margin-bottom: 2.5rem; }
+    .btn { display: inline-block; padding: 1rem 2.5rem; border: 2px solid #5a9e5a; color: #5a9e5a; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; transition: all 0.3s ease; }
     .btn:hover { background: #5a9e5a; color: #0d1a0d; }
     .btn-fill { background: #5a9e5a; color: #0d1a0d; margin-left: 1rem; }
     .btn-fill:hover { background: transparent; color: #5a9e5a; }
 
     /* ── Mission ── */
-    .mission {
-      padding: 8rem 2rem; max-width: 850px; margin: 0 auto; text-align: center;
-    }
-    .section-tag {
-      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
-      color: #5a9e5a; margin-bottom: 1.5rem;
-    }
-    .mission h2 {
-      font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700; line-height: 1.3; margin-bottom: 1.5rem;
-    }
-    .mission p { font-size: 1rem; line-height: 1.8; color: #8a9a7a; max-width: 600px; margin: 0 auto; }
+    .mission { padding: 8rem 2rem; max-width: 850px; margin: 0 auto; text-align: center; }
+    .section-tag { font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase; color: #5a9e5a; margin-bottom: 1.5rem; }
+    .mission h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.3; margin-bottom: 1.5rem; }
+    .mission p { font-size: 1rem; line-height: 1.8; color: #8a9a7a; max-width: 600px; margin: 0 auto 1rem; }
+    .mission .highlight { color: #5a9e5a; font-weight: 500; }
     .divider { width: 60px; height: 2px; background: #5a9e5a; margin: 3rem auto; }
 
-    /* ── Impact ── */
-    .impact { padding: 4rem 2rem 6rem; }
-    .impact .inner { max-width: 900px; margin: 0 auto; }
-    .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: center; }
-    .impact-card { padding: 2.5rem 2rem; border: 1px solid #1a3a1a; border-radius: 8px; }
-    .impact-num { font-family: 'Libre Baskerville', serif; font-size: 3rem; font-weight: 700; color: #5a9e5a; margin-bottom: 0.5rem; }
-    .impact-card h3 { font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
-    .impact-card p { font-size: 0.85rem; color: #7a8a6a; line-height: 1.5; }
+    /* ── Programs ── */
+    .programs { padding: 4rem 2rem 6rem; }
+    .programs .inner { max-width: 1000px; margin: 0 auto; }
+    .prog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .prog-card { padding: 2rem; border: 1px solid #1a3a1a; border-radius: 8px; transition: border-color 0.3s ease; }
+    .prog-card:hover { border-color: #5a9e5a; }
+    .prog-card h3 { font-family: 'Libre Baskerville', serif; font-size: 1.1rem; margin-bottom: 0.5rem; color: #5a9e5a; }
+    .prog-card p { font-size: 0.85rem; color: #7a8a6a; line-height: 1.6; }
 
     /* ── Menu ── */
     .menu-section { padding: 6rem 2rem; background: #0a150a; }
     .menu-section .inner { max-width: 900px; margin: 0 auto; text-align: center; }
-    .menu-section h2 {
-      font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700; margin-bottom: 3rem;
-    }
+    .menu-section h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 3rem; }
     .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; text-align: left; }
-    .menu-item {
-      padding: 1.75rem; border: 1px solid #1a3a1a; border-radius: 6px;
-      transition: border-color 0.3s ease;
-    }
+    .menu-item { padding: 1.75rem; border: 1px solid #1a3a1a; border-radius: 6px; transition: border-color 0.3s ease; }
     .menu-item:hover { border-color: #5a9e5a; }
     .menu-item h3 { font-family: 'Libre Baskerville', serif; font-size: 1.1rem; margin-bottom: 0.5rem; }
     .menu-item p { font-size: 0.85rem; color: #7a8a6a; line-height: 1.5; }
 
     /* ── Location ── */
     .location { padding: 6rem 2rem; text-align: center; }
-    .location h2 {
-      font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700; margin-bottom: 1.5rem;
-    }
-    .location p { color: #8a9a7a; font-size: 1rem; line-height: 1.8; }
-    .location .hours { margin-top: 1.5rem; color: #5a9e5a; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .location h2 { font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1.5rem; }
+    .location .address { font-size: 1.1rem; color: #f4e9d9; margin-bottom: 0.5rem; }
+    .location .phone { color: #5a9e5a; text-decoration: none; font-size: 1rem; }
+    .location .phone:hover { text-decoration: underline; }
+    .location p { color: #8a9a7a; font-size: 0.95rem; line-height: 1.8; }
+    .location .catering { margin-top: 1.5rem; padding: 1.25rem 2rem; background: rgba(90,158,90,0.1); border-radius: 6px; display: inline-block; }
+    .location .catering p { color: #5a9e5a; font-size: 0.85rem; margin: 0; }
+    .location .catering a { color: #5a9e5a; }
 
-    footer {
-      padding: 3rem 2rem; text-align: center; border-top: 1px solid #1a3a1a;
-      font-size: 0.8rem; color: #4a5a3a; letter-spacing: 0.1em;
-    }
+    footer { padding: 3rem 2rem; text-align: center; border-top: 1px solid #1a3a1a; }
+    .social-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; }
+    .social-links a { color: #4a5a3a; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s ease; }
+    .social-links a:hover { color: #5a9e5a; }
+    footer .copy { font-size: 0.75rem; color: #3a4a2a; letter-spacing: 0.1em; }
 
     .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
-
   <div class="loader" id="loader">
     <div class="coffee-cup-wrap">
       <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
@@ -152,9 +115,21 @@
         <line x1="28" y1="62" x2="72" y2="62" stroke="#5a9e5a" stroke-width="1.5" opacity="0.4"/>
       </svg>
     </div>
-    <div class="loader-logo">WEINCAL Cafe</div>
-    <div class="loader-sub">More Than Food — It's a Mission</div>
+    <div class="loader-logo">Empower Caf&eacute;</div>
+    <div class="loader-sub">by Workshops Empowerment Inc.</div>
   </div>
+
+  <nav id="navbar">
+    <a href="#" class="nav-logo">Empower Caf&eacute;</a>
+    <button class="mobile-toggle" id="menuToggle">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#location">Visit</a></li>
+      <li><a href="https://order.toasttab.com/online/workshops-empowerment-inc-4244-3rd-ave-s" class="nav-cta" target="_blank">Order Online</a></li>
+    </ul>
+  </nav>
 
   <section class="hero">
     <video autoplay muted loop playsinline>
@@ -162,11 +137,11 @@
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>More Than Coffee.<br>It's <em>Community</em>.</h1>
-      <p>WEINCAL Cafe — where every cup brewed creates opportunity and every meal served builds a future.</p>
+      <h1>More Than Food.<br>It's <em>Empowerment</em>.</h1>
+      <p>Empower Caf&eacute; by WE Inc. — where individuals with disabilities and employment barriers gain real-world skills. By dining here, you're enjoying great food while supporting a mission of inclusion, opportunity, and empowerment.</p>
       <div>
         <a href="#mission" class="btn">Our Mission</a>
-        <a href="#" class="btn btn-fill">Order Online</a>
+        <a href="https://order.toasttab.com/online/workshops-empowerment-inc-4244-3rd-ave-s" class="btn btn-fill" target="_blank">Order Online</a>
       </div>
     </div>
   </section>
@@ -174,27 +149,30 @@
   <section class="mission fade-in" id="mission">
     <div class="section-tag">Our Mission</div>
     <h2>Brewing Change, One Cup at a Time</h2>
-    <p>WEINCAL Cafe is more than a restaurant. We're a workforce training program that empowers individuals with culinary skills, professional development, and a path to independence — all while serving incredible food to our community.</p>
+    <p>Empower Caf&eacute; operates as <span class="highlight">more than just a caf&eacute;</span>. We're a workforce training program where individuals with disabilities and employment barriers gain real-world skills through food service and retail training.</p>
+    <p>Our trainees earn <span class="highlight">ServSafe certifications</span>, build teamwork and communication skills, and develop a path toward independence — all while serving incredible food to our community.</p>
     <div class="divider"></div>
   </section>
 
-  <section class="impact fade-in">
+  <section class="programs fade-in" id="programs">
     <div class="inner">
-      <div class="impact-grid">
-        <div class="impact-card">
-          <div class="impact-num">500+</div>
-          <h3>Lives Impacted</h3>
-          <p>Individuals trained through our workforce development program.</p>
+      <div class="section-tag" style="text-align:center; margin-bottom: 2.5rem;">Our Programs</div>
+      <div class="prog-grid">
+        <div class="prog-card">
+          <h3>Empower Pathways</h3>
+          <p>Workforce development training with real-world café and kitchen experience.</p>
         </div>
-        <div class="impact-card">
-          <div class="impact-num">85%</div>
-          <h3>Job Placement</h3>
-          <p>Of graduates placed in culinary and hospitality careers.</p>
+        <div class="prog-card">
+          <h3>Empower Horizons</h3>
+          <p>Expanded skill building for individuals ready to advance their careers.</p>
         </div>
-        <div class="impact-card">
-          <div class="impact-num">10+</div>
-          <h3>Years Serving</h3>
-          <p>A decade of community impact in Birmingham.</p>
+        <div class="prog-card">
+          <h3>Empower U</h3>
+          <p>Educational programming and personal development opportunities.</p>
+        </div>
+        <div class="prog-card">
+          <h3>Vocational Rehab</h3>
+          <p>Partnership-based rehabilitation services for workforce reentry.</p>
         </div>
       </div>
     </div>
@@ -206,51 +184,58 @@
       <h2>What We're Serving</h2>
       <div class="menu-grid">
         <div class="menu-item">
-          <h3>Drip Coffee</h3>
-          <p>Locally roasted, served fresh all day.</p>
+          <h3>Fresh Brewed Coffee</h3>
+          <p>Locally roasted, served fresh all day long.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Signature Sandwiches</h3>
+          <p>House-prepared with fresh bread and quality ingredients.</p>
         </div>
         <div class="menu-item">
           <h3>Seasonal Soup</h3>
           <p>Chef's choice, made from scratch daily.</p>
         </div>
         <div class="menu-item">
-          <h3>Signature Sandwich</h3>
-          <p>House-smoked meats, fresh bread, garden sides.</p>
-        </div>
-        <div class="menu-item">
-          <h3>Community Plate</h3>
-          <p>Today's special — hearty, homemade, always changing.</p>
-        </div>
-        <div class="menu-item">
           <h3>Fresh Salads</h3>
           <p>Seasonal greens with house-made dressings.</p>
         </div>
         <div class="menu-item">
+          <h3>Daily Special</h3>
+          <p>Hearty, homemade, always changing. Ask what's on today.</p>
+        </div>
+        <div class="menu-item">
           <h3>Catering</h3>
-          <p>Let us bring the mission to your next event.</p>
+          <p>Let us bring the mission to your next event or meeting.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="location fade-in">
+  <section class="location fade-in" id="location">
     <div class="section-tag">Visit Us</div>
-    <h2>Birmingham, AL</h2>
-    <p>Serving the community from the heart of the city.</p>
-    <div class="hours">Monday – Friday — 8AM to 3PM</div>
+    <h2>Find Empower Caf&eacute;</h2>
+    <p class="address">4244 3rd Avenue South<br>Birmingham, AL 35222</p>
+    <a href="tel:2055929683" class="phone">(205) 592-9683</a>
+    <div class="catering">
+      <p>Catering inquiries: <a href="mailto:gary@weincal.org">gary@weincal.org</a></p>
+    </div>
   </section>
 
   <footer>
-    <p>&copy; 2026 WEINCAL Cafe. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/workshopsempowerment/" target="_blank">Instagram</a>
+      <a href="https://www.facebook.com/WEIncAL/" target="_blank">Facebook</a>
+      <a href="https://www.linkedin.com/school/weincal/" target="_blank">LinkedIn</a>
+    </div>
+    <p class="copy">&copy; 2026 Workshops Empowerment Inc. All rights reserved.</p>
   </footer>
 
   <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => document.getElementById('loader').classList.add('hide'), 2800);
-    });
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.15 });
+    window.addEventListener('load', () => { setTimeout(() => document.getElementById('loader').classList.add('hide'), 2800); });
+    window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+    document.getElementById('menuToggle').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('open'); });
+    document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')); });
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.15 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 </body>
