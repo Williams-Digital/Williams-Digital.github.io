@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day Star Construction — Commercial Construction & Renovations | Birmingham, AL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #e8e8e8; background: #0c0c0c; overflow-x: hidden; }
+
+    :root {
+      --accent: #3B8CC4;
+      --accent-rgb: 59,140,196;
+      --dark: #0c0c0c;
+      --dark-card: #141414;
+      --dark-card-hover: #1a1a1a;
+      --text: #e8e8e8;
+      --text-muted: #888;
+    }
+
+    /* ── PITCH BANNER ── */
+    .pitch-banner {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;
+      background: var(--accent); color: #000; text-align: center;
+      padding: 0.5rem 1rem; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .pitch-banner span { opacity: 0.7; font-weight: 400; margin-left: 0.5rem; }
+
+    /* ── LOADER ── */
+    .loader {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background: var(--dark); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 9998;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-icon { width: 60px; height: 60px; margin-bottom: 1.5rem; position: relative; }
+    .loader-icon::before, .loader-icon::after {
+      content: ''; position: absolute; border: 2px solid var(--accent);
+      border-radius: 50%; animation: ping 1.5s ease-in-out infinite;
+    }
+    .loader-icon::before { inset: 0; }
+    .loader-icon::after { inset: 10px; animation-delay: 0.3s; }
+    @keyframes ping {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+    .loader-text {
+      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 28px; left: 0; width: 100%; z-index: 100;
+      padding: 1rem 3rem; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(12,12,12,0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(var(--accent-rgb),0.1);
+      transition: all 0.4s ease;
+    }
+    nav.scrolled { padding: 0.7rem 3rem; background: rgba(12,12,12,0.95); }
+    .nav-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900;
+      letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none; font-size: 0.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: 0.55rem 1.3rem; border: 1.5px solid var(--accent);
+      color: var(--accent) !important; transition: all 0.3s ease;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--dark) !important; }
+
+    /* ── HAMBURGER ── */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 200; }
+    .hamburger span { width: 24px; height: 2px; background: var(--accent); transition: all 0.3s ease; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; display: flex; align-items: center;
+      justify-content: center; overflow: hidden; margin-top: 28px;
+    }
+    .hero-video {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.35;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(12,12,12,0.4) 0%, rgba(12,12,12,0.85) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center; max-width: 850px; padding: 0 2rem;
+    }
+    .hero-badge {
+      display: inline-block; padding: 0.4rem 1.2rem; border: 1px solid rgba(var(--accent-rgb),0.4);
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1.5rem; border-radius: 2px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900; line-height: 1.1; margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #fff 0%, rgba(var(--accent-rgb),0.9) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-muted); max-width: 550px;
+      margin: 0 auto 2.5rem; line-height: 1.7; font-weight: 300;
+    }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 0.85rem 2rem; font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 600; text-decoration: none;
+      transition: all 0.3s ease; border: none; cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent); color: #000;
+    }
+    .btn-primary:hover { filter: brightness(1.15); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1.5px solid rgba(var(--accent-rgb),0.4); color: var(--accent);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--accent); background: rgba(var(--accent-rgb),0.1); }
+
+    /* ── STATS BAR ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(var(--accent-rgb),0.15);
+      border-bottom: 1px solid rgba(var(--accent-rgb),0.15);
+    }
+    .stat {
+      text-align: center; padding: 2.5rem 1rem;
+      border-right: 1px solid rgba(var(--accent-rgb),0.1);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900;
+      color: var(--accent); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-muted); margin-top: 0.5rem;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem; font-weight: 600;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; margin-bottom: 1rem; color: #fff;
+    }
+    .section-desc {
+      font-size: 1rem; color: var(--text-muted); max-width: 600px;
+      line-height: 1.8; font-weight: 300;
+    }
+
+    /* ── ABOUT ── */
+    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-visual {
+      position: relative; height: 450px; border-radius: 4px; overflow: hidden;
+    }
+    .about-visual video {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .about-visual::after {
+      content: ''; position: absolute; inset: 0;
+      border: 1px solid rgba(var(--accent-rgb),0.2); border-radius: 4px; pointer-events: none;
+    }
+    .about-text .section-desc { max-width: 100%; }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--dark-card); border: 1px solid rgba(var(--accent-rgb),0.08);
+      padding: 2.5rem 2rem; border-radius: 4px; transition: all 0.4s ease;
+    }
+    .service-card:hover {
+      background: var(--dark-card-hover); border-color: rgba(var(--accent-rgb),0.25);
+      transform: translateY(-4px);
+    }
+    .service-icon {
+      width: 40px; height: 40px; color: var(--accent); margin-bottom: 1.2rem;
+    }
+    .service-icon svg { width: 100%; height: 100%; }
+    .service-card h3 {
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; color: #fff;
+    }
+    .service-card p {
+      font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-section {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb),0.08) 0%, transparent 100%);
+      border: 1px solid rgba(var(--accent-rgb),0.12); border-radius: 6px;
+      margin: 2rem 3rem; padding: 5rem 3rem;
+    }
+    .cta-section .section-title { margin-bottom: 0.75rem; }
+    .cta-section .section-desc { margin: 0 auto 2rem; text-align: center; }
+    .cta-phone {
+      font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900;
+      color: var(--accent); text-decoration: none; display: inline-block;
+      margin-bottom: 1.5rem; transition: opacity 0.3s;
+    }
+    .cta-phone:hover { opacity: 0.8; }
+
+    /* ── CONTACT ── */
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+    .contact-item-label {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.3rem; font-weight: 600;
+    }
+    .contact-item-value { font-size: 1.1rem; color: #fff; line-height: 1.6; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-form input, .contact-form textarea {
+      background: var(--dark-card); border: 1px solid rgba(var(--accent-rgb),0.15);
+      padding: 0.9rem 1.2rem; color: #fff; font-family: 'Inter', sans-serif;
+      font-size: 0.85rem; border-radius: 3px; outline: none;
+      transition: border-color 0.3s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus {
+      border-color: var(--accent);
+    }
+    .contact-form input::placeholder, .contact-form textarea::placeholder {
+      color: #555;
+    }
+    .contact-form textarea { height: 140px; resize: vertical; }
+    .contact-form .btn { width: 100%; text-align: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(var(--accent-rgb),0.1); padding: 2.5rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; color: var(--text-muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0.8rem 1.5rem; }
+      nav.scrolled { padding: 0.6rem 1.5rem; }
+      .nav-links {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+        flex-direction: column; align-items: center; justify-content: center;
+        background: rgba(12,12,12,0.98); gap: 2rem;
+      }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      section { padding: 4rem 1.5rem; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .about-visual { height: 280px; }
+      .contact { grid-template-columns: 1fr; }
+      .cta-section { margin: 2rem 1.5rem; padding: 3rem 1.5rem; }
+      .cta-phone { font-size: 1.8rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pitch Banner -->
+  <div class="pitch-banner">
+    Website Preview for Day Star Construction<span>— designed by Williams Digital IO</span>
+  </div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader-icon"></div>
+    <div class="loader-text">DAY</div>
+  </div>
+
+  <!-- Nav -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">DAY</a>
+    <div class="hamburger" id="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open'); this.classList.toggle('active');">
+      <span></span><span></span><span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about" onclick="document.querySelector('.nav-links').classList.remove('open')">About</a></li>
+      <li><a href="#services" onclick="document.querySelector('.nav-links').classList.remove('open')">Services</a></li>
+      <li><a href="#contact" onclick="document.querySelector('.nav-links').classList.remove('open')">Contact</a></li>
+      <li><a href="tel:205-591-0751" class="nav-cta">Call Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="https://videos.pexels.com/video-files/7578554/7578554-hd_1920_1080_30fps.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Commercial Construction & Renovations</div>
+      <h1>Brightening Birmingham. One Build at a Time.</h1>
+      <p class="hero-sub">Day Star Construction has proudly served Birmingham's commercial building needs for over two decades. We specialize in new construction and...</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+        <a href="#services" class="btn btn-outline">Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat reveal">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">5.0</div>
+      <div class="stat-label">Google Rating</div>
+    </div>
+    <div class="stat reveal">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Satisfaction Rate</div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <div class="about">
+      <div class="about-visual reveal">
+        <video autoplay muted loop playsinline>
+          <source src="https://videos.pexels.com/video-files/7578554/7578554-hd_1920_1080_30fps.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="about-text">
+        <div class="section-label reveal">About Us</div>
+        <h2 class="section-title reveal">Birmingham's Trusted<br>Construction Partner</h2>
+        <p class="section-desc reveal">Day Star Construction has proudly served Birmingham's commercial building needs for over two decades. We specialize in new construction and full-building renovations that transform spaces and exceed expectations.</p>
+        <p class="section-desc reveal" style="margin-top:1rem;">
+          Located at <strong style="color:#fff">4005 2nd Ave S, Birmingham, AL 35222</strong>, we serve the greater Birmingham metropolitan area
+          with pride, professionalism, and a commitment to quality that shows in every build.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" style="background: var(--dark-card);">
+    <div class="section-label reveal">What We Do</div>
+    <h2 class="section-title reveal">Our Services</h2>
+    <p class="section-desc reveal">Full-service construction solutions for commercial and residential clients across Birmingham.</p>
+    <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 18h20M4 18v-3a8 8 0 0116 0v3M9 10V7a3 3 0 016 0v3"/></svg></div>
+          <h3>New Construction</h3>
+          <p>Ground-up commercial and residential builds from foundation to finish, delivered on schedule.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+          <h3>Renovations & Remodels</h3>
+          <p>Full-scale renovation projects that modernize spaces while preserving structural integrity.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div>
+          <h3>Project Management</h3>
+          <p>End-to-end project oversight ensuring quality standards, timeline adherence, and budget control.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+          <h3>Pre-Construction Planning</h3>
+          <p>Detailed estimating, value engineering, and site analysis before the first shovel hits the ground.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10M9 6h.01M15 6h.01M9 10h.01M15 10h.01"/></svg></div>
+          <h3>Tenant Build-Outs</h3>
+          <p>Custom interior construction tailored to commercial tenant specifications and timelines.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+          <h3>Site Development</h3>
+          <p>Complete site preparation including grading, utilities, and infrastructure for new builds.</p>
+        </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section reveal">
+    <div class="section-label">Ready to Build?</div>
+    <h2 class="section-title">Let's Start Your Project</h2>
+    <p class="section-desc">Get in touch today for a free consultation and project estimate. No obligation, just honest answers.</p>
+    <a href="tel:205-591-0751" class="cta-phone">(205) 591-0751</a><br>
+    <a href="#contact" class="btn btn-primary" style="margin-top:0.5rem;">Request a Quote</a>
+  </div>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="contact">
+      <div>
+        <div class="section-label reveal">Get In Touch</div>
+        <h2 class="section-title reveal">Contact Us</h2>
+        <div class="contact-info" style="margin-top: 2rem;">
+          <div class="reveal">
+            <div class="contact-item-label">Phone</div>
+            <div class="contact-item-value">(205) 591-0751</div>
+          </div>
+          <div class="reveal">
+            <div class="contact-item-label">Address</div>
+            <div class="contact-item-value">4005 2nd Ave S, Birmingham, AL 35222</div>
+          </div>
+          <div class="reveal">
+            <div class="contact-item-label">Hours</div>
+            <div class="contact-item-value">Mon — Fri: 7:00 AM — 5:00 PM</div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('This is a demo — form submissions are disabled.');">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="tel" placeholder="Phone Number">
+        <input type="text" placeholder="Project Type">
+        <textarea placeholder="Tell us about your project..."></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span>&copy; 2026 Day Star Construction. All rights reserved.</span>
+    <span>4005 2nd Ave S, Birmingham, AL 35222</span>
+    <span>Preview by <a href="#">Williams Digital IO</a></span>
+  </footer>
+
+  <script>
+    // Loader
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('loader').classList.add('hide'), 1200);
+    });
+    // Scroll nav
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    // Reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
