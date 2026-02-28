@@ -239,210 +239,346 @@
 
     .roster-header { text-align: center; max-width: 600px; margin: 0 auto 80px; }
 
-    /* Hero artist — full width spotlight */
-    .artist-spotlight {
+    /* ---- Artist strip cards ---- */
+    .artist-strip {
       position: relative;
       width: 100%;
       max-width: 1400px;
-      margin: 0 auto 60px;
-      height: 70vh;
-      min-height: 450px;
+      margin: 0 auto 4px;
+      height: 420px;
       overflow: hidden;
-      cursor: pointer;
+      cursor: none;
     }
 
-    .artist-spotlight img {
+    .artist-strip.strip-hero {
+      height: 500px;
+    }
+
+    /* Base image — grayscale + dark */
+    .artist-strip-base {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.5) contrast(1.1);
-      transition: transform 1.2s ease, filter 1.2s ease;
+      filter: grayscale(100%) brightness(0.35);
+      transition: filter 1s ease, transform 1.5s ease;
     }
 
-    .artist-spotlight:hover img {
-      transform: scale(1.04);
-      filter: brightness(0.4) contrast(1.15);
+    .artist-strip:hover .artist-strip-base {
+      transform: scale(1.05);
+      filter: grayscale(100%) brightness(0.25);
     }
 
-    .artist-spotlight-overlay {
+    /* Color reveal layer — follows cursor */
+    .artist-strip-color {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(to right, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.3) 40%, transparent 60%),
-        linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 40%);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 60px 80px;
-    }
-
-    .artist-spotlight-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 120px;
-      font-weight: 900;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(201,168,76,0.2);
-      line-height: 1;
-      margin-bottom: -20px;
-      transition: all 0.6s ease;
-    }
-
-    .artist-spotlight:hover .artist-spotlight-number {
-      -webkit-text-stroke-color: rgba(201,168,76,0.4);
-    }
-
-    .artist-spotlight-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 900;
-      letter-spacing: 2px;
-      margin-bottom: 12px;
-      transform: translateX(-10px);
-      transition: transform 0.6s ease;
-    }
-
-    .artist-spotlight:hover .artist-spotlight-name {
-      transform: translateX(0);
-    }
-
-    .artist-spotlight-role {
-      font-size: 13px;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 24px;
-    }
-
-    .artist-spotlight-line {
-      width: 0;
-      height: 2px;
-      background: var(--gold);
-      transition: width 0.8s ease;
-    }
-
-    .artist-spotlight:hover .artist-spotlight-line {
-      width: 120px;
-    }
-
-    @media (max-width: 768px) {
-      .artist-spotlight { height: 50vh; min-height: 350px; }
-      .artist-spotlight-overlay { padding: 30px; }
-      .artist-spotlight-number { font-size: 60px; margin-bottom: -10px; }
-    }
-
-    /* Remaining artist cards — bento grid */
-    .artist-cinema-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 3px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .artist-cinema-card {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      height: 340px;
-    }
-
-    /* Portrait card — London Reeves has a 500x750 portrait image */
-    .artist-cinema-card.card-portrait {
-      grid-row: span 2;
-      height: 100%;
-    }
-
-    .artist-cinema-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 1px solid transparent;
-      z-index: 3;
-      transition: border-color 0.5s ease;
-      pointer-events: none;
-    }
-
-    .artist-cinema-card:hover::before {
-      border-color: var(--gold);
-    }
-
-    .artist-cinema-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
-      filter: grayscale(60%) brightness(0.6);
-      transition: all 0.8s ease;
-    }
-
-    .artist-cinema-card:hover img {
-      filter: grayscale(0%) brightness(0.45);
-      transform: scale(1.08);
-    }
-
-    .artist-cinema-card-info {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 30px;
-      background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.5) 60%, transparent 100%);
+      filter: brightness(0.75) saturate(1.3);
+      clip-path: circle(0px at 50% 50%);
+      transition: clip-path 0.35s cubic-bezier(0.25, 0, 0, 1);
       z-index: 2;
     }
 
-    .artist-cinema-card-name {
+    /* Gold tint overlay */
+    .artist-strip-tint {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 60%);
+      z-index: 3;
+      pointer-events: none;
+      transition: opacity 0.6s;
+    }
+
+    .artist-strip:hover .artist-strip-tint { opacity: 0.3; }
+
+    /* Gradient for text readability — alternating sides */
+    .artist-strip-gradient {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .artist-strip:nth-child(odd of .artist-strip) .artist-strip-gradient {
+      background:
+        linear-gradient(to right, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.4) 35%, transparent 60%),
+        linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 30%);
+    }
+
+    .artist-strip:nth-child(even of .artist-strip) .artist-strip-gradient {
+      background:
+        linear-gradient(to left, rgba(10,10,10,0.88) 0%, rgba(10,10,10,0.4) 35%, transparent 60%),
+        linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 30%);
+    }
+
+    /* Corner film accents */
+    .artist-strip-corners {
+      position: absolute;
+      inset: 20px;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    .artist-strip-corners::before,
+    .artist-strip-corners::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-color: rgba(201,168,76,0.25);
+      border-style: solid;
+      transition: all 0.6s ease;
+    }
+
+    .artist-strip-corners::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+    .artist-strip-corners::after  { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+    .artist-strip:hover .artist-strip-corners::before,
+    .artist-strip:hover .artist-strip-corners::after {
+      border-color: rgba(201,168,76,0.6);
+      width: 40px;
+      height: 40px;
+    }
+
+    /* CRT scan lines */
+    .artist-strip-scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
+      );
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Text content */
+    .artist-strip-text {
+      position: absolute;
+      z-index: 7;
+      bottom: 50px;
+      left: 60px;
+      max-width: 500px;
+    }
+
+    .artist-strip:nth-child(even of .artist-strip) .artist-strip-text {
+      left: auto;
+      right: 60px;
+      text-align: right;
+    }
+
+    .artist-strip-number {
       font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 4px;
+      font-size: 100px;
+      font-weight: 900;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.2);
+      color: transparent;
+      line-height: 0.85;
+      margin-bottom: -5px;
+      transition: -webkit-text-stroke-color 0.6s;
+    }
+
+    .artist-strip:hover .artist-strip-number {
+      -webkit-text-stroke-color: rgba(201,168,76,0.5);
+    }
+
+    .artist-strip-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      margin-bottom: 10px;
       transform: translateY(8px);
-      transition: transform 0.4s ease;
+      opacity: 0.9;
+      transition: all 0.5s ease;
     }
 
-    .artist-cinema-card:hover .artist-cinema-card-name {
+    .artist-strip:hover .artist-strip-name {
       transform: translateY(0);
+      opacity: 1;
     }
 
-    .artist-cinema-card-role {
-      font-size: 10px;
+    .artist-strip-role {
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0.8;
+      transition: opacity 0.5s;
+    }
+
+    .artist-strip:hover .artist-strip-role { opacity: 1; }
+
+    .artist-strip-line {
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.8s cubic-bezier(0.25, 0, 0, 1);
+    }
+
+    .artist-strip:nth-child(even of .artist-strip) .artist-strip-line {
+      margin-left: auto;
+    }
+
+    .artist-strip:hover .artist-strip-line { width: 100px; }
+
+    /* Custom cursor ring */
+    .artist-cursor {
+      position: fixed;
+      width: 120px;
+      height: 120px;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.3s cubic-bezier(0.25, 0, 0, 1), opacity 0.3s;
+      opacity: 0;
+      display: none;
+    }
+
+    @media (hover: hover) { .artist-cursor { display: block; } }
+
+    .artist-cursor.visible {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .artist-cursor-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 9px;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--gold);
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.4s ease 0.1s;
+      white-space: nowrap;
     }
 
-    .artist-cinema-card:hover .artist-cinema-card-role {
-      opacity: 1;
-      transform: translateY(0);
+    /* Clip-path wipe entrance animations */
+    .reveal-wipe {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    .reveal-wipe.revealed { clip-path: inset(0 0 0 0); }
+
+    .reveal-wipe-right {
+      clip-path: inset(0 0 0 100%);
+      transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    .reveal-wipe-right.revealed { clip-path: inset(0 0 0 0); }
+
+    /* ---- Director card (Noam Kroll) ---- */
+    .artist-director-card {
+      position: relative;
+      max-width: 1400px;
+      margin: 4px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 380px;
+      overflow: hidden;
+      background: var(--dark-surface);
     }
 
-    .artist-cinema-card-line {
-      width: 0;
-      height: 1px;
-      background: var(--gold);
-      margin-top: 12px;
-      transition: width 0.6s ease 0.15s;
+    .artist-director-visual {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
     }
 
-    .artist-cinema-card:hover .artist-cinema-card-line {
-      width: 40px;
+    .artist-director-bg {
+      position: absolute;
+      inset: -30px;
+      width: calc(100% + 60px);
+      height: calc(100% + 60px);
+      object-fit: cover;
+      filter: blur(40px) brightness(0.25) saturate(0.5);
     }
 
-    .artist-cinema-card {
-      perspective: 800px;
+    .artist-director-ring {
+      position: relative;
+      z-index: 2;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      padding: 3px;
+      background: conic-gradient(from 0deg, rgba(201,168,76,0.5), transparent, rgba(201,168,76,0.5));
+      animation: ringRotate 6s linear infinite;
     }
 
-    .artist-cinema-card img {
-      transform-style: preserve-3d;
+    @keyframes ringRotate { to { transform: rotate(360deg); } }
+
+    .artist-director-portrait {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: grayscale(40%) brightness(0.8);
+      transition: all 0.6s ease;
     }
 
-    @media (max-width: 700px) {
-      .artist-cinema-grid { grid-template-columns: 1fr; }
-      .artist-cinema-card { height: 300px; }
-      .artist-cinema-card.card-portrait { grid-row: span 1; height: 400px; }
+    .artist-director-card:hover .artist-director-portrait {
+      filter: grayscale(0%) brightness(0.9);
+    }
+
+    .artist-director-content {
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .artist-director-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 60px;
+      font-weight: 900;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.2);
+      color: transparent;
+      line-height: 0.85;
+      margin-bottom: 5px;
+    }
+
+    .artist-director-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .artist-director-role {
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .artist-director-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      max-width: 400px;
+    }
+
+    @media (max-width: 768px) {
+      .artist-strip { height: 320px; }
+      .artist-strip.strip-hero { height: 380px; }
+      .artist-strip-text { bottom: 30px; left: 30px; }
+      .artist-strip:nth-child(even of .artist-strip) .artist-strip-text { right: 30px; }
+      .artist-strip-number { font-size: 60px; }
+      .artist-director-card { grid-template-columns: 1fr; height: auto; }
+      .artist-director-visual { height: 260px; }
+      .artist-director-content { padding: 40px; }
     }
 
     /* ========== FEATURED ARTIST SECTION ========== */
@@ -711,60 +847,89 @@
       <div class="section-divider" style="margin: 24px auto;"></div>
     </div>
 
-    <!-- Spotlight: Featured large artist -->
-    <div class="artist-spotlight reveal-scale">
-      <img src="https://timelyent.com/wp-content/uploads/2016/02/DeeWilliamsFeature.jpg" alt="Dee Williams" />
-      <div class="artist-spotlight-overlay">
-        <div class="artist-spotlight-number">01</div>
-        <h3 class="artist-spotlight-name">Dee Williams</h3>
-        <p class="artist-spotlight-role">Artist</p>
-        <div class="artist-spotlight-line"></div>
+    <!-- Custom cursor for artist strips -->
+    <div class="artist-cursor" id="artistCursor">
+      <span class="artist-cursor-text">Explore</span>
+    </div>
+
+    <!-- 01: Dee Williams -->
+    <div class="artist-strip strip-hero reveal-wipe">
+      <img class="artist-strip-base" src="https://timelyent.com/wp-content/uploads/2016/02/DeeWilliamsFeature.jpg" alt="Dee Williams" />
+      <img class="artist-strip-color" src="https://timelyent.com/wp-content/uploads/2016/02/DeeWilliamsFeature.jpg" alt="" aria-hidden="true" />
+      <div class="artist-strip-tint"></div>
+      <div class="artist-strip-gradient"></div>
+      <div class="artist-strip-scanlines"></div>
+      <div class="artist-strip-corners"></div>
+      <div class="artist-strip-text">
+        <span class="artist-strip-number">01</span>
+        <h3 class="artist-strip-name">Dee Williams</h3>
+        <p class="artist-strip-role">Artist</p>
+        <div class="artist-strip-line"></div>
       </div>
     </div>
 
-    <!-- Grid of remaining artists — bento layout -->
-    <div class="artist-cinema-grid stagger-children">
-      <!-- London Reeves — tall portrait card (500x750 source) -->
-      <div class="artist-cinema-card card-portrait reveal-scale">
-        <img src="https://timelyent.com/wp-content/uploads/2013/12/London-Reeves-5.jpg" alt="London Reeves" />
-        <div class="artist-cinema-card-info">
-          <h3 class="artist-cinema-card-name">London Reeves</h3>
-          <p class="artist-cinema-card-role">Actress / Model</p>
-          <div class="artist-cinema-card-line"></div>
-        </div>
-      </div>
-
-      <!-- Jesse Lewis IV — landscape banner (960x400 source) -->
-      <div class="artist-cinema-card reveal-scale">
-        <img src="https://timelyent.com/wp-content/uploads/strikingr/images/258_jessie1NEW-960x400.jpg" alt="Jesse Lewis IV" style="object-position: center center;" />
-        <div class="artist-cinema-card-info">
-          <h3 class="artist-cinema-card-name">Jesse Lewis, IV</h3>
-          <p class="artist-cinema-card-role">Artist</p>
-          <div class="artist-cinema-card-line"></div>
-        </div>
-      </div>
-
-      <!-- Farelle Walker — landscape banner (960x400 source) -->
-      <div class="artist-cinema-card reveal-scale">
-        <img src="https://timelyent.com/wp-content/uploads/strikingr/images/207_faralle1-960x400.jpg" alt="Farelle Walker" style="object-position: center center;" />
-        <div class="artist-cinema-card-info">
-          <h3 class="artist-cinema-card-name">Farelle Walker</h3>
-          <p class="artist-cinema-card-role">Actress / Performer</p>
-          <div class="artist-cinema-card-line"></div>
-        </div>
+    <!-- 02: London Reeves -->
+    <div class="artist-strip reveal-wipe-right">
+      <img class="artist-strip-base" src="https://timelyent.com/wp-content/uploads/2013/12/London-Reeves-5.jpg" alt="London Reeves" style="object-position: center 20%;" />
+      <img class="artist-strip-color" src="https://timelyent.com/wp-content/uploads/2013/12/London-Reeves-5.jpg" alt="" aria-hidden="true" style="object-position: center 20%;" />
+      <div class="artist-strip-tint"></div>
+      <div class="artist-strip-gradient"></div>
+      <div class="artist-strip-scanlines"></div>
+      <div class="artist-strip-corners"></div>
+      <div class="artist-strip-text">
+        <span class="artist-strip-number">02</span>
+        <h3 class="artist-strip-name">London Reeves</h3>
+        <p class="artist-strip-role">Actress / Model</p>
+        <div class="artist-strip-line"></div>
       </div>
     </div>
 
-    <!-- Noam Kroll — standalone text + image card -->
-    <div style="max-width:1400px; margin:3px auto 0; display:grid; grid-template-columns:200px 1fr; background:var(--dark-surface); overflow:hidden;" class="reveal">
-      <div style="position:relative; overflow:hidden;">
-        <img src="https://timelyent.com/wp-content/uploads/2012/10/noam.jpg" alt="Noam Kroll" style="width:100%; height:100%; object-fit:cover; filter:grayscale(40%) brightness(0.7);" />
+    <!-- 03: Jesse Lewis, IV -->
+    <div class="artist-strip reveal-wipe">
+      <img class="artist-strip-base" src="https://timelyent.com/wp-content/uploads/strikingr/images/258_jessie1NEW-960x400.jpg" alt="Jesse Lewis IV" />
+      <img class="artist-strip-color" src="https://timelyent.com/wp-content/uploads/strikingr/images/258_jessie1NEW-960x400.jpg" alt="" aria-hidden="true" />
+      <div class="artist-strip-tint"></div>
+      <div class="artist-strip-gradient"></div>
+      <div class="artist-strip-scanlines"></div>
+      <div class="artist-strip-corners"></div>
+      <div class="artist-strip-text">
+        <span class="artist-strip-number">03</span>
+        <h3 class="artist-strip-name">Jesse Lewis, IV</h3>
+        <p class="artist-strip-role">Artist</p>
+        <div class="artist-strip-line"></div>
       </div>
-      <div style="padding:40px 50px; display:flex; flex-direction:column; justify-content:center;">
-        <p style="font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:10px;">Director / Filmmaker</p>
-        <h3 style="font-family:'Playfair Display',serif; font-size:28px; font-weight:700; margin-bottom:12px;">Noam Kroll</h3>
-        <div style="width:40px; height:1px; background:var(--gold); margin-bottom:16px;"></div>
-        <p style="font-size:14px; line-height:1.7; color:var(--text-muted);">Beginning his career as a child performer, Noam found early success as an actor in film, television, and commercials before transitioning to directing. His films explore themes related to human psychology.</p>
+    </div>
+
+    <!-- 04: Farelle Walker -->
+    <div class="artist-strip reveal-wipe-right">
+      <img class="artist-strip-base" src="https://timelyent.com/wp-content/uploads/strikingr/images/207_faralle1-960x400.jpg" alt="Farelle Walker" />
+      <img class="artist-strip-color" src="https://timelyent.com/wp-content/uploads/strikingr/images/207_faralle1-960x400.jpg" alt="" aria-hidden="true" />
+      <div class="artist-strip-tint"></div>
+      <div class="artist-strip-gradient"></div>
+      <div class="artist-strip-scanlines"></div>
+      <div class="artist-strip-corners"></div>
+      <div class="artist-strip-text">
+        <span class="artist-strip-number">04</span>
+        <h3 class="artist-strip-name">Farelle Walker</h3>
+        <p class="artist-strip-role">Actress / Performer</p>
+        <div class="artist-strip-line"></div>
+      </div>
+    </div>
+
+    <!-- 05: Noam Kroll — Director's card -->
+    <div class="artist-director-card reveal">
+      <div class="artist-director-visual">
+        <img class="artist-director-bg" src="https://timelyent.com/wp-content/uploads/2012/10/noam.jpg" alt="" aria-hidden="true" />
+        <div class="artist-director-ring">
+          <img class="artist-director-portrait" src="https://timelyent.com/wp-content/uploads/2012/10/noam.jpg" alt="Noam Kroll" />
+        </div>
+      </div>
+      <div class="artist-director-content">
+        <span class="artist-director-number">05</span>
+        <h3 class="artist-director-name">Noam Kroll</h3>
+        <p class="artist-director-role">Director / Filmmaker</p>
+        <div style="width:40px; height:2px; background:var(--gold); margin-bottom:20px;"></div>
+        <p class="artist-director-desc">Beginning his career as a child performer, Noam found early success as an actor in film, television, and commercials before transitioning to directing. His films explore themes related to human psychology.</p>
       </div>
     </div>
   </section>
@@ -1303,17 +1468,46 @@
       btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
     });
 
-    // ===== 3D TILT on artist cards =====
-    document.querySelectorAll('.artist-cinema-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        card.querySelector('img').style.transform = `scale(1.1) rotateY(${x * 8}deg) rotateX(${-y * 8}deg)`;
+    // ===== CURSOR SPOTLIGHT on artist strips =====
+    const artistCursor = document.getElementById('artistCursor');
+    const artistStrips = document.querySelectorAll('.artist-strip');
+
+    artistStrips.forEach(strip => {
+      const colorImg = strip.querySelector('.artist-strip-color');
+
+      strip.addEventListener('mouseenter', () => {
+        if (artistCursor) artistCursor.classList.add('visible');
       });
-      card.addEventListener('mouseleave', () => {
-        card.querySelector('img').style.transform = 'scale(1) rotateY(0) rotateX(0)';
+
+      strip.addEventListener('mousemove', e => {
+        if (artistCursor) {
+          artistCursor.style.left = e.clientX + 'px';
+          artistCursor.style.top = e.clientY + 'px';
+        }
+        const r = strip.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        if (colorImg) colorImg.style.clipPath = `circle(180px at ${x}px ${y}px)`;
       });
+
+      strip.addEventListener('mouseleave', () => {
+        if (artistCursor) artistCursor.classList.remove('visible');
+        if (colorImg) colorImg.style.clipPath = 'circle(0px at 50% 50%)';
+      });
+    });
+
+    // ===== CLIP-PATH WIPE REVEAL on scroll =====
+    const wipeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          wipeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal-wipe, .reveal-wipe-right').forEach(el => {
+      wipeObserver.observe(el);
     });
 
     // ===== SMOOTH SCROLL =====
