@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Service Agreement — Timely Entertainment</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E8D5A3;
+            --gold-dark: #8B7331;
+            --dark: #0a0a0a;
+            --dark-mid: #111111;
+            --dark-light: #1a1a1a;
+            --text: #f0ece2;
+            --text-light: rgba(240, 236, 226, 0.6);
+            --bg: #0a0a0a;
+            --bg-light: #111111;
+            --bg-dark: #050505;
+            --border: rgba(201, 168, 76, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        /* Header bar */
+        .contract-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            height: 70px;
+        }
+
+        .contract-header .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .contract-header .logo-area svg {
+            height: 32px;
+            width: auto;
+        }
+
+        .contract-header .doc-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+
+        .contract-header .doc-label span {
+            color: var(--gold);
+        }
+
+        /* Hero */
+        .contract-hero {
+            padding: 130px 40px 50px;
+            background: var(--bg);
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contract-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201, 168, 76, 0.04) 0%, transparent 70%);
+        }
+
+        .contract-hero-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .contract-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .contract-hero h1 em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .contract-hero-sub {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
+        }
+
+        .contract-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contract-meta-item {
+            text-align: center;
+        }
+
+        .contract-meta-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .contract-meta-value {
+            font-size: 0.85rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .accent-divider {
+            width: 50px;
+            height: 3px;
+            background: var(--gold);
+            margin: 24px auto 0;
+        }
+
+        /* Contract body */
+        .contract-body {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 40px 40px;
+        }
+
+        /* Section numbering */
+        .contract-section {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .contract-section-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: rgba(201, 168, 76, 0.08);
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            line-height: 1;
+            user-select: none;
+        }
+
+        .contract-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            padding-left: 0;
+        }
+
+        .contract-section-divider {
+            width: 35px;
+            height: 2px;
+            background: var(--gold);
+            margin: 12px 0 20px;
+        }
+
+        .contract-section p {
+            font-size: 0.88rem;
+            line-height: 2;
+            color: rgba(240, 236, 226, 0.75);
+            margin-bottom: 16px;
+        }
+
+        .contract-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .contract-section strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .contract-section .gold {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* Bullet list */
+        .contract-list {
+            list-style: none;
+            margin: 16px 0;
+            padding: 0;
+        }
+
+        .contract-list li {
+            position: relative;
+            padding-left: 24px;
+            font-size: 0.88rem;
+            line-height: 1.9;
+            color: rgba(240, 236, 226, 0.75);
+            margin-bottom: 10px;
+        }
+
+        .contract-list li::before {
+            content: '\25C6';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 0.55rem;
+            top: 6px;
+        }
+
+        /* Sub-sections */
+        .contract-subsection {
+            padding: 20px 24px;
+            background: rgba(17, 17, 17, 0.6);
+            border-left: 3px solid var(--gold);
+            margin: 20px 0;
+        }
+
+        .contract-subsection h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .contract-subsection p {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        /* Divider between major sections */
+        .section-break {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 50px 0;
+        }
+
+        /* Acceptance section */
+        .acceptance-section {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+
+        .acceptance-box {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .acceptance-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+        }
+
+        .acceptance-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .acceptance-box p {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 550px;
+            margin: 0 auto 28px;
+        }
+
+        .btn-accept {
+            display: inline-block;
+            padding: 16px 48px;
+            background: var(--gold);
+            color: var(--dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-accept:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+        .acceptance-note {
+            font-size: 0.72rem !important;
+            color: rgba(240, 236, 226, 0.4) !important;
+            max-width: 450px;
+            margin: 20px auto 0 !important;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .contract-footer {
+            padding: 30px 40px;
+            background: var(--bg-dark);
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .contract-footer p {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.75rem;
+        }
+
+        .contract-footer a {
+            color: rgba(201, 168, 76, 0.5);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contract-footer a:hover {
+            color: var(--gold);
+        }
+
+        /* Print styles */
+        @media print {
+            .contract-header { position: static; background: white; border-bottom: 2px solid #333; }
+            .contract-header .logo-area svg text { fill: #333; }
+            .contract-header .doc-label { color: #666; }
+            .contract-header .doc-label span { color: #333; }
+            body { background: white; color: #333; }
+            .contract-hero { background: white; padding-top: 40px; border-bottom: 2px solid #ccc; }
+            .contract-hero::before { display: none; }
+            .contract-hero h1 { color: #333; }
+            .contract-hero h1 em { color: #8B7331; }
+            .contract-section h2 { color: #333; }
+            .contract-section p, .contract-list li { color: #444; }
+            .contract-section-num { color: rgba(0,0,0,0.06); }
+            .acceptance-section { display: none; }
+        }
+
+        @media (max-width: 968px) {
+            .contract-hero h1 { font-size: 2rem; }
+            .contract-header { padding: 0 20px; }
+        }
+
+        @media (max-width: 600px) {
+            .contract-hero { padding: 110px 20px 40px; }
+            .contract-hero h1 { font-size: 1.6rem; letter-spacing: 1px; }
+            .contract-body { padding: 40px 20px 20px; }
+            .acceptance-section { padding: 0 20px 60px; }
+            .acceptance-box { padding: 30px 20px; }
+            .contract-meta { gap: 20px; }
+            .contract-footer { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="contract-header">
+        <div class="logo-area">
+            <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="22" cy="25" r="18" stroke="#c9a84c" stroke-width="1.2" fill="none"/>
+                <circle cx="22" cy="25" r="3" fill="#c9a84c"/>
+                <line x1="22" y1="25" x2="22" y2="12" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+                <line x1="22" y1="25" x2="31" y2="18" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="22" y1="8" x2="22" y2="12" stroke="#c9a84c" stroke-width="1.5"/>
+                <line x1="22" y1="38" x2="22" y2="42" stroke="#c9a84c" stroke-width="1.5"/>
+                <line x1="4" y1="25" x2="8" y2="25" stroke="#c9a84c" stroke-width="1.5"/>
+                <line x1="36" y1="25" x2="40" y2="25" stroke="#c9a84c" stroke-width="1.5"/>
+                <text x="54" y="24" font-family="'Playfair Display', Georgia, serif" font-weight="900" font-size="26" fill="#ffffff" letter-spacing="6">TIMELY</text>
+                <line x1="54" y1="29" x2="195" y2="29" stroke="#c9a84c" stroke-width="0.6" opacity="0.5"/>
+                <text x="54" y="42" font-family="'Inter', Arial, sans-serif" font-weight="600" font-size="10.5" fill="#c9a84c" letter-spacing="4.8">ENTERTAINMENT</text>
+            </svg>
+        </div>
+        <div class="doc-label"><span>Client</span> Service Agreement</div>
+    </div>
+
+    <!-- HERO -->
+    <section class="contract-hero">
+        <div class="contract-hero-inner">
+            <h1>Client <em>Service</em> Agreement</h1>
+            <p class="contract-hero-sub">Professional Services Agreement between Service Provider and Timely Entertainment, LLC</p>
+            <div class="accent-divider"></div>
+            <div class="contract-meta">
+                <div class="contract-meta-item">
+                    <p class="contract-meta-label">Effective Date</p>
+                    <p class="contract-meta-value" id="effectiveDate">Upon Acceptance</p>
+                </div>
+                <div class="contract-meta-item">
+                    <p class="contract-meta-label">Document Version</p>
+                    <p class="contract-meta-value">1.0</p>
+                </div>
+                <div class="contract-meta-item">
+                    <p class="contract-meta-label">Jurisdiction</p>
+                    <p class="contract-meta-value">United States</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTRACT BODY -->
+    <div class="contract-body">
+
+        <!-- 1. PARTIES -->
+        <div class="contract-section">
+            <div class="contract-section-num">01</div>
+            <h2>Parties</h2>
+            <div class="contract-section-divider"></div>
+            <p>This Client Service Agreement (the <strong>"Agreement"</strong>) is entered into by and between:</p>
+            <div class="contract-subsection">
+                <h4>Service Provider</h4>
+                <p>A digital services and web development firm specializing in website design, development, hosting, maintenance, and related digital solutions.</p>
+            </div>
+            <div class="contract-subsection">
+                <h4>Client</h4>
+                <p><strong>Timely Entertainment, LLC</strong>, an artist and athlete management company.</p>
+            </div>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 2. SCOPE OF SERVICES -->
+        <div class="contract-section">
+            <div class="contract-section-num">02</div>
+            <h2>Scope of Services</h2>
+            <div class="contract-section-divider"></div>
+            <p>The Service Provider agrees to provide the Client with professional digital services, which may include but are not limited to:</p>
+            <ul class="contract-list">
+                <li><strong>Website Design &amp; Development</strong> — Custom design and development of responsive, professional websites tailored to the Client's brand identity and business objectives.</li>
+                <li><strong>Website Hosting &amp; Deployment</strong> — Setup, configuration, and management of web hosting environments including domain configuration and SSL certification.</li>
+                <li><strong>Website Maintenance &amp; Updates</strong> — Ongoing maintenance, content updates, feature enhancements, bug fixes, and performance optimization.</li>
+                <li><strong>Brand &amp; Visual Identity</strong> — Development of digital brand elements including logos, color systems, typography, and visual assets for web and digital use.</li>
+                <li><strong>Search Engine Optimization (SEO)</strong> — On-page optimization, metadata configuration, and best practices to improve search engine visibility.</li>
+                <li><strong>Digital Consulting</strong> — Strategic guidance on digital presence, technology selection, and online business solutions.</li>
+            </ul>
+            <p>The specific services to be provided shall be determined in consultation between the Service Provider and the Client and may be further detailed in a separate Statement of Work or engagement letter.</p>
+
+            <div class="contract-subsection">
+                <h4>Revision Policy</h4>
+                <p>The initial project includes up to <strong>three (3) rounds of revisions</strong> during the design and development phase. A revision round consists of a consolidated set of feedback submitted at one time. Additional revision rounds beyond the included three will be billed at the Service Provider's hourly rate of <span class="gold">$75/hour</span>. Revisions must be requested within <strong>seven (7) days</strong> of receiving a design proof or deliverable; otherwise, the deliverable will be considered approved.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Change Orders &amp; Scope Changes</h4>
+                <p>Any work requested by the Client that falls outside the originally agreed-upon scope of services will require a written <strong>Change Order</strong>. The Service Provider will provide a quote for the additional work, and no work will commence until the Client approves the Change Order in writing. Change Orders may affect the project timeline and will be billed separately from the original setup fee.</p>
+            </div>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 3. FEES AND PAYMENT -->
+        <div class="contract-section">
+            <div class="contract-section-num">03</div>
+            <h2>Fees and Payment</h2>
+            <div class="contract-section-divider"></div>
+            <p>In consideration of the services provided, the Client agrees to compensate the Service Provider as follows:</p>
+
+            <div class="contract-subsection">
+                <h4>Setup Fee</h4>
+                <p>A one-time setup fee of <span class="gold">$1,000.00 USD</span> is required for the initial website design, development, and deployment. This covers custom design, responsive development, hosting configuration, and launch of the completed website. The setup fee is payable in two installments: 50% deposit to begin, and 50% upon completion.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Monthly Service Plans</h4>
+                <p>Following the initial setup, the Client shall select one of the following monthly service plans:</p>
+                <ul class="contract-list">
+                    <li><strong>Basic</strong> — <span class="gold">$50/month</span> — Hosting, security updates, uptime monitoring, and up to 1 hour of content updates per month.</li>
+                    <li><strong>Standard</strong> — <span class="gold">$100/month</span> — Everything in Basic, plus up to 3 hours of content updates, design tweaks, performance optimization, and monthly analytics reporting.</li>
+                    <li><strong>Premium</strong> — <span class="gold">$200/month</span> — Everything in Standard, plus up to 6 hours of development time, new feature implementation, SEO optimization, and priority support.</li>
+                </ul>
+                <p>Additional work beyond the included hours will be billed at <span class="gold">$75/hour</span>. The Client may upgrade or downgrade their plan with 30 days written notice.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Payment Methods</h4>
+                <p>Payment shall be submitted via the secure payment link provided by the Service Provider. Payment details and instructions will be included on each invoice.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Payment Terms</h4>
+                <p>A <strong>50% deposit</strong> of the one-time setup fee (<span class="gold">$500.00 USD</span>) is required to begin the project. This deposit initiates the discovery, planning, and development process, including gathering all information necessary to take the Client's new website live. The remaining <strong>50% balance</strong> (<span class="gold">$500.00 USD</span>) is due upon completion and delivery of the finished website.</p>
+                <p>The selected monthly service plan begins upon receipt of the initial deposit, enabling the Service Provider to set up hosting, domain configuration, and all supporting infrastructure from day one.</p>
+                <p>Monthly service fees are billed on the first of each month and are due upon receipt. A late fee of <strong>1.5% per month</strong> may be assessed on any balance remaining unpaid beyond thirty (30) days from the invoice date. The Service Provider reserves the right to suspend services — including website hosting and maintenance — for any account with an outstanding balance exceeding sixty (60) days.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Cancellation &amp; Refund Policy</h4>
+                <p>Should the project be cancelled by the Client after work has commenced, the <strong>50% deposit is non-refundable</strong> as it covers discovery, planning, and development work already performed. If the project is cancelled by the Service Provider, the full deposit will be refunded to the Client.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Intellectual Property &amp; Ownership</h4>
+                <p>Upon receipt of full payment for the setup fee and any outstanding balances, the Client shall receive ownership of all custom-designed deliverables, including website files, graphics, and content created specifically for the Client. The Service Provider retains the right to use general techniques, tools, and methodologies developed or utilized during the engagement. Third-party assets (fonts, stock images, plugins) remain subject to their respective license agreements.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Portfolio &amp; Credit Rights</h4>
+                <p>The Service Provider retains the right to <strong>display and reference</strong> the completed website and related deliverables in their professional portfolio, marketing materials, case studies, and social media for the purpose of showcasing their work. This includes screenshots, descriptions of the project scope, and links to the live website. The Client agrees that a small, unobtrusive credit line (e.g., "Designed by [Service Provider]") may be placed in the website footer. If the Client wishes to opt out of the portfolio display or credit line, this must be agreed upon in writing prior to the commencement of work.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Domain &amp; Hosting Ownership</h4>
+                <p>Any domain names registered on behalf of the Client shall be <strong>owned by the Client</strong>. The Service Provider will register domains under the Client's name and contact information. Hosting accounts and server configurations managed by the Service Provider remain under the Service Provider's administrative control for the duration of the monthly service plan. Upon termination of the Agreement and settlement of all outstanding balances, the Service Provider will assist in transferring domain registration and hosting access to the Client or their designated new provider within a reasonable timeframe.</p>
+            </div>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 4. CONFIDENTIALITY -->
+        <div class="contract-section">
+            <div class="contract-section-num">04</div>
+            <h2>Confidentiality</h2>
+            <div class="contract-section-divider"></div>
+            <p>Both parties acknowledge that in the course of this engagement, confidential and proprietary information may be disclosed. Each party agrees to:</p>
+            <ul class="contract-list">
+                <li>Maintain the <strong>strict confidentiality</strong> of all information received from the other party.</li>
+                <li>Not disclose, reproduce, or distribute any confidential information to any third party without the prior written consent of the disclosing party.</li>
+                <li>Use confidential information solely for the purposes of fulfilling obligations under this Agreement.</li>
+                <li>Take reasonable precautions to protect the confidentiality of the information, no less protective than those used for their own confidential information.</li>
+            </ul>
+            <p>This confidentiality obligation shall survive the termination of this Agreement and continue for a period of <strong>five (5) years</strong> following termination or expiration.</p>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 5. CLIENT RESPONSIBILITIES -->
+        <div class="contract-section">
+            <div class="contract-section-num">05</div>
+            <h2>Client Responsibilities</h2>
+            <div class="contract-section-divider"></div>
+            <p>To facilitate the effective delivery of services, the Client agrees to:</p>
+            <ul class="contract-list">
+                <li>Provide <strong>timely, accurate, and complete</strong> content, assets, and information as reasonably requested by the Service Provider.</li>
+                <li>Respond to communications, design proofs, and requests for approval within a reasonable timeframe.</li>
+                <li>Designate a primary point of contact for all matters relating to this engagement.</li>
+                <li>Review and provide feedback on deliverables within the timeframes specified, understanding that delayed feedback may extend project timelines.</li>
+                <li>Ensure that all content, images, and materials provided to the Service Provider for use in deliverables are owned by the Client or properly licensed.</li>
+                <li>Maintain current payment information for any recurring services such as hosting or maintenance.</li>
+            </ul>
+            <p>Delays or failure to meet these responsibilities may impact the timeline and effectiveness of the services provided, and the Service Provider shall not be held liable for any resulting delays or diminished outcomes.</p>
+
+            <div class="contract-subsection">
+                <h4>Project Pause &amp; Client Inactivity</h4>
+                <p>If the Client becomes unresponsive or fails to provide requested materials, feedback, or approvals for a period of <strong>fourteen (14) consecutive days</strong>, the project will be placed on hold. The Service Provider will notify the Client in writing that the project has been paused. A <strong>reactivation fee of $150.00 USD</strong> may apply to resume work after a project pause, as the Service Provider may need to re-familiarize with the project and reallocate resources. Projects paused for more than <strong>sixty (60) days</strong> may be treated as cancelled under the Cancellation &amp; Refund Policy outlined in Section 3.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Launch Sign-Off</h4>
+                <p>Prior to the public launch of the website, the Service Provider will present the completed website to the Client for <strong>final review and approval</strong>. The Client shall have <strong>five (5) business days</strong> to review the website and provide written approval to proceed with launch, or submit final revision requests within the included revision rounds. If the Client does not respond within this review period, the website will be deemed approved and the Service Provider may proceed with launch. Once launch approval is given (or deemed given), the Client acknowledges the website as delivered and the remaining 50% balance becomes due.</p>
+            </div>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 6. TERM AND TERMINATION -->
+        <div class="contract-section">
+            <div class="contract-section-num">06</div>
+            <h2>Term and Termination</h2>
+            <div class="contract-section-divider"></div>
+            <p>This Agreement shall become effective upon acceptance by the Client and shall remain in effect until the completion of the agreed-upon services, unless earlier terminated as follows:</p>
+
+            <div class="contract-subsection">
+                <h4>Termination by Either Party</h4>
+                <p>Either party may terminate this Agreement at any time by providing <strong>fourteen (14) days</strong> written notice to the other party. Written notice shall be delivered via email to the designated contact addresses. Upon termination, the Service Provider will provide the Client with all completed deliverables and assist with a reasonable transition period.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Termination for Cause</h4>
+                <p>Either party may terminate this Agreement immediately upon written notice if the other party materially breaches any provision of this Agreement and fails to cure such breach within <strong>five (5) days</strong> of receiving written notice of the breach.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Effect of Termination</h4>
+                <p>Upon termination, the Client shall pay the Service Provider for all services rendered and expenses incurred up to the effective date of termination. The Service Provider will deliver all completed work product and provide reasonable assistance for transition to another provider. All confidentiality obligations shall survive termination as specified in Section 4.</p>
+            </div>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 7. LIMITATION OF LIABILITY -->
+        <div class="contract-section">
+            <div class="contract-section-num">07</div>
+            <h2>Limitation of Liability</h2>
+            <div class="contract-section-divider"></div>
+            <p>The Service Provider provides professional digital services with reasonable care and industry-standard practices. To the maximum extent permitted by applicable law:</p>
+            <ul class="contract-list">
+                <li>The Service Provider shall not be liable for any <strong>indirect, incidental, special, consequential, or punitive damages</strong> arising out of or related to this Agreement, including but not limited to loss of revenue, data, or business opportunities.</li>
+                <li>The Service Provider's total aggregate liability under this Agreement shall not exceed the <strong>total fees paid by the Client</strong> under this Agreement during the twelve (12) month period preceding the claim.</li>
+                <li>The Service Provider is not responsible for <strong>third-party service disruptions</strong> including hosting provider outages, domain registrar issues, or changes to third-party APIs and platforms.</li>
+                <li>The Client is responsible for maintaining <strong>backups of their own content</strong> and data. While the Service Provider takes reasonable precautions, we are not liable for data loss resulting from hosting failures, security breaches, or other events beyond our reasonable control.</li>
+            </ul>
+            <p>The Service Provider makes no guarantees regarding specific business outcomes, search engine rankings, or website traffic resulting from the services provided.</p>
+
+            <div class="contract-subsection">
+                <h4>Warranty Disclaimer</h4>
+                <p>All services and deliverables are provided <strong>"as-is"</strong> and <strong>"as-available."</strong> The Service Provider makes no warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or uninterrupted, error-free operation of any website or digital product. The Service Provider does not guarantee that deliverables will appear or function identically across all browsers, devices, or operating systems.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Client Content Indemnification</h4>
+                <p>The Client agrees to <strong>indemnify, defend, and hold harmless</strong> the Service Provider from any claims, damages, losses, liabilities, or expenses (including reasonable attorney fees) arising from content, images, trademarks, or materials provided by the Client for use in deliverables. The Client represents and warrants that all materials provided are owned by the Client, properly licensed, and do not infringe upon any third-party intellectual property rights, privacy rights, or applicable laws and regulations.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Time Limitation on Claims</h4>
+                <p>Any claim arising out of or related to this Agreement must be filed within <strong>six (6) months</strong> of the event giving rise to the claim. Failure to bring a claim within this period constitutes a waiver of such claim.</p>
+            </div>
+
+            <div class="contract-subsection">
+                <h4>Accessibility Disclaimer</h4>
+                <p>The Service Provider builds websites using <strong>modern web standards and best practices</strong> to support accessibility across common browsers and assistive technologies. However, full compliance with the Web Content Accessibility Guidelines (WCAG) 2.1 AA, the Americans with Disabilities Act (ADA), or any other accessibility standard is <strong>not guaranteed</strong> unless a dedicated accessibility audit and remediation scope has been explicitly contracted and agreed upon in a separate Statement of Work. The Client is responsible for ensuring that their website meets any accessibility requirements specific to their industry or jurisdiction.</p>
+            </div>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 8. DISPUTE RESOLUTION -->
+        <div class="contract-section">
+            <div class="contract-section-num">08</div>
+            <h2>Dispute Resolution</h2>
+            <div class="contract-section-divider"></div>
+            <p>In the event of any dispute arising out of or relating to this Agreement, the parties agree to first attempt to resolve the matter through <strong>good faith negotiation</strong>. If the dispute cannot be resolved through negotiation within thirty (30) days, the parties agree to submit the dispute to <strong>binding arbitration</strong> in accordance with the rules of the American Arbitration Association.</p>
+            <p>The arbitration shall be conducted in the United States, and the decision of the arbitrator shall be final and binding upon both parties. Each party shall bear its own costs and expenses related to the arbitration, and the costs of the arbitrator shall be shared equally.</p>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 9. GOVERNING LAW -->
+        <div class="contract-section">
+            <div class="contract-section-num">09</div>
+            <h2>Governing Law</h2>
+            <div class="contract-section-divider"></div>
+            <p>This Agreement shall be governed by and construed in accordance with the <strong>laws of the United States</strong>, without regard to its conflict of laws principles. Any legal proceedings related to this Agreement shall be conducted within the appropriate jurisdictions of the United States.</p>
+        </div>
+
+        <hr class="section-break">
+
+        <!-- 10. GENERAL PROVISIONS -->
+        <div class="contract-section">
+            <div class="contract-section-num">10</div>
+            <h2>General Provisions</h2>
+            <div class="contract-section-divider"></div>
+            <ul class="contract-list">
+                <li><strong>Entire Agreement</strong> — This Agreement constitutes the entire agreement between the parties and supersedes all prior and contemporaneous agreements, understandings, and representations.</li>
+                <li><strong>Amendments</strong> — This Agreement may only be amended or modified in writing, signed by both parties.</li>
+                <li><strong>Severability</strong> — If any provision of this Agreement is found to be invalid or unenforceable, the remaining provisions shall continue in full force and effect.</li>
+                <li><strong>Waiver</strong> — The failure of either party to enforce any right or provision of this Agreement shall not constitute a waiver of such right or provision.</li>
+                <li><strong>Assignment</strong> — The Client may not assign this Agreement without the prior written consent of the Service Provider. The Service Provider may assign this Agreement to any successor entity.</li>
+                <li><strong>Force Majeure</strong> — Neither party shall be liable for delays or failures in performance resulting from causes beyond their reasonable control, including but not limited to acts of God, natural disasters, war, terrorism, or government actions.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- ACCEPTANCE SECTION -->
+    <div class="acceptance-section">
+        <div class="acceptance-box">
+            <h3>Acknowledgment &amp; Acceptance</h3>
+            <p>By signing this agreement, you acknowledge that you have read, understood, and agree to be bound by the terms and conditions of this Client Service Agreement.</p>
+            <a href="https://app.pandadoc.com/document/v2?token=e7ae632ccc2e0dfd628225225e0e560be0279698" target="_blank" class="btn-accept">Sign This Agreement</a>
+            <p class="acceptance-note">This button will take you to a secure digital form to sign the agreement outlined above. Upon completion, a signed copy will be emailed to both you and Williams Digital for your records.</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="contract-footer">
+        <p>&copy; 2026 All Rights Reserved &nbsp;|&nbsp; <a href="te_option1.html">Return to Timely Entertainment Website</a></p>
+    </div>
+
+    <canvas id="confettiCanvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></canvas>
+
+    <script>
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        let confettiPieces = [];
+        let animating = false;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function launchConfetti() {
+            confettiPieces = [];
+            const colors = ['#C9A84C', '#E8D5A3', '#ffffff', '#8B7331', '#1a1a1a', '#f0ece2'];
+            for (let i = 0; i < 150; i++) {
+                confettiPieces.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    w: Math.random() * 10 + 5,
+                    h: Math.random() * 6 + 3,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 3 + 2,
+                    drift: Math.random() * 2 - 1,
+                    rotation: Math.random() * 360,
+                    rotSpeed: Math.random() * 6 - 3,
+                    opacity: 1
+                });
+            }
+            animating = true;
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            if (!animating) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let active = false;
+            confettiPieces.forEach(p => {
+                if (p.opacity <= 0) return;
+                active = true;
+                p.y += p.speed;
+                p.x += p.drift;
+                p.rotation += p.rotSpeed;
+                if (p.y > canvas.height - 100) p.opacity -= 0.02;
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.globalAlpha = Math.max(0, p.opacity);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                ctx.restore();
+            });
+            if (active) {
+                requestAnimationFrame(animateConfetti);
+            } else {
+                animating = false;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        document.querySelector('.btn-accept').addEventListener('click', () => {
+            launchConfetti();
+        });
+    </script>
+
+</body>
+</html>
