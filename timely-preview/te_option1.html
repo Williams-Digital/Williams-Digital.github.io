@@ -610,6 +610,44 @@
       background: rgba(201,168,76,0.08);
     }
 
+    /* Landscape photo treatment — blurred bg + centered sharp image */
+    .featured-image--landscape {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+    }
+
+    .featured-image--landscape .fi-blur {
+      position: absolute;
+      inset: -40px;
+      width: calc(100% + 80px);
+      height: calc(100% + 80px);
+      object-fit: cover;
+      filter: blur(40px) brightness(0.2) saturate(0.4);
+      transition: none;
+    }
+
+    .featured-image--landscape .fi-main {
+      position: relative;
+      width: 88%;
+      height: auto;
+      object-fit: contain;
+      filter: brightness(0.85);
+      z-index: 1;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,168,76,0.08);
+      transition: transform 1s ease, filter 0.8s ease;
+    }
+
+    .featured-image--landscape:hover .fi-blur {
+      transform: none;
+    }
+
+    .featured-image--landscape:hover .fi-main {
+      transform: scale(1.03);
+      filter: brightness(0.75);
+    }
+
     @media (max-width: 900px) {
       .featured-artist,
       .featured-artist--reverse { grid-template-columns: 1fr; }
@@ -622,6 +660,7 @@
         padding: 50px 24px;
       }
       .featured-bg-number { font-size: 140px; }
+      .featured-image--landscape .fi-main { width: 94%; }
     }
 
     /* ========== FOUNDER SECTION ========== */
@@ -991,8 +1030,9 @@
         <span class="credit-tag">106th &amp; Park</span>
       </div>
     </div>
-    <div class="featured-image reveal-right">
-      <img src="https://timelyent.com/wp-content/uploads/strikingr/images/207_faralle1-960x400.jpg" alt="Farelle Walker" />
+    <div class="featured-image featured-image--landscape reveal-right">
+      <img class="fi-blur" src="https://timelyent.com/wp-content/uploads/strikingr/images/207_faralle1-960x400.jpg" alt="" aria-hidden="true" />
+      <img class="fi-main" src="https://timelyent.com/wp-content/uploads/strikingr/images/207_faralle1-960x400.jpg" alt="Farelle Walker" />
     </div>
   </section>
 
