@@ -470,16 +470,159 @@
     }
 
     /* ========== FEATURED ARTIST SECTION ========== */
-    .featured-artist { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; padding: 0; }
-    .featured-image { position: relative; overflow: hidden; }
-    .featured-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-    .featured-image:hover img { transform: scale(1.03); }
-    .featured-content { display: flex; flex-direction: column; justify-content: center; padding: 80px; background: var(--dark-surface); }
-    .featured-content .section-text { margin-bottom: 30px; }
-    .featured-credits { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-    .credit-tag { padding: 6px 16px; border: 1px solid rgba(201,168,76,0.3); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); transition: all 0.3s ease; }
-    .credit-tag:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
-    @media (max-width: 900px) { .featured-artist { grid-template-columns: 1fr; } .featured-image { height: 50vh; } .featured-content { padding: 60px 24px; } }
+    .featured-artist {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      min-height: 85vh;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .featured-artist--reverse {
+      grid-template-columns: 1fr 1.15fr;
+    }
+
+    .featured-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.65);
+      transition: transform 1.2s ease, filter 0.8s ease;
+    }
+
+    .featured-image:hover img {
+      transform: scale(1.05);
+      filter: brightness(0.55);
+    }
+
+    /* Gold accent line at image edge */
+    .featured-image::after {
+      content: '';
+      position: absolute;
+      top: 12%;
+      bottom: 12%;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      opacity: 0.4;
+      z-index: 2;
+    }
+
+    .featured-artist:not(.featured-artist--reverse) .featured-image::after {
+      right: 0;
+    }
+
+    .featured-artist--reverse .featured-image::after {
+      left: 0;
+    }
+
+    .featured-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px;
+      background: var(--dark-surface);
+      z-index: 2;
+    }
+
+    /* Overlap — content slides over the image edge */
+    .featured-artist:not(.featured-artist--reverse) .featured-content {
+      margin-left: -50px;
+      padding-left: 80px;
+    }
+
+    .featured-artist--reverse .featured-content {
+      margin-right: -50px;
+      padding-right: 80px;
+    }
+
+    /* Large ghost number */
+    .featured-bg-number {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(180px, 22vw, 300px);
+      font-weight: 900;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.05);
+      color: transparent;
+      line-height: 1;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .featured-artist:not(.featured-artist--reverse) .featured-bg-number {
+      right: 30px;
+    }
+
+    .featured-artist--reverse .featured-bg-number {
+      left: 30px;
+    }
+
+    .featured-content > *:not(.featured-bg-number) {
+      position: relative;
+      z-index: 1;
+    }
+
+    .featured-content .section-text {
+      margin-bottom: 10px;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    /* Pull quote */
+    .featured-quote {
+      padding-left: 22px;
+      border-left: 2px solid var(--gold);
+      margin: 28px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    /* Credit tags */
+    .featured-credits { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
+    .credit-tag {
+      padding: 8px 18px;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-left: 2px solid var(--gold);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: rgba(201,168,76,0.02);
+      transition: all 0.3s ease;
+    }
+
+    .credit-tag:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+    }
+
+    @media (max-width: 900px) {
+      .featured-artist,
+      .featured-artist--reverse { grid-template-columns: 1fr; }
+      .featured-image { height: 50vh; }
+      .featured-image::after { display: none; }
+      .featured-content,
+      .featured-artist:not(.featured-artist--reverse) .featured-content,
+      .featured-artist--reverse .featured-content {
+        margin: 0;
+        padding: 50px 24px;
+      }
+      .featured-bg-number { font-size: 140px; }
+    }
 
     /* ========== FOUNDER SECTION ========== */
     #founder { background: var(--dark-surface); }
@@ -806,6 +949,7 @@
       <img src="https://timelyent.com/wp-content/uploads/2013/12/London-Reeves-2.jpg" alt="London Reeves" />
     </div>
     <div class="featured-content reveal-right">
+      <span class="featured-bg-number">01</span>
       <p class="section-label">Featured Artist</p>
       <h2 class="section-title">London Reeves</h2>
       <div class="section-divider"></div>
@@ -814,7 +958,8 @@
         Recognized as "the new face of Detroit," she relocated to Los Angeles in August 2013 and secured management through
         Timely Entertainment, Inc.
       </p>
-      <div class="featured-credits stagger-children" style="margin-top: 30px;">
+      <p class="featured-quote">The new face of Detroit.</p>
+      <div class="featured-credits stagger-children">
         <span class="credit-tag">Film</span>
         <span class="credit-tag">Television</span>
         <span class="credit-tag">Modeling</span>
@@ -826,11 +971,9 @@
   </section>
 
   <!-- ====== FEATURED ARTIST: FARELLE WALKER ====== -->
-  <section class="featured-artist" id="featured2" style="direction: rtl;">
-    <div class="featured-image reveal-right" style="direction: ltr;">
-      <img src="https://timelyent.com/wp-content/uploads/strikingr/images/207_faralle1-960x400.jpg" alt="Farelle Walker" />
-    </div>
-    <div class="featured-content reveal-left" style="direction: ltr;">
+  <section class="featured-artist featured-artist--reverse" id="featured2">
+    <div class="featured-content reveal-left">
+      <span class="featured-bg-number">02</span>
       <p class="section-label">Featured Artist</p>
       <h2 class="section-title">Farelle Walker</h2>
       <div class="section-divider"></div>
@@ -839,13 +982,17 @@
         She went on to star as the lead actress in the NAACP Award-winning play "The Girls of Summer" and was a main cast member on
         BET's popular comedy series "HELL DATE," the #1 show on the Viacom network at the time.
       </p>
-      <div class="featured-credits stagger-children" style="margin-top: 30px;">
+      <p class="featured-quote">Lead actress in the NAACP Award-winning play "The Girls of Summer."</p>
+      <div class="featured-credits stagger-children">
         <span class="credit-tag">BET</span>
         <span class="credit-tag">NAACP Award</span>
         <span class="credit-tag">Theatre</span>
         <span class="credit-tag">Maury Povich Show</span>
-        <span class="credit-tag">106th & Park</span>
+        <span class="credit-tag">106th &amp; Park</span>
       </div>
+    </div>
+    <div class="featured-image reveal-right">
+      <img src="https://timelyent.com/wp-content/uploads/strikingr/images/207_faralle1-960x400.jpg" alt="Farelle Walker" />
     </div>
   </section>
 
