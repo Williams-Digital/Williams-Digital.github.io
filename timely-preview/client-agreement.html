@@ -360,20 +360,119 @@
         }
 
         /* Print styles */
+        /* Signature block */
+        .signature-block {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 40px 60px;
+        }
+
+        .signature-block-inner {
+            border-top: 1px solid var(--border);
+            padding-top: 50px;
+        }
+
+        .signature-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .signature-block > p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .signature-parties {
+            display: flex;
+            gap: 60px;
+            justify-content: center;
+        }
+
+        .signature-party {
+            flex: 1;
+            max-width: 340px;
+        }
+
+        .signature-party-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .signature-field {
+            margin-bottom: 24px;
+        }
+
+        .signature-line {
+            border: none;
+            border-bottom: 1px solid rgba(240, 236, 226, 0.3);
+            height: 40px;
+            display: block;
+            width: 100%;
+        }
+
+        .signature-field-label {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
         @media print {
-            .contract-header { position: static; background: white; border-bottom: 2px solid #333; }
-            .contract-header .logo-area svg text { fill: #333; }
-            .contract-header .doc-label { color: #666; }
-            .contract-header .doc-label span { color: #333; }
-            body { background: white; color: #333; }
-            .contract-hero { background: white; padding-top: 40px; border-bottom: 2px solid #ccc; }
-            .contract-hero::before { display: none; }
-            .contract-hero h1 { color: #333; }
-            .contract-hero h1 em { color: #8B7331; }
-            .contract-section h2 { color: #333; }
-            .contract-section p, .contract-list li { color: #444; }
-            .contract-section-num { color: rgba(0,0,0,0.06); }
-            .acceptance-section { display: none; }
+            @page { margin: 0 !important; }
+            * { -webkit-print-color-adjust: exact !important; }
+            body { background: white !important; color: #333 !important; padding: 15mm !important; margin: 0 !important; }
+            .contract-header { position: static !important; background: white !important; border-bottom: 2px solid #333 !important; height: auto !important; padding: 10px 0 !important; margin-bottom: 10px !important; }
+            .contract-header .logo-area svg text { fill: #333 !important; }
+            .contract-header .logo-area svg circle, .contract-header .logo-area svg line { stroke: #333 !important; }
+            .contract-header .logo-area svg circle[fill="#c9a84c"] { fill: #333 !important; }
+            .contract-header .doc-label { color: #666 !important; }
+            .contract-header .doc-label span { color: #333 !important; }
+            .contract-hero { background: white !important; padding: 15px 0 25px !important; border-bottom: 2px solid #ccc !important; }
+            .contract-hero::before { display: none !important; }
+            .contract-hero h1 { color: #333 !important; font-size: 1.6rem !important; }
+            .contract-hero h1 em { color: #8B7331 !important; }
+            .contract-hero-sub { color: #666 !important; }
+            .contract-meta-label { color: #8B7331 !important; }
+            .contract-meta-value { color: #333 !important; }
+            .accent-divider { background: #8B7331 !important; }
+            .contract-body { padding: 25px 0 15px !important; }
+            .contract-section { margin-bottom: 35px !important; }
+            .contract-section h2 { color: #333 !important; }
+            .contract-section p, .contract-list li { color: #444 !important; }
+            .contract-section strong { color: #222 !important; }
+            .contract-section .gold { color: #8B7331 !important; }
+            .contract-section-num { color: rgba(0,0,0,0.06) !important; }
+            .contract-section-divider { background: #8B7331 !important; }
+            .contract-subsection { background: white !important; border-left: 3px solid #8B7331 !important; }
+            .contract-subsection h4 { color: #8B7331 !important; }
+            .section-break { border-top-color: #ddd !important; margin: 35px 0 !important; }
+            .acceptance-section { display: none !important; }
+            .contract-footer { display: none !important; }
+            .signature-block { padding: 0 0 20px !important; }
+            .signature-block-inner { border-top-color: #ddd !important; }
+            .signature-block h3 { color: #333 !important; }
+            .signature-block-inner > p { color: #666 !important; }
+            .signature-block-inner > p[style] { background: #f5f2eb !important; border-color: #8B7331 !important; color: #333 !important; }
+            .signature-block-inner > p[style] strong { color: #8B7331 !important; }
+            .signature-party-label { color: #8B7331 !important; }
+            .signature-line { border-bottom: 1px solid #333 !important; }
+            .signature-field-label { color: #666 !important; }
+            canvas { display: none !important; }
         }
 
         @media (max-width: 968px) {
@@ -691,12 +790,55 @@
 
     </div>
 
+    <!-- SIGNATURE BLOCK -->
+    <div class="signature-block">
+        <div class="signature-block-inner">
+            <h3>Signatures</h3>
+            <p>By signing below, both parties acknowledge that they have read, understood, and agree to be bound by the terms and conditions set forth in this Client Service Agreement.</p>
+            <p style="background: rgba(201, 168, 76, 0.08); border: 1px solid rgba(201, 168, 76, 0.2); padding: 14px 20px; font-size: 0.85rem; color: var(--text); margin-bottom: 40px; text-align: center; line-height: 1.8;">To sign this document, click the <strong style="color: var(--gold);">"Sign Agreement"</strong> button below. It will open a secure digital signature form via <strong style="color: var(--gold);">PandaDoc</strong>.</p>
+
+            <div class="signature-parties">
+                <div class="signature-party">
+                    <div class="signature-party-label">Service Provider</div>
+                    <div class="signature-field">
+                        <div class="signature-line"></div>
+                        <div class="signature-field-label">Signature</div>
+                    </div>
+                    <div class="signature-field">
+                        <div class="signature-line"></div>
+                        <div class="signature-field-label">Printed Name</div>
+                    </div>
+                    <div class="signature-field">
+                        <div class="signature-line"></div>
+                        <div class="signature-field-label">Date</div>
+                    </div>
+                </div>
+
+                <div class="signature-party">
+                    <div class="signature-party-label">Client — Timely Entertainment, LLC</div>
+                    <div class="signature-field">
+                        <div class="signature-line"></div>
+                        <div class="signature-field-label">Signature</div>
+                    </div>
+                    <div class="signature-field">
+                        <div class="signature-line"></div>
+                        <div class="signature-field-label">Printed Name</div>
+                    </div>
+                    <div class="signature-field">
+                        <div class="signature-line"></div>
+                        <div class="signature-field-label">Date</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ACCEPTANCE SECTION -->
     <div class="acceptance-section">
         <div class="acceptance-box">
             <h3>Acknowledgment &amp; Acceptance</h3>
             <p>By signing this agreement, you acknowledge that you have read, understood, and agree to be bound by the terms and conditions of this Client Service Agreement.</p>
-            <a href="#" target="_blank" class="btn-accept">Sign This Agreement</a>
+            <a href="https://app.pandadoc.com/document/v2?token=528c02893b10b9df5fc7e32ff6587627242f620c" target="_blank" class="btn-accept">Sign This Agreement</a>
             <p class="acceptance-note">This button will take you to a secure digital form to sign the agreement outlined above. Upon completion, a signed copy will be emailed to both you and Williams Digital for your records.</p>
         </div>
     </div>
