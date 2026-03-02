@@ -1060,31 +1060,75 @@
       background: var(--accent);
     }
 
+    /* Filter Tabs */
+    .project-filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+      padding: 0 20px;
+    }
+
+    .filter-btn {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 10px 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover {
+      color: rgba(255,255,255,0.8);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .filter-btn.active {
+      color: var(--white);
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* Masonry Grid */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 4px;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 200px;
+      gap: 6px;
       max-width: 1400px;
       margin: 0 auto;
+      padding: 0 20px;
     }
 
     .project-card {
       position: relative;
-      height: 350px;
       overflow: hidden;
       cursor: pointer;
+      border-radius: 4px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
+
+    /* Varied sizes for visual interest */
+    .project-card.tall { grid-row: span 2; }
+    .project-card.wide { grid-column: span 2; }
+    .project-card.featured { grid-column: span 2; grid-row: span 2; }
 
     .project-card-bg {
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
-      transition: transform 0.6s ease;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .project-card:hover .project-card-bg {
-      transform: scale(1.08);
+      transform: scale(1.1);
     }
 
     .project-card-overlay {
@@ -1095,42 +1139,154 @@
       height: 100%;
       background: linear-gradient(
         to top,
-        rgba(36, 33, 31, 0.9) 0%,
-        rgba(36, 33, 31, 0.2) 60%,
+        rgba(36, 33, 31, 0.85) 0%,
+        rgba(36, 33, 31, 0.1) 50%,
         transparent 100%
       );
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 30px;
-      transition: background 0.4s ease;
+      padding: 28px;
+      transition: all 0.5s ease;
     }
 
     .project-card:hover .project-card-overlay {
       background: linear-gradient(
         to top,
-        rgba(128, 148, 51, 0.9) 0%,
-        rgba(128, 148, 51, 0.4) 50%,
-        rgba(128, 148, 51, 0.1) 100%
+        rgba(128, 148, 51, 0.95) 0%,
+        rgba(128, 148, 51, 0.3) 40%,
+        rgba(128, 148, 51, 0.05) 100%
       );
     }
 
     .project-category {
       font-family: 'Manrope', sans-serif;
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      transition: color 0.3s ease;
+    }
+
+    .project-card:hover .project-category {
+      color: rgba(255,255,255,0.7);
     }
 
     .project-name {
       font-family: 'Oswald', sans-serif;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 500;
       color: var(--white);
       text-transform: uppercase;
       letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .project-card.featured .project-name {
+      font-size: 30px;
+    }
+
+    /* Arrow icon on hover */
+    .project-arrow {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+    }
+
+    .project-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--white);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .project-card:hover .project-arrow {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Project count badge */
+    .projects-count {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .projects-count-text {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .projects-count-text span {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .projects-view-all {
+      display: inline-block;
+      margin-top: 20px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 36px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .projects-view-all:hover {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    /* Responsive grid */
+    @media (max-width: 1024px) {
+      .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 180px;
+      }
+      .project-card.featured { grid-column: span 2; grid-row: span 2; }
+      .project-card.wide { grid-column: span 1; }
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 160px;
+      }
+      .project-card.featured { grid-column: span 2; grid-row: span 2; }
+      .project-card.wide { grid-column: span 2; }
+      .project-card.tall { grid-row: span 2; }
+    }
+
+    @media (max-width: 480px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 220px;
+      }
+      .project-card.featured,
+      .project-card.wide,
+      .project-card.tall {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
     }
 
     /* ============================================
@@ -1859,71 +2015,99 @@
           <h2 class="section-title">Featured Projects</h2>
           <div class="section-divider"></div>
         </div>
+        <div class="project-filters reveal">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="commercial">Commercial</button>
+          <button class="filter-btn" data-filter="residential">Residential</button>
+          <button class="filter-btn" data-filter="renovation">Renovation</button>
+          <button class="filter-btn" data-filter="institutional">Institutional</button>
+        </div>
       </div>
       <div class="projects-grid">
-        <div class="project-card reveal">
+        <div class="project-card featured reveal" data-category="commercial">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/first-slider.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Commercial</div>
+            <div class="project-name">Featured Build</div>
+          </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+        </div>
+        <div class="project-card tall reveal" data-category="commercial">
           <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/08/BMSS.jpg')"></div>
           <div class="project-card-overlay">
             <div class="project-category">Commercial</div>
             <div class="project-name">BMSS</div>
           </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
         </div>
-        <div class="project-card reveal">
+        <div class="project-card reveal" data-category="residential">
           <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/Freedom-Manor-Pic.jpg')"></div>
           <div class="project-card-overlay">
             <div class="project-category">Residential</div>
             <div class="project-name">Freedom Manor</div>
           </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
         </div>
-        <div class="project-card reveal">
+        <div class="project-card reveal" data-category="commercial">
           <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/grandcentr_5c0162e7cb5687867471543598327-e1543605040951-scaled-1.jpg')"></div>
           <div class="project-card-overlay">
             <div class="project-category">Commercial</div>
             <div class="project-name">Grand Centre</div>
           </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
         </div>
-        <div class="project-card reveal">
+        <div class="project-card wide reveal" data-category="renovation">
           <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/Montevallo-Front-Finished-1-e1455903742176.jpg')"></div>
           <div class="project-card-overlay">
             <div class="project-category">Renovation</div>
             <div class="project-name">Montevallo</div>
           </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
         </div>
-        <div class="project-card reveal">
+        <div class="project-card tall reveal" data-category="institutional">
           <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/10/MBHS-1.jpg')"></div>
           <div class="project-card-overlay">
             <div class="project-category">Institutional</div>
             <div class="project-name">MBHS</div>
           </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
         </div>
-        <div class="project-card reveal">
+        <div class="project-card reveal" data-category="commercial">
           <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2026/02/IMG_4399.jpeg')"></div>
           <div class="project-card-overlay">
-            <div class="project-category">Recent Work</div>
+            <div class="project-category">Commercial</div>
             <div class="project-name">Latest Project</div>
           </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
         </div>
-        <div class="project-card reveal">
+        <div class="project-card reveal" data-category="residential">
           <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2026/02/IMG_2129-scaled.jpg')"></div>
           <div class="project-card-overlay">
-            <div class="project-category">Recent Work</div>
+            <div class="project-category">Residential</div>
             <div class="project-name">New Development</div>
           </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
         </div>
-        <div class="project-card reveal">
-          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/first-slider.jpg')"></div>
-          <div class="project-card-overlay">
-            <div class="project-category">Construction</div>
-            <div class="project-name">Featured Build</div>
-          </div>
-        </div>
-        <div class="project-card reveal">
+        <div class="project-card wide reveal" data-category="commercial">
           <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/IMG_0556-7-1-scaled.jpg')"></div>
           <div class="project-card-overlay">
             <div class="project-category">General Contracting</div>
             <div class="project-name">Birmingham Project</div>
           </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
         </div>
+        <div class="project-card reveal" data-category="renovation">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/1-scaled-1.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Renovation</div>
+            <div class="project-name">Birmingham Renovation</div>
+          </div>
+          <div class="project-arrow"><svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+        </div>
+      </div>
+      <div class="projects-count reveal">
+        <div class="projects-count-text">Showcasing <span>10</span> of our finest projects</div>
+        <a href="https://trawickco.com/projects/" class="projects-view-all">View All Projects</a>
       </div>
     </section>
 
@@ -2156,6 +2340,28 @@
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', function() {
       setTimeout(revealOnScroll, 4600);
+    });
+
+    // Project Filters
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+
+        var filter = btn.getAttribute('data-filter');
+        var cards = document.querySelectorAll('.project-card');
+
+        cards.forEach(function(card) {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = '';
+            setTimeout(function() { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 50);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(function() { card.style.display = 'none'; }, 400);
+          }
+        });
+      });
     });
 
     // Counter Animation
