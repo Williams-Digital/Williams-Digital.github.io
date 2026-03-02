@@ -1,0 +1,2205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trawick Contractors Inc. | Building Quality Since 1954</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       CSS RESET & BASE
+       ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #809433;
+      --primary-dark: #5e6d26;
+      --accent: #7CDA24;
+      --dark: #24211f;
+      --dark-light: #716e6b;
+      --white: #ffffff;
+      --off-white: #f5f5f0;
+      --gold: #c8a951;
+      --section-padding: 100px 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      color: var(--dark);
+      overflow-x: hidden;
+      background: var(--dark);
+    }
+
+    /* ============================================
+       LOADING SCREEN
+       ============================================ */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dark);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #loader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-content {
+      text-align: center;
+      position: relative;
+    }
+
+    /* Construction Scene */
+    .construction-scene {
+      width: 400px;
+      height: 300px;
+      position: relative;
+      margin: 0 auto 40px;
+    }
+
+    /* Ground */
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .ground::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0.3;
+    }
+
+    /* Crane */
+    .crane {
+      position: absolute;
+      bottom: 4px;
+      left: 60px;
+    }
+
+    .crane-base {
+      width: 30px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 2px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .crane-tower {
+      width: 8px;
+      height: 160px;
+      background: linear-gradient(to top, var(--gold), #e0c06a);
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: craneGrow 2s ease-out forwards;
+      transform-origin: bottom center;
+    }
+
+    @keyframes craneGrow {
+      0% { height: 0; transform: translateX(-50%); }
+      100% { height: 160px; transform: translateX(-50%); }
+    }
+
+    .crane-arm {
+      width: 140px;
+      height: 6px;
+      background: var(--gold);
+      position: absolute;
+      top: 0;
+      left: -20px;
+      animation: craneArmAppear 0.8s ease-out 1.8s both;
+      transform-origin: right center;
+    }
+
+    @keyframes craneArmAppear {
+      0% { width: 0; opacity: 0; }
+      100% { width: 140px; opacity: 1; }
+    }
+
+    .crane-cable {
+      width: 2px;
+      height: 60px;
+      background: var(--dark-light);
+      position: absolute;
+      top: 6px;
+      left: 20px;
+      animation: cableAppear 0.6s ease-out 2.4s both, cableSwing 3s ease-in-out 3s infinite;
+      transform-origin: top center;
+    }
+
+    @keyframes cableAppear {
+      0% { height: 0; opacity: 0; }
+      100% { height: 60px; opacity: 1; }
+    }
+
+    @keyframes cableSwing {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    .crane-hook {
+      width: 14px;
+      height: 14px;
+      border: 3px solid var(--gold);
+      border-top: none;
+      border-radius: 0 0 7px 7px;
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Building being constructed */
+    .building-construct {
+      position: absolute;
+      bottom: 4px;
+      right: 50px;
+      width: 120px;
+    }
+
+    .building-floor {
+      width: 100%;
+      height: 28px;
+      margin-bottom: 2px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 2px;
+      position: relative;
+      animation: floorBuild 0.6s ease-out both;
+      overflow: hidden;
+    }
+
+    .building-floor::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 10px;
+      width: 18px;
+      height: 16px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 1px;
+      box-shadow: 28px 0 0 rgba(255,255,255,0.15), 56px 0 0 rgba(255,255,255,0.15), 84px 0 0 rgba(255,255,255,0.15);
+    }
+
+    .building-floor:nth-child(1) { animation-delay: 2.6s; }
+    .building-floor:nth-child(2) { animation-delay: 3.0s; }
+    .building-floor:nth-child(3) { animation-delay: 3.4s; }
+    .building-floor:nth-child(4) { animation-delay: 3.8s; }
+
+    @keyframes floorBuild {
+      0% { transform: scaleY(0); opacity: 0; }
+      60% { transform: scaleY(1.05); }
+      100% { transform: scaleY(1); opacity: 1; }
+    }
+
+    /* Hard Hat */
+    .hard-hat {
+      position: absolute;
+      bottom: 10px;
+      left: 170px;
+      animation: hatBounce 2s ease-in-out 1s infinite;
+    }
+
+    @keyframes hatBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .hat-brim {
+      width: 36px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 3px;
+      position: relative;
+    }
+
+    .hat-dome {
+      width: 26px;
+      height: 18px;
+      background: linear-gradient(to bottom, #e0c06a, var(--gold));
+      border-radius: 13px 13px 2px 2px;
+      position: absolute;
+      bottom: 4px;
+      left: 5px;
+    }
+
+    .hat-stripe {
+      width: 26px;
+      height: 3px;
+      background: var(--dark);
+      position: absolute;
+      bottom: 8px;
+      left: 5px;
+      opacity: 0.3;
+    }
+
+    /* Hammer */
+    .hammer {
+      position: absolute;
+      bottom: 30px;
+      left: 220px;
+      animation: hammerSwing 1s ease-in-out 2s infinite;
+      transform-origin: bottom center;
+    }
+
+    @keyframes hammerSwing {
+      0%, 100% { transform: rotate(0deg); }
+      30% { transform: rotate(-35deg); }
+      50% { transform: rotate(10deg); }
+    }
+
+    .hammer-handle {
+      width: 4px;
+      height: 40px;
+      background: linear-gradient(to top, #8B6914, #a67c00);
+      border-radius: 2px;
+      margin: 0 auto;
+    }
+
+    .hammer-head {
+      width: 24px;
+      height: 12px;
+      background: linear-gradient(to right, #888, #aaa, #888);
+      border-radius: 2px;
+      position: relative;
+      left: -10px;
+      top: 0px;
+    }
+
+    /* Gears */
+    .gear-container {
+      position: absolute;
+      top: 40px;
+      right: 30px;
+    }
+
+    .gear {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      animation: gearSpin 4s linear infinite;
+    }
+
+    .gear svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--primary);
+      opacity: 0.6;
+    }
+
+    .gear-small {
+      width: 28px;
+      height: 28px;
+      position: absolute;
+      top: 28px;
+      left: -18px;
+      animation: gearSpinReverse 4s linear infinite;
+    }
+
+    .gear-small svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--accent);
+      opacity: 0.5;
+    }
+
+    @keyframes gearSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes gearSpinReverse {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    /* Particles / Sparks */
+    .spark {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0;
+    }
+
+    .spark:nth-child(1) { top: 80px; left: 230px; animation: sparkle 1.5s ease-out 2.3s infinite; }
+    .spark:nth-child(2) { top: 70px; left: 240px; animation: sparkle 1.5s ease-out 2.5s infinite; }
+    .spark:nth-child(3) { top: 90px; left: 225px; animation: sparkle 1.5s ease-out 2.7s infinite; }
+    .spark:nth-child(4) { top: 75px; left: 220px; animation: sparkle 1.5s ease-out 2.1s infinite; }
+
+    @keyframes sparkle {
+      0% { opacity: 0; transform: scale(0) translateY(0); }
+      20% { opacity: 1; transform: scale(1.5); }
+      100% { opacity: 0; transform: scale(0) translateY(-20px); }
+    }
+
+    /* Progress Bar */
+    .loader-progress-container {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    .loader-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .loader-bar-bg {
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loader-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 2px;
+      animation: loadProgress 4s ease-in-out forwards;
+    }
+
+    @keyframes loadProgress {
+      0% { width: 0%; }
+      20% { width: 15%; }
+      40% { width: 35%; }
+      60% { width: 60%; }
+      80% { width: 85%; }
+      100% { width: 100%; }
+    }
+
+    .loader-company {
+      font-family: 'Oswald', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .loader-tagline {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      color: var(--dark-light);
+      letter-spacing: 2px;
+      margin-bottom: 50px;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================
+       MAIN SITE (hidden during load)
+       ============================================ */
+    #main-site {
+      opacity: 0;
+      transition: opacity 1s ease 0.3s;
+    }
+
+    #main-site.visible {
+      opacity: 1;
+    }
+
+    /* ============================================
+       NAVIGATION
+       ============================================ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 20px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.4s ease;
+      background: transparent;
+    }
+
+    .navbar.scrolled {
+      background: rgba(36, 33, 31, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 12px 60px;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.3);
+    }
+
+    .nav-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-contact-btn {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white) !important;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 10px 24px;
+      border: 1px solid var(--primary);
+      background: transparent;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .nav-contact-btn:hover {
+      background: var(--primary);
+    }
+
+    .nav-contact-btn::after {
+      display: none !important;
+    }
+
+    /* Mobile Nav */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .nav-hamburger span {
+      width: 28px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    .nav-hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ============================================
+       HERO SECTION
+       ============================================ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .hero-video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(36, 33, 31, 0.6) 0%,
+        rgba(36, 33, 31, 0.4) 50%,
+        rgba(36, 33, 31, 0.8) 100%
+      );
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 20px;
+      max-width: 900px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      padding: 8px 20px;
+      border: 1px solid rgba(124, 218, 36, 0.3);
+      opacity: 0;
+      animation: heroFadeIn 1s ease-out 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: heroFadeIn 1s ease-out 0.6s forwards;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      opacity: 0;
+      animation: heroFadeIn 1s ease-out 0.9s forwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: heroFadeIn 1s ease-out 1.2s forwards;
+    }
+
+    .btn-primary {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--primary);
+      padding: 16px 40px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(128, 148, 51, 0.3);
+    }
+
+    .btn-outline {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 16px 40px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-2px);
+    }
+
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      text-align: center;
+      animation: heroFadeIn 1s ease-out 1.5s forwards;
+      opacity: 0;
+    }
+
+    .hero-scroll span {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: var(--accent);
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollDown {
+      0% { top: -50%; }
+      100% { top: 100%; }
+    }
+
+    /* ============================================
+       STATS BAR
+       ============================================ */
+    .stats-bar {
+      background: var(--primary);
+      padding: 50px 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+    }
+
+    .stat-item {
+      text-align: center;
+      color: var(--white);
+    }
+
+    .stat-number {
+      font-family: 'Oswald', sans-serif;
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    /* ============================================
+       SECTION COMMON
+       ============================================ */
+    .section {
+      padding: var(--section-padding);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .section-divider {
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       ABOUT SECTION
+       ============================================ */
+    .about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image {
+      position: relative;
+    }
+
+    .about-image-main {
+      width: 100%;
+      height: 500px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-image-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-image-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 140px;
+      height: 140px;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+    }
+
+    .about-image-badge .badge-number {
+      font-family: 'Oswald', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent);
+    }
+
+    .about-image-badge .badge-text {
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .about-content .section-label {
+      text-align: left;
+    }
+
+    .about-content .section-title {
+      text-align: left;
+    }
+
+    .about-text {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--dark-light);
+      margin-bottom: 24px;
+    }
+
+    .about-highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .about-highlight-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .about-highlight-item .check {
+      width: 24px;
+      height: 24px;
+      background: rgba(128, 148, 51, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .about-highlight-item .check svg {
+      width: 12px;
+      height: 12px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 3;
+    }
+
+    /* ============================================
+       SERVICES SECTION
+       ============================================ */
+    .services {
+      background: var(--off-white);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 50px 36px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 24px;
+    }
+
+    .service-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .service-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .service-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--dark-light);
+    }
+
+    /* ============================================
+       PROJECTS SECTION
+       ============================================ */
+    .projects {
+      background: var(--dark);
+      padding: 100px 0;
+    }
+
+    .projects .section-title {
+      color: var(--white);
+    }
+
+    .projects .section-divider {
+      background: var(--accent);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .project-card {
+      position: relative;
+      height: 350px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .project-card-bg {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+
+    .project-card:hover .project-card-bg {
+      transform: scale(1.08);
+    }
+
+    .project-card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to top,
+        rgba(36, 33, 31, 0.9) 0%,
+        rgba(36, 33, 31, 0.2) 60%,
+        transparent 100%
+      );
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+      transition: background 0.4s ease;
+    }
+
+    .project-card:hover .project-card-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(128, 148, 51, 0.9) 0%,
+        rgba(128, 148, 51, 0.4) 50%,
+        rgba(128, 148, 51, 0.1) 100%
+      );
+    }
+
+    .project-category {
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .project-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ============================================
+       TIMELINE SECTION
+       ============================================ */
+    .timeline-section {
+      background: var(--white);
+      padding: 100px 0;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: rgba(128, 148, 51, 0.2);
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) {
+      flex-direction: row;
+      text-align: right;
+      padding-right: calc(50% + 30px);
+    }
+
+    .timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
+      text-align: left;
+      padding-left: calc(50% + 30px);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 3px solid var(--white);
+      box-shadow: 0 0 0 3px rgba(128, 148, 51, 0.2);
+      z-index: 1;
+    }
+
+    .timeline-year {
+      font-family: 'Oswald', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .timeline-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--dark-light);
+    }
+
+    /* ============================================
+       CERTIFICATIONS BANNER
+       ============================================ */
+    .cert-banner {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      padding: 60px;
+      text-align: center;
+    }
+
+    .cert-banner-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 32px;
+      font-weight: 500;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .cert-banner-text {
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       CONTACT SECTION
+       ============================================ */
+    .contact {
+      background: var(--off-white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+
+    .contact-info-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+
+    .contact-info-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(128, 148, 51, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-info-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .contact-info-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--dark-light);
+      margin-bottom: 6px;
+    }
+
+    .contact-info-value {
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .contact-info-value a {
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-info-value a:hover {
+      color: var(--primary);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      padding: 16px 20px;
+      border: 1px solid #e0e0e0;
+      background: var(--white);
+      color: var(--dark);
+      transition: border-color 0.3s ease;
+      outline: none;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .form-textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--primary);
+      border: none;
+      padding: 18px 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+    }
+
+    .form-submit:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(128, 148, 51, 0.3);
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      background: var(--dark);
+      padding: 60px 60px 30px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .footer-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--dark-light);
+      max-width: 300px;
+    }
+
+    .footer-heading {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      font-size: 14px;
+      color: var(--dark-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 30px;
+    }
+
+    .footer-copyright {
+      font-size: 13px;
+      color: var(--dark-light);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    .footer-social a svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--dark-light);
+      transition: fill 0.3s ease;
+    }
+
+    .footer-social a:hover svg {
+      fill: var(--white);
+    }
+
+    /* ============================================
+       SCROLL ANIMATIONS
+       ============================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 1024px) {
+      .about-grid {
+        gap: 50px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 16px 24px;
+      }
+
+      .navbar.scrolled {
+        padding: 12px 24px;
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--dark);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-hamburger {
+        display: flex;
+      }
+
+      .stats-bar {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 40px 30px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-image-badge {
+        right: 0;
+        bottom: -10px;
+        width: 110px;
+        height: 110px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        height: 280px;
+      }
+
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) {
+        padding-left: 40px;
+        padding-right: 0;
+        text-align: left;
+        flex-direction: row;
+      }
+
+      .timeline::before {
+        left: 6px;
+      }
+
+      .timeline-dot {
+        left: 6px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .construction-scene {
+        width: 300px;
+        height: 250px;
+        transform: scale(0.85);
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .about-highlights {
+        grid-template-columns: 1fr;
+      }
+
+      .construction-scene {
+        transform: scale(0.7);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       LOADING SCREEN
+       ============================================ -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-company">Trawick Contractors</div>
+      <div class="loader-tagline">Building Quality Since 1954</div>
+
+      <div class="construction-scene">
+        <!-- Crane -->
+        <div class="crane">
+          <div class="crane-base"></div>
+          <div class="crane-tower">
+            <div class="crane-arm">
+              <div class="crane-cable">
+                <div class="crane-hook"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hard Hat -->
+        <div class="hard-hat">
+          <div class="hat-dome"></div>
+          <div class="hat-stripe"></div>
+          <div class="hat-brim"></div>
+        </div>
+
+        <!-- Hammer -->
+        <div class="hammer">
+          <div class="hammer-head"></div>
+          <div class="hammer-handle"></div>
+        </div>
+
+        <!-- Gears -->
+        <div class="gear-container">
+          <div class="gear">
+            <svg viewBox="0 0 100 100">
+              <path d="M50 10 L55 25 L70 20 L65 35 L80 40 L68 48 L78 60 L63 57 L60 72 L50 62 L40 72 L37 57 L22 60 L32 48 L20 40 L35 35 L30 20 L45 25 Z"/>
+              <circle cx="50" cy="42" r="10" fill="none" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="gear-small">
+            <svg viewBox="0 0 100 100">
+              <path d="M50 10 L55 25 L70 20 L65 35 L80 40 L68 48 L78 60 L63 57 L60 72 L50 62 L40 72 L37 57 L22 60 L32 48 L20 40 L35 35 L30 20 L45 25 Z"/>
+              <circle cx="50" cy="42" r="10" fill="none" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Building Under Construction -->
+        <div class="building-construct">
+          <div class="building-floor"></div>
+          <div class="building-floor"></div>
+          <div class="building-floor"></div>
+          <div class="building-floor"></div>
+        </div>
+
+        <!-- Sparks -->
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+        <div class="spark"></div>
+
+        <!-- Ground -->
+        <div class="ground"></div>
+      </div>
+
+      <div class="loader-progress-container">
+        <div class="loader-text">Constructing your experience</div>
+        <div class="loader-bar-bg">
+          <div class="loader-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       MAIN SITE
+       ============================================ -->
+  <div id="main-site">
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">T</div>
+        Trawick
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#history">History</a></li>
+        <li><a href="#contact" class="nav-contact-btn">Contact Us</a></li>
+      </ul>
+      <div class="nav-hamburger" id="navHamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-video-container">
+        <video autoplay muted loop playsinline id="heroVideo">
+          <source src="https://videos.pexels.com/video-files/13921040/13921040-hd_1920_1080_30fps.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">Woman-Owned General Contractor</div>
+        <h1 class="hero-title">Building <span>Quality</span><br>Structures Since 1954</h1>
+        <p class="hero-subtitle">A trusted Birmingham contractor with over 70 years of experience in construction, renovation, and HVAC services across Alabama.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn-primary">View Our Projects</a>
+          <a href="#contact" class="btn-outline">Get In Touch</a>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="70">0</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="500">0</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number" data-target="100">0</div>
+        <div class="stat-label">Satisfied Clients</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number">DBE</div>
+        <div class="stat-label">Certified Contractor</div>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image reveal">
+            <div class="about-image-main">
+              <img src="https://trawickco.com/wp-content/uploads/2024/07/1-scaled-1.jpg" alt="Construction site with workers building a structure">
+            </div>
+            <div class="about-image-badge">
+              <div class="badge-number">70+</div>
+              <div class="badge-text">Years Strong</div>
+            </div>
+          </div>
+          <div class="about-content reveal">
+            <span class="section-label">About Us</span>
+            <h2 class="section-title">A Legacy of Quality<br>Construction</h2>
+            <p class="about-text">Trawick Contractors Inc. was established in 1954 as "Dan G. Trawick, III Contracting Co." with a small team and a big vision. Over seven decades, we've grown into a respected woman-owned general contractor serving Alabama with distinction.</p>
+            <p class="about-text">Today, under the leadership of Ginny Trawick, we continue our founder's commitment to building quality structures while keeping our jobsites safe and profitable. We specialize in competitively bid projects throughout Alabama with in-house HVAC capabilities.</p>
+            <div class="about-highlights">
+              <div class="about-highlight-item">
+                <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                General Contracting
+              </div>
+              <div class="about-highlight-item">
+                <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                HVAC Services
+              </div>
+              <div class="about-highlight-item">
+                <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                DBE Certified
+              </div>
+              <div class="about-highlight-item">
+                <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                Woman-Owned
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">What We Do</span>
+          <h2 class="section-title">Our Services</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="services-grid">
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 56 56"><rect x="8" y="20" width="40" height="28" rx="2"/><polygon points="4,20 28,4 52,20"/><line x1="20" y1="48" x2="20" y2="32"/><line x1="36" y1="48" x2="36" y2="32"/><line x1="20" y1="32" x2="36" y2="32"/></svg>
+            </div>
+            <h3 class="service-title">General Contracting</h3>
+            <p class="service-text">Full-service general contracting for commercial, institutional, and residential projects. From ground-up construction to complex renovations, we deliver on time and on budget.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="8"/><path d="M28 4v8M28 44v8M4 28h8M44 28h8M10 10l6 6M40 40l6 6M10 46l6-6M40 16l6-6"/></svg>
+            </div>
+            <h3 class="service-title">HVAC Services</h3>
+            <p class="service-text">In-house HVAC division providing installation, maintenance, and service for heating, ventilation, and air conditioning systems across commercial and residential properties.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 56 56"><rect x="6" y="14" width="44" height="32" rx="2"/><line x1="6" y1="24" x2="50" y2="24"/><circle cx="16" cy="34" r="4"/><circle cx="28" cy="34" r="4"/><circle cx="40" cy="34" r="4"/><line x1="28" y1="4" x2="28" y2="14"/><line x1="20" y1="8" x2="36" y2="8"/></svg>
+            </div>
+            <h3 class="service-title">Renovations</h3>
+            <p class="service-text">Expert renovation and restoration services with a legacy dating back to our founding. We transform existing spaces while preserving their character and enhancing their function.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 56 56"><path d="M8 48 L28 8 L48 48 Z" fill="none"/><line x1="18" y1="48" x2="38" y2="48"/><line x1="14" y1="38" x2="42" y2="38"/><line x1="18" y1="28" x2="38" y2="28"/><circle cx="28" cy="18" r="2"/></svg>
+            </div>
+            <h3 class="service-title">Military Contracts</h3>
+            <p class="service-text">Decades of experience with military installation renovations and housing projects, meeting rigorous federal standards and security requirements with precision and reliability.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 56 56"><rect x="8" y="8" width="40" height="40" rx="2"/><line x1="8" y1="20" x2="48" y2="20"/><line x1="8" y1="32" x2="48" y2="32"/><line x1="24" y1="8" x2="24" y2="48"/><circle cx="16" cy="14" r="2"/><circle cx="36" cy="26" r="2"/><circle cx="16" cy="40" r="2"/></svg>
+            </div>
+            <h3 class="service-title">Project Management</h3>
+            <p class="service-text">Comprehensive project management from pre-construction planning through final delivery. We coordinate every detail to ensure your project meets its goals.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 56 56"><path d="M12 44 Q12 20 28 12 Q44 20 44 44"/><line x1="12" y1="44" x2="44" y2="44"/><line x1="28" y1="12" x2="28" y2="44"/><line x1="16" y1="36" x2="40" y2="36"/><path d="M22 44 L22 36"/><path d="M34 44 L34 36"/></svg>
+            </div>
+            <h3 class="service-title">New Construction</h3>
+            <p class="service-text">Ground-up construction of commercial, institutional, and residential structures. We bring your vision to life with quality craftsmanship and attention to detail.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Our Work</span>
+          <h2 class="section-title">Featured Projects</h2>
+          <div class="section-divider"></div>
+        </div>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/08/BMSS.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Commercial</div>
+            <div class="project-name">BMSS</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/Freedom-Manor-Pic.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Residential</div>
+            <div class="project-name">Freedom Manor</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/grandcentr_5c0162e7cb5687867471543598327-e1543605040951-scaled-1.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Commercial</div>
+            <div class="project-name">Grand Centre</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/Montevallo-Front-Finished-1-e1455903742176.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Renovation</div>
+            <div class="project-name">Montevallo</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/10/MBHS-1.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Institutional</div>
+            <div class="project-name">MBHS</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2026/02/IMG_4399.jpeg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Recent Work</div>
+            <div class="project-name">Latest Project</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2026/02/IMG_2129-scaled.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Recent Work</div>
+            <div class="project-name">New Development</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/first-slider.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">Construction</div>
+            <div class="project-name">Featured Build</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-card-bg" style="background-image: url('https://trawickco.com/wp-content/uploads/2024/07/IMG_0556-7-1-scaled.jpg')"></div>
+          <div class="project-card-overlay">
+            <div class="project-category">General Contracting</div>
+            <div class="project-name">Birmingham Project</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section" id="history">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Our Journey</span>
+          <h2 class="section-title">Seven Decades of Building</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="timeline-year">1954</div>
+              <div class="timeline-text">Founded as "Dan G. Trawick, III Contracting Co." with approximately five employees, focusing on fire-damaged building renovations and home construction.</div>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="timeline-year">1966</div>
+              <div class="timeline-text">Obtained General Contractors License, expanding capabilities to include military contracts and larger commercial projects.</div>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="timeline-year">1973</div>
+              <div class="timeline-text">Dan Trawick partnered with Clyde Pearce, forming "Pearce-Trawick Contractors" to specialize in military installation renovations and housing projects.</div>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="timeline-year">1983</div>
+              <div class="timeline-text">Added HVAC service division "Pearce-Trawick Service," expanding our in-house capabilities to include full mechanical services.</div>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="timeline-year">1992</div>
+              <div class="timeline-text">Officially incorporated as "Trawick Contractors Inc.," solidifying our identity and commitment to quality construction across Alabama.</div>
+            </div>
+          </div>
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="timeline-year">2010</div>
+              <div class="timeline-text">Ginny Trawick assumed management, continuing the family legacy and leading the company into a new era as a woman-owned contractor.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications Banner -->
+    <div class="cert-banner reveal">
+      <div class="cert-banner-title">DBE Certified Contractor</div>
+      <div class="cert-banner-text">Certified as a Disadvantaged Business Enterprise by the Birmingham Construction Industry Authority, demonstrating our commitment to integrity and excellence in the industry.</div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Get In Touch</span>
+          <h2 class="section-title">Let's Build Together</h2>
+          <div class="section-divider"></div>
+        </div>
+        <div class="contact-grid">
+          <div class="reveal">
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Address</div>
+                <div class="contact-info-value">4740 Powell Avenue South<br>Birmingham, Alabama 35222</div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Phone</div>
+                <div class="contact-info-value"><a href="tel:2055912056">205-591-2056</a></div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Email</div>
+                <div class="contact-info-value"><a href="mailto:info@trawickco.com">info@trawickco.com</a></div>
+              </div>
+            </div>
+          </div>
+          <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Thank you for your message! We will be in touch soon.');">
+            <div class="form-row">
+              <input type="text" class="form-input" placeholder="Your Name" required>
+              <input type="email" class="form-input" placeholder="Your Email" required>
+            </div>
+            <input type="text" class="form-input" placeholder="Subject">
+            <textarea class="form-textarea" placeholder="Your Message" required></textarea>
+            <button type="submit" class="form-submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand">Trawick Contractors</div>
+          <p class="footer-desc">Building quality structures since 1954. A woman-owned general contractor with in-house HVAC capabilities, serving Alabama with integrity and excellence.</p>
+        </div>
+        <div>
+          <div class="footer-heading">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#history">Our History</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Services</div>
+          <ul class="footer-links">
+            <li><a href="#services">General Contracting</a></li>
+            <li><a href="#services">HVAC Services</a></li>
+            <li><a href="#services">Renovations</a></li>
+            <li><a href="#services">New Construction</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-heading">Contact</div>
+          <ul class="footer-links">
+            <li><a href="tel:2055912056">205-591-2056</a></li>
+            <li><a href="mailto:info@trawickco.com">info@trawickco.com</a></li>
+            <li><a href="#contact">Birmingham, AL</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copyright">&copy; 2024 Trawick Contractors Inc. All rights reserved.</div>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <script>
+    // Loading Screen
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loader').classList.add('loaded');
+        document.getElementById('main-site').classList.add('visible');
+      }, 4500);
+    });
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 80) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile Navigation
+    const hamburger = document.getElementById('navHamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Scroll Reveal
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+
+      reveals.forEach(function(el) {
+        const top = el.getBoundingClientRect().top;
+        if (top < windowHeight - 80) {
+          el.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', function() {
+      setTimeout(revealOnScroll, 4600);
+    });
+
+    // Counter Animation
+    function animateCounters() {
+      const counters = document.querySelectorAll('.stat-number[data-target]');
+      counters.forEach(function(counter) {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000;
+        const start = 0;
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(start + (target - start) * eased);
+
+          counter.textContent = current + '+';
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            counter.textContent = target + '+';
+          }
+        }
+
+        requestAnimationFrame(update);
+      });
+    }
+
+    // Trigger counter when stats bar is in view
+    let counterStarted = false;
+    window.addEventListener('scroll', function() {
+      if (counterStarted) return;
+      const statsBar = document.querySelector('.stats-bar');
+      if (statsBar) {
+        const rect = statsBar.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          counterStarted = true;
+          animateCounters();
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
