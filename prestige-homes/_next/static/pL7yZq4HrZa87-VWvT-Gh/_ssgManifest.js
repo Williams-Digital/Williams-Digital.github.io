@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fdashboard\u002Fcompleted\u002F[id]","\u002Fdashboard\u002Fconstruction\u002F[id]","\u002Fdashboard\u002Fphase\u002F[phase]","\u002Fdashboard\u002Fprojects\u002F[id]","\u002Fdashboard\u002Fproperties\u002F[id]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
