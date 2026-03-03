@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaylen Thompson | Point Guard | Duke | APEX NIL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --accent: #003087;
+            --accent-light: #1a5ab8;
+            --accent-dark: #001f5c;
+            --accent-bright: #4a90d9;
+            --bg-primary: #0a0a0a;
+            --bg-card: #111111;
+            --bg-section-alt: #0e0e0e;
+            --text-primary: #ffffff;
+            --text-muted: #999999;
+            --text-dim: #555555;
+            --gradient-accent: linear-gradient(135deg, #003087, #1a5ab8, #003087);
+            --gradient-hero: linear-gradient(180deg, #ffffff 0%, #4a90d9 100%);
+            --card-border: #1e1e1e;
+        }
+
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        ul { list-style: none; }
+
+        /* ===== LOADING SCREEN ===== */
+        .loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #050505;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-basketball {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #f5a623, #c4710a);
+            position: relative;
+            animation: basketballBounce 0.6s ease-in-out infinite alternate;
+            box-shadow: inset -8px -8px 0 rgba(0,0,0,0.15);
+        }
+        .loader-basketball::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 8%; right: 8%;
+            height: 2px;
+            background: rgba(0,0,0,0.3);
+            transform: translateY(-50%);
+            border-radius: 50%;
+        }
+        .loader-basketball::after {
+            content: '';
+            position: absolute;
+            left: 50%; top: 8%; bottom: 8%;
+            width: 2px;
+            background: rgba(0,0,0,0.3);
+            transform: translateX(-50%);
+            border-radius: 50%;
+        }
+        .loader-shadow {
+            width: 60px; height: 10px;
+            background: rgba(0, 48, 135, 0.3);
+            border-radius: 50%;
+            margin-top: 10px;
+            animation: shadowPulse 0.6s ease-in-out infinite alternate;
+        }
+        @keyframes basketballBounce {
+            0% { transform: translateY(0) scale(1, 1); }
+            100% { transform: translateY(-60px) scale(0.95, 1.05); }
+        }
+        @keyframes shadowPulse {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(0.6); opacity: 0.15; }
+        }
+        .loader-brand {
+            margin-top: 40px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.15em;
+            animation: brandFadeIn 1s ease 0.5s both;
+        }
+        .loader-tagline {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 8px;
+            animation: brandFadeIn 1s ease 1s both;
+        }
+        .loader-bar-container {
+            width: 200px; height: 3px;
+            background: #1a1a1a;
+            border-radius: 3px;
+            margin-top: 30px;
+            overflow: hidden;
+            animation: brandFadeIn 1s ease 1.2s both;
+        }
+        .loader-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--gradient-accent);
+            border-radius: 3px;
+            animation: loadBar 2.5s ease-in-out forwards 0.5s;
+        }
+        @keyframes brandFadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 20px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(0, 5, 20, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 14px 60px;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.5);
+        }
+        .nav-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.08em;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+        .nav-logo .nav-number {
+            font-size: 0.75rem;
+            color: var(--accent-bright);
+            letter-spacing: 0.15em;
+        }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent-bright);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-bright); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .nav-hamburger span {
+            width: 28px; height: 2px;
+            background: var(--accent-bright);
+            transition: all 0.3s ease;
+        }
+        .nav-hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+        .nav-hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 20px 80px;
+        }
+        .hero-video-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .hero-video-bg video {
+            position: absolute;
+            top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .hero-video-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.68);
+            z-index: 1;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(0,48,135,0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, rgba(0,48,135,0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 100%, rgba(0,48,135,0.04) 0%, transparent 50%);
+            z-index: 2;
+        }
+        .hero-jersey-watermark {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(20rem, 40vw, 50rem);
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.04;
+            z-index: 2;
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--accent-bright);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 6s ease-in-out infinite;
+        }
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 8s; }
+        .particle:nth-child(2) { left: 20%; top: 80%; animation-delay: 1s; animation-duration: 6s; }
+        .particle:nth-child(3) { left: 50%; top: 10%; animation-delay: 2s; animation-duration: 7s; }
+        .particle:nth-child(4) { left: 70%; top: 70%; animation-delay: 0.5s; animation-duration: 9s; }
+        .particle:nth-child(5) { left: 85%; top: 30%; animation-delay: 3s; animation-duration: 6s; }
+        .particle:nth-child(6) { left: 35%; top: 60%; animation-delay: 1.5s; animation-duration: 8s; }
+        @keyframes particleFloat {
+            0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+            25% { opacity: 0.5; }
+            50% { opacity: 0.25; transform: translateY(-100px) scale(1.5); }
+            75% { opacity: 0.5; }
+        }
+        .hero-content { position: relative; z-index: 3; }
+        .hero-eyebrow {
+            font-size: 0.85rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-bright);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 3.2s both;
+        }
+        .hero-title {
+            font-size: clamp(3rem, 9vw, 7rem);
+            font-weight: 700;
+            line-height: 0.95;
+            margin-bottom: 20px;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 3.4s both;
+        }
+        .hero-slogan {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 3.6s both;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 3.8s both;
+        }
+        .btn {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,48,135,0.4); }
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-bright);
+            border: 1px solid var(--accent-bright);
+        }
+        .btn-outline:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+        .hero-social {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 5;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 4.2s both;
+        }
+        .hero-social a {
+            width: 42px; height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(74,144,217,0.3);
+            border-radius: 50%;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        .hero-social a:hover {
+            border-color: var(--accent-bright);
+            color: var(--accent-bright);
+            background: rgba(0,48,135,0.15);
+            transform: scale(1.1);
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 4s both;
+            z-index: 3;
+        }
+        .hero-scroll span {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+        .scroll-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(to bottom, var(--accent-bright), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes heroFadeUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* ===== SECTION SHARED ===== */
+        .section-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--accent-bright);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 50px;
+            font-weight: 300;
+        }
+        .accent { color: var(--accent-bright); }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section { padding: 120px 60px; }
+        .about-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-image-container { position: relative; }
+        .about-image-placeholder {
+            aspect-ratio: 3 / 4;
+            background: linear-gradient(135deg, #0a0a1a, #111122);
+            border: 2px solid var(--accent);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-image-placeholder i {
+            font-size: 6rem;
+            color: rgba(0,48,135,0.12);
+            margin-bottom: 16px;
+        }
+        .about-image-placeholder span {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .about-image-accent {
+            position: absolute;
+            top: 20px; left: 20px;
+            right: -20px; bottom: -20px;
+            border: 2px solid rgba(0,48,135,0.3);
+            z-index: -1;
+        }
+        .about-text h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .highlight-text {
+            color: var(--accent-bright);
+            font-weight: 600;
+            font-style: italic;
+        }
+        .achievements-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            background: rgba(0,48,135,0.08);
+            border: 1px solid rgba(0,48,135,0.25);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+        }
+        .achievement i { color: var(--accent-bright); font-size: 0.85rem; }
+
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            padding: 120px 60px;
+            background: var(--bg-section-alt);
+        }
+        .stats-hero-grid {
+            max-width: 1200px;
+            margin: 50px auto 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .stat-hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 35px 25px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .stat-hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gradient-accent);
+        }
+        .stat-hero-card:hover { transform: translateY(-5px); border-color: rgba(0,48,135,0.4); }
+        .stat-hero-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--accent-bright);
+            line-height: 1;
+        }
+        .stat-hero-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 8px;
+            margin-bottom: 16px;
+        }
+        .stat-hero-bar {
+            height: 4px;
+            background: #1e1e1e;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-hero-bar::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 0;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+            transition: width 1.5s ease;
+        }
+        .stat-hero-card.visible .stat-hero-bar::after {
+            width: var(--bar-width);
+        }
+
+        /* Stats detail table */
+        .stats-detail-table {
+            max-width: 800px;
+            margin: 40px auto;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+        }
+        .stats-detail-header {
+            padding: 16px 24px;
+            background: rgba(0,48,135,0.08);
+            border-bottom: 1px solid var(--card-border);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-bright);
+        }
+        .stats-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--card-border);
+            transition: background 0.3s ease;
+        }
+        .stats-detail-row:last-child { border-bottom: none; }
+        .stats-detail-row:hover { background: rgba(0,48,135,0.05); }
+        .stat-category {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* NIL & Social callout cards */
+        .stats-callout-grid {
+            max-width: 800px;
+            margin: 40px auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .callout-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .callout-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gradient-accent);
+        }
+        .callout-card:hover { transform: translateY(-5px); border-color: rgba(0,48,135,0.4); }
+        .callout-icon {
+            font-size: 2rem;
+            color: var(--accent-bright);
+            margin-bottom: 16px;
+        }
+        .callout-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-bright);
+            line-height: 1;
+        }
+        .callout-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+        .callout-sub {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 12px;
+        }
+
+        /* ===== MERCH SECTION ===== */
+        .merch-section { padding: 120px 60px; }
+        .merch-grid {
+            max-width: 1200px;
+            margin: 50px auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+        }
+        .merch-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .merch-card:hover { border-color: rgba(0,48,135,0.4); transform: translateY(-5px); }
+        .merch-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 3px;
+            background: var(--gradient-accent);
+            transition: width 0.4s ease;
+        }
+        .merch-card:hover::after { width: 100%; }
+        .merch-badge {
+            position: absolute;
+            top: 12px; right: 12px;
+            background: var(--accent);
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            padding: 4px 12px;
+            z-index: 2;
+        }
+        .merch-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, #0d0d1a, #111122);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(0,48,135,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .merch-card:hover .merch-image::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 200%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,48,135,0.06), transparent);
+            animation: shimmer 1s ease forwards;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(50%); }
+        }
+        .merch-details { padding: 20px; }
+        .merch-details h3 {
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+        .merch-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+            text-transform: none;
+        }
+        .merch-price {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-bright);
+            margin-bottom: 16px;
+        }
+        .merch-btn {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* ===== MEDIA SECTION ===== */
+        .media-section {
+            padding: 120px 60px;
+            background: var(--bg-section-alt);
+        }
+        .video-container {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(0,48,135,0.15), 0 0 120px rgba(0,48,135,0.05);
+            border: 1px solid rgba(0,48,135,0.2);
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #0d0d0d;
+        }
+        .video-placeholder {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 50%, #0d0d0d 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .video-placeholder:hover { background: linear-gradient(135deg, #111 0%, #1e1e3a 50%, #111 100%); }
+        .play-btn {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(0,48,135,0.4);
+        }
+        .play-btn i { font-size: 28px; color: #fff; margin-left: 4px; }
+        .video-placeholder:hover .play-btn { transform: scale(1.1); box-shadow: 0 0 60px rgba(0,48,135,0.6); }
+        .video-placeholder p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .media-thumbnails {
+            max-width: 960px;
+            margin: 40px auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .media-thumb {
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #0d0d1a, #111);
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .media-thumb:hover {
+            border-color: rgba(0,48,135,0.4);
+            transform: translateY(-3px);
+        }
+        .thumb-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            transition: background 0.3s ease;
+            font-size: 2.5rem;
+            color: transparent;
+        }
+        .media-thumb:hover .thumb-overlay {
+            background: rgba(0,48,135,0.2);
+            color: #fff;
+        }
+        .thumb-icon {
+            font-size: 2rem;
+            color: rgba(0,48,135,0.3);
+            margin-bottom: 10px;
+        }
+        .media-thumb p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section { padding: 120px 60px; }
+        .contact-grid {
+            max-width: 1200px;
+            margin: 50px auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+        }
+        .contact-info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 50px 40px;
+        }
+        .contact-info-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.08em;
+        }
+        .contact-info-card > p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .contact-item i {
+            color: var(--accent-bright);
+            font-size: 1.1rem;
+            margin-top: 3px;
+            width: 20px;
+            text-align: center;
+        }
+        .contact-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .contact-value {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-top: 2px;
+        }
+        .brand-partners {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+        }
+        .brand-partners h4 {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--accent-bright);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        .partner-logos { display: flex; flex-wrap: wrap; gap: 10px; }
+        .partner-badge {
+            padding: 8px 16px;
+            background: rgba(0,48,135,0.08);
+            border: 1px solid rgba(0,48,135,0.25);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .contact-form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 50px 40px;
+        }
+        .contact-form-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            letter-spacing: 0.08em;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0a0a0a;
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus { border-color: var(--accent-bright); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .btn-submit {
+            width: 100%;
+            margin-top: 10px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 16px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover { background: var(--accent-light); box-shadow: 0 10px 30px rgba(0,48,135,0.3); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #050505;
+            padding: 60px;
+            border-top: 1px solid var(--card-border);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-brand .footer-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.1em;
+        }
+        .footer-brand .footer-position {
+            font-size: 0.8rem;
+            color: var(--accent-bright);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 12px;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+        .footer-col h4 {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--accent-bright);
+            margin-bottom: 16px;
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        .footer-col a:hover { color: var(--accent-bright); }
+        .powered-by-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c9a227, #e8d573, #c9a227);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.1em;
+        }
+        .powered-by-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.6s; }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            width: 50px; height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            border: none;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--accent-light); transform: translateY(-3px); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .navbar { padding: 16px 30px; }
+            .navbar.scrolled { padding: 12px 30px; }
+            .stats-hero-grid { grid-template-columns: repeat(2, 1fr); }
+            .merch-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-hamburger { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0; right: -100%;
+                width: 280px; height: 100vh;
+                background: rgba(5, 5, 20, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: right 0.4s ease;
+                backdrop-filter: blur(20px);
+            }
+            .nav-links.open { right: 0; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .stats-callout-grid { grid-template-columns: 1fr; }
+            .media-thumbnails { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .hero-social { display: none; }
+            .hero-jersey-watermark { font-size: clamp(12rem, 50vw, 20rem); right: 0; }
+            .hero, .about-section, .stats-section, .merch-section, .media-section, .contact-section, .footer { padding-left: 24px; padding-right: 24px; }
+        }
+        @media (max-width: 480px) {
+            .stats-hero-grid { grid-template-columns: 1fr; }
+            .merch-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div class="loader" id="loader">
+        <div class="loader-basketball"></div>
+        <div class="loader-shadow"></div>
+        <div class="loader-brand">JT</div>
+        <div class="loader-tagline">Jaylen Thompson</div>
+        <div class="loader-bar-container">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="navbar" id="navbar">
+        <a href="#home" class="nav-logo">Jaylen Thompson <span class="nav-number">DUKE #2</span></a>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#stats">Stats</a>
+            <a href="#merch">Merch</a>
+            <a href="#media">Media</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="home">
+        <div class="hero-video-bg">
+            <video autoplay muted loop playsinline id="heroVideo">
+                <source src="https://assets.mixkit.co/videos/2273/2273-1080.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-video-overlay"></div>
+        <div class="hero-bg"></div>
+        <div class="hero-jersey-watermark">2</div>
+        <div class="hero-particles">
+            <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+            <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        </div>
+        <div class="hero-social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">Duke University &bull; Point Guard &bull; #2</div>
+            <h1 class="hero-title">Jaylen<br>Thompson</h1>
+            <p class="hero-slogan">Floor General. Brand Leader. Legacy Builder.</p>
+            <div class="hero-buttons">
+                <a href="#media" class="btn btn-primary">View Highlights</a>
+                <a href="#contact" class="btn btn-outline">Partnership Inquiries</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section class="about-section" id="about">
+        <div class="about-grid">
+            <div class="about-image-container reveal">
+                <div class="about-image-placeholder">
+                    <i class="fas fa-basketball-ball"></i>
+                    <span>JT</span>
+                </div>
+                <div class="about-image-accent"></div>
+            </div>
+            <div class="about-text">
+                <div class="section-eyebrow reveal">The Player</div>
+                <h2 class="reveal reveal-delay-1">The Story of<br>Jaylen <span class="accent">Thompson</span></h2>
+                <p class="reveal reveal-delay-2">
+                    Born and raised in Atlanta, Georgia, Jaylen Thompson discovered his love for basketball at the age of five. By high school, he was the most sought-after point guard in the nation — a McDonald's All-American with elite court vision, a lightning-quick first step, and a natural ability to make everyone around him better.
+                </p>
+                <p class="reveal reveal-delay-3">
+                    At Duke University, Jaylen has elevated his game to an entirely new level. Leading the Blue Devils with 18.4 points and 8.2 assists per game, he's not just a player — he's a program-defining talent. Off the court, Jaylen has built a brand that resonates with millions, partnering with Beats by Dre, Champs Sports, and launching a signature shoe campaign that sold out in 48 hours.
+                </p>
+                <p class="reveal reveal-delay-4 highlight-text">
+                    "I don't just play to win games. I play to build something that lasts."
+                </p>
+                <div class="achievements-row reveal reveal-delay-5">
+                    <div class="achievement"><i class="fas fa-trophy"></i><span>ACC Player of the Year</span></div>
+                    <div class="achievement"><i class="fas fa-star"></i><span>All-American First Team</span></div>
+                    <div class="achievement"><i class="fas fa-medal"></i><span>McDonald's All-American</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS SECTION ===== -->
+    <section class="stats-section" id="stats">
+        <div style="text-align: center;">
+            <div class="section-eyebrow reveal">By The Numbers</div>
+            <h2 class="section-title reveal reveal-delay-1">Season Statistics</h2>
+            <p class="section-subtitle reveal reveal-delay-2">2025-26 Season | Duke Blue Devils</p>
+        </div>
+
+        <!-- Tier 1: Hero Stat Cards -->
+        <div class="stats-hero-grid">
+            <div class="stat-hero-card reveal reveal-delay-1">
+                <div class="stat-hero-number" data-target="18" data-suffix=".4">0</div>
+                <div class="stat-hero-label">Points Per Game</div>
+                <div class="stat-hero-bar" style="--bar-width: 74%;"></div>
+            </div>
+            <div class="stat-hero-card reveal reveal-delay-2">
+                <div class="stat-hero-number" data-target="8" data-suffix=".2">0</div>
+                <div class="stat-hero-label">Assists Per Game</div>
+                <div class="stat-hero-bar" style="--bar-width: 82%;"></div>
+            </div>
+            <div class="stat-hero-card reveal reveal-delay-3">
+                <div class="stat-hero-number" data-target="5" data-suffix=".1">0</div>
+                <div class="stat-hero-label">Rebounds Per Game</div>
+                <div class="stat-hero-bar" style="--bar-width: 51%;"></div>
+            </div>
+            <div class="stat-hero-card reveal reveal-delay-4">
+                <div class="stat-hero-number" data-target="2" data-suffix=".3">0</div>
+                <div class="stat-hero-label">Steals Per Game</div>
+                <div class="stat-hero-bar" style="--bar-width: 58%;"></div>
+            </div>
+        </div>
+
+        <!-- Tier 2: Detailed Stats Table -->
+        <div class="stats-detail-table reveal">
+            <div class="stats-detail-header">Advanced Statistics</div>
+            <div class="stats-detail-row"><span class="stat-category">Field Goal %</span><span class="stat-value">47.2%</span></div>
+            <div class="stats-detail-row"><span class="stat-category">3-Point %</span><span class="stat-value">38.9%</span></div>
+            <div class="stats-detail-row"><span class="stat-category">Free Throw %</span><span class="stat-value">86.4%</span></div>
+            <div class="stats-detail-row"><span class="stat-category">Minutes / Game</span><span class="stat-value">34.2</span></div>
+            <div class="stats-detail-row"><span class="stat-category">Turnovers / Game</span><span class="stat-value">2.1</span></div>
+            <div class="stats-detail-row"><span class="stat-category">Plus / Minus</span><span class="stat-value">+8.7</span></div>
+            <div class="stats-detail-row"><span class="stat-category">Assist / Turnover Ratio</span><span class="stat-value">3.9</span></div>
+        </div>
+
+        <!-- Tier 3: NIL & Social Callouts -->
+        <div class="stats-callout-grid">
+            <div class="callout-card reveal reveal-delay-1">
+                <div class="callout-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="callout-number" data-target="1" data-prefix="$" data-suffix=".8M">0</div>
+                <div class="callout-label">Estimated NIL Value</div>
+                <div class="callout-sub">Top 5% of College Basketball</div>
+            </div>
+            <div class="callout-card reveal reveal-delay-2">
+                <div class="callout-icon"><i class="fas fa-globe"></i></div>
+                <div class="callout-number" data-target="890" data-suffix="K">0</div>
+                <div class="callout-label">Social Media Followers</div>
+                <div class="callout-sub">Combined Across All Platforms</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MERCH SECTION ===== -->
+    <section class="merch-section" id="merch">
+        <div style="text-align: center;">
+            <div class="section-eyebrow reveal">Exclusive Gear</div>
+            <h2 class="section-title reveal reveal-delay-1">JT Merch Shop</h2>
+            <p class="section-subtitle reveal reveal-delay-2">Official Jaylen Thompson merchandise. Limited drops. Premium quality.</p>
+        </div>
+        <div class="merch-grid">
+            <div class="merch-card reveal reveal-delay-1">
+                <div class="merch-badge">NEW</div>
+                <div class="merch-image"><i class="fas fa-tshirt"></i></div>
+                <div class="merch-details">
+                    <h3>JT Signature Tee</h3>
+                    <p class="merch-desc">Duke Blue premium cotton tee with embroidered JT logo</p>
+                    <div class="merch-price">$45.00</div>
+                    <button class="btn btn-primary merch-btn" onclick="addToCart(this)">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+            <div class="merch-card reveal reveal-delay-2">
+                <div class="merch-badge">EXCLUSIVE</div>
+                <div class="merch-image"><i class="fas fa-vest-patches"></i></div>
+                <div class="merch-details">
+                    <h3>JT x Duke Hoodie</h3>
+                    <p class="merch-desc">Heavyweight fleece hoodie with custom JT x Duke collab design</p>
+                    <div class="merch-price">$85.00</div>
+                    <button class="btn btn-primary merch-btn" onclick="addToCart(this)">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+            <div class="merch-card reveal reveal-delay-3">
+                <div class="merch-badge">LIMITED</div>
+                <div class="merch-image"><i class="fas fa-person-running"></i></div>
+                <div class="merch-details">
+                    <h3>JT Basketball Shorts</h3>
+                    <p class="merch-desc">Performance mesh shorts with #2 detail and signature stripe</p>
+                    <div class="merch-price">$55.00</div>
+                    <button class="btn btn-primary merch-btn" onclick="addToCart(this)">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+            <div class="merch-card reveal reveal-delay-4">
+                <div class="merch-badge">BESTSELLER</div>
+                <div class="merch-image"><i class="fas fa-hat-cowboy-side"></i></div>
+                <div class="merch-details">
+                    <h3>JT Signature Headband</h3>
+                    <p class="merch-desc">Performance wristband & headband set in Duke Blue</p>
+                    <div class="merch-price">$25.00</div>
+                    <button class="btn btn-primary merch-btn" onclick="addToCart(this)">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MEDIA SECTION ===== -->
+    <section class="media-section" id="media">
+        <div style="text-align: center;">
+            <div class="section-eyebrow reveal">Watch</div>
+            <h2 class="section-title reveal reveal-delay-1">Highlights & Media</h2>
+            <p class="section-subtitle reveal reveal-delay-2">See Jaylen Thompson in action — elite handles, dime passes, and clutch performances.</p>
+        </div>
+        <div class="video-container reveal reveal-delay-3">
+            <div class="video-wrapper">
+                <div class="video-placeholder" id="videoPlaceholder">
+                    <div class="play-btn"><i class="fas fa-play"></i></div>
+                    <p>Jaylen Thompson Highlights</p>
+                </div>
+            </div>
+        </div>
+        <div class="media-thumbnails">
+            <div class="media-thumb reveal reveal-delay-1">
+                <div class="thumb-overlay"><i class="fas fa-play-circle"></i></div>
+                <div class="thumb-icon"><i class="fas fa-basketball-ball"></i></div>
+                <p>Season Highlights 2025-26</p>
+            </div>
+            <div class="media-thumb reveal reveal-delay-2">
+                <div class="thumb-overlay"><i class="fas fa-play-circle"></i></div>
+                <div class="thumb-icon"><i class="fas fa-fire"></i></div>
+                <p>Top 10 Assists</p>
+            </div>
+            <div class="media-thumb reveal reveal-delay-3">
+                <div class="thumb-overlay"><i class="fas fa-play-circle"></i></div>
+                <div class="thumb-icon"><i class="fas fa-camera"></i></div>
+                <p>Behind The Scenes</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section class="contact-section" id="contact">
+        <div style="text-align: center;">
+            <div class="section-eyebrow reveal">Partnerships</div>
+            <h2 class="section-title reveal reveal-delay-1">Work With Jaylen</h2>
+            <p class="section-subtitle reveal reveal-delay-2">Interested in partnering with Jaylen Thompson? Reach out to the APEX NIL team.</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info-card reveal reveal-delay-1">
+                <h3>Brand Partnerships</h3>
+                <p>For sponsorships, appearances, media inquiries, and licensing opportunities — connect with Jaylen's management team at APEX NIL.</p>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">partnerships@apexnil.com</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-building"></i>
+                    <div>
+                        <div class="contact-label">Management</div>
+                        <div class="contact-value">APEX NIL</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-location-dot"></i>
+                    <div>
+                        <div class="contact-label">Location</div>
+                        <div class="contact-value">Durham, NC / Austin, TX</div>
+                    </div>
+                </div>
+                <div class="brand-partners">
+                    <h4>Current Partners</h4>
+                    <div class="partner-logos">
+                        <div class="partner-badge">Beats by Dre</div>
+                        <div class="partner-badge">Champs Sports</div>
+                        <div class="partner-badge">Signature Shoe</div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-card reveal reveal-delay-2">
+                <h3>Send An Inquiry</h3>
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="you@company.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Company / Brand</label>
+                        <input type="text" placeholder="Your organization">
+                    </div>
+                    <div class="form-group">
+                        <label>Inquiry Type</label>
+                        <select required>
+                            <option value="" disabled selected>Select one</option>
+                            <option>Sponsorship / Endorsement</option>
+                            <option>Paid Appearance</option>
+                            <option>Media / Interview</option>
+                            <option>Licensing</option>
+                            <option>Content Collaboration</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Tell us about the opportunity..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Inquiry <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">Jaylen Thompson</div>
+                <div class="footer-position">Point Guard | Duke University | #2</div>
+                <p>Elite court vision. Growing media presence. Building a legacy that lasts beyond the game. Managed by APEX NIL.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigate</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#stats">Stats</a>
+                <a href="#merch">Merch</a>
+                <a href="#media">Media</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <a href="#"><i class="fab fa-instagram" style="width:16px;"></i> Instagram</a>
+                <a href="#"><i class="fab fa-twitter" style="width:16px;"></i> Twitter / X</a>
+                <a href="#"><i class="fab fa-tiktok" style="width:16px;"></i> TikTok</a>
+                <a href="#"><i class="fab fa-youtube" style="width:16px;"></i> YouTube</a>
+            </div>
+            <div class="footer-col">
+                <h4>Powered By</h4>
+                <a href="https://williamsdigital.io/apex-nil.html" class="powered-by-brand">APEX NIL</a>
+                <p class="powered-by-text">The premier NIL agency for college athletes. Your name. Your brand. Your legacy.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Jaylen Thompson. All rights reserved.</span>
+            <span>Managed by APEX NIL</span>
+        </div>
+    </footer>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 3200);
+        });
+        document.body.style.overflow = 'hidden';
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+                backToTop.classList.add('visible');
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 120;
+                if (window.scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinksEl = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinksEl.classList.toggle('open');
+        });
+        navLinksEl.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinksEl.classList.remove('open');
+            });
+        });
+
+        // Scroll reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Stats counter animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    const prefix = el.dataset.prefix || '';
+                    const suffix = el.dataset.suffix || '';
+                    let count = 0;
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    const timer = setInterval(() => {
+                        count += step;
+                        if (count >= target) {
+                            count = target;
+                            clearInterval(timer);
+                        }
+                        el.textContent = prefix + Math.floor(count).toLocaleString() + suffix;
+                    }, 16);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.stat-hero-number[data-target], .callout-number[data-target]').forEach(el => counterObserver.observe(el));
+
+        // Hero video rotation — basketball clips
+        const heroVideo = document.getElementById('heroVideo');
+        if (heroVideo) {
+            const clips = [
+                'https://assets.mixkit.co/videos/2273/2273-1080.mp4',
+                'https://assets.mixkit.co/videos/44468/44468-1080.mp4',
+                'https://assets.mixkit.co/videos/744/744-1080.mp4'
+            ];
+            let clipIndex = 0;
+            heroVideo.addEventListener('ended', () => {
+                clipIndex = (clipIndex + 1) % clips.length;
+                heroVideo.src = clips[clipIndex];
+                heroVideo.play();
+            });
+        }
+
+        // Add to cart mock
+        function addToCart(btn) {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+            btn.style.background = '#2ecc71';
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.background = '';
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        // Form submit handler
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-submit');
+            btn.textContent = 'Inquiry Sent!';
+            btn.style.background = '#2ecc71';
+            btn.style.color = '#fff';
+            setTimeout(() => {
+                btn.innerHTML = 'Submit Inquiry <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>';
+                btn.style.background = '';
+                btn.style.color = '';
+                e.target.reset();
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
