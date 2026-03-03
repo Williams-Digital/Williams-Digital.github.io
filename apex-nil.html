@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX NIL — Your Name. Your Brand. Your Legacy.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --gold: #c9a227;
+            --gold-light: #e8d573;
+            --gold-dark: #a8871f;
+            --bg-primary: #0a0a0a;
+            --bg-card: #111111;
+            --bg-section-alt: #0e0e0e;
+            --text-primary: #ffffff;
+            --text-muted: #999999;
+            --text-dim: #555555;
+            --gradient-gold: linear-gradient(135deg, #c9a227, #e8d573, #c9a227);
+            --card-border: #1e1e1e;
+        }
+
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        ul { list-style: none; }
+
+        /* ===== LOADING SCREEN ===== */
+        .loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #050505;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-orbit {
+            width: 200px; height: 200px;
+            position: relative;
+            animation: orbitSpin 3s linear infinite;
+        }
+        .loader-ball {
+            position: absolute;
+            width: 48px; height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            border-radius: 50%;
+            animation: ballPulse 1.2s ease-in-out infinite alternate;
+        }
+        .loader-ball:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); color: #8B4513; animation-delay: 0s; }
+        .loader-ball:nth-child(2) { top: 50%; right: 0; transform: translateY(-50%); color: #FF6B00; animation-delay: 0.3s; }
+        .loader-ball:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%); color: #ffffff; animation-delay: 0.6s; }
+        .loader-ball:nth-child(4) { top: 50%; left: 0; transform: translateY(-50%); color: #cc0000; animation-delay: 0.9s; }
+        .loader-brand {
+            margin-top: 40px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.15em;
+            animation: brandFadeIn 1s ease 0.5s both;
+        }
+        .loader-tagline {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 8px;
+            animation: brandFadeIn 1s ease 1s both;
+        }
+        .loader-bar-container {
+            width: 200px; height: 3px;
+            background: #1a1a1a;
+            border-radius: 3px;
+            margin-top: 30px;
+            overflow: hidden;
+            animation: brandFadeIn 1s ease 1.2s both;
+        }
+        .loader-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--gradient-gold);
+            border-radius: 3px;
+            animation: loadBar 2.5s ease-in-out forwards 0.5s;
+        }
+        @keyframes orbitSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes ballPulse { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.15); opacity: 1; } }
+        @keyframes brandFadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 20px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 14px 60px;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.5);
+        }
+        .nav-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.1em;
+        }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .nav-hamburger span {
+            width: 28px; height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+        .nav-hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-hamburger.active span:nth-child(2) { opacity: 0; }
+        .nav-hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 20px 80px;
+        }
+        .hero-video-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .hero-video-bg video {
+            position: absolute;
+            top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .hero-video-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 1;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(201,162,39,0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, rgba(201,162,39,0.05) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 100%, rgba(201,162,39,0.03) 0%, transparent 50%);
+            z-index: 2;
+        }
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .particle {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 6s ease-in-out infinite;
+        }
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 8s; }
+        .particle:nth-child(2) { left: 20%; top: 80%; animation-delay: 1s; animation-duration: 6s; }
+        .particle:nth-child(3) { left: 50%; top: 10%; animation-delay: 2s; animation-duration: 7s; }
+        .particle:nth-child(4) { left: 70%; top: 70%; animation-delay: 0.5s; animation-duration: 9s; }
+        .particle:nth-child(5) { left: 85%; top: 30%; animation-delay: 3s; animation-duration: 6s; }
+        .particle:nth-child(6) { left: 35%; top: 60%; animation-delay: 1.5s; animation-duration: 8s; }
+        .particle:nth-child(7) { left: 60%; top: 90%; animation-delay: 2.5s; animation-duration: 7s; }
+        .particle:nth-child(8) { left: 90%; top: 50%; animation-delay: 4s; animation-duration: 6s; }
+        @keyframes particleFloat {
+            0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+            25% { opacity: 0.6; }
+            50% { opacity: 0.3; transform: translateY(-100px) scale(1.5); }
+            75% { opacity: 0.6; }
+        }
+        .hero-content { position: relative; z-index: 3; }
+        .hero-eyebrow {
+            font-size: 0.85rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 3.2s both;
+        }
+        .hero-title {
+            font-size: clamp(3.5rem, 10vw, 8rem);
+            font-weight: 700;
+            line-height: 0.95;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #c9a227 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 3.4s both;
+        }
+        .hero-slogan {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 3.6s both;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 3.8s both;
+        }
+        .btn {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: #000;
+        }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201,162,39,0.3); }
+        .btn-outline {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+        .btn-outline:hover { background: var(--gold); color: #000; transform: translateY(-2px); }
+        .hero-scroll {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: heroFadeUp 1s ease 4s both;
+            z-index: 3;
+        }
+        .hero-scroll span {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+        .scroll-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes heroFadeUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* ===== HIGHLIGHT REEL SECTION ===== */
+        .reel-section {
+            padding: 100px 60px;
+            text-align: center;
+            background: var(--bg-section-alt);
+        }
+        .section-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 50px;
+            font-weight: 300;
+        }
+        .video-container {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(201, 162, 39, 0.15), 0 0 120px rgba(201, 162, 39, 0.05);
+            border: 1px solid rgba(201, 162, 39, 0.2);
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            background: #0d0d0d;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+        .video-placeholder {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #0d0d0d 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .video-placeholder:hover { background: linear-gradient(135deg, #111 0%, #222 50%, #111 100%); }
+        .play-btn {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(201, 162, 39, 0.4);
+        }
+        .play-btn i { font-size: 28px; color: #000; margin-left: 4px; }
+        .video-placeholder:hover .play-btn { transform: scale(1.1); box-shadow: 0 0 60px rgba(201, 162, 39, 0.6); }
+        .video-placeholder p { font-size: 0.9rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; }
+        .video-sports-icons {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: var(--text-dim);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section { padding: 120px 60px; }
+        .about-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-text h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+        .about-text .gold { color: var(--gold); }
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .about-text .highlight-text {
+            color: var(--gold);
+            font-weight: 600;
+            font-style: italic;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: var(--gradient-gold);
+        }
+        .stat-card:hover { transform: translateY(-5px); border-color: rgba(201, 162, 39, 0.3); }
+        .stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        /* ===== VALUES SECTION ===== */
+        .values-section {
+            padding: 100px 60px;
+            background: var(--bg-section-alt);
+        }
+        .values-grid {
+            max-width: 1200px;
+            margin: 50px auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .value-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        .value-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .value-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.1em;
+        }
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services-section { padding: 120px 60px; }
+        .services-grid {
+            max-width: 1200px;
+            margin: 50px auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 3px;
+            background: var(--gradient-gold);
+            transition: width 0.4s ease;
+        }
+        .service-card:hover::after { width: 100%; }
+        .service-card:hover { border-color: rgba(201, 162, 39, 0.3); transform: translateY(-5px); }
+        .service-icon {
+            width: 60px; height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gold);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            margin-bottom: 24px;
+        }
+        .service-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.08em;
+        }
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== ROSTER SECTION ===== */
+        .roster-section {
+            padding: 120px 60px;
+            background: var(--bg-section-alt);
+        }
+        .roster-grid {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .card-container {
+            perspective: 1200px;
+            height: 440px;
+        }
+        .player-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-container:hover .player-card { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        /* CARD FRONT — Baseball Card Style */
+        .card-front {
+            background: var(--bg-card);
+            border: 3px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+        }
+        .card-img-area {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-img-area .sport-icon {
+            font-size: 5rem;
+            opacity: 0.15;
+            position: absolute;
+        }
+        .card-avatar {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #000;
+            background: var(--gradient-gold);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 30px rgba(201, 162, 39, 0.3);
+        }
+        .card-badge {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: var(--gold);
+            color: #000;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 4px 12px;
+        }
+        .card-info {
+            background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.9) 100%);
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+        }
+        .card-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+            letter-spacing: 0.08em;
+        }
+        .card-info .card-position {
+            font-size: 0.8rem;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .card-info .card-school {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .card-corner-detail {
+            position: absolute;
+            top: 12px; left: 12px;
+            width: 30px; height: 30px;
+            border-top: 2px solid var(--gold);
+            border-left: 2px solid var(--gold);
+        }
+
+        /* CARD BACK */
+        .card-back {
+            background: linear-gradient(135deg, #1a1500 0%, #0d0d0d 50%, #1a1500 100%);
+            border: 3px solid var(--gold);
+            transform: rotateY(180deg);
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-back-header {
+            text-align: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+            margin-bottom: 16px;
+        }
+        .card-back-header h3 { font-size: 1.1rem; letter-spacing: 0.1em; }
+        .card-back-header .card-number {
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 0.2em;
+        }
+        .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .card-stat {
+            text-align: center;
+            padding: 10px;
+            background: rgba(201, 162, 39, 0.05);
+            border: 1px solid rgba(201, 162, 39, 0.15);
+        }
+        .card-stat .stat-val {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .card-stat .stat-lbl {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .card-bio {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            flex: 1;
+        }
+        .card-social {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(201, 162, 39, 0.3);
+        }
+        .card-social a {
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .card-social a:hover { color: var(--gold); }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section { padding: 120px 60px; }
+        .contact-grid {
+            max-width: 1200px;
+            margin: 50px auto 0;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+        }
+        .contact-info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 50px 40px;
+        }
+        .contact-info-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.08em;
+        }
+        .contact-info-card > p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .contact-item i {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-top: 3px;
+            width: 20px;
+            text-align: center;
+        }
+        .contact-item .contact-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .contact-item .contact-value {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-top: 2px;
+        }
+        .contact-socials {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--card-border);
+        }
+        .contact-socials a {
+            width: 44px; height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .contact-socials a:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+        .contact-form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--card-border);
+            padding: 50px 40px;
+        }
+        .contact-form-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            letter-spacing: 0.08em;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0a0a0a;
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus { border-color: var(--gold); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .btn-submit {
+            width: 100%;
+            margin-top: 10px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 16px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover { background: var(--gold-light); box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #050505;
+            padding: 60px;
+            border-top: 1px solid var(--card-border);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-brand .footer-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.1em;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 12px;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+        .footer-col h4 {
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+        .footer-col a:hover { color: var(--gold); }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.6s; }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            width: 50px; height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gold);
+            color: #000;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            border: none;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--gold-light); transform: translateY(-3px); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .navbar { padding: 16px 30px; }
+            .navbar.scrolled { padding: 12px 30px; }
+            .roster-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-hamburger { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0; right: -100%;
+                width: 280px; height: 100vh;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: right 0.4s ease;
+                backdrop-filter: blur(20px);
+            }
+            .nav-links.open { right: 0; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .roster-grid { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .hero, .reel-section, .about-section, .values-section, .services-section, .roster-section, .contact-section, .footer { padding-left: 24px; padding-right: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div class="loader" id="loader">
+        <div class="loader-orbit">
+            <div class="loader-ball"><i class="fas fa-football-ball"></i></div>
+            <div class="loader-ball"><i class="fas fa-basketball-ball"></i></div>
+            <div class="loader-ball"><i class="fas fa-futbol"></i></div>
+            <div class="loader-ball"><i class="fas fa-baseball-ball"></i></div>
+        </div>
+        <div class="loader-brand">APEX NIL</div>
+        <div class="loader-tagline">Your Name. Your Brand. Your Legacy.</div>
+        <div class="loader-bar-container">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="navbar" id="navbar">
+        <a href="#home" class="nav-logo">APEX NIL</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#roster">Our Roster</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <div class="nav-hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="home">
+        <div class="hero-video-bg">
+            <video autoplay muted loop playsinline id="heroVideo">
+                <source src="https://assets.mixkit.co/videos/2273/2273-1080.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-video-overlay"></div>
+        <div class="hero-bg"></div>
+        <div class="hero-particles">
+            <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+            <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+            <div class="particle"></div><div class="particle"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">The Future of Athlete Branding</div>
+            <h1 class="hero-title">APEX NIL</h1>
+            <p class="hero-slogan">Your Name. Your Brand. Your Legacy.</p>
+            <div class="hero-buttons">
+                <a href="#roster" class="btn btn-primary">Explore Our Athletes</a>
+                <a href="#contact" class="btn btn-outline">Partner With Us</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ===== HIGHLIGHT REEL ===== -->
+    <section class="reel-section" id="reel">
+        <div class="section-eyebrow reveal">The Highlight Reel</div>
+        <h2 class="section-title reveal reveal-delay-1">Watch Our Athletes Dominate</h2>
+        <p class="section-subtitle reveal reveal-delay-2">From the gridiron to the hardwood to the diamond — APEX athletes perform at the highest level.</p>
+        <div class="video-container reveal reveal-delay-3">
+            <div class="video-wrapper">
+                <!-- Replace the src below with your highlight reel video URL -->
+                <div class="video-placeholder" id="videoPlaceholder">
+                    <div class="play-btn"><i class="fas fa-play"></i></div>
+                    <p>Highlight Reel</p>
+                    <div class="video-sports-icons">
+                        <i class="fas fa-football-ball"></i>
+                        <i class="fas fa-basketball-ball"></i>
+                        <i class="fas fa-baseball-ball"></i>
+                    </div>
+                </div>
+                <!-- Uncomment and add your YouTube video ID below: -->
+                <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section class="about-section" id="about">
+        <div class="about-grid">
+            <div class="about-text">
+                <div class="section-eyebrow reveal">Who We Are</div>
+                <h2 class="reveal reveal-delay-1">Building Empires<br>Beyond the <span class="gold">Game</span></h2>
+                <p class="reveal reveal-delay-2">
+                    APEX NIL is the premier Name, Image, and Likeness agency dedicated to maximizing the earning potential and brand equity of college and professional athletes. We believe that every athlete deserves world-class representation — both on and off the field.
+                </p>
+                <p class="reveal reveal-delay-3">
+                    Founded by industry leaders with decades of experience in sports marketing, brand strategy, and athlete management, APEX NIL bridges the gap between athletic talent and commercial opportunity.
+                </p>
+                <p class="reveal reveal-delay-4 highlight-text">
+                    "We don't just manage deals. We build legacies."
+                </p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card reveal reveal-delay-1">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Athletes Signed</div>
+                </div>
+                <div class="stat-card reveal reveal-delay-2">
+                    <div class="stat-number" data-target="85">0</div>
+                    <div class="stat-label">Brand Partners</div>
+                </div>
+                <div class="stat-card reveal reveal-delay-3">
+                    <div class="stat-number" data-prefix="$" data-target="24" data-suffix="M">0</div>
+                    <div class="stat-label">NIL Deals Secured</div>
+                </div>
+                <div class="stat-card reveal reveal-delay-4">
+                    <div class="stat-number" data-target="500" data-suffix="M+">0</div>
+                    <div class="stat-label">Social Impressions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== VALUES SECTION ===== -->
+    <section class="values-section">
+        <div style="text-align: center;">
+            <div class="section-eyebrow reveal">What Drives Us</div>
+            <h2 class="section-title reveal reveal-delay-1">Our Core Values</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card reveal reveal-delay-1">
+                <div class="value-icon"><i class="fas fa-trophy"></i></div>
+                <h3>Excellence</h3>
+                <p>We hold ourselves and our partners to the highest standard. Every deal, every partnership, every campaign is crafted with precision and purpose.</p>
+            </div>
+            <div class="value-card reveal reveal-delay-2">
+                <div class="value-icon"><i class="fas fa-shield-halved"></i></div>
+                <h3>Integrity</h3>
+                <p>Transparency and trust are at the core of everything we do. Our athletes know their brand is in safe hands with a team that always puts them first.</p>
+            </div>
+            <div class="value-card reveal reveal-delay-3">
+                <div class="value-icon"><i class="fas fa-rocket"></i></div>
+                <h3>Innovation</h3>
+                <p>The NIL landscape evolves daily. We stay ahead of the curve with cutting-edge strategies, data-driven insights, and creative brand activations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES SECTION ===== -->
+    <section class="services-section" id="services">
+        <div style="text-align: center;">
+            <div class="section-eyebrow reveal">What We Offer</div>
+            <h2 class="section-title reveal reveal-delay-1">Our Services</h2>
+            <p class="section-subtitle reveal reveal-delay-2">End-to-end NIL management tailored to each athlete's unique brand and goals.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal reveal-delay-1">
+                <div class="service-icon"><i class="fas fa-handshake"></i></div>
+                <h3>NIL Deal Facilitation</h3>
+                <p>We connect athletes with top-tier brands for endorsement deals, sponsorships, licensing agreements, and paid appearances that align with their personal brand.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-2">
+                <div class="service-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>Brand Strategy</h3>
+                <p>From personal branding workshops to market positioning, we develop comprehensive strategies that turn athletic talent into marketable, long-lasting brands.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-3">
+                <div class="service-icon"><i class="fas fa-camera"></i></div>
+                <h3>Content Creation</h3>
+                <p>Our in-house creative team produces professional photo shoots, highlight reels, social media content, and campaign assets that elevate athlete visibility.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-4">
+                <div class="service-icon"><i class="fas fa-scale-balanced"></i></div>
+                <h3>Legal & Compliance</h3>
+                <p>Navigate the complex NIL regulatory landscape with confidence. We ensure every deal is compliant with NCAA, state, and institutional guidelines.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-5">
+                <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Social Media Management</h3>
+                <p>Grow and monetize social presence with data-driven content strategies, audience analytics, and platform optimization across all major channels.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-6">
+                <div class="service-icon"><i class="fas fa-coins"></i></div>
+                <h3>Financial Planning</h3>
+                <p>Set athletes up for long-term financial success with personalized budgeting, investment guidance, and NIL revenue management from day one.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ROSTER SECTION ===== -->
+    <section class="roster-section" id="roster">
+        <div style="text-align: center;">
+            <div class="section-eyebrow reveal">The Athletes</div>
+            <h2 class="section-title reveal reveal-delay-1">Our Roster</h2>
+            <p class="section-subtitle reveal reveal-delay-2">Meet the elite athletes building their brands with APEX NIL. Hover to see the stats.</p>
+        </div>
+        <div class="roster-grid">
+
+            <!-- Player 1 -->
+            <div class="card-container reveal reveal-delay-1">
+                <div class="player-card">
+                    <div class="card-front">
+                        <div class="card-corner-detail"></div>
+                        <div class="card-badge">FOOTBALL</div>
+                        <div class="card-img-area" style="background: linear-gradient(135deg, #1a0a00, #0d0d0d);">
+                            <i class="fas fa-football-ball sport-icon"></i>
+                            <div class="card-avatar">MJ</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Marcus Johnson</h3>
+                            <div class="card-position">Quarterback</div>
+                            <div class="card-school">University of Texas</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-header">
+                            <h3>Marcus Johnson</h3>
+                            <div class="card-number">APEX #001 &bull; QB</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="card-stat"><div class="stat-val">1.2M</div><div class="stat-lbl">Followers</div></div>
+                            <div class="card-stat"><div class="stat-val">$2.5M</div><div class="stat-lbl">NIL Value</div></div>
+                            <div class="card-stat"><div class="stat-val">4,200</div><div class="stat-lbl">Pass Yds</div></div>
+                            <div class="card-stat"><div class="stat-val">38</div><div class="stat-lbl">Touchdowns</div></div>
+                        </div>
+                        <div class="card-bio">Two-time conference player of the year with elite arm talent and an even bigger brand. Marcus partners with Nike, Gatorade, and regional auto dealerships.</div>
+                        <div class="card-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player 2 -->
+            <div class="card-container reveal reveal-delay-2">
+                <div class="player-card">
+                    <div class="card-front">
+                        <div class="card-corner-detail"></div>
+                        <div class="card-badge">BASKETBALL</div>
+                        <div class="card-img-area" style="background: linear-gradient(135deg, #1a0800, #0d0d0d);">
+                            <i class="fas fa-basketball-ball sport-icon"></i>
+                            <div class="card-avatar">JT</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Jaylen Thompson</h3>
+                            <div class="card-position">Point Guard</div>
+                            <div class="card-school">Duke University</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-header">
+                            <h3>Jaylen Thompson</h3>
+                            <div class="card-number">APEX #002 &bull; PG</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="card-stat"><div class="stat-val">890K</div><div class="stat-lbl">Followers</div></div>
+                            <div class="card-stat"><div class="stat-val">$1.8M</div><div class="stat-lbl">NIL Value</div></div>
+                            <div class="card-stat"><div class="stat-val">18.4</div><div class="stat-lbl">PPG</div></div>
+                            <div class="card-stat"><div class="stat-val">8.2</div><div class="stat-lbl">APG</div></div>
+                        </div>
+                        <div class="card-bio">Floor general with elite court vision and a growing media presence. Jaylen's brand deals include Beats by Dre, Champs Sports, and a signature shoe campaign.</div>
+                        <div class="card-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player 3 -->
+            <div class="card-container reveal reveal-delay-3">
+                <div class="player-card">
+                    <div class="card-front">
+                        <div class="card-corner-detail"></div>
+                        <div class="card-badge">SOCCER</div>
+                        <div class="card-img-area" style="background: linear-gradient(135deg, #001a0d, #0d0d0d);">
+                            <i class="fas fa-futbol sport-icon"></i>
+                            <div class="card-avatar">SR</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Sofia Rodriguez</h3>
+                            <div class="card-position">Forward</div>
+                            <div class="card-school">Stanford University</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-header">
+                            <h3>Sofia Rodriguez</h3>
+                            <div class="card-number">APEX #003 &bull; FWD</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="card-stat"><div class="stat-val">750K</div><div class="stat-lbl">Followers</div></div>
+                            <div class="card-stat"><div class="stat-val">$1.2M</div><div class="stat-lbl">NIL Value</div></div>
+                            <div class="card-stat"><div class="stat-val">22</div><div class="stat-lbl">Goals</div></div>
+                            <div class="card-stat"><div class="stat-val">14</div><div class="stat-lbl">Assists</div></div>
+                        </div>
+                        <div class="card-bio">US Youth National Team member and collegiate goal-scoring machine. Sofia partners with Adidas, Celsius, and is a brand ambassador for women in sports initiatives.</div>
+                        <div class="card-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player 4 -->
+            <div class="card-container reveal reveal-delay-1">
+                <div class="player-card">
+                    <div class="card-front">
+                        <div class="card-corner-detail"></div>
+                        <div class="card-badge">BASEBALL</div>
+                        <div class="card-img-area" style="background: linear-gradient(135deg, #0d0015, #0d0d0d);">
+                            <i class="fas fa-baseball-ball sport-icon"></i>
+                            <div class="card-avatar">DW</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Derek Williams</h3>
+                            <div class="card-position">Pitcher</div>
+                            <div class="card-school">LSU</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-header">
+                            <h3>Derek Williams</h3>
+                            <div class="card-number">APEX #004 &bull; P</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="card-stat"><div class="stat-val">420K</div><div class="stat-lbl">Followers</div></div>
+                            <div class="card-stat"><div class="stat-val">$950K</div><div class="stat-lbl">NIL Value</div></div>
+                            <div class="card-stat"><div class="stat-val">1.89</div><div class="stat-lbl">ERA</div></div>
+                            <div class="card-stat"><div class="stat-val">142</div><div class="stat-lbl">Strikeouts</div></div>
+                        </div>
+                        <div class="card-bio">Projected first-round MLB draft pick with a 98 mph fastball. Derek's brand includes New Balance, Rawlings, and a viral pitching tutorial series with 50M+ views.</div>
+                        <div class="card-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player 5 -->
+            <div class="card-container reveal reveal-delay-2">
+                <div class="player-card">
+                    <div class="card-front">
+                        <div class="card-corner-detail"></div>
+                        <div class="card-badge">BASKETBALL</div>
+                        <div class="card-img-area" style="background: linear-gradient(135deg, #1a0800, #0d0d0d);">
+                            <i class="fas fa-basketball-ball sport-icon"></i>
+                            <div class="card-avatar">AC</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Aisha Carter</h3>
+                            <div class="card-position">Shooting Guard</div>
+                            <div class="card-school">UConn</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-header">
+                            <h3>Aisha Carter</h3>
+                            <div class="card-number">APEX #005 &bull; SG</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="card-stat"><div class="stat-val">1.1M</div><div class="stat-lbl">Followers</div></div>
+                            <div class="card-stat"><div class="stat-val">$2.1M</div><div class="stat-lbl">NIL Value</div></div>
+                            <div class="card-stat"><div class="stat-val">22.6</div><div class="stat-lbl">PPG</div></div>
+                            <div class="card-stat"><div class="stat-val">5.1</div><div class="stat-lbl">RPG</div></div>
+                        </div>
+                        <div class="card-bio">National player of the year candidate and the face of women's college basketball. Aisha has brand deals with Nike, Glossier, and a bestselling lifestyle brand collab.</div>
+                        <div class="card-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player 6 -->
+            <div class="card-container reveal reveal-delay-3">
+                <div class="player-card">
+                    <div class="card-front">
+                        <div class="card-corner-detail"></div>
+                        <div class="card-badge">FOOTBALL</div>
+                        <div class="card-img-area" style="background: linear-gradient(135deg, #1a0a00, #0d0d0d);">
+                            <i class="fas fa-football-ball sport-icon"></i>
+                            <div class="card-avatar">TC</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Tyler Chen</h3>
+                            <div class="card-position">Wide Receiver</div>
+                            <div class="card-school">USC</div>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-header">
+                            <h3>Tyler Chen</h3>
+                            <div class="card-number">APEX #006 &bull; WR</div>
+                        </div>
+                        <div class="card-stats">
+                            <div class="card-stat"><div class="stat-val">680K</div><div class="stat-lbl">Followers</div></div>
+                            <div class="card-stat"><div class="stat-val">$1.5M</div><div class="stat-lbl">NIL Value</div></div>
+                            <div class="card-stat"><div class="stat-val">1,340</div><div class="stat-lbl">Rec Yds</div></div>
+                            <div class="card-stat"><div class="stat-val">14</div><div class="stat-lbl">Touchdowns</div></div>
+                        </div>
+                        <div class="card-bio">Explosive playmaker with 4.3 speed and a magnetic personality. Tyler's brand portfolio includes Under Armour, Chipotle, and his own streetwear line "Route 1."</div>
+                        <div class="card-social">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section class="contact-section" id="contact">
+        <div style="text-align: center;">
+            <div class="section-eyebrow reveal">Get In Touch</div>
+            <h2 class="section-title reveal reveal-delay-1">Contact Us</h2>
+            <p class="section-subtitle reveal reveal-delay-2">Whether you're an athlete, a brand, or an institution — let's talk about what APEX NIL can do for you.</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info-card reveal reveal-delay-1">
+                <h3>Let's Build Something Great</h3>
+                <p>Ready to take your NIL game to the next level? Reach out and our team will respond within 24 hours.</p>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">info@apexnil.com</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">(512) 555-APEX</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-location-dot"></i>
+                    <div>
+                        <div class="contact-label">Headquarters</div>
+                        <div class="contact-value">Austin, TX</div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <div class="contact-label">Hours</div>
+                        <div class="contact-value">Mon - Fri: 9AM - 6PM CST</div>
+                    </div>
+                </div>
+                <div class="contact-socials">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="contact-form-card reveal reveal-delay-2">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>I Am A...</label>
+                        <select required>
+                            <option value="" disabled selected>Select one</option>
+                            <option>College Athlete</option>
+                            <option>Professional Athlete</option>
+                            <option>Brand / Sponsor</option>
+                            <option>University / Institution</option>
+                            <option>Agent / Representative</option>
+                            <option>Media / Press</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Tell us how we can help..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Send Message <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">APEX NIL</div>
+                <p>The premier NIL agency empowering athletes to build lasting brands and maximize their earning potential. Your name. Your brand. Your legacy.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigate</h4>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Services</a>
+                <a href="#roster">Our Roster</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Services</h4>
+                <a href="#services">NIL Deals</a>
+                <a href="#services">Brand Strategy</a>
+                <a href="#services">Content Creation</a>
+                <a href="#services">Legal & Compliance</a>
+                <a href="#services">Financial Planning</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">NIL Compliance</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 APEX NIL. All rights reserved.</span>
+            <span>Your Name. Your Brand. Your Legacy.</span>
+        </div>
+    </footer>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 3200);
+        });
+        document.body.style.overflow = 'hidden';
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+                backToTop.classList.add('visible');
+            } else {
+                navbar.classList.remove('scrolled');
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 120;
+                if (window.scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+            });
+        });
+
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinksEl = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinksEl.classList.toggle('open');
+        });
+        navLinksEl.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinksEl.classList.remove('open');
+            });
+        });
+
+        // Scroll reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Stats counter animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    const prefix = el.dataset.prefix || '';
+                    const suffix = el.dataset.suffix || '';
+                    let count = 0;
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    const timer = setInterval(() => {
+                        count += step;
+                        if (count >= target) {
+                            count = target;
+                            clearInterval(timer);
+                        }
+                        el.textContent = prefix + Math.floor(count).toLocaleString() + (suffix ? suffix : (target >= 100 ? '+' : ''));
+                    }, 16);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObserver.observe(el));
+
+        // Form submit handler
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('.btn-submit');
+            btn.textContent = 'Message Sent!';
+            btn.style.background = '#2ecc71';
+            btn.style.color = '#fff';
+            setTimeout(() => {
+                btn.innerHTML = 'Send Message <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>';
+                btn.style.background = '';
+                btn.style.color = '';
+                e.target.reset();
+            }, 3000);
+        }
+
+        // Hero video rotation — cycles through sports clips
+        const heroVideo = document.getElementById('heroVideo');
+        if (heroVideo) {
+            const sportClips = [
+                'https://assets.mixkit.co/videos/2273/2273-1080.mp4',   // Basketball slam dunk
+                'https://assets.mixkit.co/videos/42558/42558-1080.mp4', // Football team practice
+                'https://assets.mixkit.co/videos/43483/43483-1080.mp4', // Soccer one-on-one
+                'https://assets.mixkit.co/videos/44468/44468-1080.mp4'  // Basketball training
+            ];
+            let clipIndex = 0;
+            heroVideo.addEventListener('ended', () => {
+                clipIndex = (clipIndex + 1) % sportClips.length;
+                heroVideo.src = sportClips[clipIndex];
+                heroVideo.play();
+            });
+        }
+
+        // Video placeholder click
+        const videoPlaceholder = document.getElementById('videoPlaceholder');
+        if (videoPlaceholder) {
+            videoPlaceholder.addEventListener('click', () => {
+                const videoId = 'YOUR_VIDEO_ID';
+                if (videoId !== 'YOUR_VIDEO_ID') {
+                    videoPlaceholder.outerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allowfullscreen allow="autoplay"></iframe>`;
+                } else {
+                    videoPlaceholder.querySelector('p').textContent = 'Add your highlight reel video URL';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
