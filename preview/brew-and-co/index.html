@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BREW & CO. | Premium Coffee Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ====== LOADING SCREEN ====== -->
+  <div id="loader" class="loader">
+    <!-- Floating coffee bean particles -->
+    <div class="loader-particles" id="loaderParticles"></div>
+
+    <!-- Ambient glow behind cup -->
+    <div class="loader-glow"></div>
+
+    <div class="loader-content">
+      <div class="coffee-cup">
+        <!-- Portafilter above the cup -->
+        <div class="portafilter">
+          <div class="portafilter-basket"></div>
+          <div class="portafilter-handle"></div>
+          <div class="portafilter-spout-left"></div>
+          <div class="portafilter-spout-right"></div>
+        </div>
+
+        <!-- Pour streams from spouts -->
+        <div class="pour-stream pour-left">
+          <div class="stream-body"></div>
+          <div class="stream-drips">
+            <span class="drip d1"></span>
+            <span class="drip d2"></span>
+            <span class="drip d3"></span>
+          </div>
+        </div>
+        <div class="pour-stream pour-right">
+          <div class="stream-body"></div>
+          <div class="stream-drips">
+            <span class="drip d1"></span>
+            <span class="drip d2"></span>
+            <span class="drip d3"></span>
+          </div>
+        </div>
+
+        <!-- Splash particles on impact -->
+        <div class="splash-zone" id="splashZone">
+          <span class="splash-drop sp1"></span>
+          <span class="splash-drop sp2"></span>
+          <span class="splash-drop sp3"></span>
+          <span class="splash-drop sp4"></span>
+          <span class="splash-drop sp5"></span>
+          <span class="splash-drop sp6"></span>
+          <span class="splash-drop sp7"></span>
+          <span class="splash-drop sp8"></span>
+        </div>
+
+        <!-- Ripple rings on coffee surface -->
+        <div class="ripple-zone">
+          <div class="ripple r1"></div>
+          <div class="ripple r2"></div>
+          <div class="ripple r3"></div>
+        </div>
+
+        <!-- Steam (5 wisps) -->
+        <div class="steam">
+          <div class="steam-line s1"></div>
+          <div class="steam-line s2"></div>
+          <div class="steam-line s3"></div>
+          <div class="steam-line s4"></div>
+          <div class="steam-line s5"></div>
+        </div>
+
+        <!-- Cup body with 3D shading -->
+        <div class="cup-body">
+          <div class="cup-highlight"></div>
+          <div class="cup-inner-shadow"></div>
+
+          <!-- Coffee liquid -->
+          <div class="coffee-fill">
+            <div class="coffee-wave-1"></div>
+            <div class="coffee-wave-2"></div>
+            <div class="coffee-crema"></div>
+            <div class="coffee-bubbles">
+              <span class="bubble b1"></span>
+              <span class="bubble b2"></span>
+              <span class="bubble b3"></span>
+              <span class="bubble b4"></span>
+              <span class="bubble b5"></span>
+              <span class="bubble b6"></span>
+              <span class="bubble b7"></span>
+            </div>
+          </div>
+
+          <!-- Latte art (appears after fill) -->
+          <div class="latte-art">
+            <svg viewBox="0 0 100 100" class="latte-art-svg">
+              <ellipse cx="50" cy="50" rx="38" ry="38" fill="none" stroke="rgba(245,240,232,0.5)" stroke-width="1.5" class="art-ring"/>
+              <path d="M50 20 Q35 35 50 50 Q65 35 50 20Z" fill="rgba(245,240,232,0.35)" class="art-leaf-1"/>
+              <path d="M50 80 Q35 65 50 50 Q65 65 50 80Z" fill="rgba(245,240,232,0.35)" class="art-leaf-2"/>
+              <path d="M20 50 Q35 35 50 50 Q35 65 20 50Z" fill="rgba(245,240,232,0.3)" class="art-leaf-3"/>
+              <path d="M80 50 Q65 35 50 50 Q65 65 80 50Z" fill="rgba(245,240,232,0.3)" class="art-leaf-4"/>
+              <circle cx="50" cy="50" r="6" fill="rgba(245,240,232,0.45)" class="art-center"/>
+              <line x1="50" y1="20" x2="50" y2="80" stroke="rgba(245,240,232,0.2)" stroke-width="1" class="art-stem"/>
+            </svg>
+          </div>
+
+          <!-- Logo on cup exterior -->
+          <div class="cup-logo">
+            <span class="logo-icon">&#9749;</span>
+            <span class="logo-text">BREW</span>
+            <span class="logo-ampersand">&</span>
+            <span class="logo-text2">CO.</span>
+          </div>
+        </div>
+
+        <!-- Handle with 3D depth -->
+        <div class="cup-handle">
+          <div class="cup-handle-inner"></div>
+        </div>
+
+        <!-- Saucer with shadow -->
+        <div class="cup-saucer">
+          <div class="saucer-top"></div>
+          <div class="saucer-shadow"></div>
+        </div>
+
+        <!-- Drip on cup side -->
+        <div class="cup-drip"></div>
+      </div>
+
+      <!-- Text & progress -->
+      <div class="loader-text-block">
+        <p class="loader-tagline">Brewing your experience</p>
+        <div class="loader-dots"><span>.</span><span>.</span><span>.</span></div>
+      </div>
+      <div class="loader-progress">
+        <div class="loader-progress-bar"></div>
+        <span class="loader-percent" id="loaderPercent">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== NAVIGATION ====== -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-icon">&#9749;</span>
+        <span>BREW <em>&</em> CO.</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" class="nav-cta" id="openPortalBtn">Staff Portal</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ====== HERO SECTION ====== -->
+  <section id="hero" class="hero">
+    <div class="hero-video-wrap">
+      <video autoplay muted loop playsinline preload="auto" class="hero-video" poster="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920&h=1080&fit=crop">
+        <source src="https://assets.mixkit.co/videos/41865/41865-360.mp4" type="video/mp4">
+        <source src="https://assets.mixkit.co/videos/41859/41859-360.mp4" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-pre animate-in">EST. 2024 &mdash; SPECIALTY COFFEE</p>
+      <h1 class="hero-title animate-in">
+        Every Cup<br>
+        <span class="hero-accent">Tells a Story</span>
+      </h1>
+      <p class="hero-sub animate-in">Hand-roasted, single-origin beans crafted into unforgettable moments. Your neighborhood deserves better coffee.</p>
+      <div class="hero-actions animate-in">
+        <a href="#menu" class="btn btn-primary">Explore Menu</a>
+        <a href="#about" class="btn btn-outline">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ====== MARQUEE BANNER ====== -->
+  <div class="marquee-banner">
+    <div class="marquee-track">
+      <span>SINGLE ORIGIN &bull; HAND ROASTED &bull; ETHICALLY SOURCED &bull; SPECIALTY GRADE &bull; SMALL BATCH &bull; CRAFT BREWED &bull; LOCALLY LOVED &bull; SINGLE ORIGIN &bull; HAND ROASTED &bull; ETHICALLY SOURCED &bull; SPECIALTY GRADE &bull; SMALL BATCH &bull; CRAFT BREWED &bull; LOCALLY LOVED &bull;</span>
+    </div>
+  </div>
+
+  <!-- ====== ABOUT SECTION ====== -->
+  <section id="about" class="about section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-images">
+          <div class="about-img-main">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=800&fit=crop" alt="Barista pouring latte art" loading="lazy">
+          </div>
+          <div class="about-img-accent">
+            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=400&h=500&fit=crop" alt="Coffee beans close up" loading="lazy">
+          </div>
+          <div class="about-badge">
+            <span class="badge-number">12+</span>
+            <span class="badge-text">Years of Craft</span>
+          </div>
+        </div>
+        <div class="about-text">
+          <p class="section-label">Our Story</p>
+          <h2 class="section-title">Born From a Passion<br>for <span class="text-accent">Perfect Coffee</span></h2>
+          <p class="about-desc">We believe every neighborhood deserves a coffee shop that goes beyond the ordinary. From sourcing the finest single-origin beans from sustainable farms to perfecting our roast profiles in-house, every detail is intentional.</p>
+          <p class="about-desc">Our baristas don't just make coffee &mdash; they craft experiences. Each cup is a testament to the art and science of specialty coffee, served in a space designed for connection and community.</p>
+          <div class="about-stats">
+            <div class="stat">
+              <span class="stat-number" data-target="50">0</span><span class="stat-suffix">+</span>
+              <span class="stat-label">Bean Varieties</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="15000">0</span><span class="stat-suffix">+</span>
+              <span class="stat-label">Cups Daily</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
+              <span class="stat-label">Customer Love</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FEATURES SECTION ====== -->
+  <section class="features section">
+    <div class="container">
+      <div class="features-header">
+        <p class="section-label">Why Choose Us</p>
+        <h2 class="section-title">The <span class="text-accent">Brew & Co.</span> Difference</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><circle cx="32" cy="32" r="12"/><path d="M32 8v6M32 50v6M8 32h6M50 32h6M14.5 14.5l4.2 4.2M45.3 45.3l4.2 4.2M14.5 49.5l4.2-4.2M45.3 18.7l4.2-4.2"/></svg>
+          </div>
+          <h3>Farm to Cup</h3>
+          <p>Direct relationships with farmers in Ethiopia, Colombia, and Guatemala ensure peak freshness and fair wages.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 48c-6 0-12-6-12-14s8-20 24-26c16 6 24 18 24 26s-6 14-12 14"/><path d="M32 8v40M22 20c3 2 7 3 10 3s7-1 10-3"/></svg>
+          </div>
+          <h3>Micro-Roasted</h3>
+          <p>Small-batch roasting in-house means every bean hits its perfect flavor profile. Never stale, always spectacular.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="12" y="20" width="40" height="32" rx="4"/><path d="M20 20V14a12 12 0 0124 0v6M32 36v8M32 36a4 4 0 100-8 4 4 0 000 8z"/></svg>
+          </div>
+          <h3>Staff Management</h3>
+          <p>Built-in tools for scheduling, team chat, and operations so your shop runs as smooth as your espresso.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 56l8-24 16 16-24 8zM20 32L40 12l12 12-20 20M44 16l4-4M48 12l4-4"/></svg>
+          </div>
+          <h3>Brand Identity</h3>
+          <p>A premium digital presence that matches the quality of your brew. Your brand, elevated.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== MENU SECTION ====== -->
+  <section id="menu" class="menu section">
+    <div class="container">
+      <div class="menu-header">
+        <p class="section-label">Our Menu</p>
+        <h2 class="section-title">Crafted With<br><span class="text-accent">Intention</span></h2>
+      </div>
+      <div class="menu-tabs">
+        <button class="menu-tab active" data-tab="espresso">Espresso</button>
+        <button class="menu-tab" data-tab="brewed">Brewed</button>
+        <button class="menu-tab" data-tab="specialty">Specialty</button>
+        <button class="menu-tab" data-tab="pastries">Pastries</button>
+      </div>
+      <div class="menu-grid" id="menuGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PARALLAX CTA ====== -->
+  <section class="parallax-cta">
+    <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop')"></div>
+    <div class="parallax-overlay"></div>
+    <div class="parallax-content">
+      <h2>Life's Too Short for<br><span>Bad Coffee</span></h2>
+      <p>Join thousands of coffee lovers who've upgraded their daily ritual.</p>
+      <a href="#shop" class="btn btn-primary btn-lg">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- ====== SHOP SECTION ====== -->
+  <section id="shop" class="shop section">
+    <div class="container">
+      <div class="shop-header">
+        <p class="section-label">Our Shop</p>
+        <h2 class="section-title">Take the Experience<br><span class="text-accent">Home</span></h2>
+        <p class="shop-subtitle">Premium beans, curated gear, and exclusive merch delivered to your door.</p>
+      </div>
+      <div class="shop-filters">
+        <button class="shop-filter active" data-filter="all">All</button>
+        <button class="shop-filter" data-filter="beans">Beans</button>
+        <button class="shop-filter" data-filter="gear">Gear</button>
+        <button class="shop-filter" data-filter="merch">Merch</button>
+      </div>
+      <div class="shop-grid" id="shopGrid">
+        <!-- Populated by JS -->
+      </div>
+      <div class="shop-cart" id="shopCart">
+        <div class="cart-icon" id="cartIcon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TESTIMONIALS SECTION ====== -->
+  <section id="testimonials" class="testimonials section">
+    <div class="container">
+      <div class="testimonials-header">
+        <p class="section-label">Testimonials</p>
+        <h2 class="section-title">What People<br><span class="text-accent">Are Saying</span></h2>
+      </div>
+      <div class="testimonials-slider" id="testimonialsSlider">
+        <div class="testimonial-card active">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"This isn't just coffee &mdash; it's an experience. The moment I walked in, I knew this was something different. The aroma, the atmosphere, the attention to detail. Absolutely world-class."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Customer">
+            <div>
+              <strong>Marcus Chen</strong>
+              <span>Coffee Enthusiast</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"As a shop owner, the staff portal changed everything. Scheduling, communication, announcements &mdash; it's all seamless. My team has never been more coordinated. This platform is a game changer."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="Customer">
+            <div>
+              <strong>Sarah Mitchell</strong>
+              <span>Cafe Owner, Portland</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"I've been a barista for 8 years. The training resources and scheduling tools here are the best I've ever used. It makes my job easier so I can focus on what I love &mdash; making great coffee."</p>
+          <div class="testimonial-author">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" alt="Customer">
+            <div>
+              <strong>James Rodriguez</strong>
+              <span>Head Barista</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-dots" id="testimonialDots"></div>
+    </div>
+  </section>
+
+  <!-- ====== INSTAGRAM / GALLERY SECTION ====== -->
+  <section class="gallery section">
+    <div class="gallery-header">
+      <p class="section-label">@brewandco</p>
+      <h2 class="section-title">Follow the <span class="text-accent">Journey</span></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop" alt="Latte art" loading="lazy"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400&h=400&fit=crop" alt="Coffee beans" loading="lazy"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=400&fit=crop" alt="Coffee shop" loading="lazy"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=400&fit=crop" alt="Espresso" loading="lazy"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=400&h=400&fit=crop" alt="Pour over" loading="lazy"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400&h=400&fit=crop" alt="Coffee cup" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT SECTION ====== -->
+  <section id="contact" class="contact section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p class="section-label">Get in Touch</p>
+          <h2 class="section-title">Let's Brew<br><span class="text-accent">Something Great</span></h2>
+          <p>Ready to elevate your coffee shop's digital presence? Whether you're opening a new location or upgrading an existing one, we'd love to hear from you.</p>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>123 Roast Avenue, Coffee District</span>
+            </div>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              <span>(555) 123-BREW</span>
+            </div>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>hello@brewandco.com</span>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <input type="text" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <select>
+              <option value="">I'm interested in...</option>
+              <option>New Coffee Shop Website</option>
+              <option>Staff Portal Setup</option>
+              <option>Online Shop Integration</option>
+              <option>Full Platform Package</option>
+              <option>Custom Solution</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Tell us about your vision..." rows="4"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== STAFF PORTAL OVERLAY ====== -->
+  <div id="staff-portal" class="staff-portal-overlay">
+    <div class="portal-overlay-inner">
+      <div class="portal-top-header">
+        <div class="portal-brand">
+          <span class="portal-brand-icon">&#9749;</span>
+          <span>BREW & CO. <em>Staff Portal</em></span>
+        </div>
+        <button class="portal-close-btn" id="closePortalBtn">
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <!-- Portal Login -->
+      <div class="portal-login" id="portalLogin">
+        <div class="login-card">
+          <div class="login-logo">&#9749; BREW & CO.</div>
+          <h3>Staff Login</h3>
+          <p>Use demo credentials to explore the portal</p>
+          <form id="loginForm">
+            <div class="form-group">
+              <label>Username</label>
+              <input type="text" id="loginUser" value="owner" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="loginPass" value="demo123" placeholder="Password">
+            </div>
+            <div class="login-roles">
+              <button type="button" class="role-btn active" data-role="owner">Owner</button>
+              <button type="button" class="role-btn" data-role="manager">Manager</button>
+              <button type="button" class="role-btn" data-role="barista">Barista</button>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Portal Dashboard -->
+      <div class="portal-dashboard hidden" id="portalDashboard">
+        <div class="portal-topbar">
+          <div class="portal-user">
+            <div class="portal-avatar" id="portalAvatar">O</div>
+            <div>
+              <strong id="portalName">Owner</strong>
+              <span id="portalRole">Shop Owner</span>
+            </div>
+          </div>
+          <button class="btn btn-outline btn-sm" id="portalLogout">Sign Out</button>
+        </div>
+
+        <div class="portal-tabs">
+          <button class="portal-tab active" data-portal="dashboard">Dashboard</button>
+          <button class="portal-tab" data-portal="schedule">Schedule</button>
+          <button class="portal-tab" data-portal="chat">Team Chat</button>
+          <button class="portal-tab" data-portal="announcements">Announcements</button>
+        </div>
+
+        <!-- Dashboard Panel -->
+        <div class="portal-panel active" id="panel-dashboard">
+          <div class="dashboard-grid">
+            <div class="dash-card">
+              <div class="dash-card-icon" style="background:#2d5016">&#9749;</div>
+              <div class="dash-card-info">
+                <span class="dash-card-value">1,247</span>
+                <span class="dash-card-label">Cups Today</span>
+              </div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-icon" style="background:#8B6914">$</div>
+              <div class="dash-card-info">
+                <span class="dash-card-value">$4,892</span>
+                <span class="dash-card-label">Today's Revenue</span>
+              </div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-icon" style="background:#5B2C6F">&#128101;</div>
+              <div class="dash-card-info">
+                <span class="dash-card-value">8/12</span>
+                <span class="dash-card-label">Staff On Shift</span>
+              </div>
+            </div>
+            <div class="dash-card">
+              <div class="dash-card-icon" style="background:#922B21">&#9733;</div>
+              <div class="dash-card-info">
+                <span class="dash-card-value">4.9</span>
+                <span class="dash-card-label">Avg Rating</span>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-charts">
+            <div class="chart-card">
+              <h4>Weekly Sales</h4>
+              <div class="bar-chart">
+                <div class="bar-group"><div class="bar" style="height:60%"></div><span>Mon</span></div>
+                <div class="bar-group"><div class="bar" style="height:75%"></div><span>Tue</span></div>
+                <div class="bar-group"><div class="bar" style="height:85%"></div><span>Wed</span></div>
+                <div class="bar-group"><div class="bar" style="height:70%"></div><span>Thu</span></div>
+                <div class="bar-group"><div class="bar" style="height:95%"></div><span>Fri</span></div>
+                <div class="bar-group"><div class="bar active" style="height:100%"></div><span>Sat</span></div>
+                <div class="bar-group"><div class="bar" style="height:80%"></div><span>Sun</span></div>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h4>Top Sellers Today</h4>
+              <div class="top-sellers">
+                <div class="top-seller-row"><span class="top-rank">1</span><span class="top-name">Oat Milk Latte</span><span class="top-count">189</span></div>
+                <div class="top-seller-row"><span class="top-rank">2</span><span class="top-name">Americano</span><span class="top-count">156</span></div>
+                <div class="top-seller-row"><span class="top-rank">3</span><span class="top-name">Cold Brew</span><span class="top-count">134</span></div>
+                <div class="top-seller-row"><span class="top-rank">4</span><span class="top-name">Cappuccino</span><span class="top-count">112</span></div>
+                <div class="top-seller-row"><span class="top-rank">5</span><span class="top-name">Matcha Latte</span><span class="top-count">98</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule Panel -->
+        <div class="portal-panel" id="panel-schedule">
+          <div class="schedule-controls">
+            <button class="btn btn-outline btn-sm" id="schedPrev">&larr; Prev Week</button>
+            <h3 id="schedWeek">This Week &mdash; March 2-8, 2026</h3>
+            <button class="btn btn-outline btn-sm" id="schedNext">Next Week &rarr;</button>
+          </div>
+          <div class="schedule-grid" id="scheduleGrid">
+            <!-- Populated by JS -->
+          </div>
+          <button class="btn btn-primary" id="addShiftBtn">+ Add Shift</button>
+
+          <!-- Add Shift Modal -->
+          <div class="modal hidden" id="shiftModal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Add Shift</h3>
+                <button class="modal-close" id="shiftModalClose">&times;</button>
+              </div>
+              <form id="shiftForm">
+                <div class="form-group">
+                  <label>Staff Member</label>
+                  <select id="shiftStaff">
+                    <option>Emma Wilson</option>
+                    <option>Jake Thompson</option>
+                    <option>Maria Garcia</option>
+                    <option>Alex Kim</option>
+                    <option>Sofia Reyes</option>
+                    <option>Tyler Brown</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Day</label>
+                    <select id="shiftDay">
+                      <option>Monday</option>
+                      <option>Tuesday</option>
+                      <option>Wednesday</option>
+                      <option>Thursday</option>
+                      <option>Friday</option>
+                      <option>Saturday</option>
+                      <option>Sunday</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Start</label>
+                    <input type="time" id="shiftStart" value="06:00">
+                  </div>
+                  <div class="form-group">
+                    <label>End</label>
+                    <input type="time" id="shiftEnd" value="14:00">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Role</label>
+                  <select id="shiftRole">
+                    <option>Barista</option>
+                    <option>Cashier</option>
+                    <option>Kitchen</option>
+                    <option>Floor Manager</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Add Shift</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Panel -->
+        <div class="portal-panel" id="panel-chat">
+          <div class="chat-container">
+            <div class="chat-sidebar">
+              <div class="chat-channels">
+                <h4>Channels</h4>
+                <button class="chat-channel active" data-channel="general"># general</button>
+                <button class="chat-channel" data-channel="baristas"># baristas</button>
+                <button class="chat-channel" data-channel="managers"># managers</button>
+                <button class="chat-channel" data-channel="announcements"># announcements</button>
+              </div>
+              <div class="chat-dms">
+                <h4>Direct Messages</h4>
+                <button class="chat-dm" data-dm="emma"><span class="online-dot"></span> Emma Wilson</button>
+                <button class="chat-dm" data-dm="jake"><span class="online-dot"></span> Jake Thompson</button>
+                <button class="chat-dm" data-dm="maria"><span class="online-dot offline"></span> Maria Garcia</button>
+              </div>
+            </div>
+            <div class="chat-main">
+              <div class="chat-header">
+                <h4># general</h4>
+                <span>12 members</span>
+              </div>
+              <div class="chat-messages" id="chatMessages">
+                <!-- Populated by JS -->
+              </div>
+              <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
+                <button class="chat-send" id="chatSend">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Announcements Panel -->
+        <div class="portal-panel" id="panel-announcements">
+          <div class="announcements-list" id="announcementsList">
+            <!-- Populated by JS -->
+          </div>
+          <div class="announcement-compose">
+            <h4>Post Announcement</h4>
+            <div class="form-group">
+              <input type="text" id="annTitle" placeholder="Announcement title...">
+            </div>
+            <div class="form-group">
+              <textarea id="annBody" rows="3" placeholder="Write your announcement..."></textarea>
+            </div>
+            <div class="form-group">
+              <select id="annPriority">
+                <option value="normal">Normal</option>
+                <option value="important">Important</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="postAnnouncement">Post Announcement</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">&#9749; BREW & CO.</div>
+          <p>Elevating the coffee experience through craft, community, and technology.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">&#9679;</a>
+            <a href="#" aria-label="Twitter">&#9679;</a>
+            <a href="#" aria-label="Facebook">&#9679;</a>
+            <a href="#" aria-label="TikTok">&#9679;</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="#about">Our Story</a>
+          <a href="#menu">Menu</a>
+          <a href="#shop">Shop</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-links">
+          <h4>Platform</h4>
+          <a href="#" class="open-portal-link">Staff Portal</a>
+          <a href="#" class="open-portal-link">Scheduling</a>
+          <a href="#" class="open-portal-link">Team Chat</a>
+          <a href="#" class="open-portal-link">Announcements</a>
+        </div>
+        <div class="footer-links">
+          <h4>Hours</h4>
+          <p>Mon - Fri: 6am - 8pm</p>
+          <p>Saturday: 7am - 9pm</p>
+          <p>Sunday: 7am - 6pm</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Brew & Co. All rights reserved. This is a demo pitch site.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
