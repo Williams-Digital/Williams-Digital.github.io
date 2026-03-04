@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Son of a Butcher | Birmingham's Premier Butcher, Cheese & Seafood Shop</title>
+  <meta name="description" content="Birmingham's full-service artisan butcher, seafood, and cheese shop in Pepper Place. Dry-aged beef, A5 Wagyu, 80+ artisan cheeses, fresh seafood, and legendary sandwiches.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* ========== CSS RESET & VARIABLES ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blood: #8B1A1A;
+      --blood-dark: #5C1010;
+      --cream: #F5F0E8;
+      --cream-dark: #E8DFD0;
+      --charcoal: #1A1A1A;
+      --warm-gray: #3D3530;
+      --gold: #C9A54E;
+      --gold-light: #D4B76A;
+      --white: #FEFCF9;
+      --marble: #F8F4EE;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--charcoal);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ========== LOADING SCREEN ========== */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--charcoal);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-logo {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .loader-logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 5vw, 48px);
+      color: var(--cream);
+      text-align: center;
+      line-height: 1.2;
+      opacity: 0;
+      animation: logoFadeIn 1s ease forwards 0.3s;
+    }
+
+    .loader-logo-text .the {
+      display: block;
+      font-size: 0.5em;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    .loader-logo-text .son {
+      display: block;
+      font-size: 1.4em;
+      color: var(--cream);
+    }
+
+    .loader-logo-text .ofa {
+      display: block;
+      font-size: 0.45em;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    .loader-logo-text .butcher {
+      display: block;
+      font-size: 1.4em;
+      color: var(--blood);
+      -webkit-text-stroke: 1px var(--cream);
+      text-shadow: 0 0 40px rgba(139, 26, 26, 0.5);
+    }
+
+    @keyframes logoFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Meat parade animation */
+    .meat-parade {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      overflow: hidden;
+      width: 100%;
+      max-width: 500px;
+      justify-content: center;
+      height: 80px;
+      position: relative;
+    }
+
+    .meat-icon {
+      font-size: 40px;
+      opacity: 0;
+      animation: meatBounce 0.6s ease forwards;
+      filter: grayscale(0);
+    }
+
+    .meat-icon:nth-child(1) { animation-delay: 0.8s; }
+    .meat-icon:nth-child(2) { animation-delay: 1.1s; }
+    .meat-icon:nth-child(3) { animation-delay: 1.4s; }
+    .meat-icon:nth-child(4) { animation-delay: 1.7s; }
+    .meat-icon:nth-child(5) { animation-delay: 2.0s; }
+    .meat-icon:nth-child(6) { animation-delay: 2.3s; }
+    .meat-icon:nth-child(7) { animation-delay: 2.6s; }
+
+    @keyframes meatBounce {
+      0% { opacity: 0; transform: translateY(30px) scale(0.5); }
+      60% { opacity: 1; transform: translateY(-10px) scale(1.1); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .loader-tagline {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 30px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 2.8s;
+    }
+
+    /* Loading bar */
+    .loader-bar-track {
+      width: 200px;
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      margin-top: 25px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards 1s;
+    }
+
+    .loader-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blood), var(--gold));
+      border-radius: 2px;
+      animation: loadBar 2.5s ease forwards 1s;
+    }
+
+    @keyframes loadBar {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease;
+      background: transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 14px 40px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+    }
+
+    .nav-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--cream);
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .nav-brand:hover { opacity: 0.8; }
+
+    .nav-brand .brand-accent { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--blood) !important;
+      color: var(--cream) !important;
+      padding: 10px 24px !important;
+      border-radius: 4px;
+      font-weight: 500 !important;
+      transition: background 0.3s !important;
+    }
+
+    .nav-cta:hover { background: var(--blood-dark) !important; }
+    .nav-cta::after { display: none !important; }
+
+    /* Mobile nav */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 5px;
+    }
+
+    .nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--cream);
+      transition: all 0.3s;
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--charcoal);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(26,26,26,0.92) 0%, rgba(92,16,16,0.7) 50%, rgba(26,26,26,0.85) 100%),
+        radial-gradient(ellipse at 30% 50%, rgba(139,26,26,0.3) 0%, transparent 70%);
+      z-index: 1;
+    }
+
+    /* Animated grain texture */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 0 20px;
+      max-width: 900px;
+    }
+
+    .hero-subtitle-top {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: heroFade 0.8s ease forwards 3.8s;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(48px, 8vw, 110px);
+      color: var(--cream);
+      line-height: 0.95;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: heroFade 0.8s ease forwards 4s;
+    }
+
+    .hero-title .accent {
+      color: var(--blood);
+      -webkit-text-stroke: 1.5px var(--cream);
+      display: block;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 24px auto;
+      opacity: 0;
+      animation: heroFade 0.8s ease forwards 4.2s;
+    }
+
+    .hero-description {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.7);
+      max-width: 550px;
+      margin: 0 auto 36px;
+      font-weight: 300;
+      opacity: 0;
+      animation: heroFade 0.8s ease forwards 4.3s;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: heroFade 0.8s ease forwards 4.5s;
+    }
+
+    @keyframes heroFade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--blood);
+      color: var(--cream);
+    }
+
+    .btn-primary:hover {
+      background: var(--blood-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(139, 26, 26, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid rgba(245, 240, 232, 0.3);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(245, 240, 232, 0.4);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      opacity: 0;
+      animation: heroFade 0.8s ease forwards 4.8s;
+    }
+
+    .hero-scroll .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* ========== SECTION STYLES ========== */
+    section {
+      padding: 100px 40px;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      color: var(--charcoal);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .section-title.light { color: var(--cream); }
+
+    .section-desc {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--warm-gray);
+      max-width: 580px;
+      font-weight: 300;
+    }
+
+    .section-desc.light { color: rgba(245, 240, 232, 0.7); }
+
+    /* ========== ABOUT SECTION ========== */
+    .about {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-visual {
+      position: relative;
+      height: 500px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .about-visual-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--charcoal), var(--blood-dark));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .about-icon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .about-icon-item {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .about-icon-item:hover {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .about-est {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--gold);
+      text-align: center;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      color: var(--blood);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--warm-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    .about-content .section-desc {
+      margin-bottom: 24px;
+    }
+
+    .about-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .about-features li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--warm-gray);
+    }
+
+    .about-features li .check {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(139, 26, 26, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* ========== PRODUCTS SECTION ========== */
+    .products {
+      background: var(--charcoal);
+      padding: 100px 40px;
+    }
+
+    .products-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 30px;
+      transition: all 0.4s ease;
+      cursor: default;
+    }
+
+    .product-card:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(201, 165, 78, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .product-emoji {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .product-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .product-subtitle {
+      font-size: 12px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+
+    .product-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(245, 240, 232, 0.55);
+      font-weight: 300;
+    }
+
+    .product-items {
+      list-style: none;
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .product-items li {
+      font-size: 11px;
+      padding: 5px 12px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      color: rgba(245,240,232,0.6);
+      letter-spacing: 0.05em;
+    }
+
+    /* ========== SANDWICHES / SPECIALS ========== */
+    .sandwiches {
+      background: var(--marble);
+      padding: 100px 40px;
+    }
+
+    .sandwiches-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 50px;
+    }
+
+    .sandwich-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .sandwich-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sandwich-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+
+    .sandwich-day {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blood);
+      margin-bottom: 8px;
+    }
+
+    .sandwich-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .sandwich-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--warm-gray);
+      font-weight: 300;
+    }
+
+    /* ========== WEEKLY SPECIALS ========== */
+    .specials {
+      background: var(--blood);
+      padding: 60px 40px;
+    }
+
+    .specials-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .specials-text {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .specials-text .section-label { color: rgba(245,240,232,0.6); }
+    .specials-text .section-title { color: var(--cream); font-size: 28px; }
+
+    .specials-cards {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .special-chip {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 20px 28px;
+      text-align: center;
+      min-width: 180px;
+      transition: all 0.3s;
+    }
+
+    .special-chip:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+
+    .special-chip-day {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+    }
+
+    .special-chip-item {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--cream);
+    }
+
+    .special-chip-price {
+      font-size: 14px;
+      color: rgba(245,240,232,0.6);
+      margin-top: 4px;
+    }
+
+    /* ========== EXPERIENCE SECTION ========== */
+    .experience {
+      background: var(--white);
+      padding: 100px 40px;
+    }
+
+    .experience-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .experience-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .exp-card {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .exp-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .exp-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: var(--charcoal);
+      margin-bottom: 10px;
+    }
+
+    .exp-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--warm-gray);
+      font-weight: 300;
+    }
+
+    /* ========== CONTACT / VISIT SECTION ========== */
+    .visit {
+      background: var(--charcoal);
+      padding: 100px 40px;
+    }
+
+    .visit-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .visit-info h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--cream);
+      margin-bottom: 16px;
+      margin-top: 32px;
+    }
+
+    .visit-info h3:first-child { margin-top: 0; }
+
+    .visit-detail {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(245, 240, 232, 0.6);
+      font-weight: 300;
+    }
+
+    .visit-detail a {
+      color: var(--gold);
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .visit-detail a:hover { opacity: 0.7; }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .hours-table tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+    .hours-table td {
+      padding: 10px 0;
+      font-size: 14px;
+      color: rgba(245,240,232,0.6);
+      font-weight: 300;
+    }
+
+    .hours-table td:first-child {
+      color: var(--cream);
+      font-weight: 400;
+      width: 140px;
+    }
+
+    .hours-table .closed { color: var(--blood); }
+
+    .visit-map {
+      border-radius: 12px;
+      overflow: hidden;
+      height: 100%;
+      min-height: 450px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .visit-map-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+
+    .visit-map-address {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .visit-map-city {
+      font-size: 14px;
+      color: rgba(245,240,232,0.5);
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+
+    .visit-map-neighborhood {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(201,165,78,0.1);
+      border: 1px solid rgba(201,165,78,0.2);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: #111;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .footer-social a {
+      color: rgba(245,240,232,0.4);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+
+    .footer-social a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(245,240,232,0.25);
+    }
+
+    /* ========== ANIMATIONS ON SCROLL ========== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      section { padding: 70px 24px; }
+
+      .about {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-visual { height: 300px; }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .visit-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .specials-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .specials-cards {
+        justify-content: center;
+      }
+
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(26,26,26,0.98);
+        padding: 20px 40px 30px;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 60px 16px; }
+
+      .hero { min-height: 600px; }
+
+      .hero-btns { flex-direction: column; align-items: center; }
+
+      .about-stats { gap: 24px; }
+
+      .sandwich-grid { grid-template-columns: 1fr; }
+
+      nav { padding: 16px 20px; }
+      nav.scrolled { padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== LOADING SCREEN ========== -->
+  <div id="loader">
+    <div class="loader-logo">
+      <div class="loader-logo-text">
+        <span class="the">The</span>
+        <span class="son">Son</span>
+        <span class="ofa">of a</span>
+        <span class="butcher">Butcher</span>
+      </div>
+    </div>
+    <div class="meat-parade">
+      <span class="meat-icon">🥩</span>
+      <span class="meat-icon">🧀</span>
+      <span class="meat-icon">🥓</span>
+      <span class="meat-icon">🍖</span>
+      <span class="meat-icon">🐟</span>
+      <span class="meat-icon">🧈</span>
+      <span class="meat-icon">🔪</span>
+    </div>
+    <div class="loader-bar-track">
+      <div class="loader-bar-fill"></div>
+    </div>
+    <p class="loader-tagline">Butcher &bull; Cheese &bull; Seafood</p>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="navbar">
+    <a href="#" class="nav-brand">S<span class="brand-accent">O</span>B</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#sandwiches">Sandwiches</a></li>
+      <li><a href="#visit">Visit</a></li>
+      <li><a href="https://order.toasttab.com/online/thesonofabutcher" target="_blank" class="nav-cta">Order Online</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-subtitle-top">Birmingham's Pepper Place</p>
+      <h1 class="hero-title">
+        The Son<br><span class="accent">of a Butcher</span>
+      </h1>
+      <div class="hero-divider"></div>
+      <p class="hero-description">
+        A full-service artisan butcher, cheese, and seafood shop born out of over 30 years of combined experience. Dry-aged beef, 80+ artisan cheeses, fresh seafood, and legendary sandwiches.
+      </p>
+      <div class="hero-btns">
+        <a href="https://order.toasttab.com/online/thesonofabutcher" target="_blank" class="btn btn-primary">Order Online</a>
+        <a href="#products" class="btn btn-outline">Explore Our Selection</a>
+      </div>
+    </div>
+    <a href="#about" class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </a>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" style="padding: 100px 40px;">
+    <div class="about reveal">
+      <div class="about-visual">
+        <div class="about-visual-bg">
+          <div class="about-icon-grid">
+            <div class="about-icon-item">🥩</div>
+            <div class="about-icon-item">🧀</div>
+            <div class="about-icon-item">🐟</div>
+            <div class="about-icon-item">🍷</div>
+            <div class="about-icon-item">🔪</div>
+            <div class="about-icon-item">🥖</div>
+            <div class="about-icon-item">🫒</div>
+            <div class="about-icon-item">🍖</div>
+            <div class="about-icon-item">🧈</div>
+          </div>
+          <p class="about-est">Est. 2021 &bull; Pepper Place, Birmingham</p>
+        </div>
+      </div>
+      <div class="about-content">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Born Out of<br>Passion for Craft</h2>
+        <p class="section-desc">
+          Born out of pandemic necessity and a lifelong love of quality food, The Son of a Butcher is the retail arm of Evans Meats &mdash; a Birmingham wholesaler that supplies many of the best restaurants in Alabama and nearby states.
+        </p>
+        <p class="section-desc" style="margin-top: 12px;">
+          We work with smaller producers that allow more access into the inner workings of their operations, ensuring every cut, wheel, and fillet meets our exacting standards.
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-number">80+</div>
+            <div class="stat-label">Artisan Cheeses</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">30+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">4.7</div>
+            <div class="stat-label">Google Rating</div>
+          </div>
+        </div>
+        <ul class="about-features">
+          <li><span class="check">&#10003;</span> In-house custom dry-aging tank</li>
+          <li><span class="check">&#10003;</span> Cut-to-order cheese counter</li>
+          <li><span class="check">&#10003;</span> Fresh daily seafood selection</li>
+          <li><span class="check">&#10003;</span> House-made sandwiches 3 days a week</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRODUCTS ========== -->
+  <section id="products" class="products">
+    <div class="products-header reveal">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title light">The Finest Selection<br>in Birmingham</h2>
+      <p class="section-desc light" style="margin: 0 auto;">
+        From A5 Wagyu to artisan Brillat-Savarin, every item in our shop is selected with care and expertise.
+      </p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <span class="product-emoji">🥩</span>
+        <h3 class="product-name">Premium Meats</h3>
+        <p class="product-subtitle">Dry-Aged &bull; Wagyu &bull; Heritage</p>
+        <p class="product-desc">
+          USDA Prime and A5 Wagyu beef, dry-aged 21&ndash;30 days in our custom-built tank. From Denver steaks to bone-in ribeyes, each cut is hand-selected for quality.
+        </p>
+        <ul class="product-items">
+          <li>A5 Wagyu</li>
+          <li>Dry-Aged Steaks</li>
+          <li>Denver Steak</li>
+          <li>Prime Rib</li>
+          <li>Hanger Steak</li>
+          <li>Goose Bacon</li>
+        </ul>
+      </div>
+      <div class="product-card reveal">
+        <span class="product-emoji">🧀</span>
+        <h3 class="product-name">Artisan Cheese</h3>
+        <p class="product-subtitle">80+ Varieties &bull; Cut to Order</p>
+        <p class="product-desc">
+          Our curated cheese counter features over 80 choices from small artisan producers worldwide. From creamy Brillat-Savarin to aged cheddars, all cut fresh to order.
+        </p>
+        <ul class="product-items">
+          <li>Brillat-Savarin</li>
+          <li>Parmigiano</li>
+          <li>Fontina</li>
+          <li>Provolone</li>
+          <li>Artisan Cheddars</li>
+          <li>Seasonal Picks</li>
+        </ul>
+      </div>
+      <div class="product-card reveal">
+        <span class="product-emoji">🐟</span>
+        <h3 class="product-name">Fresh Seafood</h3>
+        <p class="product-subtitle">Market Fresh &bull; Sustainably Sourced</p>
+        <p class="product-desc">
+          From Scottish Salmon to the finest caviar, our fishmongers curate a rotating selection of the freshest seafood available.
+        </p>
+        <ul class="product-items">
+          <li>Scottish Salmon</li>
+          <li>Caviar</li>
+          <li>Fresh Fish Daily</li>
+          <li>Shellfish</li>
+        </ul>
+      </div>
+    </div>
+    <div class="products-grid" style="margin-top: 24px; max-width: 1200px; margin-left: auto; margin-right: auto;">
+      <div class="product-card reveal">
+        <span class="product-emoji">🫒</span>
+        <h3 class="product-name">Charcuterie</h3>
+        <p class="product-subtitle">Cured &bull; Smoked &bull; Imported</p>
+        <p class="product-desc">
+          An exceptional selection of cured meats including salamis, guanciale, dry-aged hams, prosciutto di Parma, mortadella, and house-made terrines.
+        </p>
+        <ul class="product-items">
+          <li>Prosciutto di Parma</li>
+          <li>Salami</li>
+          <li>Mortadella</li>
+          <li>Guanciale</li>
+          <li>Speck</li>
+          <li>Terrines</li>
+        </ul>
+      </div>
+      <div class="product-card reveal">
+        <span class="product-emoji">🍷</span>
+        <h3 class="product-name">Gourmet Goods</h3>
+        <p class="product-subtitle">Pantry &bull; Accoutrements &bull; Gifts</p>
+        <p class="product-desc">
+          Complete your spread with our carefully sourced pantry items, olive oils, crackers, jams, and gift-worthy specialty goods.
+        </p>
+        <ul class="product-items">
+          <li>Olive Oils</li>
+          <li>Crackers</li>
+          <li>Preserves</li>
+          <li>Gift Boxes</li>
+        </ul>
+      </div>
+      <div class="product-card reveal">
+        <span class="product-emoji">🥪</span>
+        <h3 class="product-name">Sandwiches</h3>
+        <p class="product-subtitle">Mon &bull; Wed &bull; Sat</p>
+        <p class="product-desc">
+          Our legendary rotating sandwich specials featuring house-made meatball subs, Muffulettas, Italian hoagies, and seasonal creations on local breads.
+        </p>
+        <ul class="product-items">
+          <li>Muffuletta</li>
+          <li>Meatball Hoagie</li>
+          <li>Italian Sub</li>
+          <li>Rotating Specials</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WEEKLY SPECIALS BANNER ========== -->
+  <section class="specials">
+    <div class="specials-inner reveal">
+      <div class="specials-text">
+        <p class="section-label">Weekly Deals</p>
+        <h2 class="section-title" style="color: var(--cream); font-size: 28px;">Don't Miss Our Weekly Specials</h2>
+      </div>
+      <div class="specials-cards">
+        <div class="special-chip">
+          <p class="special-chip-day">Mondays</p>
+          <p class="special-chip-item">Chicken Breast</p>
+          <p class="special-chip-price">$8.99/lb</p>
+        </div>
+        <div class="special-chip">
+          <p class="special-chip-day">Tuesdays</p>
+          <p class="special-chip-item">Ground Beef</p>
+          <p class="special-chip-price">$3.99/lb</p>
+        </div>
+        <div class="special-chip">
+          <p class="special-chip-day">Wed & Sat</p>
+          <p class="special-chip-item">Sammy Day</p>
+          <p class="special-chip-price">Rotating specials</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SANDWICH MENU ========== -->
+  <section id="sandwiches" class="sandwiches">
+    <div class="sandwiches-header reveal">
+      <p class="section-label">Sammy Day Specials</p>
+      <h2 class="section-title">The Sandwich Lineup</h2>
+      <p class="section-desc" style="margin: 0 auto;">
+        Our rotating sandwich menu features house-made creations on local breads. Available on Mondays, Wednesdays, and Saturdays.
+      </p>
+    </div>
+    <div class="sandwich-grid">
+      <div class="sandwich-card reveal">
+        <p class="sandwich-day">Featured</p>
+        <h3 class="sandwich-name">Ham & Pimento Cheese on Focaccia</h3>
+        <p class="sandwich-desc">House-made pimento cheese on fresh focaccia bread</p>
+      </div>
+      <div class="sandwich-card reveal">
+        <p class="sandwich-day">Classic</p>
+        <h3 class="sandwich-name">Roast Beef</h3>
+        <p class="sandwich-desc">House-made horseradish cream on local brioche</p>
+      </div>
+      <div class="sandwich-card reveal">
+        <p class="sandwich-day">Italian</p>
+        <h3 class="sandwich-name">Italian Sub</h3>
+        <p class="sandwich-desc">Salami, mortadella, onions, and provolone</p>
+      </div>
+      <div class="sandwich-card reveal">
+        <p class="sandwich-day">Classic</p>
+        <h3 class="sandwich-name">Beef & Kraut</h3>
+        <p class="sandwich-desc">Slow-cooked beef with sauerkraut on a hoagie roll</p>
+      </div>
+      <div class="sandwich-card reveal">
+        <p class="sandwich-day">Italian</p>
+        <h3 class="sandwich-name">Italian Train Station</h3>
+        <p class="sandwich-desc">Speck, arugula, fontina, and balsamic</p>
+      </div>
+      <div class="sandwich-card reveal">
+        <p class="sandwich-day">Signature</p>
+        <h3 class="sandwich-name">Muffuletta</h3>
+        <p class="sandwich-desc">Mortadella, ham, salami, provolone, and olive salad</p>
+      </div>
+      <div class="sandwich-card reveal">
+        <p class="sandwich-day">Premium</p>
+        <h3 class="sandwich-name">Prosciutto di Parma</h3>
+        <p class="sandwich-desc">Parmigiano compound butter on local baguette</p>
+      </div>
+      <div class="sandwich-card reveal">
+        <p class="sandwich-day">House Favorite</p>
+        <h3 class="sandwich-name">Meatball Hoagie</h3>
+        <p class="sandwich-desc">House meatballs, marinara, and fresh mozzarella</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EXPERIENCE ========== -->
+  <section class="experience">
+    <div class="experience-inner">
+      <div class="experience-header reveal">
+        <p class="section-label">The Experience</p>
+        <h2 class="section-title">Like Stepping<br>Back in Time</h2>
+        <p class="section-desc" style="margin: 0 auto;">
+          Butchers, fishmongers, and cheesemongers working side by side &mdash; a genuine, old-world market experience with modern quality.
+        </p>
+      </div>
+      <div class="experience-grid">
+        <div class="exp-card reveal">
+          <span class="exp-icon">🔪</span>
+          <h3 class="exp-title">Expert Butchers</h3>
+          <p class="exp-desc">Custom cuts prepared to your specifications by knowledgeable butchers with decades of experience.</p>
+        </div>
+        <div class="exp-card reveal">
+          <span class="exp-icon">🧀</span>
+          <h3 class="exp-title">Cheese Artisans</h3>
+          <p class="exp-desc">Knowledgeable cheesemongers guiding you through 80+ varieties, all cut fresh to order from the wheel.</p>
+        </div>
+        <div class="exp-card reveal">
+          <span class="exp-icon">🐟</span>
+          <h3 class="exp-title">Fresh Fishmongers</h3>
+          <p class="exp-desc">Daily fresh seafood selection curated by our team, from Scottish salmon to seasonal catches.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VISIT / CONTACT ========== -->
+  <section id="visit" class="visit">
+    <div class="visit-inner">
+      <div class="visit-info reveal">
+        <p class="section-label">Come See Us</p>
+        <h2 class="section-title light">Visit the Shop</h2>
+
+        <h3>Hours</h3>
+        <table class="hours-table">
+          <tr><td>Monday</td><td>12:00 PM &ndash; 6:30 PM</td></tr>
+          <tr><td>Tuesday</td><td>10:30 AM &ndash; 6:30 PM</td></tr>
+          <tr><td>Wednesday</td><td>10:30 AM &ndash; 6:30 PM</td></tr>
+          <tr><td>Thursday</td><td>10:30 AM &ndash; 6:30 PM</td></tr>
+          <tr><td>Friday</td><td>10:30 AM &ndash; 6:30 PM</td></tr>
+          <tr><td>Saturday</td><td>8:00 AM &ndash; 4:00 PM</td></tr>
+          <tr><td>Sunday</td><td class="closed">Closed</td></tr>
+        </table>
+
+        <h3>Contact</h3>
+        <div class="visit-detail">
+          <a href="tel:2059613200">(205) 961-3200</a><br>
+          <a href="mailto:info@thesonofabutcher.com">info@thesonofabutcher.com</a>
+        </div>
+
+        <h3>Follow Us</h3>
+        <div class="visit-detail">
+          <a href="https://www.instagram.com/thesonofabutcher_bham/" target="_blank">@thesonofabutcher_bham</a> on Instagram
+        </div>
+      </div>
+      <div class="visit-map reveal">
+        <div class="visit-map-icon">📍</div>
+        <div class="visit-map-neighborhood">Pepper Place</div>
+        <div class="visit-map-address">2810 3rd Ave S, Suite 100</div>
+        <div class="visit-map-city">Birmingham, AL 35233</div>
+        <a href="https://maps.google.com/?q=2810+3rd+Ave+S+Suite+100+Birmingham+AL+35233" target="_blank" class="btn btn-primary" style="margin-top: 12px;">Get Directions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="footer-brand">The Son of a Butcher</div>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/thesonofabutcher_bham/" target="_blank">Instagram</a>
+      <a href="https://thesonofabutcher.com" target="_blank">Website</a>
+      <a href="https://order.toasttab.com/online/thesonofabutcher" target="_blank">Order Online</a>
+    </div>
+    <p class="footer-copy">&copy; 2025 The Son of a Butcher. Pepper Place, Birmingham AL.</p>
+  </footer>
+
+  <script>
+    // ===== Loading Screen =====
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 3800);
+    });
+
+    // ===== Navbar scroll effect =====
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ===== Mobile nav toggle =====
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile nav on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ===== Scroll reveal =====
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // ===== Smooth scroll for anchor links =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
