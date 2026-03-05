@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Podcasts — Auburn Daily | Williams Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy: #0C2340; --navy-light: #1A3A5C; --navy-dark: #081A2E; --orange: #DD550C; --orange-hover: #F26522; --cream: #FAF7F2; --cream-dark: #F0EDE7; --charcoal: #1F2937; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--cream); color: var(--charcoal); overflow-x: hidden; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; }
+    img { max-width: 100%; height: auto; } a { text-decoration: none; color: inherit; }
+    .field-lines { position: fixed; inset: 0; pointer-events: none; z-index: -1; opacity: 0.02; background-image: repeating-linear-gradient(0deg, transparent, transparent 99px, rgba(12,35,64,1) 99px, rgba(12,35,64,1) 100px); }
+    .tiger-stripes { background-image: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(221,85,12,0.06) 20px, rgba(221,85,12,0.06) 22px); }
+    .score-ticker { position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: var(--navy-dark); height: 32px; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+    .ticker-content { display: inline-flex; animation: tickerScroll 30s linear infinite; }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item { display: inline-flex; align-items: center; padding: 0 1.5rem; font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; }
+    .ticker-score { color: var(--orange); font-weight: 700; }
+    .ticker-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.08); margin: 0 0.5rem; }
+    .ticker-status { color: rgba(255,255,255,0.3); font-size: 0.6rem; margin-left: 0.5rem; }
+    .navbar { position: fixed; top: 32px; left: 0; right: 0; z-index: 50; background: var(--navy); box-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: white; text-transform: uppercase; letter-spacing: 0.12em; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a { padding: 0.5rem 0.75rem; font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-links a.active { color: var(--orange); font-weight: 700; }
+    .nav-search { background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; padding: 0.4rem 0.8rem; font-size: 0.8rem; width: 140px; outline: none; }
+    .nav-search::placeholder { color: rgba(255,255,255,0.35); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+    .page-hero { position: relative; margin-top: 96px; background: var(--navy); padding: 4rem 0 3rem; text-align: center; overflow: hidden; }
+    .page-hero .tiger-stripes { position: absolute; inset: 0; opacity: 0.3; }
+    .page-hero-spotlight { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(221,85,12,0.12) 0%, transparent 65%); }
+    .page-hero-inner { position: relative; max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .page-hero-emoji { font-size: 3rem; display: block; margin-bottom: 1rem; }
+    .page-hero h1 { font-size: 3rem; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+    .page-hero h1 span { color: var(--orange); }
+    .page-hero p { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 0.75rem; }
+
+    /* Podcast content */
+    .podcast-content { padding: 3rem 0 4rem; }
+    .podcast-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+    .podcast-featured { margin-bottom: 3rem; }
+    .podcast-featured h2 { font-size: 1.5rem; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+    .podcast-featured h2 span { color: var(--orange); }
+    .podcast-featured iframe { border-radius: 12px; }
+    .video-section-title { font-size: 1.5rem; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
+    .video-section-title span { color: var(--orange); }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+    .video-card {
+      background: var(--navy-dark); border-radius: 12px; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
+    }
+    .video-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+    .video-card iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
+    .video-card-body { padding: 0.75rem 1rem; }
+    .video-card-title {
+      font-family: 'Oswald', sans-serif; font-size: 0.85rem; color: white;
+      text-transform: uppercase; line-height: 1.25;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .video-card:hover .video-card-title { color: var(--orange); }
+    .video-card-meta { font-size: 0.65rem; color: rgba(255,255,255,0.35); margin-top: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .channel-cta {
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+      margin-top: 2.5rem; padding: 2rem; background: var(--navy); border-radius: 12px; text-align: center;
+    }
+    .channel-cta p { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+    .channel-cta .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #c4302b; color: white; padding: 0.6rem 1.5rem;
+      border-radius: 6px; font-weight: 600; font-size: 0.85rem; transition: background 0.2s;
+    }
+    .channel-cta .cta-btn:hover { background: #a02520; }
+    @media (max-width: 768px) { .video-grid { grid-template-columns: 1fr; } }
+
+    .footer { background: var(--navy); color: white; padding: 3rem 0 1.5rem; }
+    .footer-grid { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .footer h4 { font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.35); margin-bottom: 1rem; }
+    .footer-logo { font-family: 'Oswald', sans-serif; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--orange); }
+    .footer p, .footer a { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .footer a:hover { color: var(--orange); } .footer ul { list-style: none; } .footer li { margin-bottom: 0.5rem; }
+    .social-icons { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .social-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; transition: background 0.2s; }
+    .social-icon:hover { background: var(--orange); }
+    .footer-bottom { max-width: 1280px; margin: 2rem auto 0; padding: 1rem 1.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255,255,255,0.25); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+    .pitch-banner { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: linear-gradient(135deg, var(--navy-dark), var(--navy)); border-top: 2px solid var(--orange); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
+    .pitch-banner p { color: rgba(255,255,255,0.7); font-size: 0.85rem; } .pitch-banner strong { color: white; }
+    .pitch-badge { background: var(--orange); color: white; padding: 0.35rem 1rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+    @media (max-width: 600px) { .pitch-banner { flex-direction: column; gap: 0.75rem; text-align: center; } }
+  </style>
+</head>
+<body>
+  <div class="field-lines"></div>
+  <div class="score-ticker"><div class="ticker-content" id="tickerContent"></div></div>
+  <nav class="navbar"><div class="nav-inner">
+    <a href="index.html" class="nav-logo">Auburn <span>Daily</span></a>
+    <div class="nav-links">
+      <a href="football.html">Football</a>
+      <a href="basketball.html">Basketball</a>
+      <a href="baseball.html">Baseball</a>
+      <a href="podcasts.html" class="active">Podcasts</a>
+      <a href="articles.html">Articles</a>
+      <input type="text" class="nav-search" placeholder="Search...">
+    </div>
+  </div></nav>
+
+  <section class="page-hero">
+    <div class="tiger-stripes"></div><div class="page-hero-spotlight"></div>
+    <div class="page-hero-inner">
+      <span class="page-hero-emoji">🎙️</span>
+      <h1>Locked On <span>Auburn</span></h1>
+      <p>Daily podcast covering Auburn Tigers athletics — news, analysis, and insider info with Zac Blackerby</p>
+    </div>
+  </section>
+
+  <section class="podcast-content">
+    <div class="podcast-inner">
+      <!-- Latest episode audio -->
+      <div class="podcast-featured">
+        <h2>Latest <span>Episode</span></h2>
+        <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;overflow:hidden;border-radius:12px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/us/podcast/sec-squad-the-sec-basketball-season-is-ending-can/id1091363992?i=1000753465436&theme=dark" loading="lazy"></iframe>
+      </div>
+
+      <!-- Video episodes -->
+      <h2 class="video-section-title">Recent <span>Episodes</span></h2>
+      <div class="video-grid">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/G3rzwO3FAsQ" title="Locked On Auburn" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">OH MAN: Auburn MUST Have These Players STEP UP This Offseason</h3>
+            <div class="video-card-meta">Locked On Auburn</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/tiO_wpO_d_c" title="Locked On Auburn" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">QB DRAMA? Auburn Recruiting HEATS UP for ELITE Targets</h3>
+            <div class="video-card-meta">Locked On Auburn</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/nPI7GGxnxzg" title="Locked On Auburn" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">SUPER BIG? Auburn Fans are QUESTIONING the Offensive Line</h3>
+            <div class="video-card-meta">Locked On Auburn</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/G3rzwO3FAsQ" title="Locked On Auburn" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">Auburn Tigers Spring Practice: BIGGEST Storylines to Watch</h3>
+            <div class="video-card-meta">Locked On Auburn</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/tiO_wpO_d_c" title="Locked On Auburn" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">BOLD Predictions for Auburn Football in 2026 Season</h3>
+            <div class="video-card-meta">Locked On Auburn</div>
+          </div>
+        </div>
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/nPI7GGxnxzg" title="Locked On Auburn" allowfullscreen loading="lazy"></iframe>
+          <div class="video-card-body">
+            <h3 class="video-card-title">March Madness Preview: Can Auburn Make a DEEP Run?</h3>
+            <div class="video-card-meta">Locked On Auburn</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="channel-cta">
+        <p>Subscribe for daily Auburn Tigers coverage</p>
+        <a href="https://www.youtube.com/@LockedOnAuburn" target="_blank" class="cta-btn">&#9654; Subscribe on YouTube</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="footer-grid">
+    <div><div class="footer-logo">Auburn <span>Daily</span></div><p>Your trusted source for Auburn Tigers athletics coverage.</p></div>
+    <div><h4>Sports</h4><ul><li><a href="football.html">Football</a></li><li><a href="basketball.html">Basketball</a></li><li><a href="baseball.html">Baseball</a></li></ul></div>
+    <div><h4>More</h4><ul><li><a href="podcasts.html">Podcasts</a></li><li><a href="articles.html">Articles</a></li><li><a href="index.html">Home</a></li></ul></div>
+    <div><h4>Connect</h4><div class="social-icons"><a href="#" class="social-icon">𝕏</a><a href="#" class="social-icon">f</a><a href="#" class="social-icon">▶</a></div></div>
+  </div><div class="footer-bottom"><p>&copy; 2026 Auburn Daily. All rights reserved.</p><p>Auburn Daily is not affiliated with Auburn University.</p></div></footer>
+
+  <div class="pitch-banner"><span class="pitch-badge">Williams Digital</span><p><strong>Auburn Daily</strong> — Website redesign preview. Built with Next.js, Sanity CMS, and Tailwind CSS.</p></div>
+
+  <script>
+    (function() {
+      var scores = [
+        { sport: '🏈', home: 'Auburn', hs: 35, away: 'Georgia', as: 28, status: 'FINAL' },
+        { sport: '🏀', home: 'Auburn', hs: 78, away: 'Alabama', as: 72, status: 'FINAL' },
+        { sport: '⚾', home: 'Auburn', hs: 6, away: 'LSU', as: 4, status: 'FINAL' },
+        { sport: '🏈', home: 'Auburn', hs: 28, away: 'Texas A&M', as: 17, status: 'FINAL' },
+        { sport: '🏀', home: 'Tennessee', hs: 65, away: 'Auburn', as: 70, status: 'FINAL' },
+      ];
+      var html = '';
+      for (var r = 0; r < 2; r++) {
+        scores.forEach(function(s) {
+          var win = (s.home === 'Auburn' && s.hs > s.as) || (s.away === 'Auburn' && s.as > s.hs);
+          html += '<span class="ticker-item"><span style="margin-right:0.5rem">' + s.sport + '</span>';
+          html += '<span class="' + (s.home === 'Auburn' && win ? 'ticker-score' : '') + '">' + s.home + ' ' + s.hs + '</span>';
+          html += '<span style="margin:0 0.5rem;color:rgba(255,255,255,0.25)">-</span>';
+          html += '<span class="' + (s.away === 'Auburn' && win ? 'ticker-score' : '') + '">' + s.away + ' ' + s.as + '</span>';
+          html += '<span class="ticker-status">' + s.status + '</span><span class="ticker-divider"></span></span>';
+        });
+      }
+      document.getElementById('tickerContent').innerHTML = html;
+    })();
+  </script>
+</body>
+</html>

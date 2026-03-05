@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baseball — Auburn Daily | Williams Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy: #0C2340; --navy-light: #1A3A5C; --navy-dark: #081A2E; --orange: #DD550C; --orange-hover: #F26522; --cream: #FAF7F2; --cream-dark: #F0EDE7; --charcoal: #1F2937; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--cream); color: var(--charcoal); overflow-x: hidden; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; }
+    img { max-width: 100%; height: auto; } a { text-decoration: none; color: inherit; }
+    .field-lines { position: fixed; inset: 0; pointer-events: none; z-index: -1; opacity: 0.02; background-image: repeating-linear-gradient(0deg, transparent, transparent 99px, rgba(12,35,64,1) 99px, rgba(12,35,64,1) 100px); }
+    .tiger-stripes { background-image: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(221,85,12,0.06) 20px, rgba(221,85,12,0.06) 22px); }
+    .score-ticker { position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: var(--navy-dark); height: 32px; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+    .ticker-content { display: inline-flex; animation: tickerScroll 30s linear infinite; }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item { display: inline-flex; align-items: center; padding: 0 1.5rem; font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; }
+    .ticker-score { color: var(--orange); font-weight: 700; }
+    .ticker-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.08); margin: 0 0.5rem; }
+    .ticker-status { color: rgba(255,255,255,0.3); font-size: 0.6rem; margin-left: 0.5rem; }
+    .navbar { position: fixed; top: 32px; left: 0; right: 0; z-index: 50; background: var(--navy); box-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: white; text-transform: uppercase; letter-spacing: 0.12em; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a { padding: 0.5rem 0.75rem; font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-links a.active { color: var(--orange); font-weight: 700; }
+    .nav-search { background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; padding: 0.4rem 0.8rem; font-size: 0.8rem; width: 140px; outline: none; }
+    .nav-search::placeholder { color: rgba(255,255,255,0.35); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+    .page-hero { position: relative; margin-top: 96px; background: var(--navy); padding: 4rem 0 3rem; text-align: center; overflow: hidden; }
+    .page-hero .tiger-stripes { position: absolute; inset: 0; opacity: 0.3; }
+    .page-hero-spotlight { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(221,85,12,0.12) 0%, transparent 65%); }
+    .page-hero-inner { position: relative; max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+    .page-hero-emoji { font-size: 3rem; display: block; margin-bottom: 1rem; }
+    .page-hero h1 { font-size: 3rem; color: white; text-transform: uppercase; letter-spacing: 0.1em; }
+    .page-hero h1 span { color: var(--orange); }
+    .page-hero p { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-top: 0.75rem; }
+    .story-section { padding: 3rem 0 4rem; }
+    .story-section-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
+    .story-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; padding: 1rem 0; }
+    .tilt-card { filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15)); transform-style: preserve-3d; transition: transform 0.3s ease, filter 0.3s; }
+    .tilt-card:hover { filter: drop-shadow(0 16px 32px rgba(0,0,0,0.3)); transform: translateY(-10px) scale(1.03); }
+    .trading-card { position: relative; cursor: pointer; border-radius: 12px; overflow: hidden; transition: box-shadow 0.3s ease; }
+    .trading-card:hover { box-shadow: 0 20px 60px rgba(221,85,12,0.3), 0 0 30px rgba(221,85,12,0.25); }
+    .tc-frame { background: var(--orange); border-radius: 12px; padding: 8px; position: relative; box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 16px rgba(221,85,12,0.25); }
+    .tc-frame::before { content: ''; position: absolute; inset: 0; border-radius: 12px; background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.04) 1px, rgba(255,255,255,0.04) 2px); pointer-events: none; }
+    .tc-inner-border { border: 2px solid white; border-radius: 8px; overflow: hidden; background: white; }
+    .tc-header { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: linear-gradient(90deg, var(--orange) 0%, var(--orange-hover) 50%, var(--orange) 100%); }
+    .tc-set-name { font-family: 'Oswald', sans-serif; font-size: 0.6rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.2em; }
+    .tc-year { font-family: 'Oswald', sans-serif; font-size: 0.6rem; font-weight: 400; color: var(--navy); letter-spacing: 0.1em; }
+    .tc-photo-window { width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative; border-top: 1px solid rgba(12,35,64,0.1); border-bottom: 1px solid rgba(12,35,64,0.1); }
+    .tc-photo { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.4s ease; }
+    .trading-card:hover .tc-photo { transform: scale(1.05); }
+    .tc-photo-window::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 30px rgba(221,85,12,0.1); pointer-events: none; }
+    .tc-nameplate { padding: 10px 12px 6px; background: white; text-align: center; position: relative; }
+    .tc-nameplate::before { content: ''; position: absolute; top: 0; left: 12px; right: 12px; height: 2px; background: linear-gradient(90deg, transparent 0%, var(--navy) 20%, var(--navy) 80%, transparent 100%); }
+    .tc-badge { display: inline-block; padding: 2px 10px; background: var(--navy); color: white; font-family: 'Oswald', sans-serif; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; border-radius: 3px; margin-bottom: 6px; }
+    .tc-title { font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--navy); text-transform: uppercase; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .trading-card:hover .tc-title { color: var(--orange); }
+    .tc-stats-bar { display: flex; justify-content: center; align-items: center; gap: 6px; padding: 6px 12px 8px; background: linear-gradient(90deg, var(--orange) 0%, var(--orange-hover) 50%, var(--orange) 100%); font-size: 0.55rem; color: rgba(255,255,255,0.6); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+    .tc-dot { color: var(--navy); font-size: 0.7rem; } .tc-author { color: white; font-weight: 600; } .tc-date { color: rgba(255,255,255,0.7); }
+    .tc-shine { position: absolute; inset: 0; border-radius: 12px; pointer-events: none; opacity: 0; transition: opacity 0.3s ease; }
+    .footer { background: var(--navy); color: white; padding: 3rem 0 1.5rem; }
+    .footer-grid { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .footer h4 { font-family: 'Oswald', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.35); margin-bottom: 1rem; }
+    .footer-logo { font-family: 'Oswald', sans-serif; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem; }
+    .footer-logo span { color: var(--orange); }
+    .footer p, .footer a { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .footer a:hover { color: var(--orange); } .footer ul { list-style: none; } .footer li { margin-bottom: 0.5rem; }
+    .social-icons { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .social-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; transition: background 0.2s; }
+    .social-icon:hover { background: var(--orange); }
+    .footer-bottom { max-width: 1280px; margin: 2rem auto 0; padding: 1rem 1.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255,255,255,0.25); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+    .pitch-banner { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: linear-gradient(135deg, var(--navy-dark), var(--navy)); border-top: 2px solid var(--orange); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
+    .pitch-banner p { color: rgba(255,255,255,0.7); font-size: 0.85rem; } .pitch-banner strong { color: white; }
+    .pitch-badge { background: var(--orange); color: white; padding: 0.35rem 1rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+    @media (max-width: 600px) { .pitch-banner { flex-direction: column; gap: 0.75rem; text-align: center; } }
+  </style>
+</head>
+<body>
+  <div class="field-lines"></div>
+  <div class="score-ticker"><div class="ticker-content" id="tickerContent"></div></div>
+  <nav class="navbar"><div class="nav-inner">
+    <a href="index.html" class="nav-logo">Auburn <span>Daily</span></a>
+    <div class="nav-links">
+      <a href="football.html">Football</a>
+      <a href="basketball.html">Basketball</a>
+      <a href="baseball.html" class="active">Baseball</a>
+      <a href="podcasts.html">Podcasts</a>
+      <a href="articles.html">Articles</a>
+      <input type="text" class="nav-search" placeholder="Search...">
+    </div>
+  </div></nav>
+
+  <section class="page-hero">
+    <div class="tiger-stripes"></div><div class="page-hero-spotlight"></div>
+    <div class="page-hero-inner">
+      <span class="page-hero-emoji">⚾</span>
+      <h1>Auburn <span>Baseball</span></h1>
+      <p>Scores, highlights, and analysis of Auburn Tigers baseball at Plainsman Park</p>
+    </div>
+  </section>
+
+  <section class="story-section"><div class="story-section-inner"><div class="story-grid">
+    <div class="tilt-card"><div class="trading-card"><div class="tc-frame"><div class="tc-inner-border">
+      <div class="tc-header"><span class="tc-set-name">Auburn Daily</span><span class="tc-year">2026</span></div>
+      <div class="tc-photo-window"><img class="tc-photo" src="auburn-baseball.jpg" alt="Auburn Baseball"></div>
+      <div class="tc-nameplate"><span class="tc-badge">Baseball</span><h3 class="tc-title">Auburn Baseball Sweeps Weekend Series Against Georgia</h3></div>
+      <div class="tc-stats-bar"><span class="tc-author">Mike Torres</span><span class="tc-dot">&bull;</span><span class="tc-date">Mar 5, 2026</span></div>
+    </div></div><div class="tc-shine"></div></div></div>
+
+    <div class="tilt-card"><div class="trading-card"><div class="tc-frame"><div class="tc-inner-border">
+      <div class="tc-header"><span class="tc-set-name">Auburn Daily</span><span class="tc-year">2026</span></div>
+      <div class="tc-photo-window"><img class="tc-photo" src="auburn-baseball.jpg" alt="Auburn Baseball"></div>
+      <div class="tc-nameplate"><span class="tc-badge">Baseball</span><h3 class="tc-title">Tigers' Pitching Staff Ranks Among the SEC's Very Best</h3></div>
+      <div class="tc-stats-bar"><span class="tc-author">Mike Torres</span><span class="tc-dot">&bull;</span><span class="tc-date">Mar 4, 2026</span></div>
+    </div></div><div class="tc-shine"></div></div></div>
+
+    <div class="tilt-card"><div class="trading-card"><div class="tc-frame"><div class="tc-inner-border">
+      <div class="tc-header"><span class="tc-set-name">Auburn Daily</span><span class="tc-year">2026</span></div>
+      <div class="tc-photo-window"><img class="tc-photo" src="auburn-baseball.jpg" alt="Auburn Baseball"></div>
+      <div class="tc-nameplate"><span class="tc-badge">Baseball</span><h3 class="tc-title">Transfer Portal Addition Making Immediate Impact at the Plate</h3></div>
+      <div class="tc-stats-bar"><span class="tc-author">Ryan Walsh</span><span class="tc-dot">&bull;</span><span class="tc-date">Mar 3, 2026</span></div>
+    </div></div><div class="tc-shine"></div></div></div>
+
+    <div class="tilt-card"><div class="trading-card"><div class="tc-frame"><div class="tc-inner-border">
+      <div class="tc-header"><span class="tc-set-name">Auburn Daily</span><span class="tc-year">2026</span></div>
+      <div class="tc-photo-window"><img class="tc-photo" src="auburn-baseball.jpg" alt="Auburn Baseball"></div>
+      <div class="tc-nameplate"><span class="tc-badge">Baseball</span><h3 class="tc-title">Weekend Preview: Auburn Hosts Rivalry Series vs Alabama</h3></div>
+      <div class="tc-stats-bar"><span class="tc-author">Mike Torres</span><span class="tc-dot">&bull;</span><span class="tc-date">Mar 2, 2026</span></div>
+    </div></div><div class="tc-shine"></div></div></div>
+
+    <div class="tilt-card"><div class="trading-card"><div class="tc-frame"><div class="tc-inner-border">
+      <div class="tc-header"><span class="tc-set-name">Auburn Daily</span><span class="tc-year">2026</span></div>
+      <div class="tc-photo-window"><img class="tc-photo" src="auburn-baseball.jpg" alt="Auburn Baseball"></div>
+      <div class="tc-nameplate"><span class="tc-badge">Baseball</span><h3 class="tc-title">Auburn Climbs to Top 10 in Latest National Rankings</h3></div>
+      <div class="tc-stats-bar"><span class="tc-author">Ryan Walsh</span><span class="tc-dot">&bull;</span><span class="tc-date">Mar 1, 2026</span></div>
+    </div></div><div class="tc-shine"></div></div></div>
+
+    <div class="tilt-card"><div class="trading-card"><div class="tc-frame"><div class="tc-inner-border">
+      <div class="tc-header"><span class="tc-set-name">Auburn Daily</span><span class="tc-year">2026</span></div>
+      <div class="tc-photo-window"><img class="tc-photo" src="auburn-baseball.jpg" alt="Auburn Baseball"></div>
+      <div class="tc-nameplate"><span class="tc-badge">Baseball</span><h3 class="tc-title">Closer's Dominant Run Draws Attention from MLB Scouts</h3></div>
+      <div class="tc-stats-bar"><span class="tc-author">Mike Torres</span><span class="tc-dot">&bull;</span><span class="tc-date">Feb 28, 2026</span></div>
+    </div></div><div class="tc-shine"></div></div></div>
+  </div></div></section>
+
+  <footer class="footer"><div class="footer-grid">
+    <div><div class="footer-logo">Auburn <span>Daily</span></div><p>Your trusted source for Auburn Tigers athletics coverage.</p></div>
+    <div><h4>Sports</h4><ul><li><a href="football.html">Football</a></li><li><a href="basketball.html">Basketball</a></li><li><a href="baseball.html">Baseball</a></li></ul></div>
+    <div><h4>More</h4><ul><li><a href="podcasts.html">Podcasts</a></li><li><a href="articles.html">Articles</a></li><li><a href="index.html">Home</a></li></ul></div>
+    <div><h4>Connect</h4><div class="social-icons"><a href="#" class="social-icon">𝕏</a><a href="#" class="social-icon">f</a><a href="#" class="social-icon">▶</a></div></div>
+  </div><div class="footer-bottom"><p>&copy; 2026 Auburn Daily. All rights reserved.</p><p>Auburn Daily is not affiliated with Auburn University.</p></div></footer>
+
+  <div class="pitch-banner"><span class="pitch-badge">Williams Digital</span><p><strong>Auburn Daily</strong> — Website redesign preview. Built with Next.js, Sanity CMS, and Tailwind CSS.</p></div>
+
+  <script>
+    (function() {
+      var scores = [
+        { sport: '🏈', home: 'Auburn', hs: 35, away: 'Georgia', as: 28, status: 'FINAL' },
+        { sport: '🏀', home: 'Auburn', hs: 78, away: 'Alabama', as: 72, status: 'FINAL' },
+        { sport: '⚾', home: 'Auburn', hs: 6, away: 'LSU', as: 4, status: 'FINAL' },
+        { sport: '🏈', home: 'Auburn', hs: 28, away: 'Texas A&M', as: 17, status: 'FINAL' },
+        { sport: '🏀', home: 'Tennessee', hs: 65, away: 'Auburn', as: 70, status: 'FINAL' },
+      ];
+      var html = '';
+      for (var r = 0; r < 2; r++) {
+        scores.forEach(function(s) {
+          var win = (s.home === 'Auburn' && s.hs > s.as) || (s.away === 'Auburn' && s.as > s.hs);
+          html += '<span class="ticker-item"><span style="margin-right:0.5rem">' + s.sport + '</span>';
+          html += '<span class="' + (s.home === 'Auburn' && win ? 'ticker-score' : '') + '">' + s.home + ' ' + s.hs + '</span>';
+          html += '<span style="margin:0 0.5rem;color:rgba(255,255,255,0.25)">-</span>';
+          html += '<span class="' + (s.away === 'Auburn' && win ? 'ticker-score' : '') + '">' + s.away + ' ' + s.as + '</span>';
+          html += '<span class="ticker-status">' + s.status + '</span><span class="ticker-divider"></span></span>';
+        });
+      }
+      document.getElementById('tickerContent').innerHTML = html;
+    })();
+    document.querySelectorAll('.tilt-card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect(); var cx = rect.left + rect.width / 2; var cy = rect.top + rect.height / 2;
+        var ry = ((e.clientX - cx) / (rect.width / 2)) * 8; var rx = -((e.clientY - cy) / (rect.height / 2)) * 8;
+        card.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-10px) scale(1.03)';
+      });
+      card.addEventListener('mouseleave', function() { card.style.transform = ''; });
+    });
+    document.querySelectorAll('.trading-card').forEach(function(card) {
+      var shine = card.querySelector('.tc-shine'); if (!shine) return;
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect(); var x = ((e.clientX - rect.left) / rect.width) * 100; var y = ((e.clientY - rect.top) / rect.height) * 100;
+        shine.style.background = 'radial-gradient(circle at ' + x + '% ' + y + '%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 40%, transparent 70%)';
+        shine.style.opacity = '1';
+      });
+      card.addEventListener('mouseleave', function() { shine.style.opacity = '0'; shine.style.background = ''; });
+    });
+  </script>
+</body>
+</html>
