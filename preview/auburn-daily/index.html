@@ -37,9 +37,9 @@
     /* ==================== AUBIE LOADER ==================== */
     .loader {
       position: fixed; inset: 0; z-index: 9999;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
       background: var(--navy);
       transition: opacity 0.8s ease;
+      overflow: hidden;
     }
     .loader.fade-out { opacity: 0; pointer-events: none; }
     .loader-bg {
@@ -49,21 +49,65 @@
       position: absolute; inset: 0; opacity: 0.04;
       background-image: repeating-linear-gradient(45deg, transparent, transparent 40px, var(--orange) 40px, var(--orange) 42px);
     }
-    .paw {
-      position: absolute; opacity: 0.1; animation: pulse 2s ease-in-out infinite;
-    }
-    .paw:nth-child(2) { top: 10%; left: 15%; font-size: 2.5rem; }
-    .paw:nth-child(3) { top: 25%; right: 20%; font-size: 2rem; animation-delay: 0.5s; }
-    .paw:nth-child(4) { bottom: 30%; left: 10%; font-size: 3rem; animation-delay: 1s; }
-    .paw:nth-child(5) { bottom: 15%; right: 15%; font-size: 2rem; animation-delay: 1.5s; }
-    .paw:nth-child(6) { top: 50%; left: 60%; font-size: 1.5rem; animation-delay: 0.8s; }
 
-    .aubie-container {
-      width: 160px; height: 160px; margin-bottom: 2rem; position: relative;
+    /* Aubie walks freely around the screen */
+    .aubie-walker {
+      position: absolute;
+      width: 140px; height: 140px;
+      transition: left 1.8s cubic-bezier(0.25, 0.1, 0.25, 1),
+                  top 1.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+      z-index: 10;
     }
-    .aubie-container img {
-      width: 100%; height: 100%; object-fit: contain; border-radius: 50%;
-      filter: drop-shadow(0 0 30px rgba(221,85,12,0.3));
+    .aubie-walker img {
+      width: 100%; height: 100%; object-fit: contain;
+      filter: drop-shadow(0 0 25px rgba(221,85,12,0.35));
+      transition: transform 0.3s ease;
+    }
+    /* Walking bob animation */
+    .aubie-walking img {
+      animation: walkBob 0.4s ease-in-out infinite;
+    }
+    @keyframes walkBob {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    /* Little hop when arriving */
+    .aubie-arrived img {
+      animation: arriveHop 0.5s ease-out;
+    }
+    @keyframes arriveHop {
+      0% { transform: translateY(0); }
+      40% { transform: translateY(-20px) rotate(5deg); }
+      70% { transform: translateY(-5px) rotate(-2deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+    /* Idle sway */
+    .aubie-idle img {
+      animation: idleSway 2s ease-in-out infinite;
+    }
+    @keyframes idleSway {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(3deg); }
+      75% { transform: rotate(-3deg); }
+    }
+
+    /* Paw print trail */
+    .paw-trail {
+      position: absolute; font-size: 1.2rem;
+      opacity: 0; pointer-events: none;
+      animation: pawFade 2s ease-out forwards;
+    }
+    @keyframes pawFade {
+      0% { opacity: 0.35; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.6); }
+    }
+
+    /* Center content */
+    .loader-center {
+      position: absolute; bottom: 15%; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center;
+      z-index: 5;
     }
     .loader-title {
       font-family: 'Oswald', sans-serif;
@@ -74,7 +118,7 @@
     .loader-phase {
       color: rgba(255,255,255,0.4); font-size: 0.75rem;
       text-transform: uppercase; letter-spacing: 4px;
-      margin: 0.5rem 0 2.5rem; height: 1.2em;
+      margin: 0.5rem 0 2rem; height: 1.2em;
       transition: opacity 0.3s;
     }
     .progress-track {
@@ -94,38 +138,9 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Aubie animations */
-    .anim-bounce { animation: aubieBounce 0.6s ease-in-out infinite alternate; }
-    .anim-spin { animation: aubieSpin 1.2s linear infinite; }
-    .anim-run { animation: aubieRun 3s linear infinite; }
-    .anim-wave { animation: aubieWave 0.5s ease-in-out 6; }
-
-    @keyframes aubieBounce {
-      0% { transform: translateY(0) rotate(-5deg); }
-      100% { transform: translateY(-30px) rotate(5deg); }
-    }
-    @keyframes aubieSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes aubieRun {
-      0% { transform: translateX(-150px) scaleX(1); }
-      49% { transform: translateX(calc(100vw + 150px)) scaleX(1); }
-      50% { transform: translateX(calc(100vw + 150px)) scaleX(-1); }
-      100% { transform: translateX(-150px) scaleX(-1); }
-    }
-    @keyframes aubieWave {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(20deg); }
-      75% { transform: rotate(-15deg); }
-    }
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.1; }
-      50% { opacity: 0.2; }
     }
     @keyframes shimmer {
       0% { background-position: 200% 0; }
@@ -486,21 +501,22 @@
   <div class="loader" id="loader">
     <div class="loader-bg">
       <div class="loader-stripes"></div>
-      <div class="paw">🐾</div>
-      <div class="paw">🐾</div>
-      <div class="paw">🐾</div>
-      <div class="paw">🐾</div>
-      <div class="paw">🐾</div>
     </div>
-    <div class="aubie-container" id="aubie">
+
+    <!-- Aubie walks around freely -->
+    <div class="aubie-walker aubie-idle" id="aubie">
       <img src="aubie.png" alt="Aubie the Tiger">
     </div>
-    <div class="loader-title">Auburn <span>Daily</span></div>
-    <div class="loader-phase" id="loaderPhase">Getting Hyped</div>
-    <div class="progress-track">
-      <div class="progress-fill" id="progressFill"></div>
+
+    <!-- Center branding + progress -->
+    <div class="loader-center">
+      <div class="loader-title">Auburn <span>Daily</span></div>
+      <div class="loader-phase" id="loaderPhase">Aubie is exploring...</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-pct" id="progressPct">0%</div>
     </div>
-    <div class="progress-pct" id="progressPct">0%</div>
   </div>
 
   <!-- ========== NAVBAR ========== -->
@@ -705,48 +721,117 @@
   </div>
 
   <script>
-    // ========== AUBIE LOADER ==========
+    // ========== AUBIE LOADER — WALKING AROUND ==========
     (function() {
       const loader = document.getElementById('loader');
       const aubie = document.getElementById('aubie');
-      const phase = document.getElementById('loaderPhase');
+      const phaseEl = document.getElementById('loaderPhase');
       const fill = document.getElementById('progressFill');
-      const pct = document.getElementById('progressPct');
+      const pctEl = document.getElementById('progressPct');
 
       const phases = [
-        { label: 'Getting Hyped', anim: 'anim-bounce' },
-        { label: 'Warming Up', anim: 'anim-spin' },
-        { label: 'Rushing the Field', anim: 'anim-run' },
-        { label: 'War Eagle!', anim: 'anim-wave' },
+        'Aubie is exploring...',
+        'Scouting the field...',
+        'Looking for snacks...',
+        'Almost ready...',
+        'War Eagle!',
       ];
 
-      let progress = 0;
-      let phaseIndex = 0;
-      aubie.className = 'aubie-container ' + phases[0].anim;
+      const aubieSize = 140;
+      let currentX = window.innerWidth / 2 - aubieSize / 2;
+      let currentY = window.innerHeight * 0.25;
+      aubie.style.left = currentX + 'px';
+      aubie.style.top = currentY + 'px';
 
-      const interval = setInterval(function() {
-        const speed = progress < 25 ? 1.5 : progress < 50 ? 0.8 : progress < 75 ? 1.2 : 2.0;
+      // Drop a paw print at Aubie's current spot
+      function dropPaw() {
+        var paw = document.createElement('div');
+        paw.className = 'paw-trail';
+        paw.textContent = '🐾';
+        paw.style.left = (currentX + aubieSize / 2 - 10) + 'px';
+        paw.style.top = (currentY + aubieSize - 5) + 'px';
+        loader.appendChild(paw);
+        setTimeout(function() { paw.remove(); }, 2200);
+      }
+
+      // Pick a random position, biased toward upper portion (avoid overlapping the branding)
+      function randomTarget() {
+        var margin = 40;
+        var maxY = window.innerHeight * 0.52; // stay in top ~55%
+        return {
+          x: margin + Math.random() * (window.innerWidth - aubieSize - margin * 2),
+          y: margin + Math.random() * (maxY - margin),
+        };
+      }
+
+      // Walk Aubie to a new spot
+      function walkTo(target) {
+        // Flip Aubie to face direction of movement
+        var goingLeft = target.x < currentX;
+        aubie.querySelector('img').style.transform = goingLeft ? 'scaleX(-1)' : 'scaleX(1)';
+
+        // Start walking bob
+        aubie.className = 'aubie-walker aubie-walking';
+
+        // Drop paw prints along the way
+        var pawInterval = setInterval(dropPaw, 350);
+
+        // CSS transition moves him
+        aubie.style.left = target.x + 'px';
+        aubie.style.top = target.y + 'px';
+        currentX = target.x;
+        currentY = target.y;
+
+        // When he arrives, stop walking + do a little hop
+        setTimeout(function() {
+          clearInterval(pawInterval);
+          dropPaw(); // one final paw print
+          aubie.className = 'aubie-walker aubie-arrived';
+          aubie.querySelector('img').style.transform = goingLeft ? 'scaleX(-1)' : 'scaleX(1)';
+
+          // Then go idle
+          setTimeout(function() {
+            aubie.className = 'aubie-walker aubie-idle';
+          }, 600);
+        }, 1900);
+      }
+
+      // Start walking to random places every ~2.5s
+      var walkTimer = setInterval(function() {
+        walkTo(randomTarget());
+      }, 2800);
+
+      // First walk after a short delay
+      setTimeout(function() { walkTo(randomTarget()); }, 400);
+
+      // Progress bar
+      var progress = 0;
+      var progressInterval = setInterval(function() {
+        var speed = progress < 20 ? 1.0 : progress < 50 ? 0.6 : progress < 80 ? 0.8 : 1.8;
         progress = Math.min(100, progress + speed);
         fill.style.width = progress + '%';
-        pct.textContent = Math.round(progress) + '%';
+        pctEl.textContent = Math.round(progress) + '%';
 
-        const newPhase = Math.min(Math.floor((progress / 100) * phases.length), phases.length - 1);
-        if (newPhase !== phaseIndex) {
-          phaseIndex = newPhase;
-          aubie.className = 'aubie-container ' + phases[phaseIndex].anim;
-          phase.textContent = phases[phaseIndex].label;
-        }
+        // Update phase text
+        var pi = Math.min(Math.floor((progress / 100) * phases.length), phases.length - 1);
+        phaseEl.textContent = phases[pi];
 
         if (progress >= 100) {
-          clearInterval(interval);
+          clearInterval(progressInterval);
+          clearInterval(walkTimer);
+          phaseEl.textContent = 'War Eagle!';
+
+          // Walk Aubie to center for finale
+          walkTo({ x: window.innerWidth / 2 - aubieSize / 2, y: window.innerHeight * 0.2 });
+
           setTimeout(function() {
             loader.classList.add('fade-out');
             setTimeout(function() {
               loader.style.display = 'none';
             }, 800);
-          }, 500);
+          }, 1200);
         }
-      }, 50);
+      }, 60);
     })();
 
     // ========== SCROLL ANIMATIONS ==========
