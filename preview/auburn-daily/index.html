@@ -236,92 +236,143 @@
     .nav-search:focus { border-color: var(--orange); }
     @media (max-width: 768px) { .nav-links { display: none; } }
 
-    /* ==================== HERO ==================== */
+    /* ==================== HERO — FEATURED TRADING CARDS ==================== */
     .hero {
-      position: relative; min-height: 520px;
-      display: grid; grid-template-columns: 2fr 1fr;
+      position: relative; padding: 3rem 0 2rem;
+      background: var(--navy); overflow: hidden;
     }
-    .hero-main {
-      position: relative; overflow: hidden; min-height: 520px;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 3rem;
+    .hero .tiger-stripes { position: absolute; inset: 0; opacity: 0.3; }
+    .hero-spotlight {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 20%, rgba(221,85,12,0.12) 0%, transparent 65%);
     }
-    .hero-main-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background-image: url('jordan-hare-flyover.jpg');
-      background-position: center;
-      background-size: cover;
-      will-change: transform; transform: scale(1.1);
+    .hero-inner {
+      position: relative; max-width: 1200px; margin: 0 auto; padding: 0 1rem;
     }
-    .hero-gradient {
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(135deg, rgba(12,35,64,0.92) 0%, rgba(12,35,64,0.7) 50%, rgba(221,85,12,0.35) 100%);
-      background-size: 200% 200%;
-      animation: gradientShift 8s ease infinite;
+    .hero-label {
+      text-align: center; margin-bottom: 2rem;
     }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .hero-label h2 {
+      font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700;
+      color: white; text-transform: uppercase; letter-spacing: 0.1em;
+      display: inline-block; position: relative;
     }
-    .hero-main > :not(.hero-main-bg):not(.hero-gradient) { position: relative; z-index: 2; }
-    .hero-ribbon {
-      position: absolute; top: 24px; right: -32px; z-index: 3;
-      background: var(--orange); color: white; font-size: 0.65rem;
-      font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
-      padding: 0.25rem 2.5rem; transform: rotate(45deg);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    .hero-label h2 span { color: var(--orange); }
+    .hero-label h2::after {
+      content: ''; position: absolute; bottom: -6px; left: 20%; right: 20%; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--orange), transparent);
     }
-    .badge {
-      display: inline-block; padding: 0.25rem 0.75rem;
-      background: var(--orange); color: white;
-      font-size: 0.65rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      border-radius: 4px; margin-bottom: 0.75rem;
+
+    /* Hero cards — larger version of trading cards */
+    .hero-fan {
+      display: flex; justify-content: center; align-items: flex-end;
+      gap: 0; padding: 1rem 0 2rem; perspective: 1200px;
     }
-    .hero-title {
-      font-size: 2.5rem; color: white; text-transform: uppercase;
-      line-height: 1.1; margin-bottom: 0.75rem; max-width: 600px;
+    .hero-fan .hero-card-wrap:nth-child(1) {
+      transform: rotate(-8deg) translateY(0px); z-index: 1; margin-right: -40px;
     }
-    .hero-excerpt {
-      color: rgba(255,255,255,0.7); font-size: 0.95rem;
-      max-width: 500px; line-height: 1.5;
+    .hero-fan .hero-card-wrap:nth-child(2) {
+      transform: rotate(0deg) translateY(-24px); z-index: 3;
     }
-    .hero-meta {
-      display: flex; align-items: center; gap: 0.5rem;
-      color: rgba(255,255,255,0.45); font-size: 0.75rem; margin-top: 0.75rem;
+    .hero-fan .hero-card-wrap:nth-child(3) {
+      transform: rotate(8deg) translateY(0px); z-index: 2; margin-left: -40px;
     }
-    .hero-side { display: flex; flex-direction: column; }
-    .hero-side-card {
-      flex: 1; position: relative; overflow: hidden;
-      min-height: 260px; display: flex; flex-direction: column;
-      justify-content: flex-end; padding: 1.5rem;
+    .hero-card-wrap {
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.3));
+      transition: transform 0.35s ease, filter 0.35s ease;
     }
-    .hero-side-card::before {
-      content: ''; position: absolute; inset: 0; z-index: 0;
-      background: var(--navy); opacity: 0.7;
+    .hero-fan .hero-card-wrap:hover {
+      z-index: 10 !important;
+      transform: rotate(0deg) translateY(-50px) scale(1.08) !important;
+      filter: drop-shadow(0 24px 48px rgba(0,0,0,0.4));
     }
-    .hero-side-card:nth-child(1)::after {
-      content: ''; position: absolute; inset: 0; z-index: -1;
-      background: url('auburn-basketball-team-sm.jpg') center/cover;
+
+    .hero-trading-card {
+      width: 320px; position: relative; cursor: pointer;
+      border-radius: 14px; overflow: hidden; transition: box-shadow 0.3s ease;
     }
-    .hero-side-card:nth-child(2)::after {
-      content: ''; position: absolute; inset: 0; z-index: -1;
-      background: url('auburn-baseball.jpg') center/cover;
+    .hero-trading-card:hover {
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 40px rgba(221,85,12,0.25);
     }
-    .hero-side-card > * { position: relative; z-index: 1; }
-    .hero-side-card .badge { font-size: 0.55rem; }
-    .hero-side-card h3 {
-      font-family: 'Oswald', sans-serif; font-size: 1.1rem;
-      color: white; text-transform: uppercase; line-height: 1.2;
+    .hero-tc-frame {
+      background: var(--navy); border-radius: 14px; padding: 10px;
+      position: relative;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 20px rgba(0,0,0,0.25);
     }
-    .hero-side-card .hero-meta { font-size: 0.65rem; }
+    .hero-tc-frame::before {
+      content: ''; position: absolute; inset: 0; border-radius: 14px;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.02) 1px, rgba(255,255,255,0.02) 2px);
+      pointer-events: none;
+    }
+    .hero-tc-inner {
+      border: 3px solid var(--orange); border-radius: 10px;
+      overflow: hidden; background: var(--cream);
+    }
+    .hero-tc-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 14px;
+      background: linear-gradient(90deg, var(--navy) 0%, #1A3A5C 50%, var(--navy) 100%);
+    }
+    .hero-tc-header .tc-set-name { font-family: 'Oswald', sans-serif; font-size: 0.65rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.2em; }
+    .hero-tc-header .tc-year { font-family: 'Oswald', sans-serif; font-size: 0.65rem; color: var(--orange); }
+    .hero-tc-photo {
+      width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative;
+    }
+    .hero-tc-photo img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+      display: block; transition: transform 0.4s ease;
+    }
+    .hero-trading-card:hover .hero-tc-photo img { transform: scale(1.06); }
+    .hero-tc-photo::after {
+      content: ''; position: absolute; inset: 0;
+      box-shadow: inset 0 0 40px rgba(12,35,64,0.2);
+      pointer-events: none;
+    }
+    .hero-tc-nameplate {
+      padding: 12px 14px 8px; background: var(--cream);
+      text-align: center; position: relative;
+    }
+    .hero-tc-nameplate::before {
+      content: ''; position: absolute; top: 0; left: 14px; right: 14px; height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--orange) 20%, var(--orange) 80%, transparent 100%);
+    }
+    .hero-tc-nameplate .tc-badge {
+      display: inline-block; padding: 3px 12px; background: var(--orange); color: white;
+      font-family: 'Oswald', sans-serif; font-size: 0.6rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.15em; border-radius: 3px; margin-bottom: 8px;
+    }
+    .hero-tc-nameplate h3 {
+      font-family: 'Oswald', sans-serif; font-size: 1rem; font-weight: 600;
+      color: var(--navy); text-transform: uppercase; line-height: 1.2;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .hero-trading-card:hover .hero-tc-nameplate h3 { color: var(--orange); }
+    .hero-tc-stats {
+      display: flex; justify-content: center; align-items: center; gap: 8px;
+      padding: 8px 14px 10px;
+      background: linear-gradient(90deg, var(--navy) 0%, #1A3A5C 50%, var(--navy) 100%);
+      font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .hero-tc-stats .tc-author { color: rgba(255,255,255,0.8); font-weight: 600; }
+    .hero-tc-stats .tc-dot { color: var(--orange); }
+    .hero-tc-stats .tc-date { color: rgba(255,255,255,0.5); }
+    .hero-tc-shine {
+      position: absolute; inset: 0; border-radius: 14px;
+      pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+    }
+
     @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-main { min-height: 400px; padding: 2rem; }
-      .hero-title { font-size: 1.8rem; }
-      .hero-side { flex-direction: row; }
-      .hero-side-card { min-height: 200px; }
+      .hero-fan { flex-direction: column; align-items: center; gap: 1.5rem; }
+      .hero-fan .hero-card-wrap:nth-child(1) { transform: rotate(-2deg); margin-right: 0; }
+      .hero-fan .hero-card-wrap:nth-child(2) { transform: rotate(1deg); }
+      .hero-fan .hero-card-wrap:nth-child(3) { transform: rotate(-1.5deg); margin-left: 0; }
+      .hero-trading-card { width: min(300px, 85vw); }
+      .hero-fan .hero-card-wrap:hover { transform: rotate(0deg) translateY(-10px) scale(1.03) !important; }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .hero-fan .hero-card-wrap:nth-child(1) { transform: rotate(-4deg); margin-right: -20px; }
+      .hero-fan .hero-card-wrap:nth-child(3) { transform: rotate(4deg); margin-left: -20px; }
+      .hero-trading-card { width: 280px; }
     }
 
     /* ==================== SPORT CATEGORIES ==================== */
@@ -879,29 +930,93 @@
     <button class="gameday-dismiss" id="gamedayDismiss">&times;</button>
   </div>
 
-  <!-- ========== HERO ========== -->
+  <!-- ========== HERO — FEATURED TRADING CARDS ========== -->
   <section class="hero" style="margin-top: 96px;">
-    <div class="hero-main">
-      <div class="hero-main-bg" id="heroBg"></div>
-      <div class="hero-gradient"></div>
-      <div class="hero-ribbon">Featured</div>
-      <span class="badge">Football</span>
-      <h1 class="hero-title">Auburn Opens Spring Practice With Bold New Offensive Scheme</h1>
-      <p class="hero-excerpt">Head coach unveils a dynamic new offensive system as the Tigers prepare for an exciting 2026 season in the SEC.</p>
-      <div class="hero-meta">
-        <span>Jake Mitchell</span><span>&middot;</span><span>Mar 5, 2026</span>
+    <div class="tiger-stripes"></div>
+    <div class="hero-spotlight"></div>
+    <div class="hero-inner">
+      <div class="hero-label">
+        <h2>Featured <span>Stories</span></h2>
       </div>
-    </div>
-    <div class="hero-side">
-      <div class="hero-side-card">
-        <span class="badge">Basketball</span>
-        <h3>Tigers Clinch SEC Tournament Bid With Dominant Win</h3>
-        <div class="hero-meta"><span>Sarah Collins</span><span>&middot;</span><span>Mar 4, 2026</span></div>
-      </div>
-      <div class="hero-side-card">
-        <span class="badge">Baseball</span>
-        <h3>Auburn Baseball Sweeps Weekend Series Against Georgia</h3>
-        <div class="hero-meta"><span>Mike Torres</span><span>&middot;</span><span>Mar 3, 2026</span></div>
+      <div class="hero-fan">
+        <!-- Card 1: Football -->
+        <div class="hero-card-wrap">
+          <div class="hero-trading-card">
+            <div class="hero-tc-frame">
+              <div class="hero-tc-inner">
+                <div class="hero-tc-header">
+                  <span class="tc-set-name">Auburn Daily</span>
+                  <span class="tc-year">2026</span>
+                </div>
+                <div class="hero-tc-photo">
+                  <img src="auburn-football-sm.jpg" alt="Auburn Tigers Football">
+                </div>
+                <div class="hero-tc-nameplate">
+                  <span class="tc-badge">Football</span>
+                  <h3>Auburn Opens Spring Practice With Bold New Offensive Scheme</h3>
+                </div>
+                <div class="hero-tc-stats">
+                  <span class="tc-author">Jake Mitchell</span>
+                  <span class="tc-dot">&bull;</span>
+                  <span class="tc-date">Mar 5, 2026</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-tc-shine"></div>
+          </div>
+        </div>
+        <!-- Card 2: Basketball -->
+        <div class="hero-card-wrap">
+          <div class="hero-trading-card">
+            <div class="hero-tc-frame">
+              <div class="hero-tc-inner">
+                <div class="hero-tc-header">
+                  <span class="tc-set-name">Auburn Daily</span>
+                  <span class="tc-year">2026</span>
+                </div>
+                <div class="hero-tc-photo">
+                  <img src="auburn-basketball-team-sm.jpg" alt="Auburn Tigers Basketball">
+                </div>
+                <div class="hero-tc-nameplate">
+                  <span class="tc-badge">Basketball</span>
+                  <h3>Tigers Clinch SEC Tournament Bid With Dominant Win</h3>
+                </div>
+                <div class="hero-tc-stats">
+                  <span class="tc-author">Sarah Collins</span>
+                  <span class="tc-dot">&bull;</span>
+                  <span class="tc-date">Mar 4, 2026</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-tc-shine"></div>
+          </div>
+        </div>
+        <!-- Card 3: Baseball -->
+        <div class="hero-card-wrap">
+          <div class="hero-trading-card">
+            <div class="hero-tc-frame">
+              <div class="hero-tc-inner">
+                <div class="hero-tc-header">
+                  <span class="tc-set-name">Auburn Daily</span>
+                  <span class="tc-year">2026</span>
+                </div>
+                <div class="hero-tc-photo">
+                  <img src="auburn-baseball.jpg" alt="Auburn Tigers Baseball">
+                </div>
+                <div class="hero-tc-nameplate">
+                  <span class="tc-badge">Baseball</span>
+                  <h3>Auburn Baseball Sweeps Weekend Series Against Georgia</h3>
+                </div>
+                <div class="hero-tc-stats">
+                  <span class="tc-author">Mike Torres</span>
+                  <span class="tc-dot">&bull;</span>
+                  <span class="tc-date">Mar 3, 2026</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-tc-shine"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1308,15 +1423,22 @@
       document.getElementById('gamedayBanner').classList.add('dismissed');
     });
 
-    // ========== HERO PARALLAX ==========
-    (function() {
-      var heroBg = document.getElementById('heroBg');
-      if (heroBg) {
-        window.addEventListener('scroll', function() {
-          heroBg.style.transform = 'translateY(' + (window.scrollY * 0.15) + 'px) scale(1.1)';
-        }, { passive: true });
-      }
-    })();
+    // ========== HERO TRADING CARD SHINE ==========
+    document.querySelectorAll('.hero-trading-card').forEach(function(card) {
+      var shine = card.querySelector('.hero-tc-shine');
+      if (!shine) return;
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        shine.style.background = 'radial-gradient(circle at ' + x + '% ' + y + '%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.06) 40%, transparent 70%)';
+        shine.style.opacity = '1';
+      });
+      card.addEventListener('mouseleave', function() {
+        shine.style.opacity = '0';
+        shine.style.background = '';
+      });
+    });
 
     // ========== SCROLL ANIMATIONS ==========
     var observer = new IntersectionObserver(function(entries) {
