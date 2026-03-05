@@ -248,7 +248,9 @@
     }
     .hero-main-bg {
       position: absolute; inset: 0; z-index: 0;
-      background: url('jordan-hare-flyover.jpg') center/cover;
+      background-image: url('jordan-hare-flyover.jpg');
+      background-position: center;
+      background-size: cover;
       will-change: transform; transform: scale(1.1);
     }
     .hero-gradient {
@@ -262,7 +264,7 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .hero-main > * { position: relative; z-index: 2; }
+    .hero-main > :not(.hero-main-bg):not(.hero-gradient) { position: relative; z-index: 2; }
     .hero-ribbon {
       position: absolute; top: 24px; right: -32px; z-index: 3;
       background: var(--orange); color: white; font-size: 0.65rem;
@@ -385,43 +387,148 @@
     }
     .view-all:hover { color: var(--navy); }
 
-    /* ==================== ARTICLE CARDS ==================== */
-    .card-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    /* ==================== TRADING CARDS ==================== */
+    .trading-card-fan {
+      display: flex; justify-content: center; align-items: flex-end;
+      gap: 0; padding: 2rem 0 3rem; perspective: 1200px;
+    }
+    .trading-card-fan .tilt-card:nth-child(1) {
+      transform: rotate(-6deg) translateY(-10px); z-index: 1; margin-right: -30px;
+    }
+    .trading-card-fan .tilt-card:nth-child(2) {
+      transform: rotate(0deg) translateY(-20px); z-index: 3; position: relative;
+    }
+    .trading-card-fan .tilt-card:nth-child(3) {
+      transform: rotate(6deg) translateY(-10px); z-index: 2; margin-left: -30px;
+    }
+    .trading-card-fan .tilt-card:hover {
+      z-index: 10 !important;
+      transform: rotate(0deg) translateY(-40px) scale(1.05) !important;
+      transition: transform 0.3s ease, z-index 0s;
     }
     .tilt-card {
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
       transform-style: preserve-3d;
-      transition: opacity 0.5s, translate 0.5s;
+      transition: transform 0.3s ease, opacity 0.5s, translate 0.5s, filter 0.3s;
     }
+    .tilt-card:hover { filter: drop-shadow(0 16px 32px rgba(0,0,0,0.3)); }
     .tilt-card.hidden { opacity: 0; translate: 0 24px; }
-    .card {
-      background: white; border-radius: 12px; overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      transition: box-shadow 0.2s, transform 0.2s;
+
+    .trading-card {
+      width: 280px; position: relative; cursor: pointer;
+      border-radius: 12px; overflow: hidden; transition: box-shadow 0.3s ease;
     }
-    .card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-2px); }
-    .card-img {
-      width: 100%; aspect-ratio: 3/2; object-fit: cover; display: block;
+    .trading-card:hover {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 30px rgba(221,85,12,0.2);
     }
-    .card-body { padding: 1rem 1.25rem 1.25rem; }
-    .card-body .badge { margin-bottom: 0.5rem; }
-    .card-title {
-      font-family: 'Oswald', sans-serif; font-size: 1rem;
-      color: var(--navy); text-transform: uppercase; line-height: 1.25;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+
+    /* Outer frame — navy "card stock" */
+    .tc-frame {
+      background: var(--navy); border-radius: 12px; padding: 8px;
+      position: relative;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), 0 4px 16px rgba(0,0,0,0.2);
     }
-    .card:hover .card-title { color: var(--orange); }
-    .card-excerpt {
-      font-size: 0.8rem; color: rgba(31,41,55,0.6);
-      line-height: 1.4; margin-top: 0.4rem;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    .tc-frame::before {
+      content: ''; position: absolute; inset: 0; border-radius: 12px;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.015) 1px, rgba(255,255,255,0.015) 2px);
+      pointer-events: none;
     }
-    .card-meta {
-      display: flex; align-items: center; gap: 0.4rem;
-      font-size: 0.7rem; color: rgba(31,41,55,0.35); margin-top: 0.75rem;
+
+    /* Inner border — orange accent matting */
+    .tc-inner-border {
+      border: 2px solid var(--orange); border-radius: 8px;
+      overflow: hidden; background: var(--cream);
     }
-    @media (max-width: 768px) { .card-grid { grid-template-columns: 1fr; } }
-    @media (min-width: 769px) and (max-width: 1024px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* Header strip */
+    .tc-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 10px;
+      background: linear-gradient(90deg, var(--navy) 0%, #1A3A5C 50%, var(--navy) 100%);
+    }
+    .tc-set-name {
+      font-family: 'Oswald', sans-serif; font-size: 0.6rem; font-weight: 700;
+      color: white; text-transform: uppercase; letter-spacing: 0.2em;
+    }
+    .tc-year {
+      font-family: 'Oswald', sans-serif; font-size: 0.6rem; font-weight: 400;
+      color: var(--orange); letter-spacing: 0.1em;
+    }
+
+    /* Photo window */
+    .tc-photo-window {
+      width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative;
+      border-top: 1px solid rgba(12,35,64,0.1);
+      border-bottom: 1px solid rgba(12,35,64,0.1);
+    }
+    .tc-photo {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      display: block; transition: transform 0.4s ease;
+    }
+    .trading-card:hover .tc-photo { transform: scale(1.05); }
+    .tc-photo-window::after {
+      content: ''; position: absolute; inset: 0;
+      box-shadow: inset 0 0 30px rgba(12,35,64,0.15);
+      pointer-events: none;
+    }
+
+    /* Nameplate */
+    .tc-nameplate {
+      padding: 10px 12px 6px; background: var(--cream);
+      text-align: center; position: relative;
+    }
+    .tc-nameplate::before {
+      content: ''; position: absolute; top: 0; left: 12px; right: 12px; height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--orange) 20%, var(--orange) 80%, transparent 100%);
+    }
+    .tc-badge {
+      display: inline-block; padding: 2px 10px;
+      background: var(--orange); color: white;
+      font-family: 'Oswald', sans-serif; font-size: 0.55rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      border-radius: 3px; margin-bottom: 6px;
+    }
+    .tc-title {
+      font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600;
+      color: var(--navy); text-transform: uppercase; line-height: 1.2;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .trading-card:hover .tc-title { color: var(--orange); }
+
+    /* Stats bar */
+    .tc-stats-bar {
+      display: flex; justify-content: center; align-items: center; gap: 6px;
+      padding: 6px 12px 8px;
+      background: linear-gradient(90deg, var(--navy) 0%, #1A3A5C 50%, var(--navy) 100%);
+      font-size: 0.55rem; color: rgba(255,255,255,0.6);
+      font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .tc-dot { color: var(--orange); font-size: 0.7rem; }
+    .tc-author { color: rgba(255,255,255,0.8); font-weight: 600; }
+    .tc-date { color: rgba(255,255,255,0.5); }
+
+    /* Holographic shine */
+    .tc-shine {
+      position: absolute; inset: 0; border-radius: 12px;
+      pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+    }
+
+    /* Responsive */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .trading-card-fan { flex-wrap: wrap; gap: 1.5rem; }
+      .trading-card-fan .tilt-card:nth-child(1) { transform: rotate(-3deg); margin-right: 0; }
+      .trading-card-fan .tilt-card:nth-child(2) { transform: rotate(2deg); }
+      .trading-card-fan .tilt-card:nth-child(3) { transform: rotate(-1deg); margin-left: 0; }
+      .trading-card { width: 260px; }
+    }
+    @media (max-width: 768px) {
+      .trading-card-fan { flex-direction: column; align-items: center; gap: 1.5rem; padding: 1rem 0 2rem; }
+      .trading-card-fan .tilt-card:nth-child(1) { transform: rotate(-2deg); margin-right: 0; }
+      .trading-card-fan .tilt-card:nth-child(2) { transform: rotate(1.5deg); }
+      .trading-card-fan .tilt-card:nth-child(3) { transform: rotate(-1deg); margin-left: 0; }
+      .trading-card { width: min(280px, 85vw); }
+      .trading-card-fan .tilt-card:hover { transform: rotate(0deg) translateY(-10px) scale(1.03) !important; }
+    }
 
     /* ==================== STATS COUNTER ==================== */
     .stats-section {
@@ -829,38 +936,80 @@
         <h2 class="section-title" id="latestTitle">Latest <span>Stories</span></h2>
         <a href="#" class="view-all">View All &rarr;</a>
       </div>
-      <div class="card-grid" id="cardGrid">
+      <div class="trading-card-fan" id="cardGrid">
         <div class="tilt-card hidden">
-          <div class="card">
-            <img class="card-img" src="auburn-football-sm.jpg" alt="Auburn Tigers Football">
-            <div class="card-body">
-              <span class="badge">Football</span>
-              <h3 class="card-title">Five-Star Recruit Commits to Auburn, Bolstering 2027 Class</h3>
-              <p class="card-excerpt">The nation's top defensive end announces his commitment to the Tigers, giving Auburn its highest-rated recruit in years.</p>
-              <div class="card-meta"><span>Jake Mitchell</span><span>&middot;</span><span>Mar 5, 2026</span></div>
+          <div class="trading-card">
+            <div class="tc-frame">
+              <div class="tc-inner-border">
+                <div class="tc-header">
+                  <span class="tc-set-name">Auburn Daily</span>
+                  <span class="tc-year">2026</span>
+                </div>
+                <div class="tc-photo-window">
+                  <img class="tc-photo" src="auburn-football-sm.jpg" alt="Auburn Tigers Football">
+                </div>
+                <div class="tc-nameplate">
+                  <span class="tc-badge">Football</span>
+                  <h3 class="tc-title">Five-Star Recruit Commits to Auburn, Bolstering 2027 Class</h3>
+                </div>
+                <div class="tc-stats-bar">
+                  <span class="tc-author">Jake Mitchell</span>
+                  <span class="tc-dot">&bull;</span>
+                  <span class="tc-date">Mar 5, 2026</span>
+                </div>
+              </div>
             </div>
+            <div class="tc-shine"></div>
           </div>
         </div>
         <div class="tilt-card hidden">
-          <div class="card">
-            <img class="card-img" src="bryce-brown-basketball.jpg" alt="Auburn Tigers Basketball">
-            <div class="card-body">
-              <span class="badge">Basketball</span>
-              <h3 class="card-title">Pearl's Squad Looks Poised for Deep March Run</h3>
-              <p class="card-excerpt">After a dominant regular season, the Tigers enter postseason play as one of the SEC's most dangerous teams.</p>
-              <div class="card-meta"><span>Sarah Collins</span><span>&middot;</span><span>Mar 4, 2026</span></div>
+          <div class="trading-card">
+            <div class="tc-frame">
+              <div class="tc-inner-border">
+                <div class="tc-header">
+                  <span class="tc-set-name">Auburn Daily</span>
+                  <span class="tc-year">2026</span>
+                </div>
+                <div class="tc-photo-window">
+                  <img class="tc-photo" src="bryce-brown-basketball.jpg" alt="Auburn Tigers Basketball">
+                </div>
+                <div class="tc-nameplate">
+                  <span class="tc-badge">Basketball</span>
+                  <h3 class="tc-title">Pearl's Squad Looks Poised for Deep March Run</h3>
+                </div>
+                <div class="tc-stats-bar">
+                  <span class="tc-author">Sarah Collins</span>
+                  <span class="tc-dot">&bull;</span>
+                  <span class="tc-date">Mar 4, 2026</span>
+                </div>
+              </div>
             </div>
+            <div class="tc-shine"></div>
           </div>
         </div>
         <div class="tilt-card hidden">
-          <div class="card">
-            <img class="card-img" src="suni-lee-sm.jpg" alt="Suni Lee Auburn Gymnastics">
-            <div class="card-body">
-              <span class="badge">Gymnastics</span>
-              <h3 class="card-title">Auburn Gymnastics Posts Season-High Score in SEC Meet</h3>
-              <p class="card-excerpt">Suni Lee leads the team with a perfect 10 on bars as the Tigers surge into championship contention.</p>
-              <div class="card-meta"><span>Emma Reed</span><span>&middot;</span><span>Mar 3, 2026</span></div>
+          <div class="trading-card">
+            <div class="tc-frame">
+              <div class="tc-inner-border">
+                <div class="tc-header">
+                  <span class="tc-set-name">Auburn Daily</span>
+                  <span class="tc-year">2026</span>
+                </div>
+                <div class="tc-photo-window">
+                  <img class="tc-photo" src="suni-lee-sm.jpg" alt="Suni Lee Auburn Gymnastics">
+                </div>
+                <div class="tc-nameplate">
+                  <span class="tc-badge">Gymnastics</span>
+                  <h3 class="tc-title">Auburn Gymnastics Posts Season-High Score in SEC Meet</h3>
+                </div>
+                <div class="tc-stats-bar">
+                  <span class="tc-author">Emma Reed</span>
+                  <span class="tc-dot">&bull;</span>
+                  <span class="tc-date">Mar 3, 2026</span>
+                </div>
+              </div>
             </div>
+            <div class="tc-shine"></div>
           </div>
         </div>
       </div>
@@ -1201,18 +1350,35 @@
     var cg = document.getElementById('cardGrid');
     if (cg) cardObserver.observe(cg);
 
-    // ========== 3D TILT ON CARDS ==========
+    // ========== 3D TILT ON TRADING CARDS ==========
     document.querySelectorAll('.tilt-card').forEach(function(card) {
       card.addEventListener('mousemove', function(e) {
         var rect = card.getBoundingClientRect();
         var cx = rect.left + rect.width / 2;
         var cy = rect.top + rect.height / 2;
-        var ry = ((e.clientX - cx) / (rect.width / 2)) * 5;
-        var rx = -((e.clientY - cy) / (rect.height / 2)) * 5;
-        card.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+        var ry = ((e.clientX - cx) / (rect.width / 2)) * 8;
+        var rx = -((e.clientY - cy) / (rect.height / 2)) * 8;
+        card.style.transform = 'perspective(800px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-40px) scale(1.05)';
       });
       card.addEventListener('mouseleave', function() {
-        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+        card.style.transform = '';
+      });
+    });
+
+    // ========== HOLOGRAPHIC SHINE ON TRADING CARDS ==========
+    document.querySelectorAll('.trading-card').forEach(function(card) {
+      var shine = card.querySelector('.tc-shine');
+      if (!shine) return;
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        shine.style.background = 'radial-gradient(circle at ' + x + '% ' + y + '%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 40%, transparent 70%)';
+        shine.style.opacity = '1';
+      });
+      card.addEventListener('mouseleave', function() {
+        shine.style.opacity = '0';
+        shine.style.background = '';
       });
     });
 
