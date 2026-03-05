@@ -49,7 +49,8 @@
     .loader {
       position: fixed; inset: 0; z-index: 9999;
       background: var(--navy);
-      transition: opacity 0.8s ease;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease;
       overflow: hidden;
     }
     .loader.fade-out { opacity: 0; pointer-events: none; }
@@ -60,64 +61,82 @@
       position: absolute; inset: 0; opacity: 0.04;
       background-image: repeating-linear-gradient(45deg, transparent, transparent 40px, var(--orange) 40px, var(--orange) 42px);
     }
-    .aubie-walker {
-      position: absolute;
-      width: 200px; height: 200px;
-      transition: left 1.8s cubic-bezier(0.25, 0.1, 0.25, 1),
-                  top 1.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-      z-index: 10;
+
+    /* Floating sport icons */
+    .loader-icon {
+      position: absolute; font-size: 2rem; opacity: 0;
+      animation: iconFloat 3s ease-in-out infinite;
+      pointer-events: none;
     }
-    .aubie-walker img {
-      width: 100%; height: 100%; object-fit: contain;
-      filter: drop-shadow(0 0 25px rgba(221,85,12,0.35));
-      transition: transform 0.3s ease;
+    @keyframes iconFloat {
+      0% { opacity: 0; transform: translateY(30px) scale(0.5) rotate(0deg); }
+      15% { opacity: 0.25; }
+      50% { opacity: 0.15; transform: translateY(-20px) scale(1) rotate(15deg); }
+      85% { opacity: 0.25; }
+      100% { opacity: 0; transform: translateY(30px) scale(0.5) rotate(-15deg); }
     }
-    .aubie-walking img { animation: walkBob 0.4s ease-in-out infinite; }
-    @keyframes walkBob {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      50% { transform: translateY(-8px) rotate(2deg); }
-    }
-    .aubie-arrived img { animation: arriveHop 0.5s ease-out; }
-    @keyframes arriveHop {
-      0% { transform: translateY(0); }
-      40% { transform: translateY(-20px) rotate(5deg); }
-      70% { transform: translateY(-5px) rotate(-2deg); }
-      100% { transform: translateY(0) rotate(0deg); }
-    }
-    .aubie-idle img { animation: idleSway 2s ease-in-out infinite; }
-    @keyframes idleSway {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(3deg); }
-      75% { transform: rotate(-3deg); }
-    }
-    .paw-trail {
-      position: absolute; font-size: 1.2rem;
-      opacity: 0; pointer-events: none;
-      animation: pawFade 2s ease-out forwards;
-    }
-    @keyframes pawFade {
-      0% { opacity: 0.35; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0.6); }
-    }
+
+    /* Center content */
     .loader-center {
-      position: absolute; bottom: 15%; left: 50%;
-      transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; z-index: 5;
+      position: relative; z-index: 5;
+      display: flex; flex-direction: column; align-items: center;
     }
+
+    /* Auburn AU logo */
+    .loader-logo {
+      width: 120px; height: 120px; margin-bottom: 1.5rem;
+      animation: logoPulse 1.5s ease-in-out infinite, fadeInUp 0.5s ease-out both;
+    }
+    .loader-logo svg {
+      width: 100%; height: 100%;
+      filter: drop-shadow(0 0 30px rgba(221,85,12,0.4));
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(221,85,12,0.3)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 40px rgba(221,85,12,0.5)); }
+    }
+
+    /* Sport icons orbit ring */
+    .loader-orbit {
+      position: absolute; width: 260px; height: 260px;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      animation: orbitSpin 4s linear infinite;
+    }
+    .orbit-icon {
+      position: absolute; font-size: 1.6rem;
+      animation: orbitIconPulse 2s ease-in-out infinite;
+    }
+    @keyframes orbitSpin {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    @keyframes orbitIconPulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+    /* Counter-rotate icons so they stay upright */
+    .orbit-icon { animation: orbitCounterSpin 4s linear infinite, orbitIconPulse 2s ease-in-out infinite; }
+    @keyframes orbitCounterSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
     .loader-title {
       font-family: 'Oswald', sans-serif;
       font-size: 2.5rem; color: white; text-transform: uppercase;
-      letter-spacing: 0.15em; animation: fadeInUp 0.6s ease-out both;
+      letter-spacing: 0.15em; animation: fadeInUp 0.5s ease-out 0.1s both;
     }
     .loader-title span { color: var(--orange); }
     .loader-phase {
       color: rgba(255,255,255,0.4); font-size: 0.75rem;
       text-transform: uppercase; letter-spacing: 4px;
-      margin: 0.5rem 0 2rem; height: 1.2em; transition: opacity 0.3s;
+      margin: 0.5rem 0 1.5rem; height: 1.2em; transition: opacity 0.3s;
+      animation: fadeInUp 0.5s ease-out 0.2s both;
     }
     .progress-track {
       width: 220px; height: 2px; background: rgba(255,255,255,0.1);
       border-radius: 999px; overflow: hidden;
+      animation: fadeInUp 0.5s ease-out 0.3s both;
     }
     .progress-fill {
       height: 100%; border-radius: 999px; width: 0%;
@@ -130,6 +149,7 @@
       color: rgba(255,255,255,0.2); font-size: 0.7rem;
       text-align: center; margin-top: 0.75rem;
       font-variant-numeric: tabular-nums;
+      animation: fadeInUp 0.5s ease-out 0.3s both;
     }
 
     @keyframes fadeInUp {
@@ -856,15 +876,26 @@
   <!-- Field lines background -->
   <div class="field-lines"></div>
 
-  <!-- ========== AUBIE LOADER ========== -->
+  <!-- ========== SPORTS LOADER ========== -->
   <div class="loader" id="loader">
     <div class="loader-bg"><div class="loader-stripes"></div></div>
-    <div class="aubie-walker aubie-idle" id="aubie">
-      <img src="aubie-full.jpg" alt="Aubie the Tiger">
-    </div>
+    <!-- Floating background icons -->
+    <div id="floatingIcons"></div>
     <div class="loader-center">
+      <!-- Orbiting sport icons around logo -->
+      <div style="position: relative; width: 260px; height: 260px; margin-bottom: 1rem;">
+        <div class="loader-orbit" id="orbitRing"></div>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+          <div class="loader-logo">
+            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+              <text x="50" y="62" text-anchor="middle" font-family="'Oswald', sans-serif" font-weight="700" font-size="58" fill="white" letter-spacing="2">AU</text>
+              <line x1="10" y1="72" x2="90" y2="72" stroke="#DD550C" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
       <div class="loader-title">Auburn <span>Daily</span></div>
-      <div class="loader-phase" id="loaderPhase">Aubie is exploring...</div>
+      <div class="loader-phase" id="loaderPhase">Loading the playbook...</div>
       <div class="progress-track">
         <div class="progress-fill" id="progressFill"></div>
       </div>
@@ -1284,60 +1315,44 @@
   </div>
 
   <script>
-    // ========== AUBIE LOADER ==========
+    // ========== SPORTS LOADER ==========
     (function() {
       var loader = document.getElementById('loader');
-      var aubie = document.getElementById('aubie');
       var phaseEl = document.getElementById('loaderPhase');
       var fill = document.getElementById('progressFill');
       var pctEl = document.getElementById('progressPct');
-      var phases = ['Aubie is exploring...', 'Scouting the field...', 'Looking for snacks...', 'Almost ready...', 'War Eagle!'];
-      var aubieSize = 200;
-      var currentX = window.innerWidth / 2 - aubieSize / 2;
-      var currentY = window.innerHeight * 0.25;
-      aubie.style.left = currentX + 'px';
-      aubie.style.top = currentY + 'px';
+      var phases = ['Loading the playbook...', 'Checking the roster...', 'Warming up...', 'Almost game time...', 'War Eagle!'];
+      var sportIcons = ['🏈', '🏀', '⚾', '🥎', '🤸', '🏊', '🏃', '⚽', '⛳', '🎾', '🐎', '🏐'];
 
-      function dropPaw() {
-        var paw = document.createElement('div');
-        paw.className = 'paw-trail';
-        paw.textContent = '🐾';
-        paw.style.left = (currentX + aubieSize / 2 - 10) + 'px';
-        paw.style.top = (currentY + aubieSize - 5) + 'px';
-        loader.appendChild(paw);
-        setTimeout(function() { paw.remove(); }, 2200);
+      // Create orbiting icons
+      var orbit = document.getElementById('orbitRing');
+      var orbitIcons = ['🏈', '🏀', '⚾', '🤸', '🏊', '⚽'];
+      orbitIcons.forEach(function(icon, i) {
+        var el = document.createElement('span');
+        el.className = 'orbit-icon';
+        el.textContent = icon;
+        var angle = (i / orbitIcons.length) * 360;
+        var rad = angle * Math.PI / 180;
+        var r = 120;
+        el.style.left = (130 + r * Math.cos(rad) - 12) + 'px';
+        el.style.top = (130 + r * Math.sin(rad) - 12) + 'px';
+        el.style.animationDelay = (i * 0.3) + 's';
+        orbit.appendChild(el);
+      });
+
+      // Create floating background icons
+      var floatContainer = document.getElementById('floatingIcons');
+      for (var i = 0; i < 18; i++) {
+        var el = document.createElement('div');
+        el.className = 'loader-icon';
+        el.textContent = sportIcons[i % sportIcons.length];
+        el.style.left = (Math.random() * 90 + 5) + '%';
+        el.style.top = (Math.random() * 80 + 10) + '%';
+        el.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
+        el.style.animationDelay = (Math.random() * 3) + 's';
+        el.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+        floatContainer.appendChild(el);
       }
-
-      function walkTo(target) {
-        var goingLeft = target.x < currentX;
-        aubie.querySelector('img').style.transform = goingLeft ? 'scaleX(-1)' : 'scaleX(1)';
-        aubie.className = 'aubie-walker aubie-walking';
-        var pawInterval = setInterval(dropPaw, 350);
-        aubie.style.left = target.x + 'px';
-        aubie.style.top = target.y + 'px';
-        currentX = target.x;
-        currentY = target.y;
-        setTimeout(function() {
-          clearInterval(pawInterval);
-          dropPaw();
-          aubie.className = 'aubie-walker aubie-arrived';
-          aubie.querySelector('img').style.transform = goingLeft ? 'scaleX(-1)' : 'scaleX(1)';
-          setTimeout(function() { aubie.className = 'aubie-walker aubie-idle'; }, 600);
-        }, 1900);
-      }
-
-      var walkTimer = setInterval(function() {
-        walkTo({
-          x: 40 + Math.random() * (window.innerWidth - aubieSize - 80),
-          y: 40 + Math.random() * (window.innerHeight * 0.52 - 40),
-        });
-      }, 2800);
-      setTimeout(function() {
-        walkTo({
-          x: 40 + Math.random() * (window.innerWidth - aubieSize - 80),
-          y: 40 + Math.random() * (window.innerHeight * 0.52 - 40),
-        });
-      }, 400);
 
       var progress = 0;
       var progressInterval = setInterval(function() {
@@ -1349,9 +1364,7 @@
         phaseEl.textContent = phases[pi];
         if (progress >= 100) {
           clearInterval(progressInterval);
-          clearInterval(walkTimer);
           phaseEl.textContent = 'War Eagle!';
-          walkTo({ x: window.innerWidth / 2 - aubieSize / 2, y: window.innerHeight * 0.2 });
           setTimeout(function() {
             loader.classList.add('fade-out');
             setTimeout(function() { loader.style.display = 'none'; }, 500);
