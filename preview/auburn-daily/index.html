@@ -1341,7 +1341,7 @@
 
       var progress = 0;
       var progressInterval = setInterval(function() {
-        var speed = progress < 20 ? 1.0 : progress < 50 ? 0.6 : progress < 80 ? 0.8 : 1.8;
+        var speed = progress < 20 ? 3.5 : progress < 50 ? 2.5 : progress < 80 ? 3.0 : 5.0;
         progress = Math.min(100, progress + speed);
         fill.style.width = progress + '%';
         pctEl.textContent = Math.round(progress) + '%';
@@ -1354,8 +1354,8 @@
           walkTo({ x: window.innerWidth / 2 - aubieSize / 2, y: window.innerHeight * 0.2 });
           setTimeout(function() {
             loader.classList.add('fade-out');
-            setTimeout(function() { loader.style.display = 'none'; }, 800);
-          }, 1200);
+            setTimeout(function() { loader.style.display = 'none'; }, 500);
+          }, 400);
         }
       }, 60);
     })();
