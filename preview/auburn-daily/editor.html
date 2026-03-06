@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Demo — Auburn Daily | Williams Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy: #0C2340; --navy-light: #1A3A5C; --navy-dark: #081A2E; --orange: #DD550C; --orange-hover: #F26522; --cream: #FAF7F2; --cream-dark: #F0EDE7; --charcoal: #1F2937; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--cream); color: var(--charcoal); overflow-x: hidden; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Oswald', sans-serif; }
+    img { max-width: 100%; height: auto; } a { text-decoration: none; color: inherit; }
+
+    /* Score ticker */
+    .score-ticker { position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: var(--navy-dark); height: 32px; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+    .ticker-content { display: inline-flex; animation: tickerScroll 30s linear infinite; }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item { display: inline-flex; align-items: center; padding: 0 1.5rem; font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; }
+    .ticker-score { color: var(--orange); font-weight: 700; }
+    .ticker-divider { width: 1px; height: 16px; background: rgba(255,255,255,0.08); margin: 0 0.5rem; }
+    .ticker-status { color: rgba(255,255,255,0.3); font-size: 0.6rem; margin-left: 0.5rem; }
+
+    /* Navbar */
+    .navbar { position: fixed; top: 32px; left: 0; right: 0; z-index: 50; background: var(--navy); box-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { font-family: 'Oswald', sans-serif; font-size: 1.4rem; color: white; text-transform: uppercase; letter-spacing: 0.12em; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a { padding: 0.5rem 0.75rem; font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-links a.active { color: var(--orange); font-weight: 700; }
+    .nav-search { background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: white; padding: 0.4rem 0.8rem; font-size: 0.8rem; width: 140px; outline: none; }
+    .nav-search::placeholder { color: rgba(255,255,255,0.35); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* ==================== EDITOR LAYOUT ==================== */
+    .editor-page { margin-top: 96px; display: flex; min-height: calc(100vh - 96px); }
+
+    /* Sidebar */
+    .cms-sidebar {
+      width: 60px; background: #1a1a2e; display: flex; flex-direction: column;
+      align-items: center; padding: 1rem 0; gap: 1.5rem; flex-shrink: 0;
+    }
+    .cms-sidebar-icon {
+      width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; cursor: pointer;
+      background: rgba(255,255,255,0.05); transition: background 0.2s;
+    }
+    .cms-sidebar-icon:hover { background: rgba(255,255,255,0.1); }
+    .cms-sidebar-icon.active { background: var(--orange); }
+
+    /* Editor panel */
+    .cms-editor {
+      flex: 1; background: #16213e; color: white; padding: 2rem;
+      overflow-y: auto; max-width: 600px; min-width: 320px;
+    }
+    .cms-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 2rem; padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .cms-title { font-family: 'Oswald', sans-serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .cms-title span { color: var(--orange); }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 999px; font-size: 0.65rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      transition: all 0.3s;
+    }
+    .status-pill.draft { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .status-pill.draft::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #f59e0b; }
+    .status-pill.published { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .status-pill.published::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+
+    /* Form */
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label {
+      display: block; font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4); margin-bottom: 0.4rem;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; color: white; padding: 0.65rem 0.85rem; font-size: 0.85rem;
+      font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--orange); }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+    .form-select option { background: #16213e; color: white; }
+    .form-textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
+
+    /* Image picker */
+    .image-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;
+    }
+    .image-option {
+      aspect-ratio: 1; border-radius: 8px; overflow: hidden; cursor: pointer;
+      border: 2px solid transparent; transition: all 0.2s; position: relative;
+    }
+    .image-option img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .image-option:hover { border-color: rgba(255,255,255,0.3); }
+    .image-option.selected { border-color: var(--orange); }
+    .image-option.selected::after {
+      content: '✓'; position: absolute; top: 4px; right: 4px;
+      width: 20px; height: 20px; background: var(--orange); color: white;
+      border-radius: 50%; font-size: 0.65rem; display: flex; align-items: center;
+      justify-content: center; font-weight: 700;
+    }
+
+    /* Publish button */
+    .publish-btn {
+      width: 100%; padding: 0.85rem; background: var(--orange); color: white;
+      border: none; border-radius: 8px; font-family: 'Oswald', sans-serif;
+      font-size: 1rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; cursor: pointer; transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+    .publish-btn:hover { background: var(--orange-hover); transform: translateY(-1px); }
+    .publish-btn:active { transform: translateY(0); }
+    .publish-btn.published { background: #22c55e; cursor: default; }
+
+    /* ==================== PREVIEW PANEL ==================== */
+    .preview-panel {
+      flex: 1; background: var(--cream); padding: 2rem;
+      display: flex; flex-direction: column; align-items: center;
+      overflow-y: auto;
+    }
+    .preview-label {
+      font-family: 'Oswald', sans-serif; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      color: rgba(31,41,55,0.35); margin-bottom: 1.5rem;
+    }
+    .preview-label span { color: var(--orange); }
+
+    /* Trading card (orange & white — same as Latest Stories) */
+    .preview-card-wrap {
+      filter: drop-shadow(0 12px 32px rgba(0,0,0,0.15));
+      transition: transform 0.3s ease, filter 0.3s;
+      margin-bottom: 2rem;
+    }
+    .preview-card-wrap:hover {
+      filter: drop-shadow(0 20px 48px rgba(221,85,12,0.25));
+      transform: translateY(-8px) scale(1.02);
+    }
+    .preview-card {
+      width: 300px; position: relative; cursor: pointer;
+      border-radius: 12px; overflow: hidden; transition: box-shadow 0.3s ease;
+    }
+    .preview-card:hover { box-shadow: 0 20px 60px rgba(221,85,12,0.3), 0 0 30px rgba(221,85,12,0.25); }
+    .pc-frame {
+      background: var(--orange); border-radius: 12px; padding: 8px;
+      position: relative;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 16px rgba(221,85,12,0.25);
+    }
+    .pc-frame::before {
+      content: ''; position: absolute; inset: 0; border-radius: 12px;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.04) 1px, rgba(255,255,255,0.04) 2px);
+      pointer-events: none;
+    }
+    .pc-inner { border: 2px solid white; border-radius: 8px; overflow: hidden; background: white; }
+    .pc-header {
+      display: flex; justify-content: space-between; align-items: center; padding: 6px 10px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--orange-hover) 50%, var(--orange) 100%);
+    }
+    .pc-header .set-name { font-family: 'Oswald', sans-serif; font-size: 0.6rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.2em; }
+    .pc-header .year { font-family: 'Oswald', sans-serif; font-size: 0.6rem; color: var(--navy); }
+    .pc-photo {
+      width: 100%; aspect-ratio: 3/4; overflow: hidden; position: relative;
+      border-top: 1px solid rgba(12,35,64,0.1); border-bottom: 1px solid rgba(12,35,64,0.1);
+    }
+    .pc-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.4s ease; }
+    .preview-card:hover .pc-photo img { transform: scale(1.05); }
+    .pc-photo::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 30px rgba(221,85,12,0.1); pointer-events: none; }
+    .pc-nameplate { padding: 10px 12px 6px; background: white; text-align: center; position: relative; }
+    .pc-nameplate::before {
+      content: ''; position: absolute; top: 0; left: 12px; right: 12px; height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--navy) 20%, var(--navy) 80%, transparent 100%);
+    }
+    .pc-badge {
+      display: inline-block; padding: 2px 10px; background: var(--navy); color: white;
+      font-family: 'Oswald', sans-serif; font-size: 0.55rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.15em; border-radius: 3px; margin-bottom: 6px;
+    }
+    .pc-title {
+      font-family: 'Oswald', sans-serif; font-size: 0.9rem; font-weight: 600;
+      color: var(--navy); text-transform: uppercase; line-height: 1.2;
+      min-height: 1.1em;
+    }
+    .pc-title.empty { color: rgba(12,35,64,0.2); }
+    .preview-card:hover .pc-title { color: var(--orange); }
+    .pc-stats {
+      display: flex; justify-content: center; align-items: center; gap: 6px;
+      padding: 6px 12px 8px;
+      background: linear-gradient(90deg, var(--orange) 0%, var(--orange-hover) 50%, var(--orange) 100%);
+      font-size: 0.55rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .pc-author { color: white; font-weight: 600; }
+    .pc-dot { color: var(--navy); font-size: 0.7rem; }
+    .pc-date { color: rgba(255,255,255,0.7); }
+    .pc-shine {
+      position: absolute; inset: 0; border-radius: 12px;
+      pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+    }
+
+    /* Article body preview */
+    .article-preview {
+      width: 100%; max-width: 500px; background: white;
+      border-radius: 12px; padding: 2rem; margin-top: 0.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .article-preview-label {
+      font-family: 'Oswald', sans-serif; font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: rgba(31,41,55,0.3); margin-bottom: 0.75rem;
+    }
+    .article-body-preview {
+      font-size: 0.85rem; line-height: 1.7; color: var(--charcoal);
+      min-height: 3em;
+    }
+    .article-body-preview.empty { color: rgba(31,41,55,0.2); font-style: italic; }
+
+    /* Toast notification */
+    .toast {
+      position: fixed; top: 110px; right: 1.5rem; z-index: 100;
+      background: #22c55e; color: white; padding: 0.75rem 1.25rem;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(34,197,94,0.3);
+      transform: translateX(120%); transition: transform 0.4s ease;
+    }
+    .toast.show { transform: translateX(0); }
+
+    /* Confetti */
+    .confetti-piece {
+      position: fixed; width: 8px; height: 12px; border-radius: 2px;
+      animation: confettiFall 2.5s ease-in forwards; z-index: 101;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* Pitch banner */
+    .pitch-banner { position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: linear-gradient(135deg, var(--navy-dark), var(--navy)); border-top: 2px solid var(--orange); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
+    .pitch-banner p { color: rgba(255,255,255,0.7); font-size: 0.85rem; } .pitch-banner strong { color: white; }
+    .pitch-badge { background: var(--orange); color: white; padding: 0.35rem 1rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+    @media (max-width: 600px) { .pitch-banner { flex-direction: column; gap: 0.75rem; text-align: center; } }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .editor-page { flex-direction: column; }
+      .cms-sidebar { display: none; }
+      .cms-editor { max-width: none; }
+      .preview-panel { padding: 1.5rem; }
+      .preview-card { width: min(280px, 85vw); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Score Ticker -->
+  <div class="score-ticker"><div class="ticker-content" id="tickerContent"></div></div>
+
+  <!-- Navbar -->
+  <nav class="navbar"><div class="nav-inner">
+    <a href="index.html" class="nav-logo">Auburn <span>Daily</span></a>
+    <div class="nav-links">
+      <a href="football.html">Football</a>
+      <a href="basketball.html">Basketball</a>
+      <a href="baseball.html">Baseball</a>
+      <a href="podcasts.html">Podcasts</a>
+      <a href="articles.html">Articles</a>
+      <input type="text" class="nav-search" placeholder="Search...">
+    </div>
+  </div></nav>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast">Story published! Your article is now live.</div>
+
+  <!-- Editor layout -->
+  <div class="editor-page">
+    <!-- CMS Sidebar -->
+    <div class="cms-sidebar">
+      <div class="cms-sidebar-icon active" title="Content">📝</div>
+      <div class="cms-sidebar-icon" title="Media">🖼️</div>
+      <div class="cms-sidebar-icon" title="Users">👤</div>
+      <div class="cms-sidebar-icon" title="Settings">⚙️</div>
+    </div>
+
+    <!-- Editor Form -->
+    <div class="cms-editor">
+      <div class="cms-header">
+        <div class="cms-title">Auburn Daily <span>Studio</span></div>
+        <div class="status-pill draft" id="statusPill">Draft</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Headline</label>
+        <input type="text" class="form-input" id="headline" placeholder="Enter your headline...">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Sport Category</label>
+        <select class="form-select" id="sport">
+          <option value="Football">Football</option>
+          <option value="Basketball">Basketball</option>
+          <option value="Baseball">Baseball</option>
+          <option value="Softball">Softball</option>
+          <option value="Gymnastics">Gymnastics</option>
+          <option value="Swimming">Swimming</option>
+          <option value="Track">Track &amp; Field</option>
+          <option value="Soccer">Soccer</option>
+          <option value="Volleyball">Volleyball</option>
+          <option value="Tennis">Tennis</option>
+          <option value="Golf">Golf</option>
+          <option value="Equestrian">Equestrian</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Author</label>
+        <input type="text" class="form-input" id="author" placeholder="Your name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input type="text" class="form-input" id="dateField" value="">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Cover Image</label>
+        <div class="image-grid">
+          <div class="image-option selected" data-src="auburn-football-sm.jpg" onclick="selectImage(this)">
+            <img src="auburn-football-sm.jpg" alt="Football">
+          </div>
+          <div class="image-option" data-src="jordan-hare-flyover.jpg" onclick="selectImage(this)">
+            <img src="jordan-hare-flyover.jpg" alt="Stadium">
+          </div>
+          <div class="image-option" data-src="auburn-basketball-team-sm.jpg" onclick="selectImage(this)">
+            <img src="auburn-basketball-team-sm.jpg" alt="Basketball">
+          </div>
+          <div class="image-option" data-src="bryce-brown-basketball.jpg" onclick="selectImage(this)">
+            <img src="bryce-brown-basketball.jpg" alt="Basketball">
+          </div>
+          <div class="image-option" data-src="auburn-baseball.jpg" onclick="selectImage(this)">
+            <img src="auburn-baseball.jpg" alt="Baseball">
+          </div>
+          <div class="image-option" data-src="suni-lee-sm.jpg" onclick="selectImage(this)">
+            <img src="suni-lee-sm.jpg" alt="Gymnastics">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Article Body</label>
+        <textarea class="form-textarea" id="body" placeholder="Write your story..."></textarea>
+      </div>
+
+      <button class="publish-btn" id="publishBtn" onclick="publishStory()">Publish Story</button>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="preview-panel">
+      <div class="preview-label">Live <span>Preview</span></div>
+
+      <div class="preview-card-wrap">
+        <div class="preview-card">
+          <div class="pc-frame">
+            <div class="pc-inner">
+              <div class="pc-header">
+                <span class="set-name">Auburn Daily</span>
+                <span class="year">2026</span>
+              </div>
+              <div class="pc-photo">
+                <img id="previewImg" src="auburn-football-sm.jpg" alt="Cover">
+              </div>
+              <div class="pc-nameplate">
+                <span class="pc-badge" id="previewBadge">Football</span>
+                <h3 class="pc-title empty" id="previewTitle">Your headline here...</h3>
+              </div>
+              <div class="pc-stats">
+                <span class="pc-author" id="previewAuthor">Author</span>
+                <span class="pc-dot">&bull;</span>
+                <span class="pc-date" id="previewDate">Mar 5, 2026</span>
+              </div>
+            </div>
+          </div>
+          <div class="pc-shine" id="cardShine"></div>
+        </div>
+      </div>
+
+      <div class="article-preview">
+        <div class="article-preview-label">Article Preview</div>
+        <div class="article-body-preview empty" id="previewBody">Your story text will appear here as you type...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pitch Banner -->
+  <div class="pitch-banner">
+    <span class="pitch-badge">Williams Digital</span>
+    <p><strong>CMS Demo</strong> — This is how writers create and publish stories with Sanity CMS.</p>
+  </div>
+
+  <script>
+    // Score ticker
+    (function() {
+      var scores = [
+        { sport: '🏈', home: 'Auburn', hs: 35, away: 'Georgia', as: 28, status: 'FINAL' },
+        { sport: '🏀', home: 'Auburn', hs: 78, away: 'Alabama', as: 72, status: 'FINAL' },
+        { sport: '⚾', home: 'Auburn', hs: 6, away: 'LSU', as: 4, status: 'FINAL' },
+        { sport: '🏈', home: 'Auburn', hs: 28, away: 'Texas A&M', as: 17, status: 'FINAL' },
+        { sport: '🏀', home: 'Tennessee', hs: 65, away: 'Auburn', as: 70, status: 'FINAL' },
+      ];
+      var html = '';
+      for (var r = 0; r < 2; r++) {
+        scores.forEach(function(s) {
+          var win = (s.home === 'Auburn' && s.hs > s.as) || (s.away === 'Auburn' && s.as > s.hs);
+          html += '<span class="ticker-item"><span style="margin-right:0.5rem">' + s.sport + '</span>';
+          html += '<span class="' + (s.home === 'Auburn' && win ? 'ticker-score' : '') + '">' + s.home + ' ' + s.hs + '</span>';
+          html += '<span style="margin:0 0.5rem;color:rgba(255,255,255,0.25)">-</span>';
+          html += '<span class="' + (s.away === 'Auburn' && win ? 'ticker-score' : '') + '">' + s.away + ' ' + s.as + '</span>';
+          html += '<span class="ticker-status">' + s.status + '</span><span class="ticker-divider"></span></span>';
+        });
+      }
+      document.getElementById('tickerContent').innerHTML = html;
+    })();
+
+    // Set today's date
+    (function() {
+      var now = new Date();
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      document.getElementById('dateField').value = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+    })();
+
+    // Live preview bindings
+    var headline = document.getElementById('headline');
+    var sport = document.getElementById('sport');
+    var author = document.getElementById('author');
+    var dateField = document.getElementById('dateField');
+    var body = document.getElementById('body');
+
+    var previewTitle = document.getElementById('previewTitle');
+    var previewBadge = document.getElementById('previewBadge');
+    var previewAuthor = document.getElementById('previewAuthor');
+    var previewDate = document.getElementById('previewDate');
+    var previewBody = document.getElementById('previewBody');
+    var previewImg = document.getElementById('previewImg');
+
+    headline.addEventListener('input', function() {
+      if (this.value.trim()) {
+        previewTitle.textContent = this.value;
+        previewTitle.classList.remove('empty');
+      } else {
+        previewTitle.textContent = 'Your headline here...';
+        previewTitle.classList.add('empty');
+      }
+      resetPublish();
+    });
+
+    sport.addEventListener('change', function() {
+      previewBadge.textContent = this.value;
+      resetPublish();
+    });
+
+    author.addEventListener('input', function() {
+      previewAuthor.textContent = this.value.trim() || 'Author';
+      resetPublish();
+    });
+
+    dateField.addEventListener('input', function() {
+      previewDate.textContent = this.value.trim() || 'Date';
+      resetPublish();
+    });
+
+    body.addEventListener('input', function() {
+      if (this.value.trim()) {
+        previewBody.textContent = this.value;
+        previewBody.classList.remove('empty');
+      } else {
+        previewBody.textContent = 'Your story text will appear here as you type...';
+        previewBody.classList.add('empty');
+      }
+      resetPublish();
+    });
+
+    // Image selection
+    function selectImage(el) {
+      document.querySelectorAll('.image-option').forEach(function(opt) {
+        opt.classList.remove('selected');
+      });
+      el.classList.add('selected');
+      previewImg.src = el.getAttribute('data-src');
+      resetPublish();
+    }
+
+    // Publish
+    var isPublished = false;
+    function publishStory() {
+      if (isPublished) return;
+      isPublished = true;
+
+      // Update status
+      var pill = document.getElementById('statusPill');
+      pill.className = 'status-pill published';
+      pill.textContent = 'Published';
+
+      // Update button
+      var btn = document.getElementById('publishBtn');
+      btn.textContent = 'Published ✓';
+      btn.classList.add('published');
+
+      // Show toast
+      var toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, 3000);
+
+      // Confetti
+      var colors = ['#DD550C', '#F26522', '#0C2340', '#1A3A5C', '#FFFFFF', '#22c55e'];
+      for (var i = 0; i < 40; i++) {
+        var piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.top = '-10px';
+        piece.style.backgroundColor = colors[i % colors.length];
+        piece.style.animationDelay = (Math.random() * 1) + 's';
+        piece.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+        document.body.appendChild(piece);
+        setTimeout(function(p) { p.remove(); }.bind(null, piece), 4000);
+      }
+    }
+
+    function resetPublish() {
+      if (!isPublished) return;
+      isPublished = false;
+      var pill = document.getElementById('statusPill');
+      pill.className = 'status-pill draft';
+      pill.textContent = 'Draft';
+      var btn = document.getElementById('publishBtn');
+      btn.textContent = 'Publish Story';
+      btn.classList.remove('published');
+    }
+
+    // Card shine effect
+    var card = document.querySelector('.preview-card');
+    var shine = document.getElementById('cardShine');
+    card.addEventListener('mousemove', function(e) {
+      var rect = card.getBoundingClientRect();
+      var x = ((e.clientX - rect.left) / rect.width) * 100;
+      var y = ((e.clientY - rect.top) / rect.height) * 100;
+      shine.style.background = 'radial-gradient(circle at ' + x + '% ' + y + '%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 40%, transparent 70%)';
+      shine.style.opacity = '1';
+    });
+    card.addEventListener('mouseleave', function() {
+      shine.style.opacity = '0';
+      shine.style.background = '';
+    });
+  </script>
+</body>
+</html>
