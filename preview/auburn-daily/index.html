@@ -829,6 +829,79 @@
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .animate-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Story Modal */
+    .story-modal-overlay {
+      position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 2rem 1rem; overflow-y: auto;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .story-modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .story-modal {
+      background: white; border-radius: 16px; max-width: 720px; width: 100%;
+      overflow: hidden; position: relative; margin: 2rem 0;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+      transform: translateY(30px) scale(0.97); transition: transform 0.35s ease;
+    }
+    .story-modal-overlay.active .story-modal { transform: translateY(0) scale(1); }
+    .story-modal-close {
+      position: absolute; top: 1rem; right: 1rem; z-index: 10;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
+      border: none; color: white; font-size: 1.2rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .story-modal-close:hover { background: var(--orange); }
+    .story-modal-hero {
+      width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative;
+    }
+    .story-modal-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .story-modal-hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(transparent, rgba(0,0,0,0.4));
+    }
+    .story-modal-body { padding: 2rem 2.5rem 2.5rem; }
+    .story-modal-badge {
+      display: inline-block; padding: 3px 12px; background: var(--orange); color: white;
+      font-family: 'Oswald', sans-serif; font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.15em; border-radius: 4px; margin-bottom: 0.75rem;
+    }
+    .story-modal-title {
+      font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700;
+      color: var(--navy); text-transform: uppercase; line-height: 1.15; margin-bottom: 1rem;
+    }
+    .story-modal-meta {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding-bottom: 1.25rem; margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--cream-dark);
+      font-size: 0.8rem; color: rgba(31,41,55,0.5);
+    }
+    .story-modal-meta-author { font-weight: 600; color: var(--navy); }
+    .story-modal-content { font-size: 1rem; line-height: 1.85; color: #374151; }
+    .story-modal-content p { margin-bottom: 1.25rem; }
+    .story-modal-content p:first-child::first-letter {
+      font-family: 'Oswald', sans-serif; font-size: 3.5rem; font-weight: 700;
+      color: var(--orange); float: left; line-height: 0.8;
+      margin-right: 0.1em; margin-top: 0.1em;
+    }
+    .story-modal-content blockquote {
+      border-left: 4px solid var(--orange); padding: 1rem 1.5rem; margin: 1.5rem 0;
+      background: var(--cream); border-radius: 0 8px 8px 0;
+      font-style: italic; color: var(--navy); font-size: 1.05rem;
+    }
+    .story-modal-tags { display: flex; gap: 0.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--cream-dark); }
+    .story-modal-tag {
+      padding: 4px 12px; background: var(--cream); border-radius: 999px;
+      font-size: 0.7rem; font-weight: 600; color: rgba(31,41,55,0.5);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    @media (max-width: 600px) {
+      .story-modal-body { padding: 1.5rem; }
+      .story-modal-title { font-size: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -1254,6 +1327,27 @@
     </div>
   </footer>
 
+  <!-- Story Modal -->
+  <div class="story-modal-overlay" id="storyModal">
+    <div class="story-modal">
+      <button class="story-modal-close" id="modalClose">&times;</button>
+      <div class="story-modal-hero"><img id="modalImg" src="" alt=""></div>
+      <div class="story-modal-body">
+        <span class="story-modal-badge" id="modalBadge"></span>
+        <h1 class="story-modal-title" id="modalTitle"></h1>
+        <div class="story-modal-meta">
+          <span class="story-modal-meta-author" id="modalAuthor"></span>
+          <span>&bull;</span>
+          <span id="modalDate"></span>
+          <span>&bull;</span>
+          <span>4 min read</span>
+        </div>
+        <div class="story-modal-content" id="modalContent"></div>
+        <div class="story-modal-tags" id="modalTags"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ========== PITCH BANNER ========== -->
   <div class="pitch-banner">
     <span class="pitch-badge">Williams Digital</span>
@@ -1502,6 +1596,67 @@
         piece.style.animationDelay = (Math.random() * 1.5) + 's';
         piece.style.animationDuration = (2 + Math.random() * 1.5) + 's';
         section.appendChild(piece);
+      }
+    });
+
+    // ========== STORY MODAL ==========
+    var storyBodies = [
+      '<p>In what could prove to be a program-defining moment, Auburn has landed a commitment from one of the nation\'s most sought-after prospects, adding a transformative talent to an already impressive recruiting class. The announcement sent shockwaves through the SEC recruiting landscape and immediately elevated Auburn\'s class ranking.</p><blockquote>"Auburn felt like home from the moment I stepped on campus. The coaches have a real plan, and I want to be part of building something special on the Plains."</blockquote><p>The commitment caps off months of intense recruiting by the Auburn staff, who made this prospect a top priority early in the process. Multiple official visits, consistent communication, and a compelling pitch about the future of the program ultimately won out over several other blue-blood programs.</p><p>Recruiting analysts have praised the versatility and ceiling of this addition, projecting an immediate impact upon arrival. The skillset fits perfectly within the evolving offensive system, giving coaches another dynamic weapon to deploy.</p><p>With this commitment secured, Auburn\'s 2027 class now ranks among the top five nationally — a testament to the momentum building around the program.</p>',
+      '<p>Auburn\'s basketball program continues to assert itself among the nation\'s elite, and this season\'s performance has been nothing short of spectacular. With a roster that blends veteran leadership and explosive young talent, the Tigers have emerged as legitimate contenders for the sport\'s ultimate prize.</p><blockquote>"This team has a different mentality. When we get down, nobody panics. We just lock in on the defensive end and let that fuel our offense."</blockquote><p>The combination of suffocating defensive pressure and dynamic transition offense has proven to be a nightmare for opponents. Auburn leads the SEC in scoring margin and ranks among the nation\'s best in virtually every defensive metric.</p><p>As March approaches, the anticipation on the Plains is palpable. This team has all the ingredients for a deep tournament run — elite coaching, defensive identity, offensive versatility, and the kind of chemistry that can\'t be manufactured.</p><p>If they continue to play at this level, few teams in the country will want to see Auburn on the opposite side of the bracket when the stakes are highest.</p>',
+      '<p>Auburn gymnastics posted a season-high team score in a thrilling SEC meet that had fans at Neville Arena on their feet from the first rotation to the last. The performance validated what many have believed all season — this team is capable of competing with anyone in the country.</p><blockquote>"The energy in that arena was incredible. Our athletes fed off the crowd, and when you combine that kind of support with this level of talent, special things happen."</blockquote><p>The floor exercise rotation was the highlight of the evening, with three individual scores above 9.9 anchored by a spectacular closing routine that earned a perfect 10.0 from one judge. The combination of difficulty, artistry, and execution was a masterclass in collegiate gymnastics.</p><p>The balance beam, traditionally a nerve-wracking event, saw the Tigers post their highest score of the season with zero falls or major breaks. The confidence and composure on display spoke volumes about the team\'s preparation and mental toughness.</p><p>With the postseason on the horizon, Auburn gymnastics is peaking at exactly the right time. A national championship appearance — and perhaps a title — is very much within reach for this talented and determined group.</p>',
+    ];
+    var storyTags = [
+      ['Football', 'Recruiting', 'Auburn Tigers', 'SEC'],
+      ['Basketball', 'Auburn Tigers', 'March Madness', 'SEC'],
+      ['Gymnastics', 'Auburn Tigers', 'SEC Meet', 'Perfect 10'],
+    ];
+
+    var overlay = document.getElementById('storyModal');
+    var modalImg = document.getElementById('modalImg');
+    var modalBadge = document.getElementById('modalBadge');
+    var modalTitle = document.getElementById('modalTitle');
+    var modalAuthor = document.getElementById('modalAuthor');
+    var modalDate = document.getElementById('modalDate');
+    var modalContent = document.getElementById('modalContent');
+    var modalTags = document.getElementById('modalTags');
+
+    document.querySelectorAll('.trading-card').forEach(function(card, idx) {
+      card.addEventListener('click', function() {
+        var img = card.querySelector('.tc-photo');
+        var badge = card.querySelector('.tc-badge');
+        var title = card.querySelector('.tc-title');
+        var author = card.querySelector('.tc-author');
+        var date = card.querySelector('.tc-date');
+
+        modalImg.src = img ? img.src : '';
+        modalBadge.textContent = badge ? badge.textContent : '';
+        modalTitle.textContent = title ? title.textContent : '';
+        modalAuthor.textContent = author ? author.textContent : '';
+        modalDate.textContent = date ? date.textContent : '';
+        modalContent.innerHTML = storyBodies[idx % storyBodies.length];
+
+        var tags = storyTags[idx % storyTags.length];
+        modalTags.innerHTML = tags.map(function(t) { return '<span class="story-modal-tag">' + t + '</span>'; }).join('');
+
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    document.getElementById('modalClose').addEventListener('click', function() {
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
       }
     });
   </script>
