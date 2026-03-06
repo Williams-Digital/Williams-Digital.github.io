@@ -1059,7 +1059,7 @@
     <div class="section-inner">
       <div class="section-header">
         <h2 class="section-title" id="latestTitle">Latest <span>Stories</span></h2>
-        <a href="#" class="view-all">View All &rarr;</a>
+        <a href="articles.html" class="view-all">View All &rarr;</a>
       </div>
       <div class="trading-card-fan" id="cardGrid">
         <div class="tilt-card hidden">
@@ -1611,6 +1611,18 @@
       ['Gymnastics', 'Auburn Tigers', 'SEC Meet', 'Perfect 10'],
     ];
 
+    // Hero Featured Stories content
+    var heroStoryBodies = [
+      '<p>Auburn\'s coaching staff unveiled a dramatically retooled offensive scheme during the first day of spring practice, signaling a clear shift in philosophy heading into the 2026 season. The new system emphasizes tempo, pre-snap motion, and explosive downfield passing — a departure from the more conservative approach that defined much of last year.</p><blockquote>"We want to be the most dynamic offense in the SEC. Every position group has bought in, and the energy out here today was electric."</blockquote><p>Players emerged from the opening session buzzing with excitement. Wide receivers ran crisp routes against an aggressive secondary, while the offensive line showed improved cohesion in pass protection drills. The early returns suggest this unit could take a significant leap forward.</p><p>The defensive side of the ball wasn\'t to be outdone, with several young players flashing the kind of athleticism that could reshape the depth chart before fall camp arrives. Position battles are expected to intensify over the coming weeks as the team prepares for the spring game.</p><p>Fans who packed the viewing areas came away impressed, and social media lit up with highlights from the session. If the opening day is any indication, Auburn football is heading in an exciting new direction under this coaching staff\'s vision.</p>',
+      '<p>In a season defined by dominant performances, last night\'s victory may have been the most complete game Auburn basketball has played all year. The Tigers clinched their spot in the SEC Tournament with a wire-to-wire win that left no doubt about this team\'s championship credentials.</p><blockquote>"This team has a different mentality. When we get down, nobody panics. We just lock in on the defensive end and let that fuel our offense."</blockquote><p>From the opening tip, Auburn set the tone with aggressive ball movement and suffocating defensive pressure. The offense generated wide-open looks through constant motion, and when the shots fell — and they fell in bunches — the result was an avalanche that the visitors simply couldn\'t weather.</p><p>The second half was a clinic in transition basketball, with Auburn forcing 14 turnovers and converting them into 22 fast-break points. The home crowd at Neville Arena reached a fever pitch as the lead swelled past 20.</p><p>With the SEC Tournament on the horizon and a likely top seed in the NCAA Tournament, this team has all the ingredients for a deep March run. The combination of elite coaching, defensive identity, and offensive firepower makes Auburn a team nobody wants to face.</p>',
+      '<p>Plainsman Park erupted as Auburn completed a dominant three-game sweep against Georgia, cementing their position atop the SEC standings and sending a clear message to the rest of college baseball. The series was a showcase of everything that makes this team special — elite pitching, timely hitting, and Gold Glove-caliber defense.</p><blockquote>"Sweeping a team like Georgia on any weekend is impressive. Doing it the way we did — with our pitching staff dealing and our lineup clicking — that\'s championship-level baseball."</blockquote><p>The pitching staff was masterful across all three games, combining for a series ERA under 2.00. The bullpen was particularly dominant, covering 8.2 innings without allowing an earned run. The depth of the pitching staff has been a defining characteristic of this squad all season.</p><p>At the plate, Auburn\'s approach was patient and disciplined. The Tigers drew 15 walks across the series while striking out just 12 times, an elite ratio that speaks to the quality of at-bats up and down the lineup.</p><p>The sweep improves Auburn\'s conference record to the best mark in the SEC and all but guarantees a top-eight national seed when the NCAA Tournament bracket is revealed. Plainsman Park will be rocking come June.</p>',
+    ];
+    var heroStoryTags = [
+      ['Football', 'Spring Practice', 'Auburn Tigers', 'SEC'],
+      ['Basketball', 'SEC Tournament', 'Auburn Tigers', 'Rankings'],
+      ['Baseball', 'Auburn Tigers', 'Georgia', 'SEC Sweep'],
+    ];
+
     var overlay = document.getElementById('storyModal');
     var modalImg = document.getElementById('modalImg');
     var modalBadge = document.getElementById('modalBadge');
@@ -1620,6 +1632,38 @@
     var modalContent = document.getElementById('modalContent');
     var modalTags = document.getElementById('modalTags');
 
+    function openModal(imgSrc, badge, title, author, date, bodyHtml, tags) {
+      modalImg.src = imgSrc || '';
+      modalBadge.textContent = badge || '';
+      modalTitle.textContent = title || '';
+      modalAuthor.textContent = author || '';
+      modalDate.textContent = date || '';
+      modalContent.innerHTML = bodyHtml;
+      modalTags.innerHTML = tags.map(function(t) { return '<span class="story-modal-tag">' + t + '</span>'; }).join('');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Hero Featured Stories cards
+    document.querySelectorAll('.hero-trading-card').forEach(function(card, idx) {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function() {
+        var img = card.querySelector('.hero-tc-photo img');
+        var badge = card.querySelector('.tc-badge');
+        var title = card.querySelector('.hero-tc-nameplate h3');
+        var author = card.querySelector('.tc-author');
+        var date = card.querySelector('.tc-date');
+        openModal(
+          img ? img.src : '', badge ? badge.textContent : '',
+          title ? title.textContent : '', author ? author.textContent : '',
+          date ? date.textContent : '',
+          heroStoryBodies[idx % heroStoryBodies.length],
+          heroStoryTags[idx % heroStoryTags.length]
+        );
+      });
+    });
+
+    // Latest Stories cards
     document.querySelectorAll('.trading-card').forEach(function(card, idx) {
       card.addEventListener('click', function() {
         var img = card.querySelector('.tc-photo');
@@ -1627,19 +1671,13 @@
         var title = card.querySelector('.tc-title');
         var author = card.querySelector('.tc-author');
         var date = card.querySelector('.tc-date');
-
-        modalImg.src = img ? img.src : '';
-        modalBadge.textContent = badge ? badge.textContent : '';
-        modalTitle.textContent = title ? title.textContent : '';
-        modalAuthor.textContent = author ? author.textContent : '';
-        modalDate.textContent = date ? date.textContent : '';
-        modalContent.innerHTML = storyBodies[idx % storyBodies.length];
-
-        var tags = storyTags[idx % storyTags.length];
-        modalTags.innerHTML = tags.map(function(t) { return '<span class="story-modal-tag">' + t + '</span>'; }).join('');
-
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        openModal(
+          img ? img.src : '', badge ? badge.textContent : '',
+          title ? title.textContent : '', author ? author.textContent : '',
+          date ? date.textContent : '',
+          storyBodies[idx % storyBodies.length],
+          storyTags[idx % storyTags.length]
+        );
       });
     });
 
