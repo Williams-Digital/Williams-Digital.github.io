@@ -94,6 +94,62 @@
     .form-select option { background: #16213e; color: white; }
     .form-textarea { resize: vertical; min-height: 120px; line-height: 1.5; }
 
+    /* Rich text toolbar */
+    .rte-toolbar {
+      display: flex; flex-wrap: wrap; gap: 2px; padding: 6px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-bottom: none; border-radius: 8px 8px 0 0;
+    }
+    .rte-toolbar .tb-divider { width: 1px; background: rgba(255,255,255,0.1); margin: 2px 4px; }
+    .rte-btn {
+      width: 30px; height: 28px; display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid transparent; border-radius: 4px;
+      color: rgba(255,255,255,0.5); font-size: 0.75rem; font-weight: 700;
+      cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif;
+    }
+    .rte-btn:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.1); }
+    .rte-btn.active { background: var(--orange); color: white; border-color: var(--orange); }
+    .rte-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .rte-select {
+      height: 28px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px; color: rgba(255,255,255,0.6); font-size: 0.65rem;
+      font-family: 'Inter', sans-serif; padding: 0 6px; cursor: pointer; outline: none;
+    }
+    .rte-select:focus { border-color: var(--orange); }
+    .rte-select option { background: #16213e; color: white; }
+    .rte-color-btn {
+      width: 30px; height: 28px; display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid transparent; border-radius: 4px;
+      cursor: pointer; transition: all 0.15s; position: relative;
+    }
+    .rte-color-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.1); }
+    .rte-color-btn .color-icon { font-size: 0.8rem; font-weight: 800; }
+    .rte-color-btn .color-bar { position: absolute; bottom: 3px; left: 7px; right: 7px; height: 3px; border-radius: 1px; }
+    .rte-color-btn input[type="color"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+
+    /* Contenteditable editor area */
+    .rte-editor {
+      width: 100%; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 0 0 8px 8px;
+      color: white; padding: 0.65rem 0.85rem; font-size: 0.85rem;
+      font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s;
+      min-height: 150px; max-height: 300px; overflow-y: auto; line-height: 1.6;
+    }
+    .rte-editor:focus { border-color: var(--orange); }
+    .rte-editor:empty::before {
+      content: attr(data-placeholder); color: rgba(255,255,255,0.2);
+    }
+    .rte-editor h1 { font-family: 'Oswald', sans-serif; font-size: 1.4rem; margin: 0.5em 0 0.3em; color: var(--orange); }
+    .rte-editor h2 { font-family: 'Oswald', sans-serif; font-size: 1.1rem; margin: 0.5em 0 0.3em; color: var(--orange); }
+    .rte-editor ul, .rte-editor ol { padding-left: 1.5em; margin: 0.4em 0; }
+    .rte-editor blockquote {
+      border-left: 3px solid var(--orange); padding-left: 0.75em;
+      margin: 0.5em 0; color: rgba(255,255,255,0.6); font-style: italic;
+    }
+    .rte-editor a { color: var(--orange); text-decoration: underline; }
+
     /* Image picker */
     .image-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;
@@ -220,9 +276,17 @@
     }
     .article-body-preview {
       font-size: 0.85rem; line-height: 1.7; color: var(--charcoal);
-      min-height: 3em;
+      min-height: 3em; word-wrap: break-word;
     }
     .article-body-preview.empty { color: rgba(31,41,55,0.2); font-style: italic; }
+    .article-body-preview h1 { font-family: 'Oswald', sans-serif; font-size: 1.4rem; margin: 0.5em 0 0.3em; color: var(--navy); }
+    .article-body-preview h2 { font-family: 'Oswald', sans-serif; font-size: 1.1rem; margin: 0.5em 0 0.3em; color: var(--navy); }
+    .article-body-preview ul, .article-body-preview ol { padding-left: 1.5em; margin: 0.4em 0; }
+    .article-body-preview blockquote {
+      border-left: 3px solid var(--orange); padding-left: 0.75em;
+      margin: 0.5em 0; color: rgba(31,41,55,0.5); font-style: italic;
+    }
+    .article-body-preview a { color: var(--orange); text-decoration: underline; }
 
     /* Toast notification */
     .toast {
@@ -356,7 +420,74 @@
 
       <div class="form-group">
         <label class="form-label">Article Body</label>
-        <textarea class="form-textarea" id="body" placeholder="Write your story..."></textarea>
+        <div class="rte-toolbar" id="rteToolbar">
+          <!-- Text style -->
+          <button class="rte-btn" data-cmd="bold" title="Bold"><b>B</b></button>
+          <button class="rte-btn" data-cmd="italic" title="Italic"><i>I</i></button>
+          <button class="rte-btn" data-cmd="underline" title="Underline"><u>U</u></button>
+          <button class="rte-btn" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+          <div class="tb-divider"></div>
+          <!-- Highlight -->
+          <button class="rte-btn" data-cmd="highlight" title="Highlight" style="position:relative">
+            <span style="background:#fde047;color:#1a1a2e;padding:0 3px;border-radius:2px;font-size:0.65rem;font-weight:800">H</span>
+          </button>
+          <!-- Text color -->
+          <div class="rte-color-btn" title="Text Color">
+            <span class="color-icon" style="color:rgba(255,255,255,0.5)">A</span>
+            <span class="color-bar" id="textColorBar" style="background:var(--orange)"></span>
+            <input type="color" id="textColorPicker" value="#DD550C">
+          </div>
+          <div class="tb-divider"></div>
+          <!-- Font family -->
+          <select class="rte-select" id="fontSelect" title="Font">
+            <option value="">Font</option>
+            <option value="Inter">Inter</option>
+            <option value="Oswald">Oswald</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Courier New">Courier</option>
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times</option>
+          </select>
+          <!-- Font size -->
+          <select class="rte-select" id="sizeSelect" title="Size">
+            <option value="">Size</option>
+            <option value="1">Small</option>
+            <option value="3">Normal</option>
+            <option value="5">Large</option>
+            <option value="7">Huge</option>
+          </select>
+          <div class="tb-divider"></div>
+          <!-- Headings -->
+          <button class="rte-btn" data-cmd="formatBlock" data-val="H1" title="Heading 1" style="font-size:0.7rem">H1</button>
+          <button class="rte-btn" data-cmd="formatBlock" data-val="H2" title="Heading 2" style="font-size:0.65rem">H2</button>
+          <button class="rte-btn" data-cmd="formatBlock" data-val="P" title="Paragraph" style="font-size:0.6rem">¶</button>
+          <div class="tb-divider"></div>
+          <!-- Lists -->
+          <button class="rte-btn" data-cmd="insertUnorderedList" title="Bullet List">
+            <svg viewBox="0 0 24 24"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1.5" fill="currentColor" stroke="none"/><circle cx="4" cy="12" r="1.5" fill="currentColor" stroke="none"/><circle cx="4" cy="18" r="1.5" fill="currentColor" stroke="none"/></svg>
+          </button>
+          <button class="rte-btn" data-cmd="insertOrderedList" title="Numbered List">
+            <svg viewBox="0 0 24 24"><line x1="10" y1="6" x2="20" y2="6"/><line x1="10" y1="12" x2="20" y2="12"/><line x1="10" y1="18" x2="20" y2="18"/><text x="4" y="8" font-size="8" fill="currentColor" stroke="none" font-weight="700">1</text><text x="4" y="14" font-size="8" fill="currentColor" stroke="none" font-weight="700">2</text><text x="4" y="20" font-size="8" fill="currentColor" stroke="none" font-weight="700">3</text></svg>
+          </button>
+          <div class="tb-divider"></div>
+          <!-- Block quote & link -->
+          <button class="rte-btn" data-cmd="formatBlock" data-val="BLOCKQUOTE" title="Quote" style="font-size:1rem;line-height:1">"</button>
+          <button class="rte-btn" data-cmd="createLink" title="Insert Link">
+            <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </button>
+          <!-- Alignment -->
+          <div class="tb-divider"></div>
+          <button class="rte-btn" data-cmd="justifyLeft" title="Align Left">
+            <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+          </button>
+          <button class="rte-btn" data-cmd="justifyCenter" title="Align Center">
+            <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+          </button>
+          <button class="rte-btn" data-cmd="justifyRight" title="Align Right">
+            <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="9" y1="12" x2="21" y2="12"/><line x1="6" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="rte-editor" id="body" contenteditable="true" data-placeholder="Write your story..."></div>
       </div>
 
       <button class="publish-btn" id="publishBtn" onclick="publishStory()">Publish Story</button>
@@ -477,14 +608,73 @@
     });
 
     body.addEventListener('input', function() {
-      if (this.value.trim()) {
-        previewBody.textContent = this.value;
+      var content = this.innerHTML.trim();
+      if (content && content !== '<br>') {
+        previewBody.innerHTML = content;
         previewBody.classList.remove('empty');
       } else {
-        previewBody.textContent = 'Your story text will appear here as you type...';
+        previewBody.innerHTML = 'Your story text will appear here as you type...';
         previewBody.classList.add('empty');
       }
       resetPublish();
+    });
+
+    // Rich text toolbar
+    document.querySelectorAll('.rte-btn[data-cmd]').forEach(function(btn) {
+      btn.addEventListener('mousedown', function(e) {
+        e.preventDefault(); // keep focus in editor
+        var cmd = this.getAttribute('data-cmd');
+        var val = this.getAttribute('data-val') || null;
+
+        if (cmd === 'highlight') {
+          document.execCommand('hiliteColor', false, '#fde047');
+        } else if (cmd === 'createLink') {
+          var url = prompt('Enter URL:', 'https://');
+          if (url) document.execCommand('createLink', false, url);
+        } else {
+          document.execCommand(cmd, false, val);
+        }
+        body.focus();
+        body.dispatchEvent(new Event('input'));
+      });
+    });
+
+    // Font family selector
+    document.getElementById('fontSelect').addEventListener('change', function() {
+      if (this.value) {
+        document.execCommand('fontName', false, this.value);
+        body.focus();
+        body.dispatchEvent(new Event('input'));
+      }
+      this.selectedIndex = 0;
+    });
+
+    // Font size selector
+    document.getElementById('sizeSelect').addEventListener('change', function() {
+      if (this.value) {
+        document.execCommand('fontSize', false, this.value);
+        body.focus();
+        body.dispatchEvent(new Event('input'));
+      }
+      this.selectedIndex = 0;
+    });
+
+    // Text color picker
+    document.getElementById('textColorPicker').addEventListener('input', function() {
+      document.execCommand('foreColor', false, this.value);
+      document.getElementById('textColorBar').style.background = this.value;
+      body.focus();
+      body.dispatchEvent(new Event('input'));
+    });
+
+    // Update active toolbar buttons on selection change
+    document.addEventListener('selectionchange', function() {
+      document.querySelectorAll('.rte-btn[data-cmd]').forEach(function(btn) {
+        var cmd = btn.getAttribute('data-cmd');
+        if (['bold','italic','underline','strikeThrough'].indexOf(cmd) !== -1) {
+          btn.classList.toggle('active', document.queryCommandState(cmd));
+        }
+      });
     });
 
     // Image selection
