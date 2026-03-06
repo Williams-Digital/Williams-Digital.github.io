@@ -381,45 +381,6 @@
       .hero-fan { gap: 1.5rem; }
     }
 
-    /* ==================== SPORT CATEGORIES ==================== */
-    .sport-categories {
-      padding: 2.5rem 0 1.5rem; overflow: hidden;
-    }
-    .sport-scroll {
-      display: flex; gap: 1rem; overflow-x: auto; padding: 0 1.5rem 1rem;
-      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .sport-scroll::-webkit-scrollbar { display: none; }
-    .sport-card {
-      scroll-snap-align: start; flex-shrink: 0;
-      width: 130px; height: 160px; border-radius: 12px;
-      background: white; border: 1px solid rgba(12,35,64,0.05);
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 0.75rem; cursor: pointer;
-      transition: all 0.3s; position: relative; overflow: hidden;
-    }
-    .sport-card::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 60%, rgba(221,85,12,0.05));
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .sport-card:hover::after { opacity: 1; }
-    .sport-card:hover {
-      box-shadow: 0 0 20px rgba(221,85,12,0.3), 0 8px 32px rgba(0,0,0,0.15);
-      transform: translateY(-4px);
-    }
-    .sport-emoji {
-      font-size: 2.2rem; transition: transform 0.3s;
-    }
-    .sport-card:hover .sport-emoji { transform: scale(1.25); }
-    .sport-name {
-      font-family: 'Oswald', sans-serif; font-size: 0.75rem;
-      color: var(--navy); text-transform: uppercase; letter-spacing: 0.08em;
-      font-weight: 700; transition: color 0.3s;
-    }
-    .sport-card:hover .sport-name { color: var(--orange); }
-
     /* ==================== SECTIONS ==================== */
     .section { padding: 3.5rem 0; }
     .section-inner { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem; }
@@ -571,76 +532,6 @@
       .trading-card { width: min(280px, 85vw); }
     }
 
-    /* ==================== STATS COUNTER ==================== */
-    .stats-section {
-      background: var(--navy); padding: 4rem 0; position: relative; overflow: hidden;
-    }
-    .stats-section .tiger-stripes { position: absolute; inset: 0; opacity: 0.5; }
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
-      position: relative;
-    }
-    .stat-card {
-      background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px; padding: 1.5rem; text-align: center;
-      background-image: radial-gradient(circle at 50% 0%, rgba(221,85,12,0.08) 0%, transparent 60%);
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.6s, transform 0.6s;
-    }
-    .stat-card.visible { opacity: 1; transform: translateY(0); }
-    .stat-number {
-      font-family: 'Oswald', sans-serif; font-size: 2.8rem; color: white;
-      animation: numberGlow 3s ease-in-out infinite;
-    }
-    .stat-special {
-      font-family: 'Oswald', sans-serif; font-size: 1.8rem; color: var(--orange);
-      text-transform: uppercase;
-      animation: numberGlow 3s ease-in-out infinite;
-    }
-    @keyframes numberGlow {
-      0%, 100% { text-shadow: 0 0 10px rgba(221,85,12,0.5); }
-      50% { text-shadow: 0 0 25px rgba(221,85,12,0.9), 0 0 50px rgba(221,85,12,0.3); }
-    }
-    .stat-label {
-      color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase;
-      letter-spacing: 0.1em; font-weight: 600; margin-top: 0.5rem;
-    }
-    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-
-    /* ==================== GAME COUNTDOWN ==================== */
-    .countdown-section {
-      background: var(--cream-dark); padding: 3.5rem 0; text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .countdown-section .tiger-stripes { position: absolute; inset: 0; opacity: 0.3; }
-    .countdown-units {
-      display: flex; justify-content: center; gap: 0.75rem; position: relative;
-    }
-    .countdown-unit {
-      display: flex; flex-direction: column; align-items: center;
-    }
-    .countdown-box {
-      background: var(--navy-dark); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px; width: 72px; height: 88px;
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .countdown-box::after {
-      content: ''; position: absolute; left: 0; right: 0; top: 50%;
-      height: 1px; background: rgba(255,255,255,0.04);
-    }
-    .countdown-num {
-      font-family: 'Oswald', sans-serif; font-size: 2rem; color: white;
-    }
-    .countdown-label {
-      color: rgba(31,41,55,0.35); font-size: 0.6rem; text-transform: uppercase;
-      letter-spacing: 0.1em; font-weight: 600; margin-top: 0.5rem;
-    }
-    .countdown-sep {
-      font-family: 'Oswald', sans-serif; font-size: 2rem;
-      color: rgba(12,35,64,0.2); align-self: flex-start; margin-top: 1.2rem;
-    }
-
     /* ==================== PODCAST / VIDEO SECTION ==================== */
     .podcast-section {
       background: var(--navy); padding: 3.5rem 0;
@@ -708,60 +599,176 @@
       .video-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
-    /* ==================== NEWSLETTER ==================== */
-    .newsletter {
-      background: var(--navy); padding: 4rem 0; text-align: center;
-      position: relative; overflow: hidden;
+    /* ==================== SHORT FORM CONTENT ==================== */
+    .shorts-section {
+      background: var(--cream-dark); padding: 3.5rem 0; overflow: hidden;
     }
-    .newsletter .tiger-stripes { position: absolute; inset: 0; opacity: 0.5; }
-    .newsletter .spotlight {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 30%, rgba(221,85,12,0.08) 0%, transparent 70%);
+    .shorts-filters {
+      display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;
     }
-    .newsletter h2 {
-      color: white; margin-bottom: 0.75rem; position: relative;
+    .shorts-filter {
+      padding: 0.4rem 1rem; border-radius: 999px; border: 1px solid rgba(12,35,64,0.15);
+      background: white; font-size: 0.75rem; font-weight: 600; color: var(--navy);
+      cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
     }
-    .newsletter h2 span { color: var(--orange); }
-    .newsletter p {
-      color: rgba(255,255,255,0.45); max-width: 480px; margin: 0 auto 1.5rem;
-      position: relative;
+    .shorts-filter:hover { border-color: var(--orange); color: var(--orange); }
+    .shorts-filter.active {
+      background: var(--orange); color: white; border-color: var(--orange);
     }
-    .newsletter-form {
-      display: flex; gap: 0.75rem; max-width: 400px; margin: 0 auto; position: relative;
+    .shorts-carousel {
+      display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem;
+      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; cursor: grab;
     }
-    .newsletter-input {
-      flex: 1; padding: 0.75rem 1rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 6px; font-size: 0.85rem;
-      background: rgba(255,255,255,0.08); color: white; outline: none;
+    .shorts-carousel::-webkit-scrollbar { display: none; }
+    .shorts-carousel.dragging { cursor: grabbing; scroll-snap-type: none; }
+    .shorts-card {
+      flex-shrink: 0; width: 180px; height: 320px; border-radius: 16px;
+      overflow: hidden; position: relative; scroll-snap-align: start;
+      cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+      background: var(--navy);
     }
-    .newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
-    .newsletter-input:focus { border-color: var(--orange); }
-    .newsletter-btn {
-      background: var(--orange); color: white; border: none;
-      padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600;
-      cursor: pointer; font-size: 0.85rem; transition: background 0.2s;
-      white-space: nowrap;
+    .shorts-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3);
     }
-    .newsletter-btn:hover { background: var(--orange-hover); }
-    .newsletter-success {
-      position: relative; animation: fadeInUp 0.5s ease-out;
+    .shorts-thumb {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.85);
     }
-    .newsletter-success h3 {
-      font-family: 'Oswald', sans-serif; font-size: 1.5rem;
-      color: var(--orange); text-transform: uppercase;
+    .shorts-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(221,85,12,0.9); display: flex;
+      align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s;
     }
-    .newsletter-success p { color: rgba(255,255,255,0.45); font-size: 0.85rem; margin-top: 0.5rem; }
-    /* Confetti */
-    .confetti-piece {
-      position: absolute; width: 8px; height: 12px; border-radius: 2px;
-      animation: confettiFall 2.5s ease-in forwards;
+    .shorts-card:hover .shorts-play { opacity: 1; }
+    .shorts-play::after {
+      content: ''; width: 0; height: 0;
+      border-left: 14px solid white; border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent; margin-left: 3px;
     }
-    @keyframes confettiFall {
-      0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    .shorts-info {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 3rem 0.75rem 0.75rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
     }
-    @media (max-width: 480px) { .newsletter-form { flex-direction: column; } }
+    .shorts-title {
+      font-family: 'Oswald', sans-serif; font-size: 0.75rem; color: white;
+      text-transform: uppercase; line-height: 1.25; margin-bottom: 0.35rem;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .shorts-views {
+      font-size: 0.65rem; color: rgba(255,255,255,0.5); font-weight: 500;
+    }
+    .shorts-badge {
+      position: absolute; top: 0.75rem; left: 0.75rem;
+      padding: 2px 8px; border-radius: 4px;
+      background: var(--orange); color: white;
+      font-family: 'Oswald', sans-serif; font-size: 0.55rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    @media (max-width: 768px) {
+      .shorts-card { width: 150px; height: 267px; }
+    }
+
+    /* ==================== THE BARN COMMUNITY BOARD ==================== */
+    .barn-section {
+      background: var(--navy); padding: 3.5rem 0; position: relative; overflow: hidden;
+    }
+    .barn-section .tiger-stripes { position: absolute; inset: 0; opacity: 0.3; }
+    .barn-section .section-inner { position: relative; }
+    .barn-subtitle {
+      color: rgba(255,255,255,0.4); font-size: 0.8rem; margin-top: -1.5rem; margin-bottom: 1.5rem;
+    }
+    .barn-tabs {
+      display: flex; gap: 0.25rem; margin-bottom: 1.5rem; overflow-x: auto;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .barn-tabs::-webkit-scrollbar { display: none; }
+    .barn-tab {
+      padding: 0.5rem 1.25rem; border-radius: 8px 8px 0 0; border: none;
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5);
+      font-family: 'Oswald', sans-serif; font-size: 0.8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .barn-tab:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+    .barn-tab.active { background: var(--orange); color: white; }
+    .barn-threads {
+      background: var(--navy-dark); border-radius: 0 12px 12px 12px;
+      overflow: hidden; border: 1px solid rgba(255,255,255,0.06);
+    }
+    .barn-thread {
+      display: flex; align-items: center; gap: 1rem; padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s; cursor: pointer;
+    }
+    .barn-thread:last-child { border-bottom: none; }
+    .barn-thread:hover { background: rgba(255,255,255,0.03); }
+    .barn-thread-badges { display: flex; gap: 0.35rem; flex-shrink: 0; }
+    .barn-badge-hot {
+      padding: 2px 8px; border-radius: 4px; background: var(--orange);
+      font-family: 'Oswald', sans-serif; font-size: 0.55rem; font-weight: 700;
+      color: white; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .barn-badge-pinned {
+      padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.12);
+      font-family: 'Oswald', sans-serif; font-size: 0.55rem; font-weight: 700;
+      color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .barn-thread-content { flex: 1; min-width: 0; }
+    .barn-thread-title {
+      font-family: 'Oswald', sans-serif; font-size: 0.85rem; color: white;
+      text-transform: uppercase; line-height: 1.2; margin-bottom: 0.2rem;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .barn-thread:hover .barn-thread-title { color: var(--orange); }
+    .barn-thread-meta {
+      font-size: 0.65rem; color: rgba(255,255,255,0.3);
+    }
+    .barn-thread-stats {
+      display: flex; gap: 0.75rem; flex-shrink: 0;
+    }
+    .barn-stat-pill {
+      padding: 3px 10px; border-radius: 999px;
+      background: rgba(255,255,255,0.06); font-size: 0.6rem;
+      color: rgba(255,255,255,0.4); font-weight: 600; white-space: nowrap;
+    }
+    .barn-cta-wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1.5rem; gap: 1rem; flex-wrap: wrap;
+    }
+    .barn-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--orange); color: white; padding: 0.65rem 1.5rem;
+      border-radius: 8px; font-family: 'Oswald', sans-serif; font-size: 0.85rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      transition: background 0.2s; text-decoration: none;
+    }
+    .barn-cta:hover { background: var(--orange-hover); }
+    .barn-quick-reply {
+      flex: 1; max-width: 400px; display: flex; gap: 0.5rem;
+    }
+    .barn-reply-input {
+      flex: 1; padding: 0.6rem 1rem; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06);
+      color: white; font-size: 0.8rem; outline: none;
+    }
+    .barn-reply-input::placeholder { color: rgba(255,255,255,0.25); }
+    .barn-reply-input:focus { border-color: var(--orange); }
+    .barn-reply-btn {
+      padding: 0.6rem 1rem; border-radius: 8px; border: none;
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6);
+      font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .barn-reply-btn:hover { background: var(--orange); color: white; }
+    @media (max-width: 768px) {
+      .barn-thread { flex-wrap: wrap; gap: 0.5rem; }
+      .barn-thread-stats { width: 100%; }
+      .barn-cta-wrap { flex-direction: column; }
+      .barn-quick-reply { max-width: 100%; }
+    }
 
     /* ==================== FOOTER ==================== */
     .footer { background: var(--navy); color: white; padding: 3rem 0 1.5rem; }
@@ -1141,83 +1148,72 @@
     </div>
   </section>
 
-  <!-- ========== SPORT CATEGORIES ========== -->
-  <section class="sport-categories animate-in">
+  <!-- ========== SHORT FORM CONTENT ========== -->
+  <section class="shorts-section animate-in">
     <div class="section-inner">
       <div class="section-header">
-        <h2 class="section-title">Explore <span>Sports</span></h2>
+        <h2 class="section-title">Short <span>Form</span></h2>
       </div>
-    </div>
-    <div class="sport-scroll">
-      <div class="sport-card"><span class="sport-emoji">🏈</span><span class="sport-name">Football</span></div>
-      <div class="sport-card"><span class="sport-emoji">🏀</span><span class="sport-name">Basketball</span></div>
-      <div class="sport-card"><span class="sport-emoji">⚾</span><span class="sport-name">Baseball</span></div>
-      <div class="sport-card"><span class="sport-emoji">🥎</span><span class="sport-name">Softball</span></div>
-      <div class="sport-card"><span class="sport-emoji">🤸</span><span class="sport-name">Gymnastics</span></div>
-      <div class="sport-card"><span class="sport-emoji">🏊</span><span class="sport-name">Swimming</span></div>
-      <div class="sport-card"><span class="sport-emoji">🏃</span><span class="sport-name">Track</span></div>
-      <div class="sport-card"><span class="sport-emoji">⚽</span><span class="sport-name">Soccer</span></div>
-      <div class="sport-card"><span class="sport-emoji">🏐</span><span class="sport-name">Volleyball</span></div>
-      <div class="sport-card"><span class="sport-emoji">🎾</span><span class="sport-name">Tennis</span></div>
-      <div class="sport-card"><span class="sport-emoji">⛳</span><span class="sport-name">Golf</span></div>
-      <div class="sport-card"><span class="sport-emoji">🐎</span><span class="sport-name">Equestrian</span></div>
-    </div>
-  </section>
-
-  <!-- ========== STATS COUNTER ========== -->
-  <section class="stats-section animate-in" id="statsSection">
-    <div class="tiger-stripes"></div>
-    <div class="section-inner">
-      <div class="section-header" style="justify-content: center;">
-        <h2 class="section-title" style="color: white;" id="statsTitle">By The <span>Numbers</span></h2>
+      <div class="shorts-filters">
+        <button class="shorts-filter active" data-filter="all">All</button>
+        <button class="shorts-filter" data-filter="highlights">Highlights</button>
+        <button class="shorts-filter" data-filter="interviews">Interviews</button>
+        <button class="shorts-filter" data-filter="behind">Behind the Scenes</button>
       </div>
-      <div class="stats-grid">
-        <div class="stat-card" data-target="12" data-suffix="">
-          <div class="stat-number">0</div>
-          <div class="stat-label">Sports</div>
+      <div class="shorts-carousel" id="shortsCarousel">
+        <div class="shorts-card" data-category="highlights">
+          <img class="shorts-thumb" src="auburn-football-sm.jpg" alt="Top 10 Plays">
+          <span class="shorts-badge">Highlights</span>
+          <div class="shorts-play"></div>
+          <div class="shorts-info">
+            <div class="shorts-title">Auburn's Top 10 Plays of the Week</div>
+            <div class="shorts-views">124K views</div>
+          </div>
         </div>
-        <div class="stat-card" data-target="50" data-suffix="+">
-          <div class="stat-number">0</div>
-          <div class="stat-label">Writers</div>
+        <div class="shorts-card" data-category="interviews">
+          <img class="shorts-thumb" src="jordan-hare-flyover.jpg" alt="Post-Game Interview">
+          <span class="shorts-badge">Interview</span>
+          <div class="shorts-play"></div>
+          <div class="shorts-info">
+            <div class="shorts-title">Hugh Freeze Post-Game Interview</div>
+            <div class="shorts-views">89K views</div>
+          </div>
         </div>
-        <div class="stat-card" data-target="1000" data-suffix="+">
-          <div class="stat-number">0</div>
-          <div class="stat-label">Articles</div>
+        <div class="shorts-card" data-category="behind">
+          <img class="shorts-thumb" src="aubie-full.jpg" alt="Game Day Walkthrough">
+          <span class="shorts-badge">BTS</span>
+          <div class="shorts-play"></div>
+          <div class="shorts-info">
+            <div class="shorts-title">Behind the Scenes: Game Day Walkthrough</div>
+            <div class="shorts-views">67K views</div>
+          </div>
         </div>
-        <div class="stat-card" data-special="true">
-          <div class="stat-special">War Eagle!</div>
+        <div class="shorts-card" data-category="highlights">
+          <img class="shorts-thumb" src="auburn-football-sm.jpg" alt="Insane Catch">
+          <span class="shorts-badge">Highlights</span>
+          <div class="shorts-play"></div>
+          <div class="shorts-info">
+            <div class="shorts-title">Insane Catch at Jordan-Hare</div>
+            <div class="shorts-views">203K views</div>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== GAME COUNTDOWN ========== -->
-  <section class="countdown-section animate-in">
-    <div class="tiger-stripes"></div>
-    <div class="section-inner" style="position: relative;">
-      <span class="badge" style="margin-bottom: 1rem;">Football</span>
-      <h2 class="section-title" style="display: block; margin-bottom: 0.5rem;">Next <span>Game</span></h2>
-      <p style="color: rgba(31,41,55,0.55); font-size: 0.85rem; margin-bottom: 0.25rem;">Auburn Tigers vs. Georgia Bulldogs</p>
-      <p style="color: rgba(31,41,55,0.35); font-size: 0.75rem; margin-bottom: 2rem;">Jordan-Hare Stadium</p>
-      <div class="countdown-units">
-        <div class="countdown-unit">
-          <div class="countdown-box"><span class="countdown-num" id="cdDays">00</span></div>
-          <span class="countdown-label">Days</span>
+        <div class="shorts-card" data-category="interviews">
+          <img class="shorts-thumb" src="auburn-basketball-team-sm.jpg" alt="Bruce Pearl Mic'd Up">
+          <span class="shorts-badge">Interview</span>
+          <div class="shorts-play"></div>
+          <div class="shorts-info">
+            <div class="shorts-title">Bruce Pearl Mic'd Up vs Alabama</div>
+            <div class="shorts-views">156K views</div>
+          </div>
         </div>
-        <span class="countdown-sep">:</span>
-        <div class="countdown-unit">
-          <div class="countdown-box"><span class="countdown-num" id="cdHours">00</span></div>
-          <span class="countdown-label">Hours</span>
-        </div>
-        <span class="countdown-sep">:</span>
-        <div class="countdown-unit">
-          <div class="countdown-box"><span class="countdown-num" id="cdMins">00</span></div>
-          <span class="countdown-label">Minutes</span>
-        </div>
-        <span class="countdown-sep">:</span>
-        <div class="countdown-unit">
-          <div class="countdown-box"><span class="countdown-num" id="cdSecs">00</span></div>
-          <span class="countdown-label">Seconds</span>
+        <div class="shorts-card" data-category="behind">
+          <img class="shorts-thumb" src="suni-lee-sm.jpg" alt="Walk-On Scholarship">
+          <span class="shorts-badge">BTS</span>
+          <div class="shorts-play"></div>
+          <div class="shorts-info">
+            <div class="shorts-title">Walk-On Earns Scholarship — Emotional Moment</div>
+            <div class="shorts-views">312K views</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1267,18 +1263,118 @@
     </div>
   </section>
 
-  <!-- ========== NEWSLETTER ========== -->
-  <section class="newsletter animate-in" id="newsletterSection">
+  <!-- ========== THE BARN COMMUNITY BOARD ========== -->
+  <section class="barn-section animate-in" id="barnSection">
     <div class="tiger-stripes"></div>
-    <div class="spotlight"></div>
     <div class="section-inner">
-      <h2 class="section-title" style="color: white;">Join The <span>Roar</span></h2>
-      <p>Get Auburn Tigers news, analysis, and podcast updates delivered straight to your inbox.</p>
-      <div class="newsletter-form" id="newsletterForm">
-        <input type="email" class="newsletter-input" placeholder="Enter your email" required>
-        <button class="newsletter-btn" type="button" id="subscribeBtn">Subscribe</button>
+      <div class="section-header">
+        <h2 class="section-title" style="color: white;">The <span>Barn</span></h2>
       </div>
-      <p style="font-size: 0.7rem; color: rgba(255,255,255,0.15); margin-top: 0.75rem; position: relative;">No spam. Unsubscribe anytime.</p>
+      <p class="barn-subtitle">Auburn's Community Board</p>
+      <div class="barn-tabs" id="barnTabs">
+        <button class="barn-tab active" data-tab="hot">Hot Topics</button>
+        <button class="barn-tab" data-tab="football">Football</button>
+        <button class="barn-tab" data-tab="basketball">Basketball</button>
+        <button class="barn-tab" data-tab="recruiting">Recruiting</button>
+        <button class="barn-tab" data-tab="offtopic">Off-Topic</button>
+      </div>
+      <div class="barn-threads" id="barnThreads">
+        <div class="barn-thread" data-tags="hot">
+          <div class="barn-thread-badges"><span class="barn-badge-pinned">Pinned</span></div>
+          <div class="barn-thread-content">
+            <div class="barn-thread-title">Welcome to The Barn — Community Guidelines</div>
+            <div class="barn-thread-meta">Admin &middot; 234 replies</div>
+          </div>
+          <div class="barn-thread-stats">
+            <span class="barn-stat-pill">234 replies</span>
+            <span class="barn-stat-pill">12.4K views</span>
+          </div>
+        </div>
+        <div class="barn-thread" data-tags="hot recruiting football">
+          <div class="barn-thread-badges"><span class="barn-badge-hot">Hot</span></div>
+          <div class="barn-thread-content">
+            <div class="barn-thread-title">Five-Star QB Visit This Weekend — What We're Hearing</div>
+            <div class="barn-thread-meta">TigerInsider &middot; 2h ago</div>
+          </div>
+          <div class="barn-thread-stats">
+            <span class="barn-stat-pill">187 replies</span>
+            <span class="barn-stat-pill">8.9K views</span>
+          </div>
+        </div>
+        <div class="barn-thread" data-tags="hot football">
+          <div class="barn-thread-badges"><span class="barn-badge-hot">Hot</span></div>
+          <div class="barn-thread-content">
+            <div class="barn-thread-title">Auburn's Portal Additions Ranked — Who Makes the Biggest Impact?</div>
+            <div class="barn-thread-meta">WarEagle2026 &middot; 3h ago</div>
+          </div>
+          <div class="barn-thread-stats">
+            <span class="barn-stat-pill">143 replies</span>
+            <span class="barn-stat-pill">6.2K views</span>
+          </div>
+        </div>
+        <div class="barn-thread" data-tags="football">
+          <div class="barn-thread-badges"></div>
+          <div class="barn-thread-content">
+            <div class="barn-thread-title">Spring Practice Day 3 Observations</div>
+            <div class="barn-thread-meta">AUBeatWriter &middot; 5h ago</div>
+          </div>
+          <div class="barn-thread-stats">
+            <span class="barn-stat-pill">92 replies</span>
+            <span class="barn-stat-pill">3.1K views</span>
+          </div>
+        </div>
+        <div class="barn-thread" data-tags="basketball">
+          <div class="barn-thread-badges"></div>
+          <div class="barn-thread-content">
+            <div class="barn-thread-title">Basketball: Can We Make a Final Four Run?</div>
+            <div class="barn-thread-meta">HoopsGuru &middot; 6h ago</div>
+          </div>
+          <div class="barn-thread-stats">
+            <span class="barn-stat-pill">78 replies</span>
+            <span class="barn-stat-pill">2.8K views</span>
+          </div>
+        </div>
+        <div class="barn-thread" data-tags="offtopic">
+          <div class="barn-thread-badges"></div>
+          <div class="barn-thread-content">
+            <div class="barn-thread-title">Best Tailgating Spots at Jordan-Hare — New Fan Guide</div>
+            <div class="barn-thread-meta">PlainsFan &middot; 8h ago</div>
+          </div>
+          <div class="barn-thread-stats">
+            <span class="barn-stat-pill">56 replies</span>
+            <span class="barn-stat-pill">1.9K views</span>
+          </div>
+        </div>
+        <div class="barn-thread" data-tags="recruiting football">
+          <div class="barn-thread-badges"></div>
+          <div class="barn-thread-content">
+            <div class="barn-thread-title">NIL Update: New Collective Gaining Traction</div>
+            <div class="barn-thread-meta">TigerNIL &middot; 12h ago</div>
+          </div>
+          <div class="barn-thread-stats">
+            <span class="barn-stat-pill">41 replies</span>
+            <span class="barn-stat-pill">1.5K views</span>
+          </div>
+        </div>
+        <div class="barn-thread" data-tags="offtopic">
+          <div class="barn-thread-badges"></div>
+          <div class="barn-thread-content">
+            <div class="barn-thread-title">Off-Topic: Best BBQ Near Campus?</div>
+            <div class="barn-thread-meta">AuburnFoodie &middot; 1d ago</div>
+          </div>
+          <div class="barn-thread-stats">
+            <span class="barn-stat-pill">103 replies</span>
+            <span class="barn-stat-pill">4.1K views</span>
+          </div>
+        </div>
+      </div>
+      <div class="barn-cta-wrap">
+        <div class="barn-quick-reply">
+          <input type="text" class="barn-reply-input" placeholder="Quick reply...">
+          <button class="barn-reply-btn">Post</button>
+        </div>
+        <a href="https://www.thebarnauburn.com/" target="_blank" class="barn-cta">Join the Discussion &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -1527,77 +1623,61 @@
       });
     });
 
-    // ========== STATS COUNTER ==========
-    var statsObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          var cards = entry.target.querySelectorAll('.stat-card');
-          cards.forEach(function(card, i) {
-            setTimeout(function() {
-              card.classList.add('visible');
-              var target = parseInt(card.dataset.target);
-              if (isNaN(target)) return;
-              var suffix = card.dataset.suffix || '';
-              var numEl = card.querySelector('.stat-number');
-              var start = performance.now();
-              var duration = 2000;
-              function step(now) {
-                var elapsed = now - start;
-                var p = Math.min(elapsed / duration, 1);
-                var eased = 1 - Math.pow(1 - p, 4);
-                numEl.textContent = Math.round(target * eased) + suffix;
-                if (p < 1) requestAnimationFrame(step);
-              }
-              requestAnimationFrame(step);
-            }, i * 150);
-          });
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    var ss = document.getElementById('statsSection');
-    if (ss) statsObserver.observe(ss);
-
-    // ========== GAME COUNTDOWN ==========
+    // ========== SHORTS CAROUSEL DRAG ==========
     (function() {
-      var target = new Date('2026-09-05T19:00:00').getTime();
-      function update() {
-        var diff = target - Date.now();
-        if (diff < 0) diff = 0;
-        var d = Math.floor(diff / 86400000);
-        var h = Math.floor((diff % 86400000) / 3600000);
-        var m = Math.floor((diff % 3600000) / 60000);
-        var s = Math.floor((diff % 60000) / 1000);
-        document.getElementById('cdDays').textContent = String(d).padStart(2, '0');
-        document.getElementById('cdHours').textContent = String(h).padStart(2, '0');
-        document.getElementById('cdMins').textContent = String(m).padStart(2, '0');
-        document.getElementById('cdSecs').textContent = String(s).padStart(2, '0');
-      }
-      update();
-      setInterval(update, 1000);
+      var carousel = document.getElementById('shortsCarousel');
+      if (!carousel) return;
+      var isDown = false, startX, scrollLeft;
+      carousel.addEventListener('mousedown', function(e) {
+        isDown = true; carousel.classList.add('dragging');
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+      });
+      carousel.addEventListener('mouseleave', function() { isDown = false; carousel.classList.remove('dragging'); });
+      carousel.addEventListener('mouseup', function() { isDown = false; carousel.classList.remove('dragging'); });
+      carousel.addEventListener('mousemove', function(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - carousel.offsetLeft;
+        carousel.scrollLeft = scrollLeft - (x - startX) * 1.5;
+      });
+      // Filter pills
+      document.querySelectorAll('.shorts-filter').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.shorts-filter').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          var filter = btn.dataset.filter;
+          document.querySelectorAll('.shorts-card').forEach(function(card) {
+            if (filter === 'all' || card.dataset.category === filter) {
+              card.style.display = '';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
     })();
 
-    // ========== NEWSLETTER CONFETTI ==========
-    document.getElementById('subscribeBtn').addEventListener('click', function() {
-      var section = document.getElementById('newsletterSection');
-      var form = document.getElementById('newsletterForm');
-      var colors = ['#DD550C', '#F26522', '#0C2340', '#1A3A5C', '#FFFFFF', '#FBD5BC'];
-
-      // Show success
-      form.innerHTML = '<div class="newsletter-success"><h3>War Eagle!</h3><p>You\'re on the team. Check your inbox.</p></div>';
-
-      // Confetti burst
-      for (var i = 0; i < 30; i++) {
-        var piece = document.createElement('div');
-        piece.className = 'confetti-piece';
-        piece.style.left = Math.random() * 100 + '%';
-        piece.style.top = '-10px';
-        piece.style.backgroundColor = colors[i % colors.length];
-        piece.style.animationDelay = (Math.random() * 1.5) + 's';
-        piece.style.animationDuration = (2 + Math.random() * 1.5) + 's';
-        section.appendChild(piece);
-      }
-    });
+    // ========== THE BARN TAB SWITCHING ==========
+    (function() {
+      var tabs = document.querySelectorAll('.barn-tab');
+      var threads = document.querySelectorAll('.barn-thread');
+      tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          tabs.forEach(function(t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+          var selected = tab.dataset.tab;
+          threads.forEach(function(thread) {
+            var tags = thread.dataset.tags || '';
+            if (selected === 'hot' || tags.indexOf(selected) !== -1) {
+              thread.style.display = '';
+            } else {
+              thread.style.display = 'none';
+            }
+          });
+        });
+      });
+    })();
 
     // ========== STORY MODAL ==========
     var storyBodies = [
