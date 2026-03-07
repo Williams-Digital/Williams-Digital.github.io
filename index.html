@@ -374,6 +374,27 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* SUSCC Bison card animations */
+        @keyframes susccDraw {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes susccFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes susccPop {
+            0% { opacity: 0; transform: scale(0.5); }
+            70% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes susccSpin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes susccPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.15); }
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -1521,6 +1542,71 @@
                         <div class="portfolio-tags">
                             <span class="tag">Productivity</span>
                             <span class="tag">App</span>
+                        </div>
+                        <span class="portfolio-link">
+                            View Project
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+                <a href="https://williamsdigital.io/preview/suscc/" target="_blank" class="portfolio-card">
+                    <div class="portfolio-preview">
+                        <span class="preview-icon suscc-icon">
+                            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="susccGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#fad347"/>
+                                        <stop offset="100%" stop-color="#24408f"/>
+                                    </linearGradient>
+                                    <linearGradient id="susccGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#fad347"/>
+                                        <stop offset="100%" stop-color="#d4b030"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Energy ring -->
+                                <circle cx="24" cy="24" r="22" fill="none" stroke="#24408f" stroke-width="1" opacity="0"
+                                    style="animation: susccFade 0.4s ease-out 0.2s forwards"/>
+                                <circle cx="24" cy="24" r="20" fill="none" stroke="url(#susccGold)" stroke-width="1.5"
+                                    stroke-dasharray="6 4" opacity="0"
+                                    style="animation: susccFade 0.4s ease-out 0.4s forwards, susccSpin 8s linear 0.4s infinite"/>
+                                <!-- U shape (SUSCC logo mark) -->
+                                <path d="M14 14 L14 28 C14 34 18 38 24 38 C30 38 34 34 34 28 L34 14"
+                                    fill="none" stroke="url(#susccGold)" stroke-width="3.5"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-dasharray="70" stroke-dashoffset="70"
+                                    style="animation: susccDraw 1s ease-out 0.6s forwards"/>
+                                <!-- S wave through the U -->
+                                <path d="M18 18 C18 18 22 16 26 22 C30 28 34 26 34 26"
+                                    fill="none" stroke="#fad347" stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="30" stroke-dashoffset="30"
+                                    style="animation: susccDraw 0.8s ease-out 1.4s forwards"/>
+                                <!-- Bison horns silhouette above -->
+                                <path d="M17 12 C15 8 13 7 11 8" fill="none" stroke="url(#susccGold)" stroke-width="1.5"
+                                    stroke-linecap="round" opacity="0"
+                                    style="animation: susccPop 0.4s ease-out 2s forwards"/>
+                                <path d="M31 12 C33 8 35 7 37 8" fill="none" stroke="url(#susccGold)" stroke-width="1.5"
+                                    stroke-linecap="round" opacity="0"
+                                    style="animation: susccPop 0.4s ease-out 2s forwards"/>
+                                <!-- Pulse glow -->
+                                <circle cx="24" cy="26" r="10" fill="#fad347" opacity="0"
+                                    style="animation: susccPulse 2s ease-in-out 2.2s infinite"/>
+                                <!-- Text -->
+                                <text x="24" y="47" text-anchor="middle"
+                                    font-family="'Inter', sans-serif" font-weight="800" font-size="4.5"
+                                    fill="url(#susccGold)" opacity="0"
+                                    style="animation: susccFade 0.4s ease-out 2.4s forwards">SUSCC</text>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Southern Union State CC</h3>
+                        <p>Full college website redesign with animated Bison loading screen and modern UI.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Education</span>
+                            <span class="tag">Redesign</span>
                         </div>
                         <span class="portfolio-link">
                             View Project
