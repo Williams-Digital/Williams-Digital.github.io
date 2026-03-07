@@ -529,6 +529,193 @@
       box-shadow: var(--shadow-sm);
     }
 
+    .nav-cta .btn-login {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--white);
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: all var(--transition);
+    }
+
+    .nav-cta .btn-login:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(250, 211, 71, 0.08);
+    }
+
+    /* ============================================
+       PORTAL LOGIN MODAL
+       ============================================ */
+    .portal-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(15, 31, 79, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .portal-modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .portal-modal {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 520px;
+      box-shadow: var(--shadow-xl);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s ease;
+      overflow: hidden;
+    }
+
+    .portal-modal-overlay.open .portal-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .portal-modal-header {
+      background: var(--navy);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .portal-modal-header h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .portal-modal-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      padding: 4px;
+      transition: color var(--transition);
+      display: flex;
+    }
+
+    .portal-modal-close:hover {
+      color: var(--gold);
+    }
+
+    .portal-modal-body {
+      padding: 28px;
+    }
+
+    .portal-section {
+      margin-bottom: 24px;
+    }
+
+    .portal-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .portal-section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .portal-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .portal-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--medium-gray);
+      transition: all var(--transition);
+      text-decoration: none;
+      color: var(--text-dark);
+    }
+
+    .portal-link:hover {
+      border-color: var(--navy);
+      background: var(--light-gray);
+      transform: translateX(4px);
+    }
+
+    .portal-link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .portal-link-icon.canvas { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .portal-link-icon.mysuscc { background: linear-gradient(135deg, var(--navy), var(--navy-dark)); }
+    .portal-link-icon.email { background: linear-gradient(135deg, #0078d4, #005a9e); }
+    .portal-link-icon.intranet { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+    .portal-link-icon.password { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); }
+    .portal-link-icon.bookstore { background: linear-gradient(135deg, #8e44ad, #6c3483); }
+
+    .portal-link-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: white;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .portal-link-text {
+      flex: 1;
+    }
+
+    .portal-link-text strong {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+
+    .portal-link-text span {
+      font-size: 0.75rem;
+      color: var(--text-medium);
+    }
+
+    .portal-link-arrow {
+      color: var(--text-light);
+      transition: all var(--transition);
+    }
+
+    .portal-link:hover .portal-link-arrow {
+      color: var(--navy);
+      transform: translateX(3px);
+    }
+
     /* Mobile */
     .nav-toggle {
       display: none;
@@ -1453,6 +1640,22 @@
       .top-bar {
         display: none;
       }
+
+      .nav-cta .btn-login {
+        padding: 8px 14px;
+        font-size: 0.75rem;
+      }
+
+      .portal-modal {
+        width: 95%;
+        max-height: 85vh;
+      }
+
+      .portal-modal-body {
+        padding: 20px;
+        overflow-y: auto;
+        max-height: calc(85vh - 70px);
+      }
     }
 
     @media (max-width: 600px) {
@@ -1631,10 +1834,11 @@
   <div class="top-bar">
     <div class="container">
       <ul class="top-bar-links">
+        <li><a href="https://alabama.instructure.com/" target="_blank">Canvas LMS</a></li>
+        <li><a href="https://experience.elluciancloud.com/sscc599/" target="_blank">mySUSCC</a></li>
+        <li><a href="https://outlook.office.com/mail/" target="_blank">Email</a></li>
         <li><a href="https://www.suscc.edu/about/directory">Directory</a></li>
         <li><a href="https://www.suscc.edu/about/campus-maps">Campus Map</a></li>
-        <li><a href="https://www.suscc.edu/students/career-services">Career Services</a></li>
-        <li><a href="https://www.suscc.edu/about/giving">Give</a></li>
       </ul>
       <div class="top-bar-contact">
         <a href="mailto:info@suscc.edu">info@suscc.edu</a>
@@ -1698,12 +1902,14 @@
         <li>
           <a href="#">Students</a>
           <div class="dropdown">
+            <a href="https://alabama.instructure.com/" target="_blank">Canvas LMS</a>
+            <a href="https://experience.elluciancloud.com/sscc599/" target="_blank">mySUSCC Portal</a>
+            <a href="https://outlook.office.com/mail/" target="_blank">Student Email</a>
+            <a href="https://reg-prod.ec.accs.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=search&mepCode=SUSCC" target="_blank">Class Schedule</a>
             <a href="https://www.suscc.edu/students/academic-calendar">Academic Calendar</a>
             <a href="https://www.suscc.edu/students/academicadvising">Academic Advising</a>
             <a href="https://www.suscc.edu/students/registration">Registration</a>
             <a href="https://www.suscc.edu/students/library">Library</a>
-            <a href="https://www.suscc.edu/students/clubs-organizations">Clubs & Organizations</a>
-            <a href="https://www.suscc.edu/students/residential-life">Residential Life</a>
             <a href="https://www.suscc.edu/bisonbound">Bison Bound</a>
           </div>
         </li>
@@ -1711,12 +1917,21 @@
           <a href="https://www.susccathletics.com/landing/index">Athletics</a>
         </li>
         <li>
+          <a href="#">Faculty & Staff</a>
+          <div class="dropdown">
+            <a href="https://alabama.instructure.com/" target="_blank">Canvas LMS</a>
+            <a href="https://outlook.office.com/mail/" target="_blank">Faculty Email</a>
+            <a href="https://intranet.suscc.edu/admin/login/index.cfm" target="_blank">Employee Intranet</a>
+            <a href="https://www.suscc.edu/about/human-resources">Human Resources</a>
+            <a href="https://www.suscc.edu/faculty-information">Faculty Info Hub</a>
+          </div>
+        </li>
+        <li>
           <a href="#">About</a>
           <div class="dropdown">
             <a href="https://www.suscc.edu/about/welcome">Welcome</a>
             <a href="https://www.suscc.edu/about/about-suscc">About SUSCC</a>
             <a href="https://www.suscc.edu/about/calendar">Calendar</a>
-            <a href="https://www.suscc.edu/about/human-resources">Human Resources</a>
             <a href="https://www.suscc.edu/about/alumni">Alumni</a>
             <a href="https://www.suscc.edu/about/news-and-events">News & Events</a>
           </div>
@@ -1724,6 +1939,10 @@
       </ul>
 
       <div class="nav-cta">
+        <a href="#" class="btn-login" onclick="document.getElementById('portalModal').classList.add('open');return false;">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10,17 15,12 10,7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Login
+        </a>
         <a href="https://suscc.my.site.com/apply/TX_SiteLogin" class="btn-apply">Apply Now</a>
       </div>
 
@@ -2194,6 +2413,122 @@
   </div>
 
   <!-- ==========================================
+       PORTAL LOGIN MODAL
+       ========================================== -->
+  <div id="portalModal" class="portal-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="portal-modal">
+      <div class="portal-modal-header">
+        <h3>SUSCC Portals &amp; Login</h3>
+        <button class="portal-modal-close" onclick="document.getElementById('portalModal').classList.remove('open')" aria-label="Close">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="portal-modal-body">
+        <!-- Student Portals -->
+        <div class="portal-section">
+          <div class="portal-section-title">Student Portals</div>
+          <div class="portal-links">
+            <a href="https://alabama.instructure.com/" target="_blank" class="portal-link">
+              <div class="portal-link-icon canvas">
+                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <div class="portal-link-text">
+                <strong>Canvas LMS</strong>
+                <span>Online courses, assignments &amp; grades</span>
+              </div>
+              <svg class="portal-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+            </a>
+            <a href="https://experience.elluciancloud.com/sscc599/" target="_blank" class="portal-link">
+              <div class="portal-link-icon mysuscc">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              </div>
+              <div class="portal-link-text">
+                <strong>mySUSCC Portal</strong>
+                <span>Registration, financial aid &amp; records</span>
+              </div>
+              <svg class="portal-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+            </a>
+            <a href="https://outlook.office.com/mail/" target="_blank" class="portal-link">
+              <div class="portal-link-icon email">
+                <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+              </div>
+              <div class="portal-link-text">
+                <strong>Student Email</strong>
+                <span>Microsoft Outlook (Office 365)</span>
+              </div>
+              <svg class="portal-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+            </a>
+            <a href="https://susccopelika.bncollege.com/" target="_blank" class="portal-link">
+              <div class="portal-link-icon bookstore">
+                <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+              </div>
+              <div class="portal-link-text">
+                <strong>Bookstore</strong>
+                <span>Textbooks &amp; campus supplies</span>
+              </div>
+              <svg class="portal-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Faculty & Staff Portals -->
+        <div class="portal-section">
+          <div class="portal-section-title">Faculty &amp; Staff</div>
+          <div class="portal-links">
+            <a href="https://alabama.instructure.com/" target="_blank" class="portal-link">
+              <div class="portal-link-icon canvas">
+                <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <div class="portal-link-text">
+                <strong>Canvas LMS</strong>
+                <span>Course management &amp; grading</span>
+              </div>
+              <svg class="portal-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+            </a>
+            <a href="https://outlook.office.com/mail/" target="_blank" class="portal-link">
+              <div class="portal-link-icon email">
+                <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+              </div>
+              <div class="portal-link-text">
+                <strong>Faculty Email</strong>
+                <span>Microsoft Outlook (Office 365)</span>
+              </div>
+              <svg class="portal-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+            </a>
+            <a href="https://intranet.suscc.edu/admin/login/index.cfm" target="_blank" class="portal-link">
+              <div class="portal-link-icon intranet">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+              </div>
+              <div class="portal-link-text">
+                <strong>Employee Intranet</strong>
+                <span>Internal resources &amp; documents</span>
+              </div>
+              <svg class="portal-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Account Help -->
+        <div class="portal-section">
+          <div class="portal-section-title">Account Help</div>
+          <div class="portal-links">
+            <a href="https://password.alabama.edu/" target="_blank" class="portal-link">
+              <div class="portal-link-icon password">
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              </div>
+              <div class="portal-link-text">
+                <strong>Password Reset</strong>
+                <span>Reset your alabama.edu credentials</span>
+              </div>
+              <svg class="portal-link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
        JAVASCRIPT
        ========================================== -->
   <script>
@@ -2294,6 +2629,13 @@
 
     document.querySelectorAll('.animate-in').forEach(function(el) {
       observer.observe(el);
+    });
+
+    // Portal modal - close with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.getElementById('portalModal').classList.remove('open');
+      }
     });
   </script>
 </body>
