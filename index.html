@@ -1558,46 +1558,93 @@
                                 <defs>
                                     <linearGradient id="susccGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                                         <stop offset="0%" stop-color="#fad347"/>
+                                        <stop offset="50%" stop-color="#e8c030"/>
                                         <stop offset="100%" stop-color="#24408f"/>
                                     </linearGradient>
-                                    <linearGradient id="susccGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <linearGradient id="susccGold" x1="0%" y1="0%" x2="100%" y2="100%">
                                         <stop offset="0%" stop-color="#fad347"/>
                                         <stop offset="100%" stop-color="#d4b030"/>
                                     </linearGradient>
+                                    <linearGradient id="susccNavy" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#24408f"/>
+                                        <stop offset="100%" stop-color="#1a3070"/>
+                                    </linearGradient>
+                                    <filter id="susccGlow">
+                                        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                    </filter>
                                 </defs>
-                                <!-- Energy ring -->
-                                <circle cx="24" cy="24" r="22" fill="none" stroke="#24408f" stroke-width="1" opacity="0"
-                                    style="animation: susccFade 0.4s ease-out 0.2s forwards"/>
-                                <circle cx="24" cy="24" r="20" fill="none" stroke="url(#susccGold)" stroke-width="1.5"
-                                    stroke-dasharray="6 4" opacity="0"
-                                    style="animation: susccFade 0.4s ease-out 0.4s forwards, susccSpin 8s linear 0.4s infinite"/>
-                                <!-- U shape (SUSCC logo mark) -->
-                                <path d="M14 14 L14 28 C14 34 18 38 24 38 C30 38 34 34 34 28 L34 14"
-                                    fill="none" stroke="url(#susccGold)" stroke-width="3.5"
+
+                                <!-- Background shield shape - draws on -->
+                                <path d="M24 4 L40 12 L40 28 C40 36 33 42 24 44 C15 42 8 36 8 28 L8 12 Z"
+                                    fill="none" stroke="url(#susccNavy)" stroke-width="1.5"
                                     stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-dasharray="70" stroke-dashoffset="70"
-                                    style="animation: susccDraw 1s ease-out 0.6s forwards"/>
-                                <!-- S wave through the U -->
-                                <path d="M18 18 C18 18 22 16 26 22 C30 28 34 26 34 26"
-                                    fill="none" stroke="#fad347" stroke-width="2"
+                                    stroke-dasharray="120" stroke-dashoffset="120"
+                                    style="animation: susccDraw 1s ease-out 0.2s forwards"/>
+                                <!-- Shield fill -->
+                                <path d="M24 4 L40 12 L40 28 C40 36 33 42 24 44 C15 42 8 36 8 28 L8 12 Z"
+                                    fill="#24408f" opacity="0"
+                                    style="animation: susccFade 0.5s ease-out 1s forwards" />
+
+                                <!-- Bison head - forehead & skull -->
+                                <path d="M18 26 C18 20 20 16 24 15 C28 16 30 20 30 26"
+                                    fill="none" stroke="url(#susccGold)" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-dasharray="40" stroke-dashoffset="40"
+                                    filter="url(#susccGlow)"
+                                    style="animation: susccDraw 0.7s ease-out 1.2s forwards"/>
+                                <!-- Bison snout / jaw -->
+                                <path d="M18 26 C18 30 19 33 21 34 C22 35 26 35 27 34 C29 33 30 30 30 26"
+                                    fill="none" stroke="url(#susccGold)" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-dasharray="35" stroke-dashoffset="35"
+                                    filter="url(#susccGlow)"
+                                    style="animation: susccDraw 0.6s ease-out 1.6s forwards"/>
+                                <!-- Left horn - sweeps up and out -->
+                                <path d="M19 18 C17 14 13 11 10 12"
+                                    fill="none" stroke="url(#susccGold)" stroke-width="2.5"
                                     stroke-linecap="round"
-                                    stroke-dasharray="30" stroke-dashoffset="30"
-                                    style="animation: susccDraw 0.8s ease-out 1.4s forwards"/>
-                                <!-- Bison horns silhouette above -->
-                                <path d="M17 12 C15 8 13 7 11 8" fill="none" stroke="url(#susccGold)" stroke-width="1.5"
-                                    stroke-linecap="round" opacity="0"
-                                    style="animation: susccPop 0.4s ease-out 2s forwards"/>
-                                <path d="M31 12 C33 8 35 7 37 8" fill="none" stroke="url(#susccGold)" stroke-width="1.5"
-                                    stroke-linecap="round" opacity="0"
-                                    style="animation: susccPop 0.4s ease-out 2s forwards"/>
-                                <!-- Pulse glow -->
-                                <circle cx="24" cy="26" r="10" fill="#fad347" opacity="0"
-                                    style="animation: susccPulse 2s ease-in-out 2.2s infinite"/>
-                                <!-- Text -->
-                                <text x="24" y="47" text-anchor="middle"
-                                    font-family="'Inter', sans-serif" font-weight="800" font-size="4.5"
+                                    stroke-dasharray="16" stroke-dashoffset="16"
+                                    filter="url(#susccGlow)"
+                                    style="animation: susccDraw 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2s forwards"/>
+                                <!-- Right horn - sweeps up and out -->
+                                <path d="M29 18 C31 14 35 11 38 12"
+                                    fill="none" stroke="url(#susccGold)" stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="16" stroke-dashoffset="16"
+                                    filter="url(#susccGlow)"
+                                    style="animation: susccDraw 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 2s forwards"/>
+                                <!-- Left eye -->
+                                <circle cx="21" cy="23" r="1.2" fill="#fad347" opacity="0"
+                                    style="animation: susccPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 2.3s forwards"/>
+                                <!-- Right eye -->
+                                <circle cx="27" cy="23" r="1.2" fill="#fad347" opacity="0"
+                                    style="animation: susccPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 2.3s forwards"/>
+                                <!-- Nostril left -->
+                                <circle cx="22" cy="30" r="0.8" fill="#fad347" opacity="0"
+                                    style="animation: susccPop 0.2s ease-out 2.5s forwards"/>
+                                <!-- Nostril right -->
+                                <circle cx="26" cy="30" r="0.8" fill="#fad347" opacity="0"
+                                    style="animation: susccPop 0.2s ease-out 2.5s forwards"/>
+                                <!-- Fur tufts on forehead -->
+                                <path d="M21 16 L22 13 M24 15 L24 12 M27 16 L26 13"
+                                    fill="none" stroke="#fad347" stroke-width="1" stroke-linecap="round"
+                                    opacity="0"
+                                    style="animation: susccPop 0.3s ease-out 2.6s forwards"/>
+                                <!-- Beard / chin fur -->
+                                <path d="M22 35 L21 38 M24 35.5 L24 39 M26 35 L27 38"
+                                    fill="none" stroke="#fad347" stroke-width="1" stroke-linecap="round"
+                                    opacity="0"
+                                    style="animation: susccPop 0.3s ease-out 2.7s forwards"/>
+                                <!-- SUSCC text at bottom -->
+                                <text x="24" y="46.5" text-anchor="middle"
+                                    font-family="'Inter', sans-serif" font-weight="800" font-size="4"
+                                    letter-spacing="1.5"
                                     fill="url(#susccGold)" opacity="0"
-                                    style="animation: susccFade 0.4s ease-out 2.4s forwards">SUSCC</text>
+                                    style="animation: susccFade 0.4s ease-out 2.8s forwards">SUSCC</text>
+                                <!-- Subtle breathing animation on the whole bison -->
+                                <animateTransform attributeName="transform" type="translate"
+                                    values="0,0; 0,-0.5; 0,0" dur="3s" begin="3s" repeatCount="indefinite"/>
                             </svg>
                         </span>
                     </div>
