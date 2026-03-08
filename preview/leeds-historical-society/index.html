@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leeds Historical Society | Preserving the Past to Inspire the Future</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-cream: #F5F0E8;
+      --color-warm-white: #FDFBF7;
+      --color-parchment: #EDE6D6;
+      --color-gold: #C8A951;
+      --color-gold-light: #D4BC72;
+      --color-gold-dark: #A88B3A;
+      --color-navy: #1B2A4A;
+      --color-navy-light: #2A3D66;
+      --color-charcoal: #2C2C2C;
+      --color-text: #3A3A3A;
+      --color-text-light: #6B6B6B;
+      --color-border: #DDD5C4;
+      --color-rust: #8B4513;
+      --color-sage: #5C7A5E;
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+
+      --shadow-sm: 0 1px 3px rgba(27,42,74,0.06);
+      --shadow-md: 0 4px 20px rgba(27,42,74,0.08);
+      --shadow-lg: 0 8px 40px rgba(27,42,74,0.12);
+      --shadow-xl: 0 16px 60px rgba(27,42,74,0.16);
+
+      --radius: 8px;
+      --radius-lg: 16px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-warm-white);
+      line-height: 1.7;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========== ANNOUNCEMENT BAR ========== */
+    .announcement-bar {
+      background: var(--color-navy);
+      color: white;
+      text-align: center;
+      padding: 10px 24px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .announcement-bar strong {
+      color: var(--color-gold-light);
+      font-weight: 600;
+    }
+
+    /* ========== NAVIGATION ========== */
+    .nav {
+      background: var(--color-warm-white);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(253,251,247,0.92);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--color-navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-gold);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--color-navy);
+      line-height: 1.2;
+    }
+
+    .nav-logo-text span {
+      display: block;
+      font-size: 0.7rem;
+      font-family: var(--font-body);
+      font-weight: 400;
+      color: var(--color-text-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text);
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      background: var(--color-parchment);
+      color: var(--color-navy);
+    }
+
+    .nav-cta {
+      background: var(--color-navy) !important;
+      color: white !important;
+      font-weight: 500 !important;
+      padding: 10px 22px !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--color-navy-light) !important;
+    }
+
+    .nav-mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-mobile-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-navy);
+      margin: 6px 0;
+      transition: var(--transition);
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--color-navy) 0%, #0F1B33 100%);
+    }
+
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image:
+        radial-gradient(circle at 20% 50%, var(--color-gold) 1px, transparent 1px),
+        radial-gradient(circle at 80% 20%, var(--color-gold) 1px, transparent 1px),
+        radial-gradient(circle at 60% 80%, var(--color-gold) 1px, transparent 1px);
+      background-size: 60px 60px, 80px 80px, 100px 100px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-text {
+      color: white;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200, 169, 81, 0.15);
+      border: 1px solid rgba(200, 169, 81, 0.3);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-gold-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-gold);
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.12;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 em {
+      color: var(--color-gold-light);
+      font-style: italic;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 30px;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--color-gold);
+      color: var(--color-navy);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200, 169, 81, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .btn-dark {
+      background: var(--color-navy);
+      color: white;
+    }
+
+    .btn-dark:hover {
+      background: var(--color-navy-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      position: relative;
+    }
+
+    .hero-card-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-gold-light);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .hero-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: white;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .hero-card p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+
+    .hero-card-meta {
+      display: flex;
+      gap: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .hero-card-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hero-card-meta-item .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .hero-card-meta-item .value {
+      font-size: 0.9rem;
+      color: var(--color-gold-light);
+      font-weight: 500;
+    }
+
+    .hero-floating-card {
+      position: absolute;
+      bottom: -30px;
+      right: -20px;
+      background: white;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-xl);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .hero-floating-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--color-cream);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .hero-floating-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-navy);
+    }
+
+    .hero-floating-text span {
+      display: block;
+      font-weight: 400;
+      font-size: 0.78rem;
+      color: var(--color-text-light);
+    }
+
+    /* ========== STATS BAR ========== */
+    .stats-bar {
+      background: white;
+      border-bottom: 1px solid var(--color-border);
+      padding: 40px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      font-weight: 400;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 50px;
+      background: var(--color-border);
+      align-self: center;
+    }
+
+    /* ========== SECTION STYLES ========== */
+    .section {
+      padding: 100px 0;
+    }
+
+    .section-alt {
+      background: var(--color-cream);
+    }
+
+    .section-header {
+      max-width: 640px;
+      margin-bottom: 60px;
+    }
+
+    .section-header.center {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--color-gold-dark);
+      margin-bottom: 16px;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--color-gold);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      color: var(--color-navy);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-description {
+      font-size: 1.05rem;
+      color: var(--color-text-light);
+      line-height: 1.8;
+    }
+
+    /* ========== ABOUT / MISSION ========== */
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .mission-visual {
+      position: relative;
+    }
+
+    .mission-image-placeholder {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-light) 100%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mission-image-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent 40%, rgba(200,169,81,0.1) 100%);
+    }
+
+    .mission-image-icon {
+      font-size: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mission-image-text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      opacity: 0.8;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mission-accent-card {
+      position: absolute;
+      bottom: -24px;
+      left: -24px;
+      background: white;
+      padding: 24px 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      max-width: 260px;
+    }
+
+    .mission-accent-card p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--color-navy);
+      line-height: 1.6;
+    }
+
+    .mission-accent-card .author {
+      margin-top: 10px;
+      font-family: var(--font-body);
+      font-style: normal;
+      font-size: 0.8rem;
+      color: var(--color-text-light);
+    }
+
+    .mission-points {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      margin-top: 36px;
+    }
+
+    .mission-point {
+      display: flex;
+      gap: 18px;
+    }
+
+    .mission-point-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--color-cream);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .mission-point h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--color-navy);
+      margin-bottom: 4px;
+    }
+
+    .mission-point p {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      line-height: 1.6;
+    }
+
+    /* ========== EXHIBITS / FEATURES ========== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+
+    .feature-card-image {
+      height: 200px;
+      background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent 50%, rgba(200,169,81,0.08) 100%);
+    }
+
+    .feature-card-image .icon {
+      font-size: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-card-body {
+      padding: 28px;
+    }
+
+    .feature-card-tag {
+      display: inline-block;
+      background: var(--color-cream);
+      color: var(--color-gold-dark);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--color-navy);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .feature-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--color-navy);
+      transition: var(--transition);
+    }
+
+    .feature-card-link:hover {
+      color: var(--color-gold-dark);
+      gap: 10px;
+    }
+
+    .feature-card-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ========== EVENTS ========== */
+    .events-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .event-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      border: 1px solid var(--color-border);
+      display: flex;
+      gap: 24px;
+      transition: var(--transition);
+    }
+
+    .event-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-gold-light);
+    }
+
+    .event-card.featured {
+      grid-column: 1 / -1;
+      background: var(--color-navy);
+      color: white;
+      border: none;
+      padding: 48px;
+    }
+
+    .event-date {
+      flex-shrink: 0;
+      width: 64px;
+      height: 72px;
+      background: var(--color-cream);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .featured .event-date {
+      background: rgba(200,169,81,0.15);
+    }
+
+    .event-date .month {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-gold-dark);
+    }
+
+    .featured .event-date .month {
+      color: var(--color-gold-light);
+    }
+
+    .event-date .day {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      line-height: 1;
+    }
+
+    .featured .event-date .day {
+      color: var(--color-gold-light);
+    }
+
+    .event-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-navy);
+      margin-bottom: 6px;
+    }
+
+    .featured .event-info h3 {
+      color: white;
+      font-size: 1.3rem;
+    }
+
+    .event-info .event-meta {
+      font-size: 0.82rem;
+      color: var(--color-text-light);
+      margin-bottom: 8px;
+    }
+
+    .featured .event-info .event-meta {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .event-info p {
+      font-size: 0.9rem;
+      color: var(--color-text-light);
+      line-height: 1.7;
+    }
+
+    .featured .event-info p {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ========== VISIT / CTA ========== */
+    .visit-section {
+      background: linear-gradient(135deg, var(--color-navy) 0%, #0F1B33 100%);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visit-section .hero-bg-pattern {
+      opacity: 0.03;
+    }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .visit-text {
+      color: white;
+    }
+
+    .visit-text .section-label {
+      color: var(--color-gold-light);
+    }
+
+    .visit-text .section-label::before {
+      background: var(--color-gold-light);
+    }
+
+    .visit-text .section-title {
+      color: white;
+    }
+
+    .visit-text .section-description {
+      color: rgba(255,255,255,0.65);
+    }
+
+    .visit-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 36px;
+    }
+
+    .visit-detail {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .visit-detail-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: rgba(200,169,81,0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .visit-detail h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .visit-detail p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .visit-map-placeholder {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .visit-map-placeholder .map-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .visit-map-placeholder p {
+      font-size: 0.9rem;
+    }
+
+    /* ========== NEWSLETTER / JOIN ========== */
+    .join-section {
+      padding: 80px 0;
+      background: var(--color-cream);
+    }
+
+    .join-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 60px;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+      box-shadow: var(--shadow-md);
+    }
+
+    .join-card .section-label {
+      justify-content: center;
+    }
+
+    .join-card .section-title {
+      margin-bottom: 12px;
+    }
+
+    .join-card .section-description {
+      margin-bottom: 32px;
+    }
+
+    .join-form {
+      display: flex;
+      gap: 12px;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .join-form input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      background: var(--color-warm-white);
+      transition: var(--transition);
+    }
+
+    .join-form input:focus {
+      outline: none;
+      border-color: var(--color-gold);
+      box-shadow: 0 0 0 3px rgba(200,169,81,0.15);
+    }
+
+    .join-form button {
+      padding: 14px 28px;
+      background: var(--color-navy);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+
+    .join-form button:hover {
+      background: var(--color-navy-light);
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: var(--color-charcoal);
+      color: rgba(255,255,255,0.6);
+      padding: 64px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .nav-logo-icon {
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      transition: var(--transition);
+    }
+
+    .footer-social a:hover {
+      background: var(--color-gold);
+      color: var(--color-navy);
+    }
+
+    .footer-column h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 18px;
+    }
+
+    .footer-column ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-column a {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      transition: var(--transition);
+    }
+
+    .footer-column a:hover {
+      color: var(--color-gold-light);
+    }
+
+    .footer-bottom {
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+
+    .footer-bottom a {
+      color: rgba(255,255,255,0.4);
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--color-gold-light);
+    }
+
+    /* ========== ANIMATIONS ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 968px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 24px;
+      }
+
+      .hero { min-height: auto; }
+
+      .mission-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .events-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .visit-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .stat-divider { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-mobile-toggle { display: block; }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 { font-size: 2.2rem; }
+
+      .join-card { padding: 36px 24px; }
+
+      .join-form {
+        flex-direction: column;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .hero-floating-card {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 20px;
+      }
+
+      .mission-accent-card {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin-top: 20px;
+      }
+
+      .event-card {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .event-card.featured {
+        padding: 32px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement-bar">
+    <strong>Depot Open Every Tuesday</strong> &mdash; Visit the Historic Leeds Depot at 3535 Thornton Ave, 9 AM &ndash; 3 PM
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">LH</div>
+        <div class="nav-logo-text">
+          Leeds Historical Society
+          <span>Est. Leeds, Alabama</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#exhibits">Exhibits</a>
+        <a href="#events">Events</a>
+        <a href="#tours">Tours</a>
+        <a href="#visit">Visit</a>
+        <a href="#join" class="nav-cta btn">Join Us</a>
+      </div>
+      <button class="nav-mobile-toggle" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">Celebrating 25+ Years</div>
+        <h1>Preserving the Past to <em>Inspire the Future</em></h1>
+        <p class="hero-description">
+          The Leeds Historical Society fosters knowledge of Leeds, Alabama's rich heritage
+          through educational programs, historic preservation, and immersive tours that bring
+          our community's story to life.
+        </p>
+        <div class="hero-actions">
+          <a href="#visit" class="btn btn-primary">
+            Plan Your Visit
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#about" class="btn btn-outline">Our Story</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-label">Featured Exhibit</div>
+          <h3>Birmingham's Terminal Station &amp; The Legend of John Henry</h3>
+          <p>Explore the grandeur of Birmingham's iconic Terminal Station and discover
+          the legendary tale of John Henry alongside the history of the original 1884 Leeds Depot.</p>
+          <div class="hero-card-meta">
+            <div class="hero-card-meta-item">
+              <span class="label">Location</span>
+              <span class="value">Historic Leeds Depot</span>
+            </div>
+            <div class="hero-card-meta-item">
+              <span class="label">Open</span>
+              <span class="value">Tuesdays, 9 AM &ndash; 3 PM</span>
+            </div>
+            <div class="hero-card-meta-item">
+              <span class="label">Admission</span>
+              <span class="value">Free</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-floating-card">
+          <div class="hero-floating-icon">&#127963;</div>
+          <div class="hero-floating-text">
+            Since 1884
+            <span>The Historic Leeds Depot</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in">
+          <div class="stat-number">25+</div>
+          <div class="stat-label">Years Preserving History</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-1">
+          <div class="stat-number">140+</div>
+          <div class="stat-label">Years of Leeds Heritage</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-2">
+          <div class="stat-number">1884</div>
+          <div class="stat-label">Original Depot Built</div>
+        </div>
+        <div class="stat-item fade-in fade-in-delay-3">
+          <div class="stat-number">Free</div>
+          <div class="stat-label">Admission to Exhibits</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About / Mission -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="mission-visual fade-in">
+          <div class="mission-image-placeholder">
+            <div class="mission-image-icon">&#127963;</div>
+            <div class="mission-image-text">Historic Leeds Depot</div>
+          </div>
+          <div class="mission-accent-card">
+            <p>"To foster, promote, and increase the knowledge of history to its members and the public."</p>
+            <div class="author">&mdash; Leeds Historical Society Mission</div>
+          </div>
+        </div>
+        <div class="fade-in fade-in-delay-1">
+          <div class="section-label">Our Mission</div>
+          <h2 class="section-title">Keeping Leeds' Story Alive for Generations</h2>
+          <p class="section-description">
+            We promote the study, learning, and research of historical subjects while supporting
+            the location, preservation, and restoration of historical sites, buildings, and structures
+            of architectural interest throughout Leeds.
+          </p>
+          <div class="mission-points">
+            <div class="mission-point">
+              <div class="mission-point-icon">&#128218;</div>
+              <div>
+                <h4>Education &amp; Research</h4>
+                <p>Classes, lectures, seminars, and courses of instruction open to all community members.</p>
+              </div>
+            </div>
+            <div class="mission-point">
+              <div class="mission-point-icon">&#127960;</div>
+              <div>
+                <h4>Historic Preservation</h4>
+                <p>Locating, preserving, and restoring buildings, residences, and areas of historical significance.</p>
+              </div>
+            </div>
+            <div class="mission-point">
+              <div class="mission-point-icon">&#128101;</div>
+              <div>
+                <h4>Community Engagement</h4>
+                <p>Engaging citizens and visitors through interactive activities that highlight local heritage.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exhibits & Programs -->
+  <section class="section section-alt" id="exhibits">
+    <div class="container">
+      <div class="section-header center fade-in">
+        <div class="section-label">Exhibits &amp; Programs</div>
+        <h2 class="section-title">Explore Our Heritage</h2>
+        <p class="section-description">
+          From our permanent depot exhibit to immersive walking tours, discover the rich
+          history of Leeds through multiple interactive experiences.
+        </p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-card-image">
+            <div class="icon">&#128646;</div>
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-tag">Permanent Exhibit</div>
+            <h3>Terminal Station &amp; John Henry</h3>
+            <p>Experience the grandeur of Birmingham's former Terminal Station and learn the legendary story of John Henry at our flagship exhibit.</p>
+            <a href="#" class="feature-card-link">
+              Learn more
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-1" id="tours">
+          <div class="feature-card-image" style="background: linear-gradient(135deg, var(--color-sage) 0%, #3D5940 100%);">
+            <div class="icon">&#128694;</div>
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-tag">Walking Tours</div>
+            <h3>Leeds Trails &amp; Tours</h3>
+            <p>Immersive historic walks through downtown Leeds featuring reenactors and landmarks. Self-guided tours including the Leeds Scenic Byway.</p>
+            <a href="#" class="feature-card-link">
+              View tours
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-2">
+          <div class="feature-card-image" style="background: linear-gradient(135deg, var(--color-rust) 0%, #6B3410 100%);">
+            <div class="icon">&#9904;</div>
+          </div>
+          <div class="feature-card-body">
+            <div class="feature-card-tag">Self-Guided</div>
+            <h3>Historic Cemetery Tours</h3>
+            <p>Explore Leeds' historic cemeteries and discover the stories of the people who built our community through the centuries.</p>
+            <a href="#" class="feature-card-link">
+              Explore routes
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="section" id="events">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-label">Upcoming Events</div>
+        <h2 class="section-title">What's Happening</h2>
+        <p class="section-description">
+          Join us for lectures, community celebrations, and special programs throughout the year.
+        </p>
+      </div>
+      <div class="events-layout">
+        <div class="event-card featured fade-in">
+          <div class="event-date">
+            <span class="month">Apr</span>
+            <span class="day">12</span>
+          </div>
+          <div class="event-info">
+            <h3>Annual Historic Walk Through Downtown Leeds</h3>
+            <div class="event-meta">April 12, 2026 &bull; Downtown Leeds &bull; Alabama Walking Trails Month</div>
+            <p>Join us for our annual immersive historic walk through downtown Leeds, featuring live reenactors at landmark locations, guided storytelling, and interactive activities for all ages.</p>
+          </div>
+        </div>
+        <div class="event-card fade-in fade-in-delay-1">
+          <div class="event-date">
+            <span class="month">May</span>
+            <span class="day">17</span>
+          </div>
+          <div class="event-info">
+            <h3>Afternoon Tea Benefit</h3>
+            <div class="event-meta">May 17, 2026 &bull; 2:00 PM</div>
+            <p>An elegant afternoon tea benefiting the Leeds Historical Society. Tickets available soon.</p>
+          </div>
+        </div>
+        <div class="event-card fade-in fade-in-delay-2">
+          <div class="event-date">
+            <span class="month">Jul</span>
+            <span class="day">4</span>
+          </div>
+          <div class="event-info">
+            <h3>Hot Dog Picnic &amp; Celebration</h3>
+            <div class="event-meta">July 4, 2026 &bull; Leeds Depot</div>
+            <p>Celebrate with a community picnic at the Historic Leeds Depot. Family-friendly fun for everyone.</p>
+          </div>
+        </div>
+        <div class="event-card fade-in fade-in-delay-3">
+          <div class="event-date">
+            <span class="month">Dec</span>
+            <span class="day">6</span>
+          </div>
+          <div class="event-info">
+            <h3>Christmas Open House</h3>
+            <div class="event-meta">December 6, 2026 &bull; Historic Leeds Depot</div>
+            <p>Our annual holiday celebration featuring seasonal decorations, refreshments, and festive cheer at the depot.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit Section -->
+  <section class="visit-section" id="visit">
+    <div class="hero-bg-pattern"></div>
+    <div class="container">
+      <div class="visit-grid">
+        <div class="visit-text fade-in">
+          <div class="section-label">Plan Your Visit</div>
+          <h2 class="section-title">Come See History Up Close</h2>
+          <p class="section-description">
+            The Historic Leeds Depot is open to the public every Tuesday. Group tours
+            are available by appointment. Admission is always free.
+          </p>
+          <div class="visit-details">
+            <div class="visit-detail">
+              <div class="visit-detail-icon">&#128205;</div>
+              <div>
+                <h4>Historic Leeds Depot</h4>
+                <p>3535 Thornton Avenue, Leeds, AL 35094</p>
+              </div>
+            </div>
+            <div class="visit-detail">
+              <div class="visit-detail-icon">&#128337;</div>
+              <div>
+                <h4>Hours</h4>
+                <p>Every Tuesday, 9:00 AM &ndash; 3:00 PM</p>
+              </div>
+            </div>
+            <div class="visit-detail">
+              <div class="visit-detail-icon">&#128222;</div>
+              <div>
+                <h4>Contact Us</h4>
+                <p>205-571-1812 &bull; fwlittle@windstream.net</p>
+              </div>
+            </div>
+            <div class="visit-detail">
+              <div class="visit-detail-icon">&#128232;</div>
+              <div>
+                <h4>Mailing Address</h4>
+                <p>P.O. Box 465, 1129 Montevallo Road, Leeds, AL 35094</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in fade-in-delay-1">
+          <div class="visit-map-placeholder">
+            <div class="map-icon">&#128506;</div>
+            <p>Interactive Map<br>3535 Thornton Ave, Leeds, AL</p>
+            <a href="#" class="btn btn-primary" style="margin-top: 24px;">Get Directions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join / Newsletter -->
+  <section class="join-section" id="join">
+    <div class="container">
+      <div class="join-card fade-in">
+        <div class="section-label" style="justify-content: center;">Get Involved</div>
+        <h2 class="section-title">Become a Member</h2>
+        <p class="section-description">
+          Join the Leeds Historical Society and help preserve our community's heritage.
+          Stay updated on events, exhibits, and volunteer opportunities.
+        </p>
+        <form class="join-form" onsubmit="event.preventDefault();">
+          <input type="email" placeholder="Enter your email address" aria-label="Email address">
+          <button type="submit">Join Today</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo-icon">LH</div>
+          <p>Preserving the past to inspire the future. The Leeds Historical Society has been
+          serving the Leeds, Alabama community for over 25 years.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Instagram">in</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#exhibits">Exhibits</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#tours">Tours</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Programs</h4>
+          <ul>
+            <li><a href="#">Walking Tours</a></li>
+            <li><a href="#">Cemetery Tours</a></li>
+            <li><a href="#">Scenic Byway</a></li>
+            <li><a href="#">Lectures</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:2055711812">205-571-1812</a></li>
+            <li><a href="mailto:fwlittle@windstream.net">Email Us</a></li>
+            <li><a href="#">Leeds Depot</a></li>
+            <li><a href="#join">Membership</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Leeds Historical Society. All rights reserved.</span>
+        <div>
+          <a href="#">Privacy</a> &nbsp;&bull;&nbsp;
+          <a href="#">Terms</a> &nbsp;&bull;&nbsp;
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Animation Script -->
+  <script>
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Mobile menu toggle
+    const mobileToggle = document.querySelector('.nav-mobile-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '100%';
+        navLinks.style.left = '0';
+        navLinks.style.right = '0';
+        navLinks.style.background = 'var(--color-warm-white)';
+        navLinks.style.padding = '16px 24px';
+        navLinks.style.borderBottom = '1px solid var(--color-border)';
+        navLinks.style.boxShadow = 'var(--shadow-md)';
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Close mobile menu if open
+          if (window.innerWidth <= 640) {
+            navLinks.style.display = 'none';
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
