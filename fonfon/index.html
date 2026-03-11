@@ -748,46 +748,81 @@ section { padding: 5rem 1.5rem; }
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0;
-  max-width: 800px;
+  gap: 1.5rem;
+  max-width: 900px;
   margin: 0 auto 3rem;
+  padding: 0 1rem;
 }
 .menu-item {
   display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  padding: 1.2rem 1rem;
-  border-bottom: 1px solid rgba(201,168,76,0.08);
-  text-align: left;
-  transition: background 0.3s ease;
+  flex-direction: column;
+  background: rgba(201,168,76,0.02);
+  border: 1px solid rgba(201,168,76,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  cursor: default;
 }
 .menu-item:hover {
-  background: rgba(201,168,76,0.03);
+  transform: translateY(-4px);
+  border-color: rgba(201,168,76,0.3);
+  box-shadow: 0 8px 30px rgba(201,168,76,0.08), 0 0 0 1px rgba(201,168,76,0.1);
+}
+.menu-item-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 }
 .menu-item-img {
-  flex: 0 0 70px;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 1px solid rgba(201,168,76,0.2);
-  filter: saturate(0.8) brightness(0.85);
+  filter: saturate(0.85) brightness(0.8);
+  transition: transform 0.6s ease, filter 0.6s ease;
 }
-.menu-item-info { flex: 1; }
+.menu-item:hover .menu-item-img {
+  transform: scale(1.08);
+  filter: saturate(1) brightness(0.95);
+}
+.menu-item-img-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 100%);
+  pointer-events: none;
+}
+.menu-item-info {
+  padding: 1.2rem 1rem 1.5rem;
+}
 .menu-item-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: #c9a84c;
   letter-spacing: 0.08em;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
+  transition: color 0.3s ease;
+}
+.menu-item:hover .menu-item-name {
+  color: #d4af37;
 }
 .menu-item-desc {
   font-size: 0.9rem;
   font-weight: 300;
   font-style: italic;
   color: #8a7a5a;
-  line-height: 1.5;
+  line-height: 1.6;
 }
+/* Staggered reveal for menu cards */
+.menu-item.reveal:nth-child(2) { transition-delay: 0.1s; }
+.menu-item.reveal:nth-child(3) { transition-delay: 0.2s; }
+.menu-item.reveal:nth-child(4) { transition-delay: 0.3s; }
+.menu-item.reveal:nth-child(5) { transition-delay: 0.4s; }
+.menu-item.reveal:nth-child(6) { transition-delay: 0.5s; }
 .menu-cta {
   display: inline-block;
   font-family: 'Raleway', sans-serif;
@@ -1151,7 +1186,7 @@ body::after {
   .hamburger { display: none; }
   section { padding: 7rem 2rem; }
   .exp-grid { grid-template-columns: 1fr 1fr; }
-  .menu-grid { grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+  .menu-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 900px; }
   .press-quotes { flex-direction: row; gap: 3rem; max-width: 900px; }
   .press-quote { flex: 1; }
   .gallery-item { flex: 0 0 35vw; max-width: 400px; }
@@ -1160,6 +1195,7 @@ body::after {
   .nav { padding: 1.5rem 3rem; }
   .nav.scrolled { padding: 0.8rem 3rem; }
   .exp-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .menu-grid { grid-template-columns: 1fr 1fr 1fr; max-width: 1050px; }
   section { padding: 8rem 3rem; }
   .gallery-item { flex: 0 0 28vw; max-width: 450px; }
 }
@@ -1448,42 +1484,54 @@ body::after {
     </div>
     <div class="menu-grid">
       <div class="menu-item reveal">
-        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_HAMBURGER-Fonfon_BhmNOW-GBCVB.jpg" alt="Steak Frites" loading="lazy">
+        <div class="menu-item-img-wrap">
+          <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_HAMBURGER-Fonfon_BhmNOW-GBCVB.jpg" alt="Steak Frites" loading="lazy">
+        </div>
         <div class="menu-item-info">
           <h3 class="menu-item-name">Steak Frites</h3>
           <p class="menu-item-desc">The quintessential bistro classic, seared to perfection with hand-cut frites</p>
         </div>
       </div>
       <div class="menu-item reveal">
-        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_TomatoSalad1-BN-GBCVB.jpg" alt="Truite Saut&eacute;e" loading="lazy">
+        <div class="menu-item-img-wrap">
+          <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_TomatoSalad1-BN-GBCVB.jpg" alt="Truite Saut&eacute;e" loading="lazy">
+        </div>
         <div class="menu-item-info">
           <h3 class="menu-item-name">Truite Saut&eacute;e</h3>
           <p class="menu-item-desc">Saut&eacute;ed trout with brown butter, capers, and lemon</p>
         </div>
       </div>
       <div class="menu-item reveal">
-        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_Shrimp-Salad-H-BN-GBCVB.jpg" alt="Escargots" loading="lazy">
+        <div class="menu-item-img-wrap">
+          <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_Shrimp-Salad-H-BN-GBCVB.jpg" alt="Escargots" loading="lazy">
+        </div>
         <div class="menu-item-info">
           <h3 class="menu-item-name">Escargots</h3>
           <p class="menu-item-desc">Burgundy snails in garlic-parsley butter, baked in the shell</p>
         </div>
       </div>
       <div class="menu-item reveal">
-        <img class="menu-item-img" src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/aab59e5a9a754663879688a2621cd0b0.jpg" alt="Croque Madame" loading="lazy">
+        <div class="menu-item-img-wrap">
+          <img class="menu-item-img" src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/aab59e5a9a754663879688a2621cd0b0.jpg" alt="Croque Madame" loading="lazy">
+        </div>
         <div class="menu-item-info">
           <h3 class="menu-item-name">Croque Madame</h3>
           <p class="menu-item-desc">Gruy&egrave;re, b&eacute;chamel, and jambon topped with a sunny egg</p>
         </div>
       </div>
       <div class="menu-item reveal">
-        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_145650.jpg" alt="Steak Tartare" loading="lazy">
+        <div class="menu-item-img-wrap">
+          <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_145650.jpg" alt="Steak Tartare" loading="lazy">
+        </div>
         <div class="menu-item-info">
           <h3 class="menu-item-name">Steak Tartare</h3>
           <p class="menu-item-desc">Hand-cut beef with cornichons, capers, and Dijon</p>
         </div>
       </div>
       <div class="menu-item reveal">
-        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_144307-e1770065033596.jpg" alt="Soupe &agrave; l'Oignon" loading="lazy">
+        <div class="menu-item-img-wrap">
+          <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_144307-e1770065033596.jpg" alt="Soupe &agrave; l'Oignon" loading="lazy">
+        </div>
         <div class="menu-item-info">
           <h3 class="menu-item-name">Soupe &agrave; l'Oignon</h3>
           <p class="menu-item-desc">Classic French onion soup gratin&eacute;e with Gruy&egrave;re</p>
