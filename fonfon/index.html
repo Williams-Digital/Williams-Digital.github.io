@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chez Fonfon | French Bistro | Birmingham, AL</title>
+<meta name="description" content="Chez Fonfon - A classic French bistro in Five Points South, Birmingham, Alabama. Steak frites, escargots, and the spirit of France in the heart of the South.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: #0a0a0a;
+  color: #e8e0d0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== LOADING SCREEN — PLATE ========== */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.plate-wrap {
+  position: relative;
+  width: 340px;
+  height: 280px;
+}
+.plate-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 30px rgba(201,168,76,0.15));
+  overflow: visible;
+}
+/* Fork, knife, glass — shared draw style */
+.utensil-path {
+  fill: none;
+  stroke: #c9a84c;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  opacity: 0;
+}
+/* Utensil animations are on the <path> elements (inline style), not the <g> containers,
+   to avoid CSS transform overriding SVG transform positioning */
+@keyframes utensilSlideLeft {
+  0% { stroke-dashoffset: 400; opacity: 0; transform: translateX(15px); }
+  20% { opacity: 0.8; }
+  100% { stroke-dashoffset: 0; opacity: 1; transform: translateX(0); }
+}
+@keyframes utensilSlideRight {
+  0% { stroke-dashoffset: 400; opacity: 0; transform: translateX(-15px); }
+  20% { opacity: 0.8; }
+  100% { stroke-dashoffset: 0; opacity: 1; transform: translateX(0); }
+}
+@keyframes utensilFadeGlass {
+  0% { stroke-dashoffset: 400; opacity: 0; transform: translateY(8px); }
+  20% { opacity: 0.7; }
+  100% { stroke-dashoffset: 0; opacity: 1; transform: translateY(0); }
+}
+/* Outer rim */
+.plate-outer {
+  fill: none;
+  stroke: #c9a84c;
+  stroke-width: 1.5;
+  stroke-dasharray: 753;
+  stroke-dashoffset: 753;
+  animation: drawPlate 1.8s ease-out 0.2s forwards;
+}
+/* Decorative rim ring */
+.plate-deco {
+  fill: none;
+  stroke: rgba(201,168,76,0.25);
+  stroke-width: 0.5;
+  stroke-dasharray: 4 6;
+  stroke-dashoffset: 660;
+  animation: drawPlate 2s ease-out 0.5s forwards;
+}
+/* Inner plate */
+.plate-inner {
+  fill: none;
+  stroke: rgba(201,168,76,0.35);
+  stroke-width: 0.8;
+  stroke-dasharray: 503;
+  stroke-dashoffset: 503;
+  animation: drawPlate 1.5s ease-out 0.8s forwards;
+}
+/* Plate surface fill */
+.plate-fill {
+  fill: rgba(201,168,76,0.03);
+  opacity: 0;
+  animation: plateFadeIn 1s ease 1.2s forwards;
+}
+/* Gold filigree dots around rim */
+.plate-dot {
+  fill: #c9a84c;
+  opacity: 0;
+  animation: dotAppear 0.4s ease forwards;
+}
+@keyframes drawPlate {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes plateFadeIn {
+  to { opacity: 1; }
+}
+@keyframes dotAppear {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 0.6; transform: scale(1); }
+}
+
+/* Center logo text on plate */
+.plate-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-left: 0;
+  text-align: center;
+  opacity: 0;
+  animation: logoReveal 1.2s ease 1.5s forwards;
+}
+.plate-logo-chez {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.45em;
+  color: #8a7a5a;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+.plate-logo-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: #c9a84c;
+  display: block;
+  line-height: 1.1;
+}
+.plate-logo-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  margin: 6px auto;
+}
+.plate-logo-est {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.45rem;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  color: #6a5a3a;
+  text-transform: uppercase;
+  display: block;
+}
+@keyframes logoReveal {
+  from { opacity: 0; transform: translate(-50%, -46%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.loader-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  color: #5a5040;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 2s forwards;
+}
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+  opacity: 0;
+  transition: opacity 1s ease 0.3s;
+}
+.main-content.visible { opacity: 1; }
+
+/* ========== NAVIGATION ========== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, padding 0.4s ease;
+}
+.nav.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 0.7rem 1.5rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.25em;
+  color: #c9a84c;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 2rem;
+}
+.nav-links a {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: #b0a080;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: #c9a84c; }
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: #c9a84c;
+  transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(10, 10, 10, 0.98);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s ease;
+}
+.mobile-menu.open { opacity: 1; visibility: visible; }
+.mobile-menu a {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.2em;
+  color: #c9a84c;
+  text-decoration: none;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s;
+}
+.mobile-menu.open a { opacity: 1; transform: translateY(0); }
+.mobile-menu.open a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.open a:nth-child(2) { transition-delay: 0.15s; }
+.mobile-menu.open a:nth-child(3) { transition-delay: 0.2s; }
+.mobile-menu.open a:nth-child(4) { transition-delay: 0.25s; }
+.mobile-menu.open a:nth-child(5) { transition-delay: 0.3s; }
+.mobile-menu.open a:nth-child(6) { transition-delay: 0.35s; }
+.mobile-menu a:hover { color: #d4af37; }
+.mobile-menu .menu-divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+}
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://inbirmingham.com/wp-content/uploads/2025/02/fonfon_Desktop-2-scaled.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.3) saturate(0.6);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.3) 40%, rgba(10,10,10,0.7) 100%),
+    radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(10,10,10,0.4) 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 1.5rem;
+}
+.hero-fleur {
+  font-size: 1.5rem;
+  color: #c9a84c;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.2s forwards;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: #c9a84c;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.4s forwards;
+  text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+}
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #d4cbb8;
+  letter-spacing: 0.15em;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.6s forwards;
+}
+.hero-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  margin: 0 auto 2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.7s forwards;
+}
+.hero-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  font-style: italic;
+  color: #b0a890;
+  letter-spacing: 0.1em;
+  max-width: 400px;
+  margin: 0 auto 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.8s forwards;
+}
+.hero-cta {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #c9a84c;
+  border: 1px solid #c9a84c;
+  padding: 0.9rem 2.5rem;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  opacity: 0;
+  animation: fadeUp 1s ease 1s forwards;
+}
+.hero-cta:hover {
+  background: #c9a84c;
+  color: #0a0a0a;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.2s forwards;
+}
+.hero-scroll span {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: #8a7a5a;
+  text-transform: uppercase;
+}
+.scroll-line {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(180deg, #c9a84c, transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; height: 30px; }
+  50% { opacity: 1; height: 50px; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== SECTIONS SHARED ========== */
+section { padding: 5rem 1.5rem; }
+.section-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: #8a7a5a;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 400;
+  color: #c9a84c;
+  text-align: center;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+.section-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+  margin: 0 auto 2.5rem;
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== ABOUT ========== */
+.about {
+  background: linear-gradient(180deg, #0a0a0a 0%, #0e0c07 50%, #0a0a0a 100%);
+  position: relative;
+}
+.about-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.about-text {
+  font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+  font-weight: 300;
+  line-height: 1.9;
+  color: #c8bfa8;
+  margin-bottom: 1.5rem;
+}
+.about-text em {
+  color: #c9a84c;
+  font-style: italic;
+}
+.about-accent {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+  font-style: italic;
+  color: #c9a84c;
+  line-height: 1.6;
+  margin: 2rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+
+/* ========== PHOTO GALLERY ========== */
+.gallery {
+  padding: 0;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.gallery-scroll {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0;
+}
+.gallery-scroll::-webkit-scrollbar { display: none; }
+.gallery-item {
+  flex: 0 0 75vw;
+  max-width: 450px;
+  aspect-ratio: 4/3;
+  scroll-snap-align: center;
+  overflow: hidden;
+  position: relative;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  filter: saturate(0.85) brightness(0.9);
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+  filter: saturate(1) brightness(1);
+}
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(201,168,76,0.1);
+  pointer-events: none;
+}
+
+/* ========== EXPERIENCE (Image Cards) ========== */
+.experience {
+  background: #0a0a0a;
+  padding: 5rem 1.5rem;
+}
+.exp-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.exp-card {
+  position: relative;
+  aspect-ratio: 4/3;
+  border: 1px solid rgba(201,168,76,0.15);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.exp-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.45) saturate(0.7);
+  transition: transform 0.8s ease, filter 0.8s ease;
+}
+.exp-card:hover .exp-card-img {
+  transform: scale(1.05);
+  filter: brightness(0.55) saturate(0.85);
+}
+.exp-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(10,10,10,0.85) 100%);
+  z-index: 1;
+}
+.exp-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 1.5rem;
+}
+.exp-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: #c9a84c;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+.exp-card-desc {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #c8bfa8;
+  line-height: 1.6;
+}
+
+/* ========== MENU ========== */
+.menu-section {
+  background: linear-gradient(180deg, #0a0a0a 0%, #0e0c07 50%, #0a0a0a 100%);
+  text-align: center;
+}
+.menu-intro {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-weight: 300;
+  color: #a89878;
+  max-width: 500px;
+  margin: 0 auto 3rem;
+  line-height: 1.8;
+}
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+  text-align: left;
+  transition: background 0.3s ease;
+}
+.menu-item:hover {
+  background: rgba(201,168,76,0.03);
+}
+.menu-item-img {
+  flex: 0 0 70px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(201,168,76,0.2);
+  filter: saturate(0.8) brightness(0.85);
+}
+.menu-item-info { flex: 1; }
+.menu-item-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: #c9a84c;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+.menu-item-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  font-style: italic;
+  color: #8a7a5a;
+  line-height: 1.5;
+}
+.menu-cta {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #c9a84c;
+  border: 1px solid rgba(201,168,76,0.4);
+  padding: 0.9rem 2.5rem;
+  text-decoration: none;
+  transition: all 0.4s ease;
+}
+.menu-cta:hover {
+  background: #c9a84c;
+  color: #0a0a0a;
+  border-color: #c9a84c;
+}
+
+/* ========== FULL-WIDTH PHOTO BREAK ========== */
+.photo-break {
+  position: relative;
+  height: 50vh;
+  min-height: 280px;
+  max-height: 500px;
+  overflow: hidden;
+}
+.photo-break img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5) saturate(0.7);
+}
+.photo-break::before,
+.photo-break::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 1;
+}
+.photo-break::before {
+  top: 0;
+  background: linear-gradient(180deg, #0a0a0a, transparent);
+}
+.photo-break::after {
+  bottom: 0;
+  background: linear-gradient(0deg, #0a0a0a, transparent);
+}
+.photo-break-text {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+.photo-break-text blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  font-style: italic;
+  color: #c9a84c;
+  line-height: 1.5;
+  max-width: 500px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+.photo-break-text cite {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: #b0a890;
+  text-transform: uppercase;
+  font-style: normal;
+  margin-top: 1rem;
+}
+
+/* ========== PRESS ========== */
+.press {
+  background: #0a0a0a;
+  text-align: center;
+}
+.press-quotes {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.press-quote { padding: 0 1rem; }
+.press-quote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  font-style: italic;
+  color: #c9a84c;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+.press-quote cite {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: #8a7a5a;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+/* ========== WINE ========== */
+.wine {
+  background: linear-gradient(180deg, #0a0a0a 0%, #100d06 50%, #0a0a0a 100%);
+  text-align: center;
+}
+.wine-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.wine-text {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-weight: 300;
+  color: #c8bfa8;
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+.wine-regions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.wine-region {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: #c9a84c;
+  text-transform: uppercase;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(201,168,76,0.25);
+}
+
+/* ========== PATIO ========== */
+.patio {
+  position: relative;
+  padding: 5rem 1.5rem;
+  text-align: center;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.patio-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3) saturate(0.5);
+}
+.patio::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, #0a0a0a 0%, transparent 20%, transparent 80%, #0a0a0a 100%),
+    radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(10,10,10,0.5) 100%);
+  z-index: 1;
+}
+.patio-content {
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.patio-text {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-weight: 300;
+  color: #d4cbb8;
+  line-height: 1.9;
+  font-style: italic;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+}
+
+/* ========== VISIT ========== */
+.visit {
+  background: #0a0a0a;
+  text-align: center;
+}
+.visit-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.visit-detail { margin-bottom: 2.5rem; }
+.visit-detail-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  color: #8a7a5a;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.visit-detail-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #c8bfa8;
+  line-height: 1.8;
+}
+.visit-detail-value a {
+  color: #c9a84c;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.visit-detail-value a:hover { color: #d4af37; }
+.visit-reserve {
+  display: inline-block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  padding: 1rem 3rem;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  margin-top: 1rem;
+}
+.visit-reserve:hover {
+  background: #d4af37;
+  transform: translateY(-1px);
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  background: #080808;
+}
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.25em;
+  color: #c9a84c;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+.footer-social a {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: #8a7a5a;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.footer-social a:hover { color: #c9a84c; }
+.footer-sister { margin-bottom: 1.5rem; }
+.footer-sister-label {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: #5a5040;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.footer-sister-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.footer-sister-links a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: #8a7a5a;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-sister-links a:hover { color: #c9a84c; }
+.footer-copy {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: #3a3530;
+  text-transform: uppercase;
+}
+.footer-copy a {
+  color: #5a5040;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-copy a:hover { color: #c9a84c; }
+
+/* ========== DECORATIVE ========== */
+.gold-border-top { border-top: 1px solid rgba(201,168,76,0.08); }
+
+/* ========== GOLD SHIMMER ========== */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.gold-shimmer {
+  background: linear-gradient(90deg, #c9a84c 0%, #f0d878 25%, #c9a84c 50%, #b8941f 75%, #c9a84c 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ========== GRAIN ========== */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Preview banner */
+.preview-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: linear-gradient(90deg, #c9a84c, #d4af37, #c9a84c);
+  padding: 0.6rem 1rem;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #0a0a0a;
+  text-transform: uppercase;
+}
+.preview-banner a {
+  color: #0a0a0a;
+  text-decoration: underline;
+}
+
+/* ========== DESKTOP ========== */
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+  .hamburger { display: none; }
+  section { padding: 7rem 2rem; }
+  .exp-grid { grid-template-columns: 1fr 1fr; }
+  .menu-grid { grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+  .press-quotes { flex-direction: row; gap: 3rem; max-width: 900px; }
+  .press-quote { flex: 1; }
+  .gallery-item { flex: 0 0 35vw; max-width: 400px; }
+}
+@media (min-width: 1024px) {
+  .nav { padding: 1.5rem 3rem; }
+  .nav.scrolled { padding: 0.8rem 3rem; }
+  .exp-grid { grid-template-columns: 1fr 1fr 1fr; }
+  section { padding: 8rem 3rem; }
+  .gallery-item { flex: 0 0 28vw; max-width: 450px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== LOADING SCREEN — PLATE ==================== -->
+<div class="loader" id="loader">
+  <div class="plate-wrap">
+    <svg class="plate-svg" viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- ===== FORK (left side) ===== -->
+      <g class="utensil-fork" transform="translate(52, 28)">
+        <path class="utensil-path" style="animation: utensilSlideLeft 1.4s ease-out 0.6s forwards;" d="
+          M 0,0
+          L 0,90
+          Q 0,100 6,100
+          Q 12,100 12,90
+          L 12,0
+          M 4,0 L 4,65
+          M 8,0 L 8,65
+          M 0,65 Q 6,75 12,65
+          M 6,100 L 6,220
+        "/>
+      </g>
+
+      <!-- ===== PLATE (center) ===== -->
+      <g transform="translate(210, 140)">
+        <!-- Outer plate rim -->
+        <circle class="plate-outer" cx="0" cy="0" r="110" />
+        <!-- Decorative rim ring -->
+        <circle class="plate-deco" cx="0" cy="0" r="96" />
+        <!-- Inner plate circle -->
+        <circle class="plate-inner" cx="0" cy="0" r="72" />
+        <!-- Plate surface fill -->
+        <circle class="plate-fill" cx="0" cy="0" r="71" />
+        <!-- Filigree dots around rim -->
+        <circle class="plate-dot" cx="0" cy="-112" r="1.5" style="animation-delay:1s" />
+        <circle class="plate-dot" cx="79" cy="-79" r="1.5" style="animation-delay:1.1s" />
+        <circle class="plate-dot" cx="112" cy="0" r="1.5" style="animation-delay:1.2s" />
+        <circle class="plate-dot" cx="79" cy="79" r="1.5" style="animation-delay:1.3s" />
+        <circle class="plate-dot" cx="0" cy="112" r="1.5" style="animation-delay:1.4s" />
+        <circle class="plate-dot" cx="-79" cy="79" r="1.5" style="animation-delay:1.5s" />
+        <circle class="plate-dot" cx="-112" cy="0" r="1.5" style="animation-delay:1.6s" />
+        <circle class="plate-dot" cx="-79" cy="-79" r="1.5" style="animation-delay:1.7s" />
+        <!-- Diamond accents at cardinal points -->
+        <polygon class="plate-dot" points="0,-118 2,-114 0,-110 -2,-114" style="animation-delay:1.05s" />
+        <polygon class="plate-dot" points="118,0 114,2 110,0 114,-2" style="animation-delay:1.25s" />
+        <polygon class="plate-dot" points="0,118 2,114 0,110 -2,114" style="animation-delay:1.45s" />
+        <polygon class="plate-dot" points="-118,0 -114,2 -110,0 -114,-2" style="animation-delay:1.65s" />
+      </g>
+
+      <!-- ===== KNIFE (right side) ===== -->
+      <g class="utensil-knife" transform="translate(348, 28)">
+        <path class="utensil-path" style="animation: utensilSlideRight 1.4s ease-out 0.8s forwards;" d="
+          M 6,0
+          L 6,90
+          Q 6,95 3,98
+          L 3,220
+          M 6,0
+          Q 14,30 14,60
+          Q 14,85 6,90
+        "/>
+      </g>
+
+      <!-- ===== WINE GLASS (upper right) ===== -->
+      <g class="utensil-glass" transform="translate(375, 12)">
+        <path class="utensil-path" style="animation: utensilFadeGlass 1.4s ease-out 1s forwards;" d="
+          M -14,0
+          L -14,40
+          Q -14,58 0,62
+          Q 14,58 14,40
+          L 14,0
+          M 0,62 L 0,88
+          M -10,88 L 10,88
+        "/>
+        <!-- Wine fill -->
+        <path style="fill:rgba(201,168,76,0.08); opacity:0; animation: plateFadeIn 1s ease 1.8s forwards;" d="
+          M -12,18
+          L -12,40
+          Q -12,55 0,59
+          Q 12,55 12,40
+          L 12,18
+          Z
+        "/>
+      </g>
+
+    </svg>
+    <!-- Logo text centered on plate -->
+    <div class="plate-logo">
+      <span class="plate-logo-chez">Chez</span>
+      <span class="plate-logo-name gold-shimmer">Fonfon</span>
+      <div class="plate-logo-line"></div>
+      <span class="plate-logo-est">Birmingham</span>
+    </div>
+  </div>
+  <div class="loader-tagline">A French Bistro in Five Points South</div>
+</div>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-brand">Chez Fonfon</a>
+  <ul class="nav-links">
+    <li><a href="#about">Story</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#wine">Wine</a></li>
+    <li><a href="#visit">Visit</a></li>
+    <li><a href="https://resy.com/cities/bhm/chez-fonfon" target="_blank" rel="noopener">Reserve</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">Story</a>
+  <a href="#experience" class="mobile-link">Experience</a>
+  <div class="menu-divider"></div>
+  <a href="#menu" class="mobile-link">Menu</a>
+  <a href="#wine" class="mobile-link">Wine</a>
+  <div class="menu-divider"></div>
+  <a href="#visit" class="mobile-link">Visit</a>
+  <a href="https://resy.com/cities/bhm/chez-fonfon" target="_blank" rel="noopener" class="mobile-link">Reserve a Table</a>
+</div>
+
+<!-- ==================== MAIN CONTENT ==================== -->
+<main class="main-content" id="mainContent">
+
+  <!-- HERO — with real photo background -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-fleur">&#9830;</div>
+      <h1 class="hero-title gold-shimmer">Chez Fonfon</h1>
+      <p class="hero-subtitle">Bistro Fran&ccedil;ais &middot; Birmingham</p>
+      <div class="hero-line"></div>
+      <p class="hero-quote">&ldquo;Alabama&rsquo;s answer to the classic Parisian bistro&rdquo;<br><small style="color:#8a7a6a;font-family:'Raleway',sans-serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;">&#8212; Food &amp; Wine</small></p>
+      <a href="https://resy.com/cities/bhm/chez-fonfon" target="_blank" rel="noopener" class="hero-cta">Reserve a Table</a>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about gold-border-top" id="about">
+    <div class="about-content reveal">
+      <p class="section-label">Est. 2000</p>
+      <h2 class="section-title">The Spirit of France</h2>
+      <div class="section-line"></div>
+      <p class="about-text">
+        Nestled in Birmingham&rsquo;s beloved Five Points South, Chez Fonfon is a <em>bustling, casual bistro</em> celebrating the timeless traditions of French cuisine. From the Belle &Eacute;poque caf&eacute; tables to the 100-year-old etched glass door sourced from Lyon, every detail transports you to the heart of Paris.
+      </p>
+      <p class="about-text">
+        For over two decades, Chef Frank Stitt and the Fonfon family have served <em>pitch-perfect bistro fare</em>&mdash;honest, soulful dishes crafted with care and presented with warmth.
+      </p>
+      <div class="about-accent">
+        &ldquo;The spirit of France lands in Five Points South.&rdquo;
+        <br><small style="color:#8a7a5a;font-family:'Raleway',sans-serif;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;">Zagat</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY — Horizontal scroll -->
+  <section class="gallery reveal">
+    <div class="gallery-scroll">
+      <div class="gallery-item">
+        <img src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_145650.jpg" alt="Chez Fonfon interior" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_TomatoSalad1-BN-GBCVB.jpg" alt="Tomato salad at Chez Fonfon" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/6586a791f031449a88471d9fa0d2e4dd.jpg" alt="Chez Fonfon dining" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_Shrimp-Salad-H-BN-GBCVB.jpg" alt="Shrimp salad at Chez Fonfon" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_144307-e1770065033596.jpg" alt="Chez Fonfon bistro" loading="lazy">
+      </div>
+      <div class="gallery-item">
+        <img src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/aab59e5a9a754663879688a2621cd0b0.jpg" alt="Chez Fonfon cuisine" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE — with real photos -->
+  <section class="experience" id="experience">
+    <div class="reveal">
+      <p class="section-label">L'Exp&eacute;rience</p>
+      <h2 class="section-title">An Atmosphere Apart</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <img class="exp-card-img" src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/dfdb88fb99e1431fbcc71e6c0fb247f8.jpeg" alt="The Dining Room" loading="lazy">
+        <div class="exp-card-content">
+          <h3 class="exp-card-title">The Dining Room</h3>
+          <p class="exp-card-desc">Belle &Eacute;poque caf&eacute; tables and century-old French glass create an intimate, timeless setting.</p>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <img class="exp-card-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/Chez-Fonfon-patio-KGS21-1-scaled.jpg" alt="The Patio" loading="lazy">
+        <div class="exp-card-content">
+          <h3 class="exp-card-title">The Patio</h3>
+          <p class="exp-card-desc">Dine al fresco with cocktails, wine, and a game of boule under the Southern sky.</p>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <img class="exp-card-img" src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_142328.webp" alt="The Bar" loading="lazy">
+        <div class="exp-card-content">
+          <h3 class="exp-card-title">The Bar</h3>
+          <p class="exp-card-desc">Classic cocktails and wines by the glass in a convivial atmosphere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU with food photo thumbnails -->
+  <section class="menu-section gold-border-top" id="menu">
+    <div class="reveal">
+      <p class="section-label">La Carte</p>
+      <h2 class="section-title">Bistro Classiques</h2>
+      <div class="section-line"></div>
+      <p class="menu-intro">
+        Traditional French bistro fare, prepared with reverence for craft and the finest seasonal ingredients.
+      </p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item reveal">
+        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_HAMBURGER-Fonfon_BhmNOW-GBCVB.jpg" alt="Steak Frites" loading="lazy">
+        <div class="menu-item-info">
+          <h3 class="menu-item-name">Steak Frites</h3>
+          <p class="menu-item-desc">The quintessential bistro classic, seared to perfection with hand-cut frites</p>
+        </div>
+      </div>
+      <div class="menu-item reveal">
+        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_TomatoSalad1-BN-GBCVB.jpg" alt="Truite Saut&eacute;e" loading="lazy">
+        <div class="menu-item-info">
+          <h3 class="menu-item-name">Truite Saut&eacute;e</h3>
+          <p class="menu-item-desc">Saut&eacute;ed trout with brown butter, capers, and lemon</p>
+        </div>
+      </div>
+      <div class="menu-item reveal">
+        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/02/ChezFonfon_Shrimp-Salad-H-BN-GBCVB.jpg" alt="Escargots" loading="lazy">
+        <div class="menu-item-info">
+          <h3 class="menu-item-name">Escargots</h3>
+          <p class="menu-item-desc">Burgundy snails in garlic-parsley butter, baked in the shell</p>
+        </div>
+      </div>
+      <div class="menu-item reveal">
+        <img class="menu-item-img" src="https://axwwgrkdco.cloudimg.io/v7/__gmpics3__/aab59e5a9a754663879688a2621cd0b0.jpg" alt="Croque Madame" loading="lazy">
+        <div class="menu-item-info">
+          <h3 class="menu-item-name">Croque Madame</h3>
+          <p class="menu-item-desc">Gruy&egrave;re, b&eacute;chamel, and jambon topped with a sunny egg</p>
+        </div>
+      </div>
+      <div class="menu-item reveal">
+        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_145650.jpg" alt="Steak Tartare" loading="lazy">
+        <div class="menu-item-info">
+          <h3 class="menu-item-name">Steak Tartare</h3>
+          <p class="menu-item-desc">Hand-cut beef with cornichons, capers, and Dijon</p>
+        </div>
+      </div>
+      <div class="menu-item reveal">
+        <img class="menu-item-img" src="https://inbirmingham.com/wp-content/uploads/2025/06/ChezFonfon_20230823_144307-e1770065033596.jpg" alt="Soupe &agrave; l'Oignon" loading="lazy">
+        <div class="menu-item-info">
+          <h3 class="menu-item-name">Soupe &agrave; l'Oignon</h3>
+          <p class="menu-item-desc">Classic French onion soup gratin&eacute;e with Gruy&egrave;re</p>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="text-align:center;">
+      <a href="https://www.fonfonbham.com" target="_blank" rel="noopener" class="menu-cta">View Full Menu</a>
+    </div>
+  </section>
+
+  <!-- PHOTO BREAK — Quote overlay on patio photo -->
+  <div class="photo-break reveal">
+    <img src="https://inbirmingham.com/wp-content/uploads/2025/02/LePatioPhoto-1024x683-1.jpeg" alt="Chez Fonfon patio dining" loading="lazy">
+    <div class="photo-break-text">
+      <blockquote>&ldquo;Pitch-perfect bistro.&rdquo;</blockquote>
+      <cite>Southern Living</cite>
+    </div>
+  </div>
+
+  <!-- PRESS -->
+  <section class="press" id="press">
+    <div class="reveal">
+      <p class="section-label">La Presse</p>
+      <h2 class="section-title">In Their Words</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="press-quotes reveal">
+      <div class="press-quote">
+        <blockquote>&ldquo;Pitch-perfect bistro.&rdquo;</blockquote>
+        <cite>Southern Living</cite>
+      </div>
+      <div class="press-quote">
+        <blockquote>&ldquo;The spirit of France lands in Five Points South.&rdquo;</blockquote>
+        <cite>Zagat</cite>
+      </div>
+      <div class="press-quote">
+        <blockquote>&ldquo;Alabama&rsquo;s answer to the classic Parisian bistro.&rdquo;</blockquote>
+        <cite>Food &amp; Wine</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- WINE -->
+  <section class="wine gold-border-top" id="wine">
+    <div class="reveal">
+      <p class="section-label">La Cave</p>
+      <h2 class="section-title">The Wine Program</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="wine-content reveal">
+      <p class="wine-text">
+        Our carefully curated cellar favors the great wine regions of France&mdash;selections chosen to complement the bold, honest flavors of our cuisine.
+      </p>
+      <div class="wine-regions">
+        <span class="wine-region">Loire Valley</span>
+        <span class="wine-region">Rh&ocirc;ne</span>
+        <span class="wine-region">Languedoc</span>
+        <span class="wine-region">Bourgogne</span>
+        <span class="wine-region">Bordeaux</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATIO — with real photo background -->
+  <section class="patio">
+    <img class="patio-bg" src="https://inbirmingham.com/wp-content/uploads/2025/02/Chez-Fonfon-patio-KGS21-1-scaled.jpg" alt="Chez Fonfon patio" loading="lazy">
+    <div class="patio-content reveal">
+      <p class="section-label">Le Jardin</p>
+      <h2 class="section-title">Boule &amp; Bistro</h2>
+      <div class="section-line"></div>
+      <p class="patio-text">
+        Step onto our patio for the quintessential Southern-French experience&mdash;a glass of ros&eacute;, a game of p&eacute;tanque, and the golden light of a Birmingham evening.
+      </p>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="visit gold-border-top" id="visit">
+    <div class="reveal">
+      <p class="section-label">Nous Rendre Visite</p>
+      <h2 class="section-title">Visit Chez Fonfon</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="visit-content reveal">
+      <div class="visit-detail">
+        <p class="visit-detail-label">Location</p>
+        <p class="visit-detail-value">
+          2007 11th Avenue South<br>
+          Five Points South<br>
+          Birmingham, Alabama 35205
+        </p>
+      </div>
+      <div class="visit-detail">
+        <p class="visit-detail-label">Hours</p>
+        <p class="visit-detail-value">
+          Tuesday &ndash; Friday: 11 a.m. &ndash; 9:30 p.m.<br>
+          Saturday: 4 p.m. &ndash; 9:30 p.m.<br>
+          <span style="color:#5a5040;">Closed Sunday &amp; Monday</span>
+        </p>
+      </div>
+      <div class="visit-detail">
+        <p class="visit-detail-label">Contact</p>
+        <p class="visit-detail-value">
+          <a href="tel:2059393221">205.939.3221</a><br>
+          <a href="mailto:info@fonfonbham.com">info@fonfonbham.com</a>
+        </p>
+      </div>
+      <div class="visit-detail">
+        <p class="visit-detail-label">Reservations</p>
+        <p class="visit-detail-value">
+          Available up to two weeks in advance<br>
+          Walk-ins always welcome
+        </p>
+      </div>
+      <a href="https://resy.com/cities/bhm/chez-fonfon" target="_blank" rel="noopener" class="visit-reserve">Reserve on Resy</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-brand gold-shimmer">Chez Fonfon</div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/fonfonbham" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/chezfonfon" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  <div class="footer-sister">
+    <p class="footer-sister-label">Sister Restaurants</p>
+    <div class="footer-sister-links">
+      <a href="https://www.highlandsbarandgrill.com" target="_blank" rel="noopener">Highlands Bar &amp; Grill</a>
+      <a href="https://www.bottegarestaurant.com" target="_blank" rel="noopener">Bottega Restaurant</a>
+    </div>
+  </div>
+  <p class="footer-copy">&copy; 2026 Chez Fonfon &middot; Birmingham, AL &middot; Site preview by <a href="https://williamsdigital.io" target="_blank" rel="noopener">Williams Digital</a></p>
+</footer>
+
+<!-- Preview Banner -->
+<div class="preview-banner">
+  Site Preview by <a href="https://williamsdigital.io">Williams Digital</a> &middot; Not the official site
+</div>
+
+<script>
+// Loading screen
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('mainContent').classList.add('visible');
+  }, 3200);
+});
+
+// Navigation scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+reveals.forEach(el => revealObserver.observe(el));
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(anchor.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
