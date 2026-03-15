@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURUM — Crafted in Gold</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- LOADING SCREEN                                             -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div id="loader" class="loader">
+    <div class="loader-content">
+      <div class="coffee-cup-wrapper">
+        <!-- Steam particles -->
+        <div class="steam-container">
+          <div class="steam steam-1"></div>
+          <div class="steam steam-2"></div>
+          <div class="steam steam-3"></div>
+          <div class="steam steam-4"></div>
+          <div class="steam steam-5"></div>
+        </div>
+        <!-- Cup SVG -->
+        <svg class="coffee-cup" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- Saucer -->
+          <ellipse cx="100" cy="210" rx="90" ry="10" fill="none" stroke="#c8a97e" stroke-width="1.5" opacity="0.6"/>
+          <!-- Cup body -->
+          <path d="M40 80 L50 200 C50 210 150 210 150 200 L160 80" fill="none" stroke="#c8a97e" stroke-width="2" stroke-linecap="round"/>
+          <!-- Cup rim -->
+          <ellipse cx="100" cy="80" rx="60" ry="12" fill="none" stroke="#c8a97e" stroke-width="2"/>
+          <!-- Handle -->
+          <path d="M160 100 C190 100 195 150 160 160" fill="none" stroke="#c8a97e" stroke-width="2" stroke-linecap="round"/>
+          <!-- Coffee liquid mask -->
+          <clipPath id="cupClip">
+            <path d="M42 82 L51 198 C51 208 149 208 149 198 L158 82 Z"/>
+          </clipPath>
+          <!-- Coffee fill -->
+          <g clip-path="url(#cupClip)">
+            <rect class="coffee-fill" x="30" y="200" width="140" height="140" fill="url(#coffeeGradient)"/>
+            <!-- Coffee surface wave -->
+            <path class="coffee-surface" d="M30 200 Q65 195 100 200 Q135 205 170 200 L170 210 L30 210 Z" fill="#8B6914" opacity="0.3"/>
+          </g>
+          <!-- Gradient -->
+          <defs>
+            <linearGradient id="coffeeGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8B6914"/>
+              <stop offset="30%" stop-color="#5C3D0E"/>
+              <stop offset="100%" stop-color="#3A2508"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="loader-text">
+        <h1 class="loader-brand">AURUM</h1>
+        <div class="loader-bar-container">
+          <div class="loader-bar"></div>
+        </div>
+        <p class="loader-tagline">Crafted in Gold</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- NAVIGATION                                                  -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">◆</span>
+        <span class="logo-text">AURUM</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active" data-section="hero">Home</a></li>
+        <li><a href="#origin" class="nav-link" data-section="origin">Our Story</a></li>
+        <li><a href="#shop" class="nav-link" data-section="shop">Collection</a></li>
+        <li><a href="#menu" class="nav-link" data-section="menu">Menu</a></li>
+        <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
+        <li><a href="#about" class="nav-link" data-section="about">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-cart" aria-label="Shopping cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count">0</span>
+        </button>
+        <a href="#reservation" class="nav-reserve-btn">Reserve</a>
+      </div>
+      <button class="nav-mobile-toggle" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#origin">Our Story</a></li>
+      <li><a href="#shop">Collection</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reservation" class="mobile-reserve">Reserve a Table</a></li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- HERO SECTION                                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="hero" class="hero">
+    <div class="hero-video-container">
+      <video autoplay muted loop playsinline class="hero-video" poster="">
+        <source src="https://videos.pexels.com/video-files/5501042/5501042-uhd_2560_1440_24fps.mp4" type="video/mp4">
+      </video>
+      <div class="hero-overlay"></div>
+      <!-- Animated steam overlay -->
+      <div class="hero-steam">
+        <div class="hero-steam-particle p1"></div>
+        <div class="hero-steam-particle p2"></div>
+        <div class="hero-steam-particle p3"></div>
+        <div class="hero-steam-particle p4"></div>
+        <div class="hero-steam-particle p5"></div>
+        <div class="hero-steam-particle p6"></div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">EST. 2024</div>
+      <h1 class="hero-title reveal">
+        <span class="hero-line">Where Every</span>
+        <span class="hero-line hero-line-accent">Sip</span>
+        <span class="hero-line">Is Golden</span>
+      </h1>
+      <p class="hero-subtitle reveal">An artisanal coffee experience crafted for those who refuse to settle for ordinary.</p>
+      <div class="hero-cta reveal">
+        <a href="#menu" class="btn btn-primary">Explore Menu</a>
+        <a href="#origin" class="btn btn-outline">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MARQUEE STRIP                                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>Single Origin ◆ Hand Roasted ◆ Small Batch ◆ Ethically Sourced ◆ Gold Standard ◆ Artisan Crafted ◆ Premium Beans ◆ Pour Over Specialists ◆ Single Origin ◆ Hand Roasted ◆ Small Batch ◆ Ethically Sourced ◆ Gold Standard ◆ Artisan Crafted ◆ Premium Beans ◆ Pour Over Specialists ◆</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ORIGIN / STORY SECTION                                      -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="origin" class="origin section">
+    <div class="container">
+      <div class="origin-grid">
+        <div class="origin-images reveal">
+          <div class="origin-img-stack">
+            <div class="origin-img origin-img-1">
+              <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Coffee beans being roasted" loading="lazy">
+            </div>
+            <div class="origin-img origin-img-2">
+              <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=400&q=80" alt="Barista pouring latte art" loading="lazy">
+            </div>
+            <div class="origin-accent"></div>
+          </div>
+        </div>
+        <div class="origin-text">
+          <span class="section-tag reveal">Our Story</span>
+          <h2 class="section-title reveal">Born From <br><em>Obsession</em></h2>
+          <div class="origin-divider reveal"></div>
+          <p class="origin-description reveal">
+            AURUM began with a single belief: coffee is not just a drink — it's a ritual, a moment of luxury in the everyday. Founded by master roasters and flavor architects, we source the world's rarest beans from volcanic highlands, mist-covered plantations, and ancient growing regions.
+          </p>
+          <p class="origin-description reveal">
+            Every cup at AURUM is a testament to our relentless pursuit of perfection. From the golden ratio of our pour-overs to the velvety crema on our espressos, we craft experiences that transcend the ordinary.
+          </p>
+          <div class="origin-stats reveal">
+            <div class="stat">
+              <span class="stat-number" data-target="12">0</span>
+              <span class="stat-label">Countries Sourced</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="847">0</span>
+              <span class="stat-label">Flavor Profiles Tested</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="100">0</span>
+              <span class="stat-suffix">%</span>
+              <span class="stat-label">Ethically Sourced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- SHOP / COLLECTION SECTION                                   -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="shop" class="shop section">
+    <div class="container">
+      <div class="section-header center reveal">
+        <span class="section-tag">The Collection</span>
+        <h2 class="section-title">Curated <em>Excellence</em></h2>
+        <p class="section-subtitle">Our signature blends, roasted to perfection and delivered to your door.</p>
+      </div>
+
+      <div class="shop-filter reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="single">Single Origin</button>
+        <button class="filter-btn" data-filter="blend">Signature Blends</button>
+        <button class="filter-btn" data-filter="limited">Limited Edition</button>
+      </div>
+
+      <div class="shop-grid">
+        <!-- Product 1 -->
+        <div class="product-card reveal" data-category="single">
+          <div class="product-badge">Best Seller</div>
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&q=80" alt="Ethiopian Yirgacheffe" loading="lazy">
+            <div class="product-overlay">
+              <button class="product-quick-add">+ Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <span class="product-origin">Ethiopia · Yirgacheffe</span>
+            <h3 class="product-name">Golden Sunrise</h3>
+            <p class="product-notes">Blueberry · Jasmine · Dark Chocolate</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-count">(128)</span>
+              </div>
+              <span class="product-price">$28</span>
+            </div>
+            <div class="roast-level">
+              <span>Roast</span>
+              <div class="roast-bar"><div class="roast-fill" style="width: 35%"></div></div>
+              <span>Light</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card reveal" data-category="blend">
+          <div class="product-badge new">New</div>
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=400&q=80" alt="Midnight Reserve" loading="lazy">
+            <div class="product-overlay">
+              <button class="product-quick-add">+ Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <span class="product-origin">Colombia · Brazil Blend</span>
+            <h3 class="product-name">Midnight Reserve</h3>
+            <p class="product-notes">Caramel · Walnut · Smoky Oak</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-count">(96)</span>
+              </div>
+              <span class="product-price">$32</span>
+            </div>
+            <div class="roast-level">
+              <span>Roast</span>
+              <div class="roast-bar"><div class="roast-fill" style="width: 75%"></div></div>
+              <span>Dark</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card reveal" data-category="single">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefda?w=400&q=80" alt="Volcanic Ember" loading="lazy">
+            <div class="product-overlay">
+              <button class="product-quick-add">+ Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <span class="product-origin">Guatemala · Antigua</span>
+            <h3 class="product-name">Volcanic Ember</h3>
+            <p class="product-notes">Cocoa · Spice · Brown Sugar</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">★★★★☆</span>
+                <span class="rating-count">(74)</span>
+              </div>
+              <span class="product-price">$26</span>
+            </div>
+            <div class="roast-level">
+              <span>Roast</span>
+              <div class="roast-bar"><div class="roast-fill" style="width: 55%"></div></div>
+              <span>Medium</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card reveal" data-category="limited">
+          <div class="product-badge limited">Limited</div>
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=400&q=80" alt="Gilded Geisha" loading="lazy">
+            <div class="product-overlay">
+              <button class="product-quick-add">+ Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <span class="product-origin">Panama · Boquete</span>
+            <h3 class="product-name">Gilded Geisha</h3>
+            <p class="product-notes">Bergamot · Mango · Honeycomb</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-count">(52)</span>
+              </div>
+              <span class="product-price">$68</span>
+            </div>
+            <div class="roast-level">
+              <span>Roast</span>
+              <div class="roast-bar"><div class="roast-fill" style="width: 25%"></div></div>
+              <span>Light</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card reveal" data-category="blend">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=400&q=80" alt="Velvet Dusk" loading="lazy">
+            <div class="product-overlay">
+              <button class="product-quick-add">+ Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <span class="product-origin">Kenya · Rwanda Blend</span>
+            <h3 class="product-name">Velvet Dusk</h3>
+            <p class="product-notes">Blackberry · Vanilla · Toffee</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-count">(89)</span>
+              </div>
+              <span class="product-price">$30</span>
+            </div>
+            <div class="roast-level">
+              <span>Roast</span>
+              <div class="roast-bar"><div class="roast-fill" style="width: 60%"></div></div>
+              <span>Medium</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card reveal" data-category="limited">
+          <div class="product-badge limited">Limited</div>
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=400&q=80" alt="Crown Jewel" loading="lazy">
+            <div class="product-overlay">
+              <button class="product-quick-add">+ Add to Cart</button>
+            </div>
+          </div>
+          <div class="product-info">
+            <span class="product-origin">Jamaica · Blue Mountain</span>
+            <h3 class="product-name">Crown Jewel</h3>
+            <p class="product-notes">Floral · Butter · Sweet Almond</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-count">(41)</span>
+              </div>
+              <span class="product-price">$85</span>
+            </div>
+            <div class="roast-level">
+              <span>Roast</span>
+              <div class="roast-bar"><div class="roast-fill" style="width: 40%"></div></div>
+              <span>Medium-Light</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- INTERACTIVE MENU SECTION                                    -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="menu" class="menu section">
+    <div class="menu-bg-text">MENU</div>
+    <div class="container">
+      <div class="section-header center reveal">
+        <span class="section-tag">The Menu</span>
+        <h2 class="section-title">A Symphony of <em>Flavor</em></h2>
+        <p class="section-subtitle">Each creation is a masterpiece, handcrafted by our award-winning baristas.</p>
+      </div>
+
+      <div class="menu-tabs reveal">
+        <button class="menu-tab active" data-tab="espresso">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 8h1a4 4 0 110 8h-1"/><path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+          Espresso
+        </button>
+        <button class="menu-tab" data-tab="pourover">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2h8l-2 18H10L8 2z"/><line x1="6" y1="2" x2="18" y2="2"/></svg>
+          Pour Over
+        </button>
+        <button class="menu-tab" data-tab="signature">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Signature
+        </button>
+        <button class="menu-tab" data-tab="pastry">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          Pastries
+        </button>
+      </div>
+
+      <!-- Espresso Menu -->
+      <div class="menu-panel active" id="espresso">
+        <div class="menu-items">
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">The Gold Standard</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$6.50</span>
+            </div>
+            <p class="menu-item-desc">Double shot of our signature house blend pulled to perfection. Rich, bold, with notes of dark chocolate and toasted hazelnut.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Bold</span>
+              <span class="tag">Classic</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Velvet Cortado</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$7.00</span>
+            </div>
+            <p class="menu-item-desc">Equal parts espresso and steamed milk, creating a harmonious balance of strength and silk.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Smooth</span>
+              <span class="tag">Balanced</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Crème Brûlée Latte</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$8.50</span>
+            </div>
+            <p class="menu-item-desc">House espresso with torched vanilla custard foam and a caramelized sugar crust. A dessert in a cup.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Sweet</span>
+              <span class="tag">Indulgent</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Smoky Old Fashioned</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$9.00</span>
+            </div>
+            <p class="menu-item-desc">Espresso infused with smoked maple and orange bitters, finished with a torched orange peel garnish.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Smoky</span>
+              <span class="tag">Complex</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Flat White Royale</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$7.50</span>
+            </div>
+            <p class="menu-item-desc">Micro-foam perfection with a double ristretto base. Velvety, intense, and impossibly smooth.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Creamy</span>
+              <span class="tag">Intense</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pour Over Menu -->
+      <div class="menu-panel" id="pourover">
+        <div class="menu-items">
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Ethiopian Yirgacheffe</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$8.00</span>
+            </div>
+            <p class="menu-item-desc">Bright and floral with blueberry undertones. Single origin, hand-poured using a Chemex for pristine clarity.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Bright</span>
+              <span class="tag">Fruity</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Colombian Supremo</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$7.50</span>
+            </div>
+            <p class="menu-item-desc">Well-balanced with caramel sweetness and a clean, nutty finish. V60 pour over, precision temperature controlled.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Balanced</span>
+              <span class="tag">Caramel</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Kenyan AA</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$9.00</span>
+            </div>
+            <p class="menu-item-desc">Bold berry acidity with a wine-like body. Aeropress brewed for maximum flavor extraction and a clean cup.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Bold</span>
+              <span class="tag">Berry</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Panama Geisha</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$18.00</span>
+            </div>
+            <p class="menu-item-desc">The crown jewel of coffee. Delicate jasmine and bergamot notes with a tea-like body. Brewed tableside in a Siphon.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Rare</span>
+              <span class="tag">Exquisite</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Signature Menu -->
+      <div class="menu-panel" id="signature">
+        <div class="menu-items">
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">The Midas Touch</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$12.00</span>
+            </div>
+            <p class="menu-item-desc">24K edible gold-dusted latte with saffron-infused milk, cardamom, and our single-origin espresso. Our iconic creation.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Iconic</span>
+              <span class="tag">Luxurious</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Black Velvet</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$11.00</span>
+            </div>
+            <p class="menu-item-desc">Activated charcoal latte with vanilla bean and oat milk. Dark as night, smooth as silk, unforgettable.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Dramatic</span>
+              <span class="tag">Velvety</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Rose Garden Mocha</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$10.50</span>
+            </div>
+            <p class="menu-item-desc">Belgian dark chocolate ganache, rose water, and espresso, crowned with rose petal whipped cream.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Floral</span>
+              <span class="tag">Decadent</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Ember & Ice</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$10.00</span>
+            </div>
+            <p class="menu-item-desc">Cold brew infused with smoked cinnamon and served over a single clear ice sphere with a torched marshmallow.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Smoky</span>
+              <span class="tag">Theatrical</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pastries Menu -->
+      <div class="menu-panel" id="pastry">
+        <div class="menu-items">
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Golden Croissant</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$7.00</span>
+            </div>
+            <p class="menu-item-desc">48-hour laminated butter croissant with a honey-gold glaze and fleur de sel. Baked fresh every morning.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Fresh</span>
+              <span class="tag">Buttery</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Dark Chocolate Kouign-Amann</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$8.50</span>
+            </div>
+            <p class="menu-item-desc">Caramelized Breton pastry with Valrhona dark chocolate layers. Crispy, gooey, utterly addictive.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Indulgent</span>
+              <span class="tag">Caramelized</span>
+            </div>
+          </div>
+          <div class="menu-item reveal">
+            <div class="menu-item-header">
+              <h3 class="menu-item-name">Pistachio Financier</h3>
+              <div class="menu-item-dots"></div>
+              <span class="menu-item-price">$6.50</span>
+            </div>
+            <p class="menu-item-desc">French almond cake with pistachio praline and a delicate citrus glaze. Pairs exquisitely with pour over.</p>
+            <div class="menu-item-tags">
+              <span class="tag">Elegant</span>
+              <span class="tag">Nutty</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- EXPERIENCE / PARALLAX SECTION                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="experience" class="experience section">
+    <div class="experience-parallax" style="background-image: url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1600&q=80')"></div>
+    <div class="experience-overlay"></div>
+    <div class="container experience-content">
+      <span class="section-tag light reveal">The Experience</span>
+      <h2 class="section-title light reveal">More Than Coffee.<br><em>A Ritual.</em></h2>
+      <div class="experience-features">
+        <div class="exp-feature reveal">
+          <div class="exp-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8a97e" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Ethically Sourced</h3>
+          <p>Direct trade relationships with farmers across 12 countries, ensuring fair wages and sustainable practices.</p>
+        </div>
+        <div class="exp-feature reveal">
+          <div class="exp-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8a97e" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Roasted to Order</h3>
+          <p>Every batch is small-lot roasted within 48 hours of your order. Peak freshness, guaranteed.</p>
+        </div>
+        <div class="exp-feature reveal">
+          <div class="exp-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c8a97e" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <h3>Crafted with Love</h3>
+          <p>Our baristas undergo 200+ hours of training, mastering the art and science of the perfect cup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ABOUT SECTION                                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="about" class="about section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <span class="section-tag reveal">About Aurum</span>
+          <h2 class="section-title reveal">The People Behind <br><em>the Pour</em></h2>
+          <div class="about-body reveal">
+            <p>AURUM was founded by Elena Marchetti and James Oduya — two people united by an obsessive love for coffee and an unwillingness to compromise on quality.</p>
+            <p>Elena, a third-generation Italian roaster, brings generations of Mediterranean coffee wisdom. James, a former sommelier turned coffee innovator, brings a palate trained on the world's finest flavors.</p>
+            <p>Together, they've built AURUM into a destination for those who believe that their morning cup should be nothing short of extraordinary.</p>
+          </div>
+          <div class="about-signature reveal">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&h=80&fit=crop&q=80" alt="Elena Marchetti" class="sig-avatar">
+            <div>
+              <span class="sig-name">Elena Marchetti</span>
+              <span class="sig-title">Co-Founder & Head Roaster</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-images reveal">
+          <div class="about-img-grid">
+            <div class="about-img a-img-1">
+              <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=400&q=80" alt="AURUM Interior" loading="lazy">
+            </div>
+            <div class="about-img a-img-2">
+              <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&q=80" alt="Coffee Roasting" loading="lazy">
+            </div>
+            <div class="about-img a-img-3">
+              <img src="https://images.unsplash.com/photo-1521302200778-33500795e128?w=400&q=80" alt="Latte Art" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TESTIMONIALS                                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="testimonials section">
+    <div class="container">
+      <div class="section-header center reveal">
+        <span class="section-tag">Testimonials</span>
+        <h2 class="section-title">What They're <em>Saying</em></h2>
+      </div>
+      <div class="testimonial-slider reveal">
+        <div class="testimonial-track" id="testimonialTrack">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>"AURUM has ruined every other coffee for me. The Midas Touch is liquid gold — literally and figuratively. This isn't just a coffee shop, it's a revelation."</blockquote>
+            <div class="testimonial-author">
+              <strong>Isabelle Chen</strong>
+              <span>Food Critic, The Gourmet Review</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>"I've had coffee in Milan, Tokyo, Melbourne, and New York. AURUM stands shoulder to shoulder with the world's best. Their pour-over program is unmatched."</blockquote>
+            <div class="testimonial-author">
+              <strong>Marcus Webb</strong>
+              <span>World Barista Champion 2023</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <blockquote>"The atmosphere, the quality, the attention to detail — AURUM is the gold standard. My team holds every important meeting here. It inspires greatness."</blockquote>
+            <div class="testimonial-author">
+              <strong>Sofia Laurent</strong>
+              <span>CEO, Maison Lumière</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-nav">
+          <button class="test-nav-btn prev" aria-label="Previous testimonial">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="test-dots">
+            <span class="test-dot active"></span>
+            <span class="test-dot"></span>
+            <span class="test-dot"></span>
+          </div>
+          <button class="test-nav-btn next" aria-label="Next testimonial">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- RESERVATION / NEWSLETTER CTA                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="reservation" class="reservation section">
+    <div class="container">
+      <div class="reservation-card reveal">
+        <div class="res-left">
+          <span class="section-tag">Reserve</span>
+          <h2 class="section-title">Secure Your <em>Table</em></h2>
+          <p>Experience AURUM in person. Reserve your table for an unforgettable coffee journey.</p>
+        </div>
+        <form class="res-form" id="reservationForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" required>
+            </div>
+            <div class="form-group">
+              <label>Guests</label>
+              <select required>
+                <option value="">Select</option>
+                <option>1 Guest</option>
+                <option>2 Guests</option>
+                <option>3 Guests</option>
+                <option>4 Guests</option>
+                <option>5+ Guests</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Special Requests</label>
+            <textarea placeholder="Any special requests or occasions..." rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Reserve Now</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- INSTAGRAM FEED                                              -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="insta-section">
+    <div class="section-header center reveal">
+      <span class="section-tag">Follow Us</span>
+      <h2 class="section-title">@aurum.coffee</h2>
+    </div>
+    <div class="insta-grid">
+      <div class="insta-item">
+        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80" alt="Instagram" loading="lazy">
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
+        </div>
+      </div>
+      <div class="insta-item">
+        <img src="https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=400&q=80" alt="Instagram" loading="lazy">
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
+        </div>
+      </div>
+      <div class="insta-item">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&q=80" alt="Instagram" loading="lazy">
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
+        </div>
+      </div>
+      <div class="insta-item">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80" alt="Instagram" loading="lazy">
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
+        </div>
+      </div>
+      <div class="insta-item">
+        <img src="https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=400&q=80" alt="Instagram" loading="lazy">
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
+        </div>
+      </div>
+      <div class="insta-item">
+        <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400&q=80" alt="Instagram" loading="lazy">
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                      -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-icon">◆</span>
+            <span class="logo-text">AURUM</span>
+          </div>
+          <p class="footer-tagline">Crafted in Gold. Served with Soul.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Visit</h4>
+          <ul>
+            <li>123 Golden Lane</li>
+            <li>Arts District</li>
+            <li>Los Angeles, CA 90013</li>
+            <li class="footer-hours">Mon-Sun: 7am - 10pm</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#shop">Shop Online</a></li>
+            <li><a href="#reservation">Reservations</a></li>
+            <li><a href="#">Gift Cards</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Stay Golden</h4>
+          <p class="footer-newsletter-text">Get exclusive offers and first access to limited releases.</p>
+          <form class="footer-newsletter">
+            <input type="email" placeholder="your@email.com">
+            <button type="submit" aria-label="Subscribe">→</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 AURUM Coffee. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
