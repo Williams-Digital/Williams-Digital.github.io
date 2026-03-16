@@ -59,7 +59,8 @@ h1,h2,h3,h4{font-family:'Nunito',sans-serif}
 
 /* WELCOME BAR */
 .welcome{background:var(--mint);padding:30px 60px;display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
-.welcome-photo{width:60px;height:60px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--white)}
+.welcome-photo{width:60px;height:60px;border-radius:50%;overflow:hidden}
+.welcome-photo img{width:100%;height:100%;object-fit:cover}
 .welcome-text{font-size:16px;color:#555}
 .welcome-text strong{color:var(--teal)}
 .new-badge{padding:8px 20px;background:var(--coral);color:var(--white);border-radius:20px;font-size:13px;font-weight:600;animation:pulse 2s ease infinite}
@@ -85,7 +86,8 @@ section{padding:80px 60px}
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
 .team-card{background:var(--mint);border-radius:20px;overflow:hidden;text-align:center;transition:transform .3s}
 .team-card:hover{transform:translateY(-5px)}
-.team-photo{height:200px;background:linear-gradient(135deg,var(--teal),#00BCD4);display:flex;align-items:center;justify-content:center;font-size:60px;color:var(--white)}
+.team-photo{height:200px;position:relative;overflow:hidden}
+.team-photo img{width:100%;height:100%;object-fit:cover}
 .team-info{padding:25px}
 .team-info h3{font-size:20px;color:var(--teal)}
 .team-info .title{font-size:13px;color:var(--coral);font-weight:600;margin:5px 0}
@@ -96,7 +98,8 @@ section{padding:80px 60px}
 .amenities-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .amenity{text-align:center;padding:25px;background:var(--white);border-radius:15px;transition:transform .3s}
 .amenity:hover{transform:translateY(-5px)}
-.amenity-icon{font-size:36px;margin-bottom:10px}
+.amenity-icon{width:80px;height:80px;border-radius:12px;overflow:hidden;margin:0 auto 10px}
+.amenity-icon img{width:100%;height:100%;object-fit:cover}
 .amenity h4{font-size:16px;color:var(--teal);margin-bottom:5px}
 .amenity p{font-size:13px;color:#888}
 
@@ -189,7 +192,7 @@ section{padding:60px 20px}
 <section class="hero">
 <div class="hero-fallback"></div>
 <video autoplay muted loop playsinline style="opacity:0;transition:opacity .5s" oncanplaythrough="this.style.opacity='1'">
-<source src="https://videos.pexels.com/video-files/5765165/5765165-uhd_2560_1440_30fps.mp4" type="video/mp4">
+<source src="https://assets.mixkit.co/videos/9027/9027-720.mp4" type="video/mp4">
 </video>
 <div class="hero-overlay"></div>
 <div class="hero-content">
@@ -202,7 +205,7 @@ section{padding:60px 20px}
 
 <!-- WELCOME -->
 <div class="welcome">
-<div class="welcome-photo">&#128104;&#8205;&#9877;</div>
+<div class="welcome-photo"><img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80" alt="Dr. Sarah Chen"></div>
 <div class="welcome-text">"Welcome to Radiance Dental! We can't wait to meet you and help you achieve the smile of your dreams." — <strong>Dr. Sarah Chen, DDS</strong></div>
 <div class="new-badge">&#10024; Now Accepting New Patients</div>
 </div>
@@ -237,15 +240,15 @@ section{padding:60px 20px}
 <p class="section-sub reveal">Caring professionals dedicated to your comfort</p>
 <div class="team-grid">
 <div class="team-card reveal">
-<div class="team-photo">&#128105;&#8205;&#9877;</div>
+<div class="team-photo"><img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80" alt="Dr. Sarah Chen"></div>
 <div class="team-info"><h3>Dr. Sarah Chen</h3><div class="title">Lead Dentist, DDS</div><p>OHSU School of Dentistry. 18 years experience. Specializes in cosmetic and restorative dentistry.</p></div>
 </div>
 <div class="team-card reveal">
-<div class="team-photo">&#128104;&#8205;&#9877;</div>
+<div class="team-photo"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" alt="Dr. James Park"></div>
 <div class="team-info"><h3>Dr. James Park</h3><div class="title">Associate Dentist, DMD</div><p>Tufts University. Implant specialist. Known for his gentle approach and patient education.</p></div>
 </div>
 <div class="team-card reveal">
-<div class="team-photo">&#128105;&#8205;&#9877;</div>
+<div class="team-photo"><img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80" alt="Dr. Maria Gonzalez"></div>
 <div class="team-info"><h3>Dr. Maria Gonzalez</h3><div class="title">Orthodontist, DDS</div><p>UCLA School of Dentistry. Invisalign Diamond Provider. Makes beautiful smiles every day.</p></div>
 </div>
 </div>
@@ -256,10 +259,10 @@ section{padding:60px 20px}
 <h2 class="section-title reveal">Your Comfort Matters</h2>
 <p class="section-sub reveal">We've designed every detail to make your visit relaxing</p>
 <div class="amenities-grid">
-<div class="amenity reveal"><div class="amenity-icon">&#128250;</div><h4>Netflix & Hulu</h4><p>Stream your favorites during treatment</p></div>
-<div class="amenity reveal"><div class="amenity-icon">&#127911;</div><h4>Noise-Canceling</h4><p>Premium headphones for your comfort</p></div>
-<div class="amenity reveal"><div class="amenity-icon">&#129507;</div><h4>Cozy Blankets</h4><p>Warm blankets to keep you comfortable</p></div>
-<div class="amenity reveal"><div class="amenity-icon">&#9749;</div><h4>Beverage Bar</h4><p>Coffee, tea, and water in our lounge</p></div>
+<div class="amenity reveal"><div class="amenity-icon"><img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?auto=format&fit=crop&w=800&q=80" alt="Netflix & Hulu"></div><h4>Netflix & Hulu</h4><p>Stream your favorites during treatment</p></div>
+<div class="amenity reveal"><div class="amenity-icon"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" alt="Noise-Canceling"></div><h4>Noise-Canceling</h4><p>Premium headphones for your comfort</p></div>
+<div class="amenity reveal"><div class="amenity-icon"><img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=800&q=80" alt="Cozy Blankets"></div><h4>Cozy Blankets</h4><p>Warm blankets to keep you comfortable</p></div>
+<div class="amenity reveal"><div class="amenity-icon"><img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80" alt="Beverage Bar"></div><h4>Beverage Bar</h4><p>Coffee, tea, and water in our lounge</p></div>
 </div>
 </section>
 
