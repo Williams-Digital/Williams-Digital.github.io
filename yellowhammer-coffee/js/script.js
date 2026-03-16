@@ -123,6 +123,23 @@ if (appForm) {
   });
 }
 
+// ===== MENU TABS =====
+const menuTabs = document.querySelectorAll('.menu-tab');
+if (menuTabs.length) {
+  menuTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Deactivate all tabs and panels
+      menuTabs.forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+
+      // Activate clicked tab and matching panel
+      tab.classList.add('active');
+      const panel = document.getElementById('menu-' + tab.getAttribute('data-tab'));
+      if (panel) panel.classList.add('active');
+    });
+  });
+}
+
 // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
