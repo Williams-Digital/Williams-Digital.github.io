@@ -1,0 +1,2822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Portal - Meta Fitness Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2660a2;
+            --primary-dark: #1d4a7a;
+            --primary-light: #3a7bc8;
+            --accent: #00d4aa;
+            --accent-dark: #00b892;
+            --dark: #0a1628;
+            --dark-lighter: #142238;
+            --sidebar-bg: #0d1929;
+            --text-light: #ffffff;
+            --text-muted: #94a3b8;
+            --bg-light: #f1f5f9;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --radius-sm: 12px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        /* ===================================
+           LOGIN SCREEN
+           =================================== */
+        .login-screen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-lighter) 50%, var(--primary-dark) 100%);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-screen::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(38, 96, 162, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .login-screen::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 440px;
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 48px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 36px;
+            margin: 0 auto 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .login-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .login-body {
+            padding: 40px;
+        }
+
+        .demo-notice {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid var(--accent);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 28px;
+            font-size: 13px;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .demo-notice strong {
+            color: var(--accent-dark);
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 16px 12px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .role-btn:hover {
+            border-color: var(--primary-light);
+        }
+
+        .role-btn.active {
+            border-color: var(--primary);
+            background: rgba(38, 96, 162, 0.05);
+        }
+
+        .role-btn .role-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .role-btn .role-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(38, 96, 162, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(38, 96, 162, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(38, 96, 162, 0.4);
+        }
+
+        .login-footer {
+            text-align: center;
+            padding: 20px 40px 32px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ===================================
+           PORTAL LAYOUT
+           =================================== */
+        .portal-layout {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .portal-layout.active {
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-bg);
+            color: white;
+            padding: 28px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            padding: 0 24px 28px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .sidebar-brand h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .sidebar-brand .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .sidebar-brand span {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            display: block;
+            margin-top: 4px;
+        }
+
+        .sidebar-section {
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 0 12px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .sidebar-nav a.active {
+            background: linear-gradient(135deg, rgba(38, 96, 162, 0.3) 0%, rgba(38, 96, 162, 0.1) 100%);
+            color: white;
+            border-left: 3px solid var(--accent);
+            margin-left: -3px;
+        }
+
+        .sidebar-nav svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+        }
+
+        .sidebar-nav .badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: var(--radius-full);
+        }
+
+        .sidebar-user {
+            padding: 20px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: auto;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar-user-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .sidebar-user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .sidebar-user-details h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-user-details p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .logout-btn {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 32px;
+            background: var(--bg-light);
+            min-height: 100vh;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .page-title h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .page-title p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-full);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(38, 96, 162, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(38, 96, 162, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: white;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stats-grid.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .stat-card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-card-icon.blue { background: rgba(38, 96, 162, 0.1); }
+        .stat-card-icon.green { background: rgba(16, 185, 129, 0.1); }
+        .stat-card-icon.orange { background: rgba(245, 158, 11, 0.1); }
+        .stat-card-icon.teal { background: rgba(0, 212, 170, 0.1); }
+        .stat-card-icon.purple { background: rgba(139, 92, 246, 0.1); }
+
+        .stat-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Content Card */
+        .content-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+
+        .content-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .content-card-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 16px 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 18px 20px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .data-table tr:hover td {
+            background: rgba(38, 96, 162, 0.02);
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .user-avatar.trainer {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        }
+
+        .user-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-badge.paid {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.unpaid {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .action-btn.danger:hover {
+            background: var(--danger);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .content-grid.equal {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* Schedule */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .schedule-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            align-items: center;
+        }
+
+        .schedule-item:hover {
+            background: rgba(38, 96, 162, 0.05);
+        }
+
+        .schedule-time {
+            min-width: 80px;
+            text-align: center;
+            padding: 12px;
+            background: white;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .schedule-time .time {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .schedule-time .period {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .schedule-details {
+            flex: 1;
+        }
+
+        .schedule-details h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .schedule-details p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .schedule-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .schedule-actions .btn {
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        /* Workout Card */
+        .workout-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .workout-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .workout-exercises {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .workout-exercise {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: white;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+        }
+
+        .workout-exercise span:first-child {
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .workout-exercise span:last-child {
+            color: var(--text-muted);
+        }
+
+        .workout-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .workout-footer .date {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Payment Card */
+        .payment-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .payment-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .payment-card .amount {
+            font-family: 'Poppins', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .payment-card .btn {
+            background: white;
+            color: var(--primary);
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .quick-action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 24px 16px;
+            background: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .quick-action-btn:hover {
+            background: white;
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quick-action-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .quick-action-btn span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        /* Sections */
+        .section-page {
+            display: none;
+        }
+
+        .section-page.active {
+            display: block;
+        }
+
+        /* Role-specific dashboards */
+        .owner-dashboard,
+        .trainer-dashboard,
+        .client-dashboard {
+            display: none;
+        }
+
+        .owner-dashboard.active,
+        .trainer-dashboard.active,
+        .client-dashboard.active {
+            display: block;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal-body {
+            padding: 28px;
+        }
+
+        .modal-body .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-body .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-body select,
+        .modal-body textarea {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .modal-body select:focus,
+        .modal-body textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .modal-footer {
+            padding: 20px 28px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* Trainer Card for Owner View */
+        .trainer-card {
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .trainer-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .trainer-card-header .user-avatar {
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+        }
+
+        .trainer-card-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .trainer-card-header p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .trainer-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .trainer-stat {
+            text-align: center;
+            padding: 16px;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+        }
+
+        .trainer-stat .number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .trainer-stat .label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trainers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .top-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .role-selector {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="login-logo">M</div>
+                <h1>Member Portal</h1>
+                <p>Meta Fitness Studio</p>
+            </div>
+            <div class="login-body">
+                <div class="demo-notice">
+                    <strong>Demo Mode:</strong> Select a role to explore the portal
+                </div>
+
+                <div class="role-selector">
+                    <button class="role-btn active" data-role="owner">
+                        <div class="role-icon">👔</div>
+                        <div class="role-name">Owner</div>
+                    </button>
+                    <button class="role-btn" data-role="trainer">
+                        <div class="role-icon">💪</div>
+                        <div class="role-name">Trainer</div>
+                    </button>
+                    <button class="role-btn" data-role="client">
+                        <div class="role-icon">🏃</div>
+                        <div class="role-name">Client</div>
+                    </button>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="login-btn">Sign In</button>
+                </form>
+            </div>
+            <div class="login-footer">
+                <a href="index.html">← Back to Website</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================
+         OWNER PORTAL
+         =================================== -->
+    <div class="portal-layout owner-dashboard" id="ownerPortal">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h1>
+                    <div class="logo-icon">M</div>
+                    <div>
+                        MetaFit
+                        <span>Owner Portal</span>
+                    </div>
+                </h1>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Overview</div>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a class="active" data-section="owner-dashboard">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="owner-trainers">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            Trainers
+                            <span class="badge">4</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="owner-clients">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            All Clients
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="owner-revenue">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                            Revenue
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-avatar">MF</div>
+                    <div class="sidebar-user-details">
+                        <h4>Studio Owner</h4>
+                        <p>Administrator</p>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Owner Dashboard -->
+            <div class="section-page active" id="owner-dashboard">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>Welcome back, Owner! 👋</h1>
+                        <p>Here's an overview of your studio's performance</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon blue">👥</div>
+                        </div>
+                        <h3>4</h3>
+                        <p>Active Trainers</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon green">🏃</div>
+                        </div>
+                        <h3>47</h3>
+                        <p>Total Clients</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon orange">📅</div>
+                        </div>
+                        <h3>128</h3>
+                        <p>Sessions This Month</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon teal">💰</div>
+                        </div>
+                        <h3>$24,850</h3>
+                        <p>Monthly Revenue</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-card-header">
+                        <h2>Trainers Overview</h2>
+                        <button class="btn btn-primary" onclick="showSection('owner-trainers')">View All Trainers</button>
+                    </div>
+
+                    <div class="trainers-grid">
+                        <div class="trainer-card">
+                            <div class="trainer-card-header">
+                                <div class="user-avatar trainer">JD</div>
+                                <div>
+                                    <h3>Jordan Davis</h3>
+                                    <p>Lead Trainer • Since 2021</p>
+                                </div>
+                            </div>
+                            <div class="trainer-stats">
+                                <div class="trainer-stat">
+                                    <div class="number">14</div>
+                                    <div class="label">Clients</div>
+                                </div>
+                                <div class="trainer-stat">
+                                    <div class="number">38</div>
+                                    <div class="label">Sessions/Mo</div>
+                                </div>
+                                <div class="trainer-stat">
+                                    <div class="number">4.9</div>
+                                    <div class="label">Rating</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trainer-card">
+                            <div class="trainer-card-header">
+                                <div class="user-avatar trainer">AC</div>
+                                <div>
+                                    <h3>Alex Chen</h3>
+                                    <p>Senior Trainer • Since 2022</p>
+                                </div>
+                            </div>
+                            <div class="trainer-stats">
+                                <div class="trainer-stat">
+                                    <div class="number">12</div>
+                                    <div class="label">Clients</div>
+                                </div>
+                                <div class="trainer-stat">
+                                    <div class="number">32</div>
+                                    <div class="label">Sessions/Mo</div>
+                                </div>
+                                <div class="trainer-stat">
+                                    <div class="number">4.8</div>
+                                    <div class="label">Rating</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trainer-card">
+                            <div class="trainer-card-header">
+                                <div class="user-avatar trainer">SM</div>
+                                <div>
+                                    <h3>Sarah Martinez</h3>
+                                    <p>Trainer • Since 2023</p>
+                                </div>
+                            </div>
+                            <div class="trainer-stats">
+                                <div class="trainer-stat">
+                                    <div class="number">11</div>
+                                    <div class="label">Clients</div>
+                                </div>
+                                <div class="trainer-stat">
+                                    <div class="number">28</div>
+                                    <div class="label">Sessions/Mo</div>
+                                </div>
+                                <div class="trainer-stat">
+                                    <div class="number">4.9</div>
+                                    <div class="label">Rating</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trainer-card">
+                            <div class="trainer-card-header">
+                                <div class="user-avatar trainer">MJ</div>
+                                <div>
+                                    <h3>Mike Johnson</h3>
+                                    <p>Trainer • Since 2024</p>
+                                </div>
+                            </div>
+                            <div class="trainer-stats">
+                                <div class="trainer-stat">
+                                    <div class="number">10</div>
+                                    <div class="label">Clients</div>
+                                </div>
+                                <div class="trainer-stat">
+                                    <div class="number">30</div>
+                                    <div class="label">Sessions/Mo</div>
+                                </div>
+                                <div class="trainer-stat">
+                                    <div class="number">4.7</div>
+                                    <div class="label">Rating</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Owner Trainers Section -->
+            <div class="section-page" id="owner-trainers">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>Trainers</h1>
+                        <p>Manage your training staff</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary">+ Add Trainer</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Trainer</th>
+                                <th>Clients</th>
+                                <th>Sessions This Month</th>
+                                <th>Revenue Generated</th>
+                                <th>Rating</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar trainer">JD</div>
+                                        <div class="user-info">
+                                            <h4>Jordan Davis</h4>
+                                            <p>jordan@metafitstudio.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><strong>14</strong> clients</td>
+                                <td>38 sessions</td>
+                                <td>$7,600</td>
+                                <td>⭐ 4.9</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View Details">👁</button>
+                                        <button class="action-btn" title="Edit">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar trainer">AC</div>
+                                        <div class="user-info">
+                                            <h4>Alex Chen</h4>
+                                            <p>alex@metafitstudio.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><strong>12</strong> clients</td>
+                                <td>32 sessions</td>
+                                <td>$6,400</td>
+                                <td>⭐ 4.8</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View Details">👁</button>
+                                        <button class="action-btn" title="Edit">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar trainer">SM</div>
+                                        <div class="user-info">
+                                            <h4>Sarah Martinez</h4>
+                                            <p>sarah@metafitstudio.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><strong>11</strong> clients</td>
+                                <td>28 sessions</td>
+                                <td>$5,600</td>
+                                <td>⭐ 4.9</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View Details">👁</button>
+                                        <button class="action-btn" title="Edit">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar trainer">MJ</div>
+                                        <div class="user-info">
+                                            <h4>Mike Johnson</h4>
+                                            <p>mike@metafitstudio.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><strong>10</strong> clients</td>
+                                <td>30 sessions</td>
+                                <td>$5,250</td>
+                                <td>⭐ 4.7</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View Details">👁</button>
+                                        <button class="action-btn" title="Edit">✏️</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Owner Clients Section -->
+            <div class="section-page" id="owner-clients">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>All Clients</h1>
+                        <p>View all clients across all trainers</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary">Export</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Assigned Trainer</th>
+                                <th>Membership</th>
+                                <th>Sessions/Month</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">SM</div>
+                                        <div class="user-info">
+                                            <h4>Sarah Mitchell</h4>
+                                            <p>sarah.m@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Jordan Davis</td>
+                                <td>Premium Personal</td>
+                                <td>8 sessions</td>
+                                <td><span class="status-badge active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">JW</div>
+                                        <div class="user-info">
+                                            <h4>James Wilson</h4>
+                                            <p>james.w@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Alex Chen</td>
+                                <td>Standard Personal</td>
+                                <td>4 sessions</td>
+                                <td><span class="status-badge active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">EP</div>
+                                        <div class="user-info">
+                                            <h4>Emily Parker</h4>
+                                            <p>emily.p@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Sarah Martinez</td>
+                                <td>Premium Personal</td>
+                                <td>8 sessions</td>
+                                <td><span class="status-badge active">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Owner Revenue Section -->
+            <div class="section-page" id="owner-revenue">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>Revenue</h1>
+                        <p>Financial overview and reports</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📊</div>
+                        <h3>Revenue Analytics</h3>
+                        <p>Detailed revenue reports, charts, and financial analytics would appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===================================
+         TRAINER PORTAL
+         =================================== -->
+    <div class="portal-layout trainer-dashboard" id="trainerPortal">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h1>
+                    <div class="logo-icon">M</div>
+                    <div>
+                        MetaFit
+                        <span>Trainer Portal</span>
+                    </div>
+                </h1>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Main Menu</div>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a class="active" data-section="trainer-dashboard">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="trainer-clients">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            My Clients
+                            <span class="badge">14</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="trainer-schedule">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            My Schedule
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="trainer-workouts">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                            Workouts
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-avatar">JD</div>
+                    <div class="sidebar-user-details">
+                        <h4>Jordan Davis</h4>
+                        <p>Lead Trainer</p>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Trainer Dashboard -->
+            <div class="section-page active" id="trainer-dashboard">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>Good morning, Jordan! 💪</h1>
+                        <p>Here's your schedule and clients overview</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid three-col">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon blue">👥</div>
+                        </div>
+                        <h3>14</h3>
+                        <p>Active Clients</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon green">📅</div>
+                        </div>
+                        <h3>5</h3>
+                        <p>Sessions Today</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon orange">🏋️</div>
+                        </div>
+                        <h3>38</h3>
+                        <p>Sessions This Month</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="content-card-header">
+                            <h2>Today's Schedule</h2>
+                            <button class="btn btn-primary" onclick="openModal('scheduleModal')">+ Add Session</button>
+                        </div>
+                        <div class="schedule-list">
+                            <div class="schedule-item">
+                                <div class="schedule-time">
+                                    <div class="time">8:00</div>
+                                    <div class="period">AM</div>
+                                </div>
+                                <div class="schedule-details">
+                                    <h4>Sarah Mitchell</h4>
+                                    <p>Strength Training • 60 min</p>
+                                </div>
+                                <div class="schedule-actions">
+                                    <button class="btn btn-secondary">Log Workout</button>
+                                    <button class="btn btn-primary">Send Reminder</button>
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="schedule-time">
+                                    <div class="time">10:00</div>
+                                    <div class="period">AM</div>
+                                </div>
+                                <div class="schedule-details">
+                                    <h4>James Wilson</h4>
+                                    <p>HIIT Session • 45 min</p>
+                                </div>
+                                <div class="schedule-actions">
+                                    <button class="btn btn-secondary">Log Workout</button>
+                                    <button class="btn btn-primary">Send Reminder</button>
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="schedule-time">
+                                    <div class="time">1:00</div>
+                                    <div class="period">PM</div>
+                                </div>
+                                <div class="schedule-details">
+                                    <h4>Emily Parker</h4>
+                                    <p>Core & Conditioning • 60 min</p>
+                                </div>
+                                <div class="schedule-actions">
+                                    <button class="btn btn-secondary">Log Workout</button>
+                                    <button class="btn btn-primary">Send Reminder</button>
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="schedule-time">
+                                    <div class="time">3:30</div>
+                                    <div class="period">PM</div>
+                                </div>
+                                <div class="schedule-details">
+                                    <h4>Michael Roberts</h4>
+                                    <p>Weight Loss Program • 60 min</p>
+                                </div>
+                                <div class="schedule-actions">
+                                    <button class="btn btn-secondary">Log Workout</button>
+                                    <button class="btn btn-primary">Send Reminder</button>
+                                </div>
+                            </div>
+                            <div class="schedule-item">
+                                <div class="schedule-time">
+                                    <div class="time">5:00</div>
+                                    <div class="period">PM</div>
+                                </div>
+                                <div class="schedule-details">
+                                    <h4>Lisa Thompson</h4>
+                                    <p>Flexibility & Mobility • 45 min</p>
+                                </div>
+                                <div class="schedule-actions">
+                                    <button class="btn btn-secondary">Log Workout</button>
+                                    <button class="btn btn-primary">Send Reminder</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="content-card">
+                            <div class="content-card-header">
+                                <h2>Quick Actions</h2>
+                            </div>
+                            <div class="quick-actions">
+                                <button class="quick-action-btn" onclick="openModal('clientModal')">
+                                    <div class="quick-action-icon">👤</div>
+                                    <span>Add Client</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="openModal('scheduleModal')">
+                                    <div class="quick-action-icon">📅</div>
+                                    <span>Schedule Session</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="openModal('workoutModal')">
+                                    <div class="quick-action-icon">🏋️</div>
+                                    <span>Create Workout</span>
+                                </button>
+                                <button class="quick-action-btn" onclick="openModal('sendWorkoutModal')">
+                                    <div class="quick-action-icon">📤</div>
+                                    <span>Send Workout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trainer Clients Section -->
+            <div class="section-page" id="trainer-clients">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>My Clients</h1>
+                        <p>Manage your training clients</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openModal('clientModal')">+ Add Client</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Program</th>
+                                <th>Sessions/Week</th>
+                                <th>Next Session</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">SM</div>
+                                        <div class="user-info">
+                                            <h4>Sarah Mitchell</h4>
+                                            <p>sarah.m@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Strength Training</td>
+                                <td>2x/week</td>
+                                <td>Today, 8:00 AM</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View Profile">👁</button>
+                                        <button class="action-btn" title="Log Workout">🏋️</button>
+                                        <button class="action-btn" title="Send Workout">📤</button>
+                                        <button class="action-btn" title="Schedule">📅</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">JW</div>
+                                        <div class="user-info">
+                                            <h4>James Wilson</h4>
+                                            <p>james.w@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>HIIT Program</td>
+                                <td>3x/week</td>
+                                <td>Today, 10:00 AM</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View Profile">👁</button>
+                                        <button class="action-btn" title="Log Workout">🏋️</button>
+                                        <button class="action-btn" title="Send Workout">📤</button>
+                                        <button class="action-btn" title="Schedule">📅</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">EP</div>
+                                        <div class="user-info">
+                                            <h4>Emily Parker</h4>
+                                            <p>emily.p@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Core & Conditioning</td>
+                                <td>2x/week</td>
+                                <td>Today, 1:00 PM</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View Profile">👁</button>
+                                        <button class="action-btn" title="Log Workout">🏋️</button>
+                                        <button class="action-btn" title="Send Workout">📤</button>
+                                        <button class="action-btn" title="Schedule">📅</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-cell">
+                                        <div class="user-avatar">MR</div>
+                                        <div class="user-info">
+                                            <h4>Michael Roberts</h4>
+                                            <p>michael.r@email.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Weight Loss</td>
+                                <td>3x/week</td>
+                                <td>Today, 3:30 PM</td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="action-btn" title="View Profile">👁</button>
+                                        <button class="action-btn" title="Log Workout">🏋️</button>
+                                        <button class="action-btn" title="Send Workout">📤</button>
+                                        <button class="action-btn" title="Schedule">📅</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Trainer Schedule Section -->
+            <div class="section-page" id="trainer-schedule">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>My Schedule</h1>
+                        <p>Manage your training sessions</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary">← Previous Week</button>
+                        <button class="btn btn-secondary">Next Week →</button>
+                        <button class="btn btn-primary" onclick="openModal('scheduleModal')">+ Add Session</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📅</div>
+                        <h3>Weekly Calendar View</h3>
+                        <p>A full weekly calendar with time slots, drag-and-drop scheduling, and session management would appear here.</p>
+                        <button class="btn btn-primary" onclick="openModal('scheduleModal')">+ Schedule a Session</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trainer Workouts Section -->
+            <div class="section-page" id="trainer-workouts">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>Workouts</h1>
+                        <p>Create and manage workout plans</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openModal('workoutModal')">+ Create Workout</button>
+                    </div>
+                </div>
+
+                <div class="content-grid equal">
+                    <div class="content-card">
+                        <div class="content-card-header">
+                            <h2>Recent Workouts Logged</h2>
+                        </div>
+
+                        <div class="workout-card">
+                            <h4>Upper Body Strength - Sarah M.</h4>
+                            <div class="workout-exercises">
+                                <div class="workout-exercise">
+                                    <span>Bench Press</span>
+                                    <span>4x10 @ 95 lbs</span>
+                                </div>
+                                <div class="workout-exercise">
+                                    <span>Shoulder Press</span>
+                                    <span>3x12 @ 40 lbs</span>
+                                </div>
+                                <div class="workout-exercise">
+                                    <span>Lat Pulldown</span>
+                                    <span>4x12 @ 80 lbs</span>
+                                </div>
+                            </div>
+                            <div class="workout-footer">
+                                <span class="date">Logged: Jan 24, 2025</span>
+                                <button class="btn btn-secondary">View Full</button>
+                            </div>
+                        </div>
+
+                        <div class="workout-card">
+                            <h4>HIIT Session - James W.</h4>
+                            <div class="workout-exercises">
+                                <div class="workout-exercise">
+                                    <span>Burpees</span>
+                                    <span>4x20 reps</span>
+                                </div>
+                                <div class="workout-exercise">
+                                    <span>Mountain Climbers</span>
+                                    <span>4x30 sec</span>
+                                </div>
+                                <div class="workout-exercise">
+                                    <span>Box Jumps</span>
+                                    <span>4x15 reps</span>
+                                </div>
+                            </div>
+                            <div class="workout-footer">
+                                <span class="date">Logged: Jan 23, 2025</span>
+                                <button class="btn btn-secondary">View Full</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <div class="content-card-header">
+                            <h2>Saved Workout Templates</h2>
+                        </div>
+
+                        <div class="workout-card">
+                            <h4>Beginner Full Body</h4>
+                            <div class="workout-exercises">
+                                <div class="workout-exercise">
+                                    <span>Squats</span>
+                                    <span>3x12</span>
+                                </div>
+                                <div class="workout-exercise">
+                                    <span>Push-ups</span>
+                                    <span>3x10</span>
+                                </div>
+                                <div class="workout-exercise">
+                                    <span>Rows</span>
+                                    <span>3x12</span>
+                                </div>
+                            </div>
+                            <div class="workout-footer">
+                                <span class="date">Used 12 times</span>
+                                <button class="btn btn-primary">Send to Client</button>
+                            </div>
+                        </div>
+
+                        <div class="workout-card">
+                            <h4>Advanced Leg Day</h4>
+                            <div class="workout-exercises">
+                                <div class="workout-exercise">
+                                    <span>Back Squats</span>
+                                    <span>5x5</span>
+                                </div>
+                                <div class="workout-exercise">
+                                    <span>Romanian Deadlift</span>
+                                    <span>4x8</span>
+                                </div>
+                                <div class="workout-exercise">
+                                    <span>Leg Press</span>
+                                    <span>4x12</span>
+                                </div>
+                            </div>
+                            <div class="workout-footer">
+                                <span class="date">Used 8 times</span>
+                                <button class="btn btn-primary">Send to Client</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===================================
+         CLIENT PORTAL
+         =================================== -->
+    <div class="portal-layout client-dashboard" id="clientPortal">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <h1>
+                    <div class="logo-icon">M</div>
+                    <div>
+                        MetaFit
+                        <span>Client Portal</span>
+                    </div>
+                </h1>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Main Menu</div>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a class="active" data-section="client-dashboard">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                                <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                                <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                            </svg>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="client-schedule">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            My Sessions
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="client-workouts">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                            My Workouts
+                            <span class="badge">2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-section="client-payments">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                            Payments
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-user">
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-avatar">SM</div>
+                    <div class="sidebar-user-details">
+                        <h4>Sarah Mitchell</h4>
+                        <p>Premium Member</p>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Client Dashboard -->
+            <div class="section-page active" id="client-dashboard">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>Welcome back, Sarah! 🏃‍♀️</h1>
+                        <p>Keep up the great work on your fitness journey</p>
+                    </div>
+                </div>
+
+                <div class="stats-grid three-col">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon blue">📅</div>
+                        </div>
+                        <h3>2</h3>
+                        <p>Upcoming Sessions</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon green">🏋️</div>
+                        </div>
+                        <h3>24</h3>
+                        <p>Workouts Completed</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-card-icon orange">🔥</div>
+                        </div>
+                        <h3>12</h3>
+                        <p>Week Streak</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div>
+                        <div class="content-card">
+                            <div class="content-card-header">
+                                <h2>Upcoming Sessions</h2>
+                            </div>
+                            <div class="schedule-list">
+                                <div class="schedule-item">
+                                    <div class="schedule-time">
+                                        <div class="time">8:00</div>
+                                        <div class="period">AM</div>
+                                    </div>
+                                    <div class="schedule-details">
+                                        <h4>Strength Training with Jordan</h4>
+                                        <p>Today • 60 minutes</p>
+                                    </div>
+                                </div>
+                                <div class="schedule-item">
+                                    <div class="schedule-time">
+                                        <div class="time">10:00</div>
+                                        <div class="period">AM</div>
+                                    </div>
+                                    <div class="schedule-details">
+                                        <h4>Strength Training with Jordan</h4>
+                                        <p>Thursday, Jan 30 • 60 minutes</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content-card">
+                            <div class="content-card-header">
+                                <h2>New Workouts from Your Trainer</h2>
+                            </div>
+
+                            <div class="workout-card">
+                                <h4>Upper Body Strength - Week 9</h4>
+                                <div class="workout-exercises">
+                                    <div class="workout-exercise">
+                                        <span>Bench Press</span>
+                                        <span>4x10 @ 100 lbs</span>
+                                    </div>
+                                    <div class="workout-exercise">
+                                        <span>Shoulder Press</span>
+                                        <span>3x12 @ 45 lbs</span>
+                                    </div>
+                                    <div class="workout-exercise">
+                                        <span>Lat Pulldown</span>
+                                        <span>4x12 @ 85 lbs</span>
+                                    </div>
+                                    <div class="workout-exercise">
+                                        <span>Tricep Dips</span>
+                                        <span>3x15 bodyweight</span>
+                                    </div>
+                                </div>
+                                <div class="workout-footer">
+                                    <span class="date">Sent by Jordan Davis</span>
+                                    <button class="btn btn-success">Mark Complete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="payment-card">
+                            <h3>Balance Due</h3>
+                            <div class="amount">$200.00</div>
+                            <button class="btn" onclick="showSection('client-payments')">Pay Now</button>
+                        </div>
+
+                        <div class="content-card">
+                            <div class="content-card-header">
+                                <h2>Your Trainer</h2>
+                            </div>
+                            <div class="trainer-card" style="box-shadow: none; padding: 0;">
+                                <div class="trainer-card-header" style="margin-bottom: 0;">
+                                    <div class="user-avatar trainer" style="width: 60px; height: 60px; font-size: 20px;">JD</div>
+                                    <div>
+                                        <h3 style="font-size: 16px;">Jordan Davis</h3>
+                                        <p>Lead Trainer</p>
+                                        <p style="color: var(--accent); margin-top: 4px;">⭐ 4.9 rating</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Schedule Section -->
+            <div class="section-page" id="client-schedule">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>My Sessions</h1>
+                        <p>View your upcoming and past training sessions</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-card-header">
+                        <h2>Upcoming Sessions</h2>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Session Type</th>
+                                <th>Trainer</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Today, 8:00 AM</strong></td>
+                                <td>Strength Training</td>
+                                <td>Jordan Davis</td>
+                                <td>60 min</td>
+                                <td><span class="status-badge active">Confirmed</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Thu, Jan 30, 10:00 AM</strong></td>
+                                <td>Strength Training</td>
+                                <td>Jordan Davis</td>
+                                <td>60 min</td>
+                                <td><span class="status-badge active">Confirmed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Client Workouts Section -->
+            <div class="section-page" id="client-workouts">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>My Workouts</h1>
+                        <p>View workouts assigned by your trainer</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div class="content-card-header">
+                        <h2>Assigned Workouts</h2>
+                    </div>
+
+                    <div class="workout-card">
+                        <h4>Upper Body Strength - Week 9</h4>
+                        <div class="workout-exercises">
+                            <div class="workout-exercise">
+                                <span>Bench Press</span>
+                                <span>4x10 @ 100 lbs</span>
+                            </div>
+                            <div class="workout-exercise">
+                                <span>Shoulder Press</span>
+                                <span>3x12 @ 45 lbs</span>
+                            </div>
+                            <div class="workout-exercise">
+                                <span>Lat Pulldown</span>
+                                <span>4x12 @ 85 lbs</span>
+                            </div>
+                            <div class="workout-exercise">
+                                <span>Tricep Dips</span>
+                                <span>3x15 bodyweight</span>
+                            </div>
+                        </div>
+                        <div class="workout-footer">
+                            <span class="date">Assigned: Jan 25, 2025</span>
+                            <button class="btn btn-success">Mark Complete</button>
+                        </div>
+                    </div>
+
+                    <div class="workout-card">
+                        <h4>Lower Body Strength - Week 9</h4>
+                        <div class="workout-exercises">
+                            <div class="workout-exercise">
+                                <span>Back Squats</span>
+                                <span>4x8 @ 135 lbs</span>
+                            </div>
+                            <div class="workout-exercise">
+                                <span>Romanian Deadlifts</span>
+                                <span>3x10 @ 95 lbs</span>
+                            </div>
+                            <div class="workout-exercise">
+                                <span>Leg Press</span>
+                                <span>4x12 @ 180 lbs</span>
+                            </div>
+                            <div class="workout-exercise">
+                                <span>Calf Raises</span>
+                                <span>4x15 @ 100 lbs</span>
+                            </div>
+                        </div>
+                        <div class="workout-footer">
+                            <span class="date">Assigned: Jan 23, 2025</span>
+                            <button class="btn btn-success">Mark Complete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Payments Section -->
+            <div class="section-page" id="client-payments">
+                <div class="top-header">
+                    <div class="page-title">
+                        <h1>Payments</h1>
+                        <p>Manage your training payments</p>
+                    </div>
+                </div>
+
+                <div class="content-grid equal">
+                    <div>
+                        <div class="payment-card" style="margin-bottom: 0;">
+                            <h3>Current Balance Due</h3>
+                            <div class="amount">$200.00</div>
+                            <button class="btn">Pay Balance</button>
+                        </div>
+                    </div>
+
+                    <div class="content-card" style="margin-bottom: 0;">
+                        <div class="content-card-header">
+                            <h2>Payment Methods</h2>
+                        </div>
+                        <div class="empty-state" style="padding: 30px;">
+                            <p>Credit card, bank transfer, and other payment options would appear here.</p>
+                            <button class="btn btn-primary">+ Add Payment Method</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card" style="margin-top: 24px;">
+                    <div class="content-card-header">
+                        <h2>Payment History</h2>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jan 15, 2025</td>
+                                <td>January Training Package (8 sessions)</td>
+                                <td>$400.00</td>
+                                <td><span class="status-badge paid">Paid</span></td>
+                            </tr>
+                            <tr>
+                                <td>Dec 15, 2024</td>
+                                <td>December Training Package (8 sessions)</td>
+                                <td>$400.00</td>
+                                <td><span class="status-badge paid">Paid</span></td>
+                            </tr>
+                            <tr>
+                                <td>Nov 15, 2024</td>
+                                <td>November Training Package (8 sessions)</td>
+                                <td>$400.00</td>
+                                <td><span class="status-badge paid">Paid</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ===================================
+         MODALS
+         =================================== -->
+
+    <!-- Add Client Modal -->
+    <div class="modal-overlay" id="clientModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add New Client</h2>
+                <button class="modal-close" onclick="closeModal('clientModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Client Name</label>
+                    <input type="text" placeholder="Enter client's full name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Enter client's email">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label>Training Program</label>
+                    <select>
+                        <option>Select a program...</option>
+                        <option>Strength Training</option>
+                        <option>Weight Loss</option>
+                        <option>HIIT</option>
+                        <option>Core & Conditioning</option>
+                        <option>Flexibility & Mobility</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sessions per Week</label>
+                    <select>
+                        <option>1x per week</option>
+                        <option>2x per week</option>
+                        <option>3x per week</option>
+                        <option>4x per week</option>
+                        <option>5x per week</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('clientModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('clientModal')">Add Client</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Session Modal -->
+    <div class="modal-overlay" id="scheduleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Schedule Session</h2>
+                <button class="modal-close" onclick="closeModal('scheduleModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Client</label>
+                    <select>
+                        <option>Select a client...</option>
+                        <option>Sarah Mitchell</option>
+                        <option>James Wilson</option>
+                        <option>Emily Parker</option>
+                        <option>Michael Roberts</option>
+                        <option>Lisa Thompson</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date">
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="time">
+                </div>
+                <div class="form-group">
+                    <label>Duration</label>
+                    <select>
+                        <option>30 minutes</option>
+                        <option>45 minutes</option>
+                        <option selected>60 minutes</option>
+                        <option>90 minutes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Session Type</label>
+                    <select>
+                        <option>Strength Training</option>
+                        <option>HIIT</option>
+                        <option>Cardio</option>
+                        <option>Flexibility</option>
+                        <option>Assessment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" checked style="margin-right: 8px;">
+                        Send email reminder to client
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('scheduleModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('scheduleModal')">Schedule Session</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Workout Modal -->
+    <div class="modal-overlay" id="workoutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Create Workout</h2>
+                <button class="modal-close" onclick="closeModal('workoutModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Workout Name</label>
+                    <input type="text" placeholder="e.g., Upper Body Strength">
+                </div>
+                <div class="form-group">
+                    <label>Workout Type</label>
+                    <select>
+                        <option>Strength</option>
+                        <option>Cardio</option>
+                        <option>HIIT</option>
+                        <option>Flexibility</option>
+                        <option>Full Body</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Exercises (one per line: Exercise - Sets x Reps @ Weight)</label>
+                    <textarea rows="6" placeholder="Bench Press - 4x10 @ 135 lbs&#10;Shoulder Press - 3x12 @ 45 lbs&#10;Lat Pulldown - 4x12 @ 80 lbs"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Notes</label>
+                    <textarea rows="3" placeholder="Any additional notes or instructions..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('workoutModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('workoutModal')">Save Workout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Workout Modal -->
+    <div class="modal-overlay" id="sendWorkoutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Send Workout to Client</h2>
+                <button class="modal-close" onclick="closeModal('sendWorkoutModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Select Client</label>
+                    <select>
+                        <option>Select a client...</option>
+                        <option>Sarah Mitchell</option>
+                        <option>James Wilson</option>
+                        <option>Emily Parker</option>
+                        <option>Michael Roberts</option>
+                        <option>Lisa Thompson</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Select Workout</label>
+                    <select>
+                        <option>Select a saved workout...</option>
+                        <option>Beginner Full Body</option>
+                        <option>Advanced Leg Day</option>
+                        <option>Upper Body Strength</option>
+                        <option>HIIT Cardio Blast</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message to Client (optional)</label>
+                    <textarea rows="3" placeholder="Add a personal message..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" checked style="margin-right: 8px;">
+                        Send email notification
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('sendWorkoutModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('sendWorkoutModal')">Send Workout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Role selection
+        let selectedRole = 'owner';
+        const roleBtns = document.querySelectorAll('.role-btn');
+
+        roleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                roleBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedRole = btn.dataset.role;
+            });
+        });
+
+        // Login functionality
+        const loginScreen = document.getElementById('loginScreen');
+        const loginForm = document.getElementById('loginForm');
+        const ownerPortal = document.getElementById('ownerPortal');
+        const trainerPortal = document.getElementById('trainerPortal');
+        const clientPortal = document.getElementById('clientPortal');
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            loginScreen.style.display = 'none';
+
+            // Show the appropriate portal based on role
+            if (selectedRole === 'owner') {
+                ownerPortal.classList.add('active');
+            } else if (selectedRole === 'trainer') {
+                trainerPortal.classList.add('active');
+            } else if (selectedRole === 'client') {
+                clientPortal.classList.add('active');
+            }
+        });
+
+        // Logout functionality
+        function logout() {
+            ownerPortal.classList.remove('active');
+            trainerPortal.classList.remove('active');
+            clientPortal.classList.remove('active');
+            loginScreen.style.display = 'flex';
+        }
+
+        // Navigation functionality for each portal
+        document.querySelectorAll('.sidebar-nav a[data-section]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.dataset.section;
+                const portal = link.closest('.portal-layout');
+
+                // Update nav active state within this portal
+                portal.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                // Show correct section within this portal
+                portal.querySelectorAll('.section-page').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Show section function for buttons
+        function showSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const portal = section.closest('.portal-layout');
+
+            // Update nav
+            portal.querySelectorAll('.sidebar-nav a').forEach(l => {
+                l.classList.remove('active');
+                if (l.dataset.section === sectionId) {
+                    l.classList.add('active');
+                }
+            });
+
+            // Show section
+            portal.querySelectorAll('.section-page').forEach(s => s.classList.remove('active'));
+            section.classList.add('active');
+        }
+
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

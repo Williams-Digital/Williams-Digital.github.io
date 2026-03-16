@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Fitness Studio | Transformation Together</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2660a2;
+            --primary-dark: #1d4a7a;
+            --primary-light: #3a7bc8;
+            --primary-lighter: #5a9ae0;
+            --accent: #00d4aa;
+            --accent-light: #33e0be;
+            --accent-dark: #00b892;
+            --dark: #0a1628;
+            --dark-lighter: #142238;
+            --text-light: #ffffff;
+            --text-muted: #94a3b8;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+            --gradient-dark: linear-gradient(180deg, var(--dark) 0%, var(--dark-lighter) 100%);
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 40px rgba(38, 96, 162, 0.3);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 32px;
+            --radius-full: 9999px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===================================
+           NAVIGATION
+           =================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-sm);
+            padding: 12px 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .navbar.scrolled .logo {
+            color: var(--dark);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+        }
+
+        .logo-text span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 10px 20px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            border-radius: var(--radius-full);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--dark);
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .navbar.scrolled .nav-links a:hover {
+            background: var(--bg-light);
+        }
+
+        .nav-links .btn-primary {
+            background: var(--gradient-accent);
+            color: white !important;
+            padding: 12px 28px;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-links .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-links .btn-login {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .navbar.scrolled .nav-links .btn-login {
+            border-color: var(--primary);
+            color: var(--primary) !important;
+        }
+
+        .nav-links .btn-login:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        .navbar.scrolled .nav-links .btn-login:hover {
+            background: var(--primary);
+            color: white !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .navbar.scrolled .mobile-menu-btn {
+            color: var(--dark);
+        }
+
+        /* ===================================
+           HERO SECTION
+           =================================== */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient-dark);
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect fill="url(%23grain)" width="100" height="100"/></svg>');
+            opacity: 0.5;
+        }
+
+        .hero-bg-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+
+        .hero-shape-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            top: -200px;
+            right: -100px;
+        }
+
+        .hero-shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .hero-shape-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary-light);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        .hero-content {
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 8px 20px;
+            border-radius: var(--radius-full);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: var(--radius-full);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 170, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+        }
+
+        .stat-item {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+        }
+
+        .stat-number span {
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            padding: 20px;
+        }
+
+        .hero-image-card {
+            position: relative;
+            background: url('images/weight-lifting.jpg') center/cover no-repeat;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            overflow: hidden;
+        }
+
+        .hero-image-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(38, 96, 162, 0.75) 0%, rgba(29, 74, 122, 0.85) 100%);
+        }
+
+        .hero-visual-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-visual-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 48px;
+        }
+
+        .hero-visual h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .hero-visual p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating-card-1 {
+            top: 20px;
+            left: -40px;
+            animation-delay: 0s;
+        }
+
+        .floating-card-2 {
+            bottom: 40px;
+            right: -40px;
+            animation-delay: 1.5s;
+        }
+
+        .floating-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .floating-text h4 {
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+
+        .floating-text p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ===================================
+           FEATURES SECTION
+           =================================== */
+        .features {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(38, 96, 162, 0.1);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(32px, 4vw, 48px);
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .feature-card:hover {
+            background: white;
+            border-color: rgba(38, 96, 162, 0.1);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(38, 96, 162, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===================================
+           PROGRAMS SECTION
+           =================================== */
+        .programs {
+            padding: 120px 0;
+            background: var(--gradient-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .programs::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(38, 96, 162, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 212, 170, 0.2) 0%, transparent 50%);
+        }
+
+        .programs .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .programs .section-tag {
+            background: rgba(0, 212, 170, 0.2);
+            color: var(--accent);
+        }
+
+        .programs .section-header h2,
+        .programs .section-header p {
+            color: white;
+        }
+
+        .programs .section-header p {
+            opacity: 0.8;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .program-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 0;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .program-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .program-card-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .program-card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(10, 22, 40, 0.8));
+        }
+
+        .program-card-body {
+            padding: 24px 32px 32px;
+        }
+
+        .program-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .program-card h3 {
+            font-size: 22px;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .program-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .program-features {
+            list-style: none;
+        }
+
+        .program-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .program-features li:last-child {
+            border-bottom: none;
+        }
+
+        .program-features li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 212, 170, 0.2);
+            color: var(--accent);
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* ===================================
+           LOCATIONS SECTION
+           =================================== */
+        .locations {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .location-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .location-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .location-image {
+            height: 240px;
+            background: var(--gradient-primary);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .location-content {
+            padding: 32px;
+        }
+
+        .location-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .location-card h3 {
+            font-size: 24px;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .location-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .location-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .location-detail {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--dark);
+        }
+
+        .location-detail-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(38, 96, 162, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        /* ===================================
+           TESTIMONIALS SECTION
+           =================================== */
+        .testimonials {
+            padding: 120px 0;
+            background: var(--bg-light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-rating span {
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        .testimonial-content {
+            font-size: 16px;
+            color: var(--dark);
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 52px;
+            height: 52px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .testimonial-info h4 {
+            font-size: 16px;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .testimonial-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ===================================
+           CTA SECTION
+           =================================== */
+        .cta {
+            padding: 120px 0;
+            background: var(--gradient-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(0, 212, 170, 0.2);
+            border-radius: 50%;
+        }
+
+        .cta .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: clamp(36px, 5vw, 52px);
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .cta .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta .btn-primary:hover {
+            transform: translateY(-3px);
+        }
+
+        .cta .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .cta .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* ===================================
+           CONTACT SECTION
+           =================================== */
+        .contact {
+            padding: 120px 0;
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .contact-info > p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .contact-method-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(38, 96, 162, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .contact-method h4 {
+            font-size: 16px;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .contact-method p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .contact-method a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-method a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form-wrapper {
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+        }
+
+        .contact-form-wrapper h3 {
+            font-size: 24px;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .contact-form-wrapper > p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(38, 96, 162, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .btn-primary {
+            width: 100%;
+            padding: 18px;
+            font-size: 16px;
+        }
+
+        /* ===================================
+           FOOTER
+           =================================== */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 32px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h4 {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        /* ===================================
+           RESPONSIVE
+           =================================== */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                order: 1;
+            }
+
+            .hero-visual {
+                order: 2;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .hero-description {
+                margin: 0 auto 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 32px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon">M</div>
+                <div class="logo-text">Meta<span>Fit</span></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Why Us</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#locations">Locations</a></li>
+                <li><a href="#testimonials">Results</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="portal.html" class="btn-login">Login</a></li>
+                <li><a href="#contact" class="btn-primary">Start Today</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-shapes">
+            <div class="hero-shape hero-shape-1"></div>
+            <div class="hero-shape hero-shape-2"></div>
+            <div class="hero-shape hero-shape-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">Now Open in Liberty Park</div>
+                <h1>Transform Your Body, <span class="highlight">Transform Your Life</span></h1>
+                <p class="hero-description">Join Mountain Brook's premier fitness community. Expert trainers, state-of-the-art facilities, and a supportive environment to help you achieve your goals.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">
+                        Start Your Journey
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                    <a href="#programs" class="btn btn-secondary">View Programs</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">500<span>+</span></div>
+                        <div class="stat-label">Active Members</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15<span>+</span></div>
+                        <div class="stat-label">Expert Trainers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10<span>+</span></div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-wrapper">
+                    <div class="floating-card floating-card-1">
+                        <div class="floating-icon">💪</div>
+                        <div class="floating-text">
+                            <h4>Personal Training</h4>
+                            <p>1-on-1 Sessions Available</p>
+                        </div>
+                    </div>
+                    <div class="hero-image-card">
+                        <div class="hero-visual-content">
+                            <div class="hero-visual-icon">🏋️</div>
+                            <h3>Transformation Together</h3>
+                            <p>Your journey to a healthier you starts here</p>
+                        </div>
+                    </div>
+                    <div class="floating-card floating-card-2">
+                        <div class="floating-icon">⭐</div>
+                        <div class="floating-text">
+                            <h4>5-Star Rated</h4>
+                            <p>100+ Happy Reviews</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Why Choose Us</span>
+                <h2>Everything You Need to Succeed</h2>
+                <p>We combine expert guidance, premium equipment, and a welcoming community to help you reach your fitness goals.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Expert Trainers</h3>
+                    <p>Our certified trainers understand, encourage, and motivate you every step of the way.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3>Welcoming Environment</h3>
+                    <p>A family-oriented atmosphere where everyone feels comfortable and supported.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Premium Equipment</h3>
+                    <p>State-of-the-art facilities with cutting-edge fitness technology.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Proven Results</h3>
+                    <p>Hundreds of success stories from members who achieved their goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Programs</span>
+                <h2>Find Your Perfect Fit</h2>
+                <p>From personal training to group classes, we have programs designed for every fitness level.</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-card-image" style="background-image: url('images/personal-training.jpg')"></div>
+                    <div class="program-card-body">
+                        <div class="program-icon">🎯</div>
+                        <h3>Personal Training</h3>
+                        <p>One-on-one sessions tailored to your specific goals, fitness level, and schedule.</p>
+                        <ul class="program-features">
+                            <li>Customized workout plans</li>
+                            <li>Nutrition guidance</li>
+                            <li>Progress tracking</li>
+                            <li>Flexible scheduling</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-card-image" style="background-image: url('images/hiit-battle-ropes.jpg')"></div>
+                    <div class="program-card-body">
+                        <div class="program-icon">👥</div>
+                        <h3>Team Training</h3>
+                        <p>Small group sessions that combine personal attention with team motivation.</p>
+                        <ul class="program-features">
+                            <li>4-8 members per group</li>
+                            <li>Build community</li>
+                            <li>Fun, challenging workouts</li>
+                            <li>Accountability partners</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-card-image" style="background-image: url('images/strength-training.jpg')"></div>
+                    <div class="program-card-body">
+                        <div class="program-icon">🔥</div>
+                        <h3>Group Classes</h3>
+                        <p>High-energy classes led by our expert instructors for all fitness levels.</p>
+                        <ul class="program-features">
+                            <li>HIIT & Cardio</li>
+                            <li>Strength training</li>
+                            <li>Yoga & stretching</li>
+                            <li>Core & conditioning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section class="locations" id="locations">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Our Locations</span>
+                <h2>Two Convenient Locations</h2>
+                <p>Visit us at Mountain Brook or our new Liberty Park location.</p>
+            </div>
+            <div class="locations-grid">
+                <div class="location-card">
+                    <div class="location-image" style="background-image: url('images/gym-interior-1.jpg')"></div>
+                    <div class="location-content">
+                        <span class="location-badge">Flagship Location</span>
+                        <h3>Mountain Brook</h3>
+                        <p>Our original location featuring full amenities and our largest training floor.</p>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <div class="location-detail-icon">📍</div>
+                                <span>3150 Overton Road, Mountain Brook, AL 35223</span>
+                            </div>
+                            <div class="location-detail">
+                                <div class="location-detail-icon">📞</div>
+                                <a href="tel:205-783-1218">205.783.1218</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="location-card">
+                    <div class="location-image" style="background-image: url('images/gym-interior-2.jpg')"></div>
+                    <div class="location-content">
+                        <span class="location-badge">New Location</span>
+                        <h3>Liberty Park</h3>
+                        <p>Our newest studio with modern facilities and convenient parking.</p>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <div class="location-detail-icon">📍</div>
+                                <span>Liberty Park, Birmingham, AL</span>
+                            </div>
+                            <div class="location-detail">
+                                <div class="location-detail-icon">📞</div>
+                                <a href="tel:205-783-1218">205.783.1218</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Success Stories</span>
+                <h2>Real Results, Real People</h2>
+                <p>See what our members have to say about their transformation journey.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="testimonial-content">"The trainers here truly care about your success. I've lost 30 pounds and gained so much confidence. Best decision I ever made!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SM</div>
+                        <div class="testimonial-info">
+                            <h4>Sarah M.</h4>
+                            <p>Member since 2022</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="testimonial-content">"The community here is incredible. Everyone supports each other, and the team training sessions are always fun and challenging."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JD</div>
+                        <div class="testimonial-info">
+                            <h4>James D.</h4>
+                            <p>Member since 2021</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                    </div>
+                    <p class="testimonial-content">"I was nervous to start, but the staff made me feel welcome from day one. Now I can't imagine my life without MetaFit!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">LR</div>
+                        <div class="testimonial-info">
+                            <h4>Lisa R.</h4>
+                            <p>Member since 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Start Your Transformation?</h2>
+            <p>Join the MetaFit family today and take the first step toward a healthier, stronger you.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Book a Free Consultation</a>
+                <a href="tel:205-783-1218" class="btn btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path>
+                    </svg>
+                    Call Us Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    <p>Have questions? Ready to start? We'd love to hear from you. Reach out and let's discuss your fitness goals.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-method-icon">📍</div>
+                            <div>
+                                <h4>Visit Us</h4>
+                                <p>3150 Overton Road<br>Mountain Brook, AL 35223</p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-method-icon">📞</div>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p><a href="tel:205-783-1218">205.783.1218</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-method-icon">📧</div>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p><a href="mailto:info@metafitstudio.com">info@metafitstudio.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="contact-method-icon">🕐</div>
+                            <div>
+                                <h4>Hours</h4>
+                                <p>Mon-Fri: 5am - 8pm<br>Sat-Sun: 7am - 2pm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <h3>Start Your Journey</h3>
+                    <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+                    <form class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Smith" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="(205) 555-0123">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">I'm Interested In</label>
+                            <select id="interest" name="interest">
+                                <option value="">Select a program...</option>
+                                <option value="personal">Personal Training</option>
+                                <option value="team">Team Training</option>
+                                <option value="group">Group Classes</option>
+                                <option value="membership">General Membership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Tell Us About Your Goals</label>
+                            <textarea id="message" name="message" placeholder="What are you hoping to achieve?"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon">M</div>
+                        <div class="logo-text">Meta<span>Fit</span></div>
+                    </a>
+                    <p>Mountain Brook's premier fitness studio dedicated to helping you achieve lasting transformation through expert guidance and a supportive community.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Why Us</a></li>
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#locations">Locations</a></li>
+                        <li><a href="#testimonials">Results</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Programs</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Personal Training</a></li>
+                        <li><a href="#">Team Training</a></li>
+                        <li><a href="#">Group Classes</a></li>
+                        <li><a href="#">Nutrition Coaching</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="tel:205-783-1218">205.783.1218</a></li>
+                        <li><a href="mailto:info@metafitstudio.com">info@metafitstudio.com</a></li>
+                        <li>3150 Overton Road</li>
+                        <li>Mountain Brook, AL 35223</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Meta Fitness Studio. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! We will contact you within 24 hours.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

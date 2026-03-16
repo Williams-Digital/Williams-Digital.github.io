@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Proposal - Meta Fitness Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: letter;
+            margin: 0.3in;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            color: #333;
+            line-height: 1.3;
+            font-size: 8pt;
+        }
+
+        .document {
+            max-width: 8in;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1d4a7a 0%, #2660a2 50%, #3a7bc8 100%);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .header .subtitle {
+            font-size: 9px;
+            opacity: 0.9;
+        }
+
+        .header .date {
+            margin-top: 3px;
+            font-size: 8px;
+            opacity: 0.8;
+        }
+
+        /* Section Styles */
+        h2 {
+            color: #2660a2;
+            font-size: 10px;
+            margin: 8px 0 4px 0;
+            padding-bottom: 2px;
+            border-bottom: 1.5px solid #2660a2;
+        }
+
+        /* Package Grid */
+        .packages {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 5px 0;
+        }
+
+        .package-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+            font-size: 7pt;
+        }
+
+        .package-card.featured {
+            border-color: #00d4aa;
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.05) 0%, rgba(38, 96, 162, 0.05) 100%);
+            border-width: 2px;
+        }
+
+        .package-card h4 {
+            margin: 0 0 2px 0;
+            color: #2660a2;
+            font-size: 9px;
+        }
+
+        .package-card .price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2660a2;
+            margin: 3px 0;
+        }
+
+        .package-card ul {
+            text-align: left;
+            font-size: 7pt;
+            padding-left: 12px;
+            margin: 4px 0 0 0;
+        }
+
+        .package-card li {
+            margin-bottom: 1px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 1px 6px;
+            background: linear-gradient(135deg, #00d4aa 0%, #00b892 100%);
+            color: white;
+            font-size: 6px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        /* Bundle Box */
+        .bundle-box {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(38, 96, 162, 0.1) 100%);
+            border: 2px solid #00d4aa;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bundle-box h4 {
+            color: #00b892;
+            margin: 0;
+            font-size: 9px;
+        }
+
+        .bundle-amounts {
+            display: flex;
+            gap: 15px;
+            font-size: 8pt;
+        }
+
+        .bundle-amounts span {
+            font-weight: 600;
+        }
+
+        .bundle-amounts .discount { color: #00b892; }
+        .bundle-amounts .final { color: #2660a2; font-size: 14px; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 4px 0;
+            font-size: 7pt;
+        }
+
+        th {
+            background: #2660a2;
+            color: white;
+            padding: 4px;
+            text-align: left;
+            font-size: 7px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 3px 4px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        /* Two/Three/Four Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 4px 0;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+            margin: 4px 0;
+        }
+
+        .four-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 6px;
+            margin: 4px 0;
+        }
+
+        .col-box {
+            background: #f8fafc;
+            padding: 6px 8px;
+            border-radius: 6px;
+            font-size: 7pt;
+        }
+
+        .col-box h4 {
+            color: #2660a2;
+            margin: 0 0 3px 0;
+            font-size: 8px;
+        }
+
+        .col-box ul {
+            padding-left: 10px;
+            margin: 0;
+        }
+
+        .col-box li {
+            margin-bottom: 1px;
+        }
+
+        /* Totals */
+        .totals-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 5px 0;
+        }
+
+        .totals-box {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+
+        .totals-box h4 {
+            margin: 0 0 4px 0;
+            color: #2660a2;
+            font-size: 9px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 0;
+            font-size: 7pt;
+        }
+
+        .total-row.final {
+            border-top: 1.5px solid #2660a2;
+            margin-top: 4px;
+            padding-top: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #2660a2;
+        }
+
+        .discount {
+            color: #00b892;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(38, 96, 162, 0.1) 0%, rgba(0, 212, 170, 0.1) 100%);
+            border: 1px solid #2660a2;
+            border-radius: 8px;
+            padding: 6px 10px;
+            margin: 6px 0;
+            font-size: 7pt;
+        }
+
+        .info-box h4 {
+            color: #2660a2;
+            margin: 0 0 2px 0;
+            font-size: 8px;
+        }
+
+        /* User Type Cards */
+        .user-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin: 5px 0;
+        }
+
+        .user-type {
+            background: #f8fafc;
+            border-radius: 6px;
+            padding: 6px 8px;
+            border-left: 3px solid #2660a2;
+        }
+
+        .user-type.owner { border-left-color: #f59e0b; }
+        .user-type.trainer { border-left-color: #00d4aa; }
+        .user-type.client { border-left-color: #3b82f6; }
+
+        .user-type h4 {
+            font-size: 8px;
+            margin: 0 0 3px 0;
+        }
+
+        .user-type ul {
+            font-size: 6.5pt;
+            padding-left: 10px;
+            margin: 0;
+            color: #64748b;
+        }
+
+        .user-type li {
+            margin-bottom: 1px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 8px;
+            padding-top: 6px;
+            border-top: 1.5px solid #2660a2;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 1px 0;
+            font-size: 8pt;
+        }
+
+        .footer .small {
+            font-size: 7pt;
+            color: #64748b;
+        }
+
+        /* Print optimization */
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .document {
+                padding: 0;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document">
+        <!-- PAGE 1 -->
+        <div class="header">
+            <h1>Complete Digital Business Solution</h1>
+            <div class="subtitle">Website Rebrand + Client/Trainer Management Portal</div>
+            <div class="date">Prepared for Meta Fitness Studio | January 25, 2025</div>
+        </div>
+
+        <h2>Service Packages</h2>
+        <div class="packages">
+            <div class="package-card">
+                <h4>Professional Website Rebrand</h4>
+                <div class="price">$1,000</div>
+                <ul>
+                    <li>Complete modern redesign</li>
+                    <li>Preserved brand colors & identity</li>
+                    <li>Smooth animations & transitions</li>
+                    <li>Mobile-first responsive design</li>
+                    <li>Programs, locations & testimonials</li>
+                    <li>Contact form & SEO optimization</li>
+                </ul>
+            </div>
+            <div class="package-card featured">
+                <span class="badge">Comprehensive Solution</span>
+                <h4>Client/Trainer Portal System</h4>
+                <div class="price">$4,500</div>
+                <ul>
+                    <li>3 user roles: Owner, Trainer, Client</li>
+                    <li>Secure login & authentication</li>
+                    <li>Trainer & client management</li>
+                    <li>Session scheduling system</li>
+                    <li>Workout logging & sending</li>
+                    <li>Email reminders & payment processing</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bundle-box">
+            <h4>Complete Package:</h4>
+            <div class="bundle-amounts">
+                <span>$5,500 individual</span>
+                <span class="discount">- $500 bundle discount</span>
+                <span class="final">= $5,000 total</span>
+            </div>
+        </div>
+
+        <h2>Portal User Roles</h2>
+        <div class="user-types">
+            <div class="user-type owner">
+                <h4>👔 Owner Dashboard</h4>
+                <ul>
+                    <li>View all trainers & client counts</li>
+                    <li>Track sessions & revenue</li>
+                    <li>Performance analytics</li>
+                </ul>
+            </div>
+            <div class="user-type trainer">
+                <h4>💪 Trainer Dashboard</h4>
+                <ul>
+                    <li>Manage clients & schedule</li>
+                    <li>Log & send workouts</li>
+                    <li>Send email reminders</li>
+                </ul>
+            </div>
+            <div class="user-type client">
+                <h4>🏃 Client Dashboard</h4>
+                <ul>
+                    <li>View sessions & workouts</li>
+                    <li>Make payments online</li>
+                    <li>Track progress</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Investment Summary</h2>
+        <div class="totals-row">
+            <div class="totals-box">
+                <h4>One-Time Development</h4>
+                <div class="total-row"><span>Website Rebrand</span><span>$1,000</span></div>
+                <div class="total-row"><span>Portal System (3 roles)</span><span>$4,500</span></div>
+                <div class="total-row"><span class="discount">Bundle Discount</span><span class="discount">-$500</span></div>
+                <div class="total-row final"><span>One-Time Total</span><span>$5,000</span></div>
+            </div>
+            <div class="totals-box">
+                <h4>Monthly Services (Optional)</h4>
+                <div class="total-row"><span>Hosting & SSL</span><span>$49/mo</span></div>
+                <div class="total-row"><span>Maintenance & Updates</span><span>$99/mo</span></div>
+                <div class="total-row"><span>Email Service</span><span>see below</span></div>
+                <div class="total-row final"><span>Monthly Total</span><span>$148+ /mo</span></div>
+            </div>
+        </div>
+
+        <h2>Email Service Options (Choose One)</h2>
+        <div class="two-col">
+            <div class="col-box">
+                <h4>Amazon SES (Pay-As-You-Go) — Best Value</h4>
+                <table>
+                    <thead>
+                        <tr><th>Emails/Month</th><th>Cost</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1,000</td><td><strong>$0.10</strong></td></tr>
+                        <tr><td>5,000</td><td>$0.50</td></tr>
+                        <tr><td>10,000</td><td>$1.00</td></tr>
+                        <tr><td>50,000</td><td>$5.00</td></tr>
+                        <tr><td>100,000</td><td>$10.00</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-box">
+                <h4>SendGrid (Fixed Plans) — Easiest Setup</h4>
+                <table>
+                    <thead>
+                        <tr><th>Plan</th><th>Emails/Mo</th><th>Cost</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Free</td><td>3,000</td><td><strong>$0/mo</strong></td></tr>
+                        <tr><td>Essentials</td><td>40,000</td><td>$14.95/mo</td></tr>
+                        <tr><td>Essentials</td><td>100,000</td><td>$29.95/mo</td></tr>
+                        <tr><td>Pro</td><td>300,000</td><td>$199/mo</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>📧 Recommendation</h4>
+            <p style="margin:0;"><strong>SendGrid Essentials $14.95/mo</strong> — 40,000 emails/month provides ample room for growth with easy setup and reliable delivery.</p>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="page-break"></div>
+
+        <h2>What's Included</h2>
+        <div class="two-col">
+            <div class="col-box">
+                <h4>Website Features</h4>
+                <ul>
+                    <li>Hero with animated floating cards</li>
+                    <li>"Why Choose Us" section</li>
+                    <li>Programs (Personal, Team, Group)</li>
+                    <li>Two locations with details</li>
+                    <li>Client testimonials</li>
+                    <li>Contact form with validation</li>
+                    <li>Smooth scroll navigation</li>
+                    <li>Full footer with social links</li>
+                </ul>
+            </div>
+            <div class="col-box">
+                <h4>Portal Features</h4>
+                <ul>
+                    <li>Secure role-based login</li>
+                    <li>Owner: Trainer & revenue overview</li>
+                    <li>Trainer: Client & schedule management</li>
+                    <li>Trainer: Workout creation & sending</li>
+                    <li>Client: Session & workout views</li>
+                    <li>Client: Payment processing</li>
+                    <li>Email reminder system</li>
+                    <li>Mobile-responsive dashboard</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>What We Need From You</h2>
+        <div class="two-col">
+            <div class="col-box">
+                <h4>For the Website</h4>
+                <ul>
+                    <li>High-resolution logo files</li>
+                    <li>Professional photos (facility, training)</li>
+                    <li>Program descriptions & testimonials</li>
+                    <li>Both location addresses & hours</li>
+                    <li>Social media links</li>
+                </ul>
+            </div>
+            <div class="col-box">
+                <h4>For the Portal</h4>
+                <ul>
+                    <li>List of trainers with emails</li>
+                    <li>Current client roster (optional)</li>
+                    <li>Pricing structure for sessions</li>
+                    <li>Payment processor preference (Stripe rec'd)</li>
+                    <li>Admin account credentials</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Payment Terms</h2>
+        <div class="four-col">
+            <div class="col-box">
+                <h4>Development</h4>
+                <ul>
+                    <li><strong>50% upfront</strong> ($2,500)</li>
+                    <li><strong>50% on completion</strong></li>
+                </ul>
+            </div>
+            <div class="col-box">
+                <h4>Monthly</h4>
+                <ul>
+                    <li>Billed 1st of month</li>
+                    <li>6-month minimum</li>
+                </ul>
+            </div>
+            <div class="col-box">
+                <h4>Timeline</h4>
+                <ul>
+                    <li>4-6 weeks total</li>
+                    <li>2 revision rounds</li>
+                </ul>
+            </div>
+            <div class="col-box">
+                <h4>Additional</h4>
+                <ul>
+                    <li>Extra work: $95/hr</li>
+                    <li>You own all code</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>Next Steps</h4>
+            <p style="margin:0;"><strong>To get started:</strong> 1) Review & approve proposal → 2) Submit 50% deposit ($2,500) → 3) Provide content & assets → 4) We build & launch!</p>
+        </div>
+
+        <div class="info-box" style="background: linear-gradient(135deg, rgba(0, 212, 170, 0.15) 0%, rgba(0, 212, 170, 0.05) 100%); border-color: #00d4aa;">
+            <h4 style="color: #00b892;">🎉 Live Preview Available</h4>
+            <p style="margin:0;">View the working demo at: <strong>williamsdg.github.io/metafit-studio</strong> — Click "Login" to explore all portal views.</p>
+        </div>
+
+        <div class="footer">
+            <p class="small">Questions? Ready to transform your digital presence?</p>
+            <p><strong>Let's build something great for Meta Fitness Studio.</strong></p>
+        </div>
+    </div>
+</body>
+</html>
