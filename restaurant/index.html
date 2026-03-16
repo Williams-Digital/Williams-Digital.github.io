@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sable Kitchen & Bar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#1a1a1a;--gold:#C9A96E;--offwhite:#FAF7F2;--burgundy:#722F37;--sage:#A8B5A0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;color:var(--black);overflow-x:hidden;background:var(--black)}
+
+/* LOADER */
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--black);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+.loader.hidden{opacity:0;visibility:hidden}
+.loader svg{width:100px;height:100px}
+.utensil{stroke:var(--gold);stroke-width:2;fill:none;stroke-dasharray:200;stroke-dashoffset:200;animation:drawLine 1.5s ease forwards}
+.utensil:nth-child(2){animation-delay:.3s}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+.loader-text{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:32px;margin-top:25px;overflow:hidden}
+.loader-text span{display:inline-block;opacity:0;animation:typeIn .1s ease forwards}
+@keyframes typeIn{to{opacity:1}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;padding:25px 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all .4s}
+.navbar.scrolled{background:rgba(26,26,26,.95);padding:15px 60px;backdrop-filter:blur(10px)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);text-decoration:none;letter-spacing:2px}
+.nav-links{display:flex;gap:30px;list-style:none}
+.nav-links a{color:var(--offwhite);text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;transition:color .3s;font-weight:500}
+.nav-links a:hover{color:var(--gold)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:25px;height:1.5px;background:var(--gold);transition:.3s}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-fallback{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1a1a1a,#2a1f1f,#1a1a1a)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(26,26,26,.6)}
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--offwhite)}
+.hero-content h1{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;margin-bottom:15px;opacity:0;animation:fadeSlide 1s ease .5s forwards}
+.hero-content p{font-size:16px;letter-spacing:4px;text-transform:uppercase;margin-bottom:40px;color:var(--gold);opacity:0;animation:fadeSlide 1s ease .8s forwards}
+.btn-gold{display:inline-block;padding:16px 45px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:all .4s;opacity:0;animation:fadeSlide 1s ease 1.1s forwards;position:relative;overflow:hidden}
+.btn-gold::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--gold);transition:left .4s;z-index:-1}
+.btn-gold:hover::before{left:0}
+.btn-gold:hover{color:var(--black)}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS */
+section{padding:100px 60px}
+.dark-section{background:var(--black);color:var(--offwhite)}
+.light-section{background:var(--offwhite);color:var(--black)}
+.section-label{text-align:center;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:15px}
+.section-title{text-align:center;font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;margin-bottom:60px}
+.gold-line{width:60px;height:1px;background:var(--gold);margin:20px auto 60px}
+.reveal{opacity:0;transform:translateY(35px);transition:all .8s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* ABOUT / PHILOSOPHY */
+.philosophy-cards{display:flex;gap:40px;justify-content:center;flex-wrap:wrap}
+.phil-card{text-align:center;flex:1;min-width:200px;max-width:250px}
+.phil-icon{font-size:36px;margin-bottom:15px;color:var(--gold)}
+.phil-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:10px}
+.phil-card p{font-size:14px;line-height:1.8;color:#999}
+
+/* MENU */
+.menu-tabs{display:flex;justify-content:center;gap:5px;margin-bottom:50px;flex-wrap:wrap}
+.menu-tab{padding:12px 30px;border:1px solid rgba(201,169,110,.3);background:transparent;color:var(--offwhite);font-family:'Cormorant Garamond',serif;font-size:18px;cursor:pointer;transition:all .3s;letter-spacing:1px}
+.menu-tab.active,.menu-tab:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.menu-content{display:none;max-width:800px;margin:0 auto;animation:menuFade .5s ease}
+.menu-content.active{display:block}
+@keyframes menuFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0;border-bottom:1px solid rgba(201,169,110,.15);transition:all .3s}
+.menu-item:hover{padding-left:10px;border-bottom-color:var(--gold)}
+.menu-item-name{font-family:'Cormorant Garamond',serif;font-size:22px}
+.menu-item-desc{font-size:13px;color:#888;margin-top:5px}
+.menu-item-price{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);white-space:nowrap;margin-left:20px}
+.menu-dots{flex:1;border-bottom:1px dotted rgba(201,169,110,.3);margin:0 15px;min-width:30px;align-self:end;margin-bottom:5px}
+
+/* CHEF */
+.chef-section{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.chef-photo{height:500px;background:linear-gradient(135deg,var(--burgundy),#3a1520);border-radius:5px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:24px}
+.chef-info h3{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;margin-bottom:5px}
+.chef-info .chef-title{color:var(--gold);font-size:14px;letter-spacing:3px;text-transform:uppercase;margin-bottom:25px}
+.chef-info p{line-height:1.9;color:#ccc;margin-bottom:15px;font-size:15px}
+.chef-stats{display:flex;gap:40px;margin-top:30px}
+.chef-stat{text-align:center}
+.chef-stat-num{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold)}
+.chef-stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888}
+
+/* GALLERY */
+.gallery-masonry{columns:3;gap:15px}
+.gallery-item{break-inside:avoid;margin-bottom:15px;position:relative;overflow:hidden;border-radius:5px;cursor:pointer}
+.gallery-placeholder{height:250px;background:linear-gradient(135deg,var(--sage),var(--burgundy));display:flex;align-items:center;justify-content:center;color:var(--offwhite);font-size:14px;transition:transform .5s}
+.gallery-item:nth-child(2n) .gallery-placeholder{height:350px}
+.gallery-item:hover .gallery-placeholder{transform:scale(1.05)}
+.gallery-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(26,26,26,.7);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:20px}
+
+/* RESERVATIONS */
+.reservation-form{max-width:600px;margin:0 auto;text-align:center}
+.form-row{display:flex;gap:15px;margin-bottom:15px}
+.form-row input,.form-row select,.form-row textarea{flex:1;padding:15px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.2);color:var(--offwhite);font-family:'Montserrat',sans-serif;font-size:14px;transition:border-color .3s;border-radius:3px}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{outline:none;border-color:var(--gold)}
+.form-row select option{background:var(--black);color:var(--offwhite)}
+.form-row textarea{resize:vertical;min-height:100px}
+.submit-btn{padding:16px 50px;background:var(--gold);color:var(--black);border:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Montserrat',sans-serif;font-weight:600}
+.submit-btn:hover{background:var(--offwhite)}
+
+/* PARALLAX */
+.parallax-section{height:400px;background-attachment:fixed;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;position:relative}
+.parallax-section::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(26,26,26,.7)}
+.parallax-content{position:relative;z-index:2;text-align:center;color:var(--offwhite)}
+.parallax-content blockquote{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;font-style:italic;max-width:700px;line-height:1.5}
+
+/* REVIEWS */
+.reviews-container{max-width:700px;margin:0 auto;position:relative;overflow:hidden}
+.review-track{display:flex;transition:transform .5s ease}
+.review-slide{min-width:100%;padding:40px;text-align:center}
+.review-stars{color:var(--gold);font-size:20px;margin-bottom:20px;letter-spacing:5px}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;line-height:1.7;font-style:italic;margin-bottom:20px}
+.review-author{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.review-dots{display:flex;justify-content:center;gap:10px;margin-top:30px}
+.review-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold);background:transparent;cursor:pointer;transition:background .3s}
+.review-dot.active{background:var(--gold)}
+
+/* FOOTER */
+footer{background:var(--black);color:var(--offwhite);padding:80px 60px 40px;border-top:1px solid rgba(201,169,110,.15)}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-bottom:50px}
+.footer-col h4{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:20px;font-weight:400}
+.footer-col p,.footer-col a{color:#999;font-size:14px;line-height:2;text-decoration:none;display:block;transition:color .3s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{text-align:center;padding-top:30px;border-top:1px solid rgba(201,169,110,.1);font-size:12px;color:#555}
+
+/* MOBILE */
+@media(max-width:768px){
+.navbar{padding:15px 20px}
+.nav-links{display:none!important}
+.hamburger{display:flex}
+section{padding:60px 20px}
+.hero-content h1{font-size:40px}
+.chef-section{grid-template-columns:1fr}
+.gallery-masonry{columns:2}
+.footer-grid{grid-template-columns:1fr 1fr}
+.form-row{flex-direction:column}
+.menu-tabs{gap:5px}
+.menu-tab{padding:8px 18px;font-size:15px}
+.chef-stats{flex-wrap:wrap;gap:20px}
+.parallax-content blockquote{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+<svg viewBox="0 0 100 100">
+<line class="utensil" x1="30" y1="15" x2="30" y2="85" stroke-linecap="round"/>
+<line class="utensil" x1="22" y1="15" x2="30" y2="30" stroke-linecap="round"/>
+<line class="utensil" x1="30" y1="15" x2="38" y2="30" stroke-linecap="round"/>
+<line class="utensil" x1="70" y1="15" x2="70" y2="85" stroke-linecap="round"/>
+<ellipse class="utensil" cx="70" cy="25" rx="12" ry="15" style="animation-delay:.5s"/>
+</svg>
+<div class="loader-text" id="loaderText"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<a href="#" class="nav-logo">SABLE</a>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#chef">Chef</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#reserve">Reservations</a></li>
+</ul>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-fallback"></div>
+<video autoplay muted loop playsinline style="opacity:0;transition:opacity .5s" oncanplaythrough="this.style.opacity='1'">
+<source src="https://videos.pexels.com/video-files/3196487/3196487-uhd_2560_1440_25fps.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<p style="animation-delay:.3s" class="reveal-hero">EST. 2018</p>
+<h1>Where Flavor Meets Art</h1>
+<a href="#reserve" class="btn-gold">Reserve a Table</a>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section class="light-section" id="about">
+<div class="section-label reveal">Our Philosophy</div>
+<h2 class="section-title reveal" style="color:var(--black)">Farm to Table, Heart to Plate</h2>
+<div class="gold-line"></div>
+<div class="philosophy-cards">
+<div class="phil-card reveal"><div class="phil-icon">&#127807;</div><h3>Source</h3><p>We partner with local farms within 50 miles, ensuring every ingredient is seasonal, organic, and bursting with flavor.</p></div>
+<div class="phil-card reveal"><div class="phil-icon">&#128293;</div><h3>Craft</h3><p>Our kitchen transforms the finest ingredients into dishes that celebrate tradition while embracing modern technique.</p></div>
+<div class="phil-card reveal"><div class="phil-icon">&#127860;</div><h3>Serve</h3><p>Every plate is a story. We believe dining should be an experience that engages all the senses.</p></div>
+<div class="phil-card reveal"><div class="phil-icon">&#127863;</div><h3>Pair</h3><p>Our sommelier curates wines and craft cocktails that elevate every dish to new heights.</p></div>
+</div>
+</section>
+
+<!-- MENU -->
+<section class="dark-section" id="menu">
+<div class="section-label reveal">Curated Selections</div>
+<h2 class="section-title reveal">The Menu</h2>
+<div class="gold-line"></div>
+<div class="menu-tabs reveal">
+<button class="menu-tab active" data-tab="starters">Starters</button>
+<button class="menu-tab" data-tab="mains">Mains</button>
+<button class="menu-tab" data-tab="desserts">Desserts</button>
+<button class="menu-tab" data-tab="cocktails">Cocktails</button>
+</div>
+<div class="menu-content active" id="starters">
+<div class="menu-item"><div><div class="menu-item-name">Burrata & Heirloom Tomato</div><div class="menu-item-desc">San Marzano tomatoes, basil oil, aged balsamic, grilled sourdough</div></div><div class="menu-dots"></div><div class="menu-item-price">$18</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Seared Diver Scallops</div><div class="menu-item-desc">Cauliflower puree, brown butter, capers, micro herbs</div></div><div class="menu-dots"></div><div class="menu-item-price">$24</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Wagyu Beef Tartare</div><div class="menu-item-desc">Quail egg, cornichons, shallots, truffle aioli, crostini</div></div><div class="menu-dots"></div><div class="menu-item-price">$26</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Roasted Beet Salad</div><div class="menu-item-desc">Goat cheese mousse, candied walnuts, arugula, citrus vinaigrette</div></div><div class="menu-dots"></div><div class="menu-item-price">$16</div></div>
+</div>
+<div class="menu-content" id="mains">
+<div class="menu-item"><div><div class="menu-item-name">Pan-Roasted Branzino</div><div class="menu-item-desc">Fennel confit, olive tapenade, charred lemon, potato galette</div></div><div class="menu-dots"></div><div class="menu-item-price">$38</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Dry-Aged Ribeye 14oz</div><div class="menu-item-desc">Bone marrow butter, roasted garlic, truffle fries, red wine jus</div></div><div class="menu-dots"></div><div class="menu-item-price">$56</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Duck Breast</div><div class="menu-item-desc">Cherry gastrique, sweet potato puree, sauteed greens, duck jus</div></div><div class="menu-dots"></div><div class="menu-item-price">$42</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Wild Mushroom Risotto</div><div class="menu-item-desc">Porcini, chanterelle, truffle oil, Parmigiano-Reggiano, chives</div></div><div class="menu-dots"></div><div class="menu-item-price">$32</div></div>
+</div>
+<div class="menu-content" id="desserts">
+<div class="menu-item"><div><div class="menu-item-name">Dark Chocolate Fondant</div><div class="menu-item-desc">Valrhona 70%, salted caramel, vanilla bean ice cream</div></div><div class="menu-dots"></div><div class="menu-item-price">$16</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Lemon Tart</div><div class="menu-item-desc">Meyer lemon curd, Italian meringue, raspberry coulis</div></div><div class="menu-dots"></div><div class="menu-item-price">$14</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Cheese Selection</div><div class="menu-item-desc">Artisan cheeses, honeycomb, fig compote, walnut bread</div></div><div class="menu-dots"></div><div class="menu-item-price">$22</div></div>
+</div>
+<div class="menu-content" id="cocktails">
+<div class="menu-item"><div><div class="menu-item-name">The Sable Old Fashioned</div><div class="menu-item-desc">Woodford Reserve, demerara, Angostura, smoked orange peel</div></div><div class="menu-dots"></div><div class="menu-item-price">$18</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Garden Spritz</div><div class="menu-item-desc">Hendrick's gin, elderflower, cucumber, sparkling rosé</div></div><div class="menu-dots"></div><div class="menu-item-price">$16</div></div>
+<div class="menu-item"><div><div class="menu-item-name">Midnight in Kyoto</div><div class="menu-item-desc">Japanese whisky, yuzu, shiso, egg white, matcha dust</div></div><div class="menu-dots"></div><div class="menu-item-price">$20</div></div>
+</div>
+</section>
+
+<!-- CHEF -->
+<section class="light-section" id="chef">
+<div class="section-label reveal">Meet the Chef</div>
+<h2 class="section-title reveal" style="color:var(--black)">Chef's Table</h2>
+<div class="gold-line"></div>
+<div class="chef-section">
+<div class="chef-photo reveal">Chef Portrait</div>
+<div class="chef-info reveal">
+<h3>Marcus Bellini</h3>
+<div class="chef-title">Executive Chef & Co-Founder</div>
+<p>With over 18 years of culinary excellence, Chef Marcus trained at Le Cordon Bleu in Paris before honing his craft at Michelin-starred restaurants across Europe and New York.</p>
+<p>His philosophy is simple: let exceptional ingredients speak for themselves. Every dish at Sable reflects his passion for seasonal cooking and his deep respect for the producers who grow our food.</p>
+<div class="chef-stats">
+<div class="chef-stat"><div class="chef-stat-num" data-target="18">0</div><div class="chef-stat-label">Years Experience</div></div>
+<div class="chef-stat"><div class="chef-stat-num" data-target="3">0</div><div class="chef-stat-label">Michelin Stars</div></div>
+<div class="chef-stat"><div class="chef-stat-num" data-target="12">0</div><div class="chef-stat-label">Awards Won</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PARALLAX -->
+<div class="parallax-section" style="background:linear-gradient(135deg,#2a1f1f,#1a1a1a)">
+<div class="parallax-content">
+<blockquote>"Cooking is an act of love, a gift, a way of sharing with others the little secrets — the secrets of the kitchen."</blockquote>
+</div>
+</div>
+
+<!-- GALLERY -->
+<section class="dark-section" id="gallery">
+<div class="section-label reveal">Visual Journey</div>
+<h2 class="section-title reveal">Gallery</h2>
+<div class="gold-line"></div>
+<div class="gallery-masonry">
+<div class="gallery-item reveal"><div class="gallery-placeholder">Dining Room</div><div class="gallery-overlay"><span>The Space</span></div></div>
+<div class="gallery-item reveal"><div class="gallery-placeholder" style="height:350px">Signature Dish</div><div class="gallery-overlay"><span>Our Art</span></div></div>
+<div class="gallery-item reveal"><div class="gallery-placeholder">Wine Cellar</div><div class="gallery-overlay"><span>The Collection</span></div></div>
+<div class="gallery-item reveal"><div class="gallery-placeholder" style="height:350px">Kitchen</div><div class="gallery-overlay"><span>Behind the Scenes</span></div></div>
+<div class="gallery-item reveal"><div class="gallery-placeholder">Bar Area</div><div class="gallery-overlay"><span>Cocktails</span></div></div>
+<div class="gallery-item reveal"><div class="gallery-placeholder" style="height:300px">Private Dining</div><div class="gallery-overlay"><span>Events</span></div></div>
+</div>
+</section>
+
+<!-- RESERVATIONS -->
+<section class="dark-section" id="reserve" style="background:#111">
+<div class="section-label reveal">Join Us</div>
+<h2 class="section-title reveal">Make a Reservation</h2>
+<div class="gold-line"></div>
+<div class="reservation-form reveal">
+<div class="form-row"><input type="text" placeholder="Full Name"><input type="email" placeholder="Email"></div>
+<div class="form-row"><input type="tel" placeholder="Phone"><input type="date"></div>
+<div class="form-row"><input type="time"><select><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option><option>6+ Guests</option></select></div>
+<div class="form-row"><select><option>Dining Room</option><option>Bar Seating</option><option>Private Dining</option><option>Chef's Table</option></select></div>
+<div class="form-row"><textarea placeholder="Special requests, allergies, celebrations..."></textarea></div>
+<button class="submit-btn" onclick="this.textContent='Reservation Confirmed!';this.style.background='var(--sage)'">Reserve Now</button>
+</div>
+</section>
+
+<!-- REVIEWS -->
+<section class="dark-section">
+<div class="section-label reveal">Guest Experiences</div>
+<h2 class="section-title reveal">What They Say</h2>
+<div class="gold-line"></div>
+<div class="reviews-container reveal">
+<div class="review-track" id="reviewTrack">
+<div class="review-slide">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<div class="review-text">"An extraordinary dining experience. Every dish was a masterpiece, and the wine pairings were impeccable. This is what fine dining should be."</div>
+<div class="review-author">Sarah & James W. — Anniversary Dinner</div>
+</div>
+<div class="review-slide">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<div class="review-text">"Chef Marcus's tasting menu took us on a journey. The wagyu tartare and the duck breast were absolute revelations. Already planning our return."</div>
+<div class="review-author">Michael R. — Business Dinner</div>
+</div>
+<div class="review-slide">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<div class="review-text">"The atmosphere, the service, the food — everything was perfect. The private dining room was ideal for our event. Truly a gem in the city."</div>
+<div class="review-author">Elena K. — Private Event</div>
+</div>
+</div>
+<div class="review-dots" id="reviewDots">
+<div class="review-dot active" data-index="0"></div>
+<div class="review-dot" data-index="1"></div>
+<div class="review-dot" data-index="2"></div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-grid">
+<div class="footer-col">
+<h4>Sable Kitchen & Bar</h4>
+<p>Contemporary American cuisine crafted with passion and precision in the heart of the city.</p>
+</div>
+<div class="footer-col">
+<h4>Hours</h4>
+<p>Tue - Thu: 5:30 PM - 10:00 PM</p>
+<p>Fri - Sat: 5:30 PM - 11:00 PM</p>
+<p>Sun: 5:00 PM - 9:00 PM</p>
+<p>Mon: Closed</p>
+</div>
+<div class="footer-col">
+<h4>Contact</h4>
+<a href="#">(312) 555-0198</a>
+<a href="#">hello@sablekitchen.com</a>
+<a href="#">320 N. Michigan Ave, Chicago, IL</a>
+</div>
+<div class="footer-col">
+<h4>Follow Us</h4>
+<a href="#">Instagram</a>
+<a href="#">Facebook</a>
+<a href="#">OpenTable</a>
+</div>
+</div>
+<div class="footer-bottom">&copy; 2025 Sable Kitchen & Bar. All rights reserved.<br><br>Website designed by <a href="https://williamsdigital.io/restaurant" style="color:var(--gold);text-decoration:none">williamsdigital.io/restaurant</a></div>
+</footer>
+
+<script>
+// Loader typewriter
+const text='Sable Kitchen & Bar';
+const loaderText=document.getElementById('loaderText');
+text.split('').forEach((c,i)=>{const s=document.createElement('span');s.textContent=c;s.style.animationDelay=(1+i*.06)+'s';loaderText.appendChild(s)});
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2500)});
+
+// Navbar
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80)});
+
+// Reveal
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.classList.add('active')},i*80);obs.unobserve(e.target)}})},{threshold:.12});
+reveals.forEach(el=>obs.observe(el));
+
+// Menu tabs
+document.querySelectorAll('.menu-tab').forEach(tab=>{
+tab.addEventListener('click',()=>{
+document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.menu-content').forEach(c=>c.classList.remove('active'));
+tab.classList.add('active');
+document.getElementById(tab.dataset.tab).classList.add('active');
+});
+});
+
+// Counter
+const counters=document.querySelectorAll('.chef-stat-num');
+const cObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const t=+e.target.dataset.target;const d=1500;const s=performance.now();const a=(n)=>{const p=Math.min((n-s)/d,1);e.target.textContent=Math.floor(p*t);if(p<1)requestAnimationFrame(a)};requestAnimationFrame(a);cObs.unobserve(e.target)}})},{threshold:.5});
+counters.forEach(el=>cObs.observe(el));
+
+// Reviews
+let currentReview=0;
+const track=document.getElementById('reviewTrack');
+const dots=document.querySelectorAll('.review-dot');
+function goToReview(i){currentReview=i;track.style.transform=`translateX(-${i*100}%)`;dots.forEach(d=>d.classList.remove('active'));dots[i].classList.add('active')}
+dots.forEach(d=>d.addEventListener('click',()=>goToReview(+d.dataset.index)));
+setInterval(()=>{goToReview((currentReview+1)%3)},5000);
+
+// Hamburger
+document.getElementById('hamburger').addEventListener('click',function(){const l=document.querySelector('.nav-links');if(l.style.display==='flex'){l.style.display='none'}else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='60px';l.style.right='20px';l.style.background='rgba(26,26,26,.95)';l.style.padding='20px';l.style.borderRadius='5px'}});
+</script>
+</body>
+</html>

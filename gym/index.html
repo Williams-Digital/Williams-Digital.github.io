@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX Performance Gym</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#0D0D0D;--red:#FF2D2D;--neon:#39FF14;--steel:#2A2A2A;--white:#FFFFFF}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--white);background:var(--black);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Oswald',sans-serif;text-transform:uppercase}
+
+/* LOADER */
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--black);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .5s,visibility .5s}
+.loader.hidden{opacity:0;visibility:hidden}
+.ecg-line{width:300px;height:80px}
+.ecg-path{fill:none;stroke:var(--red);stroke-width:2;stroke-dasharray:600;stroke-dashoffset:600;animation:drawEcg 2s ease forwards}
+@keyframes drawEcg{to{stroke-dashoffset:0}}
+.loader-brand{font-family:'Oswald',sans-serif;font-size:48px;color:var(--white);letter-spacing:8px;margin-top:20px;opacity:0;animation:glitchIn .5s ease 1.8s forwards}
+@keyframes glitchIn{0%{opacity:0;transform:translateX(-10px);text-shadow:3px 0 var(--red),-3px 0 var(--neon)}50%{opacity:1;transform:translateX(5px);text-shadow:-2px 0 var(--red),2px 0 var(--neon)}100%{opacity:1;transform:translateX(0);text-shadow:none}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all .4s}
+.navbar.scrolled{background:rgba(13,13,13,.95);padding:12px 60px;box-shadow:0 2px 20px rgba(255,45,45,.1)}
+.nav-logo{font-family:'Oswald',sans-serif;font-size:24px;color:var(--white);text-decoration:none;letter-spacing:4px}
+.nav-logo span{color:var(--red)}
+.nav-links{display:flex;gap:25px;list-style:none}
+.nav-links a{color:var(--white);text-decoration:none;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover{color:var(--red)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:25px;height:2px;background:var(--white);transition:.3s}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-fallback{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#0D0D0D,#1a0000,#0D0D0D)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(13,13,13,.65)}
+.hero-content{position:relative;z-index:2;text-align:center}
+.hero-content h1{font-size:80px;letter-spacing:6px;margin-bottom:15px;opacity:0;animation:glitchIn .6s ease .5s forwards}
+.hero-content p{font-size:18px;color:#ccc;margin-bottom:35px;letter-spacing:3px;opacity:0;animation:fadeUp .8s ease .8s forwards}
+.btn-red{display:inline-block;padding:16px 50px;background:var(--red);color:var(--white);text-decoration:none;font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:3px;text-transform:uppercase;transition:all .3s;opacity:0;animation:fadeUp .8s ease 1.1s forwards;box-shadow:0 0 20px rgba(255,45,45,.4)}
+.btn-red:hover{box-shadow:0 0 40px rgba(255,45,45,.7);transform:translateY(-2px)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATS BAR */
+.stats-bar{background:var(--steel);padding:40px 60px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+.stat-num{font-family:'Oswald',sans-serif;font-size:48px;color:var(--red)}
+.stat-label{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#888;margin-top:5px}
+
+/* SECTIONS */
+section{padding:100px 60px}
+.section-label{text-align:center;font-size:12px;letter-spacing:4px;color:var(--red);margin-bottom:10px}
+.section-title{text-align:center;font-size:44px;letter-spacing:3px;margin-bottom:60px}
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* PROGRAMS */
+.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.program-card{background:var(--steel);border-radius:10px;padding:40px 30px;text-align:center;transition:all .4s;border:1px solid transparent;cursor:pointer;position:relative;overflow:hidden}
+.program-card:hover{transform:perspective(1000px) rotateY(5deg) rotateX(3deg);border-color:var(--red);box-shadow:0 0 30px rgba(255,45,45,.2)}
+.program-icon{font-size:48px;margin-bottom:20px}
+.program-card h3{font-size:22px;letter-spacing:2px;margin-bottom:12px}
+.program-card p{font-size:14px;color:#999;line-height:1.7}
+
+/* SCHEDULE */
+.schedule-table{width:100%;border-collapse:collapse;overflow-x:auto;display:block}
+.schedule-table th{font-family:'Oswald',sans-serif;padding:15px;background:var(--red);font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:500}
+.schedule-table td{padding:12px;text-align:center;border:1px solid #333;font-size:13px;color:#ccc;transition:background .3s}
+.schedule-table td:hover{background:rgba(255,45,45,.1)}
+.schedule-table tr:nth-child(even) td{background:rgba(42,42,42,.5)}
+
+/* TRAINERS */
+.trainers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:25px}
+.trainer-card{perspective:1000px;height:380px}
+.trainer-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d;cursor:pointer}
+.trainer-card:hover .trainer-inner{transform:rotateY(180deg)}
+.trainer-front,.trainer-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:10px;overflow:hidden}
+.trainer-front{background:linear-gradient(135deg,var(--steel),#1a1a1a);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.trainer-photo{width:120px;height:120px;border-radius:50%;background:var(--red);margin-bottom:20px;display:flex;align-items:center;justify-content:center;font-size:40px}
+.trainer-front h3{font-size:20px;letter-spacing:2px}
+.trainer-front p{color:var(--red);font-size:12px;letter-spacing:2px;margin-top:5px}
+.trainer-back{background:var(--red);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
+.trainer-back h3{font-size:20px;margin-bottom:15px}
+.trainer-back p{font-size:14px;line-height:1.7}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;align-items:center}
+.price-card{background:var(--steel);border-radius:15px;padding:40px;text-align:center;border:1px solid #333;transition:all .4s}
+.price-card.featured{transform:scale(1.08);border-color:var(--red);box-shadow:0 0 40px rgba(255,45,45,.2)}
+.price-card .plan-name{font-family:'Oswald',sans-serif;font-size:24px;letter-spacing:3px;margin-bottom:10px}
+.price-amount{font-family:'Oswald',sans-serif;font-size:56px;color:var(--red);margin:20px 0}
+.price-amount span{font-size:18px;color:#888}
+.price-features{list-style:none;margin:25px 0;text-align:left}
+.price-features li{padding:10px 0;border-bottom:1px solid #444;font-size:14px;color:#ccc}
+.price-features li::before{content:'&#10003;';color:var(--neon);margin-right:10px;font-weight:700}
+.btn-plan{display:block;padding:14px;background:var(--red);color:var(--white);text-decoration:none;font-family:'Oswald',sans-serif;letter-spacing:2px;text-transform:uppercase;border:none;cursor:pointer;font-size:14px;border-radius:5px;transition:all .3s}
+.btn-plan:hover{box-shadow:0 0 25px rgba(255,45,45,.5)}
+
+/* CTA */
+.cta-section{text-align:center;background:linear-gradient(135deg,#1a0000,var(--black));padding:100px 60px}
+.cta-section h2{font-size:52px;letter-spacing:4px;margin-bottom:20px}
+.cta-section p{font-size:18px;color:#999;margin-bottom:40px;letter-spacing:2px}
+
+/* FOOTER */
+footer{background:var(--steel);padding:60px;text-align:center}
+.footer-links{display:flex;justify-content:center;gap:30px;margin-bottom:20px;flex-wrap:wrap}
+.footer-links a{color:#999;text-decoration:none;font-size:13px;letter-spacing:1px;transition:color .3s}
+.footer-links a:hover{color:var(--red)}
+footer p{color:#555;font-size:12px}
+
+/* MOBILE */
+@media(max-width:768px){
+.navbar{padding:15px 20px}
+.nav-links{display:none!important}
+.hamburger{display:flex}
+section{padding:60px 20px}
+.hero-content h1{font-size:40px}
+.programs-grid{grid-template-columns:1fr}
+.trainers-grid{grid-template-columns:1fr 1fr}
+.pricing-grid{grid-template-columns:1fr}
+.price-card.featured{transform:scale(1)}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.schedule-table{font-size:11px}
+.cta-section h2{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+<svg class="ecg-line" viewBox="0 0 300 80">
+<path class="ecg-path" d="M0,40 L60,40 L70,40 L80,10 L90,70 L100,20 L110,50 L120,40 L180,40 L190,40 L200,5 L210,75 L220,15 L230,55 L240,40 L300,40"/>
+</svg>
+<div class="loader-brand">APEX</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<a href="#" class="nav-logo">APE<span>X</span></a>
+<ul class="nav-links">
+<li><a href="#programs">Programs</a></li>
+<li><a href="#schedule">Schedule</a></li>
+<li><a href="#trainers">Trainers</a></li>
+<li><a href="#pricing">Pricing</a></li>
+<li><a href="#join">Join Now</a></li>
+</ul>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-fallback"></div>
+<video autoplay muted loop playsinline style="opacity:0;transition:opacity .5s" oncanplaythrough="this.style.opacity='1'">
+<source src="https://videos.pexels.com/video-files/4761434/4761434-uhd_2560_1440_25fps.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1>Push Your Limits</h1>
+<p>Strength. Discipline. Results.</p>
+<a href="#join" class="btn-red">Start Free Trial</a>
+</div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+<div class="stats-grid">
+<div class="reveal"><div class="stat-num" data-target="2500">0</div><div class="stat-label">Active Members</div></div>
+<div class="reveal"><div class="stat-num" data-target="45">0</div><div class="stat-label">Classes / Week</div></div>
+<div class="reveal"><div class="stat-num" data-target="18">0</div><div class="stat-label">Expert Trainers</div></div>
+<div class="reveal"><div class="stat-num" data-target="30000">0</div><div class="stat-label">Sq Ft Facility</div></div>
+</div>
+</div>
+
+<!-- PROGRAMS -->
+<section id="programs">
+<div class="section-label reveal">What We Offer</div>
+<h2 class="section-title reveal">Programs</h2>
+<div class="programs-grid">
+<div class="program-card reveal"><div class="program-icon">&#127947;</div><h3>Strength</h3><p>Build raw power with our free weight area, Olympic platforms, and structured strength programming.</p></div>
+<div class="program-card reveal"><div class="program-icon">&#9889;</div><h3>HIIT</h3><p>Torch calories and boost endurance with our high-intensity interval classes. Max results, minimal time.</p></div>
+<div class="program-card reveal"><div class="program-icon">&#129495;</div><h3>Yoga</h3><p>Restore balance and flexibility. From power flow to deep stretch, find your practice.</p></div>
+<div class="program-card reveal"><div class="program-icon">&#129354;</div><h3>Boxing</h3><p>Learn technique, build confidence, and get an incredible workout with our boxing program.</p></div>
+<div class="program-card reveal"><div class="program-icon">&#128692;</div><h3>Spin</h3><p>High-energy cycling classes with immersive lighting and heart-pounding music. Ride to the beat.</p></div>
+<div class="program-card reveal"><div class="program-icon">&#127939;</div><h3>CrossFit</h3><p>Functional fitness at high intensity. Constantly varied workouts that build complete athletes.</p></div>
+</div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule" style="background:var(--steel)">
+<div class="section-label reveal">Weekly</div>
+<h2 class="section-title reveal">Class Schedule</h2>
+<table class="schedule-table reveal">
+<tr><th>Time</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td>6:00 AM</td><td>HIIT</td><td>Spin</td><td>HIIT</td><td>Spin</td><td>HIIT</td><td>CrossFit</td></tr>
+<tr><td>7:30 AM</td><td>Yoga</td><td>Strength</td><td>Yoga</td><td>Strength</td><td>Yoga</td><td>Boxing</td></tr>
+<tr><td>12:00 PM</td><td>Boxing</td><td>HIIT</td><td>Boxing</td><td>HIIT</td><td>CrossFit</td><td>Yoga</td></tr>
+<tr><td>5:30 PM</td><td>CrossFit</td><td>Boxing</td><td>Spin</td><td>CrossFit</td><td>Strength</td><td>—</td></tr>
+<tr><td>7:00 PM</td><td>Strength</td><td>Yoga</td><td>CrossFit</td><td>Boxing</td><td>Spin</td><td>—</td></tr>
+</table>
+</section>
+
+<!-- TRAINERS -->
+<section id="trainers">
+<div class="section-label reveal">Meet the Team</div>
+<h2 class="section-title reveal">Our Trainers</h2>
+<div class="trainers-grid">
+<div class="trainer-card reveal">
+<div class="trainer-inner">
+<div class="trainer-front"><div class="trainer-photo">&#128170;</div><h3>Jake Torres</h3><p>Strength & Conditioning</p></div>
+<div class="trainer-back"><h3>Jake Torres</h3><p>CSCS certified with 10 years experience. Former collegiate athlete. Specializes in powerlifting and athletic performance.</p></div>
+</div>
+</div>
+<div class="trainer-card reveal">
+<div class="trainer-inner">
+<div class="trainer-front"><div class="trainer-photo">&#9889;</div><h3>Mia Chen</h3><p>HIIT & CrossFit</p></div>
+<div class="trainer-back"><h3>Mia Chen</h3><p>CrossFit L3 trainer. 3x regional competitor. Her high-energy classes push you to your absolute best.</p></div>
+</div>
+</div>
+<div class="trainer-card reveal">
+<div class="trainer-inner">
+<div class="trainer-front"><div class="trainer-photo">&#129354;</div><h3>Marcus Hall</h3><p>Boxing & MMA</p></div>
+<div class="trainer-back"><h3>Marcus Hall</h3><p>Pro boxing record 18-2. Trained athletes for UFC and Golden Gloves. Makes boxing accessible to everyone.</p></div>
+</div>
+</div>
+<div class="trainer-card reveal">
+<div class="trainer-inner">
+<div class="trainer-front"><div class="trainer-photo">&#129495;</div><h3>Priya Sharma</h3><p>Yoga & Mobility</p></div>
+<div class="trainer-back"><h3>Priya Sharma</h3><p>RYT-500 with 12 years of practice. Blends traditional yoga with modern sports science for optimal recovery.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--steel)">
+<div class="section-label reveal">Membership</div>
+<h2 class="section-title reveal">Choose Your Plan</h2>
+<div class="pricing-grid">
+<div class="price-card reveal">
+<div class="plan-name">Basic</div>
+<div class="price-amount">$39<span>/mo</span></div>
+<ul class="price-features">
+<li>Gym floor access</li>
+<li>Locker room & showers</li>
+<li>2 classes per week</li>
+<li>Fitness assessment</li>
+</ul>
+<button class="btn-plan">Get Started</button>
+</div>
+<div class="price-card featured reveal">
+<div class="plan-name">Pro</div>
+<div class="price-amount">$69<span>/mo</span></div>
+<ul class="price-features">
+<li>Full gym access 24/7</li>
+<li>Unlimited classes</li>
+<li>1 PT session/month</li>
+<li>Sauna & recovery zone</li>
+<li>Nutrition guidance</li>
+</ul>
+<button class="btn-plan">Get Started</button>
+</div>
+<div class="price-card reveal">
+<div class="plan-name">Elite</div>
+<div class="price-amount">$119<span>/mo</span></div>
+<ul class="price-features">
+<li>Everything in Pro</li>
+<li>4 PT sessions/month</li>
+<li>Custom meal plans</li>
+<li>Priority class booking</li>
+<li>Guest passes (2/month)</li>
+</ul>
+<button class="btn-plan">Get Started</button>
+</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="join">
+<h2 class="reveal">Your Transformation<br>Starts Now</h2>
+<p class="reveal">No contracts. No judgment. Just results.</p>
+<a href="#" class="btn-red reveal" style="animation:none;opacity:1">Claim Your Free Week</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-links">
+<a href="#programs">Programs</a>
+<a href="#schedule">Schedule</a>
+<a href="#trainers">Trainers</a>
+<a href="#pricing">Pricing</a>
+<a href="#">Careers</a>
+<a href="#">Contact</a>
+</div>
+<p>&copy; 2025 APEX Performance Gym. All rights reserved. | 1200 Iron Street, Austin, TX<br><br>Website designed by <a href="https://williamsdigital.io/gym" style="color:var(--red);text-decoration:none">williamsdigital.io/gym</a></p>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2500)});
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80)});
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.classList.add('active')},i*80);obs.unobserve(e.target)}})},{threshold:.12});
+reveals.forEach(el=>obs.observe(el));
+const counters=document.querySelectorAll('.stat-num');
+const cObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const t=+e.target.dataset.target;const d=2000;const s=performance.now();const a=(n)=>{const p=Math.min((n-s)/d,1);const v=1-Math.pow(1-p,3);e.target.textContent=Math.floor(v*t).toLocaleString();if(p<1)requestAnimationFrame(a)};requestAnimationFrame(a);cObs.unobserve(e.target)}})},{threshold:.5});
+counters.forEach(el=>cObs.observe(el));
+document.getElementById('hamburger').addEventListener('click',function(){const l=document.querySelector('.nav-links');if(l.style.display==='flex'){l.style.display='none'}else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='60px';l.style.right='20px';l.style.background='rgba(13,13,13,.95)';l.style.padding='20px';l.style.borderRadius='10px'}});
+</script>
+</body>
+</html>

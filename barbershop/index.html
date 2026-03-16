@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRON & BLADE Barbershop</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#1A1A1A;--gold:#C5A55A;--cream:#F2E8D5;--red:#8B2500;--charcoal:#333333}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;color:var(--cream);background:var(--black);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:3px}
+
+/* LOADER */
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--black);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
+.loader.hidden{opacity:0;visibility:hidden}
+.barber-pole{width:30px;height:100px;border:2px solid var(--gold);border-radius:15px;overflow:hidden;position:relative}
+.pole-stripes{position:absolute;top:-100%;left:0;width:100%;height:200%;background:repeating-linear-gradient(45deg,#fff 0,#fff 10px,var(--red) 10px,var(--red) 20px,#1B3A5C 20px,#1B3A5C 30px);animation:poleRotate 1s linear infinite}
+@keyframes poleRotate{to{transform:translateY(42px)}}
+.loader-brand{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--gold);letter-spacing:8px;margin-top:25px;opacity:0;animation:slashIn .5s ease 1.5s forwards}
+@keyframes slashIn{0%{opacity:0;transform:translateX(-30px) skewX(-10deg)}100%{opacity:1;transform:translateX(0) skewX(0)}}
+.loader-sub{font-size:12px;letter-spacing:6px;color:var(--cream);opacity:0;animation:fadeIn .5s ease 2s forwards}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all .4s}
+.navbar.scrolled{background:rgba(26,26,26,.95);padding:12px 60px}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);text-decoration:none;letter-spacing:4px}
+.nav-links{display:flex;gap:25px;list-style:none}
+.nav-links a{color:var(--cream);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:25px;height:1.5px;background:var(--gold);transition:.3s}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-fallback{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1A1A1A,#2a2015,#1A1A1A)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(26,26,26,.6)}
+.hero-content{position:relative;z-index:2;text-align:center}
+.hero-content h1{font-size:72px;letter-spacing:8px;margin-bottom:10px;color:var(--gold);opacity:0;animation:fadeUp .8s ease .5s forwards}
+.hero-content p{font-size:16px;letter-spacing:6px;text-transform:uppercase;margin-bottom:35px;opacity:0;animation:fadeUp .8s ease .8s forwards}
+.btn-gold{display:inline-block;padding:14px 45px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;transition:all .3s;opacity:0;animation:fadeUp .8s ease 1.1s forwards}
+.btn-gold:hover{background:var(--gold);color:var(--black)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* DIVIDER */
+.gold-divider{text-align:center;padding:20px 0;overflow:hidden}
+.gold-divider::after{content:'';display:block;width:80px;height:1px;background:var(--gold);margin:0 auto}
+
+/* SECTIONS */
+section{padding:80px 60px}
+.section-title{text-align:center;font-size:44px;color:var(--gold);margin-bottom:15px}
+.section-sub{text-align:center;font-size:14px;color:#888;letter-spacing:3px;margin-bottom:50px}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* ABOUT */
+.about{background:var(--charcoal);position:relative}
+.about::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="200" height="200" filter="url(%23noise)" opacity="0.03"/></svg>');pointer-events:none}
+.about-content{max-width:700px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.about-content p{line-height:1.9;color:#bbb;font-size:16px;margin-bottom:15px}
+.est-badge{display:inline-block;border:1px solid var(--gold);padding:8px 25px;color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;margin-top:20px}
+
+/* PRICING */
+.pricing-list{max-width:600px;margin:0 auto}
+.price-item{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid rgba(197,165,90,.15);transition:all .3s}
+.price-item:hover{padding-left:15px;border-bottom-color:var(--gold)}
+.price-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px}
+.price-desc{font-size:13px;color:#888;margin-top:3px}
+.price-dots{flex:1;border-bottom:1px dotted rgba(197,165,90,.3);margin:0 20px;align-self:end;margin-bottom:8px}
+.price-amount{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);white-space:nowrap}
+
+/* BARBERS */
+.barbers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.barber-card{background:var(--charcoal);border-radius:10px;overflow:hidden;transition:transform .4s}
+.barber-card:hover{transform:translateY(-8px)}
+.barber-photo{height:250px;background:linear-gradient(135deg,var(--gold),var(--red));display:flex;align-items:center;justify-content:center;font-size:60px}
+.barber-info{padding:25px;text-align:center}
+.barber-info h3{font-size:24px;color:var(--gold);letter-spacing:2px}
+.barber-info p{font-size:13px;color:#888;margin-top:5px}
+.barber-info .specialty{color:var(--gold);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:10px}
+
+/* GALLERY */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gallery-item{position:relative;overflow:hidden;border-radius:5px;height:250px;cursor:pointer}
+.gallery-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#333,#1a1a1a);display:flex;align-items:center;justify-content:center;font-size:13px;color:#666;transition:transform .4s}
+.gallery-item:hover .gallery-placeholder{transform:scale(1.1)}
+.gallery-item::after{content:attr(data-label);position:absolute;bottom:0;left:0;width:100%;padding:15px;background:linear-gradient(transparent,rgba(0,0,0,.8));color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;transform:translateY(100%);transition:transform .3s}
+.gallery-item:hover::after{transform:translateY(0)}
+
+/* EXPERIENCE PARALLAX */
+.experience{background:var(--charcoal);position:relative;overflow:hidden}
+.experience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;position:relative;z-index:2}
+.exp-item{text-align:center;padding:40px 20px}
+.exp-icon{font-size:48px;margin-bottom:15px}
+.exp-item h3{font-size:22px;color:var(--gold);margin-bottom:10px;letter-spacing:2px}
+.exp-item p{font-size:14px;color:#999;line-height:1.7}
+
+/* LOYALTY */
+.loyalty-card{max-width:500px;margin:0 auto;background:var(--charcoal);border:1px solid var(--gold);border-radius:15px;padding:40px;text-align:center}
+.loyalty-card h3{font-size:28px;color:var(--gold);margin-bottom:10px}
+.loyalty-card p{color:#888;font-size:14px;margin-bottom:25px}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.stamp{width:55px;height:55px;border-radius:50%;border:2px dashed var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:20px;transition:all .4s}
+.stamp.filled{background:var(--gold);color:var(--black);border-style:solid}
+
+/* BOOKING */
+.booking-form{max-width:600px;margin:0 auto}
+.form-row{display:flex;gap:12px;margin-bottom:12px}
+.form-row input,.form-row select{flex:1;padding:14px;background:var(--charcoal);border:1px solid rgba(197,165,90,.2);color:var(--cream);font-family:'Barlow',sans-serif;font-size:14px;border-radius:5px;transition:border-color .3s}
+.form-row input:focus,.form-row select:focus{outline:none;border-color:var(--gold)}
+.form-row select option{background:var(--charcoal)}
+.book-submit{width:100%;padding:16px;background:var(--gold);color:var(--black);border:none;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:4px;cursor:pointer;transition:all .3s;border-radius:5px}
+.book-submit:hover{background:var(--cream)}
+
+/* FOOTER */
+footer{background:var(--charcoal);padding:60px;text-align:center;border-top:1px solid rgba(197,165,90,.15)}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);letter-spacing:6px;margin-bottom:15px}
+footer p{color:#777;font-size:13px;line-height:2}
+.social-row{display:flex;justify-content:center;gap:15px;margin:20px 0}
+.social-row a{width:40px;height:40px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);text-decoration:none;font-size:14px;transition:all .3s}
+.social-row a:hover{background:var(--gold);color:var(--black)}
+
+/* MOBILE */
+@media(max-width:768px){
+.navbar{padding:15px 20px}
+.nav-links{display:none!important}
+.hamburger{display:flex}
+section{padding:60px 20px}
+.hero-content h1{font-size:42px}
+.barbers-grid{grid-template-columns:1fr}
+.gallery-grid{grid-template-columns:1fr 1fr}
+.experience-grid{grid-template-columns:1fr}
+.form-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+<div class="barber-pole"><div class="pole-stripes"></div></div>
+<div class="loader-brand">IRON & BLADE</div>
+<div class="loader-sub">BARBERSHOP</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<a href="#" class="nav-logo">IRON & BLADE</a>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#barbers">Barbers</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#book">Book Now</a></li>
+</ul>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-fallback"></div>
+<video autoplay muted loop playsinline style="opacity:0;transition:opacity .5s" oncanplaythrough="this.style.opacity='1'">
+<source src="https://videos.pexels.com/video-files/7697186/7697186-uhd_2560_1440_25fps.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1>IRON & BLADE</h1>
+<p>Craftsmanship &bull; Tradition &bull; Style</p>
+<a href="#book" class="btn-gold">Book Your Cut</a>
+</div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+<div class="about-content reveal">
+<h2 class="section-title">Our Story</h2>
+<p>Iron & Blade was born from a simple belief: every man deserves to look and feel his best. Founded in a small storefront in 2016, we've grown into the city's premier destination for the modern gentleman.</p>
+<p>We blend old-school barbering traditions — hot towel shaves, straight razor fades, and genuine craftsmanship — with a modern atmosphere that feels like home. Walk in as a customer, leave as family.</p>
+<div class="est-badge">EST. 2016</div>
+</div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- SERVICES & PRICING -->
+<section id="services">
+<h2 class="section-title reveal">Services & Pricing</h2>
+<div class="section-sub reveal">PREMIUM GROOMING FOR THE MODERN MAN</div>
+<div class="pricing-list">
+<div class="price-item reveal"><div><div class="price-name">Classic Haircut</div><div class="price-desc">Consultation, cut, hot towel, style</div></div><div class="price-dots"></div><div class="price-amount">$35</div></div>
+<div class="price-item reveal"><div><div class="price-name">Fade & Design</div><div class="price-desc">Skin fade, taper, or custom design</div></div><div class="price-dots"></div><div class="price-amount">$45</div></div>
+<div class="price-item reveal"><div><div class="price-name">Beard Trim & Shape</div><div class="price-desc">Trim, line-up, hot towel, beard oil</div></div><div class="price-dots"></div><div class="price-amount">$25</div></div>
+<div class="price-item reveal"><div><div class="price-name">Hot Towel Shave</div><div class="price-desc">Straight razor, hot lather, moisturizer</div></div><div class="price-dots"></div><div class="price-amount">$40</div></div>
+<div class="price-item reveal"><div><div class="price-name">Hair & Beard Combo</div><div class="price-desc">Full haircut + beard grooming</div></div><div class="price-dots"></div><div class="price-amount">$55</div></div>
+<div class="price-item reveal"><div><div class="price-name">Kids Cut</div><div class="price-desc">Ages 12 and under</div></div><div class="price-dots"></div><div class="price-amount">$25</div></div>
+<div class="price-item reveal"><div><div class="price-name">Head Shave</div><div class="price-desc">Full head razor shave, hot towel</div></div><div class="price-dots"></div><div class="price-amount">$35</div></div>
+</div>
+</section>
+
+<!-- BARBERS -->
+<section id="barbers" style="background:var(--charcoal)">
+<h2 class="section-title reveal">The Barbers</h2>
+<div class="section-sub reveal">MASTERS OF THEIR CRAFT</div>
+<div class="barbers-grid">
+<div class="barber-card reveal">
+<div class="barber-photo">&#9986;</div>
+<div class="barber-info"><h3>Tony Reeves</h3><p>12 Years Experience</p><div class="specialty">Fades & Razor Work</div></div>
+</div>
+<div class="barber-card reveal">
+<div class="barber-photo">&#9986;</div>
+<div class="barber-info"><h3>Marco Silva</h3><p>8 Years Experience</p><div class="specialty">Classic Cuts & Styling</div></div>
+</div>
+<div class="barber-card reveal">
+<div class="barber-photo">&#9986;</div>
+<div class="barber-info"><h3>Devon James</h3><p>6 Years Experience</p><div class="specialty">Designs & Beard Sculpting</div></div>
+</div>
+</div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+<h2 class="section-title reveal">Our Work</h2>
+<div class="section-sub reveal">FOLLOW US @IRONANDBLADE</div>
+<div class="gallery-grid">
+<div class="gallery-item reveal" data-label="Skin Fade"><div class="gallery-placeholder">Skin Fade</div></div>
+<div class="gallery-item reveal" data-label="Beard Sculpt"><div class="gallery-placeholder">Beard Sculpt</div></div>
+<div class="gallery-item reveal" data-label="Classic Taper"><div class="gallery-placeholder">Classic Taper</div></div>
+<div class="gallery-item reveal" data-label="Hot Towel Shave"><div class="gallery-placeholder">Hot Towel Shave</div></div>
+<div class="gallery-item reveal" data-label="Textured Crop"><div class="gallery-placeholder">Textured Crop</div></div>
+<div class="gallery-item reveal" data-label="Line Up"><div class="gallery-placeholder">Line Up</div></div>
+<div class="gallery-item reveal" data-label="Pompadour"><div class="gallery-placeholder">Pompadour</div></div>
+<div class="gallery-item reveal" data-label="Buzz Cut"><div class="gallery-placeholder">Buzz Cut</div></div>
+</div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience">
+<h2 class="section-title reveal">The Experience</h2>
+<div class="section-sub reveal">MORE THAN JUST A HAIRCUT</div>
+<div class="experience-grid">
+<div class="exp-item reveal"><div class="exp-icon">&#127867;</div><h3>Complimentary Whiskey</h3><p>Enjoy a glass of premium bourbon while you wait. Because a great cut deserves a great pour.</p></div>
+<div class="exp-item reveal"><div class="exp-icon">&#128167;</div><h3>Hot Towel Treatment</h3><p>Every service includes our signature hot towel experience — relaxing, refreshing, rejuvenating.</p></div>
+<div class="exp-item reveal"><div class="exp-icon">&#127918;</div><h3>Lounge & Games</h3><p>Big screens, retro games, and good conversation. Our shop is your second living room.</p></div>
+</div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- LOYALTY -->
+<section>
+<h2 class="section-title reveal">The Brotherhood</h2>
+<div class="section-sub reveal">LOYALTY REWARDS</div>
+<div class="loyalty-card reveal">
+<h3>Earn Your Free Cut</h3>
+<p>Every visit earns a stamp. 8 stamps = 1 free haircut.</p>
+<div class="stamps" id="stampCard">
+<div class="stamp">&#9986;</div><div class="stamp">&#9986;</div><div class="stamp">&#9986;</div><div class="stamp">&#9986;</div>
+<div class="stamp">&#9986;</div><div class="stamp">&#9986;</div><div class="stamp">&#9986;</div><div class="stamp">&#9986;</div>
+<div class="stamp" style="grid-column:2/5;width:auto;border-radius:25px;font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:16px">FREE CUT</div>
+</div>
+</div>
+</section>
+
+<!-- BOOKING -->
+<section id="book" style="background:var(--charcoal)">
+<h2 class="section-title reveal">Book Your Appointment</h2>
+<div class="section-sub reveal">WALK-INS WELCOME &bull; APPOINTMENTS PREFERRED</div>
+<div class="booking-form reveal">
+<div class="form-row"><input type="text" placeholder="Your Name"><input type="tel" placeholder="Phone"></div>
+<div class="form-row">
+<select><option>Select Barber</option><option>Tony Reeves</option><option>Marco Silva</option><option>Devon James</option><option>No Preference</option></select>
+<select><option>Select Service</option><option>Classic Haircut - $35</option><option>Fade & Design - $45</option><option>Beard Trim - $25</option><option>Hot Towel Shave - $40</option><option>Hair & Beard Combo - $55</option></select>
+</div>
+<div class="form-row"><input type="date"><input type="time"></div>
+<button class="book-submit" onclick="this.textContent='BOOKED! SEE YOU SOON.';this.style.background='var(--cream)'">Book Now</button>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-logo">IRON & BLADE</div>
+<div class="social-row">
+<a href="#">Ig</a><a href="#">Fb</a><a href="#">Yt</a>
+</div>
+<p>456 Main Street, Austin, TX 78701</p>
+<p>Tue-Fri: 9 AM - 8 PM | Sat: 8 AM - 6 PM | Sun-Mon: Closed</p>
+<p style="margin-top:15px;color:#555">&copy; 2025 Iron & Blade Barbershop. All rights reserved.<br><br>Website designed by <a href="https://williamsdigital.io/barbershop" style="color:var(--gold);text-decoration:none">williamsdigital.io/barbershop</a></p>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2500)});
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80)});
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.classList.add('active')},i*100);obs.unobserve(e.target)}})},{threshold:.12});
+reveals.forEach(el=>obs.observe(el));
+const stamps=document.querySelectorAll('.stamp');
+const stObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){stamps.forEach((s,i)=>{if(i<5)setTimeout(()=>{s.classList.add('filled')},i*200)});stObs.unobserve(e.target)}})},{threshold:.5});
+stObs.observe(document.getElementById('stampCard'));
+document.getElementById('hamburger').addEventListener('click',function(){const l=document.querySelector('.nav-links');if(l.style.display==='flex'){l.style.display='none'}else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='55px';l.style.right='20px';l.style.background='rgba(26,26,26,.95)';l.style.padding='20px';l.style.borderRadius='8px'}});
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forge & Grain Brewing Co.</title>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--amber:#B5651D;--brown:#3C2415;--cream:#FFF8E7;--copper:#B87333;--green:#2D5016;--charcoal:#1E1E1E}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans Pro',sans-serif;color:var(--cream);background:var(--charcoal);overflow-x:hidden}
+h1,h2,h3{font-family:'Alfa Slab One',serif}
+
+/* LOADER */
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--charcoal);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
+.loader.hidden{opacity:0;visibility:hidden}
+.beer-glass{width:80px;height:120px;border:3px solid var(--copper);border-top:none;border-radius:0 0 10px 10px;position:relative;overflow:hidden}
+.beer-fill{position:absolute;bottom:0;left:0;width:100%;height:0;background:linear-gradient(to top,var(--amber),#D4A017);animation:fillBeer 1.8s ease forwards;border-radius:0 0 7px 7px}
+@keyframes fillBeer{to{height:100%}}
+.foam{position:absolute;top:-15px;left:-3px;width:calc(100% + 6px);height:20px;background:var(--cream);border-radius:10px 10px 0 0;transform:scaleY(0);transform-origin:bottom;animation:foamRise .5s ease 1.5s forwards}
+@keyframes foamRise{to{transform:scaleY(1)}}
+.loader-brand{font-family:'Alfa Slab One',serif;font-size:28px;color:var(--copper);margin-top:25px;opacity:0;animation:fadeIn .5s ease 2s forwards}
+@keyframes fadeIn{to{opacity:1}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all .4s}
+.navbar.scrolled{background:rgba(60,36,21,.95);padding:12px 60px}
+.nav-logo{font-family:'Alfa Slab One',serif;font-size:20px;color:var(--copper);text-decoration:none}
+.nav-links{display:flex;gap:25px;list-style:none}
+.nav-links a{color:var(--cream);text-decoration:none;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover{color:var(--copper)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:25px;height:2px;background:var(--copper)}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-fallback{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#3C2415,#5a3a1e,#3C2415)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(30,30,30,.55)}
+.hero-content{position:relative;z-index:2;text-align:center}
+.hero-content h1{font-size:64px;color:var(--cream);margin-bottom:15px;opacity:0;animation:fadeUp .8s ease .5s forwards}
+.hero-content p{font-size:18px;color:var(--copper);letter-spacing:3px;margin-bottom:35px;opacity:0;animation:fadeUp .8s ease .8s forwards}
+.hero-btns{display:flex;gap:15px;justify-content:center;opacity:0;animation:fadeUp .8s ease 1.1s forwards}
+.btn-brew{padding:14px 35px;border:2px solid var(--copper);color:var(--copper);text-decoration:none;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .3s;font-size:14px}
+.btn-brew:hover{background:var(--copper);color:var(--charcoal)}
+.btn-brew.filled{background:var(--copper);color:var(--charcoal)}
+.btn-brew.filled:hover{background:var(--amber)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS */
+section{padding:80px 60px}
+.section-title{text-align:center;font-size:40px;color:var(--copper);margin-bottom:15px}
+.section-sub{text-align:center;font-size:14px;color:#999;letter-spacing:3px;text-transform:uppercase;margin-bottom:50px}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* OUR STORY / TIMELINE */
+.story{background:var(--brown)}
+.story-text{max-width:700px;margin:0 auto 50px;text-align:center;font-size:16px;line-height:1.9;color:#ccc}
+.timeline{max-width:600px;margin:0 auto;position:relative;padding-left:40px}
+.timeline::before{content:'';position:absolute;left:15px;top:0;width:2px;height:100%;background:var(--copper);opacity:.3}
+.timeline-item{position:relative;margin-bottom:35px;padding-left:30px}
+.timeline-item::before{content:'';position:absolute;left:-30px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--copper);border:3px solid var(--charcoal)}
+.timeline-year{font-family:'Alfa Slab One',serif;font-size:24px;color:var(--copper)}
+.timeline-desc{font-size:15px;color:#bbb;margin-top:5px}
+
+/* ON TAP */
+.on-tap{background:var(--charcoal)}
+.tap-list{max-width:800px;margin:0 auto}
+.tap-item{display:flex;align-items:center;padding:18px 0;border-bottom:1px solid rgba(184,115,51,.15);transition:all .3s;gap:15px}
+.tap-item:hover{padding-left:10px;background:rgba(184,115,51,.05)}
+.tap-color{width:20px;height:20px;border-radius:50%;flex-shrink:0}
+.tap-info{flex:1}
+.tap-name{font-family:'Alfa Slab One',serif;font-size:20px;color:var(--cream)}
+.tap-style{font-size:13px;color:var(--copper);margin-top:2px}
+.tap-stats{display:flex;gap:15px;font-size:13px;color:#888}
+.tap-desc{font-size:13px;color:#777;margin-top:5px;max-height:0;overflow:hidden;transition:max-height .3s}
+.tap-item:hover .tap-desc{max-height:50px}
+
+/* BREWING PROCESS */
+.process{background:var(--brown)}
+.process-steps{display:grid;grid-template-columns:repeat(6,1fr);gap:15px;text-align:center}
+.process-step{padding:30px 10px}
+.process-icon{font-size:40px;margin-bottom:15px}
+.process-step h4{font-family:'Alfa Slab One',serif;font-size:16px;color:var(--copper);margin-bottom:8px}
+.process-step p{font-size:12px;color:#999}
+
+/* EVENTS */
+.events-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:25px}
+.event-card{background:var(--brown);border-radius:10px;padding:30px;display:flex;gap:20px;transition:transform .3s}
+.event-card:hover{transform:translateY(-5px)}
+.event-date{min-width:60px;text-align:center;background:var(--copper);border-radius:8px;padding:10px;color:var(--charcoal)}
+.event-date .month{font-size:12px;text-transform:uppercase;font-weight:700}
+.event-date .day{font-family:'Alfa Slab One',serif;font-size:28px}
+.event-info h3{font-size:20px;color:var(--cream);margin-bottom:5px}
+.event-info p{font-size:14px;color:#999}
+
+/* STATS */
+.stats-bar{background:var(--copper);padding:50px 60px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+.stat-num{font-family:'Alfa Slab One',serif;font-size:48px;color:var(--charcoal)}
+.stat-label{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:rgba(30,30,30,.7);margin-top:5px}
+
+/* VISIT */
+.visit{background:var(--brown)}
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.visit-info h3{font-family:'Alfa Slab One',serif;font-size:22px;color:var(--copper);margin-bottom:15px}
+.visit-info p{line-height:1.9;color:#bbb;font-size:15px}
+.visit-badges{display:flex;gap:15px;margin-top:25px;flex-wrap:wrap}
+.badge{padding:8px 18px;border:1px solid var(--copper);color:var(--copper);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border-radius:20px}
+.map-placeholder{height:300px;background:var(--charcoal);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--copper);font-size:16px}
+
+/* FOOTER */
+footer{background:var(--charcoal);padding:60px;text-align:center;border-top:1px solid rgba(184,115,51,.15)}
+.footer-brand{font-family:'Alfa Slab One',serif;font-size:24px;color:var(--copper);margin-bottom:15px}
+.footer-links{display:flex;justify-content:center;gap:25px;margin:15px 0;flex-wrap:wrap}
+.footer-links a{color:#888;text-decoration:none;font-size:14px;transition:color .3s}
+.footer-links a:hover{color:var(--copper)}
+.age-notice{margin-top:20px;padding:15px;border:1px solid rgba(184,115,51,.2);border-radius:5px;font-size:13px;color:#888}
+footer .copyright{margin-top:20px;font-size:12px;color:#555}
+
+/* MOBILE */
+@media(max-width:768px){
+.navbar{padding:15px 20px}
+.nav-links{display:none!important}
+.hamburger{display:flex}
+section{padding:60px 20px}
+.hero-content h1{font-size:36px}
+.process-steps{grid-template-columns:repeat(3,1fr)}
+.events-grid{grid-template-columns:1fr}
+.visit-grid{grid-template-columns:1fr}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.hero-btns{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+<div class="beer-glass">
+<div class="beer-fill"></div>
+<div class="foam"></div>
+</div>
+<div class="loader-brand">FORGE & GRAIN</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<a href="#" class="nav-logo">FORGE & GRAIN</a>
+<ul class="nav-links">
+<li><a href="#story">Story</a></li>
+<li><a href="#tap">On Tap</a></li>
+<li><a href="#events">Events</a></li>
+<li><a href="#visit">Visit</a></li>
+</ul>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-fallback"></div>
+<video autoplay muted loop playsinline style="opacity:0;transition:opacity .5s" oncanplaythrough="this.style.opacity='1'">
+<source src="https://videos.pexels.com/video-files/5530098/5530098-uhd_2560_1440_25fps.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1>Brewed With Purpose</h1>
+<p>Small Batch &bull; Big Flavor &bull; Portland, OR</p>
+<div class="hero-btns">
+<a href="#visit" class="btn-brew filled">Visit the Taproom</a>
+<a href="#tap" class="btn-brew">See What's On Tap</a>
+</div>
+</div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+<div class="stats-grid">
+<div class="reveal"><div class="stat-num" data-target="850">0</div><div class="stat-label">Batches Brewed</div></div>
+<div class="reveal"><div class="stat-num" data-target="24">0</div><div class="stat-label">Beers On Tap</div></div>
+<div class="reveal"><div class="stat-num" data-target="12">0</div><div class="stat-label">Awards Won</div></div>
+<div class="reveal"><div class="stat-num" data-target="8">0</div><div class="stat-label">Farm Partners</div></div>
+</div>
+</div>
+
+<!-- STORY -->
+<section class="story" id="story">
+<h2 class="section-title reveal">Our Story</h2>
+<div class="section-sub reveal">FROM GARAGE TO TAPROOM</div>
+<p class="story-text reveal">What started as two friends brewing in a garage has grown into one of Portland's most beloved craft breweries. We believe great beer comes from great ingredients, patience, and an obsessive attention to detail.</p>
+<div class="timeline">
+<div class="timeline-item reveal"><div class="timeline-year">2016</div><div class="timeline-desc">First homebrew batch in a Southeast Portland garage</div></div>
+<div class="timeline-item reveal"><div class="timeline-year">2018</div><div class="timeline-desc">Won Portland Beer Week People's Choice Award</div></div>
+<div class="timeline-item reveal"><div class="timeline-year">2019</div><div class="timeline-desc">Opened our 5,000 sqft taproom & production brewery</div></div>
+<div class="timeline-item reveal"><div class="timeline-year">2021</div><div class="timeline-desc">Expanded distribution to 200+ locations statewide</div></div>
+<div class="timeline-item reveal"><div class="timeline-year">2024</div><div class="timeline-desc">GABF Silver Medal — Forge Lager</div></div>
+</div>
+</section>
+
+<!-- ON TAP -->
+<section class="on-tap" id="tap">
+<h2 class="section-title reveal">What's On Tap</h2>
+<div class="section-sub reveal">FRESH FROM THE TANKS</div>
+<div class="tap-list">
+<div class="tap-item reveal"><div class="tap-color" style="background:#D4A017"></div><div class="tap-info"><div class="tap-name">Anvil Amber Ale</div><div class="tap-style">American Amber</div><div class="tap-desc">Toasty malt, caramel sweetness, clean finish</div></div><div class="tap-stats"><span>5.4% ABV</span><span>28 IBU</span></div></div>
+<div class="tap-item reveal"><div class="tap-color" style="background:#C17817"></div><div class="tap-info"><div class="tap-name">Copperhead IPA</div><div class="tap-style">West Coast IPA</div><div class="tap-desc">Citrus & pine hops, bitter and bright</div></div><div class="tap-stats"><span>6.8% ABV</span><span>65 IBU</span></div></div>
+<div class="tap-item reveal"><div class="tap-color" style="background:#2C1810"></div><div class="tap-info"><div class="tap-name">Iron Stout</div><div class="tap-style">Oatmeal Stout</div><div class="tap-desc">Rich chocolate, coffee, silky oat body</div></div><div class="tap-stats"><span>5.8% ABV</span><span>35 IBU</span></div></div>
+<div class="tap-item reveal"><div class="tap-color" style="background:#F0D58C"></div><div class="tap-info"><div class="tap-name">Hefeweizen Sunrise</div><div class="tap-style">German Wheat</div><div class="tap-desc">Banana, clove, refreshing wheat character</div></div><div class="tap-stats"><span>4.9% ABV</span><span>12 IBU</span></div></div>
+<div class="tap-item reveal"><div class="tap-color" style="background:#E8B04B"></div><div class="tap-info"><div class="tap-name">Forge Lager</div><div class="tap-style">Czech Pilsner</div><div class="tap-desc">Crisp, clean, Saaz hops, GABF Silver Medal</div></div><div class="tap-stats"><span>4.7% ABV</span><span>32 IBU</span></div></div>
+<div class="tap-item reveal"><div class="tap-color" style="background:#FFB347"></div><div class="tap-info"><div class="tap-name">Haze & Ember</div><div class="tap-style">Hazy Double IPA</div><div class="tap-desc">Juicy tropical, soft mouthfeel, big aroma</div></div><div class="tap-stats"><span>8.2% ABV</span><span>45 IBU</span></div></div>
+</div>
+</section>
+
+<!-- BREWING PROCESS -->
+<section class="process">
+<h2 class="section-title reveal">How We Brew</h2>
+<div class="section-sub reveal">FROM GRAIN TO GLASS</div>
+<div class="process-steps">
+<div class="process-step reveal"><div class="process-icon">&#127806;</div><h4>Grain</h4><p>Premium malt from local farms</p></div>
+<div class="process-step reveal"><div class="process-icon">&#128167;</div><h4>Mash</h4><p>Converting starches to sugars</p></div>
+<div class="process-step reveal"><div class="process-icon">&#128293;</div><h4>Boil</h4><p>Hops added for flavor & aroma</p></div>
+<div class="process-step reveal"><div class="process-icon">&#129516;</div><h4>Ferment</h4><p>Yeast works its magic</p></div>
+<div class="process-step reveal"><div class="process-icon">&#10052;</div><h4>Condition</h4><p>Cold conditioning for clarity</p></div>
+<div class="process-step reveal"><div class="process-icon">&#127866;</div><h4>Pour</h4><p>Fresh to your glass</p></div>
+</div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+<h2 class="section-title reveal">What's Happening</h2>
+<div class="section-sub reveal">UPCOMING EVENTS</div>
+<div class="events-grid">
+<div class="event-card reveal"><div class="event-date"><div class="month">Mar</div><div class="day">20</div></div><div class="event-info"><h3>Trivia Night</h3><p>Every Thursday. Teams of 4. Prizes include gift cards & merch. 7 PM start.</p></div></div>
+<div class="event-card reveal"><div class="event-date"><div class="month">Mar</div><div class="day">22</div></div><div class="event-info"><h3>Live Music: The Hops</h3><p>Local indie folk band. No cover. Grab a pint and enjoy. 8 PM.</p></div></div>
+<div class="event-card reveal"><div class="event-date"><div class="month">Apr</div><div class="day">01</div></div><div class="event-info"><h3>Spring Beer Release</h3><p>Tasting flight of 4 new seasonal brews. First 50 guests get a free glass.</p></div></div>
+<div class="event-card reveal"><div class="event-date"><div class="month">Apr</div><div class="day">05</div></div><div class="event-info"><h3>Brewery Tour</h3><p>Behind-the-scenes tour with our head brewer. Includes 3 sample pours. $15.</p></div></div>
+</div>
+</section>
+
+<!-- VISIT -->
+<section class="visit" id="visit">
+<h2 class="section-title reveal">Visit the Taproom</h2>
+<div class="section-sub reveal">ALL AGES &bull; DOG FRIENDLY</div>
+<div class="visit-grid">
+<div class="visit-info reveal">
+<h3>Hours</h3>
+<p>Monday - Thursday: 3 PM - 10 PM<br>Friday: 12 PM - 11 PM<br>Saturday: 11 AM - 11 PM<br>Sunday: 11 AM - 8 PM</p>
+<h3 style="margin-top:25px">Location</h3>
+<p>2847 SE Division Street<br>Portland, OR 97202</p>
+<h3 style="margin-top:25px">Food</h3>
+<p>Food truck on-site Thu-Sun. Outside food always welcome!</p>
+<div class="visit-badges">
+<div class="badge">&#128054; Dog Friendly</div>
+<div class="badge">&#127937; Private Events</div>
+<div class="badge">&#127966; Patio Seating</div>
+</div>
+</div>
+<div class="map-placeholder reveal">&#128205; 2847 SE Division St, Portland</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-brand">FORGE & GRAIN BREWING CO.</div>
+<div class="footer-links">
+<a href="#story">Our Story</a>
+<a href="#tap">On Tap</a>
+<a href="#events">Events</a>
+<a href="#visit">Visit</a>
+<a href="#">Merch</a>
+<a href="#">Careers</a>
+</div>
+<div class="age-notice">&#9888; You must be 21 or older to consume alcoholic beverages. Please drink responsibly.</div>
+<div class="copyright">&copy; 2025 Forge & Grain Brewing Co. All rights reserved.<br><br>Website designed by <a href="https://williamsdigital.io/brewery" style="color:var(--copper);text-decoration:none">williamsdigital.io/brewery</a></div>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2500)});
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80)});
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.classList.add('active')},i*80);obs.unobserve(e.target)}})},{threshold:.12});
+reveals.forEach(el=>obs.observe(el));
+const counters=document.querySelectorAll('.stat-num');
+const cObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const t=+e.target.dataset.target;const d=2000;const s=performance.now();const a=(n)=>{const p=Math.min((n-s)/d,1);e.target.textContent=Math.floor((1-Math.pow(1-p,3))*t).toLocaleString();if(p<1)requestAnimationFrame(a)};requestAnimationFrame(a);cObs.unobserve(e.target)}})},{threshold:.5});
+counters.forEach(el=>cObs.observe(el));
+document.getElementById('hamburger').addEventListener('click',function(){const l=document.querySelector('.nav-links');if(l.style.display==='flex'){l.style.display='none'}else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='55px';l.style.right='20px';l.style.background='rgba(60,36,21,.95)';l.style.padding='20px';l.style.borderRadius='8px'}});
+</script>
+</body>
+</html>

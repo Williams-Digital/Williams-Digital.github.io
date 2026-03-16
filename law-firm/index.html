@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sterling, Harper & Associates | Attorneys at Law</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#0C1B33;--gold:#B8860B;--white:#FFFFFF;--silver:#C0C0C0;--charcoal:#1C1C1C;--burgundy:#5C1A1B}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans Pro',sans-serif;color:var(--charcoal);background:var(--white);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Libre Baskerville',serif}
+
+/* LOADER */
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--navy);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+.loader.hidden{opacity:0;visibility:hidden}
+.scales-svg{width:100px;height:80px}
+.scale-path{fill:none;stroke:var(--gold);stroke-width:1.5;stroke-dasharray:300;stroke-dashoffset:300;animation:drawScale 1.5s ease forwards}
+@keyframes drawScale{to{stroke-dashoffset:0}}
+.loader-line{width:0;height:1px;background:var(--gold);margin:20px auto 15px;animation:expandLine .6s ease 1.3s forwards}
+@keyframes expandLine{to{width:200px}}
+.loader-brand{font-family:'Libre Baskerville',serif;font-size:22px;color:var(--gold);letter-spacing:3px;opacity:0;animation:fadeIn .6s ease 1.6s forwards}
+.loader-sub{font-size:11px;color:var(--silver);letter-spacing:4px;opacity:0;animation:fadeIn .5s ease 1.9s forwards}
+@keyframes fadeIn{to{opacity:1}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;padding:20px 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all .4s}
+.navbar.scrolled{background:var(--navy);padding:14px 60px;box-shadow:0 2px 20px rgba(0,0,0,.15)}
+.nav-logo{font-family:'Libre Baskerville',serif;font-size:16px;color:var(--gold);text-decoration:none;letter-spacing:2px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--white);text-decoration:none;font-size:13px;letter-spacing:1.5px;font-weight:600;transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{padding:10px 25px;border:1px solid var(--gold);color:var(--gold)!important;transition:all .3s!important}
+.nav-cta:hover{background:var(--gold)!important;color:var(--navy)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:25px;height:1.5px;background:var(--gold)}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-fallback{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#0C1B33,#1a2d4d,#0C1B33)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(12,27,51,.65)}
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--white);max-width:800px}
+.hero-content h1{font-size:52px;margin-bottom:15px;opacity:0;animation:fadeSlide 1s ease .5s forwards;line-height:1.3}
+.hero-content p{font-size:16px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:15px;opacity:0;animation:fadeSlide 1s ease .8s forwards}
+.hero-phone{font-size:22px;font-weight:700;margin-bottom:30px;opacity:0;animation:fadeSlide 1s ease 1s forwards}
+.btn-consult{display:inline-block;padding:16px 45px;background:var(--gold);color:var(--navy);text-decoration:none;font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase;transition:all .3s;opacity:0;animation:fadeSlide 1s ease 1.2s forwards}
+.btn-consult:hover{background:var(--white)}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS */
+section{padding:80px 60px}
+.dark-bg{background:var(--navy);color:var(--white)}
+.light-bg{background:var(--white)}
+.cream-bg{background:#F9F6F1}
+.section-label{text-align:center;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.section-title{text-align:center;font-size:38px;margin-bottom:15px}
+.section-sub{text-align:center;color:#888;font-size:15px;margin-bottom:50px;max-width:600px;margin-left:auto;margin-right:auto}
+.gold-line{width:50px;height:1px;background:var(--gold);margin:15px auto 50px}
+.reveal{opacity:0;transform:translateY(25px);transition:all .7s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* TRUST BAR */
+.trust-bar{background:var(--charcoal);padding:50px 60px}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center;color:var(--white)}
+.trust-num{font-family:'Libre Baskerville',serif;font-size:48px;color:var(--gold)}
+.trust-label{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--silver);margin-top:8px}
+
+/* PRACTICE AREAS */
+.practice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.practice-card{background:var(--white);border:1px solid #e8e8e8;border-radius:8px;padding:35px 25px;transition:all .4s}
+.practice-card:hover{border-color:var(--gold);box-shadow:0 10px 30px rgba(184,134,11,.1);transform:translateY(-5px)}
+.practice-icon{font-size:36px;margin-bottom:15px;color:var(--gold)}
+.practice-card h3{font-size:20px;margin-bottom:10px;color:var(--navy)}
+.practice-card p{font-size:14px;color:#777;line-height:1.7}
+.practice-link{display:inline-block;margin-top:15px;color:var(--gold);text-decoration:none;font-size:13px;font-weight:600;letter-spacing:1px;transition:color .3s}
+.practice-link:hover{color:var(--burgundy)}
+.practice-link span{transition:transform .3s;display:inline-block}
+.practice-link:hover span{transform:translateX(5px)}
+
+/* WHY CHOOSE */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.why-card{text-align:center;padding:40px 25px;border:1px solid rgba(184,134,11,.15);border-radius:8px}
+.why-icon{font-size:42px;margin-bottom:15px;color:var(--gold)}
+.why-card h3{font-size:20px;margin-bottom:10px;color:var(--navy)}
+.why-card p{font-size:14px;color:#777;line-height:1.7}
+
+/* CASE RESULTS */
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.result-card{background:var(--navy);border-radius:8px;padding:35px;text-align:center;border:1px solid rgba(184,134,11,.2)}
+.result-amount{font-family:'Libre Baskerville',serif;font-size:42px;color:var(--gold);margin-bottom:10px}
+.result-type{font-size:14px;color:var(--white);font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}
+.result-desc{font-size:13px;color:var(--silver)}
+.results-disclaimer{text-align:center;font-size:12px;color:#999;margin-top:30px;font-style:italic}
+
+/* ATTORNEYS */
+.attorneys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.attorney-card{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,.05);transition:transform .3s}
+.attorney-card:hover{transform:translateY(-5px)}
+.attorney-photo{height:250px;background:linear-gradient(135deg,var(--navy),#2a3d5a);display:flex;align-items:center;justify-content:center;font-size:50px;color:var(--gold)}
+.attorney-info{padding:25px}
+.attorney-info h3{font-size:20px;color:var(--navy);margin-bottom:3px}
+.attorney-title{color:var(--gold);font-size:13px;font-weight:600;margin-bottom:10px}
+.attorney-info p{font-size:14px;color:#777;line-height:1.6}
+.attorney-edu{font-size:12px;color:#aaa;margin-top:10px;font-style:italic}
+
+/* TESTIMONIALS */
+.testimonial-container{max-width:700px;margin:0 auto;text-align:center}
+.testimonial-slide{display:none;padding:30px}
+.testimonial-slide.active{display:block;animation:fadeIn .5s ease}
+.testimonial-stars{color:var(--gold);font-size:20px;margin-bottom:20px;letter-spacing:3px}
+.testimonial-text{font-family:'Libre Baskerville',serif;font-size:20px;font-style:italic;line-height:1.7;color:#555;margin-bottom:20px}
+.testimonial-author{font-size:14px;font-weight:600;color:var(--navy)}
+.testimonial-case{font-size:13px;color:#999}
+.test-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
+.test-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold);cursor:pointer;transition:background .3s}
+.test-dot.active{background:var(--gold)}
+
+/* CONSULTATION FORM */
+.consult-form{max-width:650px;margin:0 auto;background:var(--white);border-radius:10px;padding:50px;box-shadow:0 10px 40px rgba(0,0,0,.06)}
+.form-row{display:flex;gap:12px;margin-bottom:12px}
+.form-row input,.form-row select,.form-row textarea{flex:1;padding:14px 18px;border:1px solid #ddd;border-radius:5px;font-family:'Source Sans Pro',sans-serif;font-size:14px;transition:border-color .3s}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{outline:none;border-color:var(--gold)}
+.form-row textarea{resize:vertical;min-height:100px}
+.form-submit{width:100%;padding:16px;background:var(--gold);color:var(--navy);border:none;font-family:'Source Sans Pro',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s;border-radius:5px}
+.form-submit:hover{background:var(--navy);color:var(--gold)}
+.form-note{text-align:center;margin-top:15px;font-size:13px;color:#999}
+
+/* AWARDS BAR */
+.awards{background:var(--charcoal);padding:40px 60px}
+.awards-grid{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;align-items:center}
+.award-item{text-align:center;color:var(--silver);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:10px 20px;border:1px solid rgba(192,192,192,.2);border-radius:5px}
+
+/* FOOTER */
+footer{background:var(--navy);color:var(--white);padding:60px}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-bottom:40px}
+.footer-col h4{font-family:'Libre Baskerville',serif;font-size:16px;color:var(--gold);margin-bottom:15px;font-weight:400}
+.footer-col p,.footer-col a{color:rgba(255,255,255,.5);font-size:14px;line-height:2;text-decoration:none;display:block}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{text-align:center;padding-top:30px;border-top:1px solid rgba(184,134,11,.15);font-size:11px;color:rgba(255,255,255,.3);line-height:2}
+
+/* MOBILE */
+@media(max-width:768px){
+.navbar{padding:15px 20px}
+.nav-links{display:none!important}
+.hamburger{display:flex}
+section{padding:60px 20px}
+.hero-content h1{font-size:32px}
+.trust-grid{grid-template-columns:repeat(2,1fr)}
+.practice-grid,.attorneys-grid,.results-grid{grid-template-columns:1fr}
+.why-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr 1fr}
+.form-row{flex-direction:column}
+.consult-form{padding:30px 20px}
+.awards-grid{gap:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+<svg class="scales-svg" viewBox="0 0 100 80">
+<line class="scale-path" x1="50" y1="5" x2="50" y2="65"/>
+<line class="scale-path" x1="15" y1="30" x2="85" y2="30" style="animation-delay:.3s"/>
+<path class="scale-path" d="M15,30 L5,55 L25,55 Z" style="animation-delay:.5s"/>
+<path class="scale-path" d="M85,30 L75,55 L95,55 Z" style="animation-delay:.7s"/>
+<line class="scale-path" x1="35" y1="65" x2="65" y2="65" style="animation-delay:.9s"/>
+</svg>
+<div class="loader-line"></div>
+<div class="loader-brand">STERLING, HARPER &amp; ASSOCIATES</div>
+<div class="loader-sub">ATTORNEYS AT LAW &bull; EST. 1987</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<a href="#" class="nav-logo">STERLING HARPER</a>
+<ul class="nav-links">
+<li><a href="#practice">Practice Areas</a></li>
+<li><a href="#results">Results</a></li>
+<li><a href="#attorneys">Attorneys</a></li>
+<li><a href="#consult" class="nav-cta">Free Consultation</a></li>
+</ul>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-fallback"></div>
+<video autoplay muted loop playsinline style="opacity:0;transition:opacity .5s" oncanplaythrough="this.style.opacity='1'">
+<source src="https://videos.pexels.com/video-files/6077514/6077514-uhd_2560_1440_25fps.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<p>EST. 1987</p>
+<h1>Justice. Integrity. Results.</h1>
+<div class="hero-phone">&#128222; (503) 555-0312</div>
+<a href="#consult" class="btn-consult">Free Consultation</a>
+</div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+<div class="trust-grid">
+<div class="reveal"><div class="trust-num" data-target="500">0</div><div class="trust-label">Cases Won</div></div>
+<div class="reveal"><div class="trust-num" data-target="50">0</div><div class="trust-label">$M+ Recovered</div></div>
+<div class="reveal"><div class="trust-num" data-target="35">0</div><div class="trust-label">Years Experience</div></div>
+<div class="reveal"><div class="trust-num" data-target="98">0</div><div class="trust-label">% Client Satisfaction</div></div>
+</div>
+</div>
+
+<!-- PRACTICE AREAS -->
+<section class="cream-bg" id="practice">
+<div class="section-label reveal">What We Do</div>
+<h2 class="section-title reveal">Practice Areas</h2>
+<div class="gold-line"></div>
+<div class="practice-grid">
+<div class="practice-card reveal"><div class="practice-icon">&#9878;</div><h3>Personal Injury</h3><p>Auto accidents, slip and fall, medical malpractice, wrongful death. We fight for maximum compensation.</p><a href="#" class="practice-link">Learn More <span>&rarr;</span></a></div>
+<div class="practice-card reveal"><div class="practice-icon">&#128737;</div><h3>Criminal Defense</h3><p>DUI, drug charges, assault, white-collar crimes. Aggressive defense to protect your rights and freedom.</p><a href="#" class="practice-link">Learn More <span>&rarr;</span></a></div>
+<div class="practice-card reveal"><div class="practice-icon">&#128106;</div><h3>Family Law</h3><p>Divorce, custody, child support, adoption. Compassionate guidance through life's most difficult moments.</p><a href="#" class="practice-link">Learn More <span>&rarr;</span></a></div>
+<div class="practice-card reveal"><div class="practice-icon">&#127970;</div><h3>Business Litigation</h3><p>Contract disputes, partnership conflicts, intellectual property, employment claims. Protecting your business.</p><a href="#" class="practice-link">Learn More <span>&rarr;</span></a></div>
+<div class="practice-card reveal"><div class="practice-icon">&#128220;</div><h3>Estate Planning</h3><p>Wills, trusts, probate, power of attorney. Secure your family's future with a comprehensive plan.</p><a href="#" class="practice-link">Learn More <span>&rarr;</span></a></div>
+<div class="practice-card reveal"><div class="practice-icon">&#128188;</div><h3>Employment Law</h3><p>Wrongful termination, discrimination, harassment, wage disputes. Standing up for workers' rights.</p><a href="#" class="practice-link">Learn More <span>&rarr;</span></a></div>
+</div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section>
+<div class="section-label reveal">Our Promise</div>
+<h2 class="section-title reveal">Why Choose Us</h2>
+<div class="gold-line"></div>
+<div class="why-grid">
+<div class="why-card reveal"><div class="why-icon">&#127942;</div><h3>Proven Track Record</h3><p>Over 500 cases won and $50M+ recovered for our clients. Our results speak for themselves.</p></div>
+<div class="why-card reveal"><div class="why-icon">&#129309;</div><h3>Personalized Approach</h3><p>Every case is unique. We take the time to understand your situation and craft a tailored legal strategy.</p></div>
+<div class="why-card reveal"><div class="why-icon">&#128176;</div><h3>No Fee Unless We Win</h3><p>For personal injury cases, you pay nothing unless we secure a recovery. Zero risk, maximum effort.</p></div>
+</div>
+</section>
+
+<!-- CASE RESULTS -->
+<section class="cream-bg" id="results">
+<div class="section-label reveal">Our Record</div>
+<h2 class="section-title reveal">Notable Results</h2>
+<div class="gold-line"></div>
+<div class="results-grid">
+<div class="result-card reveal"><div class="result-amount" data-target="8500000" data-prefix="$">$0</div><div class="result-type">Medical Malpractice</div><div class="result-desc">Surgical error resulting in permanent disability</div></div>
+<div class="result-card reveal"><div class="result-amount" data-target="4200000" data-prefix="$">$0</div><div class="result-type">Auto Accident</div><div class="result-desc">Multi-vehicle collision, traumatic brain injury</div></div>
+<div class="result-card reveal"><div class="result-amount" data-target="3100000" data-prefix="$">$0</div><div class="result-type">Wrongful Termination</div><div class="result-desc">Discrimination and retaliation case</div></div>
+</div>
+<p class="results-disclaimer reveal">*Past results do not guarantee future outcomes. Every case is different.</p>
+</section>
+
+<!-- ATTORNEYS -->
+<section id="attorneys">
+<div class="section-label reveal">Our Team</div>
+<h2 class="section-title reveal">The Attorneys</h2>
+<div class="gold-line"></div>
+<div class="attorneys-grid">
+<div class="attorney-card reveal">
+<div class="attorney-photo">&#9878;</div>
+<div class="attorney-info"><h3>Robert Sterling</h3><div class="attorney-title">Founding Partner</div><p>35 years of trial experience. Specializes in personal injury and complex litigation. AV-Rated by Martindale-Hubbell.</p><div class="attorney-edu">Harvard Law School, J.D. 1989</div></div>
+</div>
+<div class="attorney-card reveal">
+<div class="attorney-photo">&#9878;</div>
+<div class="attorney-info"><h3>Catherine Harper</h3><div class="attorney-title">Managing Partner</div><p>Former prosecutor turned defense attorney. Expert in criminal defense and family law with a fierce advocacy style.</p><div class="attorney-edu">Stanford Law School, J.D. 1995</div></div>
+</div>
+<div class="attorney-card reveal">
+<div class="attorney-photo">&#9878;</div>
+<div class="attorney-info"><h3>Michael Reeves</h3><div class="attorney-title">Senior Associate</div><p>Business litigation specialist. Represents Fortune 500 companies and emerging businesses in complex commercial disputes.</p><div class="attorney-edu">Columbia Law School, J.D. 2010</div></div>
+</div>
+</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="cream-bg">
+<div class="section-label reveal">Client Voices</div>
+<h2 class="section-title reveal">Testimonials</h2>
+<div class="gold-line"></div>
+<div class="testimonial-container reveal">
+<div class="testimonial-slide active"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testimonial-text">"After my accident, Sterling Harper fought for me when the insurance company wouldn't pay. They secured a settlement that covered all my medical bills and more."</div><div class="testimonial-author">James M.</div><div class="testimonial-case">Personal Injury — $1.2M Settlement</div></div>
+<div class="testimonial-slide"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testimonial-text">"Catherine Harper was incredible during my divorce. She was compassionate yet fierce in protecting my interests and my children. I couldn't have gotten through it without her."</div><div class="testimonial-author">Sandra K.</div><div class="testimonial-case">Family Law — Divorce & Custody</div></div>
+<div class="testimonial-slide"><div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testimonial-text">"When I was wrongfully terminated, these attorneys took my case on contingency and won. Their professionalism and dedication are unmatched."</div><div class="testimonial-author">David R.</div><div class="testimonial-case">Employment Law — $850K Verdict</div></div>
+</div>
+<div class="test-dots"><div class="test-dot active" data-i="0"></div><div class="test-dot" data-i="1"></div><div class="test-dot" data-i="2"></div></div>
+</section>
+
+<!-- CONSULTATION -->
+<section id="consult">
+<div class="section-label reveal">Get Started</div>
+<h2 class="section-title reveal">Free Consultation</h2>
+<div class="gold-line"></div>
+<div class="consult-form reveal">
+<div class="form-row"><input type="text" placeholder="Full Name"><input type="tel" placeholder="Phone"></div>
+<div class="form-row"><input type="email" placeholder="Email"><select><option>Case Type</option><option>Personal Injury</option><option>Criminal Defense</option><option>Family Law</option><option>Business Litigation</option><option>Estate Planning</option><option>Employment Law</option><option>Other</option></select></div>
+<div class="form-row"><textarea placeholder="Briefly describe your situation..."></textarea></div>
+<button class="form-submit" onclick="this.textContent='Thank you. An attorney will contact you within 24 hours.';this.style.background='var(--navy)';this.style.color='var(--gold)'">Request Free Consultation</button>
+<div class="form-note">&#128274; Your information is protected by attorney-client privilege.</div>
+</div>
+</section>
+
+<!-- AWARDS -->
+<div class="awards">
+<div class="awards-grid">
+<div class="award-item reveal">Super Lawyers</div>
+<div class="award-item reveal">Martindale-Hubbell AV</div>
+<div class="award-item reveal">Best Lawyers 2024</div>
+<div class="award-item reveal">Top 100 Trial Lawyers</div>
+<div class="award-item reveal">Oregon State Bar</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-grid">
+<div class="footer-col"><h4>Sterling, Harper & Associates</h4><p>Serving Oregon families and businesses with integrity since 1987.</p><p style="margin-top:10px">1000 SW Broadway, Suite 2200<br>Portland, OR 97205</p></div>
+<div class="footer-col"><h4>Practice Areas</h4><a href="#">Personal Injury</a><a href="#">Criminal Defense</a><a href="#">Family Law</a><a href="#">Business Litigation</a><a href="#">Estate Planning</a><a href="#">Employment Law</a></div>
+<div class="footer-col"><h4>Contact</h4><a href="#">(503) 555-0312</a><a href="#">info@sterlingharper.com</a><p style="margin-top:10px">Mon-Fri: 8 AM - 6 PM<br>Weekend: By Appointment</p></div>
+<div class="footer-col"><h4>Connect</h4><a href="#">LinkedIn</a><a href="#">Facebook</a><a href="#">Avvo Profile</a><a href="#">Google Reviews</a></div>
+</div>
+<div class="footer-bottom">
+&copy; 2025 Sterling, Harper & Associates. All rights reserved.<br>
+Attorney Advertising. Prior results do not guarantee a similar outcome.<br>
+Oregon State Bar #12345 | Equal Justice Under Law<br><br>Website designed by <a href="https://williamsdigital.io/law-firm" style="color:var(--gold);text-decoration:none">williamsdigital.io/law-firm</a>
+</div>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2500)});
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80)});
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.classList.add('active')},i*80);obs.unobserve(e.target)}})},{threshold:.12});
+reveals.forEach(el=>obs.observe(el));
+// Counters
+const counters=document.querySelectorAll('[data-target]');
+const cObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const t=+e.target.dataset.target;const pre=e.target.dataset.prefix||'';const d=2000;const s=performance.now();const a=(n)=>{const p=Math.min((n-s)/d,1);const v=Math.floor((1-Math.pow(1-p,3))*t);e.target.textContent=pre+v.toLocaleString();if(p<1)requestAnimationFrame(a)};requestAnimationFrame(a);cObs.unobserve(e.target)}})},{threshold:.5});
+counters.forEach(el=>cObs.observe(el));
+// Testimonials
+let ct=0;const slides=document.querySelectorAll('.testimonial-slide');const dots=document.querySelectorAll('.test-dot');
+function goTo(i){ct=i;slides.forEach(s=>s.classList.remove('active'));slides[i].classList.add('active');dots.forEach(d=>d.classList.remove('active'));dots[i].classList.add('active')}
+dots.forEach(d=>d.addEventListener('click',()=>goTo(+d.dataset.i)));
+setInterval(()=>{goTo((ct+1)%3)},5000);
+document.getElementById('hamburger').addEventListener('click',function(){const l=document.querySelector('.nav-links');if(l.style.display==='flex'){l.style.display='none'}else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='60px';l.style.right='20px';l.style.background='var(--navy)';l.style.padding='20px';l.style.borderRadius='8px'}});
+</script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAISON CLAIRE Boutique</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--blush:#F4CFC6;--black:#1A1A1A;--champagne:#F7E7CE;--white:#FFFFFF;--rose:#DCAE96;--sage:#C4CEB0}
+html{scroll-behavior:smooth}
+body{font-family:'Karla',sans-serif;color:var(--black);background:var(--white);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif}
+
+/* LOADER */
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--white);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+.loader.hidden{opacity:0;visibility:hidden}
+.hanger-svg{width:60px;height:60px;animation:pendulum 1.5s ease-in-out infinite}
+.hanger-svg path{fill:none;stroke:var(--black);stroke-width:2}
+@keyframes pendulum{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.loader-brand{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--black);margin-top:25px;letter-spacing:8px;opacity:0;animation:fadeIn .8s ease 1.5s forwards}
+.loader-est{font-size:11px;letter-spacing:5px;color:#aaa;opacity:0;animation:fadeIn .5s ease 2s forwards}
+@keyframes fadeIn{to{opacity:1}}
+
+/* CUSTOM CURSOR */
+.custom-cursor{width:12px;height:12px;border:1.5px solid var(--black);border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transition:width .2s,height .2s,margin .2s;margin:-6px 0 0 -6px}
+.custom-cursor.hover{width:30px;height:30px;margin:-15px 0 0 -15px;border-color:var(--rose)}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;padding:25px 60px;display:flex;justify-content:center;align-items:center;z-index:1000;transition:all .4s}
+.navbar.scrolled{background:var(--white);box-shadow:0 1px 10px rgba(0,0,0,.04);padding:18px 60px}
+.nav-left,.nav-right{display:flex;gap:30px;list-style:none;flex:1}
+.nav-right{justify-content:flex-end}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--black);text-decoration:none;letter-spacing:5px;margin:0 40px}
+.nav-left a,.nav-right a{color:var(--black);text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:color .3s;font-weight:500}
+.nav-left a:hover,.nav-right a:hover{color:var(--rose)}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;position:absolute;right:20px}
+.hamburger span{width:20px;height:1px;background:var(--black)}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-fallback{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--blush),var(--champagne),var(--blush))}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(244,207,198,.25)}
+.hero-content{position:relative;z-index:2;text-align:center}
+.hero-content h1{font-size:56px;font-weight:300;letter-spacing:4px;color:var(--black);margin-bottom:15px;opacity:0;animation:fadeUp .8s ease .5s forwards}
+.hero-content p{font-size:15px;letter-spacing:5px;text-transform:uppercase;color:#777;margin-bottom:35px;opacity:0;animation:fadeUp .8s ease .8s forwards}
+.btn-minimal{display:inline-block;padding:14px 40px;border:1px solid var(--black);color:var(--black);text-decoration:none;font-size:11px;letter-spacing:3px;text-transform:uppercase;transition:all .4s;opacity:0;animation:fadeUp .8s ease 1.1s forwards;position:relative;overflow:hidden}
+.btn-minimal::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--black);transition:left .4s;z-index:-1}
+.btn-minimal:hover::before{left:0}
+.btn-minimal:hover{color:var(--white)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS */
+section{padding:80px 60px}
+.section-title{text-align:center;font-size:40px;font-weight:300;letter-spacing:3px;margin-bottom:10px}
+.section-sub{text-align:center;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:50px}
+.reveal{opacity:0;transform:translateY(20px);transition:all .8s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* FEATURED COLLECTION */
+.collection{background:var(--champagne)}
+.collection-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;grid-template-rows:350px 350px}
+.collection-item{position:relative;overflow:hidden;cursor:pointer}
+.collection-item:first-child{grid-row:1/3}
+.collection-placeholder{width:100%;height:100%;background:linear-gradient(135deg,var(--rose),var(--blush));display:flex;align-items:center;justify-content:center;font-size:13px;color:#777;transition:transform .6s}
+.collection-item:hover .collection-placeholder{transform:scale(1.05)}
+.collection-overlay{position:absolute;bottom:0;left:0;width:100%;padding:25px;background:linear-gradient(transparent,rgba(26,26,26,.6));color:var(--white);transform:translateY(100%);transition:transform .4s}
+.collection-item:hover .collection-overlay{transform:translateY(0)}
+.collection-overlay h3{font-size:20px;font-weight:300;letter-spacing:2px}
+.collection-overlay p{font-size:14px;color:var(--champagne)}
+
+/* CATEGORIES */
+.categories-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.category-card{position:relative;height:400px;overflow:hidden;cursor:pointer}
+.category-bg{width:100%;height:100%;transition:transform 8s ease;background-size:cover}
+.cat-bg-1{background:linear-gradient(135deg,var(--blush),var(--rose))}
+.cat-bg-2{background:linear-gradient(135deg,var(--sage),#8fa07a)}
+.cat-bg-3{background:linear-gradient(135deg,var(--champagne),var(--rose))}
+.cat-bg-4{background:linear-gradient(135deg,var(--black),#444)}
+.category-card:hover .category-bg{transform:scale(1.08)}
+.category-overlay{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(26,26,26,.2);transition:background .3s}
+.category-card:hover .category-overlay{background:rgba(26,26,26,.4)}
+.category-overlay h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);letter-spacing:4px}
+.category-overlay p{font-size:12px;color:rgba(255,255,255,.7);letter-spacing:2px;margin-top:5px}
+
+/* NEW ARRIVALS CAROUSEL */
+.carousel-section{background:var(--champagne)}
+.carousel-wrapper{overflow-x:auto;cursor:grab;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
+.carousel-wrapper::-webkit-scrollbar{display:none}
+.carousel-track{display:flex;gap:20px;padding:10px 0}
+.product-card{min-width:280px;flex-shrink:0}
+.product-img{height:350px;background:linear-gradient(135deg,var(--blush),var(--white));border-radius:5px;position:relative;overflow:hidden;margin-bottom:15px}
+.product-img .badge{position:absolute;top:15px;left:15px;background:var(--black);color:var(--white);padding:4px 12px;font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400}
+.product-price{font-size:14px;color:#888;margin-top:3px}
+
+/* OUR STORY */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.story-photo{height:500px;background:linear-gradient(135deg,var(--rose),var(--blush));border-radius:5px;display:flex;align-items:center;justify-content:center;color:#999;font-size:14px}
+.story-text h2{font-size:36px;font-weight:300;margin-bottom:20px;letter-spacing:2px}
+.story-text p{line-height:1.9;color:#666;margin-bottom:15px;font-size:15px}
+.story-quote{font-family:'Cormorant Garamond',serif;font-size:24px;font-style:italic;color:var(--rose);margin:25px 0;line-height:1.5;font-weight:400}
+
+/* EXPERIENCE */
+.experience{background:var(--black);color:var(--white);padding:80px 60px}
+.exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+.exp-item{text-align:center;padding:30px 15px}
+.exp-icon{font-size:32px;margin-bottom:15px;color:var(--rose)}
+.exp-item h4{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:2px;margin-bottom:10px}
+.exp-item p{font-size:13px;color:#999;line-height:1.7}
+
+/* INSTAGRAM */
+.insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:5px}
+.insta-item{position:relative;padding-bottom:100%;overflow:hidden;cursor:pointer}
+.insta-placeholder{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,var(--blush),var(--sage));transition:transform .3s}
+.insta-item:hover .insta-placeholder{transform:scale(1.05)}
+.insta-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(26,26,26,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;font-size:24px;color:var(--white)}
+.insta-item:hover .insta-overlay{opacity:1}
+
+/* NEWSLETTER */
+.newsletter{background:var(--champagne);text-align:center;padding:80px 60px}
+.newsletter h2{font-size:36px;font-weight:300;letter-spacing:3px;margin-bottom:10px}
+.newsletter p{font-size:14px;color:#888;margin-bottom:30px}
+.newsletter-form{display:flex;max-width:450px;margin:0 auto;gap:0}
+.newsletter-form input{flex:1;padding:14px 20px;border:1px solid #ddd;border-right:none;font-family:'Karla',sans-serif;font-size:14px;background:var(--white);transition:border-color .3s}
+.newsletter-form input:focus{outline:none;border-color:var(--rose)}
+.newsletter-form button{padding:14px 30px;background:var(--black);color:var(--white);border:1px solid var(--black);font-family:'Karla',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.newsletter-form button:hover{background:var(--rose);border-color:var(--rose)}
+
+/* FOOTER */
+footer{padding:60px;border-top:1px solid #eee}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-bottom:40px}
+.footer-col h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;letter-spacing:2px;margin-bottom:15px}
+.footer-col a,.footer-col p{color:#888;font-size:13px;text-decoration:none;display:block;line-height:2}
+.footer-col a:hover{color:var(--rose)}
+.footer-bottom{text-align:center;font-size:11px;color:#bbb;letter-spacing:2px}
+
+/* MOBILE */
+@media(max-width:768px){
+.custom-cursor{display:none}
+.nav-left,.nav-right{display:none!important}
+.hamburger{display:flex}
+.navbar{justify-content:center}
+section{padding:60px 20px}
+.hero-content h1{font-size:32px}
+.collection-grid{grid-template-columns:1fr;grid-template-rows:auto}
+.collection-item:first-child{grid-row:auto}
+.categories-grid{grid-template-columns:1fr 1fr}
+.category-card{height:250px}
+.story{grid-template-columns:1fr}
+.exp-grid{grid-template-columns:1fr 1fr}
+.insta-grid{grid-template-columns:repeat(3,1fr)}
+.footer-grid{grid-template-columns:1fr 1fr}
+.newsletter-form{flex-direction:column}
+.newsletter-form input{border-right:1px solid #ddd}
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="custom-cursor" id="cursor"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+<svg class="hanger-svg" viewBox="0 0 50 50">
+<path d="M25,5 L25,12 M15,12 Q25,25 35,12"/>
+<circle cx="25" cy="5" r="3" fill="none" stroke="#1A1A1A" stroke-width="1.5"/>
+</svg>
+<div class="loader-brand">MAISON CLAIRE</div>
+<div class="loader-est">EST. 2019</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<ul class="nav-left">
+<li><a href="#collection">Collection</a></li>
+<li><a href="#categories">Shop</a></li>
+<li><a href="#story">Story</a></li>
+</ul>
+<a href="#" class="nav-logo">MAISON CLAIRE</a>
+<ul class="nav-right">
+<li><a href="#experience">Experience</a></li>
+<li><a href="#newsletter">Contact</a></li>
+</ul>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-fallback"></div>
+<video autoplay muted loop playsinline style="opacity:0;transition:opacity .5s" oncanplaythrough="this.style.opacity='1'">
+<source src="https://videos.pexels.com/video-files/5737763/5737763-uhd_2560_1440_25fps.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1>Curated Style.<br>Effortless Elegance.</h1>
+<p>Spring Collection 2025</p>
+<a href="#collection" class="btn-minimal">Shop New Arrivals</a>
+</div>
+</section>
+
+<!-- FEATURED COLLECTION -->
+<section class="collection" id="collection">
+<h2 class="section-title reveal">The Spring Edit</h2>
+<div class="section-sub reveal">Curated Essentials for the Season</div>
+<div class="collection-grid">
+<div class="collection-item reveal"><div class="collection-placeholder">Editorial Shot</div><div class="collection-overlay"><h3>Linen Wrap Dress</h3><p>$285</p></div></div>
+<div class="collection-item reveal"><div class="collection-placeholder">Product Shot</div><div class="collection-overlay"><h3>Silk Camisole</h3><p>$165</p></div></div>
+<div class="collection-item reveal"><div class="collection-placeholder">Lifestyle Shot</div><div class="collection-overlay"><h3>Woven Tote</h3><p>$195</p></div></div>
+<div class="collection-item reveal"><div class="collection-placeholder">Detail Shot</div><div class="collection-overlay"><h3>Gold Hoops</h3><p>$85</p></div></div>
+</div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories">
+<h2 class="section-title reveal">Shop by Category</h2>
+<div class="section-sub reveal">Find Your Style</div>
+<div class="categories-grid">
+<div class="category-card reveal"><div class="category-bg cat-bg-1"></div><div class="category-overlay"><h3>Dresses</h3><p>24 Pieces</p></div></div>
+<div class="category-card reveal"><div class="category-bg cat-bg-2"></div><div class="category-overlay"><h3>Accessories</h3><p>38 Pieces</p></div></div>
+<div class="category-card reveal"><div class="category-bg cat-bg-3"></div><div class="category-overlay"><h3>Shoes</h3><p>16 Pieces</p></div></div>
+<div class="category-card reveal"><div class="category-bg cat-bg-4"></div><div class="category-overlay"><h3>Outerwear</h3><p>12 Pieces</p></div></div>
+</div>
+</section>
+
+<!-- NEW ARRIVALS CAROUSEL -->
+<section class="carousel-section">
+<h2 class="section-title reveal">New Arrivals</h2>
+<div class="section-sub reveal">Just Dropped</div>
+<div class="carousel-wrapper reveal" id="carousel">
+<div class="carousel-track">
+<div class="product-card"><div class="product-img"><div class="badge">New</div></div><div class="product-name">Linen Midi Skirt</div><div class="product-price">$175</div></div>
+<div class="product-card"><div class="product-img" style="background:linear-gradient(135deg,var(--sage),var(--white))"><div class="badge">New</div></div><div class="product-name">Oversized Blazer</div><div class="product-price">$320</div></div>
+<div class="product-card"><div class="product-img" style="background:linear-gradient(135deg,var(--champagne),var(--rose))"><div class="badge">New</div></div><div class="product-name">Cashmere Cardigan</div><div class="product-price">$245</div></div>
+<div class="product-card"><div class="product-img" style="background:linear-gradient(135deg,var(--rose),var(--blush))"></div><div class="product-name">Silk Scarf</div><div class="product-price">$95</div></div>
+<div class="product-card"><div class="product-img" style="background:linear-gradient(135deg,#e8d5c4,var(--blush))"></div><div class="product-name">Leather Sandals</div><div class="product-price">$210</div></div>
+<div class="product-card"><div class="product-img" style="background:linear-gradient(135deg,var(--sage),#d4dfc0)"><div class="badge">Bestseller</div></div><div class="product-name">Cotton Jumpsuit</div><div class="product-price">$265</div></div>
+</div>
+</div>
+</section>
+
+<!-- OUR STORY -->
+<section id="story">
+<div class="story">
+<div class="story-photo reveal">Founder Portrait</div>
+<div class="story-text reveal">
+<h2>Our Story</h2>
+<p>Maison Claire was born from a belief that style should be effortless, sustainable, and deeply personal. Founded by Claire Beaumont in 2019, we curate a collection of timeless pieces from emerging and established designers who share our values.</p>
+<div class="story-quote">"I wanted to create a space where every piece tells a story and every woman feels seen."</div>
+<p>We partner with artisans and ethical brands from around the world, prioritizing natural fabrics, fair production, and designs that transcend seasons. Each piece in our boutique is hand-selected for its quality, versatility, and beauty.</p>
+</div>
+</div>
+</section>
+
+<!-- EXPERIENCE -->
+<div class="experience" id="experience">
+<h2 class="section-title reveal" style="color:var(--white)">The Experience</h2>
+<div class="section-sub reveal" style="color:var(--rose)">More Than Shopping</div>
+<div class="exp-grid">
+<div class="exp-item reveal"><div class="exp-icon">&#128087;</div><h4>Personal Styling</h4><p>Complimentary one-on-one styling sessions with our expert stylists.</p></div>
+<div class="exp-item reveal"><div class="exp-icon">&#127942;</div><h4>Private Appointments</h4><p>Book the boutique for an exclusive, private shopping experience.</p></div>
+<div class="exp-item reveal"><div class="exp-icon">&#9986;</div><h4>Alterations</h4><p>In-house tailoring to ensure every piece fits you perfectly.</p></div>
+<div class="exp-item reveal"><div class="exp-icon">&#127873;</div><h4>Gift Wrapping</h4><p>Beautiful, hand-wrapped packaging for every occasion.</p></div>
+</div>
+</div>
+
+<!-- INSTAGRAM -->
+<section>
+<h2 class="section-title reveal">@maisonclairebtq</h2>
+<div class="section-sub reveal">Follow Our Journey</div>
+<div class="insta-grid">
+<div class="insta-item reveal"><div class="insta-placeholder"></div><div class="insta-overlay">&#10084;</div></div>
+<div class="insta-item reveal"><div class="insta-placeholder" style="background:linear-gradient(135deg,var(--sage),var(--blush))"></div><div class="insta-overlay">&#10084;</div></div>
+<div class="insta-item reveal"><div class="insta-placeholder" style="background:linear-gradient(135deg,var(--rose),var(--champagne))"></div><div class="insta-overlay">&#10084;</div></div>
+<div class="insta-item reveal"><div class="insta-placeholder" style="background:linear-gradient(135deg,var(--champagne),var(--sage))"></div><div class="insta-overlay">&#10084;</div></div>
+<div class="insta-item reveal"><div class="insta-placeholder" style="background:linear-gradient(135deg,var(--blush),var(--rose))"></div><div class="insta-overlay">&#10084;</div></div>
+<div class="insta-item reveal"><div class="insta-placeholder" style="background:linear-gradient(135deg,var(--sage),var(--champagne))"></div><div class="insta-overlay">&#10084;</div></div>
+</div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="newsletter">
+<h2 class="reveal">Join the Inner Circle</h2>
+<p class="reveal">Early access to new arrivals, exclusive offers, and styling tips.</p>
+<form class="newsletter-form reveal" onsubmit="event.preventDefault()">
+<input type="email" placeholder="Your email address">
+<button type="submit">Subscribe</button>
+</form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-grid">
+<div class="footer-col"><h4>Shop</h4><a href="#">New Arrivals</a><a href="#">Dresses</a><a href="#">Accessories</a><a href="#">Shoes</a><a href="#">Sale</a></div>
+<div class="footer-col"><h4>Help</h4><a href="#">Shipping & Returns</a><a href="#">Size Guide</a><a href="#">Care Instructions</a><a href="#">FAQ</a></div>
+<div class="footer-col"><h4>Visit Us</h4><p>820 NW 23rd Ave</p><p>Portland, OR 97210</p><p>Tue-Sat: 10 AM - 6 PM</p><p>Sun: 11 AM - 5 PM</p></div>
+<div class="footer-col"><h4>Connect</h4><a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">Facebook</a><a href="#">hello@maisonclairebtq.com</a></div>
+</div>
+<div class="footer-bottom">&copy; 2025 MAISON CLAIRE. ALL RIGHTS RESERVED.<br><br>Website designed by <a href="https://williamsdigital.io/boutique" style="color:var(--rose);text-decoration:none">williamsdigital.io/boutique</a></div>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2500)});
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80)});
+// Custom cursor
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button,.collection-item,.category-card,.product-card,.insta-item').forEach(el=>{
+el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
+el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
+});
+// Reveal
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.classList.add('active')},i*60);obs.unobserve(e.target)}})},{threshold:.1});
+reveals.forEach(el=>obs.observe(el));
+// Carousel drag
+const carousel=document.getElementById('carousel');
+let isDown=false,startX,scrollL;
+carousel.addEventListener('mousedown',e=>{isDown=true;carousel.style.cursor='grabbing';startX=e.pageX-carousel.offsetLeft;scrollL=carousel.scrollLeft});
+carousel.addEventListener('mouseleave',()=>{isDown=false;carousel.style.cursor='grab'});
+carousel.addEventListener('mouseup',()=>{isDown=false;carousel.style.cursor='grab'});
+carousel.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-carousel.offsetLeft;carousel.scrollLeft=scrollL-(x-startX)});
+// Hamburger
+document.getElementById('hamburger').addEventListener('click',function(){const nl=document.querySelector('.nav-left');const nr=document.querySelector('.nav-right');
+if(nl.style.display==='flex'){nl.style.display='none';nr.style.display='none'}else{
+[nl,nr].forEach(l=>{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='60px';l.style.background='var(--white)';l.style.padding='15px 20px';l.style.borderRadius='5px';l.style.boxShadow='0 5px 15px rgba(0,0,0,.05)'});
+nl.style.left='20px';nr.style.right='20px'}});
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustCraft Home Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#1B3A5C;--orange:#FF6B35;--white:#FFFFFF;--gray:#F4F6F8;--charcoal:#2D3436}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',sans-serif;color:var(--charcoal);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Poppins',sans-serif}
+
+/* LOADER */
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--white);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
+.loader.hidden{opacity:0;visibility:hidden}
+.loader svg{width:120px;height:120px}
+.house-line{fill:none;stroke:var(--navy);stroke-width:2.5;stroke-dasharray:400;stroke-dashoffset:400;animation:drawHouse 1.8s ease forwards}
+@keyframes drawHouse{to{stroke-dashoffset:0}}
+.wrench-icon{fill:var(--orange);opacity:0;transform-origin:center;animation:wrenchAppear .6s ease 1.5s forwards}
+@keyframes wrenchAppear{0%{opacity:0;transform:rotate(-180deg) scale(0)}100%{opacity:1;transform:rotate(0) scale(1)}}
+.loader-brand{font-family:'Poppins',sans-serif;font-size:22px;color:var(--navy);margin-top:15px;opacity:0;animation:fadeIn .5s ease 2s forwards}
+@keyframes fadeIn{to{opacity:1}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;padding:18px 60px;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all .4s;background:transparent}
+.navbar.scrolled{background:var(--white);box-shadow:0 2px 15px rgba(0,0,0,.08);padding:12px 60px}
+.nav-logo{font-family:'Poppins',sans-serif;font-size:20px;font-weight:700;color:var(--white);text-decoration:none;transition:color .3s}
+.navbar.scrolled .nav-logo{color:var(--navy)}
+.nav-links{display:flex;gap:25px;list-style:none}
+.nav-links a{color:var(--white);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s}
+.navbar.scrolled .nav-links a{color:var(--charcoal)}
+.nav-links a:hover{color:var(--orange)}
+.nav-phone{color:var(--white);font-family:'Poppins',sans-serif;font-weight:600;font-size:16px;text-decoration:none;transition:color .3s}
+.navbar.scrolled .nav-phone{color:var(--orange)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:25px;height:2px;background:var(--white);transition:.3s}
+.navbar.scrolled .hamburger span{background:var(--navy)}
+
+/* HERO */
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.hero-fallback{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1B3A5C,#2a5a8c,#1B3A5C)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(27,58,92,.65)}
+.hero-content{position:relative;z-index:2;text-align:center;color:var(--white)}
+.hero-content h1{font-size:56px;margin-bottom:15px;opacity:0;animation:slideUp .8s ease .3s forwards}
+.hero-content p{font-size:18px;margin-bottom:10px;opacity:0;animation:slideUp .8s ease .5s forwards}
+.hero-phone{font-size:32px;font-weight:700;color:var(--orange);margin-bottom:30px;opacity:0;animation:slideUp .8s ease .7s forwards}
+.btn-orange{display:inline-block;padding:16px 45px;background:var(--orange);color:var(--white);text-decoration:none;font-family:'Poppins',sans-serif;font-weight:600;font-size:16px;border-radius:50px;transition:all .3s;opacity:0;animation:slideUp .8s ease .9s forwards;box-shadow:0 4px 20px rgba(255,107,53,.4)}
+.btn-orange:hover{transform:translateY(-3px);box-shadow:0 6px 30px rgba(255,107,53,.6)}
+@keyframes slideUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS */
+section{padding:80px 60px}
+.section-title{text-align:center;font-size:38px;color:var(--navy);margin-bottom:15px}
+.section-sub{text-align:center;color:#888;font-size:16px;margin-bottom:50px;max-width:600px;margin-left:auto;margin-right:auto}
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* TRUST BAR */
+.trust-bar{background:var(--navy);padding:40px 60px}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+.trust-item{color:var(--white)}
+.trust-icon{font-size:36px;margin-bottom:10px;animation:none}
+.trust-item.active .trust-icon{animation:bounceIn .6s ease}
+@keyframes bounceIn{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.trust-item h4{font-size:16px;margin-bottom:5px}
+.trust-item p{font-size:13px;color:rgba(255,255,255,.7)}
+
+/* SERVICES */
+.services{background:var(--gray)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.service-card{background:var(--white);border-radius:15px;padding:40px 30px;text-align:center;transition:all .4s;border:2px solid transparent}
+.service-card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(0,0,0,.1);border-color:var(--orange)}
+.service-icon{font-size:48px;margin-bottom:20px}
+.service-card h3{font-size:20px;color:var(--navy);margin-bottom:12px}
+.service-card p{font-size:14px;color:#777;line-height:1.7}
+
+/* HOW IT WORKS */
+.steps{display:flex;justify-content:center;align-items:center;gap:0;flex-wrap:wrap;max-width:900px;margin:0 auto}
+.step{text-align:center;flex:1;min-width:200px;position:relative}
+.step-num{width:60px;height:60px;border-radius:50%;background:var(--orange);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;margin:0 auto 20px}
+.step h3{font-size:18px;color:var(--navy);margin-bottom:8px}
+.step p{font-size:14px;color:#888}
+.step-line{width:80px;height:2px;background:var(--orange);position:relative;top:-50px;opacity:.3}
+
+/* REVIEWS */
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}
+.review-card{background:var(--white);border-radius:15px;padding:30px;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+.review-stars{color:var(--orange);font-size:18px;margin-bottom:15px}
+.review-text{font-size:15px;line-height:1.7;color:#555;margin-bottom:15px;font-style:italic}
+.review-author{font-weight:600;color:var(--navy);font-size:14px}
+.review-platform{font-size:12px;color:#aaa}
+
+/* EMERGENCY CTA */
+.emergency{background:linear-gradient(135deg,#c0392b,#e74c3c);padding:60px;text-align:center;color:var(--white)}
+.emergency h2{font-size:36px;margin-bottom:10px}
+.emergency p{font-size:18px;margin-bottom:25px;opacity:.9}
+.phone-shake{display:inline-block;font-size:48px;animation:shake .5s ease infinite}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(15deg)}75%{transform:rotate(-15deg)}}
+.emergency-phone{font-size:36px;font-weight:700;color:var(--white);text-decoration:none}
+
+/* BOOKING FORM */
+.booking{background:var(--gray)}
+.booking-form{max-width:700px;margin:0 auto;background:var(--white);border-radius:20px;padding:50px;box-shadow:0 10px 40px rgba(0,0,0,.08)}
+.form-row{display:flex;gap:15px;margin-bottom:15px}
+.form-row input,.form-row select,.form-row textarea{flex:1;padding:14px 18px;border:2px solid #e0e0e0;border-radius:10px;font-family:'Open Sans',sans-serif;font-size:14px;transition:border-color .3s}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{outline:none;border-color:var(--orange)}
+.form-row textarea{resize:vertical;min-height:100px}
+.form-submit{width:100%;padding:16px;background:var(--orange);color:var(--white);border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;cursor:pointer;transition:all .3s}
+.form-submit:hover{background:var(--navy)}
+
+/* STATS SECTION */
+.why-us{background:var(--navy);color:var(--white);padding:80px 60px}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+.why-num{font-family:'Poppins',sans-serif;font-size:48px;font-weight:700;color:var(--orange)}
+.why-label{font-size:14px;margin-top:8px;color:rgba(255,255,255,.8)}
+
+/* FOOTER */
+footer{background:var(--charcoal);color:var(--white);padding:60px}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-bottom:40px}
+.footer-col h4{font-family:'Poppins',sans-serif;font-size:16px;margin-bottom:15px;color:var(--orange)}
+.footer-col p,.footer-col a{color:#aaa;font-size:14px;line-height:2;text-decoration:none;display:block}
+.footer-col a:hover{color:var(--orange)}
+.footer-bottom{text-align:center;padding-top:25px;border-top:1px solid #444;font-size:12px;color:#666}
+
+/* MOBILE */
+@media(max-width:768px){
+.navbar{padding:15px 20px}
+.nav-links,.nav-phone{display:none!important}
+.hamburger{display:flex}
+section{padding:60px 20px}
+.hero-content h1{font-size:32px}
+.hero-phone{font-size:24px}
+.trust-grid{grid-template-columns:repeat(2,1fr)}
+.services-grid{grid-template-columns:1fr}
+.reviews-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr 1fr}
+.steps{flex-direction:column;gap:30px}
+.step-line{display:none}
+.why-grid{grid-template-columns:repeat(2,1fr)}
+.booking-form{padding:30px 20px}
+.form-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+<svg viewBox="0 0 120 120">
+<path class="house-line" d="M60,15 L15,55 L15,105 L105,105 L105,55 Z"/>
+<path class="house-line" d="M45,105 L45,75 L75,75 L75,105" style="animation-delay:.3s"/>
+<circle class="wrench-icon" cx="60" cy="60" r="8"/>
+<path class="wrench-icon" d="M55,55 L48,48 M65,55 L72,48 M55,65 L48,72 M65,65 L72,72" fill="none" stroke="var(--orange)" stroke-width="2.5" style="animation:wrenchAppear .6s ease 1.5s forwards;opacity:0"/>
+</svg>
+<div class="loader-brand">TrustCraft</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<a href="#" class="nav-logo">TrustCraft</a>
+<ul class="nav-links">
+<li><a href="#services">Services</a></li>
+<li><a href="#how">How It Works</a></li>
+<li><a href="#reviews">Reviews</a></li>
+<li><a href="#booking">Book Now</a></li>
+</ul>
+<a href="tel:5035550147" class="nav-phone">&#128222; (503) 555-0147</a>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-fallback"></div>
+<video autoplay muted loop playsinline style="opacity:0;transition:opacity .5s" oncanplaythrough="this.style.opacity='1'">
+<source src="https://videos.pexels.com/video-files/5778186/5778186-uhd_2560_1440_30fps.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1>Your Home. Our Priority.</h1>
+<p>Licensed, insured professionals ready to help 24/7</p>
+<div class="hero-phone">&#128222; (503) 555-0147</div>
+<a href="#booking" class="btn-orange">Get a Free Estimate</a>
+</div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+<div class="trust-grid">
+<div class="trust-item reveal"><div class="trust-icon">&#128272;</div><h4>Licensed & Insured</h4><p>Fully licensed in all trades</p></div>
+<div class="trust-item reveal"><div class="trust-icon">&#128336;</div><h4>24/7 Emergency</h4><p>We're always here for you</p></div>
+<div class="trust-item reveal"><div class="trust-icon">&#9989;</div><h4>100% Satisfaction</h4><p>Guaranteed quality work</p></div>
+<div class="trust-item reveal"><div class="trust-icon">&#127942;</div><h4>15+ Years Experience</h4><p>Trusted by thousands</p></div>
+</div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+<h2 class="section-title reveal">Our Services</h2>
+<p class="section-sub reveal">From routine maintenance to emergency repairs, we've got your home covered.</p>
+<div class="services-grid">
+<div class="service-card reveal"><div class="service-icon">&#128688;</div><h3>Plumbing</h3><p>Leak repairs, pipe replacement, water heaters, drain cleaning, fixture installation, and sewer line services.</p></div>
+<div class="service-card reveal"><div class="service-icon">&#9889;</div><h3>Electrical</h3><p>Panel upgrades, wiring, outlet installation, lighting, ceiling fans, and whole-home surge protection.</p></div>
+<div class="service-card reveal"><div class="service-icon">&#127777;</div><h3>HVAC</h3><p>AC installation & repair, furnace service, ductwork, thermostats, and seasonal tune-ups.</p></div>
+<div class="service-card reveal"><div class="service-icon">&#127968;</div><h3>Roofing</h3><p>Inspections, leak repair, shingle replacement, gutter installation, and full roof replacement.</p></div>
+<div class="service-card reveal"><div class="service-icon">&#127912;</div><h3>Painting</h3><p>Interior & exterior painting, cabinet refinishing, staining, drywall repair, and color consultation.</p></div>
+<div class="service-card reveal"><div class="service-icon">&#128295;</div><h3>Remodeling</h3><p>Kitchen & bath remodels, basement finishing, flooring, tile work, and custom carpentry.</p></div>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+<h2 class="section-title reveal">How It Works</h2>
+<p class="section-sub reveal">Getting your home fixed is as easy as 1-2-3.</p>
+<div class="steps">
+<div class="step reveal"><div class="step-num">1</div><h3>Book Online</h3><p>Tell us about your project and pick a time that works for you.</p></div>
+<div class="step-line reveal"></div>
+<div class="step reveal"><div class="step-num">2</div><h3>Expert Arrives</h3><p>A certified technician comes to your home, on time, every time.</p></div>
+<div class="step-line reveal"></div>
+<div class="step reveal"><div class="step-num">3</div><h3>Job Done Right</h3><p>We complete the work to your satisfaction with a warranty guarantee.</p></div>
+</div>
+</section>
+
+<!-- WHY US STATS -->
+<div class="why-us">
+<div class="why-grid">
+<div class="reveal"><div class="why-num" data-target="12000">0</div><div class="why-label">Projects Completed</div></div>
+<div class="reveal"><div class="why-num" data-target="60">0</div><div class="why-label">Minute Avg Response</div></div>
+<div class="reveal"><div class="why-num" data-target="99">0</div><div class="why-label">% Satisfaction Rate</div></div>
+<div class="reveal"><div class="why-num" data-target="15">0</div><div class="why-label">Years in Business</div></div>
+</div>
+</div>
+
+<!-- REVIEWS -->
+<section id="reviews" style="background:var(--gray)">
+<h2 class="section-title reveal">What Our Customers Say</h2>
+<p class="section-sub reveal">Over 2,000 five-star reviews and counting.</p>
+<div class="reviews-grid">
+<div class="review-card reveal">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<div class="review-text">"Called at 11 PM with a burst pipe. They were at my house within 45 minutes and had it fixed by midnight. Lifesavers!"</div>
+<div class="review-author">Jennifer M.</div>
+<div class="review-platform">Google Review</div>
+</div>
+<div class="review-card reveal">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<div class="review-text">"Complete kitchen remodel done on time and under budget. The team was professional, clean, and communicative throughout."</div>
+<div class="review-author">David & Lisa R.</div>
+<div class="review-platform">Yelp Review</div>
+</div>
+<div class="review-card reveal">
+<div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<div class="review-text">"Best HVAC service in town. They installed a new system, explained everything clearly, and the price was very fair."</div>
+<div class="review-author">Robert K.</div>
+<div class="review-platform">Google Review</div>
+</div>
+</div>
+</section>
+
+<!-- EMERGENCY -->
+<div class="emergency">
+<div class="phone-shake">&#128222;</div>
+<h2>Got an Emergency?</h2>
+<p>Our emergency team is standing by 24/7. Don't wait — call now.</p>
+<a href="tel:5035550147" class="emergency-phone">(503) 555-0147</a>
+</div>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+<h2 class="section-title reveal">Book a Service</h2>
+<p class="section-sub reveal">Get your free estimate today. No obligation, no hassle.</p>
+<div class="booking-form reveal">
+<div class="form-row"><input type="text" placeholder="Full Name"><input type="tel" placeholder="Phone"></div>
+<div class="form-row"><input type="email" placeholder="Email"><select><option>Select Service</option><option>Plumbing</option><option>Electrical</option><option>HVAC</option><option>Roofing</option><option>Painting</option><option>Remodeling</option></select></div>
+<div class="form-row"><input type="date"><input type="time"></div>
+<div class="form-row"><textarea placeholder="Describe your project or issue..."></textarea></div>
+<button class="form-submit" onclick="this.textContent='Request Submitted! We\'ll call you shortly.';this.style.background='var(--navy)'">Get Free Estimate</button>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-grid">
+<div class="footer-col">
+<h4>TrustCraft</h4>
+<p>Your trusted partner for all home services. Licensed, insured, and committed to quality.</p>
+<p style="margin-top:10px">License #CCB-198547</p>
+</div>
+<div class="footer-col">
+<h4>Services</h4>
+<a href="#">Plumbing</a><a href="#">Electrical</a><a href="#">HVAC</a><a href="#">Roofing</a><a href="#">Painting</a><a href="#">Remodeling</a>
+</div>
+<div class="footer-col">
+<h4>Service Areas</h4>
+<p>Portland | Beaverton | Lake Oswego | Tigard | Hillsboro | Gresham | Oregon City</p>
+</div>
+<div class="footer-col">
+<h4>Contact</h4>
+<a href="#">(503) 555-0147</a>
+<a href="#">info@trustcrafthome.com</a>
+<p>Mon-Sat: 7 AM - 8 PM</p>
+<p>Sun: Emergency Only</p>
+</div>
+</div>
+<div class="footer-bottom">&copy; 2025 TrustCraft Home Services. All rights reserved. | BBB Accredited | Licensed & Insured<br><br>Website designed by <a href="https://williamsdigital.io/home-services" style="color:var(--orange);text-decoration:none">williamsdigital.io/home-services</a></div>
+</footer>
+
+<script>
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2500)});
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80)});
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.classList.add('active')},i*100);obs.unobserve(e.target)}})},{threshold:.12});
+reveals.forEach(el=>obs.observe(el));
+const counters=document.querySelectorAll('.why-num');
+const cObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const t=+e.target.dataset.target;const d=2000;const s=performance.now();const a=(n)=>{const p=Math.min((n-s)/d,1);const v=1-Math.pow(1-p,3);e.target.textContent=Math.floor(v*t).toLocaleString();if(p<1)requestAnimationFrame(a)};requestAnimationFrame(a);cObs.unobserve(e.target)}})},{threshold:.5});
+counters.forEach(el=>cObs.observe(el));
+document.getElementById('hamburger').addEventListener('click',function(){const l=document.querySelector('.nav-links');if(l.style.display==='flex'){l.style.display='none'}else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='60px';l.style.left='20px';l.style.background='var(--white)';l.style.padding='20px';l.style.borderRadius='10px';l.style.boxShadow='0 5px 20px rgba(0,0,0,.1)'}});
+</script>
+</body>
+</html>
