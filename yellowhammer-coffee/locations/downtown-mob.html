@@ -77,6 +77,10 @@
     .btn-dark:hover { background: var(--dark-surface); transform: translateY(-2px); box-shadow: var(--shadow-md); }
     .btn-sm { padding: 10px 24px; font-size: 0.8rem; }
 
+    /* ESPRESSO CUP SILHOUETTE */
+    .hero-espresso { position: absolute; right: 6%; top: 42%; transform: translateY(-50%); width: 340px; z-index: 1; pointer-events: none; }
+    .espresso-svg { width: 100%; height: auto; }
+
     /* FULL-WIDTH SKYLINE */
     .hero-skyline { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 2; pointer-events: none; }
     .skyline-svg { width: 100%; height: auto; display: block; }
@@ -179,6 +183,7 @@
       .hero-content { padding-bottom: 180px; max-width: 100%; text-align: center; }
       .hero-tag { justify-content: center; }
       .hero-buttons { justify-content: center; }
+      .hero-espresso { width: 220px; right: 4%; opacity: 0.5; }
       .about-grid, .hours-grid { grid-template-columns: 1fr; gap: 36px; }
       .menu-featured { grid-template-columns: 1fr; }
       .menu-list { columns: 1; }
@@ -191,6 +196,7 @@
     }
     @media (max-width: 480px) {
       .hero-content { padding-bottom: 160px; }
+      .hero-espresso { display: none; }
       .hero-buttons { flex-direction: column; align-items: center; }
       .btn { width: 100%; justify-content: center; }
     }
@@ -249,6 +255,43 @@
           <a href="https://maps.google.com/?q=200+Saint+Joseph+Street+Mobile+AL" target="_blank" class="btn btn-outline">Get Directions</a>
         </div>
       </div>
+    </div>
+
+    <!-- Espresso cup silhouette -->
+    <div class="hero-espresso">
+      <svg class="espresso-svg" viewBox="0 0 260 380" xmlns="http://www.w3.org/2000/svg">
+        <!-- Steam wisp 1 (left) -->
+        <path d="M75 155 Q85 125 75 100 Q65 75 75 50 Q85 25 75 5" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2.5" stroke-linecap="round">
+          <animate attributeName="d" values="M75 155 Q85 125 75 100 Q65 75 75 50 Q85 25 75 5;M75 155 Q65 125 75 100 Q85 75 75 50 Q65 25 75 5;M75 155 Q85 125 75 100 Q65 75 75 50 Q85 25 75 5" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.12;0.04;0.12" dur="3s" repeatCount="indefinite"/>
+        </path>
+        <!-- Steam wisp 2 (center, tallest) -->
+        <path d="M110 158 Q122 125 110 92 Q98 60 110 30 Q122 5 115 0" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="3" stroke-linecap="round">
+          <animate attributeName="d" values="M110 158 Q122 125 110 92 Q98 60 110 30 Q122 5 115 0;M110 158 Q98 125 110 92 Q122 60 110 30 Q98 5 105 0;M110 158 Q122 125 110 92 Q98 60 110 30 Q122 5 115 0" dur="3.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.16;0.05;0.16" dur="3.5s" repeatCount="indefinite"/>
+        </path>
+        <!-- Steam wisp 3 (right) -->
+        <path d="M145 156 Q155 130 145 108 Q135 85 145 60 Q155 40 145 20" fill="none" stroke="rgba(255,255,255,0.10)" stroke-width="2" stroke-linecap="round">
+          <animate attributeName="d" values="M145 156 Q155 130 145 108 Q135 85 145 60 Q155 40 145 20;M145 156 Q135 130 145 108 Q155 85 145 60 Q135 40 145 20;M145 156 Q155 130 145 108 Q135 85 145 60 Q155 40 145 20" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.10;0.03;0.10" dur="4s" repeatCount="indefinite"/>
+        </path>
+
+        <!-- Coffee surface warm glow -->
+        <ellipse cx="110" cy="170" rx="48" ry="7" fill="rgba(254,236,0,0.04)"/>
+
+        <!-- Cup rim -->
+        <ellipse cx="110" cy="165" rx="58" ry="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+
+        <!-- Cup body (tapered) -->
+        <path d="M52 165 Q58 242 110 250 Q162 242 168 165" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+
+        <!-- Handle -->
+        <path d="M168 182 Q198 182 198 212 Q198 238 168 235" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4" stroke-linecap="round"/>
+
+        <!-- Saucer -->
+        <ellipse cx="110" cy="254" rx="78" ry="12" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" stroke-width="1.5"/>
+        <ellipse cx="110" cy="262" rx="72" ry="8" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+      </svg>
     </div>
 
     <!-- Full-width skyline anchored to bottom -->
