@@ -59,7 +59,7 @@
     .nav-toggle span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); }
 
     /* HERO */
-    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; background: linear-gradient(180deg, #06060e 0%, #0c0c1e 15%, #12102a 30%, #1a1430 42%, #1c1328 55%, #171018 70%, #111 100%); }
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; background: linear-gradient(180deg, #06060e 0%, #0a0b1e 12%, #10102a 25%, #1a1430 38%, #1e1228 48%, #201418 58%, #2a1610 68%, #3d1e0c 78%, #4a2410 86%, #3a1c0e 93%, #1a1008 100%); }
     .hero-content { position: relative; z-index: 3; color: var(--white); max-width: 560px; padding-bottom: 220px; }
     .hero-tag { font-size: 0.8rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--yellow); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
     .hero-tag::before { content: ''; width: 40px; height: 2px; background: var(--yellow); }
@@ -107,16 +107,21 @@
     .cloud-wisp { position: absolute; border-radius: 50%; filter: blur(60px); }
     .cloud-wisp:nth-child(1) { width: 500px; height: 120px; top: 8%; left: -5%; background: rgba(30,20,60,0.5); animation: cloudDrift1 20s ease-in-out infinite; }
     .cloud-wisp:nth-child(2) { width: 400px; height: 100px; top: 18%; right: 10%; background: rgba(40,25,55,0.4); animation: cloudDrift2 25s ease-in-out infinite; }
-    .cloud-wisp:nth-child(3) { width: 600px; height: 80px; top: 35%; left: 20%; background: rgba(25,15,45,0.35); animation: cloudDrift1 30s ease-in-out infinite reverse; }
+    .cloud-wisp:nth-child(3) { width: 600px; height: 100px; top: 45%; left: 10%; background: rgba(80,40,20,0.3); animation: cloudDrift1 30s ease-in-out infinite reverse; }
     .cloud-wisp:nth-child(4) { width: 350px; height: 90px; top: 12%; left: 45%; background: rgba(50,30,60,0.25); animation: cloudDrift2 22s ease-in-out infinite; }
+    .cloud-wisp:nth-child(5) { width: 700px; height: 110px; top: 55%; left: -10%; background: rgba(120,55,15,0.2); animation: cloudDrift2 28s ease-in-out infinite; }
+    .cloud-wisp:nth-child(6) { width: 500px; height: 90px; top: 60%; right: -5%; background: rgba(100,45,10,0.25); animation: cloudDrift1 24s ease-in-out infinite; }
     @keyframes cloudDrift1 { 0%, 100% { transform: translateX(0); opacity: 0.6; } 50% { transform: translateX(40px); opacity: 1; } }
     @keyframes cloudDrift2 { 0%, 100% { transform: translateX(0); opacity: 0.5; } 50% { transform: translateX(-30px); opacity: 0.9; } }
 
     /* Warm ambient glow behind text */
-    .hero-ambient { position: absolute; top: 30%; left: 25%; width: 500px; height: 400px; background: radial-gradient(ellipse, rgba(254,236,0,0.025) 0%, transparent 70%); z-index: 0; pointer-events: none; filter: blur(40px); }
+    .hero-ambient { position: absolute; top: 30%; left: 25%; width: 500px; height: 400px; background: radial-gradient(ellipse, rgba(254,200,80,0.03) 0%, transparent 70%); z-index: 0; pointer-events: none; filter: blur(40px); }
+
+    /* Horizon glow band — golden hour warmth */
+    .hero-horizon-glow { position: absolute; bottom: 18%; left: 0; width: 100%; height: 35%; background: linear-gradient(0deg, rgba(200,120,30,0.12) 0%, rgba(180,90,20,0.06) 30%, rgba(140,60,20,0.02) 60%, transparent 100%); z-index: 1; pointer-events: none; }
 
     /* City light pollution glow */
-    .hero-city-glow { position: absolute; bottom: 10%; left: 0; width: 100%; height: 50%; background: radial-gradient(ellipse at 40% 100%, rgba(254,236,0,0.08) 0%, rgba(254,200,0,0.03) 30%, transparent 65%); z-index: 1; animation: cityGlow 4s ease-in-out infinite; pointer-events: none; }
+    .hero-city-glow { position: absolute; bottom: 8%; left: 0; width: 100%; height: 50%; background: radial-gradient(ellipse at 40% 100%, rgba(220,160,40,0.1) 0%, rgba(200,120,30,0.05) 30%, transparent 60%); z-index: 1; animation: cityGlow 4s ease-in-out infinite; pointer-events: none; }
     @keyframes cityGlow { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 
     /* SECTION STYLES */
@@ -259,10 +264,15 @@
       <div class="cloud-wisp"></div>
       <div class="cloud-wisp"></div>
       <div class="cloud-wisp"></div>
+      <div class="cloud-wisp"></div>
+      <div class="cloud-wisp"></div>
     </div>
 
     <!-- Warm ambient glow behind text area -->
     <div class="hero-ambient"></div>
+
+    <!-- Golden hour horizon glow -->
+    <div class="hero-horizon-glow"></div>
 
     <!-- City light pollution -->
     <div class="hero-city-glow"></div>
@@ -321,29 +331,31 @@
     <!-- Full-width skyline anchored to bottom -->
     <div class="hero-skyline">
       <svg class="skyline-svg" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-        <!-- Moon -->
-        <circle cx="1050" cy="60" r="25" fill="#e8e0c8" opacity="0.2"/>
-        <circle cx="1050" cy="60" r="38" fill="none" stroke="rgba(254,236,0,0.04)" stroke-width="12">
-          <animate attributeName="r" values="38;44;38" dur="4s" repeatCount="indefinite"/>
+        <!-- Moon — warm amber tint -->
+        <circle cx="1050" cy="60" r="25" fill="#e8c878" opacity="0.25"/>
+        <circle cx="1050" cy="60" r="38" fill="none" stroke="rgba(220,160,40,0.06)" stroke-width="14">
+          <animate attributeName="r" values="38;46;38" dur="4s" repeatCount="indefinite"/>
           <animate attributeName="opacity" values="0.2;0.4;0.2" dur="4s" repeatCount="indefinite"/>
         </circle>
 
-        <!-- === CITY LIGHT POLLUTION HAZE === -->
-        <rect x="0" y="80" width="1200" height="200" fill="url(#cityHaze)" opacity="0.5"/>
+        <!-- === HORIZON GLOW — golden hour band === -->
+        <rect x="0" y="60" width="1200" height="220" fill="url(#cityHaze)" opacity="0.6"/>
         <defs>
           <linearGradient id="cityHaze" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="transparent"/>
-            <stop offset="60%" stop-color="rgba(254,236,0,0.02)"/>
-            <stop offset="85%" stop-color="rgba(254,236,0,0.05)"/>
-            <stop offset="100%" stop-color="rgba(254,200,0,0.08)"/>
+            <stop offset="40%" stop-color="rgba(180,100,30,0.01)"/>
+            <stop offset="70%" stop-color="rgba(200,120,30,0.04)"/>
+            <stop offset="90%" stop-color="rgba(220,150,40,0.07)"/>
+            <stop offset="100%" stop-color="rgba(200,130,30,0.10)"/>
           </linearGradient>
-          <!-- Warm glow behind towers -->
-          <radialGradient id="towerGlow" cx="35%" cy="80%" r="30%">
-            <stop offset="0%" stop-color="rgba(254,236,0,0.06)"/>
+          <!-- Warm amber glow behind towers -->
+          <radialGradient id="towerGlow" cx="35%" cy="85%" r="35%">
+            <stop offset="0%" stop-color="rgba(220,150,40,0.08)"/>
+            <stop offset="60%" stop-color="rgba(180,100,20,0.03)"/>
             <stop offset="100%" stop-color="transparent"/>
           </radialGradient>
         </defs>
-        <rect x="100" y="120" width="600" height="160" fill="url(#towerGlow)" opacity="0.6"/>
+        <rect x="50" y="100" width="700" height="180" fill="url(#towerGlow)" opacity="0.7"/>
 
         <!-- === FAR LEFT CLUSTER === -->
         <rect x="20" y="200" width="30" height="80" fill="#222" rx="1"/>
@@ -531,30 +543,38 @@
         <rect x="670" y="228" width="4" height="5" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.7s" repeatCount="indefinite"/></rect>
 
         <!-- === WATERFRONT === -->
-        <rect x="0" y="280" width="1200" height="3" fill="rgba(254,236,0,0.12)"/>
+        <rect x="0" y="280" width="1200" height="3" fill="rgba(220,160,40,0.15)"/>
 
-        <!-- Mobile Bay water -->
-        <rect x="0" y="283" width="1200" height="117" fill="#060e18" opacity="0.9"/>
+        <!-- Mobile Bay water — warm amber-tinted -->
+        <rect x="0" y="283" width="1200" height="117" fill="#0a0a08" opacity="0.9"/>
+        <!-- Golden sky reflection on water surface -->
+        <rect x="0" y="283" width="1200" height="50" fill="url(#waterGlow)" opacity="0.4"/>
+        <defs>
+          <linearGradient id="waterGlow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(200,130,30,0.08)"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </linearGradient>
+        </defs>
 
-        <!-- Building reflections -->
-        <g opacity="0.05">
-          <rect x="295" y="290" width="42" height="90" fill="#FEEC00"/>
-          <rect x="350" y="295" width="58" height="70" fill="#FEEC00"/>
-          <rect x="200" y="300" width="60" height="55" fill="#FEEC00"/>
-          <rect x="140" y="305" width="45" height="40" fill="#FEEC00"/>
-          <rect x="425" y="300" width="40" height="50" fill="#FEEC00"/>
-          <rect x="55" y="308" width="35" height="30" fill="#FEEC00"/>
-          <rect x="520" y="306" width="30" height="35" fill="#FEEC00"/>
+        <!-- Building reflections — warm amber -->
+        <g opacity="0.06">
+          <rect x="295" y="290" width="42" height="90" fill="#DCA028"/>
+          <rect x="350" y="295" width="58" height="70" fill="#DCA028"/>
+          <rect x="200" y="300" width="60" height="55" fill="#DCA028"/>
+          <rect x="140" y="305" width="45" height="40" fill="#DCA028"/>
+          <rect x="425" y="300" width="40" height="50" fill="#DCA028"/>
+          <rect x="55" y="308" width="35" height="30" fill="#DCA028"/>
+          <rect x="520" y="306" width="30" height="35" fill="#DCA028"/>
         </g>
 
-        <!-- Water wave lines -->
-        <path d="M0 310 Q100 305 200 310 Q300 315 400 310 Q500 305 600 310 Q700 315 800 310 Q900 305 1000 310 Q1100 315 1200 310" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1">
+        <!-- Water wave lines — warm amber tint -->
+        <path d="M0 310 Q100 305 200 310 Q300 315 400 310 Q500 305 600 310 Q700 315 800 310 Q900 305 1000 310 Q1100 315 1200 310" fill="none" stroke="rgba(220,170,60,0.06)" stroke-width="1">
           <animate attributeName="d" values="M0 310 Q100 305 200 310 Q300 315 400 310 Q500 305 600 310 Q700 315 800 310 Q900 305 1000 310 Q1100 315 1200 310;M0 310 Q100 315 200 310 Q300 305 400 310 Q500 315 600 310 Q700 305 800 310 Q900 315 1000 310 Q1100 305 1200 310;M0 310 Q100 305 200 310 Q300 315 400 310 Q500 305 600 310 Q700 315 800 310 Q900 305 1000 310 Q1100 315 1200 310" dur="4s" repeatCount="indefinite"/>
         </path>
-        <path d="M0 335 Q120 330 240 335 Q360 340 480 335 Q600 330 720 335 Q840 340 960 335 Q1080 330 1200 335" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1">
+        <path d="M0 335 Q120 330 240 335 Q360 340 480 335 Q600 330 720 335 Q840 340 960 335 Q1080 330 1200 335" fill="none" stroke="rgba(200,140,40,0.04)" stroke-width="1">
           <animate attributeName="d" values="M0 335 Q120 330 240 335 Q360 340 480 335 Q600 330 720 335 Q840 340 960 335 Q1080 330 1200 335;M0 335 Q120 340 240 335 Q360 330 480 335 Q600 340 720 335 Q840 330 960 335 Q1080 340 1200 335;M0 335 Q120 330 240 335 Q360 340 480 335 Q600 330 720 335 Q840 340 960 335 Q1080 330 1200 335" dur="5s" repeatCount="indefinite"/>
         </path>
-        <path d="M0 360 Q150 355 300 360 Q450 365 600 360 Q750 355 900 360 Q1050 365 1200 360" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1">
+        <path d="M0 360 Q150 355 300 360 Q450 365 600 360 Q750 355 900 360 Q1050 365 1200 360" fill="none" stroke="rgba(180,120,30,0.03)" stroke-width="1">
           <animate attributeName="d" values="M0 360 Q150 355 300 360 Q450 365 600 360 Q750 355 900 360 Q1050 365 1200 360;M0 360 Q150 365 300 360 Q450 355 600 360 Q750 365 900 360 Q1050 355 1200 360;M0 360 Q150 355 300 360 Q450 365 600 360 Q750 355 900 360 Q1050 365 1200 360" dur="6s" repeatCount="indefinite"/>
         </path>
 
