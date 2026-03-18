@@ -90,6 +90,10 @@
     @keyframes mossSway { 0%, 100% { transform-origin: top center; transform: rotate(0deg); } 50% { transform: rotate(1.5deg); } }
     @keyframes birdSoar { 0%, 100% { transform: translateY(0) translateX(0); } 30% { transform: translateY(-6px) translateX(3px); } 60% { transform: translateY(-2px) translateX(-2px); } 85% { transform: translateY(-8px) translateX(1px); } }
 
+    /* Hero bird (standalone positioned element) */
+    .hero-bird { position: absolute; top: 6%; left: 3%; width: 320px; height: 280px; z-index: 1; pointer-events: none; animation: birdSoar 6s ease-in-out infinite; filter: drop-shadow(0 10px 40px rgba(254,236,0,0.12)); }
+    .hero-bird-glow { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; background: radial-gradient(circle, rgba(254,236,0,0.1) 0%, transparent 70%); border-radius: 50%; pointer-events: none; z-index: 0; }
+
     /* ===== BUTTONS ===== */
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 50px; border: none; cursor: pointer; transition: all var(--transition); text-decoration: none; }
     .btn-primary { background: var(--yellow); color: var(--dark); }
@@ -260,6 +264,8 @@
     @media (max-width: 768px) {
       section { padding: 72px 0; }
       .hero-content { padding-bottom: 40px; }
+      .hero-bird { width: 200px; height: 180px; top: 4%; left: 2%; }
+      .hero-bird-glow { display: none; }
       .hero-feather:nth-child(n+5) { display: none; }
       .hero-firefly:nth-child(n+4) { display: none; }
       .bird-grid, .about-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -328,6 +334,81 @@
       </div>
     </div>
 
+    <!-- Yellowhammer bird (upper left, standalone) -->
+    <div class="hero-bird-glow" style="top:4%;left:5%;"></div>
+    <svg class="hero-bird" viewBox="0 0 440 360" xmlns="http://www.w3.org/2000/svg">
+      <!-- Left wing -->
+      <path d="M195 120 Q130 85 50 50 Q75 65 85 75 Q40 60 10 43 Q45 65 70 80 Q25 67 0 60 Q35 80 75 95 L190 130 Z" fill="#FEEC00" opacity="0.95">
+        <animate attributeName="d"
+          values="M195 120 Q130 85 50 50 Q75 65 85 75 Q40 60 10 43 Q45 65 70 80 Q25 67 0 60 Q35 80 75 95 L190 130 Z;
+                  M195 125 Q135 100 65 80 Q85 90 92 97 Q55 87 30 77 Q58 93 78 103 Q40 93 18 90 Q48 103 82 113 L190 135 Z;
+                  M195 120 Q130 85 50 50 Q75 65 85 75 Q40 60 10 43 Q45 65 70 80 Q25 67 0 60 Q35 80 75 95 L190 130 Z"
+          dur="2.5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M150 93 Q120 80 90 70" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.35"/>
+      <path d="M140 83 Q105 67 70 57" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.3"/>
+      <path d="M195 117 Q150 97 110 83 Q80 73 50 53" fill="none" stroke="#c4a050" stroke-width="2" opacity="0.3"/>
+
+      <!-- Right wing -->
+      <path d="M245 120 Q310 85 390 50 Q365 65 355 75 Q400 60 430 43 Q395 65 370 80 Q415 67 440 60 Q405 80 365 95 L250 130 Z" fill="#FEEC00" opacity="0.95">
+        <animate attributeName="d"
+          values="M245 120 Q310 85 390 50 Q365 65 355 75 Q400 60 430 43 Q395 65 370 80 Q415 67 440 60 Q405 80 365 95 L250 130 Z;
+                  M245 125 Q305 100 375 80 Q355 90 348 97 Q385 87 410 77 Q382 93 362 103 Q400 93 422 90 Q392 103 358 113 L250 135 Z;
+                  M245 120 Q310 85 390 50 Q365 65 355 75 Q400 60 430 43 Q395 65 370 80 Q415 67 440 60 Q405 80 365 95 L250 130 Z"
+          dur="2.5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M290 93 Q320 80 350 70" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.35"/>
+      <path d="M300 83 Q335 67 370 57" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.3"/>
+      <path d="M245 117 Q290 97 330 83 Q360 73 390 53" fill="none" stroke="#c4a050" stroke-width="2" opacity="0.3"/>
+
+      <!-- Body -->
+      <ellipse cx="220" cy="135" rx="25" ry="35" fill="#c4a070" stroke="#8a6e4a" stroke-width="1.2"/>
+      <path d="M205 125 Q215 123 230 125" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
+      <path d="M203 133 Q215 131 232 133" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
+      <path d="M204 141 Q216 139 233 141" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
+      <path d="M205 149 Q217 147 232 149" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
+      <path d="M207 157 Q218 155 230 157" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.35"/>
+
+      <!-- Black chest bib -->
+      <path d="M205 113 Q220 125 235 113" fill="none" stroke="#1a1a1a" stroke-width="5" opacity="0.7" stroke-linecap="round"/>
+
+      <!-- Head -->
+      <circle cx="220" cy="100" r="16" fill="#b8956a" stroke="#8a6e4a" stroke-width="1.2"/>
+      <!-- Red nape crescent -->
+      <path d="M210 87 Q220 82 230 87" fill="#e74c3c" stroke="none" opacity="0.85"/>
+      <!-- Eye -->
+      <circle cx="214" cy="98" r="3" fill="#1a1a1a"/>
+      <circle cx="213" cy="97" r="1.2" fill="rgba(255,255,255,0.5)"/>
+      <!-- Beak -->
+      <path d="M204 101 L186 99 L204 105 Z" fill="#555" stroke="#444" stroke-width="0.5"/>
+
+      <!-- Tail feathers -->
+      <path d="M210 167 Q205 193 198 217" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.8" stroke-linecap="round">
+        <animate attributeName="d" values="M210 167 Q205 193 198 217;M210 167 Q207 193 202 217;M210 167 Q205 193 198 217" dur="2.5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M217 169 Q217 197 217 223" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.85" stroke-linecap="round"/>
+      <path d="M224 169 Q224 197 224 223" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.85" stroke-linecap="round"/>
+      <path d="M230 167 Q235 193 242 217" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.8" stroke-linecap="round">
+        <animate attributeName="d" values="M230 167 Q235 193 242 217;M230 167 Q233 193 238 217;M230 167 Q235 193 242 217" dur="2.5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M210 167 Q204 193 195 220" fill="none" stroke="#c4a050" stroke-width="1" opacity="0.3"/>
+      <path d="M230 167 Q236 193 245 220" fill="none" stroke="#c4a050" stroke-width="1" opacity="0.3"/>
+
+      <!-- Trailing feather particles -->
+      <path d="M260 140 Q268 135 272 140 Q268 145 260 140" fill="#FEEC00" opacity="0.5">
+        <animate attributeName="transform" type="translate" values="0,0;25,18;55,45" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0.25;0" dur="3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M175 125 Q180 120 183 125 Q180 130 175 125" fill="#FEEC00" opacity="0.4">
+        <animate attributeName="transform" type="translate" values="0,0;-18,22;-32,50" dur="4s" repeatCount="indefinite" begin="0.5s"/>
+        <animate attributeName="opacity" values="0.4;0.2;0" dur="4s" repeatCount="indefinite" begin="0.5s"/>
+      </path>
+      <path d="M245 160 Q250 155 253 160 Q250 165 245 160" fill="#FEEC00" opacity="0.35">
+        <animate attributeName="transform" type="translate" values="0,0;12,28;22,60" dur="3.5s" repeatCount="indefinite" begin="1s"/>
+        <animate attributeName="opacity" values="0.35;0.15;0" dur="3.5s" repeatCount="indefinite" begin="1s"/>
+      </path>
+    </svg>
+
     <!-- Golden feather particles -->
     <div class="hero-feather" style="--x:12%;--delay:0s;--dur:6s;"></div>
     <div class="hero-feather" style="--x:28%;--delay:1.4s;--dur:7.5s;"></div>
@@ -346,10 +427,6 @@
     <!-- Full-width SVG Scene -->
     <svg class="hero-scene" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="birdGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="rgba(254,236,0,0.2)"/>
-          <stop offset="100%" stop-color="transparent"/>
-        </radialGradient>
         <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="rgba(232,220,192,0.12)"/>
           <stop offset="100%" stop-color="transparent"/>
@@ -438,97 +515,6 @@
           <path d="M1095 350 Q1093 368 1096 382" fill="none" stroke="#8a8a72" stroke-width="1"/>
         </g>
       </g>
-
-      <!-- ====== THE YELLOWHAMMER BIRD (upper left) ====== -->
-      <g transform="translate(-340, -80)" style="animation: birdSoar 6s ease-in-out infinite">
-        <!-- Golden glow behind bird -->
-        <circle cx="600" cy="195" r="90" fill="url(#birdGlow)"/>
-
-        <!-- Left wing (spread, showing golden underwing) -->
-        <g>
-          <path d="M575 195 Q510 160 430 125 Q455 140 465 150 Q420 135 390 118 Q425 140 450 155 Q405 142 380 135 Q415 155 455 170 L570 205 Z" fill="#FEEC00" opacity="0.95">
-            <animate attributeName="d"
-              values="M575 195 Q510 160 430 125 Q455 140 465 150 Q420 135 390 118 Q425 140 450 155 Q405 142 380 135 Q415 155 455 170 L570 205 Z;
-                      M575 200 Q515 175 445 155 Q465 165 472 172 Q435 162 410 152 Q438 168 458 178 Q420 168 398 165 Q428 178 462 188 L570 210 Z;
-                      M575 195 Q510 160 430 125 Q455 140 465 150 Q420 135 390 118 Q425 140 450 155 Q405 142 380 135 Q415 155 455 170 L570 205 Z"
-              dur="2.5s" repeatCount="indefinite"/>
-          </path>
-          <!-- Wing barring -->
-          <path d="M530 168 Q500 155 470 145" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.35"/>
-          <path d="M520 158 Q485 142 450 132" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.3"/>
-          <path d="M510 150 Q478 138 440 128" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.25"/>
-          <!-- Upper wing (darker topside hint) -->
-          <path d="M575 192 Q530 172 490 158 Q460 148 430 128" fill="none" stroke="#c4a050" stroke-width="2" opacity="0.3"/>
-        </g>
-
-        <!-- Right wing (spread, showing golden underwing) -->
-        <g>
-          <path d="M625 195 Q690 160 770 125 Q745 140 735 150 Q780 135 810 118 Q775 140 750 155 Q795 142 820 135 Q785 155 745 170 L630 205 Z" fill="#FEEC00" opacity="0.95">
-            <animate attributeName="d"
-              values="M625 195 Q690 160 770 125 Q745 140 735 150 Q780 135 810 118 Q775 140 750 155 Q795 142 820 135 Q785 155 745 170 L630 205 Z;
-                      M625 200 Q685 175 755 155 Q735 165 728 172 Q765 162 790 152 Q762 168 742 178 Q780 168 802 165 Q772 178 738 188 L630 210 Z;
-                      M625 195 Q690 160 770 125 Q745 140 735 150 Q780 135 810 118 Q775 140 750 155 Q795 142 820 135 Q785 155 745 170 L630 205 Z"
-              dur="2.5s" repeatCount="indefinite"/>
-          </path>
-          <path d="M670 168 Q700 155 730 145" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.35"/>
-          <path d="M680 158 Q715 142 750 132" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.3"/>
-          <path d="M690 150 Q722 138 760 128" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.25"/>
-          <path d="M625 192 Q670 172 710 158 Q740 148 770 128" fill="none" stroke="#c4a050" stroke-width="2" opacity="0.3"/>
-        </g>
-
-        <!-- Body -->
-        <ellipse cx="600" cy="210" rx="25" ry="35" fill="#c4a070" stroke="#8a6e4a" stroke-width="1.2"/>
-        <!-- Body barring/spots -->
-        <path d="M585 200 Q595 198 610 200" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
-        <path d="M583 208 Q595 206 612 208" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
-        <path d="M584 216 Q596 214 613 216" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
-        <path d="M585 224 Q597 222 612 224" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
-        <path d="M587 232 Q598 230 610 232" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.35"/>
-
-        <!-- Black chest bib -->
-        <path d="M585 188 Q600 200 615 188" fill="none" stroke="#1a1a1a" stroke-width="5" opacity="0.7" stroke-linecap="round"/>
-
-        <!-- Head -->
-        <circle cx="600" cy="175" r="16" fill="#b8956a" stroke="#8a6e4a" stroke-width="1.2"/>
-        <!-- Red nape crescent (key yellowhammer feature) -->
-        <path d="M590 162 Q600 157 610 162" fill="#e74c3c" stroke="none" opacity="0.85"/>
-        <!-- Eye -->
-        <circle cx="594" cy="173" r="3" fill="#1a1a1a"/>
-        <circle cx="593" cy="172" r="1.2" fill="rgba(255,255,255,0.5)"/>
-        <!-- Beak (pointing left, in flight) -->
-        <path d="M584 176 L566 174 L584 180 Z" fill="#555" stroke="#444" stroke-width="0.5"/>
-
-        <!-- Tail feathers (golden fan, the signature flash) -->
-        <path d="M590 242 Q585 268 578 292" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.8" stroke-linecap="round">
-          <animate attributeName="d" values="M590 242 Q585 268 578 292;M590 242 Q587 268 582 292;M590 242 Q585 268 578 292" dur="2.5s" repeatCount="indefinite"/>
-        </path>
-        <path d="M597 244 Q597 272 597 298" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.85" stroke-linecap="round"/>
-        <path d="M604 244 Q604 272 604 298" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.85" stroke-linecap="round"/>
-        <path d="M610 242 Q615 268 622 292" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.8" stroke-linecap="round">
-          <animate attributeName="d" values="M610 242 Q615 268 622 292;M610 242 Q613 268 618 292;M610 242 Q615 268 622 292" dur="2.5s" repeatCount="indefinite"/>
-        </path>
-        <!-- Tail edge detail -->
-        <path d="M590 242 Q584 268 575 295" fill="none" stroke="#c4a050" stroke-width="1" opacity="0.3"/>
-        <path d="M610 242 Q616 268 625 295" fill="none" stroke="#c4a050" stroke-width="1" opacity="0.3"/>
-      </g>
-
-      <!-- Trailing feathers from bird -->
-      <path d="M300 135 Q308 130 312 135 Q308 140 300 135" fill="#FEEC00" opacity="0.5">
-        <animate attributeName="transform" type="translate" values="0,0;25,18;55,45" dur="3s" repeatCount="indefinite"/>
-        <animate attributeName="opacity" values="0.5;0.25;0" dur="3s" repeatCount="indefinite"/>
-      </path>
-      <path d="M215 120 Q220 115 223 120 Q220 125 215 120" fill="#FEEC00" opacity="0.4">
-        <animate attributeName="transform" type="translate" values="0,0;-18,22;-32,50" dur="4s" repeatCount="indefinite" begin="0.5s"/>
-        <animate attributeName="opacity" values="0.4;0.2;0" dur="4s" repeatCount="indefinite" begin="0.5s"/>
-      </path>
-      <path d="M285 155 Q290 150 293 155 Q290 160 285 155" fill="#FEEC00" opacity="0.35">
-        <animate attributeName="transform" type="translate" values="0,0;12,28;22,60" dur="3.5s" repeatCount="indefinite" begin="1s"/>
-        <animate attributeName="opacity" values="0.35;0.15;0" dur="3.5s" repeatCount="indefinite" begin="1s"/>
-      </path>
-      <path d="M230 140 Q235 135 238 140 Q235 145 230 140" fill="#FEEC00" opacity="0.3">
-        <animate attributeName="transform" type="translate" values="0,0;-10,20;-25,48" dur="4.5s" repeatCount="indefinite" begin="1.8s"/>
-        <animate attributeName="opacity" values="0.3;0.15;0" dur="4.5s" repeatCount="indefinite" begin="1.8s"/>
-      </path>
 
       <!-- Espresso cup silhouette (right foreground) -->
       <g transform="translate(1020, 400)" opacity="0.15">
