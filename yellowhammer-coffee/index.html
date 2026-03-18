@@ -66,7 +66,7 @@
     /* ===== HERO ===== */
     .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; background: linear-gradient(180deg, #0a0610 0%, #12091a 10%, #1e1222 22%, #2e1a18 34%, #4a2e18 44%, #6a4a18 54%, #8a6a10 62%, #6a4a18 70%, #2a1a10 84%, #0a0810 100%); }
     .hero-scene { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 1; pointer-events: none; }
-    .hero-content { position: relative; z-index: 3; color: var(--white); padding-bottom: 60px; }
+    .hero-content { position: relative; z-index: 3; color: var(--white); padding-bottom: 200px; }
     .hero-tag { font-size: 0.8rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--yellow); margin-bottom: 16px; display: inline-flex; align-items: center; gap: 10px; animation: slideUp 0.8s ease forwards; opacity: 0; }
     .hero-tag::before { content: ''; width: 40px; height: 2px; background: var(--yellow); }
     .hero-tag::after { content: ''; width: 40px; height: 2px; background: var(--yellow); }
@@ -122,42 +122,20 @@
     .section-header .section-tag { display: flex; justify-content: center; }
     .section-header .section-desc { margin: 0 auto; }
 
-    /* ===== BIRD SECTION ===== */
-    .bird-section { background: linear-gradient(160deg, #1a1a1a 0%, #2a2518 40%, #1a1a1a 100%); color: var(--white); }
-    .bird-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-    .bird-text .section-tag { color: var(--yellow); }
-    .bird-text .section-tag::before { background: var(--yellow); }
-    .bird-text h2 { color: var(--white); font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 16px; }
-    .bird-text p { color: rgba(255,255,255,0.7); margin-bottom: 14px; line-height: 1.8; }
-    .bird-text p strong { color: var(--yellow); }
-
-    .bird-animation { position: relative; display: flex; align-items: center; justify-content: center; height: 450px; }
-    .bird-container { position: relative; z-index: 2; animation: birdFloat 5s ease-in-out infinite; }
-    @keyframes birdFloat { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-14px) rotate(1deg); } }
-    .bird-svg { width: 300px; height: 300px; filter: drop-shadow(0 20px 60px rgba(254,236,0,0.15)); }
-    .bird-glow { position: absolute; width: 380px; height: 380px; background: radial-gradient(circle, rgba(254,236,0,0.1) 0%, transparent 70%); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: glowPulse 3s ease-in-out infinite; }
-    @keyframes glowPulse { 0%, 100% { opacity: 0.6; transform: translate(-50%,-50%) scale(1); } 50% { opacity: 1; transform: translate(-50%,-50%) scale(1.1); } }
-
-    /* Feather particles */
-    .feather { position: absolute; width: 6px; height: 12px; background: var(--yellow); border-radius: 50% 50% 50% 0; opacity: 0; animation: featherFloat linear infinite; }
-    .feather:nth-child(1) { left: 15%; top: 75%; animation-duration: 5s; animation-delay: 0s; }
-    .feather:nth-child(2) { left: 35%; top: 85%; animation-duration: 6s; animation-delay: 0.8s; }
-    .feather:nth-child(3) { left: 55%; top: 80%; animation-duration: 4.5s; animation-delay: 1.5s; }
-    .feather:nth-child(4) { left: 75%; top: 78%; animation-duration: 5.5s; animation-delay: 0.3s; }
-    .feather:nth-child(5) { left: 45%; top: 90%; animation-duration: 5.2s; animation-delay: 2s; }
-    .feather:nth-child(6) { left: 25%; top: 70%; animation-duration: 4.8s; animation-delay: 1.2s; }
-    @keyframes featherFloat {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.7; }
-      90% { opacity: 0.5; }
-      100% { transform: translateY(-350px) rotate(180deg); opacity: 0; }
-    }
-
-    /* ===== STORY / ABOUT ===== */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-    .about-text p { color: var(--text-light); margin-bottom: 14px; line-height: 1.8; }
-    .about-image { height: 400px; border-radius: var(--radius); overflow: hidden; }
-    .about-image img { width: 100%; height: 100%; object-fit: cover; }
+    /* ===== STORY / ABOUT (magazine layout) ===== */
+    .story-section { background: var(--dark); position: relative; overflow: hidden; }
+    .story-split { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; }
+    .story-image { position: relative; overflow: hidden; }
+    .story-image img { width: 100%; height: 100%; object-fit: cover; }
+    .story-text { display: flex; flex-direction: column; justify-content: center; padding: 64px 56px; color: var(--white); }
+    .story-text .section-tag { color: var(--yellow); }
+    .story-text .section-tag::before { background: var(--yellow); }
+    .story-text h2 { color: var(--white); font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 20px; }
+    .story-text p { color: rgba(255,255,255,0.7); margin-bottom: 14px; line-height: 1.8; }
+    .story-text p strong { color: var(--yellow); }
+    .story-pullquote { border-left: 4px solid var(--yellow); padding: 16px 0 16px 24px; margin: 20px 0; }
+    .story-pullquote p { font-family: 'Oswald', sans-serif; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 500; color: var(--yellow); line-height: 1.4; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+    .story-pullquote span { font-family: 'Nunito Sans', sans-serif; font-size: 0.82rem; color: rgba(255,255,255,0.4); text-transform: none; letter-spacing: 0; }
 
     /* ===== STATS ===== */
     .stats-section { background: var(--warm-gray); padding: 72px 0; }
@@ -217,20 +195,27 @@
     .menu-item-desc { font-size: 0.8rem; color: var(--text-light); margin-top: 2px; }
     .menu-item-price { font-family: 'Oswald', sans-serif; font-size: 0.88rem; color: var(--yellow-dark); white-space: nowrap; }
 
+    /* ===== PHOTO MOSAIC ===== */
+    .mosaic-section { padding: 0; background: var(--dark); }
+    .mosaic-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 240px 240px; gap: 4px; }
+    .mosaic-grid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease, filter 0.4s ease; }
+    .mosaic-grid img:hover { transform: scale(1.05); filter: brightness(1.15); z-index: 1; }
+    .mosaic-grid .mosaic-tall { grid-row: span 2; }
+    .mosaic-grid .mosaic-wide { grid-column: span 2; }
+
     /* ===== CULTURE ===== */
-    .culture-section { background: var(--dark); }
-    .culture-section .section-title { color: var(--white); }
-    .culture-section .section-desc { color: rgba(255,255,255,0.55); }
+    .culture-section { background: var(--warm-gray); }
     .culture-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
-    .culture-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 28px; color: var(--white); transition: all 0.4s ease; }
-    .culture-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
-    .culture-icon { width: 40px; height: 40px; margin-bottom: 16px; color: var(--yellow); }
-    .culture-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--yellow); }
-    .culture-card p { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+    .culture-card { background: var(--white); border-left: 4px solid var(--yellow); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 28px; transition: all 0.4s ease; box-shadow: var(--shadow-sm); }
+    .culture-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .culture-icon { width: 40px; height: 40px; margin-bottom: 16px; color: var(--yellow-dark); }
+    .culture-card h3 { font-size: 1rem; margin-bottom: 8px; color: var(--dark); }
+    .culture-card p { font-size: 0.88rem; color: var(--text-light); line-height: 1.7; }
 
     /* ===== CTA ===== */
     .cta { padding: 72px 0; background: var(--yellow); text-align: center; position: relative; overflow: hidden; }
     .cta::before { content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%); }
+    .cta-bird { position: absolute; right: -40px; bottom: -20px; width: 220px; height: 220px; opacity: 0.08; pointer-events: none; }
     .cta h2 { color: var(--dark); font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 12px; position: relative; }
     .cta p { color: rgba(26,26,26,0.7); max-width: 450px; margin: 0 auto 28px; position: relative; }
     .cta .btn { position: relative; }
@@ -263,14 +248,16 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       section { padding: 72px 0; }
-      .hero-content { padding-bottom: 40px; }
+      .hero-content { padding-bottom: 140px; }
       .hero-bird { width: 200px; height: 180px; top: 4%; left: 2%; }
       .hero-bird-glow { display: none; }
       .hero-feather:nth-child(n+5) { display: none; }
       .hero-firefly:nth-child(n+4) { display: none; }
-      .bird-grid, .about-grid { grid-template-columns: 1fr; gap: 36px; }
-      .bird-animation { height: 300px; }
-      .bird-svg { width: 220px; height: 220px; }
+      .story-split { grid-template-columns: 1fr; }
+      .story-image { height: 300px; }
+      .story-text { padding: 48px 24px; }
+      .mosaic-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: 180px 180px 180px; }
+      .mosaic-grid .mosaic-wide { grid-column: span 2; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
       .locations-grid { grid-template-columns: 1fr; }
       .menu-featured, .culture-grid { grid-template-columns: 1fr; }
@@ -558,101 +545,22 @@
     </div>
   </div>
 
-  <!-- ===== YELLOWHAMMER BIRD ===== -->
-  <section class="bird-section">
-    <div class="container">
-      <div class="bird-grid">
-        <div class="bird-text fade-up">
-          <span class="section-tag section-tag-light">The State Bird of Alabama</span>
-          <h2>Fly High,<br>Hammer Down</h2>
-          <p>The yellowhammer — Alabama's state bird — is a Northern Flicker known for the flash of brilliant gold beneath its wings. It's a bird that doesn't just fly. It <strong>hammers</strong>.</p>
-          <p>We named our company after that spirit. Have spectacular dreams and work tirelessly to bring them to life. From a single coffee trailer in Semmes to seven thriving locations across Mobile, that's exactly what we've done.</p>
-        </div>
-        <div class="bird-animation fade-up">
-          <div class="bird-glow"></div>
-          <!-- Feather particles -->
-          <div class="feather"></div>
-          <div class="feather"></div>
-          <div class="feather"></div>
-          <div class="feather"></div>
-          <div class="feather"></div>
-          <div class="feather"></div>
-          <!-- Yellowhammer Bird SVG -->
-          <div class="bird-container">
-            <svg class="bird-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-              <!-- Left wing (spread) -->
-              <g>
-                <path d="M55 130 Q20 100 5 60 Q15 65 30 70 Q18 50 10 25 Q25 45 40 60 Q30 35 28 10 Q40 40 50 65 Q48 45 50 20 Q55 50 58 75 L80 110 Z" fill="#FEEC00" opacity="0.95">
-                  <animate attributeName="d" values="M55 130 Q20 100 5 60 Q15 65 30 70 Q18 50 10 25 Q25 45 40 60 Q30 35 28 10 Q40 40 50 65 Q48 45 50 20 Q55 50 58 75 L80 110 Z;M55 135 Q22 105 8 65 Q18 70 33 75 Q20 55 12 30 Q27 50 42 65 Q32 40 30 15 Q42 45 52 70 Q50 50 52 25 Q57 55 60 80 L80 115 Z;M55 130 Q20 100 5 60 Q15 65 30 70 Q18 50 10 25 Q25 45 40 60 Q30 35 28 10 Q40 40 50 65 Q48 45 50 20 Q55 50 58 75 L80 110 Z" dur="3s" repeatCount="indefinite"/>
-                </path>
-                <!-- Wing barring -->
-                <path d="M40 70 Q50 68 60 80" fill="none" stroke="var(--dark)" stroke-width="1.5" opacity="0.3"/>
-                <path d="M30 55 Q42 55 55 68" fill="none" stroke="var(--dark)" stroke-width="1.5" opacity="0.3"/>
-                <path d="M22 42 Q35 44 50 56" fill="none" stroke="var(--dark)" stroke-width="1.5" opacity="0.3"/>
-              </g>
-              <!-- Right wing (spread) -->
-              <g>
-                <path d="M245 130 Q280 100 295 60 Q285 65 270 70 Q282 50 290 25 Q275 45 260 60 Q270 35 272 10 Q260 40 250 65 Q252 45 250 20 Q245 50 242 75 L220 110 Z" fill="#FEEC00" opacity="0.95">
-                  <animate attributeName="d" values="M245 130 Q280 100 295 60 Q285 65 270 70 Q282 50 290 25 Q275 45 260 60 Q270 35 272 10 Q260 40 250 65 Q252 45 250 20 Q245 50 242 75 L220 110 Z;M245 135 Q278 105 292 65 Q282 70 267 75 Q280 55 288 30 Q273 50 258 65 Q268 40 270 15 Q258 45 248 70 Q250 50 248 25 Q243 55 240 80 L220 115 Z;M245 130 Q280 100 295 60 Q285 65 270 70 Q282 50 290 25 Q275 45 260 60 Q270 35 272 10 Q260 40 250 65 Q252 45 250 20 Q245 50 242 75 L220 110 Z" dur="3s" repeatCount="indefinite"/>
-                </path>
-                <!-- Wing barring -->
-                <path d="M260 70 Q250 68 240 80" fill="none" stroke="var(--dark)" stroke-width="1.5" opacity="0.3"/>
-                <path d="M270 55 Q258 55 245 68" fill="none" stroke="var(--dark)" stroke-width="1.5" opacity="0.3"/>
-                <path d="M278 42 Q265 44 250 56" fill="none" stroke="var(--dark)" stroke-width="1.5" opacity="0.3"/>
-              </g>
-              <!-- Body -->
-              <ellipse cx="150" cy="155" rx="42" ry="60" fill="#d4a574" stroke="#8a6e4a" stroke-width="1.5"/>
-              <!-- Body spots/barring -->
-              <path d="M125 140 Q135 138 145 140" fill="none" stroke="#8a6e4a" stroke-width="1" opacity="0.4"/>
-              <path d="M130 150 Q140 148 155 150" fill="none" stroke="#8a6e4a" stroke-width="1" opacity="0.4"/>
-              <path d="M128 160 Q140 158 158 160" fill="none" stroke="#8a6e4a" stroke-width="1" opacity="0.4"/>
-              <path d="M130 170 Q142 168 160 170" fill="none" stroke="#8a6e4a" stroke-width="1" opacity="0.4"/>
-              <path d="M132 180 Q144 178 158 180" fill="none" stroke="#8a6e4a" stroke-width="1" opacity="0.4"/>
-              <path d="M135 190 Q145 188 155 190" fill="none" stroke="#8a6e4a" stroke-width="1" opacity="0.4"/>
-              <!-- Chest bib (black crescent) -->
-              <path d="M130 125 Q140 140 150 142 Q160 140 170 125" fill="none" stroke="var(--dark)" stroke-width="6" opacity="0.7" stroke-linecap="round"/>
-              <!-- Head -->
-              <circle cx="150" cy="100" r="22" fill="#c4a070" stroke="#8a6e4a" stroke-width="1.5"/>
-              <!-- Red nape crescent -->
-              <path d="M135 85 Q150 78 165 85" fill="#e74c3c" stroke="none" opacity="0.85"/>
-              <!-- Eye -->
-              <circle cx="143" cy="96" r="4" fill="var(--dark)"/>
-              <circle cx="141.5" cy="94.5" r="1.5" fill="rgba(255,255,255,0.6)"/>
-              <!-- Beak -->
-              <path d="M130 100 L115 98 L130 103 Z" fill="#555" stroke="#444" stroke-width="0.5"/>
-              <!-- Tail feathers (yellow) -->
-              <path d="M140 210 Q135 250 125 280" fill="none" stroke="#FEEC00" stroke-width="5" opacity="0.8" stroke-linecap="round">
-                <animate attributeName="d" values="M140 210 Q135 250 125 280;M140 210 Q137 250 130 280;M140 210 Q135 250 125 280" dur="2.5s" repeatCount="indefinite"/>
-              </path>
-              <path d="M150 215 Q150 255 150 285" fill="none" stroke="#FEEC00" stroke-width="5" opacity="0.8" stroke-linecap="round">
-                <animate attributeName="d" values="M150 215 Q150 255 150 285;M150 215 Q152 255 152 285;M150 215 Q150 255 150 285" dur="2.8s" repeatCount="indefinite"/>
-              </path>
-              <path d="M160 210 Q165 250 175 280" fill="none" stroke="#FEEC00" stroke-width="5" opacity="0.8" stroke-linecap="round">
-                <animate attributeName="d" values="M160 210 Q165 250 175 280;M160 210 Q163 250 170 280;M160 210 Q165 250 175 280" dur="2.5s" repeatCount="indefinite"/>
-              </path>
-              <!-- Tail edge strokes -->
-              <path d="M140 210 Q134 250 122 282" fill="none" stroke="#8a6e4a" stroke-width="1" opacity="0.3"/>
-              <path d="M160 210 Q166 250 178 282" fill="none" stroke="#8a6e4a" stroke-width="1" opacity="0.3"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== OUR STORY ===== -->
-  <section id="story">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-text fade-up">
-          <span class="section-tag">Our Story</span>
-          <h2 class="section-title">From a Trailer to Seven Locations</h2>
-          <p>In 2016, Jeff and Monique Roberts had a dream: bring amazing coffee and unmatched service to Mobile, Alabama. It started with a black trailer, a bright yellow coffee-bean logo, and a whole lot of heart.</p>
-          <p>What began as a scrappy startup has grown into seven thriving locations across Mobile and Semmes. Through it all, one thing hasn't changed — the belief that the culture of the company should be just as important as the coffee.</p>
-          <p>Our motto says it all: <strong>Fly High, Hammer Down.</strong> Have spectacular dreams and work tirelessly to bring them to life.</p>
-          <a href="#locations" class="btn btn-dark btn-sm" style="margin-top: 16px;">Visit a Location</a>
+  <section id="story" class="story-section">
+    <div class="story-split">
+      <div class="story-image fade-up">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Barista_pouring_coffee_%28Unsplash%29.jpg/1280px-Barista_pouring_coffee_%28Unsplash%29.jpg" alt="Barista crafting coffee at Yellowhammer Coffee" loading="lazy">
+      </div>
+      <div class="story-text fade-up">
+        <span class="section-tag">Our Story</span>
+        <h2>From a Trailer to<br>Seven Locations</h2>
+        <p>In 2016, Jeff and Monique Roberts had a dream: bring amazing coffee and unmatched service to Mobile, Alabama. It started with a black trailer, a bright yellow coffee-bean logo, and a whole lot of heart.</p>
+        <p>What began as a scrappy startup has grown into seven thriving locations across Mobile and Semmes. Through it all, one thing hasn't changed — the belief that the culture of the company should be just as important as the coffee.</p>
+        <div class="story-pullquote">
+          <p>The yellowhammer doesn't just fly. It hammers.</p>
+          <span>Named after Alabama's state bird — have spectacular dreams and work tirelessly to bring them to life.</span>
         </div>
-        <div class="about-image fade-up"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Barista_pouring_coffee_%28Unsplash%29.jpg/1280px-Barista_pouring_coffee_%28Unsplash%29.jpg" alt="Barista crafting coffee at Yellowhammer Coffee" loading="lazy"></div>
+        <a href="#locations" class="btn btn-primary btn-sm" style="margin-top: 8px; align-self: flex-start;">Visit a Location</a>
       </div>
     </div>
   </section>
@@ -840,6 +748,17 @@
     </div>
   </section>
 
+  <!-- ===== PHOTO MOSAIC ===== -->
+  <section class="mosaic-section">
+    <div class="mosaic-grid">
+      <img class="mosaic-tall" src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&h=800&fit=crop" alt="Latte art pour" loading="lazy">
+      <img class="mosaic-wide" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=400&fit=crop" alt="Coffee on saucer" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=400&fit=crop" alt="Latte art" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop" alt="Iced coffee" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1619286310410-a95de97b0aec?w=400&h=400&fit=crop" alt="Mocha drink" loading="lazy">
+    </div>
+  </section>
+
   <!-- ===== MENU ===== -->
   <section id="menu">
     <div class="container">
@@ -973,7 +892,7 @@
   <section class="culture-section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag section-tag-light">Our Culture</span>
+        <span class="section-tag">Our Culture</span>
         <h2 class="section-title">More Than Just Coffee</h2>
         <p class="section-desc">The culture of our company should be just as important as the coffee. That's not just a saying — it's how we run every single location.</p>
       </div>
@@ -1005,6 +924,16 @@
 
   <!-- ===== JOIN CTA ===== -->
   <section class="cta">
+    <svg class="cta-bird" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <path d="M55 130 Q20 100 5 60 Q15 65 30 70 Q18 50 10 25 Q25 45 40 60 Q30 35 28 10 Q40 40 50 65 Q48 45 50 20 Q55 50 58 75 L80 110 Z" fill="var(--dark)"/>
+      <path d="M245 130 Q280 100 295 60 Q285 65 270 70 Q282 50 290 25 Q275 45 260 60 Q270 35 272 10 Q260 40 250 65 Q252 45 250 20 Q245 50 242 75 L220 110 Z" fill="var(--dark)"/>
+      <ellipse cx="150" cy="155" rx="42" ry="60" fill="var(--dark)"/>
+      <circle cx="150" cy="100" r="22" fill="var(--dark)"/>
+      <path d="M130 100 L115 98 L130 103 Z" fill="var(--dark)"/>
+      <path d="M140 210 Q135 250 125 280" stroke="var(--dark)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M150 215 Q150 255 150 285" stroke="var(--dark)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M160 210 Q165 250 175 280" stroke="var(--dark)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </svg>
     <div class="container">
       <h2>Join the YelHamFam</h2>
       <p>We're always looking for passionate people who believe in amazing coffee and unmatched service. Ready to fly high?</p>
