@@ -394,172 +394,183 @@
       </svg>
     </div>
 
-    <!-- Full-width garden scene -->
+    <!-- Full-width Bellingrath Gardens scene -->
     <div class="hero-garden">
       <svg class="garden-svg" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
         <defs>
+          <linearGradient id="lakeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0a1a2a" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#081420" stop-opacity="1"/>
+          </linearGradient>
+          <linearGradient id="mossGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2d4a2a" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#3a5a35" stop-opacity="0.3"/>
+          </linearGradient>
+          <radialGradient id="fountainGlow"><stop offset="0%" stop-color="rgba(255,255,255,0.15)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient>
           <linearGradient id="gardenGround" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#1a2218"/>
             <stop offset="100%" stop-color="#0e140e"/>
           </linearGradient>
-          <linearGradient id="pathStone" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2a2520"/>
-            <stop offset="100%" stop-color="#1e1a16"/>
-          </linearGradient>
         </defs>
 
-        <!-- Ground plane -->
-        <path d="M0 280 Q200 265 400 275 Q600 285 800 270 Q1000 260 1200 275 L1200 400 L0 400 Z" fill="url(#gardenGround)"/>
+        <!-- Far bank / distant tree line -->
+        <path d="M0 175 Q60 158 120 170 Q180 162 240 168 Q320 155 400 165 Q480 158 560 162 Q640 155 720 165 Q800 158 880 168 Q960 160 1040 170 Q1120 162 1200 172 L1200 200 L0 200 Z" fill="#101810" opacity="0.8"/>
 
-        <!-- Garden path (winding stone path) -->
-        <path d="M500 400 Q520 370 540 340 Q560 310 590 295 Q620 280 660 285 Q700 290 720 300" fill="none" stroke="url(#pathStone)" stroke-width="28" stroke-linecap="round" opacity="0.5"/>
-        <path d="M500 400 Q520 370 540 340 Q560 310 590 295 Q620 280 660 285 Q700 290 720 300" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="26" stroke-linecap="round"/>
+        <!-- === MIRROR LAKE (water) === -->
+        <path d="M0 210 Q100 195 200 205 Q350 218 500 208 Q650 198 800 210 Q950 220 1100 205 L1200 200 L1200 400 L0 400 Z" fill="url(#lakeGrad)"/>
 
-        <!-- Hedge row (background) -->
-        <ellipse cx="100" cy="265" rx="80" ry="25" fill="#152015" opacity="0.8"/>
-        <ellipse cx="280" cy="260" rx="90" ry="28" fill="#182218" opacity="0.7"/>
-        <ellipse cx="480" cy="268" rx="75" ry="22" fill="#152015" opacity="0.8"/>
-        <ellipse cx="750" cy="258" rx="85" ry="26" fill="#182218" opacity="0.7"/>
-        <ellipse cx="950" cy="262" rx="80" ry="24" fill="#152015" opacity="0.8"/>
-        <ellipse cx="1130" cy="268" rx="70" ry="22" fill="#182218" opacity="0.7"/>
+        <!-- Shoreline banks (left and right) -->
+        <path d="M0 195 Q40 182 80 192 Q130 200 180 190 Q230 180 280 188 Q320 195 360 185 L360 220 Q300 225 240 218 Q180 212 120 220 Q60 225 0 218 Z" fill="url(#gardenGround)"/>
+        <path d="M840 188 Q890 178 940 186 Q990 195 1040 185 Q1090 178 1140 188 Q1180 195 1200 192 L1200 225 Q1140 228 1080 220 Q1020 215 960 222 Q900 228 840 220 Z" fill="url(#gardenGround)"/>
 
-        <!-- === FLOWER CLUSTERS === -->
+        <!-- === LIVE OAK TREE (left bank) === -->
+        <rect x="65" y="110" width="12" height="85" fill="#1a1a1a" rx="3"/>
+        <path d="M71 120 Q50 92 30 85" stroke="#1a1a1a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M71 115 Q92 88 118 80" stroke="#1a1a1a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M68 130 Q42 115 25 120" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="70" cy="80" rx="68" ry="45" fill="#151a15"/>
+        <ellipse cx="30" cy="90" rx="42" ry="32" fill="#131813"/>
+        <ellipse cx="110" cy="82" rx="45" ry="35" fill="#141914"/>
+        <!-- Spanish moss -->
+        <path d="M20 110 Q22 128 20 140" fill="none" stroke="url(#mossGrad)" stroke-width="1.5"/>
+        <path d="M42 108 Q44 126 42 138" fill="none" stroke="url(#mossGrad)" stroke-width="1"/>
+        <path d="M100 100 Q102 118 100 130" fill="none" stroke="url(#mossGrad)" stroke-width="1.5"/>
+        <path d="M122 98 Q124 116 122 128" fill="none" stroke="url(#mossGrad)" stroke-width="1"/>
 
-        <!-- Rose bush 1 (left) -->
+        <!-- === AZALEA BANKS (left shore — massive bushes) === -->
+        <!-- Large azalea mass -->
+        <ellipse cx="180" cy="188" rx="55" ry="22" fill="#1a2a18" opacity="0.7"/>
         <g class="bloom-1">
-          <g class="leaf-sway">
-            <path d="M120 280 Q105 250 110 225" fill="none" stroke="#2e7d32" stroke-width="3"/>
-            <path d="M115 255 Q100 248 95 235 Q108 242 115 255" fill="#4caf50" opacity="0.7"/>
-          </g>
-          <g transform="translate(110,215)">
-            <ellipse cx="0" cy="-14" rx="11" ry="16" fill="#e91e63" opacity="0.75" transform="rotate(-30)"/>
-            <ellipse cx="0" cy="-14" rx="11" ry="16" fill="#e91e63" opacity="0.75" transform="rotate(30)"/>
-            <ellipse cx="0" cy="-14" rx="11" ry="16" fill="#e91e63" opacity="0.75" transform="rotate(90)"/>
-            <ellipse cx="0" cy="-14" rx="11" ry="16" fill="#e91e63" opacity="0.75" transform="rotate(150)"/>
-            <ellipse cx="0" cy="-14" rx="11" ry="16" fill="#e91e63" opacity="0.75" transform="rotate(210)"/>
-            <ellipse cx="0" cy="-9" rx="7" ry="11" fill="#f48fb1" opacity="0.8" transform="rotate(0)"/>
-            <ellipse cx="0" cy="-9" rx="7" ry="11" fill="#f48fb1" opacity="0.8" transform="rotate(72)"/>
-            <ellipse cx="0" cy="-9" rx="7" ry="11" fill="#f48fb1" opacity="0.8" transform="rotate(144)"/>
-            <ellipse cx="0" cy="-9" rx="7" ry="11" fill="#f48fb1" opacity="0.8" transform="rotate(216)"/>
-            <circle cx="0" cy="0" r="5" fill="#c62828" opacity="0.9"/>
-            <circle cx="0" cy="0" r="3" fill="#FEEC00" opacity="0.5"/>
-          </g>
+          <circle cx="148" cy="178" r="8" fill="#e91e63" opacity="0.7"/>
+          <circle cx="162" cy="172" r="10" fill="#c62828" opacity="0.75"/>
+          <circle cx="178" cy="175" r="9" fill="#e91e63" opacity="0.7"/>
+          <circle cx="195" cy="170" r="11" fill="#f48fb1" opacity="0.65"/>
+          <circle cx="210" cy="176" r="8" fill="#e91e63" opacity="0.7"/>
+          <circle cx="225" cy="180" r="7" fill="#c62828" opacity="0.6"/>
+          <circle cx="155" cy="185" r="7" fill="#f48fb1" opacity="0.55"/>
+          <circle cx="190" cy="182" r="8" fill="#e91e63" opacity="0.6"/>
+          <circle cx="215" cy="185" r="6" fill="#fff5f5" opacity="0.5"/>
         </g>
-
-        <!-- White Camellia 1 -->
+        <!-- More azaleas behind -->
         <g class="bloom-2">
-          <g class="leaf-sway-2">
-            <path d="M300 275 Q295 240 305 205" fill="none" stroke="#2e7d32" stroke-width="3"/>
-            <path d="M300 245 Q315 235 322 222 Q310 232 300 245" fill="#2e7d32" opacity="0.7"/>
-          </g>
-          <g transform="translate(305,195)">
-            <ellipse cx="0" cy="-16" rx="13" ry="18" fill="#fff5f5" opacity="0.75" transform="rotate(0)"/>
-            <ellipse cx="0" cy="-16" rx="13" ry="18" fill="#fff5f5" opacity="0.75" transform="rotate(60)"/>
-            <ellipse cx="0" cy="-16" rx="13" ry="18" fill="#fff5f5" opacity="0.75" transform="rotate(120)"/>
-            <ellipse cx="0" cy="-16" rx="13" ry="18" fill="#fff5f5" opacity="0.75" transform="rotate(180)"/>
-            <ellipse cx="0" cy="-16" rx="13" ry="18" fill="#fff5f5" opacity="0.75" transform="rotate(240)"/>
-            <ellipse cx="0" cy="-16" rx="13" ry="18" fill="#fff5f5" opacity="0.75" transform="rotate(300)"/>
-            <ellipse cx="0" cy="-10" rx="9" ry="12" fill="white" opacity="0.85" transform="rotate(30)"/>
-            <ellipse cx="0" cy="-10" rx="9" ry="12" fill="white" opacity="0.85" transform="rotate(102)"/>
-            <ellipse cx="0" cy="-10" rx="9" ry="12" fill="white" opacity="0.85" transform="rotate(174)"/>
-            <ellipse cx="0" cy="-10" rx="9" ry="12" fill="white" opacity="0.85" transform="rotate(246)"/>
-            <circle cx="0" cy="0" r="6" fill="#FEEC00" opacity="0.6"/>
-          </g>
+          <circle cx="270" cy="182" r="9" fill="#e91e63" opacity="0.65"/>
+          <circle cx="285" cy="178" r="7" fill="#c62828" opacity="0.7"/>
+          <circle cx="300" cy="182" r="10" fill="#f48fb1" opacity="0.6"/>
+          <circle cx="315" cy="176" r="8" fill="#e91e63" opacity="0.7"/>
+          <circle cx="330" cy="180" r="7" fill="#c62828" opacity="0.55"/>
         </g>
 
-        <!-- Azalea bush (center-left) -->
+        <!-- === RUSTIC BRIDGE over Mirror Lake === -->
+        <!-- Bridge arc -->
+        <path d="M420 210 Q500 158 580 210" fill="none" stroke="#3a2a1a" stroke-width="6" stroke-linecap="round"/>
+        <path d="M420 210 Q500 162 580 210" fill="none" stroke="#4a3828" stroke-width="3"/>
+        <!-- Bridge railing posts -->
+        <line x1="435" y1="205" x2="435" y2="192" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
+        <line x1="455" y1="195" x2="455" y2="180" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
+        <line x1="475" y1="188" x2="475" y2="172" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
+        <line x1="500" y1="185" x2="500" y2="168" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
+        <line x1="525" y1="188" x2="525" y2="172" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
+        <line x1="545" y1="195" x2="545" y2="180" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
+        <line x1="565" y1="205" x2="565" y2="192" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/>
+        <!-- Bridge top rail -->
+        <path d="M432 192 Q500 155 568 192" fill="none" stroke="#3a2a1a" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Bridge deck planks (subtle) -->
+        <path d="M425 208 Q500 163 575 208" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="18"/>
+
+        <!-- === MERMAID FOUNTAIN (right side) === -->
+        <!-- Fountain base -->
+        <ellipse cx="920" cy="215" rx="32" ry="8" fill="#2a2228" opacity="0.7"/>
+        <rect x="906" y="195" width="28" height="20" fill="#2a2228" rx="2" opacity="0.6"/>
+        <!-- Fountain column -->
+        <rect x="916" y="155" width="8" height="42" fill="#2e2630" opacity="0.7"/>
+        <!-- Fountain figure silhouette -->
+        <ellipse cx="920" cy="148" rx="8" ry="10" fill="#2e2630" opacity="0.6"/>
+        <path d="M914 155 Q920 140 926 155" fill="#2e2630" opacity="0.5"/>
+        <!-- Water spray -->
+        <path d="M920 138 Q918 118 920 105" fill="none" stroke="rgba(180,200,255,0.2)" stroke-width="1.5">
+          <animate attributeName="d" values="M920 138 Q918 118 920 105;M920 138 Q922 118 920 105;M920 138 Q918 118 920 105" dur="2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M920 138 Q910 120 905 112" fill="none" stroke="rgba(180,200,255,0.12)" stroke-width="1">
+          <animate attributeName="d" values="M920 138 Q910 120 905 112;M920 138 Q912 122 908 115;M920 138 Q910 120 905 112" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M920 138 Q930 120 935 112" fill="none" stroke="rgba(180,200,255,0.12)" stroke-width="1">
+          <animate attributeName="d" values="M920 138 Q930 120 935 112;M920 138 Q928 122 932 115;M920 138 Q930 120 935 112" dur="2.2s" repeatCount="indefinite"/>
+        </path>
+        <circle cx="920" cy="140" r="12" fill="url(#fountainGlow)">
+          <animate attributeName="r" values="12;18;12" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- === AZALEA BANKS (right shore) === -->
+        <ellipse cx="1020" cy="190" rx="50" ry="20" fill="#1a2a18" opacity="0.7"/>
         <g class="bloom-3">
-          <g class="leaf-sway-3">
-            <path d="M200 282 Q195 255 200 230" fill="none" stroke="#2e7d32" stroke-width="2.5"/>
-            <path d="M198 258 Q185 250 180 238 Q192 244 198 258" fill="#4caf50" opacity="0.7"/>
-          </g>
-          <g transform="translate(200,222)">
-            <ellipse cx="0" cy="-12" rx="9" ry="14" fill="#c62828" opacity="0.8" transform="rotate(0)"/>
-            <ellipse cx="0" cy="-12" rx="9" ry="14" fill="#c62828" opacity="0.8" transform="rotate(72)"/>
-            <ellipse cx="0" cy="-12" rx="9" ry="14" fill="#c62828" opacity="0.8" transform="rotate(144)"/>
-            <ellipse cx="0" cy="-12" rx="9" ry="14" fill="#c62828" opacity="0.8" transform="rotate(216)"/>
-            <ellipse cx="0" cy="-12" rx="9" ry="14" fill="#c62828" opacity="0.8" transform="rotate(288)"/>
-            <circle cx="0" cy="0" r="4" fill="#fff5f5" opacity="0.7"/>
-            <circle cx="0" cy="-6" r="1.2" fill="#FEEC00" opacity="0.8"/>
-          </g>
+          <circle cx="990" cy="182" r="9" fill="#e91e63" opacity="0.7"/>
+          <circle cx="1005" cy="176" r="10" fill="#c62828" opacity="0.75"/>
+          <circle cx="1022" cy="180" r="8" fill="#f48fb1" opacity="0.65"/>
+          <circle cx="1038" cy="174" r="11" fill="#e91e63" opacity="0.7"/>
+          <circle cx="1055" cy="180" r="7" fill="#c62828" opacity="0.6"/>
+          <circle cx="1010" cy="186" r="7" fill="#fff5f5" opacity="0.5"/>
+          <circle cx="1040" cy="184" r="8" fill="#e91e63" opacity="0.6"/>
         </g>
 
-        <!-- Garden arch/trellis (center) -->
-        <path d="M560 280 L560 180 Q600 130 640 180 L640 280" fill="none" stroke="#2a2a2a" stroke-width="5" stroke-linecap="round"/>
-        <path d="M555 280 L555 185 Q600 138 645 185 L645 280" fill="none" stroke="#333" stroke-width="2"/>
-        <!-- Climbing roses on arch -->
-        <circle cx="565" cy="200" r="6" fill="#e91e63" opacity="0.7"/>
-        <circle cx="570" cy="175" r="5" fill="#f48fb1" opacity="0.6"/>
-        <circle cx="580" cy="155" r="7" fill="#e91e63" opacity="0.7"/>
-        <circle cx="600" cy="142" r="6" fill="#fff5f5" opacity="0.6"/>
-        <circle cx="620" cy="150" r="5" fill="#e91e63" opacity="0.7"/>
-        <circle cx="632" cy="170" r="6" fill="#f48fb1" opacity="0.65"/>
-        <circle cx="638" cy="195" r="5" fill="#e91e63" opacity="0.6"/>
-        <!-- Leaves on arch -->
-        <circle cx="558" cy="220" r="4" fill="#2e7d32" opacity="0.5"/>
-        <circle cx="562" cy="240" r="5" fill="#4caf50" opacity="0.4"/>
-        <circle cx="642" cy="225" r="4" fill="#2e7d32" opacity="0.5"/>
-        <circle cx="640" cy="250" r="5" fill="#4caf50" opacity="0.4"/>
-        <circle cx="575" cy="165" r="3" fill="#2e7d32" opacity="0.5"/>
-        <circle cx="625" cy="160" r="3.5" fill="#4caf50" opacity="0.4"/>
+        <!-- === LIVE OAK TREE (right bank) === -->
+        <rect x="1100" y="118" width="11" height="78" fill="#1a1a1a" rx="3"/>
+        <path d="M1106 125 Q1088 100 1072 95" stroke="#1a1a1a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M1106 120 Q1128 95 1152 88" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="1105" cy="90" rx="58" ry="40" fill="#151a15"/>
+        <ellipse cx="1070" cy="98" rx="38" ry="30" fill="#131813"/>
+        <ellipse cx="1145" cy="92" rx="42" ry="32" fill="#141914"/>
+        <!-- Spanish moss -->
+        <path d="M1075" y1="112" d="M1075 112 Q1077 128 1075 138" fill="none" stroke="url(#mossGrad)" stroke-width="1.5"/>
+        <path d="M1140 108 Q1142 124 1140 134" fill="none" stroke="url(#mossGrad)" stroke-width="1"/>
 
-        <!-- Rose bush 2 (right of arch) -->
+        <!-- === WHITE CAMELLIAS (scattered) === -->
         <g class="bloom-4">
-          <g class="leaf-sway">
-            <path d="M780 270 Q775 238 782 208" fill="none" stroke="#2e7d32" stroke-width="3"/>
-            <path d="M778 240 Q790 230 798 218 Q788 228 778 240" fill="#2e7d32" opacity="0.7"/>
-          </g>
-          <g transform="translate(782,198)">
-            <ellipse cx="0" cy="-14" rx="12" ry="17" fill="#f48fb1" opacity="0.75" transform="rotate(-20)"/>
-            <ellipse cx="0" cy="-14" rx="12" ry="17" fill="#f48fb1" opacity="0.75" transform="rotate(40)"/>
-            <ellipse cx="0" cy="-14" rx="12" ry="17" fill="#f48fb1" opacity="0.75" transform="rotate(100)"/>
-            <ellipse cx="0" cy="-14" rx="12" ry="17" fill="#f48fb1" opacity="0.75" transform="rotate(160)"/>
-            <ellipse cx="0" cy="-14" rx="12" ry="17" fill="#f48fb1" opacity="0.75" transform="rotate(220)"/>
-            <ellipse cx="0" cy="-9" rx="8" ry="11" fill="#fff5f5" opacity="0.8" transform="rotate(10)"/>
-            <ellipse cx="0" cy="-9" rx="8" ry="11" fill="#fff5f5" opacity="0.8" transform="rotate(82)"/>
-            <ellipse cx="0" cy="-9" rx="8" ry="11" fill="#fff5f5" opacity="0.8" transform="rotate(154)"/>
-            <ellipse cx="0" cy="-9" rx="8" ry="11" fill="#fff5f5" opacity="0.8" transform="rotate(226)"/>
-            <circle cx="0" cy="0" r="5" fill="#c62828" opacity="0.8"/>
-            <circle cx="0" cy="0" r="3" fill="#FEEC00" opacity="0.5"/>
-          </g>
+          <circle cx="340" cy="184" r="7" fill="#fff5f5" opacity="0.6"/>
+          <circle cx="348" cy="180" r="5" fill="white" opacity="0.5"/>
+          <circle cx="355" cy="186" r="6" fill="#fff5f5" opacity="0.55"/>
         </g>
-
-        <!-- Azalea cluster (far right) -->
         <g class="bloom-5">
-          <g class="leaf-sway-2">
-            <path d="M980 272 Q975 242 982 215" fill="none" stroke="#2e7d32" stroke-width="2.5"/>
-            <path d="M978 248 Q965 240 960 228 Q972 235 978 248" fill="#4caf50" opacity="0.7"/>
-          </g>
-          <g transform="translate(982,208)">
-            <ellipse cx="0" cy="-11" rx="10" ry="15" fill="#e91e63" opacity="0.8" transform="rotate(0)"/>
-            <ellipse cx="0" cy="-11" rx="10" ry="15" fill="#e91e63" opacity="0.8" transform="rotate(72)"/>
-            <ellipse cx="0" cy="-11" rx="10" ry="15" fill="#e91e63" opacity="0.8" transform="rotate(144)"/>
-            <ellipse cx="0" cy="-11" rx="10" ry="15" fill="#e91e63" opacity="0.8" transform="rotate(216)"/>
-            <ellipse cx="0" cy="-11" rx="10" ry="15" fill="#e91e63" opacity="0.8" transform="rotate(288)"/>
-            <circle cx="0" cy="0" r="4" fill="#fff5f5" opacity="0.7"/>
-            <line x1="0" y1="-3" x2="0" y2="-8" stroke="#FEEC00" stroke-width="1" opacity="0.8"/>
-            <circle cx="0" cy="-8" r="1.2" fill="#FEEC00" opacity="0.9"/>
-          </g>
+          <circle cx="860" cy="186" r="6" fill="#fff5f5" opacity="0.55"/>
+          <circle cx="868" cy="182" r="7" fill="white" opacity="0.5"/>
+          <circle cx="876" cy="188" r="5" fill="#fff5f5" opacity="0.5"/>
         </g>
 
-        <!-- Small flower clusters scattered -->
-        <circle cx="50" cy="285" r="5" fill="#e91e63" opacity="0.5"/>
-        <circle cx="55" cy="290" r="4" fill="#f48fb1" opacity="0.4"/>
-        <circle cx="420" cy="278" r="4" fill="#fff5f5" opacity="0.4"/>
-        <circle cx="425" cy="282" r="5" fill="#e91e63" opacity="0.5"/>
-        <circle cx="870" cy="275" r="5" fill="#f48fb1" opacity="0.5"/>
-        <circle cx="875" cy="280" r="4" fill="#c62828" opacity="0.4"/>
-        <circle cx="1100" cy="278" r="4" fill="#e91e63" opacity="0.4"/>
-        <circle cx="1105" cy="282" r="5" fill="#fff5f5" opacity="0.45"/>
+        <!-- === MIRROR LAKE REFLECTIONS === -->
+        <!-- Bridge reflection -->
+        <path d="M430 220 Q500 248 570 220" fill="none" stroke="rgba(58,42,26,0.15)" stroke-width="4" opacity="0.4"/>
+        <!-- Azalea reflections (pink shimmer in water) -->
+        <ellipse cx="180" cy="228" rx="40" ry="6" fill="rgba(233,30,99,0.06)" opacity="0.5"/>
+        <ellipse cx="1020" cy="225" rx="35" ry="5" fill="rgba(233,30,99,0.05)" opacity="0.5"/>
+        <!-- Tree reflections -->
+        <ellipse cx="70" cy="230" rx="30" ry="8" fill="rgba(20,25,20,0.2)"/>
+        <ellipse cx="1105" cy="228" rx="28" ry="7" fill="rgba(20,25,20,0.2)"/>
+        <!-- Fountain reflection -->
+        <ellipse cx="920" cy="232" rx="12" ry="4" fill="rgba(180,200,255,0.06)">
+          <animate attributeName="rx" values="12;16;12" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
 
-        <!-- Low ground cover / grass tufts -->
-        <ellipse cx="160" cy="290" rx="30" ry="8" fill="#1a2a18" opacity="0.6"/>
-        <ellipse cx="380" cy="285" rx="25" ry="7" fill="#1e2e1a" opacity="0.5"/>
-        <ellipse cx="700" cy="288" rx="28" ry="8" fill="#1a2a18" opacity="0.6"/>
-        <ellipse cx="1050" cy="282" rx="30" ry="7" fill="#1e2e1a" opacity="0.5"/>
+        <!-- Water ripples -->
+        <path d="M350 240 Q380 237 410 240" fill="none" stroke="rgba(150,180,220,0.15)" stroke-width="0.8">
+          <animate attributeName="d" values="M350 240 Q380 237 410 240;M350 240 Q380 243 410 240;M350 240 Q380 237 410 240" dur="4s" repeatCount="indefinite"/>
+        </path>
+        <path d="M600 235 Q630 232 660 235" fill="none" stroke="rgba(150,180,220,0.12)" stroke-width="0.8">
+          <animate attributeName="d" values="M600 235 Q630 232 660 235;M600 235 Q630 238 660 235;M600 235 Q630 232 660 235" dur="5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M750 245 Q780 242 810 245" fill="none" stroke="rgba(150,180,220,0.1)" stroke-width="0.8">
+          <animate attributeName="d" values="M750 245 Q780 242 810 245;M750 245 Q780 248 810 245;M750 245 Q780 242 810 245" dur="4.5s" repeatCount="indefinite"/>
+        </path>
 
-        <!-- "PROVIDENCE" text reflection -->
-        <text x="600" y="380" text-anchor="middle" font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="8" fill="rgba(233,30,99,0.04)">PROVIDENCE</text>
+        <!-- Low flower border along water's edge -->
+        <circle cx="390" cy="210" r="4" fill="#e91e63" opacity="0.4"/>
+        <circle cx="610" cy="212" r="3" fill="#f48fb1" opacity="0.35"/>
+        <circle cx="680" cy="210" r="4" fill="#e91e63" opacity="0.4"/>
+        <circle cx="760" cy="212" r="3" fill="#c62828" opacity="0.35"/>
+        <circle cx="830" cy="210" r="4" fill="#f48fb1" opacity="0.4"/>
+
+        <!-- "PROVIDENCE" text reflection on water -->
+        <text x="500" y="350" text-anchor="middle" font-family="Oswald, sans-serif" font-size="14" font-weight="600" letter-spacing="8" fill="rgba(233,30,99,0.04)">BELLINGRATH GARDENS</text>
+        <text x="500" y="380" text-anchor="middle" font-family="Oswald, sans-serif" font-size="11" font-weight="400" letter-spacing="6" fill="rgba(255,255,255,0.03)">PROVIDENCE</text>
       </svg>
     </div>
   </section>
