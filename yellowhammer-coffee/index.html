@@ -64,10 +64,9 @@
     .nav-toggle span { width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); }
 
     /* ===== HERO ===== */
-    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; }
-    .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-    .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(26,26,26,0.3) 0%, rgba(26,26,26,0.5) 50%, rgba(26,26,26,0.75) 100%); z-index: 1; }
-    .hero-content { position: relative; z-index: 2; color: var(--white); }
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; background: linear-gradient(180deg, #0a0610 0%, #12091a 10%, #1e1222 22%, #2e1a18 34%, #4a2e18 44%, #6a4a18 54%, #8a6a10 62%, #6a4a18 70%, #2a1a10 84%, #0a0810 100%); }
+    .hero-scene { position: absolute; bottom: 0; left: 0; width: 100%; z-index: 1; pointer-events: none; }
+    .hero-content { position: relative; z-index: 3; color: var(--white); padding-bottom: 60px; }
     .hero-tag { font-size: 0.8rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--yellow); margin-bottom: 16px; display: inline-flex; align-items: center; gap: 10px; animation: slideUp 0.8s ease forwards; opacity: 0; }
     .hero-tag::before { content: ''; width: 40px; height: 2px; background: var(--yellow); }
     .hero-tag::after { content: ''; width: 40px; height: 2px; background: var(--yellow); }
@@ -75,11 +74,21 @@
     .hero-content h1 .accent { color: var(--yellow); }
     .hero-tagline { font-size: clamp(1rem, 2vw, 1.25rem); color: rgba(255,255,255,0.75); margin-bottom: 36px; letter-spacing: 1px; animation: slideUp 0.8s ease 0.3s forwards; opacity: 0; }
     .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; animation: slideUp 0.8s ease 0.45s forwards; opacity: 0; }
-    .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 2; width: 24px; height: 40px; border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; display: flex; justify-content: center; animation: slideUp 0.8s ease 0.7s forwards; opacity: 0; }
+    .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 4; width: 24px; height: 40px; border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; display: flex; justify-content: center; animation: slideUp 0.8s ease 0.7s forwards; opacity: 0; }
     .hero-scroll span { width: 4px; height: 8px; background: var(--yellow); border-radius: 2px; margin-top: 6px; animation: scrollDot 2s infinite; }
+
+    /* Hero feather particles */
+    .hero-feather { position: absolute; z-index: 2; width: 8px; height: 16px; background: var(--yellow); border-radius: 50% 50% 50% 0; opacity: 0; animation: heroFeatherDrift var(--dur, 6s) var(--delay, 0s) linear infinite; left: var(--x, 50%); bottom: 35%; }
+    @keyframes heroFeatherDrift { 0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; } 10% { opacity: 0.6; } 50% { opacity: 0.4; } 100% { transform: translateY(-55vh) rotate(200deg) scale(0.3); opacity: 0; } }
+
+    /* Hero fireflies */
+    .hero-firefly { position: absolute; z-index: 2; width: 3px; height: 3px; background: var(--yellow); border-radius: 50%; box-shadow: 0 0 6px 2px rgba(254,236,0,0.4); opacity: 0; animation: fireflyHero var(--dur, 5s) var(--delay, 0s) ease-in-out infinite; left: var(--x, 50%); top: var(--y, 50%); }
+    @keyframes fireflyHero { 0%, 100% { opacity: 0; transform: translate(0,0); } 25% { opacity: 0.8; transform: translate(12px,-8px); } 50% { opacity: 0.3; transform: translate(-8px,-20px); } 75% { opacity: 0.7; transform: translate(16px,-12px); } }
 
     @keyframes slideUp { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(24px); } }
     @keyframes scrollDot { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(16px); opacity: 0; } }
+    @keyframes mossSway { 0%, 100% { transform-origin: top center; transform: rotate(0deg); } 50% { transform: rotate(1.5deg); } }
+    @keyframes birdSoar { 0%, 100% { transform: translateY(0) translateX(0); } 30% { transform: translateY(-6px) translateX(3px); } 60% { transform: translateY(-2px) translateX(-2px); } 85% { transform: translateY(-8px) translateX(1px); } }
 
     /* ===== BUTTONS ===== */
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; font-family: 'Oswald', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; border-radius: 50px; border: none; cursor: pointer; transition: all var(--transition); text-decoration: none; }
@@ -143,7 +152,8 @@
     /* ===== STORY / ABOUT ===== */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
     .about-text p { color: var(--text-light); margin-bottom: 14px; line-height: 1.8; }
-    .about-image { height: 400px; background: linear-gradient(135deg, var(--dark) 0%, #2a2518 100%); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.12); font-family: 'Oswald', sans-serif; font-size: 1.5rem; letter-spacing: 3px; text-transform: uppercase; }
+    .about-image { height: 400px; border-radius: var(--radius); overflow: hidden; }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ===== STATS ===== */
     .stats-section { background: var(--warm-gray); padding: 72px 0; }
@@ -249,6 +259,9 @@
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       section { padding: 72px 0; }
+      .hero-content { padding-bottom: 40px; }
+      .hero-feather:nth-child(n+5) { display: none; }
+      .hero-firefly:nth-child(n+4) { display: none; }
       .bird-grid, .about-grid { grid-template-columns: 1fr; gap: 36px; }
       .bird-animation { height: 300px; }
       .bird-svg { width: 220px; height: 220px; }
@@ -305,10 +318,6 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline poster="">
-      <source src="https://videos.pexels.com/video-files/5765508/5765508-uhd_2560_1440_24fps.mp4" type="video/mp4">
-    </video>
-    <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-tag">Mobile, Alabama</div>
       <h1>Yellow<span class="accent">hammer</span></h1>
@@ -318,6 +327,239 @@
         <a href="https://store.yellowhammercoffee.com/" target="_blank" class="btn btn-outline">Order Online</a>
       </div>
     </div>
+
+    <!-- Golden feather particles -->
+    <div class="hero-feather" style="--x:12%;--delay:0s;--dur:6s;"></div>
+    <div class="hero-feather" style="--x:28%;--delay:1.4s;--dur:7.5s;"></div>
+    <div class="hero-feather" style="--x:44%;--delay:0.6s;--dur:5.5s;"></div>
+    <div class="hero-feather" style="--x:58%;--delay:2.2s;--dur:6.8s;"></div>
+    <div class="hero-feather" style="--x:72%;--delay:0.9s;--dur:7s;"></div>
+    <div class="hero-feather" style="--x:86%;--delay:1.8s;--dur:5.8s;"></div>
+
+    <!-- Fireflies -->
+    <div class="hero-firefly" style="--x:18%;--y:55%;--delay:0s;--dur:5s;"></div>
+    <div class="hero-firefly" style="--x:35%;--y:62%;--delay:1.5s;--dur:6s;"></div>
+    <div class="hero-firefly" style="--x:65%;--y:58%;--delay:0.8s;--dur:5.5s;"></div>
+    <div class="hero-firefly" style="--x:80%;--y:65%;--delay:2s;--dur:4.5s;"></div>
+    <div class="hero-firefly" style="--x:50%;--y:70%;--delay:3s;--dur:6.5s;"></div>
+
+    <!-- Full-width SVG Scene -->
+    <svg class="hero-scene" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="birdGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(254,236,0,0.2)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(232,220,192,0.12)"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Stars -->
+      <circle cx="80" cy="30" r="1.5" fill="#fff"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/></circle>
+      <circle cx="200" cy="55" r="1" fill="#fff"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite" begin="0.5s"/></circle>
+      <circle cx="350" cy="20" r="1.8" fill="#fff"><animate attributeName="opacity" values="0.15;0.9;0.15" dur="3.5s" repeatCount="indefinite" begin="1s"/></circle>
+      <circle cx="520" cy="45" r="1.2" fill="#fff"><animate attributeName="opacity" values="0.2;0.6;0.2" dur="4.5s" repeatCount="indefinite" begin="0.3s"/></circle>
+      <circle cx="680" cy="15" r="1.5" fill="#fff"><animate attributeName="opacity" values="0.3;0.85;0.3" dur="3.2s" repeatCount="indefinite" begin="1.5s"/></circle>
+      <circle cx="850" cy="50" r="1" fill="#fff"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite" begin="0.8s"/></circle>
+      <circle cx="980" cy="25" r="1.3" fill="#fff"><animate attributeName="opacity" values="0.25;0.75;0.25" dur="3.8s" repeatCount="indefinite" begin="2s"/></circle>
+      <circle cx="1120" cy="40" r="1.5" fill="#fff"><animate attributeName="opacity" values="0.2;0.8;0.2" dur="4.2s" repeatCount="indefinite" begin="1.2s"/></circle>
+      <circle cx="440" cy="65" r="0.8" fill="#fff"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="3.6s" repeatCount="indefinite" begin="0.6s"/></circle>
+      <circle cx="760" cy="35" r="1.2" fill="#fff"><animate attributeName="opacity" values="0.15;0.7;0.15" dur="4.8s" repeatCount="indefinite" begin="1.8s"/></circle>
+
+      <!-- Moon with glow -->
+      <circle cx="1050" cy="70" r="50" fill="url(#moonGlow)"/>
+      <circle cx="1050" cy="70" r="20" fill="#e8dcc0" opacity="0.12"/>
+
+      <!-- Distant Mobile skyline silhouette -->
+      <g opacity="0.12">
+        <rect x="440" y="240" width="14" height="40" fill="#1a1a1a" rx="1"/>
+        <rect x="460" y="225" width="18" height="55" fill="#1a1a1a" rx="1"/>
+        <rect x="485" y="210" width="12" height="70" fill="#1a1a1a" rx="1"/>
+        <rect x="502" y="190" width="16" height="90" fill="#1a1a1a" rx="1"/>
+        <rect x="508" y="178" width="4" height="12" fill="#1a1a1a"/>
+        <circle cx="510" cy="176" r="2.5" fill="#FEEC00" opacity="0.6"><animate attributeName="opacity" values="0.6;0.3;0.6" dur="2s" repeatCount="indefinite"/></circle>
+        <rect x="524" y="200" width="20" height="80" fill="#1a1a1a" rx="1"/>
+        <rect x="550" y="215" width="15" height="65" fill="#1a1a1a" rx="1"/>
+        <rect x="570" y="230" width="18" height="50" fill="#1a1a1a" rx="1"/>
+        <rect x="594" y="238" width="12" height="42" fill="#1a1a1a" rx="1"/>
+        <rect x="610" y="245" width="16" height="35" fill="#1a1a1a" rx="1"/>
+        <!-- Tiny window lights -->
+        <rect x="505" y="198" width="2.5" height="3" fill="#FEEC00" opacity="0.5"><animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite"/></rect>
+        <rect x="512" y="205" width="2.5" height="3" fill="#FEEC00" opacity="0.4"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="4s" repeatCount="indefinite"/></rect>
+        <rect x="528" y="210" width="2.5" height="3" fill="#FEEC00" opacity="0.6"><animate attributeName="opacity" values="0.6;0.3;0.6" dur="3.5s" repeatCount="indefinite"/></rect>
+        <rect x="536" y="220" width="2.5" height="3" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="4.5s" repeatCount="indefinite"/></rect>
+      </g>
+
+      <!-- Distant tree line -->
+      <path d="M0 285 Q40 278 80 283 Q140 272 200 280 Q280 270 360 278 Q420 274 480 280 L500 280 M630 280 Q700 272 780 278 Q860 270 940 276 Q1000 272 1060 278 Q1120 273 1160 280 L1200 282 L1200 290 L0 290 Z" fill="#12100a" opacity="0.5"/>
+
+      <!-- Left live oak tree -->
+      <g>
+        <!-- Trunk & branches -->
+        <path d="M100 500 Q105 460 95 420 Q90 395 100 365" fill="none" stroke="#2a1f15" stroke-width="14" stroke-linecap="round"/>
+        <path d="M98 390 Q65 360 30 350" fill="none" stroke="#2a1f15" stroke-width="7" stroke-linecap="round"/>
+        <path d="M100 375 Q140 350 175 355" fill="none" stroke="#2a1f15" stroke-width="6" stroke-linecap="round"/>
+        <path d="M96 405 Q55 395 25 400" fill="none" stroke="#2a1f15" stroke-width="5" stroke-linecap="round"/>
+        <!-- Canopy -->
+        <ellipse cx="100" cy="330" rx="110" ry="65" fill="#141e0c" opacity="0.85"/>
+        <ellipse cx="45" cy="345" rx="55" ry="40" fill="#141e0c" opacity="0.75"/>
+        <ellipse cx="160" cy="345" rx="50" ry="38" fill="#141e0c" opacity="0.7"/>
+        <ellipse cx="100" cy="310" rx="70" ry="35" fill="#1a2810" opacity="0.6"/>
+        <!-- Spanish moss -->
+        <g opacity="0.25" style="animation: mossSway 4s ease-in-out infinite">
+          <path d="M25 350 Q22 372 26 392" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M50 355 Q47 378 51 398" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M85 348 Q82 372 86 395" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M120 352 Q117 375 121 392" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M150 356 Q147 375 151 390" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M38 358 Q36 375 39 388" fill="none" stroke="#8a8a72" stroke-width="1"/>
+          <path d="M105 350 Q103 370 106 385" fill="none" stroke="#8a8a72" stroke-width="1"/>
+        </g>
+      </g>
+
+      <!-- Right live oak tree -->
+      <g>
+        <path d="M1100 500 Q1095 460 1105 420 Q1110 395 1100 365" fill="none" stroke="#2a1f15" stroke-width="14" stroke-linecap="round"/>
+        <path d="M1102 390 Q1135 360 1170 350" fill="none" stroke="#2a1f15" stroke-width="7" stroke-linecap="round"/>
+        <path d="M1100 375 Q1060 350 1025 355" fill="none" stroke="#2a1f15" stroke-width="6" stroke-linecap="round"/>
+        <path d="M1104 405 Q1145 395 1175 400" fill="none" stroke="#2a1f15" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="1100" cy="330" rx="105" ry="62" fill="#141e0c" opacity="0.85"/>
+        <ellipse cx="1155" cy="345" rx="50" ry="38" fill="#141e0c" opacity="0.75"/>
+        <ellipse cx="1040" cy="345" rx="52" ry="36" fill="#141e0c" opacity="0.7"/>
+        <ellipse cx="1100" cy="310" rx="65" ry="32" fill="#1a2810" opacity="0.6"/>
+        <g opacity="0.25" style="animation: mossSway 4.5s ease-in-out infinite">
+          <path d="M1050 352 Q1047 375 1051 395" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M1080 348 Q1077 372 1081 392" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M1115 355 Q1112 378 1116 398" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M1145 350 Q1142 372 1146 390" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M1165 356 Q1162 375 1166 388" fill="none" stroke="#8a8a72" stroke-width="1.5"/>
+          <path d="M1095 350 Q1093 368 1096 382" fill="none" stroke="#8a8a72" stroke-width="1"/>
+        </g>
+      </g>
+
+      <!-- ====== THE YELLOWHAMMER BIRD (centerpiece) ====== -->
+      <g style="animation: birdSoar 6s ease-in-out infinite">
+        <!-- Golden glow behind bird -->
+        <circle cx="600" cy="195" r="90" fill="url(#birdGlow)"/>
+
+        <!-- Left wing (spread, showing golden underwing) -->
+        <g>
+          <path d="M575 195 Q510 160 430 125 Q455 140 465 150 Q420 135 390 118 Q425 140 450 155 Q405 142 380 135 Q415 155 455 170 L570 205 Z" fill="#FEEC00" opacity="0.95">
+            <animate attributeName="d"
+              values="M575 195 Q510 160 430 125 Q455 140 465 150 Q420 135 390 118 Q425 140 450 155 Q405 142 380 135 Q415 155 455 170 L570 205 Z;
+                      M575 200 Q515 175 445 155 Q465 165 472 172 Q435 162 410 152 Q438 168 458 178 Q420 168 398 165 Q428 178 462 188 L570 210 Z;
+                      M575 195 Q510 160 430 125 Q455 140 465 150 Q420 135 390 118 Q425 140 450 155 Q405 142 380 135 Q415 155 455 170 L570 205 Z"
+              dur="2.5s" repeatCount="indefinite"/>
+          </path>
+          <!-- Wing barring -->
+          <path d="M530 168 Q500 155 470 145" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.35"/>
+          <path d="M520 158 Q485 142 450 132" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.3"/>
+          <path d="M510 150 Q478 138 440 128" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.25"/>
+          <!-- Upper wing (darker topside hint) -->
+          <path d="M575 192 Q530 172 490 158 Q460 148 430 128" fill="none" stroke="#c4a050" stroke-width="2" opacity="0.3"/>
+        </g>
+
+        <!-- Right wing (spread, showing golden underwing) -->
+        <g>
+          <path d="M625 195 Q690 160 770 125 Q745 140 735 150 Q780 135 810 118 Q775 140 750 155 Q795 142 820 135 Q785 155 745 170 L630 205 Z" fill="#FEEC00" opacity="0.95">
+            <animate attributeName="d"
+              values="M625 195 Q690 160 770 125 Q745 140 735 150 Q780 135 810 118 Q775 140 750 155 Q795 142 820 135 Q785 155 745 170 L630 205 Z;
+                      M625 200 Q685 175 755 155 Q735 165 728 172 Q765 162 790 152 Q762 168 742 178 Q780 168 802 165 Q772 178 738 188 L630 210 Z;
+                      M625 195 Q690 160 770 125 Q745 140 735 150 Q780 135 810 118 Q775 140 750 155 Q795 142 820 135 Q785 155 745 170 L630 205 Z"
+              dur="2.5s" repeatCount="indefinite"/>
+          </path>
+          <path d="M670 168 Q700 155 730 145" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.35"/>
+          <path d="M680 158 Q715 142 750 132" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.3"/>
+          <path d="M690 150 Q722 138 760 128" fill="none" stroke="#8a6e1a" stroke-width="1.5" opacity="0.25"/>
+          <path d="M625 192 Q670 172 710 158 Q740 148 770 128" fill="none" stroke="#c4a050" stroke-width="2" opacity="0.3"/>
+        </g>
+
+        <!-- Body -->
+        <ellipse cx="600" cy="210" rx="25" ry="35" fill="#c4a070" stroke="#8a6e4a" stroke-width="1.2"/>
+        <!-- Body barring/spots -->
+        <path d="M585 200 Q595 198 610 200" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
+        <path d="M583 208 Q595 206 612 208" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
+        <path d="M584 216 Q596 214 613 216" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
+        <path d="M585 224 Q597 222 612 224" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.4"/>
+        <path d="M587 232 Q598 230 610 232" fill="none" stroke="#8a6e4a" stroke-width="0.8" opacity="0.35"/>
+
+        <!-- Black chest bib -->
+        <path d="M585 188 Q600 200 615 188" fill="none" stroke="#1a1a1a" stroke-width="5" opacity="0.7" stroke-linecap="round"/>
+
+        <!-- Head -->
+        <circle cx="600" cy="175" r="16" fill="#b8956a" stroke="#8a6e4a" stroke-width="1.2"/>
+        <!-- Red nape crescent (key yellowhammer feature) -->
+        <path d="M590 162 Q600 157 610 162" fill="#e74c3c" stroke="none" opacity="0.85"/>
+        <!-- Eye -->
+        <circle cx="594" cy="173" r="3" fill="#1a1a1a"/>
+        <circle cx="593" cy="172" r="1.2" fill="rgba(255,255,255,0.5)"/>
+        <!-- Beak (pointing left, in flight) -->
+        <path d="M584 176 L566 174 L584 180 Z" fill="#555" stroke="#444" stroke-width="0.5"/>
+
+        <!-- Tail feathers (golden fan, the signature flash) -->
+        <path d="M590 242 Q585 268 578 292" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.8" stroke-linecap="round">
+          <animate attributeName="d" values="M590 242 Q585 268 578 292;M590 242 Q587 268 582 292;M590 242 Q585 268 578 292" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M597 244 Q597 272 597 298" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.85" stroke-linecap="round"/>
+        <path d="M604 244 Q604 272 604 298" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.85" stroke-linecap="round"/>
+        <path d="M610 242 Q615 268 622 292" fill="none" stroke="#FEEC00" stroke-width="4" opacity="0.8" stroke-linecap="round">
+          <animate attributeName="d" values="M610 242 Q615 268 622 292;M610 242 Q613 268 618 292;M610 242 Q615 268 622 292" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+        <!-- Tail edge detail -->
+        <path d="M590 242 Q584 268 575 295" fill="none" stroke="#c4a050" stroke-width="1" opacity="0.3"/>
+        <path d="M610 242 Q616 268 625 295" fill="none" stroke="#c4a050" stroke-width="1" opacity="0.3"/>
+      </g>
+
+      <!-- Trailing feathers from bird -->
+      <path d="M640 215 Q648 210 652 215 Q648 220 640 215" fill="#FEEC00" opacity="0.5">
+        <animate attributeName="transform" type="translate" values="0,0;25,18;55,45" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0.25;0" dur="3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M555 200 Q560 195 563 200 Q560 205 555 200" fill="#FEEC00" opacity="0.4">
+        <animate attributeName="transform" type="translate" values="0,0;-18,22;-32,50" dur="4s" repeatCount="indefinite" begin="0.5s"/>
+        <animate attributeName="opacity" values="0.4;0.2;0" dur="4s" repeatCount="indefinite" begin="0.5s"/>
+      </path>
+      <path d="M625 235 Q630 230 633 235 Q630 240 625 235" fill="#FEEC00" opacity="0.35">
+        <animate attributeName="transform" type="translate" values="0,0;12,28;22,60" dur="3.5s" repeatCount="indefinite" begin="1s"/>
+        <animate attributeName="opacity" values="0.35;0.15;0" dur="3.5s" repeatCount="indefinite" begin="1s"/>
+      </path>
+      <path d="M570 220 Q575 215 578 220 Q575 225 570 220" fill="#FEEC00" opacity="0.3">
+        <animate attributeName="transform" type="translate" values="0,0;-10,20;-25,48" dur="4.5s" repeatCount="indefinite" begin="1.8s"/>
+        <animate attributeName="opacity" values="0.3;0.15;0" dur="4.5s" repeatCount="indefinite" begin="1.8s"/>
+      </path>
+
+      <!-- Espresso cup silhouette (right foreground) -->
+      <g transform="translate(1020, 400)" opacity="0.15">
+        <path d="M-30 0 L-24 -60 L24 -60 L30 0 Z" fill="#0a0810"/>
+        <ellipse cx="0" cy="-60" rx="26" ry="6" fill="#0a0810"/>
+        <path d="M28 -50 Q46 -48 46 -32 Q46 -16 28 -14" fill="none" stroke="#0a0810" stroke-width="4"/>
+        <!-- Steam wisps -->
+        <path d="M-6 -68 Q-10 -85 -4 -100" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5">
+          <animate attributeName="d" values="M-6 -68 Q-10 -85 -4 -100;M-6 -68 Q-2 -88 -8 -104;M-6 -68 Q-10 -85 -4 -100" dur="3s" repeatCount="indefinite"/>
+        </path>
+        <path d="M6 -68 Q10 -88 5 -105" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5">
+          <animate attributeName="d" values="M6 -68 Q10 -88 5 -105;M6 -68 Q3 -85 8 -102;M6 -68 Q10 -88 5 -105" dur="3.5s" repeatCount="indefinite"/>
+        </path>
+      </g>
+
+      <!-- Rolling ground -->
+      <path d="M0 420 Q80 412 160 418 Q280 406 400 414 Q520 404 640 412 Q760 406 880 414 Q1000 408 1100 415 L1200 418 L1200 500 L0 500 Z" fill="#0a0810"/>
+      <!-- Grass tufts -->
+      <g opacity="0.25">
+        <path d="M60 416 Q64 400 62 416" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+        <path d="M140 415 Q144 398 142 415" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+        <path d="M280 410 Q284 394 282 410" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+        <path d="M420 412 Q424 396 422 412" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+        <path d="M560 408 Q564 392 562 408" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+        <path d="M700 411 Q704 395 702 411" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+        <path d="M840 413 Q844 397 842 413" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+        <path d="M960 410 Q964 394 962 410" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+        <path d="M1080 414 Q1084 398 1082 414" fill="none" stroke="#2a3a10" stroke-width="1.5"/>
+      </g>
+    </svg>
+
     <div class="hero-scroll"><span></span></div>
   </section>
 
@@ -424,7 +666,7 @@
           <p>Our motto says it all: <strong>Fly High, Hammer Down.</strong> Have spectacular dreams and work tirelessly to bring them to life.</p>
           <a href="#locations" class="btn btn-dark btn-sm" style="margin-top: 16px;">Visit a Location</a>
         </div>
-        <div class="about-image fade-up">Photo</div>
+        <div class="about-image fade-up"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Barista_pouring_coffee_%28Unsplash%29.jpg/1280px-Barista_pouring_coffee_%28Unsplash%29.jpg" alt="Barista crafting coffee at Yellowhammer Coffee" loading="lazy"></div>
       </div>
     </div>
   </section>
