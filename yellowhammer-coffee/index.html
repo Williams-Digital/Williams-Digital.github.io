@@ -161,12 +161,21 @@
     .loc-card .loc-link svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
     .loc-card:hover .loc-link svg { transform: translateX(4px); }
 
+    /* Location card mini animations */
+    .loc-card { position: relative; }
+    .loc-card .loc-scene { position: absolute; bottom: 0; right: 0; width: 180px; height: 110px; opacity: 0.15; transition: opacity 0.4s ease; pointer-events: none; }
+    .loc-card:hover .loc-scene { opacity: 0.35; }
+    .loc-card .loc-scene-glow { position: absolute; bottom: 0; right: 0; width: 200px; height: 80px; pointer-events: none; }
+
     /* Downtown Mobile mini skyline */
     .loc-card-downtown { position: relative; }
     .loc-card-downtown .loc-skyline { position: absolute; bottom: 0; right: 0; width: 180px; height: 100px; opacity: 0.18; transition: opacity 0.4s ease; pointer-events: none; }
     .loc-card-downtown:hover .loc-skyline { opacity: 0.35; }
     .loc-card-downtown .loc-skyline-glow { position: absolute; bottom: 0; right: 0; width: 200px; height: 80px; background: radial-gradient(ellipse at 70% 100%, rgba(254,236,0,0.06) 0%, transparent 70%); pointer-events: none; }
     @keyframes locStarTwinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.8; } }
+    @keyframes locTreeSway { 0%, 100% { transform: rotate(0deg); transform-origin: bottom center; } 50% { transform: rotate(1.5deg); } }
+    @keyframes locBoatBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    @keyframes locSmoke { 0% { transform: translateY(0) scale(1); opacity: 0.3; } 100% { transform: translateY(-20px) scale(1.5); opacity: 0; } }
 
     /* ===== MENU ===== */
     .menu-featured { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-bottom: 40px; }
@@ -703,6 +712,28 @@
           <p class="loc-address">3249 Dauphin Street<br>Mobile, AL 36606</p>
           <p class="loc-hours">Mon–Fri 6AM–6PM &bull; Sat 7AM–7PM</p>
           <span class="loc-link">Visit Location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <svg class="loc-scene" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Gas street lamp -->
+            <rect x="45" y="30" width="3" height="90" fill="#444"/>
+            <rect x="38" y="25" width="17" height="12" fill="#333" rx="2"/>
+            <circle cx="46" cy="31" r="5" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite"/></circle>
+            <rect x="40" y="22" width="13" height="4" fill="#444" rx="1"/>
+            <!-- Historic building facade -->
+            <rect x="80" y="40" width="50" height="80" fill="#2a2a2a" rx="1"/>
+            <rect x="85" y="48" width="8" height="12" fill="#FEEC00" opacity="0.4"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="3.5s" repeatCount="indefinite"/></rect>
+            <rect x="98" y="48" width="8" height="12" fill="#FEEC00" opacity="0.5"><animate attributeName="opacity" values="0.5;0.8;0.5" dur="4s" repeatCount="indefinite"/></rect>
+            <rect x="111" y="48" width="8" height="12" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="3.8s" repeatCount="indefinite"/></rect>
+            <rect x="85" y="68" width="8" height="12" fill="#FEEC00" opacity="0.6"><animate attributeName="opacity" values="0.6;0.3;0.6" dur="4.2s" repeatCount="indefinite"/></rect>
+            <rect x="98" y="68" width="8" height="12" fill="#FEEC00" opacity="0.4"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="3.2s" repeatCount="indefinite"/></rect>
+            <rect x="95" y="95" width="14" height="25" fill="#333" rx="1"/>
+            <!-- Second building -->
+            <rect x="135" y="55" width="40" height="65" fill="#252525" rx="1"/>
+            <rect x="140" y="62" width="6" height="8" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="4.5s" repeatCount="indefinite"/></rect>
+            <rect x="152" y="62" width="6" height="8" fill="#FEEC00" opacity="0.5"><animate attributeName="opacity" values="0.5;0.8;0.5" dur="3.6s" repeatCount="indefinite"/></rect>
+            <rect x="140" y="78" width="6" height="8" fill="#FEEC00" opacity="0.4"><animate attributeName="opacity" values="0.4;0.6;0.4" dur="5s" repeatCount="indefinite"/></rect>
+            <!-- Sidewalk line -->
+            <rect x="0" y="118" width="200" height="2" fill="rgba(255,255,255,0.06)"/>
+          </svg>
         </a>
 
         <a href="locations/the-bank.html" class="loc-card fade-up">
@@ -711,6 +742,34 @@
           <p class="loc-address">7849 Cottage Hill Road<br>Mobile, AL 36695</p>
           <p class="loc-hours">Mon–Fri 6AM–6PM &bull; Sat 7AM–7PM</p>
           <span class="loc-link">Visit Location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <svg class="loc-scene" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Battleship hull -->
+            <path d="M20 85 L30 95 L170 95 L180 85 L175 80 L25 80 Z" fill="#2a2a2a"/>
+            <!-- Superstructure -->
+            <rect x="55" y="55" width="45" height="25" fill="#333" rx="1"/>
+            <rect x="65" y="42" width="25" height="15" fill="#2e2e2e" rx="1"/>
+            <rect x="110" y="60" width="30" height="20" fill="#303030" rx="1"/>
+            <!-- Bridge tower -->
+            <rect x="72" y="28" width="12" height="14" fill="#383838"/>
+            <rect x="76" y="18" width="4" height="10" fill="#444"/>
+            <!-- Mast -->
+            <rect x="77" y="5" width="2" height="15" fill="#555"/>
+            <circle cx="78" cy="5" r="2" fill="#FEEC00" opacity="0.5"><animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite"/></circle>
+            <!-- Gun turrets -->
+            <rect x="35" y="72" width="18" height="8" fill="#333" rx="2"/>
+            <rect x="30" y="74" width="12" height="3" fill="#444"/>
+            <rect x="140" y="72" width="18" height="8" fill="#333" rx="2"/>
+            <rect x="158" y="74" width="10" height="3" fill="#444"/>
+            <!-- Water -->
+            <rect x="0" y="95" width="200" height="25" fill="#0a1520" opacity="0.5"/>
+            <path d="M0 100 Q30 97 60 100 Q90 103 120 100 Q150 97 180 100 L200 100" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1">
+              <animate attributeName="d" values="M0 100 Q30 97 60 100 Q90 103 120 100 Q150 97 180 100 L200 100;M0 100 Q30 103 60 100 Q90 97 120 100 Q150 103 180 100 L200 100;M0 100 Q30 97 60 100 Q90 103 120 100 Q150 97 180 100 L200 100" dur="4s" repeatCount="indefinite"/>
+            </path>
+            <!-- Window lights -->
+            <rect x="60" y="60" width="3" height="4" fill="#FEEC00" opacity="0.4"><animate attributeName="opacity" values="0.4;0.7;0.4" dur="3.5s" repeatCount="indefinite"/></rect>
+            <rect x="70" y="60" width="3" height="4" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/></rect>
+            <rect x="82" y="60" width="3" height="4" fill="#FEEC00" opacity="0.5"><animate attributeName="opacity" values="0.5;0.8;0.5" dur="3.2s" repeatCount="indefinite"/></rect>
+          </svg>
         </a>
 
         <a href="locations/moffett-road.html" class="loc-card fade-up">
@@ -719,6 +778,35 @@
           <p class="loc-address">7750 Moffett Road<br>Mobile, AL 36618</p>
           <p class="loc-hours">Mon–Fri 6AM–6PM &bull; Sat 7AM–7PM</p>
           <span class="loc-link">Visit Location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <svg class="loc-scene" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Cypress tree 1 -->
+            <g style="animation: locTreeSway 4s ease-in-out infinite">
+              <path d="M50 120 Q52 90 48 65" fill="none" stroke="#2a2a1a" stroke-width="5" stroke-linecap="round"/>
+              <ellipse cx="48" cy="50" rx="20" ry="22" fill="#1a2810" opacity="0.8"/>
+              <path d="M35 55 Q33 70 36 82" fill="none" stroke="#6a6a5a" stroke-width="1" opacity="0.3"/>
+              <path d="M55 52 Q57 68 54 78" fill="none" stroke="#6a6a5a" stroke-width="1" opacity="0.3"/>
+            </g>
+            <!-- Cypress tree 2 -->
+            <g style="animation: locTreeSway 4.5s ease-in-out infinite">
+              <path d="M110 120 Q112 85 108 55" fill="none" stroke="#2a2a1a" stroke-width="6" stroke-linecap="round"/>
+              <ellipse cx="108" cy="38" rx="25" ry="26" fill="#1a2810" opacity="0.8"/>
+              <path d="M92 45 Q90 62 93 75" fill="none" stroke="#6a6a5a" stroke-width="1" opacity="0.3"/>
+              <path d="M120 42 Q122 60 119 72" fill="none" stroke="#6a6a5a" stroke-width="1" opacity="0.3"/>
+            </g>
+            <!-- Cypress tree 3 (small, far) -->
+            <g style="animation: locTreeSway 5s ease-in-out infinite">
+              <path d="M165 120 Q166 100 164 80" fill="none" stroke="#2a2a1a" stroke-width="4" stroke-linecap="round"/>
+              <ellipse cx="164" cy="68" rx="16" ry="18" fill="#1a2810" opacity="0.7"/>
+            </g>
+            <!-- Water -->
+            <rect x="0" y="100" width="200" height="20" fill="#0a1520" opacity="0.4"/>
+            <path d="M0 105 Q25 102 50 105 Q75 108 100 105 Q125 102 150 105 Q175 108 200 105" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1">
+              <animate attributeName="d" values="M0 105 Q25 102 50 105 Q75 108 100 105 Q125 102 150 105 Q175 108 200 105;M0 105 Q25 108 50 105 Q75 102 100 105 Q125 108 150 105 Q175 102 200 105;M0 105 Q25 102 50 105 Q75 108 100 105 Q125 102 150 105 Q175 108 200 105" dur="4s" repeatCount="indefinite"/>
+            </path>
+            <!-- Fireflies -->
+            <circle cx="75" cy="60" r="1.5" fill="#7fff00" opacity="0"><animate attributeName="opacity" values="0;0.6;0" dur="3s" repeatCount="indefinite"/></circle>
+            <circle cx="140" cy="45" r="1" fill="#7fff00" opacity="0"><animate attributeName="opacity" values="0;0.5;0" dur="4s" repeatCount="indefinite" begin="1s"/></circle>
+          </svg>
         </a>
 
         <a href="locations/providence.html" class="loc-card fade-up">
@@ -727,6 +815,30 @@
           <p class="loc-address">6801 Airport Boulevard, Bldg B<br>Mobile, AL</p>
           <p class="loc-hours">Mon–Fri 6AM–6PM &bull; Sat 7AM–7PM</p>
           <span class="loc-link">Visit Location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <svg class="loc-scene" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Garden arch/trellis -->
+            <path d="M60 120 L60 50 Q100 20 140 50 L140 120" fill="none" stroke="#333" stroke-width="3"/>
+            <path d="M65 120 L65 55 Q100 28 135 55 L135 120" fill="none" stroke="#333" stroke-width="1.5"/>
+            <!-- Vine/leaves on trellis -->
+            <circle cx="68" cy="60" r="4" fill="#2a1a20" opacity="0.6"/>
+            <circle cx="72" cy="48" r="3.5" fill="#3a1020" opacity="0.5"/>
+            <circle cx="130" cy="58" r="4" fill="#2a1a20" opacity="0.6"/>
+            <circle cx="126" cy="46" r="3.5" fill="#3a1020" opacity="0.5"/>
+            <!-- Azalea flowers (pink) -->
+            <circle cx="70" cy="55" r="2.5" fill="#e91e63" opacity="0.4"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/></circle>
+            <circle cx="128" cy="52" r="2.5" fill="#e91e63" opacity="0.3"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="3.5s" repeatCount="indefinite" begin="0.5s"/></circle>
+            <circle cx="90" cy="32" r="2" fill="#e91e63" opacity="0.35"><animate attributeName="opacity" values="0.25;0.55;0.25" dur="4.5s" repeatCount="indefinite" begin="1s"/></circle>
+            <circle cx="112" cy="34" r="2" fill="#e91e63" opacity="0.3"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="3.8s" repeatCount="indefinite" begin="0.8s"/></circle>
+            <!-- Ground flowers -->
+            <circle cx="40" cy="108" r="3" fill="#e91e63" opacity="0.25"/>
+            <circle cx="48" cy="112" r="2.5" fill="#e91e63" opacity="0.2"/>
+            <circle cx="155" cy="106" r="3" fill="#e91e63" opacity="0.25"/>
+            <circle cx="165" cy="110" r="2.5" fill="#e91e63" opacity="0.2"/>
+            <!-- Stepping stones path -->
+            <ellipse cx="85" cy="110" rx="8" ry="3" fill="rgba(255,255,255,0.04)"/>
+            <ellipse cx="100" cy="115" rx="8" ry="3" fill="rgba(255,255,255,0.04)"/>
+            <ellipse cx="115" cy="110" rx="8" ry="3" fill="rgba(255,255,255,0.04)"/>
+          </svg>
         </a>
 
         <a href="locations/bay-city-trailer.html" class="loc-card fade-up">
@@ -735,6 +847,39 @@
           <p class="loc-address">9911 Blackwell Nursery Rd S<br>Semmes, AL 36575</p>
           <p class="loc-hours">Mon–Fri 6AM–6PM &bull; Sat 7AM–7PM</p>
           <span class="loc-link">Visit Location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <svg class="loc-scene" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pine tree 1 -->
+            <g style="animation: locTreeSway 5s ease-in-out infinite">
+              <path d="M30 120 L30 70" fill="none" stroke="#2a1f15" stroke-width="3"/>
+              <path d="M30 70 L15 95 L25 85 L10 105 L30 90 L50 105 L35 85 L45 95 Z" fill="#1a2810" opacity="0.7"/>
+            </g>
+            <!-- Coffee trailer -->
+            <rect x="60" y="70" width="80" height="40" fill="#2a2a2a" rx="3"/>
+            <rect x="65" y="75" width="20" height="15" fill="#333" rx="1"/>
+            <rect x="68" y="78" width="14" height="9" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite"/></rect>
+            <!-- Serving window -->
+            <rect x="95" y="75" width="18" height="12" fill="#444" rx="1"/>
+            <rect x="97" y="77" width="14" height="8" fill="#FEEC00" opacity="0.2"><animate attributeName="opacity" values="0.15;0.35;0.15" dur="4s" repeatCount="indefinite"/></rect>
+            <!-- Awning -->
+            <path d="M92 74 L92 70 L116 70 L116 74" fill="none" stroke="#8a3030" stroke-width="2"/>
+            <!-- Wheels -->
+            <circle cx="75" cy="112" r="6" fill="#222" stroke="#333" stroke-width="1.5"/>
+            <circle cx="125" cy="112" r="6" fill="#222" stroke="#333" stroke-width="1.5"/>
+            <!-- Chimney with smoke -->
+            <rect x="130" y="62" width="5" height="10" fill="#444"/>
+            <circle cx="132" cy="55" r="3" fill="rgba(255,255,255,0.06)"><animate attributeName="cy" values="55;40;25" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.15;0.08;0" dur="3s" repeatCount="indefinite"/><animate attributeName="r" values="3;5;7" dur="3s" repeatCount="indefinite"/></circle>
+            <!-- String lights -->
+            <path d="M15 45 Q50 55 85 48 Q120 42 155 50" fill="none" stroke="#555" stroke-width="0.8"/>
+            <circle cx="35" cy="50" r="2" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="2.5s" repeatCount="indefinite"/></circle>
+            <circle cx="70" cy="50" r="2" fill="#FEEC00" opacity="0.4"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite" begin="0.3s"/></circle>
+            <circle cx="105" cy="46" r="2" fill="#FEEC00" opacity="0.3"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="3.5s" repeatCount="indefinite" begin="0.6s"/></circle>
+            <circle cx="140" cy="48" r="2" fill="#FEEC00" opacity="0.35"><animate attributeName="opacity" values="0.25;0.55;0.25" dur="2.8s" repeatCount="indefinite" begin="0.9s"/></circle>
+            <!-- Pine tree 2 (far) -->
+            <g style="animation: locTreeSway 4.5s ease-in-out infinite">
+              <path d="M170 120 L170 80" fill="none" stroke="#2a1f15" stroke-width="2"/>
+              <path d="M170 80 L160 98 L167 90 L155 108 L170 95 L185 108 L173 90 L180 98 Z" fill="#1a2810" opacity="0.6"/>
+            </g>
+          </svg>
         </a>
 
         <a href="locations/snowport.html" class="loc-card fade-up">
@@ -743,6 +888,58 @@
           <p class="loc-address">9850 Airport Boulevard, Ste B<br>Mobile, AL</p>
           <p class="loc-hours">Mon–Fri 6AM–6PM &bull; Sat 7AM–7PM</p>
           <span class="loc-link">Visit Location <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <!-- Snowport maritime scene -->
+          <div class="loc-scene">
+            <svg viewBox="0 0 180 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Water -->
+              <rect x="0" y="75" width="180" height="35" fill="#4dd0e1" opacity="0.25"/>
+              <path d="M0 80 Q15 76 30 80 T60 80 T90 80 T120 80 T150 80 T180 80" stroke="#4dd0e1" stroke-width="1" fill="none" opacity="0.5">
+                <animate attributeName="d" dur="3s" repeatCount="indefinite" values="M0 80 Q15 76 30 80 T60 80 T90 80 T120 80 T150 80 T180 80;M0 80 Q15 84 30 80 T60 80 T90 80 T120 80 T150 80 T180 80;M0 80 Q15 76 30 80 T60 80 T90 80 T120 80 T150 80 T180 80"/>
+              </path>
+              <path d="M0 86 Q20 82 40 86 T80 86 T120 86 T160 86 T180 86" stroke="#4dd0e1" stroke-width="0.8" fill="none" opacity="0.3">
+                <animate attributeName="d" dur="4s" repeatCount="indefinite" values="M0 86 Q20 82 40 86 T80 86 T120 86 T160 86 T180 86;M0 86 Q20 90 40 86 T80 86 T120 86 T160 86 T180 86;M0 86 Q20 82 40 86 T80 86 T120 86 T160 86 T180 86"/>
+              </path>
+              <!-- Dock pilings -->
+              <rect x="8" y="68" width="4" height="22" rx="1" fill="#5d4037" opacity="0.6"/>
+              <rect x="22" y="68" width="4" height="22" rx="1" fill="#5d4037" opacity="0.6"/>
+              <rect x="36" y="68" width="4" height="22" rx="1" fill="#5d4037" opacity="0.6"/>
+              <!-- Dock planks -->
+              <rect x="4" y="66" width="40" height="4" rx="1" fill="#6d4c41" opacity="0.7"/>
+              <!-- Rope -->
+              <path d="M10 68 Q16 63 26 68" stroke="#8d6e63" stroke-width="0.8" fill="none" opacity="0.5"/>
+              <!-- Lighthouse -->
+              <polygon points="140,20 133,75 147,75" fill="#e0e0e0" opacity="0.7"/>
+              <rect x="135" y="15" width="10" height="10" rx="2" fill="#4dd0e1" opacity="0.5"/>
+              <!-- Lighthouse beam -->
+              <polygon points="140,20 90,5 95,15" fill="#4dd0e1" opacity="0.12">
+                <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.12;0.25;0.12"/>
+              </polygon>
+              <polygon points="140,20 170,0 165,12" fill="#4dd0e1" opacity="0.12">
+                <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.25;0.12;0.25"/>
+              </polygon>
+              <!-- Lighthouse light -->
+              <circle cx="140" cy="18" r="3" fill="#4dd0e1" opacity="0.6">
+                <animate attributeName="opacity" dur="2s" repeatCount="indefinite" values="0.6;1;0.6"/>
+              </circle>
+              <!-- Sailboat -->
+              <g style="animation: locBoatBob 3s ease-in-out infinite">
+                <!-- Hull -->
+                <path d="M70 82 L62 90 L88 90 L80 82 Z" fill="#5d4037" opacity="0.6"/>
+                <!-- Mast -->
+                <line x1="75" y1="55" x2="75" y2="82" stroke="#5d4037" stroke-width="1.5" opacity="0.6"/>
+                <!-- Sail -->
+                <polygon points="75,58 75,80 90,78" fill="white" opacity="0.3"/>
+                <polygon points="75,58 75,78 63,76" fill="white" opacity="0.2"/>
+              </g>
+              <!-- Seagulls -->
+              <path d="M55 30 Q58 26 61 30" stroke="white" stroke-width="0.8" fill="none" opacity="0.3">
+                <animate attributeName="d" dur="1.5s" repeatCount="indefinite" values="M55 30 Q58 26 61 30;M55 30 Q58 28 61 30;M55 30 Q58 26 61 30"/>
+              </path>
+              <path d="M105 22 Q107 19 109 22" stroke="white" stroke-width="0.7" fill="none" opacity="0.25">
+                <animate attributeName="d" dur="1.8s" repeatCount="indefinite" values="M105 22 Q107 19 109 22;M105 22 Q107 21 109 22;M105 22 Q107 19 109 22"/>
+              </path>
+            </svg>
+          </div>
         </a>
       </div>
     </div>
