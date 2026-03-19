@@ -244,6 +244,21 @@
       overflow: hidden;
       padding: 60px 0;
     }
+    .hero__bg-img {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1628281374282-522f02e2d973?w=1920&q=80&fit=max&fm=jpg');
+      background-size: cover;
+      background-position: center bottom;
+      opacity: 0.18;
+      z-index: 0;
+    }
+    .hero__bg-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(26,26,94,0.4) 0%, rgba(26,26,94,0.8) 60%, rgba(30,20,80,1) 100%);
+    }
     .hero__stars {
       position: absolute;
       inset: 0;
@@ -493,12 +508,27 @@
     .service-card {
       background: var(--white);
       border-radius: var(--radius-lg);
-      padding: 36px 28px;
       text-align: center;
       border: 1px solid var(--light-lavender);
       transition: var(--transition);
       position: relative;
       overflow: hidden;
+    }
+    .service-card__img {
+      width: 100%;
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .service-card__img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, rgba(26,26,94,0.3) 100%);
+    }
+    .service-card__body {
+      padding: 28px 24px 32px;
     }
     .service-card::before {
       content: '';
@@ -565,13 +595,16 @@
       width: 280px;
       height: 280px;
       border-radius: 50%;
-      background: linear-gradient(135deg, rgba(212,168,67,0.15), rgba(232,160,191,0.15));
+      background-image: url('https://images.unsplash.com/photo-1578230706129-5e3ebca647d3?w=600&q=80&fit=crop&fm=jpg');
+      background-size: cover;
+      background-position: center;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      border: 2px solid rgba(212,168,67,0.2);
+      border: 3px solid rgba(212,168,67,0.3);
+      box-shadow: 0 0 40px rgba(212,168,67,0.15), 0 0 80px rgba(74,45,122,0.1);
     }
     @media(min-width:768px) {
       .why__circle { width: 340px; height: 340px; }
@@ -579,6 +612,7 @@
     .why__circle-icon {
       font-size: 5rem;
       filter: drop-shadow(0 4px 20px rgba(212,168,67,0.3));
+      display: none;
     }
     .why__orbit {
       position: absolute;
@@ -752,20 +786,36 @@
     .dest-card {
       background: var(--white);
       border-radius: var(--radius);
-      padding: 28px 16px;
       text-align: center;
       border: 1px solid var(--light-lavender);
       transition: var(--transition);
       cursor: pointer;
+      overflow: hidden;
     }
     .dest-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
       border-color: var(--magic-gold);
     }
+    .dest-card__img {
+      width: 100%;
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .dest-card__img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(26,26,94,0.5) 100%);
+    }
+    .dest-card__body {
+      padding: 16px 12px 20px;
+    }
     .dest-card__icon {
-      font-size: 2.4rem;
-      margin-bottom: 12px;
+      font-size: 1.6rem;
+      margin-bottom: 8px;
     }
     .dest-card__name {
       font-family: 'Cinzel', serif;
@@ -786,6 +836,20 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+    }
+    .cta-section__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1551762142-0e2c05535197?w=1920&q=80&fit=max&fm=jpg');
+      background-size: cover;
+      background-position: center top;
+      opacity: 0.2;
+    }
+    .cta-section__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(26,26,94,0.6) 0%, rgba(74,45,122,0.8) 100%);
     }
     .cta-section__stars {
       position: absolute;
@@ -1058,6 +1122,7 @@
 
   <!-- Hero -->
   <section class="hero">
+    <div class="hero__bg-img"></div>
     <div class="hero__stars" id="heroStars"></div>
     <div class="hero__glow"></div>
     <!-- Castle silhouette via SVG -->
@@ -1130,34 +1195,52 @@
       </div>
       <div class="services-grid">
         <div class="service-card fade-up">
-          <div class="service-card__icon">&#127984;</div>
-          <h3 class="service-card__title">Theme Park Nanny</h3>
-          <p class="service-card__desc">A dedicated nanny accompanies your family through the parks, managing little ones while you enjoy the magic together.</p>
+          <div class="service-card__img" style="background-image:url('https://images.unsplash.com/photo-1605810289689-c280c922197b?w=600&q=80&fit=crop&fm=jpg')"></div>
+          <div class="service-card__body">
+            <div class="service-card__icon">&#127984;</div>
+            <h3 class="service-card__title">Theme Park Nanny</h3>
+            <p class="service-card__desc">A dedicated nanny accompanies your family through the parks, managing little ones while you enjoy the magic together.</p>
+          </div>
         </div>
         <div class="service-card fade-up">
-          <div class="service-card__icon">&#127752;</div>
-          <h3 class="service-card__title">Resort Babysitting</h3>
-          <p class="service-card__desc">Enjoy a romantic dinner or spa day while your children are cared for in the comfort of your resort room.</p>
+          <div class="service-card__img" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80&fit=crop&fm=jpg')"></div>
+          <div class="service-card__body">
+            <div class="service-card__icon">&#127752;</div>
+            <h3 class="service-card__title">Resort Babysitting</h3>
+            <p class="service-card__desc">Enjoy a romantic dinner or spa day while your children are cared for in the comfort of your resort room.</p>
+          </div>
         </div>
         <div class="service-card fade-up">
-          <div class="service-card__icon">&#128054;</div>
-          <h3 class="service-card__title">Dragon Adventures</h3>
-          <p class="service-card__desc">Our signature program of themed activities, games, and storytelling that turns childcare into an unforgettable quest.</p>
+          <div class="service-card__img" style="background-image:url('https://images.unsplash.com/photo-1630637991997-1cd9c8b41ce1?w=600&q=80&fit=crop&fm=jpg')"></div>
+          <div class="service-card__body">
+            <div class="service-card__icon">&#128054;</div>
+            <h3 class="service-card__title">Dragon Adventures</h3>
+            <p class="service-card__desc">Our signature program of themed activities, games, and storytelling that turns childcare into an unforgettable quest.</p>
+          </div>
         </div>
         <div class="service-card fade-up">
-          <div class="service-card__icon">&#128737;</div>
-          <h3 class="service-card__title">Knight Nannies</h3>
-          <p class="service-card__desc">Our elite tier of nannies with advanced training in special needs care, infant care, and character experiences.</p>
+          <div class="service-card__img" style="background-image:url('https://images.unsplash.com/photo-1578230706129-5e3ebca647d3?w=600&q=80&fit=crop&fm=jpg')"></div>
+          <div class="service-card__body">
+            <div class="service-card__icon">&#128737;</div>
+            <h3 class="service-card__title">Knight Nannies</h3>
+            <p class="service-card__desc">Our elite tier of nannies with advanced training in special needs care, infant care, and character experiences.</p>
+          </div>
         </div>
         <div class="service-card fade-up">
-          <div class="service-card__icon">&#128124;</div>
-          <h3 class="service-card__title">Stroller & Gear Rentals</h3>
-          <p class="service-card__desc">Travel light! We deliver premium strollers, cribs, car seats, and baby essentials right to your resort.</p>
+          <div class="service-card__img" style="background-image:url('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&q=80&fit=crop&fm=jpg')"></div>
+          <div class="service-card__body">
+            <div class="service-card__icon">&#128124;</div>
+            <h3 class="service-card__title">Stroller & Gear Rentals</h3>
+            <p class="service-card__desc">Travel light! We deliver premium strollers, cribs, car seats, and baby essentials right to your resort.</p>
+          </div>
         </div>
         <div class="service-card fade-up">
-          <div class="service-card__icon">&#127775;</div>
-          <h3 class="service-card__title">Crown Code Program</h3>
-          <p class="service-card__desc">Refer families to earn royal rewards. Share the magic and unlock exclusive benefits with our referral program.</p>
+          <div class="service-card__img" style="background-image:url('https://images.unsplash.com/photo-1535571248626-d7cc82e65821?w=600&q=80&fit=crop&fm=jpg')"></div>
+          <div class="service-card__body">
+            <div class="service-card__icon">&#127775;</div>
+            <h3 class="service-card__title">Crown Code Program</h3>
+            <p class="service-card__desc">Refer families to earn royal rewards. Share the magic and unlock exclusive benefits with our referral program.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1226,29 +1309,44 @@
       </div>
       <div class="dest-grid">
         <div class="dest-card fade-up">
-          <div class="dest-card__icon">&#127984;</div>
-          <h3 class="dest-card__name">Walt Disney World</h3>
-          <p class="dest-card__sub">Orlando, FL</p>
+          <div class="dest-card__img" style="background-image:url('https://images.unsplash.com/photo-1578230706129-5e3ebca647d3?w=400&q=80&fit=crop&fm=jpg')"></div>
+          <div class="dest-card__body">
+            <div class="dest-card__icon">&#127984;</div>
+            <h3 class="dest-card__name">Walt Disney World</h3>
+            <p class="dest-card__sub">Orlando, FL</p>
+          </div>
         </div>
         <div class="dest-card fade-up">
-          <div class="dest-card__icon">&#127749;</div>
-          <h3 class="dest-card__name">Disneyland</h3>
-          <p class="dest-card__sub">Anaheim, CA</p>
+          <div class="dest-card__img" style="background-image:url('https://images.unsplash.com/photo-1721921566549-a7f2cdde2844?w=400&q=80&fit=crop&fm=jpg')"></div>
+          <div class="dest-card__body">
+            <div class="dest-card__icon">&#127749;</div>
+            <h3 class="dest-card__name">Disneyland</h3>
+            <p class="dest-card__sub">Anaheim, CA</p>
+          </div>
         </div>
         <div class="dest-card fade-up">
-          <div class="dest-card__icon">&#9875;</div>
-          <h3 class="dest-card__name">Disney Cruise Line</h3>
-          <p class="dest-card__sub">All Ports</p>
+          <div class="dest-card__img" style="background-image:url('https://images.unsplash.com/photo-1535571248626-d7cc82e65821?w=400&q=80&fit=crop&fm=jpg')"></div>
+          <div class="dest-card__body">
+            <div class="dest-card__icon">&#9875;</div>
+            <h3 class="dest-card__name">Disney Cruise Line</h3>
+            <p class="dest-card__sub">All Ports</p>
+          </div>
         </div>
         <div class="dest-card fade-up">
-          <div class="dest-card__icon">&#127757;</div>
-          <h3 class="dest-card__name">Disneyland Paris</h3>
-          <p class="dest-card__sub">Paris, France</p>
+          <div class="dest-card__img" style="background-image:url('https://images.unsplash.com/photo-1565865519537-fac387237f9c?w=400&q=80&fit=crop&fm=jpg')"></div>
+          <div class="dest-card__body">
+            <div class="dest-card__icon">&#127757;</div>
+            <h3 class="dest-card__name">Disneyland Paris</h3>
+            <p class="dest-card__sub">Paris, France</p>
+          </div>
         </div>
         <div class="dest-card fade-up">
-          <div class="dest-card__icon">&#127884;</div>
-          <h3 class="dest-card__name">Universal & More</h3>
-          <p class="dest-card__sub">Theme Parks Worldwide</p>
+          <div class="dest-card__img" style="background-image:url('https://images.unsplash.com/photo-1621445944472-f252571005b6?w=400&q=80&fit=crop&fm=jpg')"></div>
+          <div class="dest-card__body">
+            <div class="dest-card__icon">&#127884;</div>
+            <h3 class="dest-card__name">Universal & More</h3>
+            <p class="dest-card__sub">Theme Parks Worldwide</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1392,6 +1490,7 @@
 
   <!-- CTA Section -->
   <section class="cta-section" id="book">
+    <div class="cta-section__bg"></div>
     <div class="cta-section__stars" id="ctaStars"></div>
     <div class="cta-section__glow"></div>
     <div class="cta-section__content container">
