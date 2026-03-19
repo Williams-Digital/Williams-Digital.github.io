@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summer Camps | Vestavia Hills Parks &amp; Recreation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green-900: #0f2b1a;
+      --green-800: #14532d;
+      --green-700: #166534;
+      --green-600: #16a34a;
+      --green-500: #22c55e;
+      --green-400: #4ade80;
+      --green-100: #dcfce7;
+      --green-50: #f0fdf4;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--slate-800);
+      background-color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      line-height: 1.2;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Fade-up animation */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .fade-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===================== HEADER ===================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--slate-200);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--green-700);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--slate-900);
+    }
+
+    .back-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--green-700);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--green-600);
+    }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+    }
+
+    .back-link:hover svg {
+      transform: translateX(-3px);
+    }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      position: relative;
+      height: 40vh;
+      min-height: 340px;
+      max-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.02);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 43, 26, 0.72) 0%,
+        rgba(20, 83, 45, 0.78) 50%,
+        rgba(15, 43, 26, 0.85) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 24px;
+      max-width: 720px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(74, 222, 128, 0.2);
+      border: 1px solid rgba(74, 222, 128, 0.35);
+      border-radius: 50px;
+      color: var(--green-100);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ===================== SECTIONS ===================== */
+    .section {
+      padding: 80px 24px;
+    }
+
+    .section-alt {
+      background: var(--green-50);
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--green-700);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.05rem;
+      color: var(--slate-600);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .section-subtitle.centered {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    /* ===================== OVERVIEW GRID ===================== */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .overview-card {
+      background: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .overview-card:hover {
+      box-shadow: 0 8px 32px rgba(15, 43, 26, 0.08);
+      border-color: var(--green-400);
+    }
+
+    .overview-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--green-100);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .overview-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--green-700);
+    }
+
+    .overview-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--slate-900);
+      margin-bottom: 6px;
+    }
+
+    .overview-card p {
+      font-size: 14px;
+      color: var(--slate-600);
+      line-height: 1.6;
+    }
+
+    /* ===================== CAMP TYPE CARDS ===================== */
+    .camps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .camp-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--slate-200);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+    }
+
+    .camp-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(15, 43, 26, 0.1);
+    }
+
+    .camp-card-header {
+      height: 8px;
+      background: linear-gradient(90deg, var(--green-600), var(--green-400));
+    }
+
+    .camp-card-body {
+      padding: 28px;
+    }
+
+    .camp-card-emoji {
+      font-size: 36px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .camp-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 8px;
+    }
+
+    .camp-card-ages {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--green-700);
+      margin-bottom: 12px;
+      display: inline-block;
+      background: var(--green-100);
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    .camp-card p {
+      font-size: 14px;
+      color: var(--slate-600);
+      line-height: 1.65;
+    }
+
+    .camp-card-features {
+      list-style: none;
+      margin-top: 16px;
+      padding: 0;
+    }
+
+    .camp-card-features li {
+      font-size: 13.5px;
+      color: var(--slate-700);
+      padding: 5px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .camp-card-features li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--green-500);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ===================== INCLUDED ===================== */
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .included-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px;
+      background: var(--white);
+      border-radius: 14px;
+      border: 1px solid var(--slate-200);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .included-item:hover {
+      border-color: var(--green-400);
+      box-shadow: 0 4px 16px rgba(15, 43, 26, 0.06);
+    }
+
+    .included-check {
+      width: 36px;
+      height: 36px;
+      background: var(--green-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .included-check svg {
+      width: 18px;
+      height: 18px;
+      color: var(--green-700);
+    }
+
+    .included-item span {
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--slate-800);
+    }
+
+    /* ===================== CTA ===================== */
+    .cta-section {
+      padding: 80px 24px;
+      background: linear-gradient(135deg, var(--green-800) 0%, var(--green-900) 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(74, 222, 128, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+
+    .cta-urgency {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green-400);
+      margin-bottom: 28px;
+      padding: 6px 18px;
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      border-radius: 50px;
+      background: rgba(74, 222, 128, 0.1);
+    }
+
+    /* Pill button */
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--green-600);
+      color: var(--white);
+      box-shadow: 0 4px 16px rgba(22, 163, 74, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--green-500);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.35);
+    }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--green-800);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-white:hover {
+      background: var(--green-50);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .btn-pill svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ===================== FOOTER ===================== */
+    .site-footer {
+      background: var(--slate-900);
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .footer-brand .brand-icon {
+      width: 34px;
+      height: 34px;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    .footer-brand-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--white);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--slate-400);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--green-400);
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: var(--slate-800);
+      max-width: 400px;
+      margin: 0 auto 24px;
+    }
+
+    .footer-copy {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--slate-500);
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      .section {
+        padding: 56px 20px;
+      }
+
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .camps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .included-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero {
+        min-height: 300px;
+      }
+
+      .cta-section {
+        padding: 56px 20px;
+      }
+
+      .header-inner {
+        padding: 0 16px;
+      }
+
+      .brand-text {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .included-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 44px 16px;
+      }
+
+      .camps-grid {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">VH</div>
+        <span class="brand-text">Vestavia Hills Parks &amp; Rec</span>
+      </a>
+      <a href="index.html" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+        </svg>
+        Back to Home
+      </a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content">
+      <span class="hero-badge">Summer 2026</span>
+      <h1>Summer Camps</h1>
+      <p>Give your kids an unforgettable summer of adventure, creativity, and new friendships at Vestavia Hills Parks &amp; Recreation.</p>
+    </div>
+  </section>
+
+  <!-- ==================== PROGRAM OVERVIEW ==================== -->
+  <section class="section">
+    <div class="container">
+      <div class="fade-up">
+        <span class="section-label">Program Overview</span>
+        <h2 class="section-title">Everything You Need to Know</h2>
+        <p class="section-subtitle">Our summer camps offer a safe, structured, and exciting environment where kids build confidence, explore new interests, and make lasting memories.</p>
+      </div>
+      <div class="overview-grid">
+        <div class="overview-card fade-up">
+          <div class="overview-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Flexible Scheduling</h3>
+            <p>Full-day camps run from 8:00 AM to 4:00 PM. Half-day options available from 8:00 AM to 12:00 PM for younger campers or those who prefer a shorter day.</p>
+          </div>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Ages 5 through 14</h3>
+            <p>Campers are grouped by age to ensure activities are age-appropriate, engaging, and challenging. Each group has dedicated counselors and tailored programming.</p>
+          </div>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/>
+            </svg>
+          </div>
+          <div>
+            <h3>8-Week Sessions</h3>
+            <p>Camp runs from the first week of June through the last week of July. Register for individual weeks or the full 8-week session at a discounted rate.</p>
+          </div>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Wald Park &amp; Civic Center</h3>
+            <p>Activities take place at Wald Park for outdoor adventures and the Vestavia Hills Civic Center for indoor workshops, arts, and rainy-day programming.</p>
+          </div>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Certified Staff</h3>
+            <p>All camp counselors are certified in first aid and CPR. Every staff member has completed thorough background checks and safety training.</p>
+          </div>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Affordable Rates</h3>
+            <p>Weekly and full-session pricing with discounts for Vestavia Hills residents, siblings, and early registration. Financial assistance available upon request.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CAMP TYPES ==================== -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="text-center fade-up">
+        <span class="section-label">Camp Types</span>
+        <h2 class="section-title">Find the Perfect Camp</h2>
+        <p class="section-subtitle centered">Choose from six unique camp programs designed to spark curiosity, build skills, and create unforgettable memories for every camper.</p>
+      </div>
+      <div class="camps-grid">
+        <div class="camp-card fade-up">
+          <div class="camp-card-header"></div>
+          <div class="camp-card-body">
+            <span class="camp-card-emoji" aria-hidden="true">&#9917;</span>
+            <h3>Sports Camp</h3>
+            <span class="camp-card-ages">Ages 5 - 14</span>
+            <p>A high-energy camp focused on teamwork, sportsmanship, and athletic development across a range of popular sports.</p>
+            <ul class="camp-card-features">
+              <li>Basketball, soccer, flag football, and more</li>
+              <li>Skill clinics and friendly tournaments</li>
+              <li>Swimming sessions at Wald Park pool</li>
+              <li>Team-building games and relay races</li>
+            </ul>
+          </div>
+        </div>
+        <div class="camp-card fade-up">
+          <div class="camp-card-header"></div>
+          <div class="camp-card-body">
+            <span class="camp-card-emoji" aria-hidden="true">&#127956;</span>
+            <h3>Adventure Camp</h3>
+            <span class="camp-card-ages">Ages 7 - 14</span>
+            <p>For thrill-seekers and explorers ready to push their boundaries with exciting outdoor challenges and new experiences.</p>
+            <ul class="camp-card-features">
+              <li>Hiking, orienteering, and geocaching</li>
+              <li>Rock wall climbing and obstacle courses</li>
+              <li>Archery and outdoor survival basics</li>
+              <li>Weekly field trips to area adventure parks</li>
+            </ul>
+          </div>
+        </div>
+        <div class="camp-card fade-up">
+          <div class="camp-card-header"></div>
+          <div class="camp-card-body">
+            <span class="camp-card-emoji" aria-hidden="true">&#127912;</span>
+            <h3>Arts &amp; Creativity</h3>
+            <span class="camp-card-ages">Ages 5 - 12</span>
+            <p>A vibrant camp where young artists explore painting, sculpture, theater, music, and creative expression in all forms.</p>
+            <ul class="camp-card-features">
+              <li>Painting, drawing, and mixed media</li>
+              <li>Theater games and end-of-week showcase</li>
+              <li>Music exploration and songwriting</li>
+              <li>Pottery and sculpture workshops</li>
+            </ul>
+          </div>
+        </div>
+        <div class="camp-card fade-up">
+          <div class="camp-card-header"></div>
+          <div class="camp-card-body">
+            <span class="camp-card-emoji" aria-hidden="true">&#128300;</span>
+            <h3>STEM Explorer</h3>
+            <span class="camp-card-ages">Ages 6 - 13</span>
+            <p>Hands-on experiments, coding projects, and engineering challenges that make science and technology exciting and accessible.</p>
+            <ul class="camp-card-features">
+              <li>Robotics building and programming</li>
+              <li>Science experiments and lab activities</li>
+              <li>Intro to coding with Scratch and Python</li>
+              <li>Engineering design challenges</li>
+            </ul>
+          </div>
+        </div>
+        <div class="camp-card fade-up">
+          <div class="camp-card-header"></div>
+          <div class="camp-card-body">
+            <span class="camp-card-emoji" aria-hidden="true">&#127795;</span>
+            <h3>Nature &amp; Outdoors</h3>
+            <span class="camp-card-ages">Ages 5 - 12</span>
+            <p>Reconnect with the natural world through hands-on exploration, gardening, wildlife observation, and eco-friendly projects.</p>
+            <ul class="camp-card-features">
+              <li>Nature hikes and wildlife identification</li>
+              <li>Gardening and plant science</li>
+              <li>Creek exploration and water ecology</li>
+              <li>Campfire stories and outdoor cooking</li>
+            </ul>
+          </div>
+        </div>
+        <div class="camp-card fade-up">
+          <div class="camp-card-header"></div>
+          <div class="camp-card-body">
+            <span class="camp-card-emoji" aria-hidden="true">&#127942;</span>
+            <h3>Leaders in Training</h3>
+            <span class="camp-card-ages">Ages 12 - 14</span>
+            <p>A leadership development program for older campers who want to grow their skills while mentoring younger participants.</p>
+            <ul class="camp-card-features">
+              <li>Leadership workshops and public speaking</li>
+              <li>Mentoring and assistant counselor duties</li>
+              <li>Community service projects</li>
+              <li>College-prep and goal-setting sessions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHAT'S INCLUDED ==================== -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center fade-up">
+        <span class="section-label">What's Included</span>
+        <h2 class="section-title">More Than Just a Day Camp</h2>
+        <p class="section-subtitle centered">Every registration comes packed with value so your family can focus on the fun without worrying about the details.</p>
+      </div>
+      <div class="included-grid">
+        <div class="included-item fade-up">
+          <div class="included-check">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </div>
+          <span>Morning &amp; afternoon snacks</span>
+        </div>
+        <div class="included-item fade-up">
+          <div class="included-check">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </div>
+          <span>Weekly field trips</span>
+        </div>
+        <div class="included-item fade-up">
+          <div class="included-check">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </div>
+          <span>Camp t-shirt</span>
+        </div>
+        <div class="included-item fade-up">
+          <div class="included-check">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </div>
+          <span>Daily structured activities</span>
+        </div>
+        <div class="included-item fade-up">
+          <div class="included-check">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </div>
+          <span>Supervised free play</span>
+        </div>
+        <div class="included-item fade-up">
+          <div class="included-check">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </div>
+          <span>End-of-session celebration</span>
+        </div>
+        <div class="included-item fade-up">
+          <div class="included-check">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </div>
+          <span>Before-care from 7:00 AM</span>
+        </div>
+        <div class="included-item fade-up">
+          <div class="included-check">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+            </svg>
+          </div>
+          <span>After-care until 6:00 PM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== REGISTRATION CTA ==================== -->
+  <section class="cta-section">
+    <div class="cta-content fade-up">
+      <h2>Ready to Register?</h2>
+      <p>Summer camp registration is now open for Vestavia Hills residents and non-residents. Secure your camper's spot before sessions fill up.</p>
+      <span class="cta-urgency">Spots fill fast &mdash; don't wait!</span>
+      <br>
+      <a href="https://vhparksandrec.com/programs-camps/" class="btn-pill btn-white" target="_blank" rel="noopener noreferrer">
+        Register Now
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand-icon">VH</div>
+        <span class="footer-brand-text">Vestavia Hills Parks &amp; Rec</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="https://vhparksandrec.com/programs-camps/" target="_blank" rel="noopener noreferrer">Programs &amp; Camps</a>
+        <a href="https://vhparksandrec.com" target="_blank" rel="noopener noreferrer">Official Website</a>
+      </div>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">&copy; 2026 Vestavia Hills Parks &amp; Recreation. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var fadeEls = document.querySelectorAll('.fade-up');
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -40px 0px'
+        });
+        fadeEls.forEach(function (el, index) {
+          el.style.transitionDelay = (index % 3) * 80 + 'ms';
+          observer.observe(el);
+        });
+      } else {
+        fadeEls.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

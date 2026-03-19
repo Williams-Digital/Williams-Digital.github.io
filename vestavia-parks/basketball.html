@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basketball Leagues | Vestavia Hills Parks & Recreation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --green-900: #0f2b1a;
+      --green-800: #14532d;
+      --green-700: #166534;
+      --green-600: #16a34a;
+      --green-500: #22c55e;
+      --green-400: #4ade80;
+      --green-100: #dcfce7;
+      --green-50: #f0fdf4;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+      --shadow-xl: 0 24px 60px rgba(0,0,0,0.15);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--slate-800);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ===== UTILITY ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--slate-200);
+      transition: var(--transition);
+    }
+    .header.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 72px;
+    }
+    .header__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header__logo-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--green-700);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .header__logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .header__logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--green-800);
+    }
+    .header__logo-sub {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--slate-600);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    .header__back:hover {
+      color: var(--green-700);
+      background: var(--green-50);
+    }
+    .header__back svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: var(--green-900);
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1920&q=85&fit=crop');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.35;
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(15,43,26,0.88) 0%, rgba(20,83,45,0.75) 50%, rgba(15,43,26,0.65) 100%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 80px 0 72px;
+      max-width: 720px;
+    }
+    .hero__breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 24px;
+    }
+    .hero__breadcrumb a {
+      color: var(--green-400);
+      transition: var(--transition);
+    }
+    .hero__breadcrumb a:hover {
+      color: var(--white);
+    }
+    .hero__breadcrumb span {
+      color: rgba(255,255,255,0.3);
+    }
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--green-400);
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    .hero__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    @media(min-width:768px) { .hero__title { font-size: 3.8rem; } }
+    .hero__desc {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.1rem;
+      max-width: 560px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    /* ===== SECTION ===== */
+    .section {
+      padding: 96px 0;
+    }
+    @media(max-width:768px) { .section { padding: 64px 0; } }
+    .section--gray { background: var(--slate-50); }
+    .section--green { background: var(--green-900); color: var(--white); }
+    .section--green-light { background: var(--green-50); }
+
+    .section__header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 56px;
+    }
+    .section__header--left {
+      text-align: left;
+      max-width: 100%;
+      margin: 0 0 48px;
+    }
+    .section__eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--green-600);
+      margin-bottom: 12px;
+    }
+    .section--green .section__eyebrow { color: var(--green-400); }
+    .section__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    @media(min-width:768px) { .section__title { font-size: 2.8rem; } }
+    .section--green .section__title { color: var(--white); }
+    .section__desc {
+      font-size: 1.05rem;
+      color: var(--slate-500);
+      line-height: 1.7;
+    }
+    .section--green .section__desc { color: rgba(255,255,255,0.6); }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn--primary {
+      background: var(--green-500);
+      color: var(--green-900);
+      box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+    }
+    .btn--primary:hover {
+      background: var(--green-400);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(34,197,94,0.4);
+    }
+    .btn--white {
+      background: var(--white);
+      color: var(--slate-800);
+    }
+    .btn--white:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    .btn--outline {
+      border: 2px solid rgba(255,255,255,0.3);
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(6px);
+    }
+    .btn--outline:hover {
+      border-color: var(--green-400);
+      color: var(--green-400);
+      background: rgba(34,197,94,0.08);
+    }
+    .btn--green-outline {
+      border: 2px solid var(--green-700);
+      color: var(--green-700);
+      background: transparent;
+    }
+    .btn--green-outline:hover {
+      background: var(--green-700);
+      color: var(--white);
+    }
+    .btn--lg {
+      padding: 18px 42px;
+      font-size: 1.05rem;
+    }
+
+    /* ===== OVERVIEW GRID ===== */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media(min-width:768px) {
+      .overview-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media(min-width:1024px) {
+      .overview-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .overview-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      border: 1px solid var(--slate-200);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .overview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--green-500);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .overview-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: #bbf7d0;
+    }
+    .overview-card:hover::before { transform: scaleX(1); }
+    .overview-card__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--green-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    .overview-card:hover .overview-card__icon {
+      background: var(--green-100);
+      transform: scale(1.08);
+    }
+    .overview-card__title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 8px;
+    }
+    .overview-card__text {
+      font-size: 0.88rem;
+      color: var(--slate-500);
+      line-height: 1.65;
+    }
+    .overview-card__list {
+      list-style: none;
+      margin-top: 12px;
+    }
+    .overview-card__list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--slate-600);
+      padding: 6px 0;
+    }
+    .overview-card__list li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green-500);
+      flex-shrink: 0;
+    }
+
+    /* ===== INCLUDED GRID ===== */
+    .included-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media(min-width:600px) { .included-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:960px) { .included-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .included-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      border: 1px solid var(--slate-200);
+      transition: var(--transition);
+    }
+    .included-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: #bbf7d0;
+    }
+    .included-card__icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: var(--green-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 20px;
+      transition: var(--transition);
+    }
+    .included-card:hover .included-card__icon {
+      background: var(--green-100);
+      transform: scale(1.1) rotate(-3deg);
+    }
+    .included-card__title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 8px;
+    }
+    .included-card__desc {
+      font-size: 0.85rem;
+      color: var(--slate-500);
+      line-height: 1.6;
+    }
+
+    /* ===== SCHEDULE & FEES ===== */
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    @media(min-width:768px) { .schedule-grid { grid-template-columns: 1fr 1fr; } }
+
+    .schedule-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--slate-200);
+      transition: var(--transition);
+    }
+    .schedule-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: #bbf7d0;
+    }
+    .schedule-card__header {
+      padding: 24px 28px;
+      background: var(--green-700);
+      color: var(--white);
+    }
+    .schedule-card__season {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green-400);
+      margin-bottom: 4px;
+    }
+    .schedule-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+    .schedule-card__body {
+      padding: 28px;
+    }
+    .schedule-card__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .schedule-card__row:last-child {
+      border-bottom: none;
+    }
+    .schedule-card__label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--slate-700);
+    }
+    .schedule-card__value {
+      font-size: 0.88rem;
+      color: var(--slate-500);
+      text-align: right;
+    }
+    .schedule-card__price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--green-700);
+      line-height: 1;
+    }
+    .schedule-card__price-note {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--slate-400);
+      margin-top: 4px;
+    }
+    .schedule-card__note {
+      margin-top: 20px;
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      background: var(--green-50);
+      font-size: 0.82rem;
+      color: var(--green-800);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      padding: 100px 0;
+      background: var(--green-900);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .cta-section__pattern {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(34,197,94,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 50%, rgba(34,197,94,0.08) 0%, transparent 50%);
+    }
+    .cta-section__content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .cta-section__icon {
+      font-size: 3rem;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .cta-section__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    @media(min-width:768px) { .cta-section__title { font-size: 3rem; } }
+    .cta-section__title span { color: var(--green-400); }
+    .cta-section__desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .cta-section__btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--slate-900);
+      color: rgba(255,255,255,0.6);
+      padding: 48px 0 32px;
+    }
+    .footer__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+    .footer__brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      justify-content: center;
+    }
+    .footer__links a {
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+    .footer__links a:hover { color: var(--green-400); }
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 28px;
+      padding-top: 28px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ===== SCROLL TO TOP ===== */
+    .scroll-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: var(--green-700);
+      color: var(--white);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 50;
+    }
+    .scroll-top.visible { opacity: 1; visibility: visible; }
+    .scroll-top:hover { transform: translateY(-3px); background: var(--green-800); }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.08s; }
+    .fade-up:nth-child(3) { transition-delay: 0.16s; }
+    .fade-up:nth-child(4) { transition-delay: 0.24s; }
+    .fade-up:nth-child(5) { transition-delay: 0.32s; }
+    .fade-up:nth-child(6) { transition-delay: 0.4s; }
+
+    /* ===== AGE GROUP TAGS ===== */
+    .age-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .age-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: var(--green-100);
+      color: var(--green-800);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* ===== HIGHLIGHT BAR ===== */
+    .highlight-bar {
+      background: var(--green-50);
+      border-top: 1px solid var(--green-100);
+      border-bottom: 1px solid var(--green-100);
+      padding: 32px 0;
+    }
+    .highlight-bar__inner {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    @media(min-width:768px) {
+      .highlight-bar__inner { grid-template-columns: repeat(4, 1fr); }
+    }
+    .highlight-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .highlight-stat__num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--green-700);
+      line-height: 1;
+    }
+    .highlight-stat__label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      margin-top: 6px;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__brand">
+        <div class="header__logo-icon">VH</div>
+        <div class="header__logo-text">
+          <span class="header__logo-name">Vestavia Hills</span>
+          <span class="header__logo-sub">Parks & Recreation</span>
+        </div>
+      </a>
+      <a href="index.html" class="header__back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content container">
+      <div class="hero__breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="index.html#programs">Programs</a>
+        <span>/</span>
+        Basketball Leagues
+      </div>
+      <div class="hero__badge">&#127936; Youth Sports Program</div>
+      <h1 class="hero__title">Basketball Leagues</h1>
+      <p class="hero__desc">Boys and girls leagues for all skill levels. From kindergartners learning the fundamentals to 8th graders competing in fast-paced tournament play, there is a spot on the court for every young athlete in Vestavia Hills.</p>
+    </div>
+  </section>
+
+  <!-- Highlight Stats Bar -->
+  <div class="highlight-bar">
+    <div class="container">
+      <div class="highlight-bar__inner">
+        <div class="highlight-stat fade-up">
+          <span class="highlight-stat__num">500+</span>
+          <span class="highlight-stat__label">Players Each Season</span>
+        </div>
+        <div class="highlight-stat fade-up">
+          <span class="highlight-stat__num">8</span>
+          <span class="highlight-stat__label">Age Divisions</span>
+        </div>
+        <div class="highlight-stat fade-up">
+          <span class="highlight-stat__num">2</span>
+          <span class="highlight-stat__label">Seasons Per Year</span>
+        </div>
+        <div class="highlight-stat fade-up">
+          <span class="highlight-stat__num">60+</span>
+          <span class="highlight-stat__label">Teams Formed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Program Overview -->
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">Program Overview</p>
+        <h2 class="section__title">Everything You Need to Know</h2>
+        <p class="section__desc">Our basketball program is designed to develop skills, build confidence, and foster a love for the game in a fun and supportive environment.</p>
+      </div>
+      <div class="overview-grid">
+        <div class="overview-card fade-up">
+          <div class="overview-card__icon">&#128101;</div>
+          <h3 class="overview-card__title">Divisions</h3>
+          <p class="overview-card__text">Separate leagues for boys and girls ensure fair, competitive, and inclusive play across all age groups.</p>
+          <ul class="overview-card__list">
+            <li>Boys Recreational League</li>
+            <li>Boys Competitive League</li>
+            <li>Girls Recreational League</li>
+            <li>Girls Competitive League</li>
+          </ul>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-card__icon">&#127947;</div>
+          <h3 class="overview-card__title">Age Groups</h3>
+          <p class="overview-card__text">Four age brackets allow players to compete with peers at a similar developmental level.</p>
+          <div class="age-tags">
+            <span class="age-tag">K - 2nd Grade</span>
+            <span class="age-tag">3rd - 4th Grade</span>
+            <span class="age-tag">5th - 6th Grade</span>
+            <span class="age-tag">7th - 8th Grade</span>
+          </div>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-card__icon">&#128197;</div>
+          <h3 class="overview-card__title">Seasons</h3>
+          <p class="overview-card__text">Two seasons throughout the year give players the opportunity to stay active and improve year-round.</p>
+          <ul class="overview-card__list">
+            <li>Winter Season: November through February</li>
+            <li>Summer Season: June through July</li>
+          </ul>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-card__icon">&#127963;</div>
+          <h3 class="overview-card__title">Location</h3>
+          <p class="overview-card__text">All games and practices are held at the Vestavia Hills Civic Center Gymnasium, featuring two full-size basketball courts.</p>
+          <ul class="overview-card__list">
+            <li>2 full-size regulation courts</li>
+            <li>Electronic scoreboards</li>
+            <li>Climate-controlled facility</li>
+            <li>Spectator seating available</li>
+          </ul>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-card__icon">&#127942;</div>
+          <h3 class="overview-card__title">Recreational Division</h3>
+          <p class="overview-card__text">The recreational division focuses on fundamentals, teamwork, and having fun. Teams are balanced through a draft process to ensure fair and enjoyable competition.</p>
+          <ul class="overview-card__list">
+            <li>Emphasis on skill development</li>
+            <li>Balanced team drafting</li>
+            <li>Equal playing time for all</li>
+          </ul>
+        </div>
+        <div class="overview-card fade-up">
+          <div class="overview-card__icon">&#128293;</div>
+          <h3 class="overview-card__title">Competitive Division</h3>
+          <p class="overview-card__text">For experienced players looking for a higher level of competition. Pre-formed teams compete against other select squads in the area.</p>
+          <ul class="overview-card__list">
+            <li>Pre-formed team rosters</li>
+            <li>Advanced game strategy</li>
+            <li>Tournament-style playoffs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="section section--gray" id="included">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">What's Included</p>
+        <h2 class="section__title">More Than Just Games</h2>
+        <p class="section__desc">Every registration comes with everything your young athlete needs for a complete basketball experience.</p>
+      </div>
+      <div class="included-grid">
+        <div class="included-card fade-up">
+          <div class="included-card__icon">&#128587;</div>
+          <h3 class="included-card__title">Certified Referees</h3>
+          <p class="included-card__desc">Every game is officiated by trained and certified referees who ensure fair play, teach the rules, and keep games running smoothly.</p>
+        </div>
+        <div class="included-card fade-up">
+          <div class="included-card__icon">&#128085;</div>
+          <h3 class="included-card__title">Team Jerseys</h3>
+          <p class="included-card__desc">Each player receives a reversible team jersey with their number. Jerseys are yours to keep at the end of the season as a memento.</p>
+        </div>
+        <div class="included-card fade-up">
+          <div class="included-card__icon">&#127936;</div>
+          <h3 class="included-card__title">Skills Clinics</h3>
+          <p class="included-card__desc">Pre-season skills clinics are included with registration. Coaches work on dribbling, shooting, passing, and defensive fundamentals.</p>
+        </div>
+        <div class="included-card fade-up">
+          <div class="included-card__icon">&#127942;</div>
+          <h3 class="included-card__title">Playoff Tournament</h3>
+          <p class="included-card__desc">Every season ends with an exciting single-elimination playoff tournament. All teams qualify, and champions receive awards and trophies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule & Fees -->
+  <section class="section" id="schedule">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">Schedule & Fees</p>
+        <h2 class="section__title">Season Details</h2>
+        <p class="section__desc">Plan ahead for the upcoming basketball seasons. Registration opens approximately six weeks before each season begins.</p>
+      </div>
+      <div class="schedule-grid">
+        <div class="schedule-card fade-up">
+          <div class="schedule-card__header">
+            <p class="schedule-card__season">Winter Season</p>
+            <h3 class="schedule-card__title">November &ndash; February</h3>
+          </div>
+          <div class="schedule-card__body">
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Registration Opens</span>
+              <span class="schedule-card__value">September 15</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Registration Closes</span>
+              <span class="schedule-card__value">October 15</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Skills Clinic</span>
+              <span class="schedule-card__value">Late October</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Draft Day</span>
+              <span class="schedule-card__value">Early November</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Games Begin</span>
+              <span class="schedule-card__value">Mid November</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Playoffs</span>
+              <span class="schedule-card__value">Late January - February</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Game Days</span>
+              <span class="schedule-card__value">Saturdays</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Practice</span>
+              <span class="schedule-card__value">1 weeknight per week</span>
+            </div>
+            <div style="margin-top: 24px; text-align: center;">
+              <div class="schedule-card__price">$125</div>
+              <div class="schedule-card__price-note">per player / Vestavia Hills resident</div>
+            </div>
+            <div class="schedule-card__note">
+              Non-resident fee: $155 per player. Multi-child discount of $15 off each additional sibling.
+            </div>
+          </div>
+        </div>
+        <div class="schedule-card fade-up">
+          <div class="schedule-card__header" style="background: var(--green-800);">
+            <p class="schedule-card__season">Summer Season</p>
+            <h3 class="schedule-card__title">June &ndash; July</h3>
+          </div>
+          <div class="schedule-card__body">
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Registration Opens</span>
+              <span class="schedule-card__value">April 1</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Registration Closes</span>
+              <span class="schedule-card__value">May 1</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Skills Clinic</span>
+              <span class="schedule-card__value">Late May</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Draft Day</span>
+              <span class="schedule-card__value">Early June</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Games Begin</span>
+              <span class="schedule-card__value">Mid June</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Playoffs</span>
+              <span class="schedule-card__value">Late July</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Game Days</span>
+              <span class="schedule-card__value">Tuesdays & Thursdays</span>
+            </div>
+            <div class="schedule-card__row">
+              <span class="schedule-card__label">Practice</span>
+              <span class="schedule-card__value">1 weeknight per week</span>
+            </div>
+            <div style="margin-top: 24px; text-align: center;">
+              <div class="schedule-card__price">$95</div>
+              <div class="schedule-card__price-note">per player / Vestavia Hills resident</div>
+            </div>
+            <div class="schedule-card__note">
+              Non-resident fee: $120 per player. Shorter season with a condensed, fast-paced schedule.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration CTA -->
+  <section class="cta-section">
+    <div class="cta-section__pattern"></div>
+    <div class="container">
+      <div class="cta-section__content fade-up">
+        <span class="cta-section__icon">&#127936;</span>
+        <h2 class="cta-section__title">Ready to Hit <span>the Court?</span></h2>
+        <p class="cta-section__desc">Registration is open for the upcoming basketball season. Secure your child's spot today and join hundreds of Vestavia Hills families on the hardwood.</p>
+        <div class="cta-section__btns">
+          <a href="https://vhparksandrec.com/programs-camps/" target="_blank" class="btn btn--primary btn--lg">Register Now</a>
+          <a href="index.html#contact" class="btn btn--outline">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand-name">Vestavia Hills Parks & Rec</div>
+        <div class="footer__links">
+          <a href="index.html">Home</a>
+          <a href="index.html#facilities">Facilities</a>
+          <a href="index.html#programs">Programs</a>
+          <a href="index.html#events">Events</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+        <div class="footer__bottom">
+          <span>&copy; 2026 Vestavia Hills Parks & Recreation. All rights reserved. City of Vestavia Hills, Alabama.</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">&#8593;</button>
+
+  <script>
+    // Header shadow on scroll
+    window.addEventListener('scroll', function() {
+      var header = document.getElementById('header');
+      if (window.scrollY > 10) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll to top button visibility
+    window.addEventListener('scroll', function() {
+      var btn = document.getElementById('scrollTop');
+      if (window.scrollY > 400) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    });
+
+    // Fade-up on scroll with IntersectionObserver
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-up').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (href === '#') return;
+        var target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          var offset = 80;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

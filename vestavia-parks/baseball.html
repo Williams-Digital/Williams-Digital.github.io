@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Youth Baseball & Softball | Vestavia Hills Parks & Recreation</title>
+  <meta name="description" content="Youth Baseball & Softball leagues for ages 4-14 at Vestavia Hills Parks & Recreation. Spring and fall seasons at Wald Park Ball Fields.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --green-900: #0f2b1a;
+      --green-800: #14532d;
+      --green-700: #166534;
+      --green-600: #16a34a;
+      --green-500: #22c55e;
+      --green-400: #4ade80;
+      --green-100: #dcfce7;
+      --green-50: #f0fdf4;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+      --shadow-xl: 0 24px 60px rgba(0,0,0,0.15);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--slate-800);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ===== UTILITY ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--slate-200);
+      transition: var(--transition);
+    }
+    .header.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    }
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 72px;
+    }
+    .header__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header__logo-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--green-700);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .header__logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .header__logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--green-800);
+    }
+    .header__logo-sub {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--slate-600);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+    .header__back:hover {
+      color: var(--green-700);
+      background: var(--green-50);
+    }
+    .header__back svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 42vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: var(--green-900);
+    }
+    @media(min-width:768px) { .hero { min-height: 44vh; } }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=1920&q=85&fit=crop');
+      background-size: cover;
+      background-position: center 30%;
+      opacity: 0.4;
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15,43,26,0.5) 0%, rgba(15,43,26,0.75) 60%, rgba(15,43,26,0.92) 100%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 0 48px;
+      width: 100%;
+    }
+    .hero__breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 20px;
+    }
+    .hero__breadcrumb a {
+      color: var(--green-400);
+      transition: var(--transition);
+    }
+    .hero__breadcrumb a:hover {
+      color: var(--white);
+    }
+    .hero__breadcrumb span {
+      color: rgba(255,255,255,0.3);
+    }
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green-400);
+      margin-bottom: 20px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .hero__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    @media(min-width:768px) { .hero__title { font-size: 3.6rem; } }
+    @media(min-width:1024px) { .hero__title { font-size: 4rem; } }
+    .hero__subtitle {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.1rem;
+      max-width: 560px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+    .hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 28px;
+    }
+    .hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+    }
+    .hero__meta-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--green-400);
+      flex-shrink: 0;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn--primary {
+      background: var(--green-500);
+      color: var(--green-900);
+      box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+    }
+    .btn--primary:hover {
+      background: var(--green-400);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(34,197,94,0.4);
+    }
+    .btn--white {
+      background: var(--white);
+      color: var(--slate-800);
+    }
+    .btn--white:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    .btn--outline {
+      border: 2px solid rgba(255,255,255,0.3);
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(6px);
+    }
+    .btn--outline:hover {
+      border-color: var(--green-400);
+      color: var(--green-400);
+      background: rgba(34,197,94,0.08);
+    }
+    .btn--green-outline {
+      border: 2px solid var(--green-700);
+      color: var(--green-700);
+      background: transparent;
+    }
+    .btn--green-outline:hover {
+      background: var(--green-700);
+      color: var(--white);
+    }
+    .btn--lg {
+      padding: 18px 44px;
+      font-size: 1.05rem;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 96px 0;
+    }
+    @media(max-width:768px) { .section { padding: 64px 0; } }
+    .section--gray { background: var(--slate-50); }
+    .section--green { background: var(--green-900); color: var(--white); }
+    .section--green-light { background: var(--green-50); }
+
+    .section__header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 56px;
+    }
+    .section__header--left {
+      text-align: left;
+      margin-left: 0;
+    }
+    .section__eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--green-600);
+      margin-bottom: 12px;
+    }
+    .section--green .section__eyebrow { color: var(--green-400); }
+    .section__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 16px;
+      line-height: 1.15;
+    }
+    @media(min-width:768px) { .section__title { font-size: 2.8rem; } }
+    .section--green .section__title { color: var(--white); }
+    .section__desc {
+      font-size: 1.05rem;
+      color: var(--slate-500);
+      line-height: 1.7;
+    }
+    .section--green .section__desc { color: rgba(255,255,255,0.6); }
+
+    /* ===== OVERVIEW GRID ===== */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media(min-width:768px) {
+      .overview-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    .overview-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 16px;
+    }
+    .overview-text p {
+      font-size: 1rem;
+      color: var(--slate-600);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .overview-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .overview-highlight {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-200);
+      transition: var(--transition);
+    }
+    .overview-highlight:hover {
+      border-color: var(--green-500);
+      box-shadow: var(--shadow-sm);
+    }
+    .overview-highlight__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--green-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .overview-highlight__text {
+      flex: 1;
+    }
+    .overview-highlight__label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 2px;
+    }
+    .overview-highlight__value {
+      font-size: 0.85rem;
+      color: var(--slate-500);
+      line-height: 1.5;
+    }
+
+    /* ===== AGE GROUPS ===== */
+    .age-groups {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media(min-width:500px) { .age-groups { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:900px) { .age-groups { grid-template-columns: repeat(5, 1fr); } }
+
+    .age-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 28px 22px;
+      text-align: center;
+      border: 1px solid var(--slate-200);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .age-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--green-500);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .age-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--green-200, #bbf7d0);
+    }
+    .age-card:hover::before { transform: scaleX(1); }
+    .age-card__emoji {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .age-card__name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 4px;
+    }
+    .age-card__ages {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--green-700);
+      margin-bottom: 8px;
+    }
+    .age-card__desc {
+      font-size: 0.78rem;
+      color: var(--slate-500);
+      line-height: 1.5;
+    }
+
+    /* ===== INCLUDED CARDS ===== */
+    .included-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media(min-width:500px) { .included-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:900px) { .included-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .included-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      border: 1px solid var(--slate-200);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .included-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--green-500);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .included-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--green-200, #bbf7d0);
+    }
+    .included-card:hover::before { transform: scaleX(1); }
+    .included-card__icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--green-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    .included-card:hover .included-card__icon {
+      background: var(--green-100);
+      transform: scale(1.08);
+    }
+    .included-card__title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 8px;
+    }
+    .included-card__desc {
+      font-size: 0.88rem;
+      color: var(--slate-500);
+      line-height: 1.65;
+    }
+
+    /* ===== SCHEDULE TABLE ===== */
+    .schedule-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media(min-width:768px) {
+      .schedule-wrapper { grid-template-columns: 1fr 1fr; }
+    }
+    .schedule-block {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .schedule-block:hover {
+      box-shadow: var(--shadow);
+    }
+    .schedule-block__header {
+      background: var(--green-700);
+      color: var(--white);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .schedule-block__header-icon {
+      font-size: 1.4rem;
+    }
+    .schedule-block__header-text h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+    .schedule-block__header-text span {
+      font-size: 0.78rem;
+      font-weight: 500;
+      opacity: 0.75;
+    }
+    .schedule-block__body {
+      padding: 8px 0;
+    }
+    .schedule-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px;
+      border-bottom: 1px solid var(--slate-100);
+      transition: var(--transition);
+    }
+    .schedule-row:last-child {
+      border-bottom: none;
+    }
+    .schedule-row:hover {
+      background: var(--green-50);
+    }
+    .schedule-row__label {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--slate-800);
+    }
+    .schedule-row__label small {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--slate-500);
+      margin-top: 2px;
+    }
+    .schedule-row__value {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--green-700);
+      text-align: right;
+    }
+    .schedule-row__value small {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--slate-400);
+      margin-top: 2px;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      padding: 100px 0;
+      background: var(--green-900);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section__pattern {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(34,197,94,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 50%, rgba(34,197,94,0.08) 0%, transparent 50%);
+    }
+    .cta-section__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .cta-section__icon {
+      font-size: 3rem;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .cta-section__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    @media(min-width:768px) { .cta-section__title { font-size: 3rem; } }
+    .cta-section__title span { color: var(--green-400); }
+    .cta-section__desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .cta-section__btns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+    .cta-section__note {
+      margin-top: 24px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--slate-900);
+      color: rgba(255,255,255,0.6);
+      padding: 52px 0 32px;
+    }
+    .footer__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      align-items: center;
+      text-align: center;
+    }
+    @media(min-width:600px) {
+      .footer__inner {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+    .footer__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer__brand-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--green-700);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .footer__brand-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 24px;
+    }
+    .footer__links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .footer__links a:hover { color: var(--green-400); }
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 28px;
+      padding-top: 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ===== SCROLL TO TOP ===== */
+    .scroll-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: var(--green-700);
+      color: var(--white);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 50;
+    }
+    .scroll-top.visible { opacity: 1; visibility: visible; }
+    .scroll-top:hover { transform: translateY(-3px); background: var(--green-800); }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.08s; }
+    .fade-up:nth-child(3) { transition-delay: 0.16s; }
+    .fade-up:nth-child(4) { transition-delay: 0.24s; }
+    .fade-up:nth-child(5) { transition-delay: 0.32s; }
+    .fade-up:nth-child(6) { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="index.html" class="header__brand">
+        <div class="header__logo-icon">VH</div>
+        <div class="header__logo-text">
+          <span class="header__logo-name">Vestavia Hills</span>
+          <span class="header__logo-sub">Parks & Recreation</span>
+        </div>
+      </a>
+      <a href="index.html" class="header__back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Home
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content container">
+      <div class="hero__breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="index.html#programs">Programs</a>
+        <span>/</span>
+        Youth Baseball & Softball
+      </div>
+      <div class="hero__badge">Spring & Fall Leagues</div>
+      <h1 class="hero__title">Youth Baseball<br>& Softball</h1>
+      <p class="hero__subtitle">Spring and fall leagues for players ages 4 through 14. Building skills, confidence, and friendships on the diamond at Wald Park.</p>
+      <div class="hero__meta">
+        <div class="hero__meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4-4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Ages 4 &ndash; 14
+        </div>
+        <div class="hero__meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Wald Park Ball Fields
+        </div>
+        <div class="hero__meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Spring & Fall Seasons
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Program Overview -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">Program Overview</p>
+        <h2 class="section__title">Play Ball in Vestavia Hills</h2>
+        <p class="section__desc">Our youth baseball and softball program is one of the most popular in the Birmingham area, offering age-appropriate divisions for players of all skill levels.</p>
+      </div>
+      <div class="overview-grid fade-up">
+        <div class="overview-text">
+          <h3>A tradition of excellence on the diamond</h3>
+          <p>The Vestavia Hills Parks & Recreation youth baseball and softball program has been nurturing young athletes for over 30 years. Our program emphasizes fundamentals, sportsmanship, and a genuine love for the game, all while providing a safe and encouraging environment for kids to grow.</p>
+          <p>All games and practices take place at the Wald Park Ball Fields, featuring three premier playing surfaces with LED lighting for evening games, covered dugouts, electronic scoreboards, and a full concession stand. Our fields are maintained to the highest standards so every player gets a first-class experience.</p>
+        </div>
+        <div class="overview-highlights">
+          <div class="overview-highlight">
+            <div class="overview-highlight__icon">&#128197;</div>
+            <div class="overview-highlight__text">
+              <div class="overview-highlight__label">Spring Season</div>
+              <div class="overview-highlight__value">March through May. Registration typically opens in January with practices beginning in early March.</div>
+            </div>
+          </div>
+          <div class="overview-highlight">
+            <div class="overview-highlight__icon">&#127810;</div>
+            <div class="overview-highlight__text">
+              <div class="overview-highlight__label">Fall Season</div>
+              <div class="overview-highlight__value">September through November. A shorter season perfect for players looking to sharpen skills before next spring.</div>
+            </div>
+          </div>
+          <div class="overview-highlight">
+            <div class="overview-highlight__icon">&#127969;</div>
+            <div class="overview-highlight__text">
+              <div class="overview-highlight__label">Location</div>
+              <div class="overview-highlight__value">Wald Park Ball Fields, Merryvale Road, Vestavia Hills, AL. Three lit fields with covered dugouts.</div>
+            </div>
+          </div>
+          <div class="overview-highlight">
+            <div class="overview-highlight__icon">&#127942;</div>
+            <div class="overview-highlight__text">
+              <div class="overview-highlight__label">Competition</div>
+              <div class="overview-highlight__value">Recreational league play with an end-of-season tournament. All-star teams selected for postseason.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Age Groups -->
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">Age Divisions</p>
+        <h2 class="section__title">A Division for Every Player</h2>
+        <p class="section__desc">Five age-based divisions ensure that every child plays with peers at a similar developmental stage, keeping the game fun and competitive.</p>
+      </div>
+      <div class="age-groups">
+        <div class="age-card fade-up">
+          <span class="age-card__emoji">&#9918;</span>
+          <div class="age-card__name">T-Ball</div>
+          <div class="age-card__ages">Ages 4 &ndash; 5</div>
+          <div class="age-card__desc">Introduction to the game with hitting off a tee. Focus on basic fielding, throwing, and base running in a fun, supportive setting.</div>
+        </div>
+        <div class="age-card fade-up">
+          <span class="age-card__emoji">&#127939;</span>
+          <div class="age-card__name">Coach Pitch</div>
+          <div class="age-card__ages">Ages 6 &ndash; 7</div>
+          <div class="age-card__desc">Coaches pitch to their own players, building on fundamentals. Players develop hand-eye coordination and learn game situations.</div>
+        </div>
+        <div class="age-card fade-up">
+          <span class="age-card__emoji">&#9917;</span>
+          <div class="age-card__name">Minors</div>
+          <div class="age-card__ages">Ages 8 &ndash; 9</div>
+          <div class="age-card__desc">Player-pitch baseball begins here. Athletes refine pitching, catching, and batting skills with standard league rules introduced.</div>
+        </div>
+        <div class="age-card fade-up">
+          <span class="age-card__emoji">&#127947;</span>
+          <div class="age-card__name">Majors</div>
+          <div class="age-card__ages">Ages 10 &ndash; 12</div>
+          <div class="age-card__desc">Full competitive baseball with official rules. Players are challenged with steal plays, advanced fielding, and strategic game situations.</div>
+        </div>
+        <div class="age-card fade-up">
+          <span class="age-card__emoji">&#128170;</span>
+          <div class="age-card__name">Seniors</div>
+          <div class="age-card__ages">Ages 13 &ndash; 14</div>
+          <div class="age-card__desc">The highest division offers an advanced competitive experience preparing athletes for high school-level play.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">What's Included</p>
+        <h2 class="section__title">Everything Your Player Needs</h2>
+        <p class="section__desc">Registration covers all the essentials so families can focus on cheering from the stands.</p>
+      </div>
+      <div class="included-grid">
+        <div class="included-card fade-up">
+          <div class="included-card__icon">&#129338;</div>
+          <h3 class="included-card__title">Professional Coaching</h3>
+          <p class="included-card__desc">Trained and background-checked coaches lead every team, delivering age-appropriate instruction focused on skill development and sportsmanship. Coaches participate in annual clinics to stay current on best practices.</p>
+        </div>
+        <div class="included-card fade-up">
+          <div class="included-card__icon">&#128085;</div>
+          <h3 class="included-card__title">Team Uniforms</h3>
+          <p class="included-card__desc">Every player receives a full team uniform including a jersey, cap, and socks in their team colors. Uniforms are yours to keep as a memento of the season. Additional gear is available at the concession stand.</p>
+        </div>
+        <div class="included-card fade-up">
+          <div class="included-card__icon">&#127942;</div>
+          <h3 class="included-card__title">End-of-Season Tournament</h3>
+          <p class="included-card__desc">Each season culminates in an exciting double-elimination tournament where every team competes for the division championship. Trophies are awarded to champions and individual awards recognize outstanding players.</p>
+        </div>
+        <div class="included-card fade-up">
+          <div class="included-card__icon">&#127829;</div>
+          <h3 class="included-card__title">Post-Game Snack Schedule</h3>
+          <p class="included-card__desc">A rotating snack schedule ensures every player gets a post-game treat. Families take turns providing snacks and drinks, building community spirit and making game days even more memorable for the kids.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule & Fees -->
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__eyebrow">Schedule & Fees</p>
+        <h2 class="section__title">Season Details & Pricing</h2>
+        <p class="section__desc">Affordable registration fees cover uniforms, coaching, field maintenance, umpires, and insurance for the full season.</p>
+      </div>
+      <div class="schedule-wrapper">
+        <div class="schedule-block fade-up">
+          <div class="schedule-block__header">
+            <div class="schedule-block__header-icon">&#127793;</div>
+            <div class="schedule-block__header-text">
+              <h4>Spring Season</h4>
+              <span>March &ndash; May 2026</span>
+            </div>
+          </div>
+          <div class="schedule-block__body">
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                T-Ball
+                <small>Ages 4&ndash;5 &middot; Saturdays</small>
+              </div>
+              <div class="schedule-row__value">
+                $85
+                <small>Resident rate</small>
+              </div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                Coach Pitch
+                <small>Ages 6&ndash;7 &middot; Tue/Thu + Sat</small>
+              </div>
+              <div class="schedule-row__value">
+                $110
+                <small>Resident rate</small>
+              </div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                Minors
+                <small>Ages 8&ndash;9 &middot; Tue/Thu + Sat</small>
+              </div>
+              <div class="schedule-row__value">
+                $130
+                <small>Resident rate</small>
+              </div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                Majors
+                <small>Ages 10&ndash;12 &middot; Mon/Wed + Sat</small>
+              </div>
+              <div class="schedule-row__value">
+                $145
+                <small>Resident rate</small>
+              </div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                Seniors
+                <small>Ages 13&ndash;14 &middot; Mon/Wed + Sat</small>
+              </div>
+              <div class="schedule-row__value">
+                $155
+                <small>Resident rate</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="schedule-block fade-up">
+          <div class="schedule-block__header">
+            <div class="schedule-block__header-icon">&#127810;</div>
+            <div class="schedule-block__header-text">
+              <h4>Fall Season</h4>
+              <span>September &ndash; November 2026</span>
+            </div>
+          </div>
+          <div class="schedule-block__body">
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                T-Ball
+                <small>Ages 4&ndash;5 &middot; Saturdays</small>
+              </div>
+              <div class="schedule-row__value">
+                $75
+                <small>Resident rate</small>
+              </div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                Coach Pitch
+                <small>Ages 6&ndash;7 &middot; Tue/Thu + Sat</small>
+              </div>
+              <div class="schedule-row__value">
+                $95
+                <small>Resident rate</small>
+              </div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                Minors
+                <small>Ages 8&ndash;9 &middot; Tue/Thu + Sat</small>
+              </div>
+              <div class="schedule-row__value">
+                $110
+                <small>Resident rate</small>
+              </div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                Majors
+                <small>Ages 10&ndash;12 &middot; Mon/Wed + Sat</small>
+              </div>
+              <div class="schedule-row__value">
+                $125
+                <small>Resident rate</small>
+              </div>
+            </div>
+            <div class="schedule-row">
+              <div class="schedule-row__label">
+                Seniors
+                <small>Ages 13&ndash;14 &middot; Mon/Wed + Sat</small>
+              </div>
+              <div class="schedule-row__value">
+                $135
+                <small>Resident rate</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <p style="font-size:0.88rem; color:var(--slate-500); line-height:1.7; max-width:640px; margin:0 auto;">Non-resident fees are an additional $25 per division. Multi-child discounts available: 10% off the second child, 15% off each additional child. Financial assistance is available for qualifying families.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration CTA -->
+  <section class="cta-section">
+    <div class="cta-section__pattern"></div>
+    <div class="container">
+      <div class="cta-section__content">
+        <span class="cta-section__icon">&#9918;</span>
+        <h2 class="cta-section__title">Ready to <span>Play Ball?</span></h2>
+        <p class="cta-section__desc">Spring 2026 registration is open now. Secure your player's spot today and join hundreds of Vestavia Hills families on the diamond this season.</p>
+        <div class="cta-section__btns">
+          <a href="https://vhparksandrec.com/programs-camps/" target="_blank" class="btn btn--primary btn--lg">Register Now</a>
+          <a href="index.html#contact" class="btn btn--outline">Contact Us</a>
+        </div>
+        <p class="cta-section__note">Questions? Call us at 205.978.0166 or email parksandrec@vhal.org</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <div class="footer__brand-icon">VH</div>
+          <span class="footer__brand-text">Vestavia Hills Parks & Rec</span>
+        </div>
+        <div class="footer__links">
+          <a href="index.html">Home</a>
+          <a href="index.html#facilities">Facilities</a>
+          <a href="index.html#programs">Programs</a>
+          <a href="index.html#events">Events</a>
+          <a href="index.html#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        &copy; 2026 Vestavia Hills Parks & Recreation. All rights reserved. &middot; City of Vestavia Hills, Alabama
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">&#8593;</button>
+
+  <script>
+    // Header shadow on scroll
+    window.addEventListener('scroll', function() {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Scroll to Top visibility
+    window.addEventListener('scroll', function() {
+      document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+    });
+
+    // Fade-in on scroll (Intersection Observer)
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(function(el) {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

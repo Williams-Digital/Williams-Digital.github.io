@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silver Sneakers | Vestavia Hills Parks &amp; Recreation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-900: #0f2b1a;
+            --green-800: #14532d;
+            --green-700: #166534;
+            --green-600: #16a34a;
+            --green-500: #22c55e;
+            --green-400: #4ade80;
+            --green-100: #dcfce7;
+            --green-50: #f0fdf4;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-400: #94a3b8;
+            --slate-300: #cbd5e1;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
+            --white: #ffffff;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--slate-800);
+            background-color: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Fade-up animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid var(--slate-200);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.875rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--green-700);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: -0.025em;
+            flex-shrink: 0;
+        }
+
+        .brand-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: var(--slate-900);
+        }
+
+        .brand-text span {
+            color: var(--green-600);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--green-700);
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--green-600);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .back-link:hover svg {
+            transform: translateX(-2px);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 40vh;
+            min-height: 340px;
+            max-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center 35%;
+            filter: brightness(0.95);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(15, 43, 26, 0.7) 0%,
+                rgba(22, 101, 52, 0.65) 50%,
+                rgba(15, 43, 26, 0.8) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--green-100);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.375rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.25rem, 5vw, 3.5rem);
+            color: var(--white);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            max-width: 540px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 1.5rem;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--green-600);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            color: var(--slate-900);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.075rem;
+            color: var(--slate-500);
+            max-width: 620px;
+            line-height: 1.7;
+        }
+
+        .section-subtitle.centered {
+            margin: 0 auto;
+        }
+
+        /* Overview */
+        .overview {
+            background: var(--slate-50);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .overview-main {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--slate-200);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .overview-main p {
+            font-size: 1.05rem;
+            color: var(--slate-600);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .overview-main p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-text {
+            color: var(--green-700);
+            font-weight: 600;
+        }
+
+        .overview-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .detail-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            border: 1px solid var(--slate-200);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .detail-card:hover {
+            border-color: var(--green-400);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.08);
+        }
+
+        .detail-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--green-50);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--green-600);
+        }
+
+        .detail-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .detail-info h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--slate-400);
+            margin-bottom: 0.2rem;
+        }
+
+        .detail-info p {
+            font-size: 0.975rem;
+            font-weight: 500;
+            color: var(--slate-800);
+        }
+
+        .detail-info p.small {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--slate-500);
+            margin-top: 0.15rem;
+        }
+
+        /* Class Details Cards */
+        .classes {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .class-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2.25rem 1.5rem;
+            border: 1px solid var(--slate-200);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .class-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            border-color: var(--green-300, #86efac);
+        }
+
+        .class-card-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--green-50);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            color: var(--green-600);
+        }
+
+        .class-card-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+
+        .class-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--slate-900);
+            margin-bottom: 0.75rem;
+        }
+
+        .class-card p {
+            font-size: 0.9rem;
+            color: var(--slate-500);
+            line-height: 1.65;
+        }
+
+        /* Benefits */
+        .benefits {
+            background: var(--green-900);
+            color: var(--white);
+        }
+
+        .benefits .section-label {
+            color: var(--green-400);
+        }
+
+        .benefits .section-title {
+            color: var(--white);
+        }
+
+        .benefits .section-subtitle {
+            color: var(--slate-400);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .benefit-number {
+            width: 44px;
+            height: 44px;
+            background: var(--green-700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--green-100);
+        }
+
+        .benefit-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--white);
+            margin-bottom: 0.625rem;
+        }
+
+        .benefit-item p {
+            font-size: 0.875rem;
+            color: var(--slate-400);
+            line-height: 1.65;
+        }
+
+        /* CTA */
+        .cta {
+            background: var(--green-50);
+            text-align: center;
+        }
+
+        .cta-inner {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .cta .section-title {
+            margin-bottom: 1rem;
+        }
+
+        .cta-text {
+            font-size: 1.075rem;
+            color: var(--slate-600);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            border-radius: 100px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--green-600);
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-700);
+            box-shadow: 0 4px 16px rgba(22, 163, 74, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: var(--white);
+            color: var(--green-700);
+            border: 2px solid var(--green-600);
+        }
+
+        .btn-outline:hover {
+            background: var(--green-600);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .cta-note {
+            font-size: 0.85rem;
+            color: var(--slate-400);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--slate-900);
+            color: var(--slate-400);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .footer-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--green-700);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .footer-brand-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--slate-300);
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            color: var(--slate-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .classes-grid,
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 3.5rem 1.25rem;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .overview-main {
+                padding: 2rem 1.5rem;
+            }
+
+            .classes-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            .hero {
+                min-height: 300px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-inner {
+                padding: 0.75rem 1rem;
+            }
+
+            .brand-text {
+                font-size: 0.95rem;
+            }
+
+            .classes-grid,
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .class-card,
+            .benefit-item {
+                padding: 1.75rem 1.25rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">VH</div>
+                <div class="brand-text">Vestavia Hills <span>Parks &amp; Rec</span></div>
+            </a>
+            <a href="index.html" class="back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Cardio &amp; Strength Class</div>
+            <h1>Silver Sneakers</h1>
+            <p>Stay active, build strength, and connect with your community. Fitness has no age limit at Vestavia Hills Parks &amp; Recreation.</p>
+        </div>
+    </section>
+
+    <!-- Program Overview -->
+    <section class="section overview">
+        <div class="section-inner">
+            <div class="fade-up">
+                <span class="section-label">Program Overview</span>
+                <h2 class="section-title">Your Path to Active Living</h2>
+                <p class="section-subtitle">A welcoming fitness program designed with older adults in mind, open to participants of all ages and ability levels.</p>
+            </div>
+            <div class="overview-grid">
+                <div class="overview-main fade-up">
+                    <p>Silver Sneakers at Vestavia Hills is a <span class="highlight-text">cardio and strength class</span> that combines low-impact aerobic exercise with muscle-strengthening activities. Each session is led by a certified instructor who tailors movements to suit every fitness level.</p>
+                    <p>Whether you are just beginning your fitness journey or looking to maintain an active lifestyle, Silver Sneakers offers a supportive, encouraging environment where you can move at your own pace and feel great doing it.</p>
+                    <p><span class="highlight-text">SilverSneakers membership is accepted</span> and is available free through many Medicare Advantage and Medicare Supplement plans. Not sure if you are covered? Bring your insurance card and we will help you find out.</p>
+                    <p><span class="highlight-text">No registration is required.</span> Simply show up, sign in, and join the class. New participants are always welcome.</p>
+                </div>
+                <div class="overview-details fade-up">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <h4>Schedule</h4>
+                            <p>Monday, Wednesday, Friday</p>
+                            <p class="small">11:15 AM each session</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <h4>Location</h4>
+                            <p>Vestavia Hills Civic Center</p>
+                            <p class="small">1975 Merryvale Rd, Vestavia Hills, AL</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <h4>Who Can Attend</h4>
+                            <p>Open to all ages</p>
+                            <p class="small">Especially designed for older adults</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <h4>Cost</h4>
+                            <p>SilverSneakers membership accepted</p>
+                            <p class="small">Free through many Medicare plans</p>
+                        </div>
+                    </div>
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <h4>Registration</h4>
+                            <p>No registration required</p>
+                            <p class="small">Just show up and join in</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Class Details -->
+    <section class="section classes">
+        <div class="section-inner">
+            <div class="fade-up">
+                <span class="section-label">What to Expect</span>
+                <h2 class="section-title">Class Details</h2>
+                <p class="section-subtitle centered">Each session blends four key elements for a well-rounded, enjoyable workout experience.</p>
+            </div>
+            <div class="classes-grid">
+                <div class="class-card fade-up">
+                    <div class="class-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    </div>
+                    <h3>Low-Impact Cardio</h3>
+                    <p>Gentle aerobic movements that elevate your heart rate safely, improving endurance and circulation without stressing your joints.</p>
+                </div>
+                <div class="class-card fade-up">
+                    <div class="class-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                        </svg>
+                    </div>
+                    <h3>Strength Training</h3>
+                    <p>Build and maintain muscle using resistance bands and light weights. All exercises offer modifications to match your current fitness level.</p>
+                </div>
+                <div class="class-card fade-up">
+                    <div class="class-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                        </svg>
+                    </div>
+                    <h3>Balance &amp; Flexibility</h3>
+                    <p>Dedicated stretching and balance exercises help prevent falls, improve posture, and increase your range of motion for everyday activities.</p>
+                </div>
+                <div class="class-card fade-up">
+                    <div class="class-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                        </svg>
+                    </div>
+                    <h3>Social Community</h3>
+                    <p>More than just exercise, Silver Sneakers is a welcoming community. Build friendships, share laughs, and enjoy the energy of working out together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="section benefits">
+        <div class="section-inner" style="text-align: center;">
+            <div class="fade-up">
+                <span class="section-label">Why Participate</span>
+                <h2 class="section-title">Benefits of Silver Sneakers</h2>
+                <p class="section-subtitle centered">Regular participation delivers lasting improvements to your physical health, mental well-being, and social life.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-item fade-up">
+                    <div class="benefit-number">1</div>
+                    <h3>Cardiovascular Health</h3>
+                    <p>Low-impact aerobic exercise strengthens your heart, lowers blood pressure, and improves circulation for long-term wellness.</p>
+                </div>
+                <div class="benefit-item fade-up">
+                    <div class="benefit-number">2</div>
+                    <h3>Strength &amp; Mobility</h3>
+                    <p>Resistance training preserves muscle mass, supports bone density, and keeps you moving confidently through daily activities.</p>
+                </div>
+                <div class="benefit-item fade-up">
+                    <div class="benefit-number">3</div>
+                    <h3>Social Connections</h3>
+                    <p>Join a supportive group of neighbors and friends. The social aspect of regular classes reduces isolation and boosts mental health.</p>
+                </div>
+                <div class="benefit-item fade-up">
+                    <div class="benefit-number">4</div>
+                    <h3>Free with Insurance</h3>
+                    <p>SilverSneakers membership is included at no cost with many Medicare Advantage and Supplement plans, making fitness accessible for everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta">
+        <div class="section-inner">
+            <div class="cta-inner fade-up">
+                <span class="section-label">Get Started</span>
+                <h2 class="section-title">Ready to Join Us?</h2>
+                <p class="cta-text">No sign-ups, no paperwork. Just come to the Vestavia Hills Civic Center on Monday, Wednesday, or Friday at 11:15 AM and join in. Wear comfortable clothes and athletic shoes, and we will take care of the rest.</p>
+                <div class="cta-buttons">
+                    <a href="tel:2059780166" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                        </svg>
+                        Call 205.978.0166
+                    </a>
+                    <a href="index.html" class="btn btn-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                        View All Programs
+                    </a>
+                </div>
+                <p class="cta-note">Questions about SilverSneakers coverage? Call us and we will help you check your eligibility.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="footer-logo">VH</div>
+                <span class="footer-brand-text">Vestavia Hills Parks &amp; Recreation</span>
+            </div>
+            <p class="footer-copy">&copy; 2026 Vestavia Hills Parks &amp; Recreation. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Fade-up animation with IntersectionObserver -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var fadeElements = document.querySelectorAll('.fade-up');
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.12,
+                    rootMargin: '0px 0px -40px 0px'
+                });
+
+                fadeElements.forEach(function (el, index) {
+                    el.style.transitionDelay = (index % 4) * 0.1 + 's';
+                    observer.observe(el);
+                });
+            } else {
+                fadeElements.forEach(function (el) {
+                    el.classList.add('visible');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
