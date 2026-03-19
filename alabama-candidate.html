@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>James R. Mitchell | For Alabama</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap');
+
+        :root {
+            --red: #BF0A30;
+            --dark-red: #8B0000;
+            --blue: #002868;
+            --dark-blue: #001845;
+            --navy: #0A1628;
+            --white: #FFFFFF;
+            --off-white: #F5F3EF;
+            --gold: #C9A84C;
+            --light-blue: #3C5A99;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--navy);
+            overflow-x: hidden;
+            background: var(--off-white);
+        }
+
+        /* ===================== SCROLL PROGRESS BAR ===================== */
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%; height: 4px;
+            background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+            z-index: 9999;
+            transition: width 0.05s linear;
+            box-shadow: 0 0 10px rgba(191,10,48,0.5);
+        }
+
+        /* ===================== CURSOR GLOW ===================== */
+        .cursor-glow {
+            position: fixed;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(191,10,48,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+        }
+
+        /* ===================== BACK TO TOP ===================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            width: 50px; height: 50px;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(191,10,48,0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--dark-red);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(191,10,48,0.5);
+        }
+
+        /* ===================== PAGE LOADER ===================== */
+        .page-loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--navy);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-star {
+            font-size: 3rem;
+            color: var(--gold);
+            animation: loaderPulse 1s ease-in-out infinite;
+        }
+
+        .loader-text {
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .loader-bar {
+            width: 200px; height: 3px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 1.5rem;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .loader-bar-fill {
+            width: 0%; height: 100%;
+            background: linear-gradient(90deg, var(--red), var(--gold));
+            animation: loaderFill 1.5s ease-out forwards;
+        }
+
+        @keyframes loaderPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        @keyframes loaderFill {
+            to { width: 100%; }
+        }
+
+        /* ===================== STARS BACKGROUND ===================== */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: var(--white);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: var(--max-opacity); transform: scale(1); }
+        }
+
+        /* ===================== FLOATING FLAG PARTICLES ===================== */
+        .flag-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            animation: floatUp var(--duration) ease-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { opacity: 0; transform: translateY(-10vh) rotate(var(--rotation)); }
+        }
+
+        /* ===================== NAVBAR ===================== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 40, 104, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 2rem;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-logo span { color: var(--gold); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 4px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===================== HERO SECTION ===================== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--blue) 40%, var(--dark-red) 100%);
+        }
+
+        .hero-bg-flag {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        /* Animated waving flag stripes */
+        .flag-stripe {
+            position: absolute;
+            width: 200%;
+            height: 7.7%;
+            left: -50%;
+            animation: waveStripe 4s ease-in-out infinite;
+        }
+
+        .flag-stripe:nth-child(odd) { background: rgba(191, 10, 48, 0.15); }
+        .flag-stripe:nth-child(even) { background: rgba(255, 255, 255, 0.05); }
+
+        .flag-stripe:nth-child(1) { top: 0%; animation-delay: 0s; }
+        .flag-stripe:nth-child(2) { top: 7.7%; animation-delay: 0.15s; }
+        .flag-stripe:nth-child(3) { top: 15.4%; animation-delay: 0.3s; }
+        .flag-stripe:nth-child(4) { top: 23.1%; animation-delay: 0.45s; }
+        .flag-stripe:nth-child(5) { top: 30.8%; animation-delay: 0.6s; }
+        .flag-stripe:nth-child(6) { top: 38.5%; animation-delay: 0.75s; }
+        .flag-stripe:nth-child(7) { top: 46.2%; animation-delay: 0.9s; }
+        .flag-stripe:nth-child(8) { top: 53.9%; animation-delay: 1.05s; }
+        .flag-stripe:nth-child(9) { top: 61.6%; animation-delay: 1.2s; }
+        .flag-stripe:nth-child(10) { top: 69.3%; animation-delay: 1.35s; }
+        .flag-stripe:nth-child(11) { top: 77%; animation-delay: 1.5s; }
+        .flag-stripe:nth-child(12) { top: 84.7%; animation-delay: 1.65s; }
+        .flag-stripe:nth-child(13) { top: 92.4%; animation-delay: 1.8s; }
+
+        @keyframes waveStripe {
+            0%, 100% { transform: translateX(0) skewY(0deg); }
+            25% { transform: translateX(2%) skewY(0.5deg); }
+            75% { transform: translateX(-2%) skewY(-0.5deg); }
+        }
+
+        /* Star field in canton area */
+        .canton-stars {
+            position: absolute;
+            top: 0; left: 0;
+            width: 40%; height: 54%;
+            z-index: 2;
+        }
+
+        .canton-star {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            animation: cantonTwinkle 2s ease-in-out infinite;
+        }
+
+        @keyframes cantonTwinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,40,104,0.3) 0%, rgba(10,22,40,0.7) 100%);
+            z-index: 3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s ease 0.3s both;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease 0.5s both;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+        }
+
+        .hero h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s ease 0.7s both;
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            animation: fadeInDown 1s ease 0.9s both;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInDown 1s ease 1.1s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+            clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+        }
+
+        .btn-primary:hover {
+            background: #d40b36;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(191,10,48,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--blue);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s ease infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255,255,255,0.5);
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            width: 6px; height: 6px;
+            margin-left: -3px;
+            background: var(--white);
+            border-radius: 50%;
+            animation: scrollDot 2s ease infinite;
+        }
+
+        @keyframes scrollDot {
+            0% { top: 8px; opacity: 1; }
+            100% { top: 32px; opacity: 0; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ===================== ALABAMA BANNER ===================== */
+        .alabama-banner {
+            background: var(--red);
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alabama-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(255,255,255,0.03) 20px,
+                rgba(255,255,255,0.03) 40px
+            );
+        }
+
+        .alabama-banner p {
+            color: var(--white);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .alabama-banner p .al-x {
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin: 0 1rem;
+            display: inline-block;
+            animation: rotateCross 8s linear infinite;
+        }
+
+        @keyframes rotateCross {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===================== SECTION STYLES ===================== */
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--blue);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--red), var(--gold));
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            line-height: 1.8;
+        }
+
+        /* ===================== ABOUT / BIO SECTION ===================== */
+        .about {
+            background: var(--white);
+        }
+
+        .about-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image .image-frame {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--blue), var(--dark-blue));
+            position: relative;
+            overflow: hidden;
+            box-shadow: 20px 20px 0 var(--red);
+        }
+
+        .about-image .image-frame::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 300'%3E%3Crect fill='%23002868' width='200' height='300'/%3E%3Ctext x='100' y='120' text-anchor='middle' fill='%23ffffff' font-family='serif' font-size='80'%3EJM%3C/text%3E%3Ctext x='100' y='170' text-anchor='middle' fill='%23C9A84C' font-family='sans-serif' font-size='14'%3ECandidate Photo%3C/text%3E%3Ctext x='100' y='190' text-anchor='middle' fill='%23C9A84C' font-family='sans-serif' font-size='14'%3EPlaceholder%3C/text%3E%3C/svg%3E") center/cover;
+        }
+
+        .about-image .alabama-outline {
+            position: absolute;
+            bottom: -20px;
+            right: -30px;
+            width: 120px;
+            height: 140px;
+            opacity: 0.15;
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+
+        .about-text .subtitle {
+            color: var(--red);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            line-height: 1.9;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #eee;
+        }
+
+        .stat { text-align: center; }
+
+        .stat .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--red);
+            display: block;
+        }
+
+        .stat .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            font-weight: 600;
+        }
+
+        /* ===================== ISSUES SECTION ===================== */
+        .issues {
+            background: var(--dark-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .issues::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Ctext x='40' y='45' text-anchor='middle' fill='rgba(255,255,255,0.02)' font-size='30'%3E%E2%98%85%3C/text%3E%3C/svg%3E") repeat;
+        }
+
+        .issues .section-header h2 { color: var(--white); }
+        .issues .section-header p { color: rgba(255,255,255,0.6); }
+
+        .issues-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .issue-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 2.5rem 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .issue-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--red), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .issue-card:hover::before { transform: scaleX(1); }
+
+        .issue-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .issue-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .issue-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .issue-card p {
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* ===================== ALABAMA PRIDE SECTION ===================== */
+        .alabama-pride {
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alabama-pride-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .alabama-map-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .alabama-map-container svg {
+            width: 100%;
+            max-width: 400px;
+            filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.2));
+        }
+
+        .alabama-map-pulse {
+            position: absolute;
+            width: 20px; height: 20px;
+            background: var(--red);
+            border-radius: 50%;
+            top: 58%; left: 62%;
+            animation: pulse 2s ease infinite;
+        }
+
+        .alabama-map-pulse::before {
+            content: 'Montgomery';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--red);
+            letter-spacing: 1px;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(191,10,48,0.6); }
+            70% { box-shadow: 0 0 0 20px rgba(191,10,48,0); }
+            100% { box-shadow: 0 0 0 0 rgba(191,10,48,0); }
+        }
+
+        .alabama-facts h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .alabama-facts .tagline {
+            color: var(--red);
+            font-style: italic;
+            font-family: 'Libre Baskerville', serif;
+            margin-bottom: 2rem;
+        }
+
+        .fact-list {
+            list-style: none;
+        }
+
+        .fact-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .fact-list li .fact-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .fact-list li strong {
+            display: block;
+            color: var(--blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .fact-list li span {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ===================== ENDORSEMENTS ===================== */
+        .endorsements {
+            background: linear-gradient(135deg, var(--off-white) 0%, #e8e4dd 100%);
+        }
+
+        .endorsements-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .endorsement-card {
+            background: var(--white);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-left: 4px solid transparent;
+        }
+
+        .endorsement-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-left-color: var(--red);
+        }
+
+        .endorsement-card::before {
+            content: '\201C';
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            color: var(--red);
+            opacity: 0.1;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .endorsement-card p {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .endorser {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .endorser-avatar {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .endorser-info strong {
+            display: block;
+            color: var(--navy);
+            font-size: 0.95rem;
+        }
+
+        .endorser-info span {
+            color: #888;
+            font-size: 0.8rem;
+        }
+
+        /* ===================== TIMELINE ===================== */
+        .timeline-section {
+            background: var(--white);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--red), var(--blue));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(50% + 30px);
+            padding-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px; height: 16px;
+            background: var(--red);
+            border: 3px solid var(--white);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px var(--red);
+            z-index: 2;
+        }
+
+        .timeline-content {
+            background: var(--off-white);
+            padding: 1.5rem;
+            max-width: 350px;
+            border-left: 4px solid var(--red);
+        }
+
+        .timeline-content .year {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            color: var(--red);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .timeline-content p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ===================== CALL TO ACTION ===================== */
+        .cta {
+            background: linear-gradient(135deg, var(--red) 0%, var(--dark-red) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='55' text-anchor='middle' fill='rgba(255,255,255,0.04)' font-size='40'%3E%E2%98%85%3C/text%3E%3C/svg%3E") repeat;
+            animation: scrollBg 20s linear infinite;
+        }
+
+        @keyframes scrollBg {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100px); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            color: rgba(255,255,255,0.85);
+            font-size: 1.15rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+        }
+
+        .cta .btn-white {
+            background: var(--white);
+            color: var(--red);
+            font-weight: 800;
+        }
+
+        .cta .btn-white:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .cta .btn-outline-white {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+            margin-left: 1rem;
+        }
+
+        .cta .btn-outline-white:hover {
+            background: var(--white);
+            color: var(--red);
+        }
+
+        /* ===================== NEWSLETTER ===================== */
+        .newsletter {
+            background: var(--navy);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .newsletter p {
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 0;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-form input::placeholder { color: rgba(255,255,255,0.4); }
+        .newsletter-form input:focus { border-color: var(--gold); }
+
+        .newsletter-form button {
+            padding: 1rem 2rem;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover { background: var(--dark-red); }
+
+        /* ===================== FOOTER ===================== */
+        .footer {
+            background: #050d1a;
+            color: rgba(255,255,255,0.5);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+
+        .footer h4 {
+            color: var(--white);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer ul { list-style: none; }
+
+        .footer ul li { margin-bottom: 0.75rem; }
+
+        .footer ul a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer ul a:hover { color: var(--gold); }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 2rem auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom .disclaimer {
+            font-size: 0.7rem;
+            opacity: 0.4;
+            max-width: 500px;
+        }
+
+        /* ===================== ANIMATED FLAG (CSS) ===================== */
+        .animated-flag-wrapper {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 999;
+            width: 80px;
+            pointer-events: none;
+        }
+
+        .flag-pole {
+            width: 4px;
+            height: 140px;
+            background: linear-gradient(to bottom, #ccc, #888);
+            position: absolute;
+            right: 0;
+            top: -10px;
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        .flag-pole::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .mini-flag {
+            width: 65px;
+            height: 35px;
+            position: absolute;
+            top: 0;
+            right: 4px;
+            animation: flagWave 3s ease-in-out infinite;
+            transform-origin: right center;
+            overflow: hidden;
+            border-radius: 0 0 0 2px;
+        }
+
+        .mini-flag .f-stripe {
+            height: 7.69%;
+            width: 100%;
+        }
+
+        .mini-flag .f-stripe.red { background: var(--red); }
+        .mini-flag .f-stripe.white { background: var(--white); }
+
+        .mini-flag .f-canton {
+            position: absolute;
+            top: 0; left: 0;
+            width: 40%;
+            height: 53.85%;
+            background: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6px;
+            color: white;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        @keyframes flagWave {
+            0%, 100% { transform: perspective(200px) rotateY(0deg) skewY(0deg); }
+            25% { transform: perspective(200px) rotateY(-5deg) skewY(1deg); }
+            75% { transform: perspective(200px) rotateY(5deg) skewY(-1deg); }
+        }
+
+        /* ===================== WAVE SECTION DIVIDERS ===================== */
+        .wave-divider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+        }
+
+        .wave-divider.flip { transform: rotate(180deg); }
+
+        /* ===================== 3D CARD TILT ===================== */
+        .tilt-card {
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* ===================== GLASSMORPHISM ENHANCEMENTS ===================== */
+        .glass {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        /* ===================== BUTTON RIPPLE ===================== */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: scale(0);
+            animation: rippleEffect 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleEffect {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* ===================== STAGGER CHILDREN ===================== */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stagger-children.active > *:nth-child(1) { transition-delay: 0s; }
+        .stagger-children.active > *:nth-child(2) { transition-delay: 0.1s; }
+        .stagger-children.active > *:nth-child(3) { transition-delay: 0.2s; }
+        .stagger-children.active > *:nth-child(4) { transition-delay: 0.3s; }
+        .stagger-children.active > *:nth-child(5) { transition-delay: 0.4s; }
+        .stagger-children.active > *:nth-child(6) { transition-delay: 0.5s; }
+
+        .stagger-children.active > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===================== ELECTION COUNTDOWN ===================== */
+        .countdown-bar {
+            background: var(--blue);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-bar::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 200%; height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 40px,
+                rgba(255,255,255,0.02) 40px,
+                rgba(255,255,255,0.02) 80px
+            );
+            animation: scrollBgH 10s linear infinite;
+        }
+
+        @keyframes scrollBgH {
+            from { transform: translateX(0); }
+            to { transform: translateX(-80px); }
+        }
+
+        .countdown-label {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .countdown-units {
+            display: flex;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .countdown-unit {
+            text-align: center;
+        }
+
+        .countdown-unit .count-num {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .countdown-unit .count-label {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ===================== DONATION PROGRESS ===================== */
+        .donation-progress {
+            max-width: 500px;
+            margin: 2.5rem auto 0;
+            position: relative;
+        }
+
+        .donation-progress .progress-header {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .donation-progress .progress-header strong {
+            color: var(--white);
+            font-size: 1.1rem;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), #e6c65a);
+            border-radius: 6px;
+            transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+        .progress-donors {
+            text-align: center;
+            margin-top: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+        }
+
+        .progress-donors strong {
+            color: var(--gold);
+        }
+
+        /* ===================== HERO TYPING EFFECT ===================== */
+        .typed-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background: var(--gold);
+            margin-left: 4px;
+            animation: blink 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* ===================== PARALLAX ===================== */
+        .parallax-bg {
+            will-change: transform;
+        }
+
+        /* ===================== SCROLL ANIMATIONS ===================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 3.5rem; }
+            .about-grid,
+            .alabama-pride-content { grid-template-columns: 1fr; gap: 2rem; }
+            .issues-grid { grid-template-columns: repeat(2, 1fr); }
+            .endorsements-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                padding-left: 40px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+            .timeline::before { left: 8px; }
+            .timeline-item::before { left: 8px; transform: none; }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero h2 { font-size: 1.2rem; }
+            .countdown-bar { flex-direction: column; gap: 0.75rem; padding: 1rem; }
+            .countdown-units { gap: 1rem; }
+            .countdown-unit .count-num { font-size: 1.4rem; }
+            .cursor-glow { display: none; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .issues-grid { grid-template-columns: 1fr; }
+            .section { padding: 4rem 1.5rem; }
+            .section-header h2 { font-size: 2.2rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .newsletter-form { flex-direction: column; }
+            .newsletter-form button { width: 100%; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+            .about-stats { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+            .stat .number { font-size: 1.8rem; }
+            .animated-flag-wrapper { width: 60px; }
+            .flag-pole { height: 110px; }
+            .mini-flag { width: 50px; height: 27px; }
+        }
+
+        /* ===================== MOBILE NAV ===================== */
+        .mobile-nav {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: rgba(0, 40, 104, 0.98);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .mobile-nav.open { transform: translateX(0); }
+
+        .mobile-nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-star">&#9733;</div>
+        <div class="loader-text">Mitchell 2026</div>
+        <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#9650;</button>
+
+    <!-- Stars Background -->
+    <div class="stars-container" id="starsContainer"></div>
+
+    <!-- Animated Flag Corner -->
+    <div class="animated-flag-wrapper">
+        <div class="flag-pole"></div>
+        <div class="mini-flag">
+            <div class="f-stripe red"></div>
+            <div class="f-stripe white"></div>
+            <div class="f-stripe red"></div>
+            <div class="f-stripe white"></div>
+            <div class="f-stripe red"></div>
+            <div class="f-stripe white"></div>
+            <div class="f-stripe red"></div>
+            <div class="f-stripe white"></div>
+            <div class="f-stripe red"></div>
+            <div class="f-stripe white"></div>
+            <div class="f-stripe red"></div>
+            <div class="f-stripe white"></div>
+            <div class="f-stripe red"></div>
+            <div class="f-canton">&#9734;&#9734;&#9734;</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-logo">MITCHELL <span>2026</span></a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#issues">Issues</a></li>
+            <li><a href="#alabama">Alabama</a></li>
+            <li><a href="#endorsements">Endorsements</a></li>
+            <li><a href="#journey">Journey</a></li>
+            <li><a href="#" class="btn btn-primary" style="padding:0.6rem 1.5rem; font-size:0.75rem;">Donate</a></li>
+        </ul>
+        <button class="mobile-menu-btn" onclick="toggleMobileNav()">&#9776;</button>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+        <a href="#about" onclick="toggleMobileNav()">About</a>
+        <a href="#issues" onclick="toggleMobileNav()">Issues</a>
+        <a href="#alabama" onclick="toggleMobileNav()">Alabama</a>
+        <a href="#endorsements" onclick="toggleMobileNav()">Endorsements</a>
+        <a href="#journey" onclick="toggleMobileNav()">Journey</a>
+        <a href="#" onclick="toggleMobileNav()">Donate</a>
+    </div>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-flag">
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="flag-stripe"></div>
+            <div class="canton-stars" id="cantonStars"></div>
+        </div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">Republican Candidate for Governor</div>
+            <h1>James R. Mitchell</h1>
+            <h2><span id="typedText"></span><span class="typed-cursor"></span></h2>
+            <p>Born and raised in the Heart of Dixie, James Mitchell is fighting for Alabama's families, farmers, and future. It's time for a leader who puts Alabama first.</p>
+            <div class="hero-buttons">
+                <a href="#issues" class="btn btn-primary">See the Platform</a>
+                <a href="#about" class="btn btn-secondary">Meet James</a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- Alabama Cross Banner -->
+    <div class="alabama-banner">
+        <p>
+            <span class="al-x">&#10010;</span>
+            The Heart of Dixie Deserves a Heart of Gold
+            <span class="al-x">&#10010;</span>
+        </p>
+    </div>
+
+    <!-- Election Countdown -->
+    <div class="countdown-bar">
+        <span class="countdown-label">Election Day Countdown</span>
+        <div class="countdown-units" id="countdown">
+            <div class="countdown-unit">
+                <span class="count-num" id="countDays">---</span>
+                <span class="count-label">Days</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="count-num" id="countHours">--</span>
+                <span class="count-label">Hours</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="count-num" id="countMins">--</span>
+                <span class="count-label">Minutes</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="count-num" id="countSecs">--</span>
+                <span class="count-label">Seconds</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section class="section about" id="about">
+        <div class="section-header">
+            <h2 class="reveal">Meet James Mitchell</h2>
+            <p class="reveal">A fifth-generation Alabamian with deep roots in our communities, our values, and our way of life.</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-image reveal-left">
+                <div class="image-frame"></div>
+                <svg class="alabama-outline" viewBox="622 350 74 118" fill="none">
+                    <path d="M631.3,460.4L629.8,446L627,427.3L627.2,413.2L628,382.2L627.8,365.5L628,359.1L672.5,355.5L672.3,357.7L672.5,359.8L673.1,363.2L676.5,371.1L679,381L680.4,387.1L682,392L683.5,398.9L685.6,405.2L688.2,408.6L688.7,412L690.6,412.8L690.8,414.9L689,419.8L688.5,423L688.3,424.9L689.9,429.3L690.3,434.6L689.5,437.1L690.1,437.9L691.6,438.7L691.9,441.6L686.3,441.2L679.5,441.9L654,444.8L643.6,446.2L643.3,449L645.1,450.8L647.7,452.8L648.3,460.7L642.7,463.3L640,463L642.7,461L642.7,460L639.7,454.1L637.4,453.4L635.9,457.8L634.7,460.5L634,460.4L631.3,460.4Z" stroke="#002868" stroke-width="1" fill="rgba(0,40,104,0.08)"/>
+                </svg>
+            </div>
+            <div class="about-text reveal-right">
+                <div class="subtitle">Fifth-Generation Alabamian</div>
+                <h3>A Leader Forged in Alabama Values</h3>
+                <p>James Mitchell grew up on a family farm in Cullman County, where he learned the values of hard work, faith, and community that guide him to this day. After serving in the U.S. Army and earning his law degree from the University of Alabama, James returned home to build a life dedicated to serving others.</p>
+                <p>As a three-term state senator, James has fought to lower taxes, defend Second Amendment rights, protect Alabama's farming communities, and bring high-speed internet to every corner of the state. Now, he's ready to take that fight to the Governor's mansion.</p>
+
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="number" data-target="12">0</span>
+                        <span class="label">Years Served</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" data-target="47">0</span>
+                        <span class="label">Bills Passed</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number" data-target="98">0</span>
+                        <span class="label">% Pro-Life Rating</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wave Divider: White to Blue -->
+    <div class="wave-divider" style="background:var(--white);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path fill="var(--dark-blue)" d="M0,40 C360,100 720,0 1080,60 C1260,80 1380,40 1440,50 L1440,100 L0,100 Z"/>
+        </svg>
+    </div>
+
+    <!-- ==================== ISSUES ==================== -->
+    <section class="section issues" id="issues">
+        <div class="section-header">
+            <h2 class="reveal">The Mitchell Platform</h2>
+            <p class="reveal">Commonsense conservative solutions for the challenges facing Alabama's families and communities.</p>
+        </div>
+
+        <div class="issues-grid stagger-children">
+            <div class="issue-card reveal">
+                <span class="issue-icon">&#128176;</span>
+                <h3>Economic Growth & Jobs</h3>
+                <p>Cut red tape, lower business taxes, and attract major employers to Alabama. Our plan will create 50,000 new jobs and make the Yellowhammer State the best place in America to start a business.</p>
+            </div>
+            <div class="issue-card reveal">
+                <span class="issue-icon">&#127806;</span>
+                <h3>Protecting Agriculture</h3>
+                <p>Alabama's farmers feed our families and fuel our economy. We'll fight for fair trade deals, expand crop insurance, and invest in agricultural innovation to keep Alabama farms thriving for generations.</p>
+            </div>
+            <div class="issue-card reveal">
+                <span class="issue-icon">&#128218;</span>
+                <h3>Education & Workforce</h3>
+                <p>Every Alabama child deserves a world-class education. We'll expand school choice, raise teacher pay, invest in vocational training, and partner with industry to prepare students for tomorrow's careers.</p>
+            </div>
+            <div class="issue-card reveal">
+                <span class="issue-icon">&#128170;</span>
+                <h3>2nd Amendment Rights</h3>
+                <p>The right to bear arms is non-negotiable. James Mitchell has an A+ rating from the NRA and will veto any legislation that infringes on law-abiding Alabamians' constitutional rights.</p>
+            </div>
+            <div class="issue-card reveal">
+                <span class="issue-icon">&#9876;&#65039;</span>
+                <h3>Faith & Family Values</h3>
+                <p>Our families are the backbone of Alabama. We'll defend the sanctity of life, support faith-based organizations, and ensure parents have the final say in their children's education and upbringing.</p>
+            </div>
+            <div class="issue-card reveal">
+                <span class="issue-icon">&#128161;</span>
+                <h3>Rural Infrastructure</h3>
+                <p>It's time every Alabamian has access to broadband internet, quality roads, and reliable utilities. Our $2 billion infrastructure plan will bridge the urban-rural divide and connect all 67 counties.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wave Divider: Blue to White -->
+    <div class="wave-divider" style="background:var(--dark-blue);">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path fill="var(--white)" d="M0,40 C280,90 560,10 840,50 C1050,75 1300,20 1440,40 L1440,100 L0,100 Z"/>
+        </svg>
+    </div>
+
+    <!-- ==================== ALABAMA PRIDE ==================== -->
+    <section class="section alabama-pride" id="alabama">
+        <div class="section-header">
+            <h2 class="reveal">Proud to Be Alabama</h2>
+            <p class="reveal">From the Appalachian foothills to the Gulf Coast shores, this campaign is about every corner of our great state.</p>
+        </div>
+
+        <div class="alabama-pride-content">
+            <div class="alabama-map-container reveal-left">
+                <svg viewBox="618 346 82 126" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Geographically accurate Alabama state outline from US Census/Map data -->
+                    <defs>
+                        <linearGradient id="alGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#002868;stop-opacity:0.9" />
+                            <stop offset="100%" style="stop-color:#BF0A30;stop-opacity:0.9" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <clipPath id="alClip">
+                            <path d="M631.3,460.4L629.8,446L627,427.3L627.2,413.2L628,382.2L627.8,365.5L628,359.1L672.5,355.5L672.3,357.7L672.5,359.8L673.1,363.2L676.5,371.1L679,381L680.4,387.1L682,392L683.5,398.9L685.6,405.2L688.2,408.6L688.7,412L690.6,412.8L690.8,414.9L689,419.8L688.5,423L688.3,424.9L689.9,429.3L690.3,434.6L689.5,437.1L690.1,437.9L691.6,438.7L691.9,441.6L686.3,441.2L679.5,441.9L654,444.8L643.6,446.2L643.3,449L645.1,450.8L647.7,452.8L648.3,460.7L642.7,463.3L640,463L642.7,461L642.7,460L639.7,454.1L637.4,453.4L635.9,457.8L634.7,460.5L634,460.4L631.3,460.4Z"/>
+                        </clipPath>
+                    </defs>
+                    <!-- State shape -->
+                    <path d="M631.3,460.4L629.8,446L627,427.3L627.2,413.2L628,382.2L627.8,365.5L628,359.1L672.5,355.5L672.3,357.7L672.5,359.8L673.1,363.2L676.5,371.1L679,381L680.4,387.1L682,392L683.5,398.9L685.6,405.2L688.2,408.6L688.7,412L690.6,412.8L690.8,414.9L689,419.8L688.5,423L688.3,424.9L689.9,429.3L690.3,434.6L689.5,437.1L690.1,437.9L691.6,438.7L691.9,441.6L686.3,441.2L679.5,441.9L654,444.8L643.6,446.2L643.3,449L645.1,450.8L647.7,452.8L648.3,460.7L642.7,463.3L640,463L642.7,461L642.7,460L639.7,454.1L637.4,453.4L635.9,457.8L634.7,460.5L634,460.4L631.3,460.4Z"
+                          fill="url(#alGrad)" stroke="white" stroke-width="1" filter="url(#glow)"/>
+                    <!-- Alabama St. Andrew's Cross (state flag) clipped to state shape -->
+                    <g clip-path="url(#alClip)">
+                        <line x1="627" y1="355" x2="692" y2="463" stroke="rgba(201,168,76,0.35)" stroke-width="12" stroke-linecap="round"/>
+                        <line x1="692" y1="355" x2="627" y2="463" stroke="rgba(201,168,76,0.35)" stroke-width="12" stroke-linecap="round"/>
+                    </g>
+                    <!-- State name -->
+                    <text x="658" y="412" text-anchor="middle" fill="white" font-family="'Playfair Display', serif" font-size="10" font-weight="900" letter-spacing="2">ALABAMA</text>
+                    <!-- City markers — small dots with outlined text -->
+                    <!-- Huntsville -->
+                    <circle cx="662" cy="363" r="1.8" fill="white"/>
+                    <circle cx="662" cy="363" r="1" fill="#C9A84C"/>
+                    <text x="662" y="369.5" fill="white" font-size="3" font-weight="700" font-family="'Montserrat',sans-serif" text-anchor="middle" stroke="rgba(0,0,0,0.5)" stroke-width="0.6" paint-order="stroke">Huntsville</text>
+
+                    <!-- Birmingham -->
+                    <circle cx="650" cy="382" r="1.8" fill="white"/>
+                    <circle cx="650" cy="382" r="1" fill="#C9A84C"/>
+                    <text x="650" y="388.5" fill="white" font-size="3" font-weight="700" font-family="'Montserrat',sans-serif" text-anchor="middle" stroke="rgba(0,0,0,0.5)" stroke-width="0.6" paint-order="stroke">Birmingham</text>
+
+                    <!-- Montgomery (Capital) -->
+                    <circle cx="660" cy="420" r="2.2" fill="white"/>
+                    <circle cx="660" cy="420" r="1.3" fill="#BF0A30"/>
+                    <text x="660" y="426.5" fill="white" font-size="3.2" font-weight="800" font-family="'Montserrat',sans-serif" text-anchor="middle" stroke="rgba(0,0,0,0.6)" stroke-width="0.7" paint-order="stroke">Montgomery &#9733;</text>
+
+                    <!-- Mobile -->
+                    <circle cx="637" cy="449" r="1.8" fill="white"/>
+                    <circle cx="637" cy="449" r="1" fill="#C9A84C"/>
+                    <text x="644" y="448.5" fill="white" font-size="3" font-weight="700" font-family="'Montserrat',sans-serif" text-anchor="start" stroke="rgba(0,0,0,0.5)" stroke-width="0.6" paint-order="stroke">Mobile</text>
+                    <!-- Decorative stars -->
+                    <text x="622" y="352" fill="rgba(201,168,76,0.5)" font-size="6">&#9733;</text>
+                    <text x="692" y="352" fill="rgba(201,168,76,0.5)" font-size="6">&#9733;</text>
+                    <text x="694" y="468" fill="rgba(201,168,76,0.5)" font-size="6">&#9733;</text>
+                    <text x="622" y="468" fill="rgba(201,168,76,0.5)" font-size="6">&#9733;</text>
+                </svg>
+                <!-- pulse removed, markers are in SVG -->
+            </div>
+
+            <div class="alabama-facts reveal-right">
+                <h3>Fighting for All 67 Counties</h3>
+                <p class="tagline">"We Dare Defend Our Rights" &mdash; Alabama State Motto</p>
+                <ul class="fact-list">
+                    <li>
+                        <span class="fact-icon">&#127966;</span>
+                        <div>
+                            <strong>Rural Alabama Investment</strong>
+                            <span>$500M dedicated to rural broadband, roads, and healthcare access across every county from Lauderdale to Mobile.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="fact-icon">&#127981;</span>
+                        <div>
+                            <strong>Supporting Our Industries</strong>
+                            <span>From Huntsville's aerospace corridor to Mobile's shipyards to Birmingham's medical center, we'll invest in Alabama's economic engines.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="fact-icon">&#127944;</span>
+                        <div>
+                            <strong>Celebrating Alabama Culture</strong>
+                            <span>Whether it's Friday night football, the Yellowhammer, or sweet tea on the porch, our traditions make us who we are.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="fact-icon">&#9851;&#65039;</span>
+                        <div>
+                            <strong>Conservation & Hunting Rights</strong>
+                            <span>Protecting Alabama's 23 state parks, hunting lands, and the natural beauty from the Tennessee Valley to Gulf Shores.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ENDORSEMENTS ==================== -->
+    <section class="section endorsements" id="endorsements">
+        <div class="section-header">
+            <h2 class="reveal">Endorsed by Alabama's Best</h2>
+            <p class="reveal">Trusted by community leaders, veterans, farmers, and families across the state.</p>
+        </div>
+
+        <div class="endorsements-grid">
+            <div class="endorsement-card reveal">
+                <p>"James Mitchell is the kind of leader Alabama needs &mdash; honest, principled, and unafraid to stand up for what's right. He has my full support."</p>
+                <div class="endorser">
+                    <div class="endorser-avatar">RH</div>
+                    <div class="endorser-info">
+                        <strong>Robert Harmon</strong>
+                        <span>Mayor of Cullman, AL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="endorsement-card reveal">
+                <p>"As a third-generation farmer, I know James understands our struggles. He's the only candidate with a real plan to support Alabama agriculture."</p>
+                <div class="endorser">
+                    <div class="endorser-avatar">SB</div>
+                    <div class="endorser-info">
+                        <strong>Sarah Beth Collins</strong>
+                        <span>President, AL Farm Bureau (Placeholder)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="endorsement-card reveal">
+                <p>"James and I served together in the Army. His courage, integrity, and love of country are exactly what we need in the Governor's office."</p>
+                <div class="endorser">
+                    <div class="endorser-avatar">TW</div>
+                    <div class="endorser-info">
+                        <strong>Col. Thomas Walker (Ret.)</strong>
+                        <span>U.S. Army Veteran, Huntsville</span>
+                    </div>
+                </div>
+            </div>
+            <div class="endorsement-card reveal">
+                <p>"James Mitchell doesn't just talk about fixing education &mdash; he's actually done it. His legislation brought millions in funding to our rural schools."</p>
+                <div class="endorser">
+                    <div class="endorser-avatar">DP</div>
+                    <div class="endorser-info">
+                        <strong>Dr. Diana Patterson</strong>
+                        <span>Superintendent, Tuscaloosa County Schools (Placeholder)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TIMELINE ==================== -->
+    <section class="section timeline-section" id="journey">
+        <div class="section-header">
+            <h2 class="reveal">A Life of Service</h2>
+            <p class="reveal">From the family farm to the state senate, James Mitchell has spent his life serving Alabama.</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="year">1978</span>
+                    <h4>Born in Cullman, Alabama</h4>
+                    <p>Raised on a family farm, James learned the values of hard work, faith, and community from an early age.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="year">1996</span>
+                    <h4>U.S. Army Service</h4>
+                    <p>Enlisted after high school and served two tours overseas. Earned the Bronze Star for valor in service to his country.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="year">2004</span>
+                    <h4>University of Alabama Law</h4>
+                    <p>Graduated top of his class from UA School of Law. Roll Tide. Returned home to practice law and serve his community.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="year">2014</span>
+                    <h4>Elected State Senator</h4>
+                    <p>Won his first election with 68% of the vote. Immediately went to work cutting taxes and fighting for Alabama families.</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-content">
+                    <span class="year">2026</span>
+                    <h4>Running for Governor</h4>
+                    <p>Alabama needs proven leadership. James Mitchell is ready to be the next Governor and fight for every Alabamian.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="section cta">
+        <div class="cta-content reveal">
+            <h2>Alabama's Future Starts Now</h2>
+            <p>Join the movement. Whether you volunteer, donate, or simply spread the word &mdash; every action counts. Together, we'll build an Alabama that works for everyone.</p>
+            <a href="#" class="btn btn-white">Donate Today</a>
+            <a href="#" class="btn btn-outline-white">Volunteer</a>
+
+            <!-- Donation Progress Bar -->
+            <div class="donation-progress">
+                <div class="progress-header">
+                    <span>Raised: <strong>$847,250</strong></span>
+                    <span>Goal: $1,500,000</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-donors"><strong>12,438</strong> patriotic donors from all 67 counties</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <div class="newsletter">
+        <h3>Stay in the Fight</h3>
+        <p>Get campaign updates, event invitations, and news delivered to your inbox.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for signing up! (Demo)');">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Join Us</button>
+        </form>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Mitchell 2026</h3>
+                <p>Paid for by Mitchell for Alabama. This is a demo/pitch website with fictional content created to showcase web design capabilities. Not affiliated with any real campaign.</p>
+            </div>
+            <div>
+                <h4>Campaign</h4>
+                <ul>
+                    <li><a href="#about">About James</a></li>
+                    <li><a href="#issues">The Platform</a></li>
+                    <li><a href="#endorsements">Endorsements</a></li>
+                    <li><a href="#">News</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Get Involved</h4>
+                <ul>
+                    <li><a href="#">Donate</a></li>
+                    <li><a href="#">Volunteer</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Merch Store</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter/X</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Mitchell for Alabama. All rights reserved.</span>
+            <span class="disclaimer">DEMO WEBSITE &mdash; This is a fictional campaign site created for pitch/demonstration purposes only. All names, endorsements, and statistics are fictional.</span>
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // ===== TWINKLING STARS =====
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            const count = 80;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = (Math.random() * 6 + 2) + 'px';
+                star.style.height = star.style.width;
+                star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+                star.style.setProperty('--max-opacity', (Math.random() * 0.5 + 0.2));
+                star.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // ===== CANTON STARS (Hero) =====
+        function createCantonStars() {
+            const container = document.getElementById('cantonStars');
+            const rows = 5;
+            const cols = 6;
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const star = document.createElement('span');
+                    star.classList.add('canton-star');
+                    star.textContent = '\u2605';
+                    star.style.left = (8 + c * 16) + '%';
+                    star.style.top = (10 + r * 20) + '%';
+                    star.style.animationDelay = (Math.random() * 3) + 's';
+                    container.appendChild(star);
+                }
+            }
+        }
+
+        // ===== FLOATING FLAG PARTICLES =====
+        function createFlagParticles() {
+            const colors = ['#BF0A30', '#002868', '#FFFFFF', '#C9A84C'];
+            const shapes = ['★', '✦', '⬥', '◆'];
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('flag-particle');
+                particle.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.fontSize = (Math.random() * 16 + 8) + 'px';
+                particle.style.setProperty('--duration', (Math.random() * 15 + 10) + 's');
+                particle.style.setProperty('--delay', (Math.random() * 10) + 's');
+                particle.style.setProperty('--rotation', (Math.random() * 360) + 'deg');
+                document.body.appendChild(particle);
+            }
+        }
+
+        // ===== PAGE LOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('pageLoader').classList.add('hidden');
+            }, 1800);
+        });
+
+        // ===== SCROLL PROGRESS BAR =====
+        function updateScrollProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        }
+
+        // ===== BACK TO TOP =====
+        function updateBackToTop() {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 600) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        }
+
+        // ===== NAVBAR SCROLL =====
+        function updateNavbar() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // ===== CURSOR GLOW =====
+        const cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', (e) => {
+            if (cursorGlow) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            }
+        });
+
+        // ===== COMBINED SCROLL HANDLER =====
+        window.addEventListener('scroll', () => {
+            updateScrollProgress();
+            updateBackToTop();
+            updateNavbar();
+            revealOnScroll();
+        }, { passive: true });
+
+        // ===== MOBILE NAV =====
+        function toggleMobileNav() {
+            document.getElementById('mobileNav').classList.toggle('open');
+        }
+
+        // ===== SCROLL REVEAL (with stagger support) =====
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const revealPoint = 150;
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        // ===== COUNTER ANIMATION =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat .number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    counter.textContent = target;
+                                    clearInterval(timer);
+                                } else {
+                                    counter.textContent = Math.floor(current);
+                                }
+                            }, 16);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(counter);
+            });
+        }
+
+        // ===== DONATION PROGRESS BAR =====
+        function animateDonationProgress() {
+            const fill = document.getElementById('progressFill');
+            if (!fill) return;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => { fill.style.width = '56.5%'; }, 300);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            observer.observe(fill.parentElement);
+        }
+
+        // ===== ELECTION COUNTDOWN =====
+        function updateCountdown() {
+            const electionDay = new Date('2026-11-03T00:00:00');
+            const now = new Date();
+            const diff = electionDay - now;
+
+            if (diff <= 0) return;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countDays').textContent = days;
+            document.getElementById('countHours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('countMins').textContent = String(mins).padStart(2, '0');
+            document.getElementById('countSecs').textContent = String(secs).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // ===== TYPING EFFECT =====
+        function typeWriter() {
+            const phrases = [
+                'Faith. Family. Alabama First.',
+                'A Stronger Alabama Starts Here.',
+                'Standing Up for Our Values.',
+                'Alabama Deserves Better.'
+            ];
+            const el = document.getElementById('typedText');
+            if (!el) return;
+
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let pauseTime = 0;
+
+            function tick() {
+                const currentPhrase = phrases[phraseIndex];
+
+                if (!isDeleting) {
+                    el.textContent = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+
+                    if (charIndex === currentPhrase.length) {
+                        pauseTime = 2500;
+                        isDeleting = true;
+                    } else {
+                        pauseTime = 60;
+                    }
+                } else {
+                    el.textContent = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        phraseIndex = (phraseIndex + 1) % phrases.length;
+                        pauseTime = 400;
+                    } else {
+                        pauseTime = 30;
+                    }
+                }
+
+                setTimeout(tick, pauseTime);
+            }
+
+            setTimeout(tick, 2200);
+        }
+
+        // ===== BUTTON RIPPLE EFFECT =====
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // ===== 3D TILT ON ISSUE CARDS =====
+        document.querySelectorAll('.issue-card, .endorsement-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // ===== PARALLAX ON HERO =====
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero-content');
+            if (hero && window.scrollY < window.innerHeight) {
+                hero.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+                hero.style.opacity = 1 - (window.scrollY / window.innerHeight) * 0.6;
+            }
+        }, { passive: true });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createCantonStars();
+            createFlagParticles();
+            animateCounters();
+            animateDonationProgress();
+            typeWriter();
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
