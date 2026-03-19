@@ -8,734 +8,252 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ===== RESET & BASE ===== */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --navy: #1a2744;
-      --navy-light: #243352;
-      --gold: #c8a44e;
-      --gold-light: #e8cc7a;
-      --white: #ffffff;
-      --off-white: #f7f5f0;
-      --light-gray: #eae6de;
-      --mid-gray: #94908a;
-      --dark-gray: #4a4640;
-      --text: #2c2924;
-      --accent-red: #c0392b;
-      --radius: 12px;
-      --radius-sm: 8px;
-      --shadow: 0 2px 20px rgba(26,39,68,0.08);
-      --shadow-lg: 0 8px 40px rgba(26,39,68,0.12);
-      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --navy:#1a2744;--navy-light:#243352;--navy-dark:#111c33;
+      --gold:#c8a44e;--gold-light:#e8cc7a;
+      --white:#fff;--off-white:#f8f6f1;--cream:#faf8f3;
+      --light-gray:#eae6de;--mid-gray:#94908a;--dark-gray:#4a4640;--text:#2c2924;
+      --accent-red:#c0392b;--accent-blue:#2980b9;--accent-green:#27ae60;--accent-purple:#8e44ad;
+      --radius:14px;--radius-sm:8px;
+      --shadow:0 2px 24px rgba(26,39,68,0.07);
+      --shadow-lg:0 12px 48px rgba(26,39,68,0.13);
+      --transition:0.3s cubic-bezier(0.4,0,0.2,1);
     }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text);
-      background: var(--off-white);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    html{scroll-behavior:smooth;font-size:16px}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);background:var(--off-white);line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button{cursor:pointer;border:none;background:none;font-family:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .badge{display:inline-block;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:4px 10px;border-radius:4px;background:var(--gold);color:var(--navy)}
+    .badge--news{background:var(--accent-red);color:#fff}
+    .badge--sports{background:var(--accent-blue);color:#fff}
+    .badge--business{background:var(--accent-green);color:#fff}
+    .badge--opinion{background:var(--navy);color:#fff}
+    .badge--realestate{background:#e67e22;color:#fff}
 
-    /* ===== UTILITY ===== */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .sr-only { position: absolute; width: 1px; height: 1px; clip: rect(0,0,0,0); overflow: hidden; }
-    .badge {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: var(--gold);
-      color: var(--navy);
-    }
-    .badge--news { background: var(--accent-red); color: #fff; }
-    .badge--sports { background: #2980b9; color: #fff; }
-    .badge--business { background: #27ae60; color: #fff; }
-    .badge--opinion { background: var(--navy); color: #fff; }
-    .badge--people { background: #8e44ad; color: #fff; }
-
-    /* ===== BREAKING BAR ===== */
-    .breaking-bar {
-      background: var(--accent-red);
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 8px 0;
-      text-align: center;
-      letter-spacing: 0.02em;
-    }
-    .breaking-bar span { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+    /* ===== TOPBAR ===== */
+    .topbar{background:var(--navy-dark);padding:6px 0;font-size:.75rem;color:rgba(255,255,255,.5)}
+    .topbar__inner{display:flex;justify-content:space-between;align-items:center}
+    .topbar__date{font-weight:500}
+    .topbar__social{display:flex;gap:14px}
+    .topbar__social a{color:rgba(255,255,255,.5);transition:var(--transition)}
+    .topbar__social a:hover{color:var(--gold)}
 
     /* ===== HEADER ===== */
-    .header {
-      background: var(--navy);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.15);
-    }
-    .header__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      height: 64px;
-    }
-    .header__brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .header__logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: var(--white);
-      letter-spacing: -0.02em;
-    }
-    .header__logo span { color: var(--gold); }
-    .header__tagline {
-      display: none;
-      font-size: 0.7rem;
-      color: var(--gold-light);
-      opacity: 0.8;
-    }
-    @media(min-width:768px) { .header__tagline { display: block; } }
-
-    /* Desktop Nav */
-    .header__nav { display: none; }
-    @media(min-width:900px) {
-      .header__nav {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-    }
-    .header__nav a {
-      color: rgba(255,255,255,0.85);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: var(--radius-sm);
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .header__nav a:hover, .header__nav a.active {
-      color: #fff;
-      background: rgba(255,255,255,0.1);
-    }
-
-    /* Mobile menu toggle */
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      padding: 8px;
-      border-radius: var(--radius-sm);
-      transition: var(--transition);
-    }
-    .hamburger:hover { background: rgba(255,255,255,0.1); }
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: #fff;
-      border-radius: 2px;
-      transition: var(--transition);
-    }
-    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-    @media(min-width:900px) { .hamburger { display: none; } }
-
-    /* Mobile Nav */
-    .mobile-nav {
-      position: fixed;
-      inset: 64px 0 0 0;
-      background: var(--navy);
-      z-index: 99;
-      padding: 20px;
-      transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-      overflow-y: auto;
-    }
-    .mobile-nav.open { transform: translateX(0); }
-    .mobile-nav a {
-      display: block;
-      color: rgba(255,255,255,0.9);
-      font-size: 1.05rem;
-      font-weight: 600;
-      padding: 14px 16px;
-      border-radius: var(--radius-sm);
-      transition: var(--transition);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .mobile-nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
-    .mobile-nav__search {
-      margin-top: 16px;
-      position: relative;
-    }
-    .mobile-nav__search input {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      border: none;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      font-size: 0.95rem;
-    }
-    .mobile-nav__search input::placeholder { color: rgba(255,255,255,0.4); }
+    .header{background:var(--navy);position:sticky;top:0;z-index:100;box-shadow:0 2px 24px rgba(0,0,0,.18)}
+    .header__inner{display:flex;align-items:center;justify-content:space-between;padding:0 20px;max-width:1200px;margin:0 auto;height:60px}
+    .header__brand{display:flex;align-items:center;gap:14px}
+    .header__logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-.02em}
+    .header__logo span{color:var(--gold)}
+    .header__tagline{display:none;font-size:.68rem;color:var(--gold-light);opacity:.7;max-width:160px;line-height:1.3}
+    @media(min-width:768px){.header__tagline{display:block}}
+    .header__nav{display:none}
+    @media(min-width:920px){.header__nav{display:flex;align-items:center;gap:2px}}
+    .header__nav a{color:rgba(255,255,255,.8);font-size:.8rem;font-weight:600;padding:8px 13px;border-radius:var(--radius-sm);transition:var(--transition);white-space:nowrap}
+    .header__nav a:hover,.header__nav a.active{color:#fff;background:rgba(255,255,255,.1)}
+    .hamburger{display:flex;flex-direction:column;gap:5px;padding:8px;border-radius:var(--radius-sm);transition:var(--transition)}
+    .hamburger:hover{background:rgba(255,255,255,.1)}
+    .hamburger span{display:block;width:22px;height:2px;background:#fff;border-radius:2px;transition:var(--transition)}
+    .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+    @media(min-width:920px){.hamburger{display:none}}
+    .mobile-nav{position:fixed;inset:60px 0 0 0;background:var(--navy);z-index:99;padding:20px;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);overflow-y:auto}
+    .mobile-nav.open{transform:translateX(0)}
+    .mobile-nav a{display:block;color:rgba(255,255,255,.9);font-size:1.05rem;font-weight:600;padding:14px 16px;border-radius:var(--radius-sm);transition:var(--transition);border-bottom:1px solid rgba(255,255,255,.06)}
+    .mobile-nav a:hover{background:rgba(255,255,255,.1);color:#fff}
 
     /* ===== HERO ===== */
-    .hero {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-      padding: 40px 0 50px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: -40%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(200,164,78,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-    @media(min-width:768px) {
-      .hero__grid {
-        grid-template-columns: 1.4fr 1fr;
-        gap: 28px;
-      }
-    }
-    .hero__main {
-      background: rgba(255,255,255,0.05);
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: var(--transition);
-    }
-    .hero__main:hover { border-color: rgba(200,164,78,0.3); }
-    .hero__img {
-      width: 100%;
-      height: 240px;
-      background: linear-gradient(135deg, #3a506b, #1a2744);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    @media(min-width:768px) { .hero__img { height: 320px; } }
-    .hero__img-placeholder {
-      font-size: 3rem;
-      opacity: 0.15;
-      color: #fff;
-    }
-    .hero__main-content {
-      padding: 24px;
-    }
-    .hero__main-content .badge { margin-bottom: 12px; }
-    .hero__main-content h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1.25;
-      margin-bottom: 12px;
-    }
-    @media(min-width:768px) { .hero__main-content h2 { font-size: 2rem; } }
-    .hero__main-content p {
-      color: rgba(255,255,255,0.65);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
-    .hero__meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.45);
-    }
-    .hero__meta strong { color: var(--gold-light); font-weight: 600; }
+    .hero{padding:32px 0 40px;background:var(--cream)}
+    .hero__grid{display:grid;grid-template-columns:1fr;gap:20px}
+    @media(min-width:768px){.hero__grid{grid-template-columns:1.5fr 1fr;gap:24px}}
+    .hero__main{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;border:1px solid rgba(0,0,0,.04)}
+    .hero__main:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+    .hero__img{width:100%;height:260px;background:var(--light-gray);overflow:hidden;position:relative}
+    @media(min-width:768px){.hero__img{height:340px}}
+    .hero__img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+    .hero__main:hover .hero__img img{transform:scale(1.04)}
+    .hero__img .badge{position:absolute;top:16px;left:16px;z-index:2}
+    .hero__content{padding:24px 28px}
+    .hero__content h2{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:800;color:var(--navy);line-height:1.25;margin-bottom:10px}
+    @media(min-width:768px){.hero__content h2{font-size:1.9rem}}
+    .hero__content p{color:var(--mid-gray);font-size:.92rem;line-height:1.65;margin-bottom:14px}
+    .meta{display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--mid-gray)}
+    .meta strong{color:var(--dark-gray);font-weight:600}
+    .meta__sep{width:3px;height:3px;border-radius:50%;background:var(--mid-gray)}
+    .hero__sidebar{display:flex;flex-direction:column;gap:16px}
+    .hero__side-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;border:1px solid rgba(0,0,0,.04);display:grid;grid-template-columns:110px 1fr}
+    .hero__side-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+    .hero__side-img{width:100%;height:100%;min-height:120px;overflow:hidden;background:var(--light-gray)}
+    .hero__side-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+    .hero__side-card:hover .hero__side-img img{transform:scale(1.06)}
+    .hero__side-body{padding:16px 18px;display:flex;flex-direction:column;justify-content:center}
+    .hero__side-body .badge{margin-bottom:8px;align-self:flex-start}
+    .hero__side-body h3{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:8px}
+    .hero__side-body .meta{font-size:.72rem}
 
-    /* Hero sidebar */
-    .hero__sidebar { display: flex; flex-direction: column; gap: 16px; }
-    .hero__side-card {
-      background: rgba(255,255,255,0.05);
-      border-radius: var(--radius);
-      padding: 20px;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: var(--transition);
-      cursor: pointer;
-    }
-    .hero__side-card:hover {
-      border-color: rgba(200,164,78,0.3);
-      background: rgba(255,255,255,0.08);
-    }
-    .hero__side-card .badge { margin-bottom: 10px; }
-    .hero__side-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.3;
-      margin-bottom: 8px;
-    }
-    .hero__side-card p {
-      color: rgba(255,255,255,0.55);
-      font-size: 0.85rem;
-      line-height: 1.5;
-    }
-    .hero__side-card .hero__meta { margin-top: 10px; }
+    /* ===== SECTIONS ===== */
+    .section{padding:48px 0}
+    .section--alt{background:#fff}
+    .section__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:14px;border-bottom:2px solid var(--light-gray)}
+    .section__title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:10px}
+    .section__title::before{content:'';display:inline-block;width:4px;height:26px;background:var(--gold);border-radius:2px}
+    .section__more{font-size:.82rem;font-weight:600;color:var(--gold);display:flex;align-items:center;gap:4px;transition:var(--transition)}
+    .section__more:hover{color:var(--navy)}
+    .section__more svg{width:16px;height:16px}
+    .arrow-svg{width:16px;height:16px}
 
-    /* ===== SECTION COMMON ===== */
-    .section { padding: 48px 0; }
-    .section--alt { background: #fff; }
-    .section__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px;
-      padding-bottom: 14px;
-      border-bottom: 2px solid var(--light-gray);
-    }
-    .section__title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--navy);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .section__title::before {
-      content: '';
-      display: inline-block;
-      width: 4px;
-      height: 28px;
-      background: var(--gold);
-      border-radius: 2px;
-    }
-    .section__more {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--gold);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: var(--transition);
-    }
-    .section__more:hover { color: var(--navy); }
-    .section__more svg { width: 16px; height: 16px; }
+    /* ===== CARDS ===== */
+    .card-grid{display:grid;grid-template-columns:1fr;gap:22px}
+    @media(min-width:600px){.card-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:900px){.card-grid--3{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:900px){.card-grid--4{grid-template-columns:repeat(4,1fr)}}
+    .card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;border:1px solid rgba(0,0,0,.04)}
+    .card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+    .card__img{width:100%;height:190px;background:var(--light-gray);overflow:hidden;position:relative}
+    .card__img img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+    .card:hover .card__img img{transform:scale(1.06)}
+    .card__body{padding:20px}
+    .card__body .badge{margin-bottom:10px}
+    .card__title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .card__excerpt{font-size:.84rem;color:var(--mid-gray);line-height:1.55;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
-    /* ===== ARTICLE CARDS ===== */
-    .card-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-    @media(min-width:600px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media(min-width:900px) { .card-grid--3 { grid-template-columns: repeat(3, 1fr); } }
-    @media(min-width:900px) { .card-grid--4 { grid-template-columns: repeat(4, 1fr); } }
+    /* ===== CONTENT WITH SIDEBAR ===== */
+    .content-with-sidebar{display:grid;grid-template-columns:1fr;gap:32px}
+    @media(min-width:900px){.content-with-sidebar{grid-template-columns:1fr 300px}}
+    .sidebar{display:flex;flex-direction:column;gap:24px}
 
-    .card {
-      background: #fff;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      cursor: pointer;
-      border: 1px solid rgba(0,0,0,0.04);
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-    .card__img {
-      width: 100%;
-      height: 180px;
-      background: linear-gradient(135deg, #ddd, #bbb);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .card__img--green { background: linear-gradient(135deg, #a8e6cf, #88d8b0); }
-    .card__img--blue { background: linear-gradient(135deg, #a8d8ea, #88c8da); }
-    .card__img--warm { background: linear-gradient(135deg, #f8c291, #e8a871); }
-    .card__img--purple { background: linear-gradient(135deg, #c7b8ea, #a798ca); }
-    .card__img--teal { background: linear-gradient(135deg, #88d8c0, #68b8a0); }
-    .card__img-icon {
-      font-size: 2.5rem;
-      opacity: 0.3;
-    }
-    .card__body {
-      padding: 20px;
-    }
-    .card__body .badge { margin-bottom: 10px; }
-    .card__title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--navy);
-      line-height: 1.35;
-      margin-bottom: 8px;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .card__excerpt {
-      font-size: 0.85rem;
-      color: var(--mid-gray);
-      line-height: 1.55;
-      margin-bottom: 12px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .card__meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.75rem;
-      color: var(--mid-gray);
-    }
-    .card__meta strong { color: var(--dark-gray); font-weight: 600; }
-    .card__meta-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--mid-gray); }
-
-    /* Horizontal card variant */
-    .card--horizontal {
-      display: grid;
-      grid-template-columns: 1fr;
-    }
-    @media(min-width:500px) {
-      .card--horizontal {
-        grid-template-columns: 200px 1fr;
-      }
-      .card--horizontal .card__img { height: 100%; min-height: 150px; }
-    }
+    /* ===== WEATHER ===== */
+    .weather{background:#fff;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04)}
+    .weather h3{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--navy);margin-bottom:14px}
+    .weather__current{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+    .weather__temp{font-size:2.6rem;font-weight:800;color:var(--navy);line-height:1}
+    .weather__desc{font-size:.82rem;color:var(--mid-gray)}
+    .weather__forecast{display:flex;gap:6px}
+    .weather__day{flex:1;text-align:center;padding:10px 4px;background:var(--off-white);border-radius:var(--radius-sm)}
+    .weather__day-name{font-size:.68rem;font-weight:600;color:var(--mid-gray)}
+    .weather__day-icon{font-size:1.1rem;margin:4px 0}
+    .weather__day-temp{font-size:.72rem;font-weight:600;color:var(--dark-gray)}
 
     /* ===== NEWSLETTER ===== */
-    .newsletter {
-      background: linear-gradient(135deg, var(--navy), var(--navy-light));
-      padding: 60px 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .newsletter::before {
-      content: '';
-      position: absolute;
-      bottom: -50%;
-      left: -10%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(200,164,78,0.1) 0%, transparent 70%);
-    }
-    .newsletter h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-    .newsletter p {
-      color: rgba(255,255,255,0.6);
-      font-size: 0.95rem;
-      margin-bottom: 28px;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .newsletter__form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-width: 440px;
-      margin: 0 auto;
-    }
-    @media(min-width:500px) {
-      .newsletter__form { flex-direction: row; }
-    }
-    .newsletter__form input {
-      flex: 1;
-      padding: 14px 18px;
-      border-radius: var(--radius-sm);
-      border: 2px solid rgba(255,255,255,0.15);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
-      transition: var(--transition);
-    }
-    .newsletter__form input::placeholder { color: rgba(255,255,255,0.35); }
-    .newsletter__form input:focus { border-color: var(--gold); }
-    .newsletter__form button {
-      padding: 14px 28px;
-      border-radius: var(--radius-sm);
-      background: var(--gold);
-      color: var(--navy);
-      font-size: 0.9rem;
-      font-weight: 700;
-      white-space: nowrap;
-      transition: var(--transition);
-    }
-    .newsletter__form button:hover { background: var(--gold-light); }
+    .newsletter-mini{background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:var(--radius);padding:24px;color:#fff}
+    .newsletter-mini h3{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
+    .newsletter-mini p{font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:14px;line-height:1.5}
+    .newsletter-mini input{width:100%;padding:10px 14px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:.85rem;margin-bottom:10px;outline:none}
+    .newsletter-mini input::placeholder{color:rgba(255,255,255,.35)}
+    .newsletter-mini input:focus{border-color:var(--gold)}
+    .newsletter-mini button{width:100%;padding:10px;border-radius:6px;background:var(--gold);color:var(--navy);font-weight:700;font-size:.85rem;transition:var(--transition)}
+    .newsletter-mini button:hover{background:var(--gold-light)}
+
+    /* ===== MAGAZINE ===== */
+    .magazine-widget{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04)}
+    .magazine-widget img{width:100%;height:auto}
+    .magazine-widget__body{padding:16px;text-align:center}
+    .magazine-widget__body p{font-size:.8rem;color:var(--mid-gray);margin-bottom:10px}
+    .magazine-widget__btn{display:inline-block;padding:8px 20px;border-radius:6px;background:var(--navy);color:#fff;font-size:.8rem;font-weight:600;transition:var(--transition)}
+    .magazine-widget__btn:hover{background:var(--gold);color:var(--navy)}
 
     /* ===== EVENTS ===== */
-    .events-list { display: flex; flex-direction: column; gap: 16px; }
-    .event-item {
-      display: flex;
-      gap: 18px;
-      padding: 20px;
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      cursor: pointer;
-      border: 1px solid rgba(0,0,0,0.04);
-    }
-    .event-item:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
-    }
-    .event-date {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-width: 60px;
-      padding: 10px;
-      background: var(--navy);
-      border-radius: var(--radius-sm);
-      color: #fff;
-      text-align: center;
-    }
-    .event-date__month {
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--gold);
-    }
-    .event-date__day {
-      font-size: 1.5rem;
-      font-weight: 800;
-      line-height: 1;
-      margin-top: 2px;
-    }
-    .event-info h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 4px;
-    }
-    .event-info p {
-      font-size: 0.82rem;
-      color: var(--mid-gray);
-      line-height: 1.5;
-    }
-    .event-info__location {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 6px;
-      font-size: 0.78rem;
-      color: var(--gold);
-      font-weight: 600;
-    }
+    .events-list{display:flex;flex-direction:column;gap:14px}
+    .event-item{display:flex;gap:16px;padding:18px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;border:1px solid rgba(0,0,0,.04)}
+    .event-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+    .event-date{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:56px;padding:10px;background:var(--navy);border-radius:var(--radius-sm);color:#fff;text-align:center}
+    .event-date__month{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
+    .event-date__day{font-size:1.4rem;font-weight:800;line-height:1;margin-top:2px}
+    .event-info h4{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+    .event-info p{font-size:.8rem;color:var(--mid-gray);line-height:1.5}
+    .event-info__location{display:flex;align-items:center;gap:4px;margin-top:6px;font-size:.75rem;color:var(--gold);font-weight:600}
 
-    /* ===== WEATHER WIDGET ===== */
-    .weather {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(0,0,0,0.04);
-    }
-    .weather h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--navy);
-      margin-bottom: 16px;
-    }
-    .weather__current {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    .weather__temp {
-      font-size: 2.8rem;
-      font-weight: 800;
-      color: var(--navy);
-      line-height: 1;
-    }
-    .weather__desc {
-      font-size: 0.85rem;
-      color: var(--mid-gray);
-    }
-    .weather__forecast {
-      display: flex;
-      gap: 8px;
-    }
-    .weather__day {
-      flex: 1;
-      text-align: center;
-      padding: 10px 4px;
-      background: var(--off-white);
-      border-radius: var(--radius-sm);
-    }
-    .weather__day-name { font-size: 0.7rem; font-weight: 600; color: var(--mid-gray); }
-    .weather__day-icon { font-size: 1.2rem; margin: 4px 0; }
-    .weather__day-temp { font-size: 0.75rem; font-weight: 600; color: var(--dark-gray); }
+    /* ===== NEWSLETTER BANNER ===== */
+    .newsletter-banner{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:56px 0;text-align:center;position:relative;overflow:hidden}
+    .newsletter-banner::before{content:'';position:absolute;top:-30%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(200,164,78,.1) 0%,transparent 70%);pointer-events:none}
+    .newsletter-banner h2{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:800;color:#fff;margin-bottom:8px}
+    .newsletter-banner p{color:rgba(255,255,255,.55);font-size:.92rem;margin-bottom:24px;max-width:460px;margin-left:auto;margin-right:auto}
+    .newsletter-banner__form{display:flex;flex-direction:column;gap:12px;max-width:440px;margin:0 auto}
+    @media(min-width:500px){.newsletter-banner__form{flex-direction:row}}
+    .newsletter-banner__form input{flex:1;padding:14px 18px;border-radius:var(--radius-sm);border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:.92rem;outline:none;transition:var(--transition)}
+    .newsletter-banner__form input::placeholder{color:rgba(255,255,255,.3)}
+    .newsletter-banner__form input:focus{border-color:var(--gold)}
+    .newsletter-banner__form button{padding:14px 28px;border-radius:var(--radius-sm);background:var(--gold);color:var(--navy);font-size:.88rem;font-weight:700;white-space:nowrap;transition:var(--transition)}
+    .newsletter-banner__form button:hover{background:var(--gold-light)}
 
-    /* ===== SIDEBAR LAYOUT ===== */
-    .content-with-sidebar {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-    @media(min-width:900px) {
-      .content-with-sidebar {
-        grid-template-columns: 1fr 320px;
-      }
-    }
-    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+    /* ===== SCHOOLS ===== */
+    .school-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;border:1px solid rgba(0,0,0,.04);text-align:center;padding:28px 16px}
+    .school-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .school-card__icon{width:52px;height:52px;border-radius:50%;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 12px}
+    .school-card h3{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+    .school-card p{font-size:.78rem;color:var(--mid-gray)}
 
     /* ===== FOOTER ===== */
-    .footer {
-      background: var(--navy);
-      color: rgba(255,255,255,0.7);
-      padding: 60px 0 30px;
-    }
-    .footer__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 36px;
-      margin-bottom: 40px;
-    }
-    @media(min-width:600px) { .footer__grid { grid-template-columns: repeat(2, 1fr); } }
-    @media(min-width:900px) { .footer__grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; } }
-    .footer__brand-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-    .footer__brand-name span { color: var(--gold); }
-    .footer__brand p {
-      font-size: 0.85rem;
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-    .footer__social {
-      display: flex;
-      gap: 10px;
-    }
-    .footer__social a {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      transition: var(--transition);
-    }
-    .footer__social a:hover { background: var(--gold); color: var(--navy); }
-    .footer__col h4 {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--gold);
-      margin-bottom: 16px;
-    }
-    .footer__col a {
-      display: block;
-      font-size: 0.85rem;
-      padding: 4px 0;
-      transition: var(--transition);
-    }
-    .footer__col a:hover { color: #fff; }
-    .footer__bottom {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding-top: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: center;
-      text-align: center;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.4);
-    }
-    @media(min-width:600px) {
-      .footer__bottom { flex-direction: row; justify-content: space-between; }
-    }
+    .footer{background:var(--navy-dark);color:rgba(255,255,255,.65);padding:56px 0 28px}
+    .footer__grid{display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:36px}
+    @media(min-width:600px){.footer__grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:900px){.footer__grid{grid-template-columns:1.6fr 1fr 1fr 1fr}}
+    .footer__brand-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:10px}
+    .footer__brand-name span{color:var(--gold)}
+    .footer__brand p{font-size:.82rem;line-height:1.6;margin-bottom:14px}
+    .footer__social{display:flex;gap:8px}
+    .footer__social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:var(--transition);color:rgba(255,255,255,.6)}
+    .footer__social a:hover{background:var(--gold);color:var(--navy)}
+    .footer__col h4{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:14px}
+    .footer__col a{display:block;font-size:.82rem;padding:3px 0;transition:var(--transition)}
+    .footer__col a:hover{color:#fff}
+    .footer__bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:22px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;font-size:.75rem;color:rgba(255,255,255,.35)}
+    @media(min-width:600px){.footer__bottom{flex-direction:row;justify-content:space-between}}
 
-    /* ===== SCROLL TO TOP ===== */
-    .scroll-top {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 44px;
-      height: 44px;
-      background: var(--navy);
-      color: #fff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: var(--shadow-lg);
-      opacity: 0;
-      visibility: hidden;
-      transition: var(--transition);
-      z-index: 50;
-    }
-    .scroll-top.visible { opacity: 1; visibility: visible; }
-    .scroll-top:hover { background: var(--gold); color: var(--navy); }
+    /* ===== ARTICLE MODAL ===== */
+    .article-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease;backdrop-filter:blur(4px)}
+    .article-overlay.open{opacity:1;visibility:visible}
+    .article-modal{position:fixed;top:0;right:0;width:100%;max-width:720px;height:100vh;background:var(--white);z-index:201;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);overflow-y:auto;box-shadow:-8px 0 40px rgba(0,0,0,.2)}
+    .article-modal.open{transform:translateX(0)}
+    .article-modal__close{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--light-gray)}
+    .article-modal__close-btn{width:38px;height:38px;border-radius:50%;background:var(--off-white);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--dark-gray);transition:var(--transition)}
+    .article-modal__close-btn:hover{background:var(--light-gray)}
+    .article-modal__back{font-size:.82rem;font-weight:600;color:var(--mid-gray);display:flex;align-items:center;gap:6px}
+    .article-modal__hero{width:100%;height:300px;overflow:hidden;background:var(--light-gray)}
+    .article-modal__hero img{width:100%;height:100%;object-fit:cover}
+    .article-modal__body{padding:32px 28px 60px;max-width:600px;margin:0 auto}
+    @media(min-width:600px){.article-modal__body{padding:40px 40px 80px}}
+    .article-modal__body .badge{margin-bottom:14px}
+    .article-modal__body h1{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:800;color:var(--navy);line-height:1.25;margin-bottom:16px}
+    @media(min-width:600px){.article-modal__body h1{font-size:2rem}}
+    .article-modal__meta{display:flex;align-items:center;gap:12px;padding-bottom:20px;margin-bottom:24px;border-bottom:1px solid var(--light-gray);font-size:.82rem;color:var(--mid-gray)}
+    .article-modal__meta strong{color:var(--navy);font-weight:600}
+    .article-modal__text p{font-size:1rem;line-height:1.8;color:var(--text);margin-bottom:18px}
+    .article-modal__text p:first-child::first-letter{font-family:'Playfair Display',serif;font-size:3.2rem;float:left;line-height:1;margin-right:8px;margin-top:4px;color:var(--navy);font-weight:800}
+    .article-modal__share{margin-top:32px;padding-top:20px;border-top:1px solid var(--light-gray);display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--mid-gray)}
+    .article-modal__share-btn{padding:8px 16px;border-radius:6px;background:var(--off-white);font-size:.78rem;font-weight:600;color:var(--dark-gray);transition:var(--transition)}
+    .article-modal__share-btn:hover{background:var(--navy);color:#fff}
+
+    /* ===== SCROLL TOP ===== */
+    .scroll-top{position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:var(--shadow-lg);opacity:0;visibility:hidden;transition:var(--transition);z-index:50}
+    .scroll-top.visible{opacity:1;visibility:visible}
+    .scroll-top:hover{background:var(--gold);color:var(--navy)}
 
     /* ===== ANIMATIONS ===== */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+
+    /* Body scroll lock */
+    body.modal-open{overflow:hidden}
   </style>
 </head>
 <body>
 
-  <!-- Breaking News Bar -->
-  <div class="breaking-bar">
-    <span>LATEST:</span> City Council Rezones Cahaba Heights Land for 14 New Homes &mdash; Read More
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar__inner">
+        <span class="topbar__date">Wednesday, March 19, 2026</span>
+        <div class="topbar__social">
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Header -->
@@ -746,7 +264,7 @@
         <span class="header__tagline">Neighborly News for Vestavia Hills, AL</span>
       </div>
       <nav class="header__nav">
-        <a href="#news" class="active">News</a>
+        <a href="#" class="active">News</a>
         <a href="#business">Business</a>
         <a href="#sports">Sports</a>
         <a href="#schools">Schools</a>
@@ -761,61 +279,63 @@
 
   <!-- Mobile Nav -->
   <nav class="mobile-nav" id="mobileNav">
-    <a href="#news" onclick="closeMobileNav()">News</a>
+    <a href="#" onclick="closeMobileNav()">News</a>
     <a href="#business" onclick="closeMobileNav()">Business</a>
     <a href="#sports" onclick="closeMobileNav()">Sports</a>
     <a href="#schools" onclick="closeMobileNav()">Schools</a>
     <a href="#opinion" onclick="closeMobileNav()">Opinion</a>
     <a href="#events" onclick="closeMobileNav()">Events</a>
-    <a href="#people" onclick="closeMobileNav()">People</a>
-    <div class="mobile-nav__search">
-      <input type="text" placeholder="Search articles...">
-    </div>
+    <a href="#" onclick="closeMobileNav()">People</a>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
     <div class="container">
       <div class="hero__grid">
-        <article class="hero__main">
+        <article class="hero__main" onclick="openArticle('cahaba')">
           <div class="hero__img">
-            <span class="hero__img-placeholder">&#127963;</span>
+            <span class="badge badge--news">Breaking</span>
+            <img src="https://vestaviavoice.com/downloads/25884/download/Cahaba_Heights_Signature_Homes.jpg?cb=30e05baaf81e2729695f65d935bd1580&w=640" alt="Cahaba Heights development">
           </div>
-          <div class="hero__main-content">
-            <span class="badge badge--news">News</span>
+          <div class="hero__content">
             <h2>Vestavia Hills City Council Rezones Cahaba Heights Land for 14 Homes</h2>
-            <p>The property is off Bellwood Drive and Autumn Lane. The rezoning allows for the development of 14 new single-family residences in the Cahaba Heights community.</p>
-            <div class="hero__meta">
+            <p>The property off Bellwood Drive and Autumn Lane was previously proposed for 59 townhomes. The new plan calls for 14 single-family residences by Signature Homes.</p>
+            <div class="meta">
               <strong>Jon Anderson</strong>
+              <span class="meta__sep"></span>
               <span>Mar 17, 2026</span>
             </div>
           </div>
         </article>
         <div class="hero__sidebar">
-          <article class="hero__side-card">
-            <span class="badge badge--news">News</span>
-            <h3>Rep. Gary Palmer to Give 2026 Washington Update April 6</h3>
-            <p>It will be a joint address to seven chambers of commerce in the area.</p>
-            <div class="hero__meta">
-              <strong>Jon Anderson</strong>
-              <span>Mar 17, 2026</span>
+          <article class="hero__side-card" onclick="openArticle('palmer')">
+            <div class="hero__side-img">
+              <img src="https://vestaviavoice.com/downloads/24154/download/250421_Palmer_Wash_update5.jpg?cb=efb0b9af2c5be58aa34ac32ecc19e9a7&w=640" alt="Rep. Gary Palmer">
+            </div>
+            <div class="hero__side-body">
+              <span class="badge badge--news">News</span>
+              <h3>Rep. Gary Palmer to Give 2026 Washington Update April 6</h3>
+              <div class="meta"><strong>Jon Anderson</strong><span class="meta__sep"></span><span>Mar 17</span></div>
             </div>
           </article>
-          <article class="hero__side-card">
-            <span class="badge">Real Estate</span>
-            <h3>Recently Sold Homes: March 2026</h3>
-            <p>Monthly roundup of home sales in the Vestavia Hills area from MLS data.</p>
-            <div class="hero__meta">
-              <strong>Jon Anderson</strong>
-              <span>Mar 17, 2026</span>
+          <article class="hero__side-card" onclick="openArticle('soldhomes')">
+            <div class="hero__side-img">
+              <img src="https://vestaviavoice.com/downloads/25877/download/7503-Stratford-Place_WEB.jpg?cb=37bd4986797877144631aea00293b37a&w=640" alt="Recently sold homes">
+            </div>
+            <div class="hero__side-body">
+              <span class="badge badge--realestate">Real Estate</span>
+              <h3>Recently Sold Homes: March 2026</h3>
+              <div class="meta"><strong>Jon Anderson</strong><span class="meta__sep"></span><span>Mar 17</span></div>
             </div>
           </article>
-          <article class="hero__side-card">
-            <span class="badge badge--business">Business</span>
-            <h3>Staging Home Can Increase Sales Price, Decrease Time on Market</h3>
-            <div class="hero__meta">
-              <strong>Lauren H. Dowdle</strong>
-              <span>Mar 18, 2026</span>
+          <article class="hero__side-card" onclick="openArticle('staging')">
+            <div class="hero__side-img">
+              <img src="https://vestaviavoice.com/downloads/25885/download/AdobeStock_336223059_WEB.jpg?cb=419370e546f45bf6ac19a47dd87bc0e0&w=640" alt="Home staging">
+            </div>
+            <div class="hero__side-body">
+              <span class="badge badge--business">Business</span>
+              <h3>Staging Home Can Increase Sales Price</h3>
+              <div class="meta"><strong>Lauren H. Dowdle</strong><span class="meta__sep"></span><span>Mar 18</span></div>
             </div>
           </article>
         </div>
@@ -830,58 +350,45 @@
         <div>
           <div class="section__header">
             <h2 class="section__title">Business</h2>
-            <a href="#" class="section__more">View all <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
+            <a href="#" class="section__more">View all <svg class="arrow-svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
           </div>
           <div class="card-grid card-grid--3">
-            <article class="card fade-in">
-              <div class="card__img card__img--green">
-                <span class="card__img-icon">&#127793;</span>
+            <article class="card fade-in" onclick="openArticle('andys')">
+              <div class="card__img">
+                <img src="https://vestaviavoice.com/downloads/25887/download/Andys_deep_earth_rock_shop.jpg?cb=9436cd0c5bd47d368b85d688ab3bf9bf&w=640" alt="Andy's Creekside Nursery rock shop">
               </div>
               <div class="card__body">
                 <span class="badge badge--business">Business</span>
                 <h3 class="card__title">Andy's Creekside Nursery Adds Deep Earth Rock Shop, Gem Mine</h3>
                 <p class="card__excerpt">A Rocky Ridge nursery has expanded to include a new rock shop and gem mining attraction for families.</p>
-                <div class="card__meta">
-                  <strong>Staff</strong>
-                  <span class="card__meta-sep"></span>
-                  <span>Mar 18, 2026</span>
-                </div>
+                <div class="meta"><strong>Staff</strong><span class="meta__sep"></span><span>Mar 18, 2026</span></div>
               </div>
             </article>
-            <article class="card fade-in">
-              <div class="card__img card__img--warm">
-                <span class="card__img-icon">&#127968;</span>
+            <article class="card fade-in" onclick="openArticle('staging')">
+              <div class="card__img">
+                <img src="https://vestaviavoice.com/downloads/25885/download/AdobeStock_336223059_WEB.jpg?cb=419370e546f45bf6ac19a47dd87bc0e0&w=640" alt="Home staging">
               </div>
               <div class="card__body">
                 <span class="badge badge--business">Business</span>
                 <h3 class="card__title">Staging Home Can Increase Sales Price, Decrease Time on Market</h3>
                 <p class="card__excerpt">Expert tips on how home staging strategies can impact your real estate transaction results.</p>
-                <div class="card__meta">
-                  <strong>Lauren H. Dowdle</strong>
-                  <span class="card__meta-sep"></span>
-                  <span>Mar 18, 2026</span>
-                </div>
+                <div class="meta"><strong>Lauren H. Dowdle</strong><span class="meta__sep"></span><span>Mar 18, 2026</span></div>
               </div>
             </article>
-            <article class="card fade-in">
-              <div class="card__img card__img--blue">
-                <span class="card__img-icon">&#127891;</span>
+            <article class="card fade-in" onclick="openArticle('chamber')">
+              <div class="card__img">
+                <img src="https://vestaviavoice.com/downloads/25888/download/Caring_for_aging_parent%20copy.jpeg?cb=c7461c5879bc28944ab687b260e913fd&w=640" alt="Caring for aging parents">
               </div>
               <div class="card__body">
                 <span class="badge badge--business">Business</span>
                 <h3 class="card__title">Vestavia Chamber Offers Lunch and Learn on Caring for Aging Parents</h3>
                 <p class="card__excerpt">Educational lunch event focused on assisting adult children who support elderly parents.</p>
-                <div class="card__meta">
-                  <strong>Jon Anderson</strong>
-                  <span class="card__meta-sep"></span>
-                  <span>Mar 18, 2026</span>
-                </div>
+                <div class="meta"><strong>Jon Anderson</strong><span class="meta__sep"></span><span>Mar 18, 2026</span></div>
               </div>
             </article>
           </div>
         </div>
         <aside class="sidebar">
-          <!-- Weather Widget -->
           <div class="weather">
             <h3>Vestavia Hills Weather</h3>
             <div class="weather__current">
@@ -892,35 +399,24 @@
               </div>
             </div>
             <div class="weather__forecast">
-              <div class="weather__day">
-                <div class="weather__day-name">Thu</div>
-                <div class="weather__day-icon">&#9925;</div>
-                <div class="weather__day-temp">70&deg;</div>
-              </div>
-              <div class="weather__day">
-                <div class="weather__day-name">Fri</div>
-                <div class="weather__day-icon">&#9728;&#65039;</div>
-                <div class="weather__day-temp">74&deg;</div>
-              </div>
-              <div class="weather__day">
-                <div class="weather__day-name">Sat</div>
-                <div class="weather__day-icon">&#9728;&#65039;</div>
-                <div class="weather__day-temp">76&deg;</div>
-              </div>
-              <div class="weather__day">
-                <div class="weather__day-name">Sun</div>
-                <div class="weather__day-icon">&#127326;</div>
-                <div class="weather__day-temp">65&deg;</div>
-              </div>
+              <div class="weather__day"><div class="weather__day-name">Thu</div><div class="weather__day-icon">&#9925;</div><div class="weather__day-temp">70&deg;</div></div>
+              <div class="weather__day"><div class="weather__day-name">Fri</div><div class="weather__day-icon">&#9728;&#65039;</div><div class="weather__day-temp">74&deg;</div></div>
+              <div class="weather__day"><div class="weather__day-name">Sat</div><div class="weather__day-icon">&#9728;&#65039;</div><div class="weather__day-temp">76&deg;</div></div>
+              <div class="weather__day"><div class="weather__day-name">Sun</div><div class="weather__day-icon">&#127326;</div><div class="weather__day-temp">65&deg;</div></div>
             </div>
           </div>
-
-          <!-- Newsletter Mini -->
-          <div style="background:var(--navy);border-radius:var(--radius);padding:24px;color:#fff;">
-            <h3 style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px;">Stay Connected</h3>
-            <p style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-bottom:14px;">Get the latest Vestavia Hills news delivered to your inbox every week.</p>
-            <input type="email" placeholder="Your email" style="width:100%;padding:10px 14px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;font-size:0.85rem;margin-bottom:10px;">
-            <button style="width:100%;padding:10px;border-radius:6px;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.85rem;">Subscribe</button>
+          <div class="magazine-widget">
+            <img src="https://vestaviavoice.com/downloads/25787/download/Vestavia%20Voice_March%202026_Teaser%20Images.png?cb=82e66533aecd2aad136382851b8f7f3f" alt="March 2026 Vestavia Voice Magazine">
+            <div class="magazine-widget__body">
+              <p>March 2026 Issue</p>
+              <a href="#" class="magazine-widget__btn">Read Digital Edition</a>
+            </div>
+          </div>
+          <div class="newsletter-mini">
+            <h3>Stay Connected</h3>
+            <p>Get the latest Vestavia Hills news delivered to your inbox every week.</p>
+            <input type="email" placeholder="Your email address">
+            <button>Subscribe Free</button>
           </div>
         </aside>
       </div>
@@ -932,52 +428,40 @@
     <div class="container">
       <div class="section__header">
         <h2 class="section__title">Sports</h2>
-        <a href="#" class="section__more">View all <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
+        <a href="#" class="section__more">View all <svg class="arrow-svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
       </div>
       <div class="card-grid card-grid--3">
-        <article class="card fade-in">
-          <div class="card__img card__img--blue">
-            <span class="card__img-icon">&#9917;</span>
+        <article class="card fade-in" onclick="openArticle('rebels1')">
+          <div class="card__img">
+            <img src="https://vestaviavoice.com/downloads/25409/download/VH.jpg?cb=8f11678f486e333e0f35595ddaa6d3e0&w=640" alt="Vestavia Hills Rebels">
           </div>
           <div class="card__body">
             <span class="badge badge--sports">Sports</span>
             <h3 class="card__title">This Week in Rebels Athletics: March 16-21</h3>
             <p class="card__excerpt">Your weekly guide to Vestavia Hills High School athletics schedules and highlights.</p>
-            <div class="card__meta">
-              <strong>Kyle Parmley</strong>
-              <span class="card__meta-sep"></span>
-              <span>Mar 14, 2026</span>
-            </div>
+            <div class="meta"><strong>Kyle Parmley</strong><span class="meta__sep"></span><span>Mar 14, 2026</span></div>
           </div>
         </article>
-        <article class="card fade-in">
-          <div class="card__img card__img--teal">
-            <span class="card__img-icon">&#127936;</span>
+        <article class="card fade-in" onclick="openArticle('rebels2')">
+          <div class="card__img">
+            <img src="https://vestaviavoice.com/downloads/25409/download/VH.jpg?cb=8f11678f486e333e0f35595ddaa6d3e0&w=640" alt="Vestavia Hills Rebels">
           </div>
           <div class="card__body">
             <span class="badge badge--sports">Sports</span>
             <h3 class="card__title">This Week in Rebels Athletics: March 9-14</h3>
             <p class="card__excerpt">Catch up on last week's athletic competitions and results from VHHS.</p>
-            <div class="card__meta">
-              <strong>Kyle Parmley</strong>
-              <span class="card__meta-sep"></span>
-              <span>Mar 7, 2026</span>
-            </div>
+            <div class="meta"><strong>Kyle Parmley</strong><span class="meta__sep"></span><span>Mar 7, 2026</span></div>
           </div>
         </article>
-        <article class="card fade-in">
-          <div class="card__img card__img--purple">
-            <span class="card__img-icon">&#127942;</span>
+        <article class="card fade-in" onclick="openArticle('spring')">
+          <div class="card__img">
+            <img src="https://vestaviavoice.com/downloads/25789/download/250311_KMP_HVvVH47_WEB.jpg?cb=25707dbe14e6b8e6219e97bdb9e93241&w=640" alt="Rebels spring sports">
           </div>
           <div class="card__body">
             <span class="badge badge--sports">Sports</span>
             <h3 class="card__title">Rebels Hoping to Break Through This Spring</h3>
             <p class="card__excerpt">VHHS spring sports teams are gearing up for a competitive season with high expectations.</p>
-            <div class="card__meta">
-              <strong>Kyle Parmley</strong>
-              <span class="card__meta-sep"></span>
-              <span>Mar 3, 2026</span>
-            </div>
+            <div class="meta"><strong>Kyle Parmley</strong><span class="meta__sep"></span><span>Mar 3, 2026</span></div>
           </div>
         </article>
       </div>
@@ -989,151 +473,106 @@
     <div class="container">
       <div class="section__header">
         <h2 class="section__title">Opinion</h2>
-        <a href="#" class="section__more">View all <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
+        <a href="#" class="section__more">View all <svg class="arrow-svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
       </div>
       <div class="card-grid card-grid--3">
-        <article class="card fade-in">
-          <div class="card__img" style="background:linear-gradient(135deg, var(--navy), var(--navy-light));">
-            <span class="card__img-icon" style="color:#fff;">&#127963;</span>
+        <article class="card fade-in" onclick="openArticle('mayor-mar')">
+          <div class="card__img">
+            <img src="https://vestaviavoice.com/downloads/25786/download/Ashley-Curry_WEB.jpg?cb=7dd3fed56efe1564424af052082321f4&w=640" alt="Mayor Ashley Curry">
           </div>
           <div class="card__body">
             <span class="badge badge--opinion">Mayor's Minute</span>
             <h3 class="card__title">Mayor's Minute: March 2026</h3>
             <p class="card__excerpt">Mayor Ashley Curry's monthly column on the state of affairs in Vestavia Hills.</p>
-            <div class="card__meta">
-              <strong>Ashley Curry</strong>
-              <span class="card__meta-sep"></span>
-              <span>Feb 28, 2026</span>
-            </div>
+            <div class="meta"><strong>Ashley Curry</strong><span class="meta__sep"></span><span>Feb 28, 2026</span></div>
           </div>
         </article>
-        <article class="card fade-in">
-          <div class="card__img card__img--warm">
-            <span class="card__img-icon">&#128221;</span>
+        <article class="card fade-in" onclick="openArticle('editor')">
+          <div class="card__img">
+            <img src="https://vestaviavoice.com/downloads/25771/download/JonAnderson_2026_webwide.jpg?cb=0e14e407bac9cb6da37858ef2cddf18c&w=640" alt="Jon Anderson editor">
           </div>
           <div class="card__body">
             <span class="badge badge--opinion">Editor's Note</span>
             <h3 class="card__title">Editor's Note: Preview of the March 2026 Vestavia Voice</h3>
             <p class="card__excerpt">A look at what's inside this month's issue of the Vestavia Voice magazine.</p>
-            <div class="card__meta">
-              <strong>Jon Anderson</strong>
-              <span class="card__meta-sep"></span>
-              <span>Feb 25, 2026</span>
-            </div>
+            <div class="meta"><strong>Jon Anderson</strong><span class="meta__sep"></span><span>Feb 25, 2026</span></div>
           </div>
         </article>
-        <article class="card fade-in">
-          <div class="card__img" style="background:linear-gradient(135deg, var(--navy), var(--navy-light));">
-            <span class="card__img-icon" style="color:#fff;">&#127963;</span>
+        <article class="card fade-in" onclick="openArticle('mayor-feb')">
+          <div class="card__img">
+            <img src="https://vestaviavoice.com/downloads/21018/download/Ashley%20Curry.jpg?cb=eeb9c6cd770d784c4112db396c8a8796&w=640" alt="Mayor Ashley Curry">
           </div>
           <div class="card__body">
             <span class="badge badge--opinion">Mayor's Minute</span>
             <h3 class="card__title">Mayor's Minute: February 2026</h3>
             <p class="card__excerpt">Monthly update from Mayor Ashley Curry on city developments and community news.</p>
-            <div class="card__meta">
-              <strong>Ashley Curry</strong>
-              <span class="card__meta-sep"></span>
-              <span>Feb 2, 2026</span>
-            </div>
+            <div class="meta"><strong>Ashley Curry</strong><span class="meta__sep"></span><span>Feb 2, 2026</span></div>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- Events Section -->
+  <!-- Events -->
   <section class="section section--alt" id="events">
     <div class="container">
       <div class="section__header">
         <h2 class="section__title">Upcoming Events</h2>
-        <a href="#" class="section__more">Full calendar <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
+        <a href="#" class="section__more">Full calendar <svg class="arrow-svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
       </div>
       <div class="events-list">
         <div class="event-item fade-in">
-          <div class="event-date">
-            <span class="event-date__month">Mar</span>
-            <span class="event-date__day">22</span>
-          </div>
+          <div class="event-date"><span class="event-date__month">Mar</span><span class="event-date__day">22</span></div>
           <div class="event-info">
             <h4>Vestavia Hills Dogwood Festival</h4>
-            <p>Annual community celebration with food vendors, live music, and family-friendly activities in Wald Park.</p>
-            <div class="event-info__location">&#128205; Wald Park, Vestavia Hills</div>
+            <p>Annual community celebration with food vendors, live music, and family-friendly activities.</p>
+            <div class="event-info__location">Wald Park, Vestavia Hills</div>
           </div>
         </div>
         <div class="event-item fade-in">
-          <div class="event-date">
-            <span class="event-date__month">Apr</span>
-            <span class="event-date__day">06</span>
-          </div>
-          <div class="event-info">
-            <h4>Rep. Gary Palmer: 2026 Washington Update</h4>
-            <p>Joint address to seven local chambers of commerce on the latest developments from Washington D.C.</p>
-            <div class="event-info__location">&#128205; Vestavia Hills, AL</div>
-          </div>
-        </div>
-        <div class="event-item fade-in">
-          <div class="event-date">
-            <span class="event-date__month">Apr</span>
-            <span class="event-date__day">12</span>
-          </div>
+          <div class="event-date"><span class="event-date__month">Apr</span><span class="event-date__day">02</span></div>
           <div class="event-info">
             <h4>Chamber Lunch &amp; Learn: Caring for Aging Parents</h4>
-            <p>Educational luncheon with expert advice on supporting elderly family members while maintaining balance.</p>
-            <div class="event-info__location">&#128205; Vestavia Hills Chamber of Commerce</div>
+            <p>Panel discussion with a financial advisor, attorney, and care management expert.</p>
+            <div class="event-info__location">Vestavia Hills Civic Center</div>
+          </div>
+        </div>
+        <div class="event-item fade-in">
+          <div class="event-date"><span class="event-date__month">Apr</span><span class="event-date__day">06</span></div>
+          <div class="event-info">
+            <h4>Rep. Gary Palmer: 2026 Washington Update</h4>
+            <p>Joint address to seven chambers of commerce. Luncheon at The Pelham Civic Complex.</p>
+            <div class="event-info__location">Pelham Civic Complex &amp; Ice Arena</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Newsletter Section -->
-  <section class="newsletter">
+  <!-- Newsletter Banner -->
+  <section class="newsletter-banner">
     <div class="container">
       <h2>Never Miss a Story</h2>
-      <p>Join thousands of Vestavia Hills neighbors who get the latest news, events, and stories delivered straight to their inbox.</p>
-      <form class="newsletter__form" onsubmit="event.preventDefault()">
+      <p>Join thousands of Vestavia Hills neighbors who get the latest news, events, and stories delivered to their inbox.</p>
+      <form class="newsletter-banner__form" onsubmit="event.preventDefault()">
         <input type="email" placeholder="Enter your email address" required>
         <button type="submit">Subscribe Free</button>
       </form>
     </div>
   </section>
 
-  <!-- Schools Quick Links -->
+  <!-- Schools -->
   <section class="section" id="schools">
     <div class="container">
       <div class="section__header">
         <h2 class="section__title">Schools</h2>
-        <a href="#" class="section__more">View all <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
+        <a href="#" class="section__more">View all <svg class="arrow-svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg></a>
       </div>
       <div class="card-grid card-grid--4">
-        <a href="#" class="card fade-in" style="text-align:center;">
-          <div class="card__body" style="padding:28px 20px;">
-            <div style="font-size:2rem;margin-bottom:8px;">&#127979;</div>
-            <h3 class="card__title" style="text-align:center;">Vestavia Hills High School</h3>
-            <p class="card__excerpt" style="text-align:center;">VHHS Rebels</p>
-          </div>
-        </a>
-        <a href="#" class="card fade-in" style="text-align:center;">
-          <div class="card__body" style="padding:28px 20px;">
-            <div style="font-size:2rem;margin-bottom:8px;">&#127979;</div>
-            <h3 class="card__title" style="text-align:center;">Pizitz Middle School</h3>
-            <p class="card__excerpt" style="text-align:center;">Pizitz Pirates</p>
-          </div>
-        </a>
-        <a href="#" class="card fade-in" style="text-align:center;">
-          <div class="card__body" style="padding:28px 20px;">
-            <div style="font-size:2rem;margin-bottom:8px;">&#127979;</div>
-            <h3 class="card__title" style="text-align:center;">Vestavia Hills Elementary</h3>
-            <p class="card__excerpt" style="text-align:center;">East, Central &amp; West</p>
-          </div>
-        </a>
-        <a href="#" class="card fade-in" style="text-align:center;">
-          <div class="card__body" style="padding:28px 20px;">
-            <div style="font-size:2rem;margin-bottom:8px;">&#127979;</div>
-            <h3 class="card__title" style="text-align:center;">Cahaba Heights &amp; Private</h3>
-            <p class="card__excerpt" style="text-align:center;">Area schools</p>
-          </div>
-        </a>
+        <a href="#" class="school-card fade-in"><div class="school-card__icon">VH</div><h3>Vestavia Hills High</h3><p>VHHS Rebels</p></a>
+        <a href="#" class="school-card fade-in"><div class="school-card__icon">PM</div><h3>Pizitz Middle</h3><p>Pizitz Pirates</p></a>
+        <a href="#" class="school-card fade-in"><div class="school-card__icon">VE</div><h3>VH Elementary</h3><p>East, Central &amp; West</p></a>
+        <a href="#" class="school-card fade-in"><div class="school-card__icon">CH</div><h3>Cahaba Heights</h3><p>&amp; Private Schools</p></a>
       </div>
     </div>
   </section>
@@ -1144,38 +583,24 @@
       <div class="footer__grid">
         <div class="footer__brand">
           <div class="footer__brand-name">Vestavia<span>Voice</span></div>
-          <p>Neighborly news and entertainment for Vestavia Hills, Alabama. Proudly serving our community since day one.</p>
+          <p>Neighborly news and entertainment for Vestavia Hills, Alabama. Proudly serving our community.</p>
           <div class="footer__social">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Twitter">&#120143;</a>
-            <a href="#" aria-label="Instagram">&#9675;</a>
-            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#">f</a>
+            <a href="#">&#120143;</a>
+            <a href="#">in</a>
           </div>
         </div>
         <div class="footer__col">
           <h4>Sections</h4>
-          <a href="#">News</a>
-          <a href="#">Business</a>
-          <a href="#">Sports</a>
-          <a href="#">Schools</a>
-          <a href="#">People</a>
-          <a href="#">Opinion</a>
+          <a href="#">News</a><a href="#">Business</a><a href="#">Sports</a><a href="#">Schools</a><a href="#">People</a><a href="#">Opinion</a>
         </div>
         <div class="footer__col">
           <h4>Resources</h4>
-          <a href="#">Events Calendar</a>
-          <a href="#">Restaurants</a>
-          <a href="#">Business Spotlights</a>
-          <a href="#">Sponsored Guides</a>
-          <a href="#">Digital Magazine</a>
+          <a href="#">Events Calendar</a><a href="#">Restaurants</a><a href="#">Business Spotlights</a><a href="#">Digital Magazine</a>
         </div>
         <div class="footer__col">
           <h4>About</h4>
-          <a href="#">Our Staff</a>
-          <a href="#">Advertising</a>
-          <a href="#">News &amp; Awards</a>
-          <a href="#">E-Newsletter</a>
-          <a href="#">Contact Us</a>
+          <a href="#">Our Staff</a><a href="#">Advertising</a><a href="#">News &amp; Awards</a><a href="#">Contact Us</a>
         </div>
       </div>
       <div class="footer__bottom">
@@ -1185,11 +610,150 @@
     </div>
   </footer>
 
-  <!-- Scroll to Top -->
-  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">&#8593;</button>
+  <!-- Article Modal -->
+  <div class="article-overlay" id="articleOverlay" onclick="closeArticle()"></div>
+  <div class="article-modal" id="articleModal">
+    <div class="article-modal__close">
+      <span class="article-modal__back" onclick="closeArticle()">&#8592; Back to news</span>
+      <button class="article-modal__close-btn" onclick="closeArticle()">&times;</button>
+    </div>
+    <div class="article-modal__hero" id="modalHero"></div>
+    <div class="article-modal__body">
+      <span class="badge" id="modalBadge"></span>
+      <h1 id="modalTitle"></h1>
+      <div class="article-modal__meta">
+        <strong id="modalAuthor"></strong>
+        <span class="meta__sep"></span>
+        <span id="modalDate"></span>
+      </div>
+      <div class="article-modal__text" id="modalText"></div>
+      <div class="article-modal__share">
+        <span>Share:</span>
+        <button class="article-modal__share-btn">Facebook</button>
+        <button class="article-modal__share-btn">Twitter</button>
+        <button class="article-modal__share-btn">Email</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Top -->
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
 
   <script>
-    // Mobile nav toggle
+    // Article data
+    const articles = {
+      cahaba: {
+        img: 'https://vestaviavoice.com/downloads/25884/download/Cahaba_Heights_Signature_Homes.jpg?cb=30e05baaf81e2729695f65d935bd1580&w=640',
+        badge: 'News', badgeClass: 'badge--news',
+        title: 'Vestavia Hills City Council Rezones Cahaba Heights Land for 14 Homes',
+        author: 'Jon Anderson', date: 'March 17, 2026',
+        text: `<p>The Vestavia Hills City Council approved rezoning 4.3 acres in Cahaba Heights to accommodate 14 new single-family homes. The property, located at the intersection of Bellwood Drive and Autumn Lane, represents a significant shift from a previous development proposal.</p><p>Last fall, the same parcel was proposed for 59 townhomes by Taylor Burton. The Planning and Zoning Commission unanimously recommended approval in October, but Burton withdrew his request before it reached the City Council. Community members objected to the density, stating "townhomes at that location did not fit the character of the surrounding neighborhood."</p><p>Jonathan Belcher with Signature Homes now plans the single-family development on the same site. City officials indicated this proposal is preferable to the previous townhome concept. The Monday council meeting saw no opposition to the 14-home plan.</p><p>The four affected lots\u20143130, 3136, and 3152 Bellwood Drive, plus 4050 Autumn Lane\u2014were previously zoned as R-4 (medium-density residential) or R-8 (townhouse residential). They are now designated as R-9 (planned residential district).</p>`
+      },
+      palmer: {
+        img: 'https://vestaviavoice.com/downloads/24154/download/250421_Palmer_Wash_update5.jpg?cb=efb0b9af2c5be58aa34ac32ecc19e9a7&w=640',
+        badge: 'News', badgeClass: 'badge--news',
+        title: 'Rep. Gary Palmer to Give 2026 Washington Update April 6',
+        author: 'Jon Anderson', date: 'March 17, 2026',
+        text: `<p>U.S. Rep. Gary Palmer of Alabama's Sixth Congressional District will be giving his annual Washington update in a joint address to seven chambers of commerce on April 6.</p><p>His address is scheduled to take place in a luncheon at The Pelham Civic Complex & Ice Arena at 500 Amphitheater Road from 11:30 a.m. to 1 p.m. Palmer plans to provide attendees with an update on the issues facing Congress this year.</p><p>The luncheon is jointly sponsored by the Vestavia Hills Chamber of Commerce, Hoover Area Chamber of Commerce, The Shelby County Chamber, Homewood Chamber of Commerce, Mountain Brook Chamber of Commerce, Montevallo Chamber of Commerce and North Jefferson Chamber of Commerce.</p><p>The cost to attend, which includes lunch, is $35 per person for members of any of those chambers and $45 for non-members. Corporate tables for six people can be reserved for $220 per table. Registration is open til April 2, but as of March 17, there were only 40 seats left, according to a representative of The Shelby County Chamber, which is handling the reservations.</p>`
+      },
+      soldhomes: {
+        img: 'https://vestaviavoice.com/downloads/25877/download/7503-Stratford-Place_WEB.jpg?cb=37bd4986797877144631aea00293b37a&w=640',
+        badge: 'Real Estate', badgeClass: 'badge--realestate',
+        title: 'Recently Sold Homes: March 2026',
+        author: 'Jon Anderson', date: 'March 17, 2026',
+        text: `<p>See some of the latest real estate sales in the Vestavia Hills area. This monthly roundup features recently sold homes with details from the MLS including sale prices, addresses, and property features.</p><p>The Vestavia Hills housing market continues to see strong activity heading into the spring selling season, with homes across various price points changing hands throughout the community.</p>`
+      },
+      staging: {
+        img: 'https://vestaviavoice.com/downloads/25885/download/AdobeStock_336223059_WEB.jpg?cb=419370e546f45bf6ac19a47dd87bc0e0&w=640',
+        badge: 'Business', badgeClass: 'badge--business',
+        title: 'Staging Home Can Increase Sales Price, Decrease Time on Market',
+        author: 'Lauren H. Dowdle', date: 'March 18, 2026',
+        text: `<p>From online listing photos to in-person showings, homes need to wow potential buyers from the start to stand out in today's market. That's why more owners are putting resources into staging and updating their homes before they go on the market.</p><p>For help with preparing their homes, homeowners should turn to a trusted real estate agent to utilize their experience, said Katie Crommelin, a Realtor at Ray & Poynor. The agent can help point out areas that will make the biggest impacts and any changes they should make to the home.</p><p>"It's important to view your home through the eyes of a buyer who isn't attached to your home," Crommelin said. "You want the interior to be uncluttered, clean and easy to walk through. Simplify your tabletop items so they don't serve as a distraction to a buyer. There is a fine line between uncluttered and sterile, and your Realtor can help with achieving the right look."</p><p>Stagers can also help owners by walking them through what to put away, what furniture needs to be moved around or bringing in new furniture for the listing. There are several staging companies in the area, and Crommelin said they are worth the investment.</p><p>"The national statistics continue to show using a stager increases your return while decreasing time on the market," Crommelin said.</p><p>Listing photos are also important, as they are often the first thing to catch a buyer's attention and motivate them to schedule a showing, said Dina Hendrix, a Realtor at ARC Realty.</p><p>"That's why decluttering and staging matter so much," Hendrix said. "A clean, simplified space photographs larger, brighter and more inviting, which makes a stronger first impression online and draws buyers in for a showing."</p><p>While the inside of the home is the focus, homeowners shouldn't forget about the outside, said Ellen Hottel, a Realtor at eXp Realty. Small things like replacing the welcome mat, adding some seasonal color to flower beds and touching up the mailbox can make a big impact.</p><p>"Be sure your home has great curb appeal by maintaining the lawn, freshly painting the front door and pressure washing," Hottel said. "Buyers would prefer to pay a premium price for a move-in ready home rather than a home that needs work."</p>`
+      },
+      andys: {
+        img: 'https://vestaviavoice.com/downloads/25887/download/Andys_deep_earth_rock_shop.jpg?cb=9436cd0c5bd47d368b85d688ab3bf9bf&w=640',
+        badge: 'Business', badgeClass: 'badge--business',
+        title: "Andy's Creekside Nursery in Rocky Ridge Adds Deep Earth Rock Shop, Gem Mine",
+        author: 'Staff', date: 'March 18, 2026',
+        text: `<p>Andy's Creekside Nursery at 3351 Morgan Drive in Vestavia Hills has expanded its offerings with two new attractions. The business now features a deep earth rock shop displaying rocks, crystals, gemstones, and fossils.</p><p>Additionally, the nursery opened a gem mine where kids, families and adults can mine for gemstones and explore natural minerals.</p><p>A ribbon-cutting ceremony with the Vestavia Hills Chamber of Commerce took place on Tuesday to celebrate the expansion. For details, customers can visit the business website or phone 205-824-0233.</p>`
+      },
+      chamber: {
+        img: 'https://vestaviavoice.com/downloads/25888/download/Caring_for_aging_parent%20copy.jpeg?cb=c7461c5879bc28944ab687b260e913fd&w=640',
+        badge: 'Business', badgeClass: 'badge--business',
+        title: 'Vestavia Chamber Offers Lunch and Learn on Caring for Aging Parents',
+        author: 'Jon Anderson', date: 'March 18, 2026',
+        text: `<p>The Vestavia Hills Chamber of Commerce is hosting a "Lunch and Learn" panel discussion on Thursday, April 2 at 11:30 a.m. in the Dogwood Room at the Vestavia Hills Civic Center (1090 Montgomery Highway).</p><p>The event addresses caregiving for aging parents, offering honest conversations combining personal stories and professional advice to help attendees understand and prepare for caregiving responsibilities\u2014whether parents are currently healthy, beginning to need assistance, or already receiving care.</p><p>The panel features three professionals: financial advisor Patti Black, attorney Avery Brown, and Sara Manasco, founder of Concierge Care Management.</p><p>To attend, interested parties should RSVP through an online form or contact the chamber at 205-823-5011. The chamber requests RSVPs by March 30.</p>`
+      },
+      rebels1: {
+        img: 'https://vestaviavoice.com/downloads/25409/download/VH.jpg?cb=8f11678f486e333e0f35595ddaa6d3e0&w=640',
+        badge: 'Sports', badgeClass: 'badge--sports',
+        title: 'This Week in Rebels Athletics: March 16-21',
+        author: 'Kyle Parmley', date: 'March 14, 2026',
+        text: `<p>Here is your weekly guide to Vestavia Hills High School athletics schedules and highlights for the week of March 16\u201321.</p><p>The Rebels have a busy week ahead with spring sports in full swing. Check back for updates on baseball, softball, soccer, tennis, golf and track as the season continues to heat up.</p>`
+      },
+      rebels2: {
+        img: 'https://vestaviavoice.com/downloads/25409/download/VH.jpg?cb=8f11678f486e333e0f35595ddaa6d3e0&w=640',
+        badge: 'Sports', badgeClass: 'badge--sports',
+        title: 'This Week in Rebels Athletics: March 9-14',
+        author: 'Kyle Parmley', date: 'March 7, 2026',
+        text: `<p>Catch up on last week's athletic competitions and results from Vestavia Hills High School for the week of March 9\u201314.</p><p>It was a packed week of competition across all spring sports for the Rebels, with standout performances on the diamond and on the pitch.</p>`
+      },
+      spring: {
+        img: 'https://vestaviavoice.com/downloads/25789/download/250311_KMP_HVvVH47_WEB.jpg?cb=25707dbe14e6b8e6219e97bdb9e93241&w=640',
+        badge: 'Sports', badgeClass: 'badge--sports',
+        title: 'Rebels Hoping to Break Through This Spring',
+        author: 'Kyle Parmley', date: 'March 3, 2026',
+        text: `<p>Vestavia Hills High School spring sports teams are gearing up for what they hope will be a breakthrough season. With experienced rosters and high expectations, the Rebels are poised for a competitive spring across multiple sports.</p><p>From baseball and softball to soccer and track, VHHS coaches and athletes have spent the offseason preparing for a push toward postseason success.</p>`
+      },
+      'mayor-mar': {
+        img: 'https://vestaviavoice.com/downloads/25786/download/Ashley-Curry_WEB.jpg?cb=7dd3fed56efe1564424af052082321f4&w=640',
+        badge: "Mayor's Minute", badgeClass: 'badge--opinion',
+        title: "Mayor's Minute: March 2026",
+        author: 'Ashley Curry', date: 'February 28, 2026',
+        text: `<p>Mayor Ashley Curry shares the latest updates and developments from across Vestavia Hills in this month's Mayor's Minute column.</p><p>From infrastructure improvements to community events, the city continues to invest in the quality of life for residents across all neighborhoods.</p>`
+      },
+      editor: {
+        img: 'https://vestaviavoice.com/downloads/25771/download/JonAnderson_2026_webwide.jpg?cb=0e14e407bac9cb6da37858ef2cddf18c&w=640',
+        badge: "Editor's Note", badgeClass: 'badge--opinion',
+        title: "Editor's Note: Preview of the March 2026 Vestavia Voice",
+        author: 'Jon Anderson', date: 'February 25, 2026',
+        text: `<p>Welcome to the March 2026 issue of the Vestavia Voice. This month's edition is packed with stories that highlight the best of our community\u2014from local business expansions to spring sports previews and important city government updates.</p><p>We hope you enjoy this issue and, as always, we welcome your feedback and story ideas.</p>`
+      },
+      'mayor-feb': {
+        img: 'https://vestaviavoice.com/downloads/21018/download/Ashley%20Curry.jpg?cb=eeb9c6cd770d784c4112db396c8a8796&w=640',
+        badge: "Mayor's Minute", badgeClass: 'badge--opinion',
+        title: "Mayor's Minute: February 2026",
+        author: 'Ashley Curry', date: 'February 2, 2026',
+        text: `<p>In this month's Mayor's Minute, Mayor Ashley Curry provides a comprehensive update on city developments and community news for February 2026.</p><p>Key topics include ongoing infrastructure projects, upcoming community events, and the city's strategic planning efforts for the year ahead.</p>`
+      }
+    };
+
+    function openArticle(id) {
+      const a = articles[id];
+      if (!a) return;
+      document.getElementById('modalHero').innerHTML = '<img src="' + a.img + '" alt="">';
+      const badge = document.getElementById('modalBadge');
+      badge.textContent = a.badge;
+      badge.className = 'badge ' + a.badgeClass;
+      document.getElementById('modalTitle').textContent = a.title;
+      document.getElementById('modalAuthor').textContent = a.author;
+      document.getElementById('modalDate').textContent = a.date;
+      document.getElementById('modalText').innerHTML = a.text;
+      document.getElementById('articleOverlay').classList.add('open');
+      document.getElementById('articleModal').classList.add('open');
+      document.getElementById('articleModal').scrollTop = 0;
+      document.body.classList.add('modal-open');
+    }
+
+    function closeArticle() {
+      document.getElementById('articleOverlay').classList.remove('open');
+      document.getElementById('articleModal').classList.remove('open');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeArticle(); });
+
+    // Mobile nav
     function toggleMobileNav() {
       document.getElementById('mobileNav').classList.toggle('open');
       document.querySelector('.hamburger').classList.toggle('open');
@@ -1199,26 +763,17 @@
       document.querySelector('.hamburger').classList.remove('open');
     }
 
-    // Scroll to top button
+    // Scroll top
     window.addEventListener('scroll', () => {
-      const btn = document.getElementById('scrollTop');
-      if (window.scrollY > 400) {
-        btn.classList.add('visible');
-      } else {
-        btn.classList.remove('visible');
-      }
+      document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
     });
 
     // Fade-in on scroll
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 </body>
