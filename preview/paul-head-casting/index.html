@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Paul Head, CSA | Casting Director & Development Producer</title>
-<meta name="description" content="Paul Head, CSA - Non-scripted casting director and development producer. Casting, development, design, and consulting for television and streaming.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Paul Head, CSA - Professional casting services for unscripted television. Fast, reliable casting for production companies, directors, agencies, and brands.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--black:#0a0a0f;--deep:#12121a;--accent:#c19b6e;--accent-light:#d4b088;--white:#f5f2ed;--muted:#8a8a9a;--red:#9b2335;--surface:rgba(193,155,110,.06)}
@@ -36,6 +36,17 @@ body{font-family:'Inter',sans-serif;color:var(--white);overflow-x:hidden;backgro
 .nav-links .btn-nav:hover{background:var(--accent);color:var(--black)}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
 .hamburger span{width:24px;height:1.5px;background:var(--accent);transition:.3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+
+/* MOBILE MENU */
+.mobile-menu{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:rgba(10,10,15,.98);backdrop-filter:blur(20px);z-index:999;padding:100px 40px 40px;transition:right .3s ease;border-left:1px solid rgba(193,155,110,.1)}
+.mobile-menu.active{right:0}
+.mobile-menu a{display:block;color:var(--white);text-decoration:none;font-size:14px;letter-spacing:2px;text-transform:uppercase;padding:16px 0;border-bottom:1px solid rgba(193,155,110,.08);transition:color .3s}
+.mobile-menu a:hover{color:var(--accent)}
+.mobile-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:998;opacity:0;visibility:hidden;transition:all .3s}
+.mobile-overlay.active{opacity:1;visibility:visible}
 
 /* HERO */
 .hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
@@ -65,15 +76,16 @@ body{font-family:'Inter',sans-serif;color:var(--white);overflow-x:hidden;backgro
 @keyframes spotlightShift{0%,100%{opacity:.8}50%{opacity:1}}
 .hero-grain{position:absolute;top:0;left:0;width:100%;height:100%;opacity:.03;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;background:linear-gradient(180deg,rgba(10,10,15,.2) 0%,rgba(10,10,15,.65) 100%)}
-.hero-content{position:relative;z-index:2;padding:0 80px;max-width:800px}
+.hero-content{position:relative;z-index:2;padding:0 80px;max-width:850px}
 .hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border:1px solid rgba(193,155,110,.25);border-radius:30px;margin-bottom:30px;opacity:0;animation:fadeSlide 1s ease .3s forwards}
 .hero-badge-text{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
-.hero-title{font-family:'Playfair Display',serif;font-size:68px;font-weight:300;line-height:1.1;margin-bottom:24px}
+.hero-title{font-family:'Playfair Display',serif;font-size:62px;font-weight:300;line-height:1.15;margin-bottom:24px}
 .hero-title .line{display:block;opacity:0;animation:fadeSlide 1s ease forwards}
 .hero-title .line:nth-child(1){animation-delay:.5s}
 .hero-title .line:nth-child(2){animation-delay:.7s;color:var(--accent)}
-.hero-subtitle{font-size:16px;line-height:1.8;color:var(--muted);max-width:520px;margin-bottom:40px;opacity:0;animation:fadeSlide 1s ease .9s forwards}
-.hero-ctas{display:flex;gap:16px;opacity:0;animation:fadeSlide 1s ease 1.1s forwards}
+.hero-title .line:nth-child(3){animation-delay:.9s}
+.hero-subtitle{font-size:16px;line-height:1.8;color:var(--muted);max-width:540px;margin-bottom:40px;opacity:0;animation:fadeSlide 1s ease 1.1s forwards}
+.hero-ctas{display:flex;gap:16px;opacity:0;animation:fadeSlide 1s ease 1.3s forwards}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 36px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;transition:all .4s;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;border:none}
 .btn-primary{background:var(--accent);color:var(--black)}
 .btn-primary:hover{background:var(--accent-light)}
@@ -89,6 +101,7 @@ body{font-family:'Inter',sans-serif;color:var(--white);overflow-x:hidden;backgro
 
 /* NETWORK BAR */
 .network-bar{padding:50px 60px;background:var(--deep);border-top:1px solid rgba(193,155,110,.08);border-bottom:1px solid rgba(193,155,110,.08)}
+.network-bar-label{text-align:center;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
 .network-bar-inner{display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap}
 .network-item{font-family:'Playfair Display',serif;font-size:22px;color:rgba(193,155,110,.35);letter-spacing:3px;font-weight:400;transition:color .3s}
 .network-item:hover{color:var(--accent)}
@@ -102,10 +115,26 @@ section{padding:100px 60px}
 .reveal{opacity:0;transform:translateY(30px);transition:all .7s ease}
 .reveal.active{opacity:1;transform:translateY(0)}
 
+/* WHO THIS IS FOR */
+.who-section{background:var(--black)}
+.who-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.who-card{text-align:center;padding:40px 28px;border:1px solid rgba(193,155,110,.08);background:var(--surface);transition:all .4s;position:relative}
+.who-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .4s}
+.who-card:hover::after{transform:scaleX(1)}
+.who-card:hover{border-color:rgba(193,155,110,.2);transform:translateY(-4px)}
+.who-icon{width:56px;height:56px;border:1px solid rgba(193,155,110,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.who-icon svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.5}
+.who-card h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:10px}
+.who-card p{font-size:13px;line-height:1.7;color:var(--muted)}
+
 /* ABOUT */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
-.about-photo{position:relative;height:550px;background:linear-gradient(135deg,var(--red),#1a0a15);border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.about-photo-text{font-family:'Playfair Display',serif;font-size:72px;color:rgba(193,155,110,.15);letter-spacing:6px;font-weight:300}
+.about-photo{position:relative;height:550px;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--deep);border:1px solid rgba(193,155,110,.08)}
+.about-photo-inner{text-align:center}
+.about-photo-star{display:block;margin:0 auto 20px}
+.about-photo-star polygon{fill:rgba(193,155,110,.08);stroke:var(--accent);stroke-width:.6;stroke-opacity:.4}
+.about-photo-name{font-family:'Playfair Display',serif;font-size:28px;color:var(--accent);letter-spacing:4px;font-weight:300;margin-bottom:6px}
+.about-photo-role{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
 .about-info h3{font-family:'Playfair Display',serif;font-size:34px;font-weight:300;margin-bottom:8px}
 .about-info .role{color:var(--accent);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:28px;display:block}
 .about-info p{font-size:15px;line-height:1.9;color:var(--muted);margin-bottom:16px}
@@ -123,6 +152,14 @@ section{padding:100px 60px}
 .service-card h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;margin-bottom:16px}
 .service-card p{font-size:14px;line-height:1.8;color:var(--muted)}
 
+/* SPEED / WHY PAUL */
+.speed-section{background:var(--black);border-top:1px solid rgba(193,155,110,.06)}
+.speed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1000px;margin:0 auto}
+.speed-item{text-align:center;padding:30px 20px}
+.speed-num{font-family:'Playfair Display',serif;font-size:48px;color:var(--accent);font-weight:300;margin-bottom:8px;line-height:1}
+.speed-item h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:12px}
+.speed-item p{font-size:13px;line-height:1.8;color:var(--muted)}
+
 /* CREDITS */
 .credits-section{background:var(--deep)}
 .credits-tabs{display:flex;justify-content:center;gap:6px;margin-bottom:50px;flex-wrap:wrap}
@@ -137,6 +174,15 @@ section{padding:100px 60px}
 .credit-network{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent)}
 .credit-role{font-size:12px;color:var(--muted);margin-top:2px}
 
+/* TESTIMONIALS */
+.testimonials-section{background:var(--black);border-top:1px solid rgba(193,155,110,.06)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1100px;margin:0 auto}
+.testimonial-card{padding:40px 32px;border:1px solid rgba(193,155,110,.08);background:var(--surface);position:relative}
+.testimonial-card::before{content:'\201C';font-family:'Playfair Display',serif;font-size:80px;color:rgba(193,155,110,.12);position:absolute;top:10px;left:20px;line-height:1}
+.testimonial-text{font-family:'Playfair Display',serif;font-size:17px;font-weight:300;font-style:italic;line-height:1.7;color:var(--white);margin-bottom:24px;position:relative;z-index:1}
+.testimonial-author{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent)}
+.testimonial-role{font-size:11px;color:var(--muted);margin-top:4px}
+
 /* PARALLAX QUOTE */
 .parallax-section{padding:120px 60px;background:var(--black);position:relative;overflow:hidden}
 .parallax-section::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(155,35,53,.15),transparent 50%)}
@@ -146,8 +192,10 @@ section{padding:100px 60px}
 
 /* DESIGN SHOWCASE */
 .design-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
-.design-card{position:relative;overflow:hidden;border-radius:4px;cursor:pointer;aspect-ratio:4/5}
-.design-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:transform .6s}
+.design-card{position:relative;overflow:hidden;border-radius:4px;cursor:pointer;aspect-ratio:4/5;border:1px solid rgba(193,155,110,.06)}
+.design-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--white);transition:transform .6s;gap:12px}
+.design-placeholder .design-type{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);border:1px solid rgba(193,155,110,.2);padding:4px 12px;border-radius:20px}
+.design-placeholder .design-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:300;color:var(--white)}
 .design-card:nth-child(1) .design-placeholder{background:linear-gradient(135deg,#2a1520,#1a2530)}
 .design-card:nth-child(2) .design-placeholder{background:linear-gradient(135deg,#1a2520,#2a1a30)}
 .design-card:nth-child(3) .design-placeholder{background:linear-gradient(135deg,#201a2a,#1a2025)}
@@ -155,10 +203,6 @@ section{padding:100px 60px}
 .design-card:nth-child(5) .design-placeholder{background:linear-gradient(135deg,#15252a,#2a1520)}
 .design-card:nth-child(6) .design-placeholder{background:linear-gradient(135deg,#251a2a,#1a2a20)}
 .design-card:hover .design-placeholder{transform:scale(1.05)}
-.design-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,10,15,.75);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
-.design-card:hover .design-overlay{opacity:1}
-.design-overlay span{font-family:'Playfair Display',serif;font-size:18px;color:var(--accent)}
-.design-overlay small{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
 
 /* NOW CASTING CTA */
 .casting-cta{background:linear-gradient(135deg,var(--red),#6b1a28);padding:100px 60px;text-align:center;position:relative;overflow:hidden}
@@ -171,8 +215,9 @@ section{padding:100px 60px}
 /* SIDE PROJECT */
 .side-project{background:var(--deep);border-top:1px solid rgba(193,155,110,.08)}
 .side-project-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto}
-.side-project-visual{height:400px;background:linear-gradient(135deg,#1a1520,#0f1a20);border-radius:4px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.side-project-visual::before{content:'?';font-family:'Playfair Display',serif;font-size:180px;color:rgba(193,155,110,.06);font-weight:300}
+.side-project-visual{height:400px;background:linear-gradient(135deg,#1a1520,#0f1a20);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(193,155,110,.06);gap:16px}
+.side-project-visual .sp-icon{font-size:60px;opacity:.6}
+.side-project-visual .sp-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--accent);letter-spacing:4px;font-weight:300;opacity:.4}
 .side-project-info .sp-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
 .side-project-info h3{font-family:'Playfair Display',serif;font-size:34px;font-weight:300;margin-bottom:16px}
 .side-project-info p{font-size:15px;line-height:1.9;color:var(--muted);margin-bottom:12px}
@@ -208,23 +253,27 @@ footer{background:var(--black);padding:60px 60px 30px;border-top:1px solid rgba(
 @media(max-width:768px){
 .navbar{padding:14px 20px}
 .navbar.scrolled{padding:12px 20px}
-.nav-links{display:none!important}
+.nav-links{display:none}
 .hamburger{display:flex}
 section{padding:60px 20px}
 .hero-content{padding:0 24px}
-.hero-title{font-size:38px}
+.hero-title{font-size:34px}
 .hero-subtitle{font-size:14px}
 .hero-ctas{flex-direction:column;gap:12px}
 .hero-ctas .btn{text-align:center;justify-content:center}
 .network-bar{padding:30px 20px}
 .network-bar-inner{gap:24px}
 .network-item{font-size:16px}
+.who-grid{grid-template-columns:1fr 1fr;gap:16px}
+.who-card{padding:28px 20px}
 .about-grid{grid-template-columns:1fr;gap:40px}
 .about-photo{height:350px}
 .about-stats{flex-wrap:wrap;gap:24px}
 .services-grid{grid-template-columns:1fr}
+.speed-grid{grid-template-columns:1fr;gap:20px}
 .credits-tabs{gap:4px}
 .credits-tab{padding:8px 16px;font-size:10px}
+.testimonials-grid{grid-template-columns:1fr}
 .design-grid{grid-template-columns:1fr 1fr}
 .side-project-inner{grid-template-columns:1fr}
 .side-project-visual{height:280px}
@@ -234,6 +283,10 @@ section{padding:60px 20px}
 .casting-cta h2{font-size:34px}
 .parallax-content blockquote{font-size:24px}
 .section-title{font-size:34px}
+}
+@media(max-width:480px){
+.who-grid{grid-template-columns:1fr}
+.design-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -256,10 +309,21 @@ section{padding:60px 20px}
 <li><a href="#services">Services</a></li>
 <li><a href="#credits">Credits</a></li>
 <li><a href="#design">Design</a></li>
-<li><a href="#contact" class="btn-nav">Get in Touch</a></li>
+<li><a href="#contact" class="btn-nav">Request Consultation</a></li>
 </ul>
 <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+<a href="#about">About</a>
+<a href="#who">Who This Is For</a>
+<a href="#services">Services</a>
+<a href="#credits">Credits</a>
+<a href="#design">Design</a>
+<a href="#contact">Request Consultation</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -281,16 +345,17 @@ section{padding:60px 20px}
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--accent)">
 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
 </svg>
-<span class="hero-badge-text">Casting Director & Development Producer</span>
+<span class="hero-badge-text">Artios Award Nominated &bull; CSA Member</span>
 </div>
 <h1 class="hero-title">
-<span class="line">Discovering Bold</span>
-<span class="line">Characters.</span>
+<span class="line">Helping You Cast</span>
+<span class="line">the Right Talent</span>
+<span class="line">for Unscripted TV.</span>
 </h1>
-<p class="hero-subtitle">Non-scripted casting director and development producer specializing in casting, development, editing, pitch decks, casting fliers, consulting, and interviews.</p>
+<p class="hero-subtitle">Casting director and development producer trusted by 9 major networks. Fast turnaround. Compelling talent. Shows that get renewed.</p>
 <div class="hero-ctas">
 <a href="#contact" class="btn btn-primary">
-<span>Work With Paul</span>
+<span>Request Casting Consultation</span>
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 </a>
 <a href="#credits" class="btn btn-outline">View Credits</a>
@@ -304,6 +369,7 @@ section{padding:60px 20px}
 
 <!-- NETWORK BAR -->
 <div class="network-bar">
+<div class="network-bar-label">Trusted by networks including</div>
 <div class="network-bar-inner">
 <span class="network-item">MAX</span>
 <span class="network-item">TLC</span>
@@ -317,14 +383,55 @@ section{padding:60px 20px}
 </div>
 </div>
 
+<!-- WHO THIS IS FOR -->
+<section id="who" class="who-section">
+<div class="section-label reveal">Who This Is For</div>
+<h2 class="section-title reveal">Is This Right for You?</h2>
+<div class="gold-line" style="margin-bottom:60px"></div>
+<div class="who-grid">
+<div class="who-card reveal">
+<div class="who-icon">
+<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+</div>
+<h3>Production Companies</h3>
+<p>Need compelling talent for your next unscripted series? Get vetted, camera-ready cast members fast.</p>
+</div>
+<div class="who-card reveal">
+<div class="who-icon">
+<svg viewBox="0 0 24 24"><path d="M15.6 11.6L22 7v10l-6.4-4.6"/><rect x="2" y="5" width="14" height="14" rx="2" ry="2"/></svg>
+</div>
+<h3>Directors</h3>
+<p>Working on a new project? Get a casting partner who understands story and knows how to find the characters who tell it.</p>
+</div>
+<div class="who-card reveal">
+<div class="who-icon">
+<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+</div>
+<h3>Agencies</h3>
+<p>Representing talent or producing branded content? Partner with a casting director who delivers on deadline.</p>
+</div>
+<div class="who-card reveal">
+<div class="who-icon">
+<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+</div>
+<h3>Brands</h3>
+<p>Creating branded entertainment or reality content? Get talent that connects with your audience and embodies your story.</p>
+</div>
+</div>
+</section>
+
 <!-- ABOUT -->
-<section id="about" style="padding-bottom:100px">
+<section id="about" style="background:var(--deep);padding-bottom:100px">
 <div class="section-label reveal">About</div>
 <h2 class="section-title reveal">The Person Behind the Casting</h2>
 <div class="gold-line" style="margin-bottom:60px"></div>
 <div class="about-grid">
 <div class="about-photo reveal">
-<span class="about-photo-text">PH</span>
+<div class="about-photo-inner">
+<svg class="about-photo-star" width="80" height="80" viewBox="0 0 100 100"><polygon points="50,2 61,35 97,35 68,57 79,91 50,70 21,91 32,57 3,35 39,35"/></svg>
+<div class="about-photo-name">Paul Head</div>
+<div class="about-photo-role">Casting Director &bull; CSA</div>
+</div>
 </div>
 <div class="about-info reveal">
 <h3>Paul Head</h3>
@@ -334,7 +441,7 @@ section{padding:60px 20px}
 <p>He specializes in discovering compelling personalities and developing unscripted content, with a focus on identifying dynamic talent, shaping narratives, and bringing innovative concepts to television.</p>
 <div class="about-stats">
 <div class="about-stat">
-<div class="about-stat-num" data-target="30">0</div>
+<div class="about-stat-num" data-target="23">0</div>
 <div class="about-stat-label">Shows Cast</div>
 </div>
 <div class="about-stat">
@@ -351,7 +458,7 @@ section{padding:60px 20px}
 </section>
 
 <!-- SERVICES -->
-<section id="services" style="background:var(--deep)">
+<section id="services">
 <div class="section-label reveal">What I Do</div>
 <h2 class="section-title reveal">Services</h2>
 <div class="gold-line" style="margin-bottom:60px"></div>
@@ -370,6 +477,30 @@ section{padding:60px 20px}
 <span class="service-icon">&#127912;</span>
 <h3>Design</h3>
 <p>Good design gets you noticed and reflects your professionalism, project tone, and quality. Custom casting fliers and pitch decks optimized for maximum impact.</p>
+</div>
+</div>
+</section>
+
+<!-- FAST TURNAROUND -->
+<section class="speed-section">
+<div class="section-label reveal">The Paul Head Difference</div>
+<h2 class="section-title reveal">Fast Turnaround Casting Solutions</h2>
+<div class="gold-line" style="margin-bottom:60px"></div>
+<div class="speed-grid">
+<div class="speed-item reveal">
+<div class="speed-num">24h</div>
+<h3>Quick Response</h3>
+<p>No waiting around. Every inquiry gets a response within 24 hours so your project stays on schedule and on budget.</p>
+</div>
+<div class="speed-item reveal">
+<div class="speed-num">&#9889;</div>
+<h3>Efficient Talent Sourcing</h3>
+<p>A deep network of real, compelling people built over 20+ shows. The right talent surfaces fast because the groundwork is already done.</p>
+</div>
+<div class="speed-item reveal">
+<div class="speed-num">&#10003;</div>
+<h3>Reliable Communication</h3>
+<p>Clear updates, no surprises. From initial search to final callbacks, you always know exactly where your casting stands.</p>
 </div>
 </div>
 </section>
@@ -399,7 +530,7 @@ section{padding:60px 20px}
 <div class="credit-item"><div><div class="credit-name">Kendra Sells Hollywood</div><div class="credit-role">Seasons 1 &ndash; 2</div></div><div class="credit-network">MAX</div></div>
 <div class="credit-item"><div><div class="credit-name">Battle Of The Bling</div><div class="credit-role">Season 1</div></div><div class="credit-network">MAX</div></div>
 <div class="credit-item"><div><div class="credit-name">Rehab Addict: Rescue w/ Nicole Curtis</div><div class="credit-role">Season 1</div></div><div class="credit-network">HGTV</div></div>
-<div class="credit-item"><div><div class="credit-name">Ultimate Hannukah Challenge with Molly Yeh</div><div class="credit-role">Special</div></div><div class="credit-network">Food Network</div></div>
+<div class="credit-item"><div><div class="credit-name">Ultimate Hanukkah Challenge with Molly Yeh</div><div class="credit-role">Special</div></div><div class="credit-network">Food Network</div></div>
 <div class="credit-item"><div><div class="credit-name">Best. Pool. Ever.</div><div class="credit-role">Series</div></div><div class="credit-network">HGTV</div></div>
 <div class="credit-item"><div><div class="credit-name">Tiny Luxury</div><div class="credit-role">Seasons 1 &ndash; 3</div></div><div class="credit-network">HGTV</div></div>
 <div class="credit-item"><div><div class="credit-name">Cheap A$$ Beach Houses</div><div class="credit-role">Season 1</div></div><div class="credit-network">HGTV</div></div>
@@ -426,6 +557,30 @@ section{padding:60px 20px}
 </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+<div class="section-label reveal">What People Say</div>
+<h2 class="section-title reveal">Working With Paul</h2>
+<div class="gold-line" style="margin-bottom:60px"></div>
+<div class="testimonials-grid">
+<div class="testimonial-card reveal">
+<div class="testimonial-text">Paul made casting seamless and efficient. He understood exactly what kind of personalities we needed and delivered talent that was camera-ready from day one.</div>
+<div class="testimonial-author">Executive Producer</div>
+<div class="testimonial-role">Unscripted Series, TLC</div>
+</div>
+<div class="testimonial-card reveal">
+<div class="testimonial-text">His eye for compelling characters is unmatched. Paul doesn't just find people &mdash; he finds stories. That's what makes the difference between a good show and a great one.</div>
+<div class="testimonial-author">Showrunner</div>
+<div class="testimonial-role">Reality Series, HGTV</div>
+</div>
+<div class="testimonial-card reveal">
+<div class="testimonial-text">Fast, professional, and easy to work with. Paul's casting database is deep, and he always brings options we wouldn't have found on our own. A true partner in development.</div>
+<div class="testimonial-author">Development Executive</div>
+<div class="testimonial-role">Production Company</div>
+</div>
+</div>
+</section>
+
 <!-- PARALLAX QUOTE -->
 <div class="parallax-section">
 <div class="parallax-content reveal">
@@ -440,12 +595,12 @@ section{padding:60px 20px}
 <h2 class="section-title reveal">Design Portfolio</h2>
 <div class="section-desc reveal">Custom casting fliers optimized for social media and pitch decks designed to captivate your audience and communicate your vision effectively.</div>
 <div class="design-grid">
-<div class="design-card reveal"><div class="design-placeholder">Casting Flier</div><div class="design-overlay"><span>Engaged Couples</span><small>Casting Flier</small></div></div>
-<div class="design-card reveal"><div class="design-placeholder">Casting Flier</div><div class="design-overlay"><span>Alaska Relocation</span><small>Casting Flier</small></div></div>
-<div class="design-card reveal"><div class="design-placeholder">Pitch Deck</div><div class="design-overlay"><span>Show Concept</span><small>Pitch Deck</small></div></div>
-<div class="design-card reveal"><div class="design-placeholder">Casting Flier</div><div class="design-overlay"><span>Football Fan TV</span><small>Casting Flier</small></div></div>
-<div class="design-card reveal"><div class="design-placeholder">Casting Flier</div><div class="design-overlay"><span>BBQ Build & Grill</span><small>Casting Flier</small></div></div>
-<div class="design-card reveal"><div class="design-placeholder">Pitch Deck</div><div class="design-overlay"><span>Investor Deck</span><small>Pitch Deck</small></div></div>
+<div class="design-card reveal"><div class="design-placeholder"><span class="design-type">Casting Flier</span><span class="design-title">Engaged Couples</span></div></div>
+<div class="design-card reveal"><div class="design-placeholder"><span class="design-type">Casting Flier</span><span class="design-title">Alaska Relocation</span></div></div>
+<div class="design-card reveal"><div class="design-placeholder"><span class="design-type">Pitch Deck</span><span class="design-title">Show Concept</span></div></div>
+<div class="design-card reveal"><div class="design-placeholder"><span class="design-type">Casting Flier</span><span class="design-title">Football Fan TV</span></div></div>
+<div class="design-card reveal"><div class="design-placeholder"><span class="design-type">Casting Flier</span><span class="design-title">BBQ Build &amp; Grill</span></div></div>
+<div class="design-card reveal"><div class="design-placeholder"><span class="design-type">Pitch Deck</span><span class="design-title">Investor Deck</span></div></div>
 </div>
 </section>
 
@@ -464,7 +619,10 @@ section{padding:60px 20px}
 <!-- SIDE PROJECT: THE MYSTERY CO. -->
 <section class="side-project">
 <div class="side-project-inner">
-<div class="side-project-visual reveal"></div>
+<div class="side-project-visual reveal">
+<span class="sp-icon">&#128373;</span>
+<span class="sp-title">THE MYSTERY CO.</span>
+</div>
 <div class="side-project-info reveal">
 <div class="sp-label">Side Project</div>
 <h3>The Mystery Co.</h3>
@@ -477,12 +635,12 @@ section{padding:60px 20px}
 <!-- CONTACT -->
 <section id="contact" class="contact-section">
 <div class="section-label reveal">Let's Talk</div>
-<h2 class="section-title reveal">Get In Touch</h2>
+<h2 class="section-title reveal">Request a Consultation</h2>
 <div class="gold-line" style="margin-bottom:60px"></div>
 <div class="contact-grid">
 <div class="contact-info reveal">
-<h3>Ready to bring your project to life?</h3>
-<p>Whether you're developing a new show, need casting for an existing project, or want compelling design work, let's connect.</p>
+<h3>Ready to cast your next project?</h3>
+<p>Whether you're developing a new show, need casting for an existing project, or want compelling design work &mdash; let's connect. Most inquiries get a response within 24 hours.</p>
 <div class="contact-detail">
 <div class="contact-detail-icon">
 <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -525,7 +683,7 @@ California
 </div>
 <div class="form-row"><input type="text" placeholder="Project / Show Title (if applicable)"></div>
 <div class="form-row"><textarea placeholder="Tell me about your project..."></textarea></div>
-<button class="submit-btn" onclick="this.textContent='Message Sent!';this.style.background='var(--accent-light)'">Send Message</button>
+<button class="submit-btn" onclick="this.textContent='Message Sent!';this.style.background='var(--accent-light)'">Request Consultation</button>
 </div>
 </div>
 </section>
@@ -551,7 +709,7 @@ California
 <a href="#">@paulheadcasting</a>
 </div>
 </div>
-<div class="footer-bottom">&copy; 2025 Paul Head, CSA. All rights reserved.<br><br>Website designed by <a href="https://williamsdigital.io">williamsdigital.io</a></div>
+<div class="footer-bottom">&copy; 2026 Paul Head, CSA. All rights reserved.<br><br>Website designed by <a href="https://williamsdigital.io">williamsdigital.io</a></div>
 </footer>
 
 <script>
@@ -584,21 +742,14 @@ const counters=document.querySelectorAll('.about-stat-num[data-target]');
 const cObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const t=+e.target.dataset.target;const dur=1200;const start=performance.now();const animate=(now)=>{const p=Math.min((now-start)/dur,1);e.target.textContent=Math.floor(p*t);if(p<1)requestAnimationFrame(animate);else e.target.textContent=t};requestAnimationFrame(animate);cObs.unobserve(e.target)}})},{threshold:.5});
 counters.forEach(el=>cObs.observe(el));
 
-// Hamburger menu
-document.getElementById('hamburger').addEventListener('click',function(){
-const l=document.querySelector('.nav-links');
-if(l.style.display==='flex'){l.style.display='none'}
-else{l.style.display='flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='55px';l.style.right='20px';l.style.background='rgba(10,10,15,.96)';l.style.padding='24px';l.style.borderRadius='4px';l.style.border='1px solid rgba(193,155,110,.15)';l.style.backdropFilter='blur(20px)'}
-});
-
-// Network bar auto-scroll on mobile
-const networkBar=document.querySelector('.network-bar-inner');
-if(window.innerWidth<=768&&networkBar){
-networkBar.style.animation='networkScroll 15s linear infinite';
-const style=document.createElement('style');
-style.textContent='@keyframes networkScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}';
-document.head.appendChild(style);
-}
+// Mobile menu
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+const mobileOverlay=document.getElementById('mobileOverlay');
+function toggleMobile(){hamburger.classList.toggle('active');mobileMenu.classList.toggle('active');mobileOverlay.classList.toggle('active');document.body.style.overflow=mobileMenu.classList.contains('active')?'hidden':''}
+hamburger.addEventListener('click',toggleMobile);
+mobileOverlay.addEventListener('click',toggleMobile);
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',toggleMobile));
 </script>
 </body>
 </html>
