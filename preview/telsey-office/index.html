@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Telsey Office | Award-Winning Casting</title>
+  <meta name="description" content="The Telsey Office is an award-winning casting organization founded in 1988. Broadway, film, television & commercial casting from New York and Los Angeles.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & VARIABLES ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black: #0a0a0a;
+      --charcoal-900: #111111;
+      --charcoal-800: #1a1a1a;
+      --charcoal-700: #242424;
+      --charcoal-600: #333333;
+      --charcoal-500: #4a4a4a;
+      --charcoal-400: #666666;
+      --charcoal-300: #888888;
+      --charcoal-200: #b0b0b0;
+      --charcoal-100: #d4d4d4;
+      --charcoal-50: #f0f0f0;
+      --cream: #f5f0eb;
+      --cream-dark: #e8e0d8;
+      --gold: #c9a96e;
+      --gold-light: #dbc49a;
+      --gold-dark: #a8884d;
+      --white: #ffffff;
+      --radius: 4px;
+      --radius-lg: 8px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow: 0 4px 20px rgba(0,0,0,0.15);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.2);
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--charcoal-800);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ===== UTILITY ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 900px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; clip: rect(0,0,0,0); overflow: hidden; }
+
+    /* ===== HEADER ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      transition: var(--transition);
+      background: transparent;
+    }
+    .header.scrolled {
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 80px;
+    }
+    @media(max-width:768px) { .header__inner { padding: 0 20px; height: 68px; } }
+    .header__brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 101;
+    }
+    .header__logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .header__logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .header__logo-sub {
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .header__nav { display: none; }
+    @media(min-width:960px) {
+      .header__nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+    .header__nav a {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 8px 18px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .header__nav a:hover {
+      color: var(--white);
+    }
+    .header__actions { display: flex; align-items: center; gap: 16px; }
+    .header__cta {
+      display: none;
+      padding: 10px 28px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: var(--transition);
+    }
+    .header__cta:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    @media(min-width:960px) { .header__cta { display: inline-flex; } }
+
+    /* Hamburger */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px;
+      z-index: 101;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--white);
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5.5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5.5px); }
+    @media(min-width:960px) { .hamburger { display: none; } }
+
+    /* Mobile Nav */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+    .mobile-nav.open { opacity: 1; visibility: visible; }
+    .mobile-nav a {
+      display: block;
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      padding: 16px 0;
+      text-align: center;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .mobile-nav.open a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mobile-nav.open a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-nav.open a:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-nav.open a:nth-child(3) { transition-delay: 0.2s; }
+    .mobile-nav.open a:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-nav.open a:nth-child(5) { transition-delay: 0.3s; }
+    .mobile-nav a:hover { color: var(--gold); }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--black);
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1503095396549-807759245b35?w=1920&q=85&fit=crop');
+      background-size: cover;
+      background-position: center 30%;
+      opacity: 0.3;
+      filter: grayscale(30%);
+    }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.95) 100%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 120px 24px 80px;
+      max-width: 900px;
+    }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .hero__eyebrow::before,
+    .hero__eyebrow::after {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .hero__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+    @media(min-width:768px) { .hero__title { font-size: 5rem; } }
+    @media(min-width:1024px) { .hero__title { font-size: 6.5rem; } }
+    .hero__title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero__desc {
+      color: rgba(255,255,255,0.55);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 44px;
+      line-height: 1.8;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+    .hero__btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn--primary {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .btn--primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(201,169,110,0.3);
+    }
+    .btn--outline {
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      background: transparent;
+    }
+    .btn--outline:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,0.05);
+    }
+    .btn--dark {
+      background: var(--charcoal-800);
+      color: var(--white);
+      border: 1px solid var(--charcoal-600);
+    }
+    .btn--dark:hover {
+      background: var(--charcoal-700);
+      transform: translateY(-2px);
+    }
+    .btn--gold-outline {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+    }
+    .btn--gold-outline:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .hero__scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hero__scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollLine 2s infinite;
+    }
+    @keyframes scrollLine {
+      0% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ===== MARQUEE ===== */
+    .marquee {
+      background: var(--charcoal-900);
+      padding: 20px 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .marquee__track {
+      display: flex;
+      animation: marquee 40s linear infinite;
+      width: max-content;
+    }
+    .marquee__item {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 0 32px;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.2);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .marquee__dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold-dark);
+      flex-shrink: 0;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      padding: 120px 0;
+    }
+    @media(max-width:768px) { .section { padding: 80px 0; } }
+    .section--dark { background: var(--charcoal-900); color: var(--white); }
+    .section--cream { background: var(--cream); }
+    .section--black { background: var(--black); color: var(--white); }
+
+    .section__header {
+      max-width: 640px;
+      margin-bottom: 72px;
+    }
+    .section__header--center { text-align: center; margin-left: auto; margin-right: auto; }
+    .section__eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .section__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 400;
+      color: var(--charcoal-800);
+      margin-bottom: 20px;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    @media(min-width:768px) { .section__title { font-size: 3.2rem; } }
+    .section--dark .section__title,
+    .section--black .section__title { color: var(--white); }
+    .section__title em { font-style: italic; }
+    .section__desc {
+      font-size: 1rem;
+      color: var(--charcoal-400);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .section--dark .section__desc,
+    .section--black .section__desc { color: rgba(255,255,255,0.45); }
+
+    /* ===== ABOUT ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media(min-width:768px) {
+      .about-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .about__image {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .about__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+    }
+    .about__image-border {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid var(--gold);
+      pointer-events: none;
+    }
+    .about__content { max-width: 480px; }
+    .about__text {
+      font-size: 0.95rem;
+      color: var(--charcoal-400);
+      line-height: 1.9;
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+    .about__stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--charcoal-50);
+    }
+    .about__stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 500;
+      color: var(--charcoal-800);
+      line-height: 1;
+    }
+    .about__stat-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--charcoal-300);
+      margin-top: 8px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ===== CREDITS / WORK ===== */
+    .work-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+    .work-tab {
+      padding: 10px 28px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+      cursor: pointer;
+      background: transparent;
+    }
+    .work-tab:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+    .work-tab.active {
+      color: var(--black);
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    .work-grid {
+      display: none;
+      grid-template-columns: 1fr;
+      gap: 1px;
+    }
+    .work-grid.active { display: grid; }
+    @media(min-width:600px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:960px) { .work-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .work-card {
+      background: rgba(255,255,255,0.03);
+      padding: 36px 32px;
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .work-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--gold);
+      transition: height 0.4s ease;
+    }
+    .work-card:hover {
+      background: rgba(255,255,255,0.06);
+    }
+    .work-card:hover::before { height: 100%; }
+    .work-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .work-card__meta {
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .work-card__desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.6;
+    }
+
+    /* ===== TEAM ===== */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media(min-width:600px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media(min-width:960px) { .team-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .team-card {
+      text-align: center;
+      padding: 32px 16px;
+      transition: var(--transition);
+    }
+    .team-card:hover { transform: translateY(-4px); }
+    .team-card__avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--charcoal-50);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--charcoal-400);
+      font-weight: 500;
+      border: 1px solid var(--charcoal-100);
+      transition: var(--transition);
+    }
+    .team-card:hover .team-card__avatar {
+      border-color: var(--gold);
+      background: var(--cream);
+    }
+    .team-card__name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--charcoal-800);
+      margin-bottom: 3px;
+    }
+    .team-card__role {
+      font-size: 0.72rem;
+      color: var(--gold-dark);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ===== VALUES ===== */
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+    }
+    @media(min-width:600px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:960px) { .values-grid { grid-template-columns: repeat(5, 1fr); } }
+
+    .value-card {
+      background: var(--charcoal-900);
+      padding: 48px 32px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .value-card:hover { background: var(--charcoal-800); }
+    .value-card__icon {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .value-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .value-card__desc {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+    }
+
+    /* ===== FELLOWSHIP ===== */
+    .fellowship {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media(min-width:768px) { .fellowship { grid-template-columns: 1fr 1fr; } }
+    .fellowship__content { max-width: 480px; }
+    .fellowship__text {
+      font-size: 0.95rem;
+      color: var(--charcoal-400);
+      line-height: 1.9;
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+    .fellowship__highlight {
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+    .fellowship__highlight p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--charcoal-600);
+      line-height: 1.7;
+    }
+    .fellowship__image {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .fellowship__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1px;
+    }
+    @media(min-width:768px) { .contact-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .contact-card {
+      padding: 56px 48px;
+      border: 1px solid var(--charcoal-50);
+      transition: var(--transition);
+    }
+    .contact-card:hover {
+      background: var(--cream);
+    }
+    .contact-card__label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 16px;
+    }
+    .contact-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--charcoal-800);
+      margin-bottom: 16px;
+    }
+    .contact-card__text {
+      font-size: 0.88rem;
+      color: var(--charcoal-400);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .contact-card__text a {
+      color: var(--charcoal-800);
+      font-weight: 500;
+      border-bottom: 1px solid var(--gold);
+      transition: var(--transition);
+    }
+    .contact-card__text a:hover { color: var(--gold-dark); }
+
+    /* ===== SUBMISSION NOTICE ===== */
+    .submission {
+      background: var(--cream);
+      padding: 80px 0;
+    }
+    .submission__inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .submission__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--charcoal-800);
+      margin-bottom: 16px;
+    }
+    .submission__text {
+      font-size: 0.9rem;
+      color: var(--charcoal-400);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+    .submission__note {
+      font-size: 0.78rem;
+      color: var(--charcoal-300);
+      font-style: italic;
+      margin-top: 20px;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--black);
+      color: rgba(255,255,255,0.4);
+      padding: 80px 0 40px;
+    }
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+    @media(min-width:600px) { .footer__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(min-width:900px) { .footer__grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+
+    .footer__brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .footer__brand p {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+    .footer__social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer__social-link {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+    .footer__social-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .footer__col h4 {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .footer__col a {
+      display: block;
+      font-size: 0.85rem;
+      padding: 6px 0;
+      transition: var(--transition);
+      font-weight: 300;
+    }
+    .footer__col a:hover { color: var(--gold); }
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      text-align: center;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.05em;
+    }
+    @media(min-width:600px) {
+      .footer__bottom { flex-direction: row; justify-content: space-between; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.15s; }
+    .fade-up:nth-child(4) { transition-delay: 0.2s; }
+    .fade-up:nth-child(5) { transition-delay: 0.25s; }
+    .fade-up:nth-child(6) { transition-delay: 0.3s; }
+    .fade-up:nth-child(7) { transition-delay: 0.35s; }
+    .fade-up:nth-child(8) { transition-delay: 0.4s; }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto;
+    }
+    .section__header .divider { margin: 20px auto 0; }
+    .section__header:not(.section__header--center) .divider { margin: 20px 0 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#" class="header__brand">
+        <div class="header__logo-text">
+          <span class="header__logo-name">The Telsey Office</span>
+          <span class="header__logo-sub">Casting Since 1988</span>
+        </div>
+      </a>
+      <nav class="header__nav">
+        <a href="#about">About</a>
+        <a href="#work">Credits</a>
+        <a href="#team">Team</a>
+        <a href="#fellowship">Fellowship</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header__actions">
+        <a href="#contact" class="header__cta">Get In Touch</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="#work" onclick="closeMobileNav()">Credits</a>
+    <a href="#team" onclick="closeMobileNav()">Team</a>
+    <a href="#fellowship" onclick="closeMobileNav()">Fellowship</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <div class="hero__eyebrow">Award-Winning Casting</div>
+      <h1 class="hero__title">Every Role<br><em>Matters</em></h1>
+      <p class="hero__desc">Founded in 1988, The Telsey Office is one of the most respected casting organizations in the world &mdash; shaping the stages and screens that define our culture.</p>
+      <div class="hero__btns">
+        <a href="#work" class="btn btn--primary">View Our Work</a>
+        <a href="#about" class="btn btn--outline">Learn More</a>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <div class="hero__scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee">
+    <div class="marquee__track">
+      <div class="marquee__item">Hamilton <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Wicked <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Rent <span class="marquee__dot"></span></div>
+      <div class="marquee__item">The Gilded Age <span class="marquee__dot"></span></div>
+      <div class="marquee__item">In the Heights <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Only Murders in the Building <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Hairspray <span class="marquee__dot"></span></div>
+      <div class="marquee__item">The Greatest Showman <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Kinky Boots <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Mean Girls <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Cabaret <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Sweeney Todd <span class="marquee__dot"></span></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="marquee__item">Hamilton <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Wicked <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Rent <span class="marquee__dot"></span></div>
+      <div class="marquee__item">The Gilded Age <span class="marquee__dot"></span></div>
+      <div class="marquee__item">In the Heights <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Only Murders in the Building <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Hairspray <span class="marquee__dot"></span></div>
+      <div class="marquee__item">The Greatest Showman <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Kinky Boots <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Mean Girls <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Cabaret <span class="marquee__dot"></span></div>
+      <div class="marquee__item">Sweeney Todd <span class="marquee__dot"></span></div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about__image fade-up">
+          <img class="about__img" src="https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=800&q=85&fit=crop" alt="Theater stage">
+          <div class="about__image-border"></div>
+        </div>
+        <div class="about__content fade-up">
+          <div class="section__header" style="margin-bottom:32px;">
+            <p class="section__eyebrow">Our Story</p>
+            <h2 class="section__title">Shaping Stories<br>Since <em>1988</em></h2>
+            <div class="divider" style="margin:20px 0 0;"></div>
+          </div>
+          <p class="about__text">Founded by Bernard Telsey, The Telsey Office has grown from a one-person operation into one of the most prolific casting organizations in entertainment. With offices in New York City and Los Angeles, we bring together a team of over 25 casting professionals.</p>
+          <p class="about__text">Our work spans Broadway, Off-Broadway, national tours, regional theatre, film, television, and commercials. We are dedicated to the art and craft of casting &mdash; finding the right person for every role, and championing diverse, authentic storytelling.</p>
+          <div class="about__stats">
+            <div>
+              <div class="about__stat-num">35+</div>
+              <div class="about__stat-label">Years</div>
+            </div>
+            <div>
+              <div class="about__stat-num">25+</div>
+              <div class="about__stat-label">Team Members</div>
+            </div>
+            <div>
+              <div class="about__stat-num">2</div>
+              <div class="about__stat-label">Offices</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section--dark" style="padding: 0;">
+    <div class="values-grid">
+      <div class="value-card fade-up">
+        <span class="value-card__icon">&#9826;</span>
+        <h3 class="value-card__title">Collaboration</h3>
+        <p class="value-card__desc">Working together with directors, writers, and producers to realize their creative vision.</p>
+      </div>
+      <div class="value-card fade-up">
+        <span class="value-card__icon">&#10022;</span>
+        <h3 class="value-card__title">Artistry</h3>
+        <p class="value-card__desc">Approaching every project with a deep respect for the craft and an eye for authentic talent.</p>
+      </div>
+      <div class="value-card fade-up">
+        <span class="value-card__icon">&#9825;</span>
+        <h3 class="value-card__title">Heart</h3>
+        <p class="value-card__desc">Leading with empathy and care for every artist who walks through our doors.</p>
+      </div>
+      <div class="value-card fade-up">
+        <span class="value-card__icon">&#9670;</span>
+        <h3 class="value-card__title">Accountability</h3>
+        <p class="value-card__desc">Upholding the highest standards of professionalism and integrity in our work.</p>
+      </div>
+      <div class="value-card fade-up">
+        <span class="value-card__icon">&#9733;</span>
+        <h3 class="value-card__title">Advocacy</h3>
+        <p class="value-card__desc">Championing diversity, equity, and inclusion in every casting room.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credits / Work -->
+  <section class="section section--dark" id="work">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <p class="section__eyebrow">Selected Credits</p>
+        <h2 class="section__title">Our <em>Work</em></h2>
+        <p class="section__desc">A selection of projects we've had the privilege to cast across Broadway, film, and television.</p>
+        <div class="divider" style="margin-top:24px;"></div>
+      </div>
+
+      <div class="work-tabs">
+        <button class="work-tab active" data-tab="broadway">Broadway</button>
+        <button class="work-tab" data-tab="film">Film</button>
+        <button class="work-tab" data-tab="television">Television</button>
+      </div>
+
+      <!-- Broadway -->
+      <div class="work-grid active" id="tab-broadway">
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Hamilton</h3>
+          <div class="work-card__meta">Musical</div>
+          <p class="work-card__desc">Lin-Manuel Miranda's revolutionary musical about the life of Alexander Hamilton.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Wicked</h3>
+          <div class="work-card__meta">Musical</div>
+          <p class="work-card__desc">The untold story of the witches of Oz, one of Broadway's longest-running hits.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Rent</h3>
+          <div class="work-card__meta">Musical</div>
+          <p class="work-card__desc">Jonathan Larson's Pulitzer Prize-winning rock musical that redefined Broadway.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Cabaret at the Kit Kat Club</h3>
+          <div class="work-card__meta">Musical Revival</div>
+          <p class="work-card__desc">The immersive reimagining of the classic musical at the August Wilson Theatre.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Sweeney Todd</h3>
+          <div class="work-card__meta">Musical Revival</div>
+          <p class="work-card__desc">The Tony Award-winning revival starring Josh Groban and Annaleigh Ashford.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Kimberly Akimbo</h3>
+          <div class="work-card__meta">Musical</div>
+          <p class="work-card__desc">Tony Award winner for Best Musical, a heartfelt story of a teenager who ages faster than normal.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">In the Heights</h3>
+          <div class="work-card__meta">Musical</div>
+          <p class="work-card__desc">A vibrant celebration of the Washington Heights community in New York City.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">MJ: The Musical</h3>
+          <div class="work-card__meta">Musical</div>
+          <p class="work-card__desc">A look inside the creative genius of Michael Jackson during the making of the Dangerous World Tour.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Hairspray</h3>
+          <div class="work-card__meta">Musical</div>
+          <p class="work-card__desc">The feel-good musical set in 1960s Baltimore about integration, acceptance, and big hair.</p>
+        </div>
+      </div>
+
+      <!-- Film -->
+      <div class="work-grid" id="tab-film">
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Wicked</h3>
+          <div class="work-card__meta">Feature Film</div>
+          <p class="work-card__desc">The blockbuster film adaptation starring Cynthia Erivo and Ariana Grande.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">The Color Purple</h3>
+          <div class="work-card__meta">Feature Film</div>
+          <p class="work-card__desc">The musical film adaptation of the beloved Broadway show and Alice Walker's novel.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Mean Girls</h3>
+          <div class="work-card__meta">Musical Film</div>
+          <p class="work-card__desc">The film adaptation of the hit Broadway musical based on the iconic 2004 comedy.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">In the Heights</h3>
+          <div class="work-card__meta">Feature Film</div>
+          <p class="work-card__desc">Jon M. Chu's vibrant film adaptation of the Tony-winning Broadway musical.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">The Greatest Showman</h3>
+          <div class="work-card__meta">Feature Film</div>
+          <p class="work-card__desc">The Hugh Jackman-led musical celebrating the birth of show business.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Tick, Tick... Boom!</h3>
+          <div class="work-card__meta">Feature Film</div>
+          <p class="work-card__desc">Lin-Manuel Miranda's directorial debut, a biographical musical about Jonathan Larson.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">The Little Mermaid</h3>
+          <div class="work-card__meta">Feature Film</div>
+          <p class="work-card__desc">Disney's live-action adaptation starring Halle Bailey as Ariel.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Mary Poppins Returns</h3>
+          <div class="work-card__meta">Feature Film</div>
+          <p class="work-card__desc">The sequel starring Emily Blunt as the magical nanny, with original songs and choreography.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Into the Woods</h3>
+          <div class="work-card__meta">Feature Film</div>
+          <p class="work-card__desc">Disney's film adaptation of Sondheim's beloved musical, directed by Rob Marshall.</p>
+        </div>
+      </div>
+
+      <!-- Television -->
+      <div class="work-grid" id="tab-television">
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">The Gilded Age</h3>
+          <div class="work-card__meta">HBO Series</div>
+          <p class="work-card__desc">Julian Fellowes' epic drama set in the glamorous world of 1880s New York City.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Only Murders in the Building</h3>
+          <div class="work-card__meta">Hulu Series</div>
+          <p class="work-card__desc">The hit comedy-mystery starring Steve Martin, Martin Short, and Selena Gomez.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">And Just Like That...</h3>
+          <div class="work-card__meta">HBO Max Series</div>
+          <p class="work-card__desc">The continuation of the Sex and the City story for a new era.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">Paradise</h3>
+          <div class="work-card__meta">TV Series</div>
+          <p class="work-card__desc">Sterling K. Brown stars in this thrilling series from the creator of This is Us.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">This Is Us</h3>
+          <div class="work-card__meta">NBC Series</div>
+          <p class="work-card__desc">The beloved family drama that followed the Pearson family across generations.</p>
+        </div>
+        <div class="work-card fade-up">
+          <h3 class="work-card__title">The Idea of You</h3>
+          <div class="work-card__meta">Film</div>
+          <p class="work-card__desc">The romantic drama starring Anne Hathaway, adapted from the bestselling novel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section" id="team">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <p class="section__eyebrow">Our People</p>
+        <h2 class="section__title">The <em>Team</em></h2>
+        <p class="section__desc">A dedicated group of casting professionals bringing artistry, expertise, and heart to every project.</p>
+        <div class="divider" style="margin-top:24px;"></div>
+      </div>
+      <div class="team-grid">
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">BT</div>
+          <div class="team-card__name">Bernard Telsey</div>
+          <div class="team-card__role">Founder</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">WC</div>
+          <div class="team-card__name">Will Cantler, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">DV</div>
+          <div class="team-card__name">David Vaccari, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">BK</div>
+          <div class="team-card__name">Bethany Knox, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">CB</div>
+          <div class="team-card__name">Craig Burns, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">TC</div>
+          <div class="team-card__name">Tiffany Little Canfield, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">RH</div>
+          <div class="team-card__name">Rachel Hoffman, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">PG</div>
+          <div class="team-card__name">Patrick Goodwin, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">KC</div>
+          <div class="team-card__name">Karyn Casl, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">KB</div>
+          <div class="team-card__name">Kristina Bramhall</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">AC</div>
+          <div class="team-card__name">Adam Caldwell, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">KC</div>
+          <div class="team-card__name">Kristian Charbonier</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">JE</div>
+          <div class="team-card__name">Josh Einsohn, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">RD</div>
+          <div class="team-card__name">Rachel Dill, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">RT</div>
+          <div class="team-card__name">Ryan Bernard Tymensky, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+        <div class="team-card fade-up">
+          <div class="team-card__avatar">RS</div>
+          <div class="team-card__name">Rebecca Scholl, CSA</div>
+          <div class="team-card__role">Casting Director</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fellowship -->
+  <section class="section section--cream" id="fellowship">
+    <div class="container">
+      <div class="fellowship">
+        <div class="fellowship__content fade-up">
+          <div class="section__header" style="margin-bottom:24px;">
+            <p class="section__eyebrow">Fellowship Program</p>
+            <h2 class="section__title">Miranda Family<br><em>Fellowship</em></h2>
+            <div class="divider" style="margin:20px 0 0;"></div>
+          </div>
+          <p class="fellowship__text">The Telsey Office is proud to participate in the Miranda Family Fellowship, a program designed to support emerging artists and arts administrators from underrepresented communities.</p>
+          <div class="fellowship__highlight">
+            <p>"We believe the future of casting &mdash; and of the industry &mdash; depends on opening doors for the next generation of diverse talent behind and in front of the camera."</p>
+          </div>
+          <p class="fellowship__text">Fellows join a network of over 100 emerging professionals, receiving ongoing professional development, peer networking, mentorship, and coaching with industry leaders.</p>
+          <a href="#contact" class="btn btn--dark">Learn More</a>
+        </div>
+        <div class="fellowship__image fade-up">
+          <img class="fellowship__img" src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=85&fit=crop" alt="Fellowship program">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Submission Policy -->
+  <div class="submission">
+    <div class="container">
+      <div class="submission__inner fade-up">
+        <p class="section__eyebrow" style="margin-bottom:16px;">Submission Policy</p>
+        <h3 class="submission__title">How to Submit</h3>
+        <p class="submission__text">The Telsey Office accepts headshot and resume submissions by mail only. We also welcome postcards and invitations to performances.</p>
+        <p class="submission__text">Please direct all submissions to our New York office at 1501 Broadway, Suite 510, New York, NY 10036.</p>
+        <p class="submission__note">No phone calls or drop-offs, please. We review all submissions received by mail.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <p class="section__eyebrow">Contact</p>
+        <h2 class="section__title">Get in <em>Touch</em></h2>
+        <p class="section__desc">Reach out to our New York or Los Angeles offices.</p>
+        <div class="divider" style="margin-top:24px;"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card fade-up">
+          <div class="contact-card__label">East Coast</div>
+          <h3 class="contact-card__title">New York Office</h3>
+          <p class="contact-card__text">
+            1501 Broadway, Suite 510<br>
+            New York, NY 10036<br><br>
+            <a href="tel:2128681260">212.868.1260</a>
+          </p>
+        </div>
+        <div class="contact-card fade-up">
+          <div class="contact-card__label">West Coast</div>
+          <h3 class="contact-card__title">Los Angeles Office</h3>
+          <p class="contact-card__text">
+            280 South Beverly Drive, Suite 412<br>
+            Beverly Hills, CA 90212<br><br>
+            <a href="tel:3107880060">310.788.0060</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__brand-name">The Telsey Office</div>
+          <p>An award-winning casting organization shaping the stages and screens that define our culture since 1988.</p>
+          <div class="footer__social">
+            <a href="https://www.instagram.com/thetelseyoffice/" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener">IG</a>
+            <a href="https://www.facebook.com/thetelseyoffice/" class="footer__social-link" aria-label="Facebook" target="_blank" rel="noopener">FB</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4>Navigate</h4>
+          <a href="#about">About</a>
+          <a href="#work">Credits</a>
+          <a href="#team">Team</a>
+          <a href="#fellowship">Fellowship</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer__col">
+          <h4>Services</h4>
+          <a href="#work">Broadway</a>
+          <a href="#work">Film</a>
+          <a href="#work">Television</a>
+          <a href="#work">Commercials</a>
+          <a href="#work">Regional Theatre</a>
+        </div>
+        <div class="footer__col">
+          <h4>Offices</h4>
+          <a href="#contact">New York, NY</a>
+          <a href="#contact">Beverly Hills, CA</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 The Telsey Office. All rights reserved.</span>
+        <span>Privacy Policy &middot; Terms of Use</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Nav
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+
+    function closeMobileNav() {
+      hamburgerBtn.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Header scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Work tabs
+    document.querySelectorAll('.work-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.work-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.work-grid').forEach(g => g.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+        // Re-trigger fade-up for newly visible cards
+        document.querySelectorAll('#tab-' + tab.dataset.tab + ' .fade-up').forEach(el => {
+          el.classList.remove('visible');
+          requestAnimationFrame(() => observer.observe(el));
+        });
+      });
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+          closeMobileNav();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
