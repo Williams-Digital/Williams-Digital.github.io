@@ -40,8 +40,9 @@ body{font-family:'Inter',sans-serif;color:var(--white);overflow-x:hidden;backgro
 /* HERO */
 .hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
 .hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#0a0a1a 0%,#1a0a1a 30%,#0a0a0f 70%,#0f1020 100%)}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
 .hero-grain{position:absolute;top:0;left:0;width:100%;height:100%;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(10,10,15,.2) 0%,rgba(10,10,15,.6) 100%)}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(10,10,15,.3) 0%,rgba(10,10,15,.7) 100%)}
 .hero-content{position:relative;z-index:2;padding:0 80px;max-width:800px}
 .hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;border:1px solid rgba(193,155,110,.25);border-radius:30px;margin-bottom:30px;opacity:0;animation:fadeSlide 1s ease .3s forwards}
 .hero-badge-text{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
@@ -241,6 +242,9 @@ section{padding:60px 20px}
 <!-- HERO -->
 <section class="hero">
 <div class="hero-bg"></div>
+<video autoplay muted loop playsinline oncanplaythrough="this.style.opacity='1'">
+<source src="https://assets.mixkit.co/videos/34563/34563-720.mp4" type="video/mp4">
+</video>
 <div class="hero-grain"></div>
 <div class="hero-overlay"></div>
 <div class="hero-content">
