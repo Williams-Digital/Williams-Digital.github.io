@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Central Casting | Redesign Preview</title>
+<meta name="description" content="Central Casting redesign preview — connecting background actors with film & television work and providing casting services to productions.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--navy:#0d0b2e;
+--deep:#13113a;
+--purple:#2f0086;
+--purple-light:#5b21b6;
+--burgundy:#951000;
+--burgundy-light:#c4200a;
+--gold:#f59e0b;
+--gold-light:#fbbf24;
+--white:#f8f8fc;
+--muted:#9ca3af;
+--light-gray:#e5e7eb;
+--surface:rgba(47,0,134,.06);
+--surface-light:rgba(255,255,255,.04);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;color:var(--white);overflow-x:hidden;background:var(--navy)}
+
+/* LOADER */
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--navy);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+.loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-icon{width:80px;height:80px;margin-bottom:30px;position:relative}
+.loader-ring{position:absolute;width:100%;height:100%;border:2px solid transparent;border-top-color:var(--purple-light);border-radius:50%;animation:spin 1.2s linear infinite}
+.loader-ring:nth-child(2){width:60px;height:60px;top:10px;left:10px;border-top-color:transparent;border-right-color:var(--burgundy);animation-duration:1.8s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{color:var(--white);font-family:'Sora',sans-serif;font-size:22px;letter-spacing:6px;font-weight:700;overflow:hidden;text-transform:uppercase}
+.loader-text span{display:inline-block;opacity:0;animation:typeIn .1s ease forwards}
+@keyframes typeIn{to{opacity:1}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;width:100%;padding:18px 50px;display:flex;justify-content:space-between;align-items:center;z-index:1000;transition:all .4s}
+.navbar.scrolled{background:rgba(13,11,46,.95);padding:12px 50px;backdrop-filter:blur(20px);border-bottom:1px solid rgba(91,33,182,.15)}
+.nav-logo{font-family:'Sora',sans-serif;font-size:18px;color:var(--white);text-decoration:none;letter-spacing:2px;font-weight:700;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.nav-logo .logo-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--purple-light),var(--burgundy));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;letter-spacing:0}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center}
+.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:13px;letter-spacing:1px;transition:color .3s;font-weight:500}
+.nav-links a:hover{color:var(--white)}
+.nav-links .btn-nav-signup{padding:10px 24px;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-light));color:var(--white);border-radius:8px;font-weight:600;transition:all .3s}
+.nav-links .btn-nav-signup:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(149,16,0,.4)}
+.nav-links .btn-nav-login{padding:10px 24px;border:1px solid rgba(255,255,255,.2);color:var(--white);border-radius:8px;transition:all .3s}
+.nav-links .btn-nav-login:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.05)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001}
+.hamburger span{width:24px;height:2px;background:var(--white);transition:.3s;border-radius:2px}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(4px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(4px,-5px)}
+
+/* MOBILE MENU */
+.mobile-menu{position:fixed;top:0;right:-100%;width:300px;height:100vh;background:rgba(13,11,46,.98);backdrop-filter:blur(20px);z-index:999;padding:100px 32px 40px;transition:right .3s ease;border-left:1px solid rgba(91,33,182,.2)}
+.mobile-menu.active{right:0}
+.mobile-menu a{display:block;color:var(--white);text-decoration:none;font-size:15px;letter-spacing:1px;padding:16px 0;border-bottom:1px solid rgba(91,33,182,.1);transition:color .3s;font-weight:500}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu .mobile-cta-group{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.mobile-menu .mobile-cta-group a{padding:16px 20px;text-align:center;font-size:13px;font-weight:600;letter-spacing:1px;border-bottom:none;border-radius:8px}
+.mobile-menu .mobile-cta-group .btn-m-talent{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-light));color:var(--white)}
+.mobile-menu .mobile-cta-group .btn-m-prod{background:linear-gradient(135deg,var(--purple),var(--purple-light));color:var(--white)}
+.mobile-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:998;opacity:0;visibility:hidden;transition:all .3s}
+.mobile-overlay.active{opacity:1;visibility:visible}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:120px 0 80px}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(160deg,#0d0b2e 0%,#1a0a3a 25%,#2f0086 50%,#1a0a2a 75%,#0d0b2e 100%)}
+.hero-glow{position:absolute;top:-20%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(149,16,0,.2) 0%,transparent 70%);z-index:1;animation:heroGlow 8s ease-in-out infinite}
+.hero-glow-2{position:absolute;bottom:-20%;left:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(91,33,182,.15) 0%,transparent 70%);z-index:1;animation:heroGlow 10s ease-in-out infinite reverse}
+@keyframes heroGlow{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.2);opacity:1}}
+.hero-grid-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;opacity:.04;background-image:linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px);background-size:60px 60px}
+.hero-grain{position:absolute;top:0;left:0;width:100%;height:100%;opacity:.02;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;background:linear-gradient(180deg,rgba(13,11,46,.1) 0%,rgba(13,11,46,.5) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 80px;max-width:900px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:30px;margin-bottom:28px;opacity:0;animation:fadeSlide 1s ease .3s forwards}
+.hero-badge-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:badgePulse 2s ease infinite}
+@keyframes badgePulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-badge-text{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8);font-weight:500}
+.hero-title{font-family:'Sora',sans-serif;font-size:56px;font-weight:700;line-height:1.15;margin-bottom:20px}
+.hero-title .line{display:block;opacity:0;animation:fadeSlide 1s ease forwards}
+.hero-title .line:nth-child(1){animation-delay:.5s}
+.hero-title .line:nth-child(2){animation-delay:.7s}
+.hero-title .accent{background:linear-gradient(90deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{font-size:18px;line-height:1.8;color:var(--muted);max-width:580px;margin-bottom:36px;opacity:0;animation:fadeSlide 1s ease 1s forwards}
+.hero-ctas{display:flex;gap:14px;opacity:0;animation:fadeSlide 1s ease 1.2s forwards;margin-bottom:40px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;font-size:14px;letter-spacing:1px;text-decoration:none;transition:all .4s;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;border:none;border-radius:10px}
+.btn-talent{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-light));color:var(--white);box-shadow:0 4px 20px rgba(149,16,0,.3)}
+.btn-talent:hover{box-shadow:0 6px 30px rgba(149,16,0,.5);transform:translateY(-2px)}
+.btn-production{background:linear-gradient(135deg,var(--purple),var(--purple-light));color:var(--white);box-shadow:0 4px 20px rgba(47,0,134,.3)}
+.btn-production:hover{box-shadow:0 6px 30px rgba(47,0,134,.5);transform:translateY(-2px)}
+.btn-outline{border:1px solid rgba(255,255,255,.2);color:var(--white);background:transparent;border-radius:10px}
+.btn-outline:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4)}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO PROOF BAR */
+.hero-proof{display:flex;align-items:center;gap:32px;opacity:0;animation:fadeSlide 1s ease 1.4s forwards;flex-wrap:wrap}
+.hero-proof-item{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.hero-proof-item strong{font-family:'Sora',sans-serif;font-size:22px;color:var(--white);font-weight:700}
+.hero-proof-divider{width:1px;height:28px;background:rgba(255,255,255,.12)}
+
+/* HERO TICKER */
+.hero-ticker{position:absolute;bottom:60px;left:0;width:100%;z-index:1;overflow:hidden;opacity:.07}
+.hero-ticker-inner{display:flex;gap:60px;white-space:nowrap;animation:tickerScroll 40s linear infinite}
+.hero-ticker-inner span{font-family:'Sora',sans-serif;font-size:20px;letter-spacing:4px;text-transform:uppercase;color:var(--white);font-weight:600}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* HERO SCROLL CUE */
+.hero-scroll{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
+.hero-scroll span{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:30px;background:linear-gradient(180deg,var(--purple-light),transparent);animation:scrollPulse 2s ease infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* TRUST BAR */
+.trust-bar{padding:40px 60px;background:var(--deep);border-top:1px solid rgba(91,33,182,.1);border-bottom:1px solid rgba(91,33,182,.1)}
+.trust-bar-label{text-align:center;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.trust-bar-inner{display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap}
+.trust-item{font-family:'Sora',sans-serif;font-size:16px;color:rgba(255,255,255,.2);letter-spacing:2px;font-weight:600;text-transform:uppercase;transition:color .3s}
+.trust-item:hover{color:rgba(255,255,255,.5)}
+
+/* URGENCY BANNER */
+.urgency-banner{padding:14px 40px;background:linear-gradient(90deg,rgba(149,16,0,.12),rgba(91,33,182,.08),rgba(149,16,0,.12));border-bottom:1px solid rgba(91,33,182,.1);text-align:center;position:relative;overflow:hidden}
+.urgency-banner::before{content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;background:linear-gradient(90deg,transparent,rgba(245,158,11,.04),transparent);animation:urgencyShimmer 4s ease-in-out infinite}
+@keyframes urgencyShimmer{0%{transform:translateX(-25%)}100%{transform:translateX(25%)}}
+.urgency-banner a{color:var(--gold);text-decoration:none;font-size:13px;letter-spacing:1px;font-weight:600;display:inline-flex;align-items:center;gap:10px;transition:color .3s}
+.urgency-banner a:hover{color:var(--gold-light)}
+.urgency-dot{width:8px;height:8px;border-radius:50%;background:var(--burgundy);display:inline-block;animation:urgencyPulse 2s ease infinite}
+@keyframes urgencyPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+/* SECTIONS */
+section{padding:100px 60px}
+.section-label{text-align:center;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--purple-light);margin-bottom:12px;font-weight:600}
+.section-title{text-align:center;font-family:'Sora',sans-serif;font-size:42px;font-weight:700;margin-bottom:16px}
+.section-desc{text-align:center;max-width:600px;margin:0 auto 60px;color:var(--muted);font-size:16px;line-height:1.8}
+.accent-line{width:50px;height:3px;background:linear-gradient(90deg,var(--purple-light),var(--burgundy));margin:16px auto 0;border-radius:2px}
+.reveal{opacity:0;transform:translateY(30px);transition:all .7s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* PATHWAY CARDS (Get Cast / Hire Us) */
+.pathways{background:var(--navy)}
+.pathways-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1000px;margin:0 auto}
+.pathway-card{padding:50px 40px;border:1px solid rgba(91,33,182,.15);background:var(--surface-light);border-radius:16px;transition:all .4s;position:relative;overflow:hidden}
+.pathway-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;border-radius:2px 2px 0 0;transition:transform .4s;transform:scaleX(0);transform-origin:left}
+.pathway-card:hover::before{transform:scaleX(1)}
+.pathway-card:hover{border-color:rgba(91,33,182,.3);transform:translateY(-4px)}
+.pathway-card.talent-path::before{background:linear-gradient(90deg,var(--burgundy),var(--burgundy-light))}
+.pathway-card.prod-path::before{background:linear-gradient(90deg,var(--purple),var(--purple-light))}
+.pathway-icon{width:64px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:28px}
+.talent-path .pathway-icon{background:rgba(149,16,0,.15);border:1px solid rgba(149,16,0,.2)}
+.prod-path .pathway-icon{background:rgba(47,0,134,.15);border:1px solid rgba(47,0,134,.3)}
+.pathway-card h3{font-family:'Sora',sans-serif;font-size:26px;font-weight:700;margin-bottom:12px}
+.pathway-card p{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:24px}
+.pathway-steps{list-style:none;margin-bottom:28px}
+.pathway-steps li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;font-size:14px;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.04)}
+.pathway-steps li:last-child{border-bottom:none}
+.step-num{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.talent-path .step-num{background:rgba(149,16,0,.2);color:var(--burgundy-light)}
+.prod-path .step-num{background:rgba(91,33,182,.2);color:var(--purple-light)}
+
+/* HOW IT WORKS */
+.how-it-works{background:var(--deep)}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:1100px;margin:0 auto}
+.step-card{text-align:center;padding:40px 28px;border:1px solid rgba(91,33,182,.1);background:var(--surface-light);border-radius:14px;transition:all .4s;position:relative}
+.step-card:hover{border-color:rgba(91,33,182,.25);transform:translateY(-4px)}
+.step-number{font-family:'Sora',sans-serif;font-size:48px;font-weight:800;background:linear-gradient(135deg,var(--purple-light),var(--burgundy));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px;display:block}
+.step-card h3{font-family:'Sora',sans-serif;font-size:20px;font-weight:600;margin-bottom:10px}
+.step-card p{font-size:14px;line-height:1.8;color:var(--muted)}
+
+/* OPEN ROLES */
+.open-roles{background:var(--navy)}
+.roles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto}
+.role-card{padding:28px;border:1px solid rgba(91,33,182,.12);background:var(--surface-light);border-radius:12px;transition:all .3s;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.role-card:hover{border-color:rgba(149,16,0,.3);background:rgba(149,16,0,.04)}
+.role-info h4{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;margin-bottom:6px}
+.role-meta{display:flex;gap:12px;flex-wrap:wrap}
+.role-tag{font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:6px;font-weight:600}
+.role-tag.location{background:rgba(91,33,182,.15);color:var(--purple-light)}
+.role-tag.type{background:rgba(149,16,0,.12);color:var(--burgundy-light)}
+.role-tag.urgent{background:rgba(245,158,11,.12);color:var(--gold)}
+.role-arrow{color:var(--muted);transition:all .3s}
+.role-card:hover .role-arrow{color:var(--burgundy-light);transform:translateX(4px)}
+.roles-cta{text-align:center;margin-top:40px}
+
+/* CASTING SERVICES (For Productions) */
+.casting-services{background:var(--deep)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.cs-card{padding:44px 32px;border:1px solid rgba(91,33,182,.12);background:var(--surface-light);border-radius:14px;text-align:center;transition:all .4s;position:relative;overflow:hidden}
+.cs-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--purple),var(--purple-light));transform:scaleX(0);transition:transform .4s;transform-origin:left;border-radius:2px 2px 0 0}
+.cs-card:hover::before{transform:scaleX(1)}
+.cs-card:hover{border-color:rgba(91,33,182,.3);transform:translateY(-4px)}
+.cs-card-icon{font-size:40px;margin-bottom:20px;display:block}
+.cs-card h3{font-family:'Sora',sans-serif;font-size:22px;font-weight:600;margin-bottom:12px}
+.cs-card p{font-size:14px;line-height:1.8;color:var(--muted)}
+
+/* RECENT PROJECTS */
+.projects-section{background:var(--navy);overflow:hidden}
+.projects-scroll{display:flex;gap:24px;overflow-x:auto;padding:0 60px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.projects-scroll::-webkit-scrollbar{display:none}
+.project-card{min-width:320px;border-radius:14px;overflow:hidden;border:1px solid rgba(91,33,182,.12);flex-shrink:0;scroll-snap-align:start;transition:all .4s;background:var(--surface-light)}
+.project-card:hover{border-color:rgba(91,33,182,.3);transform:translateY(-4px)}
+.project-visual{height:200px;display:flex;align-items:center;justify-content:center;position:relative}
+.project-visual::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:50%;background:linear-gradient(180deg,transparent,var(--navy))}
+.project-card:nth-child(1) .project-visual{background:linear-gradient(135deg,#2a0845,#450a2e)}
+.project-card:nth-child(2) .project-visual{background:linear-gradient(135deg,#0a2845,#0a4530)}
+.project-card:nth-child(3) .project-visual{background:linear-gradient(135deg,#450a10,#2a0845)}
+.project-card:nth-child(4) .project-visual{background:linear-gradient(135deg,#0a3045,#45350a)}
+.project-card:nth-child(5) .project-visual{background:linear-gradient(135deg,#1a0845,#0a2830)}
+.project-card:nth-child(6) .project-visual{background:linear-gradient(135deg,#450a20,#0a1a45)}
+.project-visual-icon{font-size:48px;opacity:.25;position:relative;z-index:1}
+.project-info{padding:20px 24px}
+.project-type{display:inline-block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--purple-light);border:1px solid rgba(91,33,182,.25);padding:3px 10px;border-radius:20px;margin-bottom:10px;font-weight:600}
+.project-name{font-family:'Sora',sans-serif;font-size:18px;font-weight:600;margin-bottom:6px}
+.project-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.projects-nav{display:flex;justify-content:center;gap:12px;margin-top:30px}
+.projects-nav button{width:44px;height:44px;border-radius:10px;border:1px solid rgba(91,33,182,.2);background:transparent;color:var(--white);cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center}
+.projects-nav button:hover{background:rgba(91,33,182,.15);border-color:rgba(91,33,182,.4)}
+
+/* TALENT RESOURCES */
+.resources{background:var(--deep)}
+.resources-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.resource-card{padding:32px;border:1px solid rgba(91,33,182,.1);background:var(--surface-light);border-radius:14px;transition:all .3s}
+.resource-card:hover{border-color:rgba(91,33,182,.25);transform:translateY(-3px)}
+.resource-card-icon{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px;background:rgba(91,33,182,.1);border:1px solid rgba(91,33,182,.15)}
+.resource-card h4{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;margin-bottom:8px}
+.resource-card p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* SPOTLIGHT / BLOG */
+.spotlight{background:var(--navy)}
+.spotlight-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;max-width:1100px;margin:0 auto}
+.spotlight-card{border:1px solid rgba(91,33,182,.1);background:var(--surface-light);border-radius:14px;overflow:hidden;transition:all .3s}
+.spotlight-card:hover{border-color:rgba(91,33,182,.25);transform:translateY(-3px)}
+.spotlight-img{height:180px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative}
+.spotlight-card:nth-child(1) .spotlight-img{background:linear-gradient(135deg,#2a0845,#1a0a3a)}
+.spotlight-card:nth-child(2) .spotlight-img{background:linear-gradient(135deg,#450a10,#2a0845)}
+.spotlight-card:nth-child(3) .spotlight-img{background:linear-gradient(135deg,#0a2845,#0a4530)}
+.spotlight-body{padding:24px}
+.spotlight-date{font-size:11px;letter-spacing:1px;color:var(--muted);margin-bottom:8px;text-transform:uppercase}
+.spotlight-body h4{font-family:'Sora',sans-serif;font-size:17px;font-weight:600;margin-bottom:8px;line-height:1.4}
+.spotlight-body p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* 100 YEARS SECTION */
+.legacy-section{padding:100px 60px;background:var(--navy);position:relative;overflow:hidden}
+.legacy-section::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(47,0,134,.15),transparent 50%)}
+.legacy-content{position:relative;z-index:2;text-align:center;max-width:750px;margin:0 auto}
+.legacy-number{font-family:'Sora',sans-serif;font-size:100px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:16px}
+.legacy-content h3{font-family:'Sora',sans-serif;font-size:28px;font-weight:600;margin-bottom:16px}
+.legacy-content p{font-size:16px;color:var(--muted);line-height:1.8}
+
+/* LOCATIONS */
+.locations{background:var(--deep)}
+.locations-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1000px;margin:0 auto}
+.location-card{text-align:center;padding:36px 24px;border:1px solid rgba(91,33,182,.1);background:var(--surface-light);border-radius:14px;transition:all .3s}
+.location-card:hover{border-color:rgba(91,33,182,.25);transform:translateY(-3px)}
+.location-card-icon{font-size:32px;margin-bottom:14px;display:block}
+.location-card h4{font-family:'Sora',sans-serif;font-size:18px;font-weight:600;margin-bottom:6px}
+.location-card p{font-size:13px;color:var(--muted)}
+
+/* CTA BAND */
+.cta-band{padding:80px 60px;background:linear-gradient(135deg,rgba(47,0,134,.15),rgba(149,16,0,.1));border-top:1px solid rgba(91,33,182,.12);border-bottom:1px solid rgba(91,33,182,.12);text-align:center}
+.cta-band-inner{max-width:700px;margin:0 auto}
+.cta-band h3{font-family:'Sora',sans-serif;font-size:32px;font-weight:700;margin-bottom:12px}
+.cta-band p{font-size:16px;color:var(--muted);margin-bottom:28px;line-height:1.7}
+.cta-band-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{background:var(--navy);padding:60px 60px 30px;border-top:1px solid rgba(91,33,182,.1)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-col h4{font-family:'Sora',sans-serif;font-size:15px;font-weight:600;color:var(--white);margin-bottom:16px}
+.footer-col p,.footer-col a{color:var(--muted);font-size:13px;line-height:2;text-decoration:none;display:block;transition:color .3s}
+.footer-col a:hover{color:var(--purple-light)}
+.footer-bottom{text-align:center;padding-top:24px;border-top:1px solid rgba(91,33,182,.06);font-size:11px;color:rgba(255,255,255,.2)}
+.footer-bottom a{color:var(--purple-light);text-decoration:none}
+
+/* FLOATING BUTTON */
+.floating-contact{position:fixed;bottom:30px;right:30px;z-index:900;display:flex;align-items:center;gap:10px;padding:14px 24px;background:linear-gradient(135deg,var(--burgundy),var(--burgundy-light));color:var(--white);text-decoration:none;font-size:13px;font-weight:600;border-radius:12px;box-shadow:0 4px 20px rgba(149,16,0,.4);transition:all .4s;opacity:0;transform:translateY(20px);pointer-events:none}
+.floating-contact.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.floating-contact:hover{box-shadow:0 6px 30px rgba(149,16,0,.6);transform:translateY(-2px)}
+.floating-contact svg{width:16px;height:16px}
+
+/* STICKY MOBILE CTA */
+.sticky-mobile-cta{display:none}
+
+/* MOBILE */
+@media(max-width:768px){
+.navbar{padding:14px 20px}
+.navbar.scrolled{padding:12px 20px}
+.nav-links{display:none}
+.hamburger{display:flex}
+section{padding:60px 20px}
+.hero{padding:100px 0 60px}
+.hero-content{padding:0 24px}
+.hero-title{font-size:32px}
+.hero-subtitle{font-size:15px}
+.hero-ctas{flex-direction:column;gap:12px}
+.hero-ctas .btn{text-align:center;justify-content:center;padding:18px 28px}
+.hero-proof{flex-direction:column;gap:12px;align-items:flex-start}
+.hero-proof-divider{display:none}
+.hero-ticker{bottom:40px}
+.trust-bar{padding:28px 20px}
+.trust-bar-inner{gap:20px}
+.trust-item{font-size:12px}
+.urgency-banner{padding:12px 20px}
+.urgency-banner a{font-size:11px}
+.pathways-grid{grid-template-columns:1fr}
+.steps-grid{grid-template-columns:1fr}
+.roles-grid{grid-template-columns:1fr}
+.services-grid{grid-template-columns:1fr}
+.resources-grid{grid-template-columns:1fr}
+.spotlight-grid{grid-template-columns:1fr}
+.locations-grid{grid-template-columns:1fr 1fr;gap:16px}
+.projects-scroll{padding:0 20px 20px}
+.project-card{min-width:260px}
+.cta-band{padding:50px 20px}
+.cta-band h3{font-size:24px}
+.cta-band-buttons{flex-direction:column;gap:12px}
+.cta-band-buttons .btn{text-align:center;justify-content:center}
+.legacy-number{font-size:64px}
+.legacy-content h3{font-size:22px}
+.section-title{font-size:30px}
+.footer-grid{grid-template-columns:1fr}
+.floating-contact{display:none!important}
+.sticky-mobile-cta{display:flex;position:fixed;bottom:0;left:0;width:100%;z-index:900;background:rgba(13,11,46,.96);backdrop-filter:blur(20px);border-top:1px solid rgba(91,33,182,.2);padding:12px 16px;gap:10px;opacity:0;transform:translateY(100%);transition:all .4s;pointer-events:none}
+.sticky-mobile-cta.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.sticky-mobile-cta a{flex:1;text-align:center;padding:14px 16px;font-size:12px;font-weight:600;letter-spacing:1px;text-decoration:none;font-family:'DM Sans',sans-serif;border-radius:8px;transition:all .3s}
+.sticky-mobile-cta .smc-talent{background:linear-gradient(135deg,var(--burgundy),var(--burgundy-light));color:var(--white)}
+.sticky-mobile-cta .smc-prod{background:linear-gradient(135deg,var(--purple),var(--purple-light));color:var(--white)}
+footer{padding:60px 20px 100px 20px}
+}
+@media(max-width:480px){
+.locations-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+<div class="loader-icon">
+<div class="loader-ring"></div>
+<div class="loader-ring"></div>
+</div>
+<div class="loader-text" id="loaderText"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+<a href="#" class="nav-logo">
+<span class="logo-mark">CC</span>
+Central Casting
+</a>
+<ul class="nav-links">
+<li><a href="#get-cast">Get Cast</a></li>
+<li><a href="#open-roles">Open Roles</a></li>
+<li><a href="#services">Casting Services</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#spotlight">Spotlight</a></li>
+<li><a href="#" class="btn-nav-login">Log In</a></li>
+<li><a href="#get-cast" class="btn-nav-signup">Sign Up</a></li>
+</ul>
+<div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+<a href="#get-cast">Get Cast</a>
+<a href="#open-roles">Open Roles</a>
+<a href="#services">Casting Services</a>
+<a href="#resources">Resources</a>
+<a href="#spotlight">Spotlight</a>
+<div class="mobile-cta-group">
+<a href="#get-cast" class="btn-m-talent">Sign Up to Get Cast</a>
+<a href="#services" class="btn-m-prod">Hire Central Casting</a>
+</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="hero-glow"></div>
+<div class="hero-glow-2"></div>
+<div class="hero-grid-bg"></div>
+<div class="hero-grain"></div>
+<div class="hero-overlay"></div>
+<div class="hero-ticker">
+<div class="hero-ticker-inner" id="heroTicker"></div>
+</div>
+<div class="hero-content">
+<div class="hero-badge">
+<span class="hero-badge-dot"></span>
+<span class="hero-badge-text">Now Casting &bull; Open Roles Available</span>
+</div>
+<h1 class="hero-title">
+<span class="line">Your Story Starts</span>
+<span class="line"><span class="accent">On Set.</span></span>
+</h1>
+<p class="hero-subtitle">Sign up to work as a paid background actor in film and television &mdash; or find the perfect talent for your next production.</p>
+<div class="hero-ctas">
+<a href="#get-cast" class="btn btn-talent">
+<span>Get Cast</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+<a href="#services" class="btn btn-production">
+<span>Hire Central Casting</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+<a href="#open-roles" class="btn btn-outline">Find Open Roles</a>
+</div>
+<div class="hero-proof">
+<div class="hero-proof-item">
+<strong>100</strong> Years of Casting
+</div>
+<div class="hero-proof-divider"></div>
+<div class="hero-proof-item">
+<strong>4</strong> Major Markets
+</div>
+<div class="hero-proof-divider"></div>
+<div class="hero-proof-item">
+<strong>1000s</strong> of Productions
+</div>
+</div>
+</div>
+<div class="hero-scroll">
+<span>Explore</span>
+<div class="scroll-line"></div>
+</div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+<div class="trust-bar-label">Casting talent for the biggest productions in entertainment</div>
+<div class="trust-bar-inner">
+<span class="trust-item">Film</span>
+<span class="trust-item">Television</span>
+<span class="trust-item">Streaming</span>
+<span class="trust-item">Commercials</span>
+<span class="trust-item">Music Videos</span>
+<span class="trust-item">Live Events</span>
+</div>
+</div>
+
+<!-- URGENCY BANNER -->
+<div class="urgency-banner">
+<a href="#open-roles">
+<span class="urgency-dot"></span>
+New casting calls posted daily &mdash; Find open roles now
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+</div>
+
+<!-- DUAL PATHWAY SECTION -->
+<section id="get-cast" class="pathways">
+<div class="section-label reveal">Choose Your Path</div>
+<h2 class="section-title reveal">How Can We Help You?</h2>
+<div class="accent-line" style="margin-bottom:60px"></div>
+<div class="pathways-grid">
+<div class="pathway-card talent-path reveal">
+<div class="pathway-icon">&#127917;</div>
+<h3>I Want to Get Cast</h3>
+<p>Sign up as a background actor and start working on real film and television sets.</p>
+<ul class="pathway-steps">
+<li><span class="step-num">1</span>Complete your sign-up with photos, appearance info, and Form I-9</li>
+<li><span class="step-num">2</span>Learn professional set conduct through our Talent Resources</li>
+<li><span class="step-num">3</span>Monitor open roles and apply for casting opportunities daily</li>
+</ul>
+<a href="#" class="btn btn-talent" style="width:100%;justify-content:center" onclick="this.textContent='Application Started!';return false">
+Sign Up Now
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+</div>
+<div class="pathway-card prod-path reveal">
+<div class="pathway-icon">&#127916;</div>
+<h3>I Need to Hire Talent</h3>
+<p>Discover the perfect background talent for your next production &mdash; "Straight Out of Central Casting."</p>
+<ul class="pathway-steps">
+<li><span class="step-num">1</span>Tell us about your production needs and talent requirements</li>
+<li><span class="step-num">2</span>We source and vet talent from our extensive database</li>
+<li><span class="step-num">3</span>Receive curated talent selections with optional payroll services</li>
+</ul>
+<a href="#" class="btn btn-production" style="width:100%;justify-content:center" onclick="this.textContent='Request Sent!';return false">
+Contact Us
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+</div>
+</div>
+</section>
+
+<!-- HOW IT WORKS (For Talent) -->
+<section class="how-it-works">
+<div class="section-label reveal">For Talent</div>
+<h2 class="section-title reveal">Get Cast in 3 Steps</h2>
+<div class="accent-line" style="margin-bottom:60px"></div>
+<div class="steps-grid">
+<div class="step-card reveal">
+<span class="step-number">01</span>
+<h3>Create Your Profile</h3>
+<p>Sign up with your photos, appearance info, and measurements. Complete your Form I-9 to become eligible to work.</p>
+</div>
+<div class="step-card reveal">
+<span class="step-number">02</span>
+<h3>Prepare for Set</h3>
+<p>Access our Talent Resources to learn professional set conduct, wardrobe prep, and on-set etiquette.</p>
+</div>
+<div class="step-card reveal">
+<span class="step-number">03</span>
+<h3>Apply &amp; Work</h3>
+<p>Browse open roles daily, apply to casting calls that match your look, and get booked for paid work on set.</p>
+</div>
+</div>
+</section>
+
+<!-- OPEN ROLES -->
+<section id="open-roles" class="open-roles">
+<div class="section-label reveal">Now Casting</div>
+<h2 class="section-title reveal">Open Roles</h2>
+<div class="section-desc reveal">Already signed up? Find current open roles and apply to work as a background actor.</div>
+<div class="roles-grid">
+<div class="role-card reveal">
+<div class="role-info">
+<h4>Featured Background &mdash; Drama Series</h4>
+<div class="role-meta">
+<span class="role-tag location">Los Angeles</span>
+<span class="role-tag type">TV Series</span>
+<span class="role-tag urgent">Urgent</span>
+</div>
+</div>
+<div class="role-arrow">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</div>
+</div>
+<div class="role-card reveal">
+<div class="role-info">
+<h4>Restaurant Patrons &mdash; Film</h4>
+<div class="role-meta">
+<span class="role-tag location">New York</span>
+<span class="role-tag type">Feature Film</span>
+</div>
+</div>
+<div class="role-arrow">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</div>
+</div>
+<div class="role-card reveal">
+<div class="role-info">
+<h4>Office Workers &mdash; Streaming Series</h4>
+<div class="role-meta">
+<span class="role-tag location">Atlanta</span>
+<span class="role-tag type">Streaming</span>
+</div>
+</div>
+<div class="role-arrow">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</div>
+</div>
+<div class="role-card reveal">
+<div class="role-info">
+<h4>Party Scene Guests &mdash; Comedy</h4>
+<div class="role-meta">
+<span class="role-tag location">Louisiana</span>
+<span class="role-tag type">TV Series</span>
+<span class="role-tag urgent">Urgent</span>
+</div>
+</div>
+<div class="role-arrow">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</div>
+</div>
+</div>
+<div class="roles-cta reveal">
+<a href="#" class="btn btn-talent">
+View All Open Roles
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+</div>
+</section>
+
+<!-- CASTING SERVICES (For Productions) -->
+<section id="services" class="casting-services">
+<div class="section-label reveal">For Productions</div>
+<h2 class="section-title reveal">Casting Services</h2>
+<div class="section-desc reveal">Whether you need a single actor or thousands of performers for a crowd scene, Central Casting can help meet all your needs.</div>
+<div class="services-grid">
+<div class="cs-card reveal">
+<span class="cs-card-icon">&#127908;</span>
+<h3>Premium Casting</h3>
+<p>Enhanced casting with curated talent selection, specialized searches, and dedicated casting coordinators for your production.</p>
+</div>
+<div class="cs-card reveal">
+<span class="cs-card-icon">&#128176;</span>
+<h3>Casting Payroll</h3>
+<p>Streamlined payroll management for your entire background cast. Compliant, accurate, and integrated with your production workflow.</p>
+</div>
+<div class="cs-card reveal">
+<span class="cs-card-icon">&#127758;</span>
+<h3>Talent Mapping</h3>
+<p>Geographic talent mapping across all major markets. See exactly where available talent is located for your production needs.</p>
+</div>
+</div>
+</section>
+
+<!-- RECENT PROJECTS -->
+<section class="projects-section">
+<div class="section-label reveal">Our Work</div>
+<h2 class="section-title reveal">Recent Projects</h2>
+<div class="section-desc reveal">A look at some of the latest productions that trusted Central Casting for their background talent.</div>
+<div class="projects-scroll" id="projectsScroll">
+<div class="project-card">
+<div class="project-visual"><span class="project-visual-icon">&#127917;</span></div>
+<div class="project-info">
+<span class="project-type">Television</span>
+<div class="project-name">Drama Series</div>
+<div class="project-desc">Major network &bull; Full background cast &bull; Los Angeles</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-visual"><span class="project-visual-icon">&#127916;</span></div>
+<div class="project-info">
+<span class="project-type">Feature Film</span>
+<div class="project-name">Action Blockbuster</div>
+<div class="project-desc">Studio production &bull; Crowd scenes &bull; Atlanta</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-visual"><span class="project-visual-icon">&#127917;</span></div>
+<div class="project-info">
+<span class="project-type">Streaming</span>
+<div class="project-name">Limited Series</div>
+<div class="project-desc">Streaming platform &bull; Period piece &bull; New York</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-visual"><span class="project-visual-icon">&#127916;</span></div>
+<div class="project-info">
+<span class="project-type">Commercial</span>
+<div class="project-name">National Campaign</div>
+<div class="project-desc">Brand campaign &bull; Multiple locations</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-visual"><span class="project-visual-icon">&#127917;</span></div>
+<div class="project-info">
+<span class="project-type">Television</span>
+<div class="project-name">Comedy Series</div>
+<div class="project-desc">Network comedy &bull; Recurring background &bull; LA</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-visual"><span class="project-visual-icon">&#127916;</span></div>
+<div class="project-info">
+<span class="project-type">Feature Film</span>
+<div class="project-name">Indie Drama</div>
+<div class="project-desc">Independent film &bull; Festival circuit &bull; New York</div>
+</div>
+</div>
+</div>
+<div class="projects-nav reveal">
+<button onclick="document.getElementById('projectsScroll').scrollBy({left:-340,behavior:'smooth'})">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
+<button onclick="document.getElementById('projectsScroll').scrollBy({left:340,behavior:'smooth'})">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</button>
+</div>
+</section>
+
+<!-- TALENT RESOURCES -->
+<section id="resources" class="resources">
+<div class="section-label reveal">Talent Resources</div>
+<h2 class="section-title reveal">Prepare for Success</h2>
+<div class="section-desc reveal">Everything you need to know about working as a background actor, from profile setup to on-set etiquette.</div>
+<div class="resources-grid">
+<div class="resource-card reveal">
+<div class="resource-card-icon">&#128247;</div>
+<h4>Profile &amp; Photos</h4>
+<p>How to take the perfect headshot and full-body photo. Get your profile approved on the first try.</p>
+</div>
+<div class="resource-card reveal">
+<div class="resource-card-icon">&#128207;</div>
+<h4>Measurements</h4>
+<p>Accurate sizing for wardrobe. Learn how to measure correctly so productions can fit you perfectly.</p>
+</div>
+<div class="resource-card reveal">
+<div class="resource-card-icon">&#128172;</div>
+<h4>Messaging</h4>
+<p>How to communicate with casting directors professionally. Response etiquette and best practices.</p>
+</div>
+<div class="resource-card reveal">
+<div class="resource-card-icon">&#127917;</div>
+<h4>On-Set Conduct</h4>
+<p>Professional behavior expectations, set terminology, and how to make a great impression on your first day.</p>
+</div>
+<div class="resource-card reveal">
+<div class="resource-card-icon">&#128084;</div>
+<h4>Wardrobe Prep</h4>
+<p>What to bring, what to wear, and how to prepare your wardrobe options for different production types.</p>
+</div>
+<div class="resource-card reveal">
+<div class="resource-card-icon">&#128100;</div>
+<h4>Minors Resources</h4>
+<p>Special requirements for performers under 18, including work permits, guardian requirements, and set hours.</p>
+</div>
+</div>
+</section>
+
+<!-- 100 YEARS LEGACY -->
+<div class="legacy-section">
+<div class="legacy-content reveal">
+<div class="legacy-number">100</div>
+<h3>Years of Bringing Stories to Life</h3>
+<p>For 100 years, Central Casting has brought together those who dream with those who create to tell stories that inspire the world. From extras to icons &mdash; every story starts here.</p>
+</div>
+</div>
+
+<!-- SPOTLIGHT -->
+<section id="spotlight" class="spotlight">
+<div class="section-label reveal">Spotlight</div>
+<h2 class="section-title reveal">Industry News &amp; Tips</h2>
+<div class="section-desc reveal">The latest industry news impacting background casting.</div>
+<div class="spotlight-grid">
+<div class="spotlight-card reveal">
+<div class="spotlight-img">&#127916;</div>
+<div class="spotlight-body">
+<div class="spotlight-date">March 18, 2026</div>
+<h4>Double or Stand-In? Understanding the Difference on Film and TV Sets</h4>
+<p>Learn the key distinctions between doubles and stand-ins, and how each role contributes to production.</p>
+</div>
+</div>
+<div class="spotlight-card reveal">
+<div class="spotlight-img">&#127917;</div>
+<div class="spotlight-body">
+<div class="spotlight-date">February 10, 2026</div>
+<h4>Background Acting Tips for Beginners</h4>
+<p>New to background acting? Here's everything you need to know to make a great first impression on set.</p>
+</div>
+</div>
+<div class="spotlight-card reveal">
+<div class="spotlight-img">&#128203;</div>
+<div class="spotlight-body">
+<div class="spotlight-date">January 20, 2026</div>
+<h4>What Does an Assistant Director Do?</h4>
+<p>Understanding the role of the AD and how they work with background actors on set every day.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- LOCATIONS -->
+<section class="locations">
+<div class="section-label reveal">Where We Work</div>
+<h2 class="section-title reveal">Our Offices</h2>
+<div class="accent-line" style="margin-bottom:60px"></div>
+<div class="locations-grid">
+<div class="location-card reveal">
+<span class="location-card-icon">&#127796;</span>
+<h4>California</h4>
+<p>Los Angeles &amp; surrounding areas</p>
+</div>
+<div class="location-card reveal">
+<span class="location-card-icon">&#127751;</span>
+<h4>New York</h4>
+<p>New York City &amp; tri-state</p>
+</div>
+<div class="location-card reveal">
+<span class="location-card-icon">&#127795;</span>
+<h4>Georgia</h4>
+<p>Atlanta &amp; surrounding areas</p>
+</div>
+<div class="location-card reveal">
+<span class="location-card-icon">&#127926;</span>
+<h4>Louisiana</h4>
+<p>New Orleans &amp; surrounding areas</p>
+</div>
+</div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="cta-band">
+<div class="cta-band-inner reveal">
+<h3>Ready to Start Your Story?</h3>
+<p>Whether you're stepping onto set for the first time or casting your next blockbuster &mdash; Central Casting is where it all begins.</p>
+<div class="cta-band-buttons">
+<a href="#get-cast" class="btn btn-talent">
+Get Cast Today
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+<a href="#services" class="btn btn-production">
+Hire Central Casting
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+</div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-grid">
+<div class="footer-col">
+<h4>Central Casting</h4>
+<p>For 100 years, Central Casting has connected background actors with film and television productions. The industry standard in background casting.</p>
+</div>
+<div class="footer-col">
+<h4>For Talent</h4>
+<a href="#get-cast">Get Cast</a>
+<a href="#open-roles">Open Roles</a>
+<a href="#resources">Talent Resources</a>
+<a href="#">My Booking Details</a>
+</div>
+<div class="footer-col">
+<h4>For Productions</h4>
+<a href="#services">Casting Services</a>
+<a href="#">Premium Casting</a>
+<a href="#">Casting Payroll</a>
+<a href="#">Contact Us</a>
+</div>
+<div class="footer-col">
+<h4>Company</h4>
+<a href="#">About Us</a>
+<a href="#">Offices</a>
+<a href="#">Careers</a>
+<a href="#">Support</a>
+</div>
+</div>
+<div class="footer-bottom">&copy; 2026 Central Casting. All rights reserved. A division of Entertainment Partners.<br><br>Redesign preview by <a href="https://williamsdigital.io">williamsdigital.io</a></div>
+</footer>
+
+<!-- FLOATING BUTTON -->
+<a href="#get-cast" class="floating-contact" id="floatingContact">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+Get Cast
+</a>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-mobile-cta" id="stickyMobileCta">
+<a href="#get-cast" class="smc-talent">Get Cast</a>
+<a href="#services" class="smc-prod">Hire Talent</a>
+</div>
+
+<script>
+// Loader
+const loaderName='CENTRAL CASTING';
+const lt=document.getElementById('loaderText');
+loaderName.split('').forEach((c,i)=>{const s=document.createElement('span');s.textContent=c;s.style.animationDelay=(0.5+i*.05)+'s';lt.appendChild(s)});
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2400)});
+
+// Navbar scroll + floating + sticky mobile
+const floatingBtn=document.getElementById('floatingContact');
+const stickyMobile=document.getElementById('stickyMobileCta');
+window.addEventListener('scroll',()=>{
+document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>80);
+const pastHero=window.scrollY>window.innerHeight*.6;
+if(floatingBtn)floatingBtn.classList.toggle('visible',pastHero);
+if(stickyMobile)stickyMobile.classList.toggle('visible',pastHero);
+});
+
+// Reveal on scroll
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.classList.add('active')},i*60);obs.unobserve(e.target)}})},{threshold:.1});
+reveals.forEach(el=>obs.observe(el));
+
+// Mobile menu
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+const mobileOverlay=document.getElementById('mobileOverlay');
+function toggleMobile(){hamburger.classList.toggle('active');mobileMenu.classList.toggle('active');mobileOverlay.classList.toggle('active');document.body.style.overflow=mobileMenu.classList.contains('active')?'hidden':''}
+hamburger.addEventListener('click',toggleMobile);
+mobileOverlay.addEventListener('click',toggleMobile);
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',toggleMobile));
+
+// Hero ticker
+const genres=['Film','Television','Streaming','Commercials','Drama','Comedy','Action','Sci-Fi','Horror','Romance','Documentary','Music Videos','Reality','Animation','Indie','Blockbuster'];
+const tickerEl=document.getElementById('heroTicker');
+const tickerHTML=genres.map(s=>'<span>'+s+'</span>').join('');
+tickerEl.innerHTML=tickerHTML+tickerHTML;
+</script>
+</body>
+</html>
+
