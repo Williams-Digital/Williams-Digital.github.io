@@ -99,6 +99,13 @@ body{font-family:'Inter',sans-serif;color:var(--white);overflow-x:hidden;backgro
 .scroll-line{width:1px;height:40px;background:linear-gradient(180deg,var(--accent),transparent);animation:scrollPulse 2s ease infinite}
 @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
 
+/* SECOND CTA BAND */
+.cta-band{padding:50px 60px;background:linear-gradient(135deg,rgba(193,155,110,.08),rgba(155,35,53,.06));border-top:1px solid rgba(193,155,110,.1);border-bottom:1px solid rgba(193,155,110,.1);text-align:center}
+.cta-band-inner{max-width:700px;margin:0 auto}
+.cta-band h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:300;margin-bottom:10px}
+.cta-band p{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.7}
+.cta-band-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
 /* NETWORK BAR */
 .network-bar{padding:50px 60px;background:var(--deep);border-top:1px solid rgba(193,155,110,.08);border-bottom:1px solid rgba(193,155,110,.08)}
 .network-bar-label{text-align:center;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
@@ -152,13 +159,16 @@ section{padding:100px 60px}
 .service-card h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:400;margin-bottom:16px}
 .service-card p{font-size:14px;line-height:1.8;color:var(--muted)}
 
-/* SPEED / WHY PAUL */
-.speed-section{background:var(--black);border-top:1px solid rgba(193,155,110,.06)}
-.speed-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1000px;margin:0 auto}
-.speed-item{text-align:center;padding:30px 20px}
-.speed-num{font-family:'Playfair Display',serif;font-size:48px;color:var(--accent);font-weight:300;margin-bottom:8px;line-height:1}
-.speed-item h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:12px}
-.speed-item p{font-size:13px;line-height:1.8;color:var(--muted)}
+/* WHY CHOOSE PAUL */
+.why-paul{background:var(--black);border-top:1px solid rgba(193,155,110,.06)}
+.why-paul-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;max-width:1200px;margin:0 auto}
+.why-paul-card{text-align:center;padding:44px 28px;border:1px solid rgba(193,155,110,.08);background:var(--surface);transition:all .4s;position:relative}
+.why-paul-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-light));transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.why-paul-card:hover::before{transform:scaleX(1)}
+.why-paul-card:hover{border-color:rgba(193,155,110,.2);transform:translateY(-4px)}
+.why-paul-icon{width:64px;height:64px;border:1px solid rgba(193,155,110,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:28px}
+.why-paul-card h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:12px}
+.why-paul-card p{font-size:13px;line-height:1.8;color:var(--muted)}
 
 /* CREDITS */
 .credits-section{background:var(--deep)}
@@ -270,7 +280,11 @@ section{padding:60px 20px}
 .about-photo{height:350px}
 .about-stats{flex-wrap:wrap;gap:24px}
 .services-grid{grid-template-columns:1fr}
-.speed-grid{grid-template-columns:1fr;gap:20px}
+.why-paul-grid{grid-template-columns:1fr 1fr;gap:16px}
+.cta-band{padding:36px 20px}
+.cta-band h3{font-size:22px}
+.cta-band-buttons{flex-direction:column;gap:12px}
+.cta-band-buttons .btn{text-align:center;justify-content:center}
 .credits-tabs{gap:4px}
 .credits-tab{padding:8px 16px;font-size:10px}
 .testimonials-grid{grid-template-columns:1fr}
@@ -286,6 +300,7 @@ section{padding:60px 20px}
 }
 @media(max-width:480px){
 .who-grid{grid-template-columns:1fr}
+.why-paul-grid{grid-template-columns:1fr}
 .design-grid{grid-template-columns:1fr}
 }
 </style>
@@ -366,6 +381,21 @@ section{padding:60px 20px}
 <div class="scroll-line"></div>
 </div>
 </section>
+
+<!-- SECOND CTA BAND -->
+<div class="cta-band">
+<div class="cta-band-inner">
+<h3>Ready to Get Started?</h3>
+<p>Don't let casting slow down your production. Get a consultation today.</p>
+<div class="cta-band-buttons">
+<a href="#contact" class="btn btn-primary">
+<span>Book a Consultation</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+</a>
+<a href="mailto:paul@pauldhead.com" class="btn btn-outline">Get in Touch</a>
+</div>
+</div>
+</div>
 
 <!-- NETWORK BAR -->
 <div class="network-bar">
@@ -481,26 +511,31 @@ section{padding:60px 20px}
 </div>
 </section>
 
-<!-- FAST TURNAROUND -->
-<section class="speed-section">
-<div class="section-label reveal">The Paul Head Difference</div>
-<h2 class="section-title reveal">Fast Turnaround Casting Solutions</h2>
+<!-- WHY CHOOSE PAUL -->
+<section class="why-paul" id="why-paul">
+<div class="section-label reveal">The Obvious Choice</div>
+<h2 class="section-title reveal">Why Choose Paul</h2>
 <div class="gold-line" style="margin-bottom:60px"></div>
-<div class="speed-grid">
-<div class="speed-item reveal">
-<div class="speed-num">24h</div>
-<h3>Quick Response</h3>
-<p>No waiting around. Every inquiry gets a response within 24 hours so your project stays on schedule and on budget.</p>
+<div class="why-paul-grid">
+<div class="why-paul-card reveal">
+<div class="why-paul-icon">&#9889;</div>
+<h3>Fast Turnaround</h3>
+<p>Need talent yesterday? Every inquiry gets a response within 24 hours. Your project stays on schedule because casting never stalls.</p>
 </div>
-<div class="speed-item reveal">
-<div class="speed-num">&#9889;</div>
-<h3>Efficient Talent Sourcing</h3>
-<p>A deep network of real, compelling people built over 20+ shows. The right talent surfaces fast because the groundwork is already done.</p>
+<div class="why-paul-card reveal">
+<div class="why-paul-icon">&#127760;</div>
+<h3>Strong Network</h3>
+<p>A deep, vetted talent network built across 23+ shows and 9 major networks. The right people surface fast because the groundwork is already done.</p>
 </div>
-<div class="speed-item reveal">
-<div class="speed-num">&#10003;</div>
-<h3>Reliable Communication</h3>
-<p>Clear updates, no surprises. From initial search to final callbacks, you always know exactly where your casting stands.</p>
+<div class="why-paul-card reveal">
+<div class="why-paul-icon">&#129309;</div>
+<h3>Professional Communication</h3>
+<p>Clear updates, no surprises, no chasing. From initial search to final callbacks, you always know exactly where your casting stands.</p>
+</div>
+<div class="why-paul-card reveal">
+<div class="why-paul-icon">&#127916;</div>
+<h3>Multi-Format Experience</h3>
+<p>Unscripted series, documentaries, branded content, commercials, and film. One casting director who understands every production type you throw at him.</p>
 </div>
 </div>
 </section>
