@@ -14,18 +14,41 @@ jobs:
 
       - name: Add gtag to HTML files
         run: |
-          GTAG_SNIPPET='    <!-- Google tag (gtag.js) -->\n    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18041772394"><\/script>\n    <script>\n            window.dataLayer = window.dataLayer || [];\n            function gtag(){dataLayer.push(arguments);}\n            gtag('"'"'js'"'"', new Date());\n            gtag('"'"'config'"'"', '"'"'AW-18041772394'"'"');\n    <\/script>'
-          
-          find . -name "*.html" -type f | while read file; do
-            if ! grep -q "AW-18041772394" "$file"; then
-              if grep -q "<head>" "$file"; then
-                sed -i "s|<head>|<head>\n$GTAG_SNIPPET|" "$file"
-                echo "Updated: $file"
-              fi
-            else
-              echo "Skipped (already has tag): $file"
-            fi
-          done
+          python3 << 'PYEOF'
+          import os, glob
+
+          GTAG = """    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18041772394"></script>
+    <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18041772394');
+    </script>"""
+
+          count = 0
+          for f in glob.glob("**/*.html", recursive=True):
+              with open(f, "r", encoding="utf-8", errors="ignore") as fh:
+                  content = fh.read()
+              if "AW-18041772394" in content:
+                  print(f"Skipped (already has tag): {f}")
+                  continue
+              if "<head>" in content:
+                  content = content.replace("<head>", "<head>\n" + GTAG, 1)
+                  with open(f, "w", encoding="utf-8") as fh:
+                      fh.write(content)
+                  count += 1
+                  print(f"Updated: {f}")
+              elif "<HEAD>" in content:
+                  content = content.replace("<HEAD>", "<HEAD>\n" + GTAG, 1)
+                  with open(f, "w", encoding="utf-8") as fh:
+                      fh.write(content)
+                  count += 1
+                  print(f"Updated: {f}")
+              else:
+                  print(f"Skipped (no head tag): {f}")
+          print(f"\nTotal files updated: {count}")
+          PYEOF
 
       - name: Commit changes
         run: |
