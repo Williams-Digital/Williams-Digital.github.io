@@ -1,0 +1,36 @@
+name: Add Google Ads tracking tag to all HTML pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  add-gtag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add gtag to HTML files
+        run: |
+          GTAG_SNIPPET='    <!-- Google tag (gtag.js) -->\n    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18041772394"><\/script>\n    <script>\n            window.dataLayer = window.dataLayer || [];\n            function gtag(){dataLayer.push(arguments);}\n            gtag('"'"'js'"'"', new Date());\n            gtag('"'"'config'"'"', '"'"'AW-18041772394'"'"');\n    <\/script>'
+          
+          find . -name "*.html" -type f | while read file; do
+            if ! grep -q "AW-18041772394" "$file"; then
+              if grep -q "<head>" "$file"; then
+                sed -i "s|<head>|<head>\n$GTAG_SNIPPET|" "$file"
+                echo "Updated: $file"
+              fi
+            else
+              echo "Skipped (already has tag): $file"
+            fi
+          done
+
+      - name: Commit changes
+        run: |
+          git config user.name "Williamsdg"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "Add Google Ads gtag.js to all HTML pages"
+          git push
